@@ -11,6 +11,76 @@ local m_floor = math.floor
 
 itemLib = { }
 
+-- Cluster-template positions, shared by the passive tree and the item editor.
+-- Index 0 is the entrance; half of totalIndicies is the back of the cluster.
+function itemLib.getClusterJewelNotableIndices(clusterJewel, jewelData, notableCount)
+	local socketCount = jewelData.clusterJewelSocketCountOverride or jewelData.clusterJewelSocketCount or 0
+	local nodeCount = jewelData.clusterJewelNodeCount or (socketCount + notableCount + (jewelData.clusterJewelNothingnessCount or 0))
+	local sockets = { }
+	if clusterJewel.size == "Large" and socketCount == 1 then
+		sockets[6] = true
+	else
+		for i = 1, socketCount do
+			local nodeIndex = clusterJewel.socketIndicies[i]
+			if nodeIndex then
+				sockets[nodeIndex] = true
+			end
+		end
+	end
+	local indices = { }
+	for _, nodeIndex in ipairs(clusterJewel.notableIndicies) do
+		if #indices == notableCount then
+			break
+		end
+		if clusterJewel.size == "Medium" then
+			if socketCount == 0 and notableCount == 2 then
+				if nodeIndex == 6 then
+					nodeIndex = 4
+				elseif nodeIndex == 10 then
+					nodeIndex = 8
+				end
+			elseif nodeCount == 4 then
+				if nodeIndex == 10 then
+					nodeIndex = 9
+				elseif nodeIndex == 2 then
+					nodeIndex = 3
+				end
+			end
+		end
+		if not sockets[nodeIndex] then
+			t_insert(indices, nodeIndex)
+		end
+	end
+	table.sort(indices)
+	return indices
+end
+
+function itemLib.getClusterJewelNotablePositions(item, sortOrder)
+	local positions = { }
+	if not item or not item.clusterJewel or not item.jewelData or item.jewelData.clusterJewelKeystone then
+		return positions
+	end
+	local names = { }
+	for _, name in ipairs(item.jewelData.clusterJewelNotables or { }) do
+		if not sortOrder[name] then
+			return positions
+		end
+		t_insert(names, name)
+	end
+	table.sort(names, function(a, b) return sortOrder[a] < sortOrder[b] end)
+	local indices = itemLib.getClusterJewelNotableIndices(item.clusterJewel, item.jewelData, #names)
+	for i, nodeIndex in ipairs(indices) do
+		local position = "Front"
+		if item.clusterJewel.size == "Small" then
+			position = "End"
+		elseif nodeIndex > item.clusterJewel.totalIndicies / 4 and nodeIndex < item.clusterJewel.totalIndicies * 3 / 4 then
+			position = "Back"
+		end
+		t_insert(positions, { name = names[i], index = nodeIndex, position = position })
+	end
+	return positions
+end
+
 -- Info table for all types of item influence
 itemLib.influenceInfo = {
 	["all"] = {
@@ -89,11 +159,19 @@ function itemLib.isZeroValueLine(line)
 	return line:match("^%+?0%%? ") or (line:match(" %+?0%%? ") and not line:match("0 to [1-9]") and not line:match("0%% to %d+%%")) or line:match(" 0%-0 ") or line:match(" 0 to 0 ")
 end
 -- Apply range value (0 to 1) to a modifier that has a range: "(x-x)" or "(x-x) to (x-x)"
+---@param line string
+---@param range number
+---@param valueScalar number?
+---@param baseValueScalar number?
 function itemLib.applyRange(line, range, valueScalar, baseValueScalar)
 	-- stripLines down to # in place of any number and store numbers inside values also remove all + signs are kept if value is positive
 	local values = {}
+	local rangeIndex = 0
+	local ranges = type(range) == "table" and range
 	local strippedLine = line:gsub("([%+-]?)%((%-?%d+%.?%d*)%-(%-?%d+%.?%d*)%)", function(sign, min, max)
-			local value = min + range * (tonumber(max) - min)
+			rangeIndex = rangeIndex + 1
+			local valueRange = ranges and (ranges[rangeIndex] or 0.5) or range
+			local value = min + valueRange * (tonumber(max) - min)
 			if sign == "-" then value = value * -1 end
 			return (sign == "+" and value > 0) and sign .. tostring(value) or tostring(value)
 		end)
@@ -266,6 +344,9 @@ function itemLib.applyRange(line, range, valueScalar, baseValueScalar)
 					elseif format == "milliseconds_to_seconds_2dp" then
 						precision = 1000
 						displayPrecision = 2
+					elseif format == "locations_to_metres" then
+						precision = 10
+						displayPrecision = 1
 					elseif format == "milliseconds_to_seconds_2dp_if_required" then
 						precision = 1000
 						displayPrecision = 2
@@ -354,6 +435,9 @@ function itemLib.formatModLine(modLine, dbMode)
 	if line:match("^%+?0%%? ") or (line:match(" %+?0%%? ") and not line:match("0 to [1-9]")) or line:match(" 0%-0 ") or line:match(" 0 to 0 ") then -- Hack to hide 0-value modifiers
 		return
 	end
+	if modLine.disabled then
+		return colorCodes.DISABLED .. line
+	end
 	local colorCode
 	if modLine.extra then
 		colorCode = colorCodes.UNSUPPORTED
@@ -362,7 +446,7 @@ function itemLib.formatModLine(modLine, dbMode)
 			line = line .. "   ^1'" .. modLine.extra .. "'"
 		end
 	else
-		colorCode = (modLine.fractured and colorCodes.FRACTURED) or (modLine.crafted and colorCodes.CRAFTED) or (modLine.mutated and colorCodes.MUTATED) or (modLine.scourge and colorCodes.SCOURGE) or (modLine.custom and colorCodes.CUSTOM) or (modLine.crucible and colorCodes.CRUCIBLE) or colorCodes.MAGIC
+		colorCode = (modLine.fractured and colorCodes.FRACTURED) or (modLine.crafted and colorCodes.CRAFTED) or (modLine.mutated and colorCodes.MUTATED) or (modLine.scourge and colorCodes.SCOURGE) or (modLine.custom and colorCodes.CUSTOM) or (modLine.crucible and colorCodes.CRUCIBLE) or (modLine.vestigial and colorCodes.VESTIGIAL) or colorCodes.MAGIC
 	end
 	return colorCode..line
 end

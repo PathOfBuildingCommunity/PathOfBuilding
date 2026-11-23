@@ -1,6 +1,5 @@
 -- Item data (c) Grinding Gear Games
-local itemBases = ...
-
+return function(itemBases)
 #type Wand
 #influenceBaseTag wand
 #socketLimit 3
@@ -20,3 +19,4 @@ local itemBases = ...
 #influenceBaseTag wand
 #socketLimit 3
 #base Metadata/Items/Weapons/OneHandWeapons/Wands/WandMinion2
+end

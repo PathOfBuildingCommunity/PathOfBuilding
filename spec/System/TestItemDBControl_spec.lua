@@ -1,4 +1,14 @@
 describe("ItemDBControl", function()
+	local originalGetCursorPos
+
+	before_each(function()
+		originalGetCursorPos = GetCursorPos
+	end)
+
+	after_each(function()
+		GetCursorPos = originalGetCursorPos
+	end)
+
 	it("sorts lower-is-better stats below zero", function()
 		local function makeItem(name)
 			return {
@@ -19,7 +29,7 @@ describe("ItemDBControl", function()
 		}
 		local itemsTab = {
 			activeItemSet = { useSecondWeaponSet = false },
-			slots = { ["Body Armour"] = {} },
+			slots = { ["Body Armour"] = { shown = function() return true end } },
 			build = {
 				calcsTab = {
 					GetMiscCalculator = function()
@@ -33,7 +43,7 @@ describe("ItemDBControl", function()
 				return item ~= invalidItem
 			end,
 		}
-		local control = new("ItemDBControl", nil, { 0, 0, 100, 100 }, itemsTab, {
+		local control = new("ItemDBControl"):ItemDBControl(nil, { 0, 0, 100, 100 }, itemsTab, {
 			list = { invalidItem, betterItem, worseItem },
 		}, "RARE")
 		control.sortDetail = {
@@ -53,7 +63,7 @@ describe("ItemDBControl", function()
 	end)
 
 	it("searches Foulborn modifier text without case sensitivity", function()
-		local item = new("Item", [[
+		local item = new("Item"):Item([[
 			Rarity: Unique
 			Kitava's Thirst
 			Zealot Helmet
@@ -63,7 +73,7 @@ describe("ItemDBControl", function()
 			50% chance to Trigger Socketed Spells when you Spend at least 100 Mana on an
 			Upfront Cost to Use or Trigger a Skill, with a 0.1 second Cooldown
 		]])
-		local control = new("ItemDBControl", nil, { 0, 0, 100, 100 }, {
+		local control = new("ItemDBControl"):ItemDBControl(nil, { 0, 0, 100, 100 }, {
 			build = {
 				characterLevel = 100,
 			},
@@ -74,5 +84,57 @@ describe("ItemDBControl", function()
 		control.controls.searchMode.selIndex = 3
 
 		assert.is_true(control:DoesItemMatchFilters(item))
+	end)
+
+	it("releases focus after opening an item with a double click", function()
+		local item = {
+			raw = "Rarity: Unique\nTest Item\nLeather Belt",
+		}
+		local itemsTab
+		itemsTab = {
+			CreateDisplayItemFromRaw = function(_, raw, isUnique)
+				itemsTab.displayRaw = raw
+				itemsTab.displayIsUnique = isUnique
+			end,
+		}
+		local control = new("ItemDBControl"):ItemDBControl(nil, { 0, 0, 100, 100 }, itemsTab, {
+			list = { item },
+		}, "UNIQUE")
+		control.list = { item }
+		GetCursorPos = function()
+			return 3, 3
+		end
+		control.GetRowRegion = function()
+			return { x = 0, y = 0, width = 100, height = 100 }
+		end
+
+		local selectedControl = control:OnKeyDown("LEFTBUTTON", true)
+
+		assert.is_nil(selectedControl)
+		assert.are.equal(item.raw, itemsTab.displayRaw)
+		assert.is_true(itemsTab.displayIsUnique)
+	end)
+
+	it("appends typed Wickerman filters after Grafts", function()
+		local item = new("Item"):Item("")
+		item.base = { }
+		for _, dbType in ipairs({ "RARE", "UNIQUE" }) do
+			local control = new("ItemDBControl"):ItemDBControl(nil, { 0, 0, 100, 100 }, { }, { list = { } }, dbType)
+			item.type = "Graft"
+			control.controls.slot:SelByValue("Graft 1")
+			assert.are.equal("Graft 1", control.slotList[control.controls.slot.selIndex])
+			assert.is_true(control:DoesItemMatchFilters(item))
+			control.controls.slot:SelByValue("Graft 2")
+			assert.are.equal("Graft 2", control.slotList[control.controls.slot.selIndex])
+			local lastIndex = control.controls.slot.selIndex
+			for _, slotName in ipairs({ "Head", "Body", "Arm", "Leg" }) do
+				control.controls.slot:SelByValue(slotName)
+				assert.are.equal(lastIndex + 1, control.controls.slot.selIndex)
+				assert.is_false(control:DoesItemMatchFilters(item))
+				item.type = slotName
+				assert.is_true(control:DoesItemMatchFilters(item))
+				lastIndex = control.controls.slot.selIndex
+			end
+		end
 	end)
 end)

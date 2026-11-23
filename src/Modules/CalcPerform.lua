@@ -3,12 +3,14 @@
 -- Module: Calc Perform
 -- Manages the offence/defence calculations.
 --
-local calcs = ...
+---@class Calcs
+local calcs = require("Modules.CalcBase")
 
 local pairs = pairs
 local ipairs = ipairs
 local t_insert = table.insert
 local t_remove = table.remove
+local m_abs = math.abs
 local m_min = math.min
 local m_max = math.max
 local m_ceil = math.ceil
@@ -43,7 +45,7 @@ end
 -- Merge an instance of a buff, taking the highest value of each modifier
 local function mergeBuff(src, destTable, destKey)
 	if not destTable[destKey] then
-		destTable[destKey] = new("ModList")
+		destTable[destKey] = new("ModList"):ModList()
 	end
 	local dest = destTable[destKey]
 	for _, mod in ipairs(src) do
@@ -67,7 +69,9 @@ end
 
 function doActorLifeMana(actor)
 	local modDB = actor.modDB
+	---@class Output
 	local output = actor.output
+	---@class Breakdown
 	local breakdown = actor.breakdown
 	local condList = modDB.conditions
 
@@ -127,14 +131,130 @@ function doActorLifeMana(actor)
 		end
 	end
 	output.LowestOfMaximumLifeAndMaximumMana = m_min(output.Life, output.Mana)
+	output.MaximumLifeManaDifference = m_abs(output.Life - output.Mana)
 end
 
 -- Calculate attributes, and set conditions
+-- Shrine Buffs. Massive Shrines add Life, so they are applied before the life pool is calculated (stage "life");
+-- the others are applied after life reservation, as their effect can depend on it (stage "rest")
+---@param actor table
+---@param stage string "life", "rest" or "all"
+local function doActorShrineBuffs(actor, stage)
+	local modDB = actor.modDB
+	local shrineEffectMod = 1 + modDB:Sum("INC", nil, "BuffEffectOnSelf", "ShrineBuffEffect") / 100
+	if stage ~= "rest" then
+		if modDB:Flag(nil, "MassiveShrine") then
+			modDB:NewMod("Life", "INC", m_floor(40 * shrineEffectMod), "Massive Shrine")
+			modDB:NewMod("AreaOfEffect", "INC", m_floor(40 * shrineEffectMod), "Massive Shrine")
+		end
+		if modDB:Flag(nil, "LesserMassiveShrine") then
+			modDB:NewMod("Life", "INC", m_floor(20 * shrineEffectMod), "Lesser Massive Shrine")
+			modDB:NewMod("AreaOfEffect", "INC", m_floor(20 * shrineEffectMod), "Lesser Massive Shrine")
+		end
+	end
+	if stage ~= "life" then
+		if modDB:Flag(nil, "AccelerationShrine") then
+			modDB:NewMod("ActionSpeed", "INC", m_floor(50 * shrineEffectMod), "Acceleration Shrine")
+			modDB:NewMod("ProjectileSpeed", "INC", m_floor(80 * shrineEffectMod), "Acceleration Shrine")
+		end
+		if modDB:Flag(nil, "BrutalShrine") then
+			modDB:NewMod("Damage", "INC", m_floor(50 * shrineEffectMod), "Brutal Shrine")
+			modDB:NewMod("EnemyStunDuration", "INC", m_floor(30 * shrineEffectMod), "Brutal Shrine")
+			modDB:NewMod("EnemyKnockbackChance", "INC", 100, "Brutal Shrine")
+		end
+		if modDB:Flag(nil, "DiamondShrine") then
+			modDB:NewMod("CritChance", "OVERRIDE", 100, "Diamond Shrine")
+		end
+		if modDB:Flag(nil, "DivineShrine") then
+			modDB:NewMod("DamageTaken", "MORE", -100, "Divine Shrine")
+		end
+		if modDB:Flag(nil, "EchoingShrine") then
+			modDB:NewMod("Speed", "MORE", m_floor(100 * shrineEffectMod), "Echoing Shrine", ModFlag.Attack)
+			modDB:NewMod("Speed", "MORE", m_floor(100 * shrineEffectMod), "Echoing Shrine", ModFlag.Cast)
+			modDB:NewMod("RepeatCount", "BASE", m_floor(1 * shrineEffectMod), "Echoing Shrine")
+		end
+		if modDB:Flag(nil, "GloomShrine") then
+			modDB:NewMod("NonChaosDamageGainAsChaos", "BASE", m_floor(10 * shrineEffectMod), "Gloom Shrine")
+		end
+		if modDB:Flag(nil, "GreaterFreezingShrine") then
+			modDB:NewMod("PhysicalDamageGainAsCold", "BASE", m_floor(30 * shrineEffectMod), "Greater Freezing Shrine")
+		end
+		if modDB:Flag(nil, "GreaterShockingShrine") then
+			modDB:NewMod("PhysicalDamageGainAsLightning", "BASE", m_floor(30 * shrineEffectMod), "Greater Shocking Shrine")
+		end
+		if modDB:Flag(nil, "GreaterSkeletalShrine") then
+			modDB:NewMod("PhysicalDamageGainAsChaos", "BASE", m_floor(30 * shrineEffectMod), "Greater Skeletal Shrine")
+		end
+		if modDB:Flag(nil, "ImpenetrableShrine") then
+			modDB:NewMod("Armour", "INC", m_floor(100 * shrineEffectMod), "Impenetrable Shrine")
+			modDB:NewMod("Evasion", "INC", m_floor(100 * shrineEffectMod), "Impenetrable Shrine")
+			modDB:NewMod("EnergyShield", "INC", m_floor(100 * shrineEffectMod), "Impenetrable Shrine")
+		end
+		if modDB:Flag(nil, "ReplenishingShrine") then
+			modDB:NewMod("ManaRegen", "INC", 200 * shrineEffectMod, "Replenishing Shrine")
+			modDB:NewMod("LifeRegenPercent", "BASE", 6.7 * shrineEffectMod, "Replenishing Shrine")
+		end
+		if modDB:Flag(nil, "ResistanceShrine") then
+			modDB:NewMod("ElementalResist", "BASE", m_floor(50 * shrineEffectMod), "Resistance Shrine")
+			modDB:NewMod("ElementalResistMax", "BASE", m_floor(10 * shrineEffectMod), "Resistance Shrine")
+			modDB:NewMod("ChaosResistMax", "BASE", m_floor(10 * shrineEffectMod), "Resistance Shrine")
+		end
+		if modDB:Flag(nil, "ResonatingShrine") then
+			modDB:NewMod("PowerChargesMax", "BASE", m_floor(1 * shrineEffectMod), "Resonating Shrine")
+			modDB:NewMod("FrenzyChargesMax", "BASE", m_floor(1 * shrineEffectMod), "Resonating Shrine")
+			modDB:NewMod("EnduranceChargesMax", "BASE", m_floor(1 * shrineEffectMod), "Resonating Shrine")
+		end
+		if modDB:Flag(nil, "LesserAccelerationShrine") and not modDB:Flag(nil, "AccelerationShrine") then
+			modDB:NewMod("ActionSpeed", "INC", m_floor(10 * shrineEffectMod), "Lesser Acceleration Shrine")
+			modDB:NewMod("ProjectileSpeed", "INC", m_floor(30 * shrineEffectMod), "Lesser Acceleration Shrine")
+		end
+		if modDB:Flag(nil, "LesserBrutalShrine") then
+			modDB:NewMod("Damage", "INC", m_floor(20 * shrineEffectMod), "Lesser Brutal Shrine")
+			modDB:NewMod("EnemyStunDuration", "INC", m_floor(20 * shrineEffectMod), "Lesser Brutal Shrine")
+			modDB:NewMod("EnemyKnockbackChance", "INC", 100, "Lesser Brutal Shrine")
+		end
+		if modDB:Flag(nil, "LesserImpenetrableShrine") then
+			modDB:NewMod("Armour", "INC", m_floor(50 * shrineEffectMod), "Lesser Impenetrable Shrine")
+			modDB:NewMod("Evasion", "INC", m_floor(50 * shrineEffectMod), "Lesser Impenetrable Shrine")
+			modDB:NewMod("EnergyShield", "INC", m_floor(50 * shrineEffectMod), "Lesser Impenetrable Shrine")
+		end
+		if modDB:Flag(nil, "LesserReplenishingShrine") then
+			modDB:NewMod("ManaRegen", "INC", 100 * shrineEffectMod, "Lesser Replenishing Shrine")
+			modDB:NewMod("LifeRegenPercent", "BASE", 3.3 * shrineEffectMod, "Lesser Replenishing Shrine")
+		end
+		if modDB:Flag(nil, "LesserResistanceShrine") then
+			modDB:NewMod("ElementalResist", "BASE", m_floor(25 * shrineEffectMod), "Lesser Resistance Shrine")
+			modDB:NewMod("ElementalResistMax", "BASE", m_floor(2 * shrineEffectMod), "Lesser Resistance Shrine")
+			modDB:NewMod("ChaosResistMax", "BASE", m_floor(2 * shrineEffectMod), "Lesser Resistance Shrine")
+		end
+		if modDB:Flag(nil, "BloodShrineOfRats") then
+			modDB:NewMod("ElementalDamageGainAsChaos", "BASE", m_floor(30 * shrineEffectMod), "Blood Shrine of Rats")
+		end
+		if modDB:Flag(nil, "BloodShrineOfLocusts") then
+			modDB:NewMod("DotMultiplier", "BASE", m_floor(30 * shrineEffectMod), "Blood Shrine of Locusts")
+		end
+		if modDB:Flag(nil, "BloodShrineOfToads") then
+			modDB:NewMod("BloodShrineExplodingToadTriggerChance", "BASE", m_floor(25 * shrineEffectMod), "Blood Shrine of Toads")
+		end
+		if modDB:Flag(nil, "BloodShrineOfCrows") then
+			modDB:NewMod("ChaosResist", "BASE", m_floor(50 * shrineEffectMod), "Blood Shrine of Crows")
+			modDB:NewMod("ElementalDamageFromHitsTakenAsChaos", "BASE", m_floor(10 * shrineEffectMod), "Blood Shrine of Crows")
+			modDB:NewMod("PhysicalDamageFromHitsTakenAsChaos", "BASE", m_floor(10 * shrineEffectMod), "Blood Shrine of Crows")
+		end
+		if modDB:Flag(nil, "BloodShrineOfBats") then
+			modDB:NewMod("EnemyCurseLimit", "BASE", m_floor(1 * shrineEffectMod), "Blood Shrine of Bats")
+			modDB:NewMod("ExtraCurse", "LIST", { skillId = "Enfeeble", level = 1 }, "Blood Shrine of Bats")
+		end
+	end
+end
+
 ---@param env table
 ---@param actor table
 local function doActorAttribsConditions(env, actor)
 	local modDB = actor.modDB
+	---@class Output
 	local output = actor.output
+	---@class Breakdown
 	local breakdown = actor.breakdown
 	local condList = modDB.conditions
 
@@ -287,90 +407,7 @@ local function doActorAttribsConditions(env, actor)
 		if modDB:Sum("BASE", nil, "EnemySapChance") > 0 or modDB:Flag(nil, "CritAlwaysAltAilments") and not modDB:Flag(env.player.mainSkill.skillCfg, "NeverCrit") then
 			condList["CanInflictSap"] = true
 		end
-		-- Shrine Buffs: Must be done before life pool calculated for massive shrine
-		local shrineEffectMod = 1 + modDB:Sum("INC", nil, "BuffEffectOnSelf", "ShrineBuffEffect") / 100
-		if modDB:Flag(nil, "AccelerationShrine") then
-			modDB:NewMod("ActionSpeed", "INC", m_floor(50 * shrineEffectMod), "Acceleration Shrine")
-			modDB:NewMod("ProjectileSpeed", "INC", m_floor(80 * shrineEffectMod), "Acceleration Shrine")
-		end
-		if modDB:Flag(nil, "BrutalShrine") then
-			modDB:NewMod("Damage", "INC", m_floor(50 * shrineEffectMod), "Brutal Shrine")
-			modDB:NewMod("EnemyStunDuration", "INC", m_floor(30 * shrineEffectMod), "Brutal Shrine")
-			modDB:NewMod("EnemyKnockbackChance", "INC", 100, "Brutal Shrine")
-		end
-		if modDB:Flag(nil, "DiamondShrine") then
-			modDB:NewMod("CritChance", "OVERRIDE", 100, "Diamond Shrine")
-		end
-		if modDB:Flag(nil, "DivineShrine") then
-			modDB:NewMod("DamageTaken", "MORE", -100, "Divine Shrine")
-		end
-		if modDB:Flag(nil, "EchoingShrine") then
-			modDB:NewMod("Speed", "MORE", m_floor(100 * shrineEffectMod), "Echoing Shrine", ModFlag.Attack)
-			modDB:NewMod("Speed", "MORE", m_floor(100 * shrineEffectMod), "Echoing Shrine", ModFlag.Cast)
-			modDB:NewMod("RepeatCount", "BASE", m_floor(1 * shrineEffectMod), "Echoing Shrine")
-		end
-		if modDB:Flag(nil, "GloomShrine") then
-			modDB:NewMod("NonChaosDamageGainAsChaos", "BASE", m_floor(10 * shrineEffectMod), "Gloom Shrine")
-		end
-		if modDB:Flag(nil, "GreaterFreezingShrine") then
-			modDB:NewMod("PhysicalDamageGainAsCold", "BASE", m_floor(30 * shrineEffectMod), "Greater Freezing Shrine")
-		end
-		if modDB:Flag(nil, "GreaterShockingShrine") then
-			modDB:NewMod("PhysicalDamageGainAsLightning", "BASE", m_floor(30 * shrineEffectMod), "Greater Shocking Shrine")
-		end
-		if modDB:Flag(nil, "GreaterSkeletalShrine") then
-			modDB:NewMod("PhysicalDamageGainAsChaos", "BASE", m_floor(30 * shrineEffectMod), "Greater Skeletal Shrine")
-		end
-		if modDB:Flag(nil, "ImpenetrableShrine") then
-			modDB:NewMod("Armour", "INC", m_floor(100 * shrineEffectMod), "Impenetrable Shrine")
-			modDB:NewMod("Evasion", "INC", m_floor(100 * shrineEffectMod), "Impenetrable Shrine")
-			modDB:NewMod("EnergyShield", "INC", m_floor(100 * shrineEffectMod), "Impenetrable Shrine")
-		end
-		if modDB:Flag(nil, "MassiveShrine") then
-			modDB:NewMod("Life", "INC", m_floor(40 * shrineEffectMod), "Massive Shrine")
-			modDB:NewMod("AreaOfEffect", "INC", m_floor(40 * shrineEffectMod), "Massive Shrine")
-		end
-		if modDB:Flag(nil, "ReplenishingShrine") then
-			modDB:NewMod("ManaRegen", "INC", 200 * shrineEffectMod, "Replenishing Shrine")
-			modDB:NewMod("LifeRegenPercent", "BASE", 6.7 * shrineEffectMod, "Replenishing Shrine")
-		end
-		if modDB:Flag(nil, "ResistanceShrine") then
-			modDB:NewMod("ElementalResist", "BASE", m_floor(50 * shrineEffectMod), "Resistance Shrine")
-			modDB:NewMod("ElementalResistMax", "BASE", m_floor(10 * shrineEffectMod), "Resistance Shrine")
-			modDB:NewMod("ChaosResistMax", "BASE", m_floor(10 * shrineEffectMod), "Resistance Shrine")
-		end
-		if modDB:Flag(nil, "ResonatingShrine") then
-			modDB:NewMod("PowerChargesMax", "BASE", m_floor(1 * shrineEffectMod), "Resonating Shrine")
-			modDB:NewMod("FrenzyChargesMax", "BASE", m_floor(1 * shrineEffectMod), "Resonating Shrine")
-			modDB:NewMod("EnduranceChargesMax", "BASE", m_floor(1 * shrineEffectMod), "Resonating Shrine")
-		end
-		if modDB:Flag(nil, "LesserAccelerationShrine") and not modDB:Flag(nil, "AccelerationShrine") then
-			modDB:NewMod("ActionSpeed", "INC", m_floor(10 * shrineEffectMod), "Lesser Acceleration Shrine")
-			modDB:NewMod("ProjectileSpeed", "INC", m_floor(30 * shrineEffectMod), "Lesser Acceleration Shrine")
-		end
-		if modDB:Flag(nil, "LesserBrutalShrine") then
-			modDB:NewMod("Damage", "INC", m_floor(20 * shrineEffectMod), "Lesser Brutal Shrine")
-			modDB:NewMod("EnemyStunDuration", "INC", m_floor(20 * shrineEffectMod), "Lesser Brutal Shrine")
-			modDB:NewMod("EnemyKnockbackChance", "INC", 100, "Lesser Brutal Shrine")
-		end
-		if modDB:Flag(nil, "LesserImpenetrableShrine") then
-			modDB:NewMod("Armour", "INC", m_floor(50 * shrineEffectMod), "Lesser Impenetrable Shrine")
-			modDB:NewMod("Evasion", "INC", m_floor(50 * shrineEffectMod), "Lesser Impenetrable Shrine")
-			modDB:NewMod("EnergyShield", "INC", m_floor(50 * shrineEffectMod), "Lesser Impenetrable Shrine")
-		end
-		if modDB:Flag(nil, "LesserMassiveShrine") then
-			modDB:NewMod("Life", "INC", m_floor(20 * shrineEffectMod), "Lesser Massive Shrine")
-			modDB:NewMod("AreaOfEffect", "INC", m_floor(20 * shrineEffectMod), "Lesser Massive Shrine")
-		end
-		if modDB:Flag(nil, "LesserReplenishingShrine") then
-			modDB:NewMod("ManaRegen", "INC", 100 * shrineEffectMod, "Lesser Replenishing Shrine")
-			modDB:NewMod("LifeRegenPercent", "BASE", 3.3 * shrineEffectMod, "Lesser Replenishing Shrine")
-		end
-		if modDB:Flag(nil, "LesserResistanceShrine") then
-			modDB:NewMod("ElementalResist", "BASE", m_floor(25 * shrineEffectMod), "Lesser Resistance Shrine")
-			modDB:NewMod("ElementalResistMax", "BASE", m_floor(2 * shrineEffectMod), "Lesser Resistance Shrine")
-			modDB:NewMod("ChaosResistMax", "BASE", m_floor(2 * shrineEffectMod), "Lesser Resistance Shrine")
-		end
+		doActorShrineBuffs(actor, actor == env.player and "life" or "all")
 	end
 	if env.mode_effective then
 		if env.player.mainSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "FireExposureChance") > 0 or modDB:Sum("BASE", nil, "FireExposureChance") > 0 then
@@ -527,6 +564,7 @@ end
 ---@param actor table
 function doActorLifeManaReservation(actor, addAura)
 	local modDB = actor.modDB
+	---@class Output
 	local output = actor.output
 	local condList = modDB.conditions
 
@@ -610,14 +648,16 @@ end
 
 -- Process enemy modifiers and other buffs
 local function doActorMisc(env, actor)
+	---@type ModDB
 	local modDB = actor.modDB
 	local enemyDB = actor.enemy.modDB
+	---@class Output
 	local output = actor.output
 	local condList = modDB.conditions
 
 	-- Add misc buffs/debuffs
 	if env.mode_combat then
-		if env.player.mainSkill.baseSkillModList:Flag(nil, "Cruelty") then
+		if env.player.mainSkill.baseSkillModList:Flag(env.player.mainSkill.skillCfg, "Cruelty") then
 			modDB.multipliers["Cruelty"] = modDB:Override(nil, "Cruelty") or 40
 		end
 		-- Minimum Rage
@@ -625,21 +665,23 @@ local function doActorMisc(env, actor)
 			modDB.multipliers["Rage"] = modDB:Sum("BASE", nil, "MinimumRage")
 		end
 		local alliedFortify = modDB:Flag(nil, "YourFortifyEqualToParent") and actor.parent.output.FortificationStacks or env.partyMembers and env.partyMembers.modDB:Flag(nil, "PartyMemberFortifyEqualToYours") and env.partyMembers.output.FortificationStacks or 0
-		-- Minimum Fortification from King Maker or Perfect Naval Officer spectres or Ally override
-		if modDB:Sum("BASE", nil, "MinimumFortification") > 0 or alliedFortify > 0 then
+		local hasFortify = modDB:Flag(nil, "Fortified") or modDB:Sum("BASE", nil, "Multiplier:Fortification") > 0
+		local minimumFortify = modDB:Sum("BASE", nil, "MinimumFortification")
+		if minimumFortify > 0 or alliedFortify > 0 then
 			condList["Fortified"] = true
 		end
 		-- Fortify
-		if modDB:Flag(nil, "Fortified") or modDB:Sum("BASE", nil, "Multiplier:Fortification") > 0 then
+		if hasFortify or condList["Fortified"] then
 			local skillModList = actor.mainSkill and actor.mainSkill.skillModList or actor.modDB
 			local skillCfg = actor.mainSkill and actor.mainSkill.skillCfg
 			local maxStacks = m_max(modDB:Override(nil, "MaximumFortification") or modDB:Sum("BASE", skillCfg, "MaximumFortification"), alliedFortify)
-			local minStacks = m_min(modDB:Flag(nil, "Condition:HaveMaxFortification") and maxStacks or modDB:Sum("BASE", nil, "MinimumFortification"), maxStacks)
-			local stacks = m_min(modDB:Override(nil, "FortificationStacks") or (minStacks > 0 and minStacks) or maxStacks, maxStacks)
+			local minStacks = m_min(modDB:Flag(nil, "Condition:HaveMaxFortification") and maxStacks or minimumFortify, maxStacks)
+			local defaultStacks = (hasFortify or alliedFortify > 0) and maxStacks or minStacks
+			local stacks = m_min(modDB:Override(nil, "FortificationStacks") or defaultStacks, maxStacks)
 			local increasedDuration = skillModList:Sum("INC", nil, "FortifyDuration")
 			output.MaximumFortification = maxStacks
 			output.MinimumFortification = minStacks
-			output.RemovableFortification = m_min(maxStacks - minStacks, (modDB:Override(nil, "FortificationStacks") or maxStacks) - minStacks)
+			output.RemovableFortification = stacks - minStacks
 			output.FortificationStacks = stacks
 			output.FortificationStacksOver20 = m_min(m_max(0, stacks - 20), maxStacks - 20)
 			output.FortifyDuration = (skillModList:Override(nil, "FortifyDuration") or data.misc.FortifyBaseDuration) * (1 + increasedDuration / 100)
@@ -697,9 +739,13 @@ local function doActorMisc(env, actor)
 			if arcaneSurgeDamage ~= 0 then
 				modDB:NewMod("Damage", "MORE", arcaneSurgeDamage * effect, "Arcane Surge", ModFlag.Spell)
 			end
-			local arcaneSurgeLifeRegen = modDB:Sum("BASE", nil, "ArcaneSurgeAlsoLifeRegen")
-			if arcaneSurgeLifeRegen > 0 then
-				modDB:NewMod("LifeRegen", "INC", arcaneSurgeLifeRegen * effect, "Arcane Surge")
+			local prefix = "ArcaneSurgeAlso"
+			local additionalMods = { LifeRegen = "INC", ManaRecoup = "BASE", ManaCostEfficiency = "INC" }
+			for mod, modType in pairs(additionalMods) do
+				local value = modDB:Sum(modType, nil, prefix .. mod)
+				if value ~= 0 then
+					modDB:NewMod(mod, modType, value * effect, "Arcane Surge")
+				end
 			end
 		end
 		if modDB:Flag(nil, "Fanaticism") and actor.mainSkill and actor.mainSkill.skillFlags.selfCast then
@@ -721,6 +767,10 @@ local function doActorMisc(env, actor)
 			local effect = 1 + modDB:Sum("INC", nil, "BuffEffectOnSelf") / 100
 			modDB:NewMod("PhysicalDamageConvertToChaos", "BASE", m_floor(100 * effect), "Unholy Might")
 			modDB:NewMod("Condition:CanWither", "FLAG", true, "Unholy Might")
+			local value = modDB:Sum("BASE", nil, "UnholyMightAlsoChaosPenetration")
+			if value ~= 0 then
+				modDB:NewMod("ChaosPenetration", "BASE", value * effect, "Unholy Might")
+			end
 		end
 		if modDB:Flag(nil, "ShepherdOfSouls") then
 			modDB:NewMod("SoulCost", "MORE", -80, "Shepherd of Souls", { type = "SkillType", skillType = SkillType.Vaal }, { type = "SkillType", skillType = SkillType.Aura, neg = true })
@@ -770,7 +820,6 @@ local function doActorMisc(env, actor)
 		if modDB:Flag(nil, "Condition:OnConsecratedGround") then
 			local effect = 1 + modDB:Sum("INC", nil, "ConsecratedGroundEffect") / 100
 			modDB:NewMod("LifeRegenPercent", "BASE", 5 * effect, "Consecrated Ground")
-			modDB:NewMod("CurseEffectOnSelf", "INC", -50 * effect, "Consecrated Ground")
 			modDB:NewMod("Accuracy", "INC", m_floor(modDB:Sum("INC", nil, "ConsecratedGroundAlsoAccuracy") * effect), "Consecrated Ground")
 		end
 		if modDB:Flag(nil, "Condition:PhantasmalMight") then
@@ -946,6 +995,7 @@ end
 -- Process charges
 local function doActorCharges(env, actor)
 	local modDB = actor.modDB
+	---@class Output
 	local output = actor.output
 
 	-- Calculate current and maximum charges
@@ -1035,9 +1085,6 @@ local function doActorCharges(env, actor)
 	output.RemovableFrenzyCharges = m_max(output.FrenzyCharges - output.FrenzyChargesMin, 0)
 	if modDB:Flag(nil, "UseEnduranceCharges") then
 		output.EnduranceCharges = modDB:Override(nil, "EnduranceCharges") or output.EnduranceChargesMax
-		if modDB:Flag(nil, "CanGainBrineCharges") then
-			output.BrineCharges = output.BrineChargesMax
-		end
 	end
 	if modDB:Flag(nil, "EnduranceChargesConvertToBrutalCharges") then
 		-- we max with possible Endurance Charge Override from Config since Brutal Charges won't have their own config entry
@@ -1048,6 +1095,9 @@ local function doActorCharges(env, actor)
 		output.EnduranceCharges = m_max(output.EnduranceCharges, m_min(output.EnduranceChargesMax, output.EnduranceChargesMin))
 	end
 	output.RemovableEnduranceCharges = m_max(output.EnduranceCharges - output.EnduranceChargesMin, 0)
+	if modDB:Flag(nil, "UseBrineCharges") and modDB:Flag(nil, "CanGainBrineCharges") and not modDB:Flag(nil, "EnduranceChargesConvertToBrutalCharges") then
+		output.BrineCharges = modDB:Override(nil, "BrineCharges") or output.BrineChargesMax
+	end
 	if modDB:Flag(nil, "UseSiphoningCharges") then
 		output.SiphoningCharges = modDB:Override(nil, "SiphoningCharges") or output.SiphoningChargesMax
 	end
@@ -1116,8 +1166,31 @@ function calcs.actionSpeedMod(actor)
 	return actionSpeedMod
 end
 
+local function addMinionItems(env, minion)
+	if not minion.uses then
+		return
+	end
+	for slotName, slot in pairs(env.build.itemsTab.slots) do
+		if minion.uses[slotName] then
+			local item
+			if minion.itemSet then
+				if slot.weaponSet == 1 and minion.itemSet.useSecondWeaponSet then
+					slotName = slotName .. " Swap"
+				end
+				item = env.build.itemsTab.items[minion.itemSet[slotName].selItemId]
+			else
+				item = env.player.itemList[slotName]
+			end
+			if item then
+				minion.itemList[slotName] = item
+				minion.modDB:AddList(item.modList or item.slotModList[slot.slotNum])
+			end
+		end
+	end
+end
+
 -- Build the same modifier database for the selected minion and any minion used as a defensive Life pool.
-local function initMinionModDB(env, activeSkill, output)
+local function initMinionModDB(env, activeSkill, output, itemsLoaded)
 	local modDB = env.modDB
 	local minion = activeSkill.minion
 	minion.output = output or { }
@@ -1185,24 +1258,8 @@ local function initMinionModDB(env, activeSkill, output)
 	if activeSkill.skillData.minionUseMainHandWeapon then
 		minion.modDB:AddList(env.player.itemList["Weapon 1"].slotModList[1])
 	end
-	if minion.itemSet or minion.uses then
-		for slotName, slot in pairs(env.build.itemsTab.slots) do
-			if minion.uses[slotName] then
-				local item
-				if minion.itemSet then
-					if slot.weaponSet == 1 and minion.itemSet.useSecondWeaponSet then
-						slotName = slotName .. " Swap"
-					end
-					item = env.build.itemsTab.items[minion.itemSet[slotName].selItemId]
-				else
-					item = env.player.itemList[slotName]
-				end
-				if item then
-					minion.itemList[slotName] = item
-					minion.modDB:AddList(item.modList or item.slotModList[slot.slotNum])
-				end
-			end
-		end
+	if not itemsLoaded then
+		addMinionItems(env, minion)
 	end
 	if modDB:Sum("BASE", nil, "StrengthAddedToMinions") > 0 then
 		minion.modDB:NewMod("Str", "BASE", round(calcLib.val(modDB, "Str") * modDB:Sum("BASE", nil, "StrengthAddedToMinions") / 100), "Player")
@@ -1257,19 +1314,25 @@ function calcs.perform(env, skipEHP)
 	env.keystonesAdded = { }
 	modLib.mergeKeystones(env, env.modDB)
 
-	-- Build minion skills
+	-- Build minion skills and find the active Guardian.
+	local guardian
 	for _, activeSkill in ipairs(env.player.activeSkillList) do
-		activeSkill.skillModList = new("ModList", activeSkill.baseSkillModList)
+		activeSkill.skillModList = new("ModList"):ModList(activeSkill.baseSkillModList)
 		if activeSkill.minion then
-			activeSkill.minion.modDB = new("ModDB")
+			activeSkill.minion.modDB = new("ModDB"):ModDB()
 			activeSkill.minion.modDB.actor = activeSkill.minion
 			calcs.createMinionSkills(env, activeSkill)
 			activeSkill.skillPartName = activeSkill.minion.mainSkill.activeEffect.grantedEffect.name
+			if activeSkill.minion.type == "AnimatedArmour" and not activeSkill.skillFlags.disable
+				and (not guardian or activeSkill == env.player.mainSkill) then
+				guardian = activeSkill.minion
+			end
 		end
 	end
 
 	env.player.output = { }
-	env.enemy.output = { }
+	env.enemy.output = {}
+	---@class Output
 	local output = env.player.output
 
 	env.partyMembers = env.build.partyTab.actor
@@ -1284,6 +1347,9 @@ function calcs.perform(env, skipEHP)
 		output.Minion = { }
 		initMinionModDB(env, env.player.mainSkill, output.Minion)
 	end
+	if guardian and guardian ~= env.minion then
+		addMinionItems(env, guardian)
+	end
 	if env.aegisModList then
 		env.player.itemList["Weapon 2"] = nil
 	end
@@ -1294,6 +1360,7 @@ function calcs.perform(env, skipEHP)
 	end
 
 	local hasGuaranteedBonechill = false
+	local guaranteedChillSkills = { }
 
 	-- Banners
 	if modDB:Flag(nil,"Condition:BannerPlanted") then
@@ -1315,19 +1382,30 @@ function calcs.perform(env, skipEHP)
 	if env.minion then
 		applyEnemyModifiers(env.minion, true)
 	end
+	if guardian and env.mode_effective then
+		if guardian ~= env.minion then
+			applyEnemyModifiers(guardian, true)
+		end
+		for _, scorch in ipairs(guardian.modDB:Tabulate("BASE", nil, "ScorchBase")) do
+			local effect = scorch.value * calcLib.mod(guardian.modDB, nil, "EnemyScorchEffect")
+			modDB:NewMod("ScorchOverride", "BASE", effect, scorch.mod.source)
+		end
+	end
 	applyEnemyModifiers(env.enemy, true)
 	local minionCounts = { }
 
 	for _, activeSkill in ipairs(env.player.activeSkillList) do
 		if activeSkill.skillTypes[SkillType.Brand] then
-			local attachLimit = activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "BrandsAttachedLimit")
-			local attached = modDB:Sum("BASE", nil, "Multiplier:ConfigBrandsAttachedToEnemy")
+			local attachLimit = m_min(activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "BrandsAttachedLimit"), activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "ActiveBrandLimit"))
+			local configured = modDB:Sum("BASE", nil, "Multiplier:ConfigBrandsAttachedToEnemy")
+			local attached = configured > 0 and m_min(configured, attachLimit) or attachLimit
+			activeSkill.skillData.attachedBrandCount = attached
 			local activeBrands = modDB:Sum("BASE", nil, "Multiplier:ConfigActiveBrands")
-			local actual = m_min(attachLimit, attached)
 			-- Cap the number of active brands by the limit, which is 3 by default
-			modDB.multipliers["ActiveBrand"] = m_min(activeBrands, modDB:Sum("BASE", nil, "ActiveBrandLimit"))
-			modDB.multipliers["BrandsAttachedToEnemy"] = m_max(actual, modDB.multipliers["BrandsAttachedToEnemy"] or 0)
-			enemyDB.multipliers["BrandsAttached"] = m_max(actual, enemyDB.multipliers["BrandsAttached"] or 0)
+			-- Also consider increase to number of active brands from other sources (e.g. Foulgrasp Support)
+			modDB.multipliers["ActiveBrand"] = m_max(m_min(activeBrands, activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "ActiveBrandLimit")), modDB.multipliers["ActiveBrand"] or 0)
+			modDB.multipliers["BrandsAttachedToEnemy"] = m_max(attached, modDB.multipliers["BrandsAttachedToEnemy"] or 0)
+			enemyDB.multipliers["BrandsAttached"] = m_max(attached, enemyDB.multipliers["BrandsAttached"] or 0)
 		end
 		if activeSkill.skillFlags.totem then
 			local limit = env.player.mainSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "ActiveTotemLimit", "ActiveBallistaLimit" )
@@ -1388,9 +1466,8 @@ function calcs.perform(env, skipEHP)
 					modDB:NewMod("SelfScorchOverride", "BASE", effect, activeSkill.activeEffect.grantedEffect.name)
 				end
 			end
-		elseif activeSkill.skillTypes[SkillType.ChillingArea] or (activeSkill.skillTypes[SkillType.NonHitChill] and not activeSkill.skillModList:Flag(nil, "CannotChill")) then
-			local effect = data.nonDamagingAilment.Chill.default * calcLib.mod(activeSkill.skillModList, activeSkill.skillCfg, "EnemyChillEffect")
-			modDB:NewMod("ChillOverride", "BASE", effect, activeSkill.activeEffect.grantedEffect.name)
+		elseif activeSkill.skillFlags.guaranteedChill or activeSkill.skillTypes[SkillType.ChillingArea] or (activeSkill.skillTypes[SkillType.NonHitChill] and not activeSkill.skillModList:Flag(nil, "CannotChill")) then
+			t_insert(guaranteedChillSkills, activeSkill)
 			enemyDB:NewMod("Condition:Chilled", "FLAG", true, activeSkill.activeEffect.grantedEffect.name)
 			if activeSkill.skillData.supportBonechill then
 				hasGuaranteedBonechill = true
@@ -1475,12 +1552,12 @@ function calcs.perform(env, skipEHP)
 	output.LootRarityMagicEnemies = (lootRarityMagicEnemies > 0) and lootRarityMagicEnemies + modDB:Sum("INC", nil, "LootRarity") or 0
 
 	local breakdown = nil
-	if env.mode == "CALCS" then
+	if env.buildBreakdown then
 		-- Initialise breakdown module
-		breakdown = LoadModule(calcs.breakdownModule, modDB, output, env.player)
+		breakdown = require(calcs.breakdownModule)(modDB, output, env.player)
 		env.player.breakdown = breakdown
 		if env.minion then
-			env.minion.breakdown = LoadModule(calcs.breakdownModule, env.minion.modDB, env.minion.output, env.minion)
+			env.minion.breakdown = require(calcs.breakdownModule)(env.minion.modDB, env.minion.output, env.minion)
 		end
 	end
 
@@ -1627,8 +1704,9 @@ function calcs.perform(env, skipEHP)
 		local flaskRecInc = modDB:Sum("INC", nil, "Flask"..type.."Recovery")
 		local flaskRecMore = modDB:More(nil, "Flask"..type.."Recovery")
 		local flaskRateInc = modDB:Sum("INC", nil, "Flask"..type.."RecoveryRate")
+		local flaskRateMore = modDB:More(nil, "Flask"..type.."RecoveryRate")
 		local flaskTotal = base * (1 - instPerc / 100) * (1 + flaskRecInc / 100) * flaskRecMore * (1 + flaskDurInc / 100)
-		local flaskDur = dur * (1 + flaskDurInc / 100) / (1 + flaskTotalRateInc / 100) / (1 + flaskRateInc / 100)
+		local flaskDur = dur * (1 + flaskDurInc / 100) / (1 + flaskTotalRateInc / 100) / (1 + flaskRateInc / 100) / flaskRateMore
 
 		-- More life recovery while on low life is not affected by flask effect (verified ingame).
 		-- Since this will be multiplied by the flask effect value below we have to counteract this by removing the flask effect from the value beforehand.
@@ -1664,6 +1742,11 @@ function calcs.perform(env, skipEHP)
 		local function calcFlaskMods(item, baseName, buffModList, modList, onlyMinion)
 			local flaskEffectInc = effectInc + item.flaskData.effectInc
 			local flaskEffectIncNonPlayer = effectIncNonPlayer + item.flaskData.effectInc
+			local flaskTypeEffect = ({ ["Iron Flask"] = "IronFlaskEffect", ["Granite Flask"] = "GraniteFlaskEffect", ["Ruby Flask"] = "RubyFlaskEffect", ["Sapphire Flask"] = "SapphireFlaskEffect", ["Topaz Flask"] = "TopazFlaskEffect" })[item.baseName]
+			if flaskTypeEffect then
+				flaskEffectInc = flaskEffectInc + modDB:Sum("INC", { actor = "player" }, flaskTypeEffect)
+				flaskEffectIncNonPlayer = flaskEffectIncNonPlayer + modDB:Sum("INC", nil, flaskTypeEffect)
+			end
 			if item.rarity == "MAGIC" and not (item.base.flask.life or item.base.flask.mana) then
 				flaskEffectInc = flaskEffectInc + effectIncMagic
 				flaskEffectIncNonPlayer = flaskEffectIncNonPlayer + effectIncMagicNonPlayer
@@ -1681,18 +1764,24 @@ function calcs.perform(env, skipEHP)
 			local effectMod = 1 + (flaskEffectInc) / 100
 			local effectModNonPlayer = 1 + (flaskEffectIncNonPlayer) / 100
 
+			-- Life and Mana flasks are not Utility flasks, so their effects are kept when Utility flasks are disabled
+			local isUtilityFlask = not (item.base.flask.life or item.base.flask.mana)
+
 			-- Avert thine eyes, lest they be forever scarred
 			-- I have no idea how to determine which buff is applied by a given flask,
 			-- so utility flasks are grouped by base, unique flasks are grouped by name, and magic flasks by their modifiers
 			if buffModList[1] then
 				if not onlyMinion then
-					local srcList = new("ModList")
+					local srcList = new("ModList"):ModList()
 					srcList:ScaleAddList(buffModList, effectMod)
 					mergeBuff(srcList, flaskBuffs, baseName)
 					mergeBuff(srcList, flaskBuffsPerBase[item.baseName], baseName)
+					if not isUtilityFlask then
+						mergeBuff(srcList, flaskBuffsNonUtility, baseName)
+					end
 				end
 				if (not onlyRecovery or checkNonRecoveryFlasksForMinions) and (flasksApplyToMinion or quickSilverAppliesToAllies or (nonUniqueFlasksApplyToMinion and item.rarity ~= "UNIQUE" and item.rarity ~= "RELIC")) then
-					srcList = new("ModList")
+					srcList = new("ModList"):ModList()
 					srcList:ScaleAddList(buffModList, effectModNonPlayer)
 					mergeBuff(srcList, flaskBuffsNonPlayer, baseName)
 					mergeBuff(srcList, flaskBuffsPerBaseNonPlayer[item.baseName], baseName)
@@ -1700,7 +1789,7 @@ function calcs.perform(env, skipEHP)
 			end
 
 			if modList[1] then
-				local srcList = new("ModList")
+				local srcList = new("ModList"):ModList()
 				srcList:ScaleAddList(modList, effectMod)
 				local key
 				if item.rarity == "UNIQUE" or item.rarity == "RELIC" then
@@ -1714,10 +1803,12 @@ function calcs.perform(env, skipEHP)
 				if not onlyRecovery then
 					mergeBuff(srcList, flaskBuffs, key)
 					mergeBuff(srcList, flaskBuffsPerBase[item.baseName], key)
-					mergeBuff(srcList, flaskBuffsNonUtility, key)
+					if not isUtilityFlask then
+						mergeBuff(srcList, flaskBuffsNonUtility, key)
+					end
 				end
 				if (not onlyRecovery or checkNonRecoveryFlasksForMinions) and (flasksApplyToMinion or quickSilverAppliesToAllies or (nonUniqueFlasksApplyToMinion and item.rarity ~= "UNIQUE" and item.rarity ~= "RELIC")) then
-					srcList = new("ModList")
+					srcList = new("ModList"):ModList()
 					srcList:ScaleAddList(modList, effectModNonPlayer)
 					mergeBuff(srcList, flaskBuffsNonPlayer, key)
 					mergeBuff(srcList, flaskBuffsPerBaseNonPlayer[item.baseName], key)
@@ -1725,7 +1816,20 @@ function calcs.perform(env, skipEHP)
 			end
 		end
 
+		local slotIndex = env.itemSlotIndex or { }
+		local orderedFlasks = { }
 		for item in pairs(flasks) do
+			t_insert(orderedFlasks, item)
+		end
+		table.sort(orderedFlasks, function(a, b)
+			local posA = slotIndex[a] or 0
+			local posB = slotIndex[b] or 0
+			if posA ~= posB then
+				return posA < posB
+			end
+			return (a.id or 0) < (b.id or 0)
+		end)
+		for _, item in ipairs(orderedFlasks) do
 			flaskBuffsPerBase[item.baseName] = flaskBuffsPerBase[item.baseName] or {}
 			flaskBuffsPerBaseNonPlayer[item.baseName] = flaskBuffsPerBaseNonPlayer[item.baseName] or {}
 			local instantPerc = getFlaskInstantRecovery(item)
@@ -1770,18 +1874,14 @@ function calcs.perform(env, skipEHP)
 				calcFlaskMods(item, item.baseName, item.buffModList, item.modList)
 			end
 		end
-		if modDB:Flag(nil, "UtilityFlasksDoNotApplyToPlayer") then
-			for flaskCond, status in pairs(flaskConditionsNonUtility) do
+		if not modDB:Flag(nil, "FlasksDoNotApplyToPlayer") then
+			local utilityFlasksDisabled = modDB:Flag(nil, "UtilityFlasksDoNotApplyToPlayer")
+			local appliedFlaskConditions = utilityFlasksDisabled and flaskConditionsNonUtility or flaskConditions
+			local appliedFlaskBuffs = utilityFlasksDisabled and flaskBuffsNonUtility or flaskBuffs
+			for flaskCond, status in pairs(appliedFlaskConditions) do
 				modDB.conditions[flaskCond] = status
 			end
-			for _, buffModList in pairs(flaskBuffsNonUtility) do
-				modDB:AddList(buffModList)
-			end
-		elseif not modDB:Flag(nil, "FlasksDoNotApplyToPlayer") then
-			for flaskCond, status in pairs(flaskConditions) do
-				modDB.conditions[flaskCond] = status
-			end
-			for _, buffModList in pairs(flaskBuffs) do
+			for _, buffModList in pairs(appliedFlaskBuffs) do
 				modDB:AddList(buffModList)
 			end
 		end
@@ -1839,14 +1939,14 @@ function calcs.perform(env, skipEHP)
 
 			-- same deal as flasks, go look at the comment there
 			if buffModList[1] then
-				local srcList = new("ModList")
+				local srcList = new("ModList"):ModList()
 				srcList:ScaleAddList(buffModList, effectMod)
 				mergeBuff(srcList, tinctureBuffs, baseName)
 				mergeBuff(srcList, tinctureBuffsPerBase[item.baseName], baseName)
 			end
 
 			if modList[1] then
-				local srcList = new("ModList")
+				local srcList = new("ModList"):ModList()
 				srcList:ScaleAddList(modList, effectMod)
 				local key
 				if item.rarity == "UNIQUE" or item.rarity == "RELIC" then
@@ -1861,7 +1961,20 @@ function calcs.perform(env, skipEHP)
 				mergeBuff(srcList, tinctureBuffsPerBase[item.baseName], key)
 			end
 		end
+		local slotIndex = env.itemSlotIndex or { }
+		local orderedTinctures = { }
 		for item in pairs(tinctures) do
+			t_insert(orderedTinctures, item)
+		end
+		table.sort(orderedTinctures, function(a, b)
+			local posA = slotIndex[a] or 0
+			local posB = slotIndex[b] or 0
+			if posA ~= posB then
+				return posA < posB
+			end
+			return (a.id or 0) < (b.id or 0)
+		end)
+		for _, item in ipairs(orderedTinctures) do
 			if tinctureLimit <= 0 then
 				break
 			end
@@ -1933,9 +2046,22 @@ function calcs.perform(env, skipEHP)
 	if breakdown then
 		breakdown.LifeReserved = { reservations = { } }
 		breakdown.ManaReserved = { reservations = { } }
+		breakdown.LifeReservationEfficiency = { rowList = { }, colList = {
+				{ label = "Skill", key = "skillName" },
+				{ label = "Inc/red", key = "inc" },
+				{ label = "More/less", key = "more" },
+				{ label = "Efficiency", key = "total" },
+			} }
+		breakdown.ManaReservationEfficiency = copyTable(breakdown.LifeReservationEfficiency)
 	end
+	output.LifeReservationEfficiency = modDB:Sum("INC", nil, "LifeReservationEfficiency", "ReservationEfficiency")
+	output.ManaReservationEfficiency = modDB:Sum("INC", nil, "ManaReservationEfficiency", "ReservationEfficiency")
 	for _, activeSkill in ipairs(env.player.activeSkillList) do
-		if (activeSkill.skillTypes[SkillType.HasReservation] or activeSkill.skillData.triggeredByAutoexertion ) and not activeSkill.skillTypes[SkillType.ReservationBecomesCost] then
+		if activeSkill.skillData.requiresManaReservation and output.Mana == 0 then
+			activeSkill.skillFlags.disable = true
+			activeSkill.disableReason = "This skill requires reserving Mana"
+		end
+		if (activeSkill.skillTypes[SkillType.HasReservation] or activeSkill.skillData.triggeredByAutoexertion ) and not activeSkill.skillTypes[SkillType.ReservationBecomesCost] and not activeSkill.skillFlags.disable then
 			local skillModList = activeSkill.skillModList
 			local skillCfg = activeSkill.skillCfg
 			local mult = floor(skillModList:More(skillCfg, "SupportManaMultiplier"), 4)
@@ -1950,7 +2076,7 @@ function calcs.perform(env, skipEHP)
 				pool.Life.baseFlat = skillModList:Sum("BASE", skillCfg, "LifeCostBase") + (activeSkill.activeEffect.grantedEffectLevel.cost.Life or 0)
 			end
 			pool.Life.basePercent = activeSkill.skillData.lifeReservationPercent or activeSkill.activeEffect.grantedEffectLevel.lifeReservationPercent or 0
-			if skillModList:Flag(skillCfg, "BloodMagicReserved") then
+			if skillModList:Flag(skillCfg, "BloodMagicReserved") and not activeSkill.skillData.requiresManaReservation then
 				pool.Life.baseFlat = pool.Life.baseFlat + pool.Mana.baseFlat
 				pool.Mana.baseFlat = 0
 				activeSkill.skillData["LifeReservationFlatForced"] = activeSkill.skillData["ManaReservationFlatForced"]
@@ -1961,7 +2087,9 @@ function calcs.perform(env, skipEHP)
 				activeSkill.skillData["ManaReservationPercentForced"] = nil
 			end
 			for name, values in pairs(pool) do
-				values.more = skillModList:More(skillCfg, name.."Reserved", "Reserved")
+				values.resourceMore = skillModList:More(skillCfg, name.."Reserved")
+				values.genericMore = skillModList:More(skillCfg, "Reserved")
+				values.more = values.resourceMore * values.genericMore
 				values.inc = skillModList:Sum("INC", skillCfg, name.."Reserved", "Reserved")
 				values.efficiency = m_max(skillModList:Sum("INC", skillCfg, name.."ReservationEfficiency", "ReservationEfficiency"), -100)
 				values.efficiencyMore = skillModList:More(skillCfg, name.."ReservationEfficiency", "ReservationEfficiency")
@@ -1970,19 +2098,26 @@ function calcs.perform(env, skipEHP)
 				if activeSkill.skillData[name.."ReservationFlatForced"] then
 					values.reservedFlat = activeSkill.skillData[name.."ReservationFlatForced"]
 				else
-					local baseFlatVal = m_floor(values.baseFlat * mult)
+					local baseFlatVal = m_modf(values.baseFlat * mult)
 					values.reservedFlat = 0
-					if values.more > 0 and values.inc > -100 and baseFlatVal ~= 0 then
-						values.reservedFlat = m_max(round(baseFlatVal * (100 + values.inc) / 100 * values.more / (1 + values.efficiency / 100) / values.efficiencyMore, 0), 0)
+					if baseFlatVal ~= 0 then
+						-- Reservation modifiers use separate integer stages before efficiency.
+						local modifiedFlat = baseFlatVal + m_modf(baseFlatVal * values.inc / 100)
+						modifiedFlat = modifiedFlat + m_modf(modifiedFlat * (values.resourceMore - 1))
+						modifiedFlat = modifiedFlat + m_modf(modifiedFlat * (values.genericMore - 1))
+						values.reservedFlat = m_max(round(modifiedFlat / (1 + values.efficiency / 100) / values.efficiencyMore, 0), 0)
 					end
 				end
 				if activeSkill.skillData[name.."ReservationPercentForced"] then
 					values.reservedPercent = activeSkill.skillData[name.."ReservationPercentForced"]
 				else
-					local basePercentVal = values.basePercent * mult
+					local basePercentVal = m_modf(values.basePercent * 100 * mult)
 					values.reservedPercent = 0
-					if values.more > 0 and values.inc > -100 and basePercentVal ~= 0 then
-						values.reservedPercent = m_max(round(basePercentVal * (100 + values.inc) / 100 * values.more / (1 + values.efficiency / 100) / values.efficiencyMore, 2), 0)
+					if basePercentVal ~= 0 then
+						local modifiedPercent = basePercentVal + m_modf(basePercentVal * values.inc / 100)
+						modifiedPercent = modifiedPercent + m_modf(modifiedPercent * (values.resourceMore - 1))
+						modifiedPercent = modifiedPercent + m_modf(modifiedPercent * (values.genericMore - 1))
+						values.reservedPercent = m_max(round(modifiedPercent / (1 + values.efficiency / 100) / values.efficiencyMore, 0) / 100, 0)
 					end
 				end
 				if activeSkill.activeMineCount then
@@ -1993,6 +2128,14 @@ function calcs.perform(env, skipEHP)
 				if activeSkill.skillCfg.skillName == "Blood Sacrament" and activeSkill.activeStageCount then
 					values.reservedFlat = values.reservedFlat * (activeSkill.activeStageCount + 1)
 					values.reservedPercent = values.reservedPercent * (activeSkill.activeStageCount + 1)
+				end
+				if breakdown and (values.reservedFlat ~= 0 or values.reservedPercent ~= 0) then
+					t_insert(breakdown[name.."ReservationEfficiency"].rowList, {
+						skillName = activeSkill.activeEffect.grantedEffect.name,
+						inc = s_format("%+d%%", values.efficiency),
+						more = values.efficiencyMore ~= 1 and ("x "..values.efficiencyMore),
+						total = "x "..round(1 / ((1 + values.efficiency / 100) * values.efficiencyMore), 4),
+					})
 				end
 				if values.reservedFlat ~= 0 then
 					activeSkill.skillData[name.."ReservedBase"] = values.reservedFlat
@@ -2036,6 +2179,9 @@ function calcs.perform(env, skipEHP)
 
 	-- Set the life/mana reservations (hold off on GrantReserved"..pool.."AsAura)
 	doActorLifeManaReservation(env.player, not modDB:Flag(nil, "ManaIncreasedByOvercappedLightningRes"))
+	if env.mode_combat then
+		doActorShrineBuffs(env.player, "rest")
+	end
 
 	if env.mode_combat then
 		mergeTinctures(env.tinctures)
@@ -2063,10 +2209,11 @@ function calcs.perform(env, skipEHP)
 			local out = {val = 0, source = nil}
 			for _, reqSource in ipairs(env.requirementsTable) do
 				if reqSource[attr] and reqSource[attr] > 0 then
-					local req = m_floor(reqSource[attr] * reqMult)
+					local sourceSkill = reqSource.sourceSkill
+					local req = m_floor(reqSource[attr] * (sourceSkill and calcLib.mod(sourceSkill.skillModList, sourceSkill.skillCfg, "GlobalAttributeRequirements") or reqMult))
 					if omniRequirements then
 						local omniReqMult = 1 / (omniRequirements - 1)
-						local attributereq =  m_floor(reqSource[attr] * reqMult)
+						local attributereq = req
 						req = m_floor(attributereq * omniReqMult)
 					end
 					if req > out.val then
@@ -2140,6 +2287,8 @@ function calcs.perform(env, skipEHP)
 	local buffs = { }
 	env.buffs = buffs
 	local guards = { }
+	-- used for a stable iteration order
+	local guardOrder = { }
 	local minionBuffs = { }
 	env.minionBuffs = minionBuffs
 	local debuffs = { }
@@ -2190,8 +2339,8 @@ function calcs.perform(env, skipEHP)
 						minionCurses.limit = modData.value + 1
 						break
 					elseif modData.name == "AllyModifier" and modData.type == "LIST" then
-						buffs["Spectre"] = buffs["Spectre"] or new("ModList")
-						minionBuffs["Spectre"] = minionBuffs["Spectre"] or new("ModList")
+						buffs["Spectre"] = buffs["Spectre"] or new("ModList"):ModList()
+						minionBuffs["Spectre"] = minionBuffs["Spectre"] or new("ModList"):ModList()
 						for _, modValue in pairs(modData.value) do
 							local copyModValue = copyTable(modValue)
 							copyModValue.source = "Spectre:"..spectreData.name
@@ -2199,14 +2348,14 @@ function calcs.perform(env, skipEHP)
 							t_insert(buffs["Spectre"], copyModValue)
 						end
 					elseif modData.name == "MinionModifier" and modData.type == "LIST" then
-						minionBuffs["Spectre"] = minionBuffs["Spectre"] or new("ModList")
+						minionBuffs["Spectre"] = minionBuffs["Spectre"] or new("ModList"):ModList()
 						for _, modValue in pairs(modData.value) do
 							local copyModValue = copyTable(modValue)
 							copyModValue.source = "Spectre:"..spectreData.name
 							t_insert(minionBuffs["Spectre"], copyModValue)
 						end
 					elseif modData.name == "PlayerModifier" and modData.type == "LIST" then
-						buffs["Spectre"] = buffs["Spectre"] or new("ModList")
+						buffs["Spectre"] = buffs["Spectre"] or new("ModList"):ModList()
 						for _, modValue in pairs(modData.value) do
 							local copyModValue = copyTable(modValue)
 							copyModValue.source = "Spectre:"..spectreData.name
@@ -2261,14 +2410,14 @@ function calcs.perform(env, skipEHP)
 				-- Also nothing :/
 			elseif buff.type == "GlobalDB" then
 				modDB:AddList(buff.modList) -- Allows a skill mod to affect other skills through modDB
-			elseif buff.type == "Buff" and not skillModList:Flag(skillCfg, "DisableBuff") then
+			elseif buff.type == "Buff" then
 				if env.mode_buffs and (not activeSkill.skillFlags.totem or buff.allowTotemBuff) then
 					local skillCfg = buff.activeSkillBuff and skillCfg
 					local modStore = buff.activeSkillBuff and skillModList or modDB
 				 	if not buff.applyNotPlayer then
 						activeSkill.buffSkill = true
 						modDB.conditions["AffectedBy"..buff.name:gsub(" ","")] = true
-						local srcList = new("ModList")
+						local srcList = new("ModList"):ModList()
 						local inc = modStore:Sum("INC", skillCfg, "BuffEffect", "BuffEffectOnSelf", "BuffEffectOnPlayer") + skillModList:Sum("INC", skillCfg, buff.name:gsub(" ", "").."Effect")
 						local more = modStore:More(skillCfg, "BuffEffect", "BuffEffectOnSelf")
 						srcList:ScaleAddList(buff.modList, (1 + inc / 100) * more)
@@ -2280,7 +2429,7 @@ function calcs.perform(env, skipEHP)
 					if env.minion and not env.minion.hostile and (buff.applyMinions or buff.applyAllies or skillModList:Flag(nil, "BuffAppliesToAllies")) then
 						activeSkill.minionBuffSkill = true
 						env.minion.modDB.conditions["AffectedBy"..buff.name:gsub(" ","")] = true
-						local srcList = new("ModList")
+						local srcList = new("ModList"):ModList()
 						local inc = modStore:Sum("INC", skillCfg, "BuffEffect") + env.minion.modDB:Sum("INC", nil, "BuffEffectOnSelf")
 						local more = modStore:More(skillCfg, "BuffEffect") * env.minion.modDB:More(nil, "BuffEffectOnSelf")
 						srcList:ScaleAddList(buff.modList, (1 + inc / 100) * more)
@@ -2299,10 +2448,13 @@ function calcs.perform(env, skipEHP)
 					local modStore = buff.activeSkillBuff and skillModList or modDB
 				 	if not buff.applyNotPlayer then
 						activeSkill.buffSkill = true
-						local srcList = new("ModList")
+						local srcList = new("ModList"):ModList()
 						local inc = modStore:Sum("INC", skillCfg, "BuffEffect", "BuffEffectOnSelf", "BuffEffectOnPlayer")
 						local more = modStore:More(skillCfg, "BuffEffect", "BuffEffectOnSelf")
 						srcList:ScaleAddList(buff.modList, (1 + inc / 100) * more)
+						if not guards[buff.name] then
+							t_insert(guardOrder, buff.name)
+						end
 						mergeBuff(srcList, guards, buff.name)
 					end
 				end
@@ -2332,12 +2484,12 @@ function calcs.perform(env, skipEHP)
 						local cooldownOverride = modStore:Override(skillCfg, "CooldownRecovery")
 						local actual_cooldown = cooldownOverride or (activeSkill.skillData.cooldown  + modStore:Sum("BASE", skillCfg, "CooldownRecovery")) / calcLib.mod(modStore, skillCfg, "CooldownRecovery")
 						local uptime = modDB:Flag(nil, "Condition:WarcryMaxHit") and 1 or m_min(full_duration / actual_cooldown, 1)
-						local extraWarcryModList = activeSkill.activeEffect.grantedEffect.name == "Rallying Cry" and new("ModList") or {}
+						local extraWarcryModList = activeSkill.activeEffect.grantedEffect.name == "Rallying Cry" and new("ModList"):ModList() or {}
 						if not modDB:Flag(nil, "CannotGainWarcryBuffs") then
 							if not buff.applyNotPlayer then
 								activeSkill.buffSkill = true
 								modDB.conditions["AffectedBy"..warcryName] = true
-								local srcList = new("ModList")
+								local srcList = new("ModList"):ModList()
 								local inc = modStore:Sum("INC", skillCfg, "BuffEffect", "BuffEffectOnSelf", "BuffEffectOnPlayer")
 								local more = modStore:More(skillCfg, "BuffEffect", "BuffEffectOnSelf")
 								for _, warcryBuff in ipairs(buff.modList) do
@@ -2350,7 +2502,7 @@ function calcs.perform(env, skipEHP)
 						if env.minion then
 							activeSkill.minionBuffSkill = true
 							env.minion.modDB.conditions["AffectedBy"..warcryName] = true
-							local srcList = new("ModList")
+							local srcList = new("ModList"):ModList()
 							local inc = skillModList:Sum("INC", skillCfg, "BuffEffect") + env.minion.modDB:Sum("INC", skillCfg, "BuffEffectOnSelf")
 							local more = skillModList:More(skillCfg, "BuffEffect") * env.minion.modDB:More(skillCfg, "BuffEffectOnSelf")
 							for _, warcryBuff in ipairs(buff.modList) do
@@ -2378,7 +2530,7 @@ function calcs.perform(env, skipEHP)
 							mergeBuff(srcList, minionBuffs, buff.name)
 						end
 						if partyTabEnableExportBuffs then
-							local newModList = new("ModList")
+							local newModList = new("ModList"):ModList()
 							local inc = skillModList:Sum("INC", skillCfg, "BuffEffect")
 							local more = skillModList:More(skillCfg, "BuffEffect")
 							newModList:AddList(buff.modList)
@@ -2415,7 +2567,7 @@ function calcs.perform(env, skipEHP)
 								modDB.conditions["AffectedBy"..buff.name:sub(6):gsub(" ","")] = true
 							end
 							modDB.conditions["AffectedBy"..buff.name:gsub(" ","")] = true
-							local srcList = new("ModList")
+							local srcList = new("ModList"):ModList()
 							srcList:ScaleAddList(buff.modList, mult)
 							srcList:ScaleAddList(extraAuraModList, mult)
 							mergeBuff(srcList, buffs, buff.name)
@@ -2430,7 +2582,7 @@ function calcs.perform(env, skipEHP)
 								activeSkill.minionBuffSkill = true
 								env.minion.modDB.conditions["AffectedBy"..buff.name:gsub(" ","")] = true
 								env.minion.modDB.conditions["AffectedByAura"] = true
-								local srcList = new("ModList")
+								local srcList = new("ModList"):ModList()
 								srcList:ScaleAddList(buff.modList, mult)
 								srcList:ScaleAddList(extraAuraModList, mult)
 								mergeBuff(srcList, minionBuffs, buff.name)
@@ -2439,7 +2591,7 @@ function calcs.perform(env, skipEHP)
 						local inc = skillModList:Sum("INC", skillCfg, "AuraEffect", "BuffEffect")
 						local more = skillModList:More(skillCfg, "AuraEffect", "BuffEffect")
 						local mult = (1 + inc / 100) * more
-						local newModList = new("ModList")
+						local newModList = new("ModList"):ModList()
 						newModList:AddList(buff.modList)
 						newModList:AddList(extraAuraModList)
 						if buffExports["Aura"][buff.name] then
@@ -2448,7 +2600,7 @@ function calcs.perform(env, skipEHP)
 						buffExports["Aura"][buff.name] = { effectMult = mult, modList = newModList }
 						if modDB:Flag(nil, "AurasAffectEnemies") and not activeSkill.skillModList:Flag(skillCfg, "SelfAurasAffectYouAndLinkedTarget") then
 							local newModList = {}
-							local srcList = new("ModList")
+							local srcList = new("ModList"):ModList()
 							for _, mod in ipairs(buff.modList) do
 								t_insert(newModList, mod)
 							end
@@ -2466,7 +2618,7 @@ function calcs.perform(env, skipEHP)
 						env.player.mainSkill.skillModList.conditions["AffectedBy"..buff.name:gsub(" ","")] = true
 						env.player.mainSkill.skillModList.conditions["AffectedByAura"] = true
 
-						local srcList = new("ModList")
+						local srcList = new("ModList"):ModList()
 						local inc = skillModList:Sum("INC", skillCfg, "AuraEffect", "BuffEffect", "AuraBuffEffect")
 						local more = skillModList:More(skillCfg, "AuraEffect", "BuffEffect", "AuraBuffEffect")
 						local lists = {extraAuraModList, buff.modList}
@@ -2519,7 +2671,7 @@ function calcs.perform(env, skipEHP)
 							local inc = skillModList:Sum("INC", skillCfg, "AuraEffect", "BuffEffect", "DebuffEffect")
 							local more = skillModList:More(skillCfg, "AuraEffect", "BuffEffect", "DebuffEffect")
 							mult = (1 + inc / 100) * more
-							local newModList = new("ModList")
+							local newModList = new("ModList"):ModList()
 							newModList:AddList(extraAuraModList)
 							buffExports["Aura"][buff.name..(buffExports["Aura"][buff.name] and "_Debuff" or "")] = { effectMult = mult, modList = newModList }
 							if allyBuffs["AuraDebuff"] and allyBuffs["AuraDebuff"][buff.name] and allyBuffs["AuraDebuff"][buff.name].effectMult / 100 > mult then
@@ -2545,7 +2697,7 @@ function calcs.perform(env, skipEHP)
 					activeSkill.debuffSkill = true
 					enemyDB.conditions["AffectedBy"..buff.name:gsub(" ","")] = true
 					modDB.conditions["AffectedBy"..buff.name:gsub(" ","")] = true
-					local srcList = new("ModList")
+					local srcList = new("ModList"):ModList()
 					local mult = 1
 					local extraAuraModList = { }
 					if buff.type == "AuraDebuff" then
@@ -2575,7 +2727,7 @@ function calcs.perform(env, skipEHP)
 								t_insert(newModList, mod)
 							end
 							-- A full modlist causes issues with copy table for mine auras
-							--local newModList = new("ModList")
+							--local newModList = new("ModList"):ModList()
 							--newModList:AddList(buff.modList)
 							--newModList:AddList(extraAuraModList)
 							buffExports["Aura"][buff.name..(buffExports["Aura"][buff.name] and "_Debuff" or "")] = { effectMult = mult, modList = newModList }
@@ -2629,21 +2781,21 @@ function calcs.perform(env, skipEHP)
 						mult = (1 + inc / 100) * more
 					end
 					if buff.type == "Curse" then
-						curse.modList = new("ModList")
+						curse.modList = new("ModList"):ModList()
 						curse.modList:ScaleAddList(buff.modList, mult)
 						if partyTabEnableExportBuffs then
 							buffExports["Curse"][buff.name] = { isMark = curse.isMark, effectMult = curse.isMark and mult or (1 + inc / 100) * moreMark, modList = buff.modList }
 						end
 					else
 						-- Curse applies a buff; scale by curse effect, then buff effect
-						local temp = new("ModList")
+						local temp = new("ModList"):ModList()
 						temp:ScaleAddList(buff.modList, mult)
-						curse.buffModList = new("ModList")
+						curse.buffModList = new("ModList"):ModList()
 						local buffInc = modDB:Sum("INC", skillCfg, "BuffEffectOnSelf")
 						local buffMore = modDB:More(skillCfg, "BuffEffectOnSelf")
 						curse.buffModList:ScaleAddList(temp, (1 + buffInc / 100) * buffMore)
 						if env.minion then
-							curse.minionBuffModList = new("ModList")
+							curse.minionBuffModList = new("ModList"):ModList()
 							local buffInc = env.minion.modDB:Sum("INC", nil, "BuffEffectOnSelf")
 							local buffMore = env.minion.modDB:More(nil, "BuffEffectOnSelf")
 							curse.minionBuffModList:ScaleAddList(temp, (1 + buffInc / 100) * buffMore)
@@ -2678,7 +2830,7 @@ function calcs.perform(env, skipEHP)
 					local more = skillModList:More(skillCfg, "LinkEffect", "BuffEffect")
 					local mult = (1 + inc / 100) * more
 					if partyTabEnableExportBuffs then
-						local newModList = new("ModList")
+						local newModList = new("ModList"):ModList()
 						newModList:AddList(buff.modList)
 						newModList:AddList(extraLinkModList)
 						buffExports["Link"][buff.name] = { effectMult = mult, modList = newModList }
@@ -2687,7 +2839,7 @@ function calcs.perform(env, skipEHP)
 						activeSkill.minionBuffSkill = true
 						env.minion.modDB.conditions["AffectedBy"..buff.name:gsub(" ","")] = true
 						env.minion.modDB.conditions["AffectedByLink"] = true
-						local srcList = new("ModList")
+						local srcList = new("ModList"):ModList()
 						inc = inc + env.minion.modDB:Sum("INC", nil, "BuffEffectOnSelf", "LinkEffectOnSelf")
 						more = more * env.minion.modDB:More(nil, "BuffEffectOnSelf", "LinkEffectOnSelf")
 						mult = (1 + inc / 100) * more
@@ -2700,7 +2852,11 @@ function calcs.perform(env, skipEHP)
 			end
 		end
 		if activeSkill.skillModList:Flag(nil, "Condition:CanWither") or (activeSkill.minion and env.minion and env.minion.modDB:Flag(nil, "Condition:CanWither")) then
-			local effect = activeSkill.minion and m_floor(6 * (1 + modDB:Sum("INC", nil, "MinionWitherEffect") / 100)) or m_floor(6 * (1 + modDB:Sum("INC", nil, "WitherEffect") / 100))
+			local witherEffect = modDB:Sum("INC", nil, activeSkill.minion and "MinionWitherEffect" or "WitherEffect")
+			if not activeSkill.minion and modDB:Flag(nil, "UnholyMight") then
+				witherEffect = witherEffect + modDB:Sum("INC", nil, "UnholyMightAlsoWitherEffect")
+			end
+			local effect = m_floor(6 * (1 + witherEffect / 100))
 			modDB:NewMod("WitherEffectStack", "MAX", effect)
 		end
 		--Handle combustion
@@ -2742,7 +2898,7 @@ function calcs.perform(env, skipEHP)
 							if buff.applyAllies then
 								activeMinionSkill.buffSkill = true
 								modDB.conditions["AffectedBy"..buff.name:gsub(" ","")] = true
-								local srcList = new("ModList")
+								local srcList = new("ModList"):ModList()
 								local inc = modStore:Sum("INC", skillCfg, "BuffEffect", "BuffEffectOnPlayer") + modDB:Sum("INC", nil, "BuffEffectOnSelf")
 								local more = modStore:More(skillCfg, "BuffEffect", "BuffEffectOnPlayer") * modDB:More(nil, "BuffEffectOnSelf")
 								srcList:ScaleAddList(buff.modList, (1 + inc / 100) * more)
@@ -2766,7 +2922,7 @@ function calcs.perform(env, skipEHP)
 								else
 									activeSkill.minion.modDB.conditions["AffectedBy"..buff.name:gsub(" ","")] = true
 								end
-								local srcList = new("ModList")
+								local srcList = new("ModList"):ModList()
 								local inc = modStore:Sum("INC", skillCfg, "BuffEffect", (env.minion == castingMinion) and "BuffEffectOnSelf" or nil)
 								local more = modStore:More(skillCfg, "BuffEffect", (env.minion == castingMinion) and "BuffEffectOnSelf" or nil)
 								srcList:ScaleAddList(buff.modList, (1 + inc / 100) * more)
@@ -2806,7 +2962,7 @@ function calcs.perform(env, skipEHP)
 											modDB.conditions["AffectedBy"..buff.name:sub(6):gsub(" ","")] = true
 										end
 										modDB.conditions["AffectedBy"..buff.name:gsub(" ","")] = true
-										local srcList = new("ModList")
+										local srcList = new("ModList"):ModList()
 										srcList:ScaleAddList(buff.modList, mult)
 										srcList:ScaleAddList(extraAuraModList, mult)
 										setSpectreSource(srcList, buff.name)
@@ -2821,7 +2977,7 @@ function calcs.perform(env, skipEHP)
 										activeMinionSkill.minionBuffSkill = true
 										env.minion.modDB.conditions["AffectedBy"..buff.name:gsub(" ","")] = true
 										env.minion.modDB.conditions["AffectedByAura"] = true
-										local srcList = new("ModList")
+										local srcList = new("ModList"):ModList()
 										srcList:ScaleAddList(buff.modList, mult)
 										srcList:ScaleAddList(extraAuraModList, mult)
 										setSpectreSource(srcList, buff.name)
@@ -2831,7 +2987,7 @@ function calcs.perform(env, skipEHP)
 								local inc = skillModList:Sum("INC", skillCfg, "AuraEffect", "BuffEffect")
 								local more = skillModList:More(skillCfg, "AuraEffect", "BuffEffect")
 								local mult = (1 + inc / 100) * more
-								local newModList = new("ModList")
+								local newModList = new("ModList"):ModList()
 								newModList:AddList(buff.modList)
 								newModList:AddList(extraAuraModList)
 								setSpectreSource(newModList, buff.name)
@@ -2844,7 +3000,7 @@ function calcs.perform(env, skipEHP)
 									env.player.mainSkill.skillModList.conditions["AffectedBy"..buff.name:gsub(" ","")] = true
 									env.player.mainSkill.skillModList.conditions["AffectedByAura"] = true
 
-									local srcList = new("ModList")
+									local srcList = new("ModList"):ModList()
 									local inc = skillModList:Sum("INC", skillCfg, "AuraEffect", "BuffEffect", "AuraBuffEffect")
 									local more = skillModList:More(skillCfg, "AuraEffect", "BuffEffect", "AuraBuffEffect")
 									local lists = {extraAuraModList, buff.modList}
@@ -2880,7 +3036,7 @@ function calcs.perform(env, skipEHP)
 							}
 							local inc = skillModList:Sum("INC", skillCfg, "CurseEffect") + enemyDB:Sum("INC", nil, "CurseEffectOnSelf")
 							local more = skillModList:More(skillCfg, "CurseEffect") * enemyDB:More(nil, "CurseEffectOnSelf")
-							curse.modList = new("ModList")
+							curse.modList = new("ModList"):ModList()
 							curse.modList:ScaleAddList(buff.modList, (1 + inc / 100) * more)
 							t_insert(minionCurses, curse)
 						end
@@ -2898,7 +3054,7 @@ function calcs.perform(env, skipEHP)
 						end
 						if env.mode_effective and stackCount > 0 then
 							activeMinionSkill.debuffSkill = true
-							local srcList = new("ModList")
+							local srcList = new("ModList"):ModList()
 							local mult = 1
 							if buff.type == "AuraDebuff" then
 								mult = 0
@@ -2941,14 +3097,14 @@ function calcs.perform(env, skipEHP)
 			modDB.conditions["AffectedBy"..buffName:gsub(" ","")] = true
 			local inc = modDB:Sum("INC", nil, "BuffEffectOnSelf", "AuraEffectOnSelf")
 			local more = modDB:More(nil, "BuffEffectOnSelf", "AuraEffectOnSelf")
-			local srcList = new("ModList")
+			local srcList = new("ModList"):ModList()
 			srcList:ScaleAddList(buff.modList, (buff.effectMult + inc) / 100 * more)
 			mergeBuff(srcList, buffs, buffName)
 			if env.minion then
 				env.minion.modDB.conditions["AffectedBy"..buffName:gsub(" ","")] = true
 				local inc = env.minion.modDB:Sum("INC", nil, "BuffEffectOnSelf", "AuraEffectOnSelf")
 				local more = env.minion.modDB:More(nil, "BuffEffectOnSelf", "AuraEffectOnSelf")
-				local srcList = new("ModList")
+				local srcList = new("ModList"):ModList()
 				srcList:ScaleAddList(buff.modList, (buff.effectMult + inc) / 100 * more)
 				mergeBuff(srcList, minionBuffs, buffName)
 			end
@@ -2961,14 +3117,14 @@ function calcs.perform(env, skipEHP)
 				if not modDB:Flag(nil, "AlliesAurasCannotAffectSelf") and not modDB.conditions["AffectedBy"..auraNameCompressed] then
 					modDB.conditions["AffectedByAura"] = true
 					modDB.conditions["AffectedBy"..auraNameCompressed] = true
-					local srcList = new("ModList")
+					local srcList = new("ModList"):ModList()
 					srcList:ScaleAddList(aura.modList, aura.effectMult / 100)
 					mergeBuff(srcList, buffs, auraName)
 				end
 				if env.minion and not env.minion.modDB.conditions["AffectedBy"..auraNameCompressed] then
 					env.minion.modDB.conditions["AffectedByAura"] = true
 					env.minion.modDB.conditions["AffectedBy"..auraNameCompressed] = true
-					local srcList = new("ModList")
+					local srcList = new("ModList"):ModList()
 					srcList:ScaleAddList(aura.modList, aura.effectMult / 100)
 					mergeBuff(srcList, minionBuffs, auraName)
 				end
@@ -2981,14 +3137,14 @@ function calcs.perform(env, skipEHP)
 					modDB.conditions["AffectedByAura"] = true
 					modDB.conditions["AffectedBy"..auraName:sub(6):gsub(" ","")] = true
 					modDB.conditions["AffectedBy"..auraNameCompressed] = true
-					local srcList = new("ModList")
+					local srcList = new("ModList"):ModList()
 					srcList:ScaleAddList(aura.modList, aura.effectMult / 100)
 					mergeBuff(srcList, buffs, auraName)
 				end
 				if env.minion and not env.minion.modDB.conditions["AffectedBy"..auraNameCompressed] then
 					env.minion.modDB.conditions["AffectedByAura"] = true
 					env.minion.modDB.conditions["AffectedBy"..auraNameCompressed] = true
-					local srcList = new("ModList")
+					local srcList = new("ModList"):ModList()
 					srcList:ScaleAddList(aura.modList, aura.effectMult / 100)
 					mergeBuff(srcList, minionBuffs, auraName)
 				end
@@ -3002,7 +3158,7 @@ function calcs.perform(env, skipEHP)
 				if not enemyDB.conditions["AffectedBy"..auraNameCompressed] then
 					enemyDB.conditions["AffectedBy"..auraNameCompressed] = true
 					modDB.conditions["AffectedBy"..auraNameCompressed] = true
-					local srcList = new("ModList")
+					local srcList = new("ModList"):ModList()
 					srcList:ScaleAddList(aura.modList, aura.effectMult / 100)
 					mergeBuff(srcList, debuffs, auraName)
 				end
@@ -3014,7 +3170,7 @@ function calcs.perform(env, skipEHP)
 				if not enemyDB.conditions["AffectedBy"..auraNameCompressed] then
 					enemyDB.conditions["AffectedBy"..auraNameCompressed] = true
 					modDB.conditions["AffectedBy"..auraNameCompressed] = true
-					local srcList = new("ModList")
+					local srcList = new("ModList"):ModList()
 					srcList:ScaleAddList(aura.modList, aura.effectMult / 100)
 					mergeBuff(srcList, debuffs, auraName)
 				end
@@ -3027,7 +3183,7 @@ function calcs.perform(env, skipEHP)
 			if not modDB.conditions["AffectedBy"..warcryNameCompressed] then
 				modDB.conditions["AffectedByWarcry"] = true
 				modDB.conditions["AffectedBy"..warcryNameCompressed] = true
-				local srcList = new("ModList")
+				local srcList = new("ModList"):ModList()
 				for _, warcryBuff in ipairs(warcry.modList) do
 					srcList:ScaleAddList({warcryBuff}, (warcry.effectMult or 100) / 100 * (warcryBuff[1].warcryPowerBonus or 1))
 				end
@@ -3036,7 +3192,7 @@ function calcs.perform(env, skipEHP)
 			if env.minion and not env.minion.modDB.conditions["AffectedBy"..warcryNameCompressed] then
 				env.minion.modDB.conditions["AffectedByWarcry"] = true
 				env.minion.modDB.conditions["AffectedBy"..warcryNameCompressed] = true
-				local srcList = new("ModList")
+				local srcList = new("ModList"):ModList()
 				for _, warcryBuff in ipairs(warcry.modList) do
 					srcList:ScaleAddList({warcryBuff}, (warcry.effectMult or 100) / 100 * (warcryBuff[1].warcryPowerBonus or 1))
 				end
@@ -3050,7 +3206,7 @@ function calcs.perform(env, skipEHP)
 			if not modDB.conditions["AffectedBy"..linkNameCompressed] then
 				modDB.conditions["AffectedByLink"] = true
 				modDB.conditions["AffectedBy"..linkNameCompressed] = true
-				local srcList = new("ModList")
+				local srcList = new("ModList"):ModList()
 				srcList:ScaleAddList(link.modList, (link.effectMult or 100) / 100)
 				mergeBuff(srcList, buffs, linkName)
 			end
@@ -3084,8 +3240,12 @@ function calcs.perform(env, skipEHP)
 
 	-- Check for extra curses
 	for dest, modDB in pairs({[curses] = modDB, [minionCurses] = env.minion and env.minion.modDB}) do
+		if env.mode_combat and modDB:Flag(nil, "Condition:OnConsecratedGround") then
+			local effect = 1 + modDB:Sum("INC", nil, "ConsecratedGroundEffect") / 100
+			modDB:NewMod("CurseEffectOnSelf", "INC", -50 * effect, "Consecrated Ground")
+		end
 		for _, value in ipairs(modDB:List(nil, "ExtraCurse")) do
-			local gemModList = new("ModList")
+			local gemModList = new("ModList"):ModList()
 			local grantedEffect = env.data.skills[value.skillId]
 			if grantedEffect then
 				calcs.mergeSkillInstanceMods(env, gemModList, {
@@ -3119,7 +3279,7 @@ function calcs.perform(env, skipEHP)
 						fromPlayer = (dest == curses),
 						priority = determineCursePriority(grantedEffect.name),
 					}
-					curse.modList = new("ModList")
+					curse.modList = new("ModList"):ModList()
 					curse.modList:ScaleAddList(curseModList, (1 + enemyDB:Sum("INC", nil, "CurseEffectOnSelf") / 100) * enemyDB:More(nil, "CurseEffectOnSelf"))
 					t_insert(dest, curse)
 				end
@@ -3137,7 +3297,7 @@ function calcs.perform(env, skipEHP)
 		local newCurse = {
 			name = curseName,
 			priority = 0,
-			modList = new("ModList")
+			modList = new("ModList"):ModList()
 		}
 		local mult = curse.effectMult / 100
 		if curse.isMark then
@@ -3255,7 +3415,8 @@ function calcs.perform(env, skipEHP)
 	-- Process guard buffs
 	local guardSlots = { }
 	local nonVaal = false
-	for name, modList in pairs(guards) do
+	for _, name in ipairs(guardOrder) do
+		local modList = guards[name]
 		if name == "Vaal Molten Shell" then
 			wipeTable(guardSlots)
 			nonVaal = false
@@ -3313,6 +3474,12 @@ function calcs.perform(env, skipEHP)
 		end
 	end
 
+	-- Calculate guaranteed chills after buffs so chilling areas benefit from active buff modifiers.
+	for _, activeSkill in ipairs(guaranteedChillSkills) do
+		local effect = data.nonDamagingAilment.Chill.default * calcLib.mod(activeSkill.skillModList, activeSkill.skillCfg, "EnemyChillEffect")
+		modDB:NewMod("ChillOverride", "BASE", effect, activeSkill.activeEffect.grantedEffect.name)
+	end
+
 	-- Fix the configured impale stacks on the enemy
 	-- 		If the config is missing (blank), then use the maximum number of stacks
 	--		If the config is larger than the maximum number of stacks, replace it with the correct maximum
@@ -3327,7 +3494,7 @@ function calcs.perform(env, skipEHP)
 	if modDB:Flag(nil, "ManaIncreasedByOvercappedLightningRes") then
 		-- Calculate resistances for ManaIncreasedByOvercappedLightningRes without mutating conversion mods on the player ModDB.
 		local tempResistActor = {
-			modDB = new("ModDB", modDB),
+			modDB = new("ModDB"):ModDB(modDB),
 			output = output,
 			activeSkillList = env.player.activeSkillList,
 			enemy = env.player.enemy,
@@ -3346,23 +3513,24 @@ function calcs.perform(env, skipEHP)
 		modDB:NewMod("ExtraAura", "LIST", { mod = modLib.createMod("PhysicalDamageGainAsFire", "BASE", val, "Hallowing Flame", { type = "GlobalEffect", effectType = "Global", unscalable = true }, { type = "ActorCondition", actor = "enemy", var = "HallowingFlame" }, { type = "Multiplier", var = "HallowingFlame", actor = "enemy" }) })
 	end
 
-	-- Check for extra auras
-	buffExports["Aura"]["extraAura"] = { effectMult = 1, modList = new("ModList") }
+	-- Apply extra auras from the player, the Guardian, and imported party members.
+	local function applyExtraAura(targetDB, modList)
+		local inc = targetDB:Sum("INC", nil, "BuffEffectOnSelf", "AuraEffectOnSelf")
+		local more = targetDB:More(nil, "BuffEffectOnSelf", "AuraEffectOnSelf")
+		targetDB:ScaleAddList(modList, (1 + inc / 100) * more)
+	end
+	buffExports["Aura"]["extraAura"] = { effectMult = 1, modList = new("ModList"):ModList() }
 	for _, value in ipairs(modDB:List(nil, "ExtraAura")) do
 		local modList = { value.mod }
 		if not value.onlyAllies and not (value.fromAllies and modDB:Flag(nil, "AlliesAurasCannotAffectSelf")) then
-			local inc = modDB:Sum("INC", nil, "BuffEffectOnSelf", "AuraEffectOnSelf")
-			local more = modDB:More(nil, "BuffEffectOnSelf", "AuraEffectOnSelf")
-			modDB:ScaleAddList(modList, (1 + inc / 100) * more)
+			applyExtraAura(modDB, modList)
 			if not value.notBuff then
 				modDB.multipliers["BuffOnSelf"] = (modDB.multipliers["BuffOnSelf"] or 0) + 1
 			end
 		end
 		if value.fromAllies or not modDB:Flag(nil, "SelfAurasCannotAffectAllies") then
 			if env.minion then
-				local inc = env.minion.modDB:Sum("INC", nil, "BuffEffectOnSelf", "AuraEffectOnSelf")
-				local more = env.minion.modDB:More(nil, "BuffEffectOnSelf", "AuraEffectOnSelf")
-				env.minion.modDB:ScaleAddList(modList, (1 + inc / 100) * more)
+				applyExtraAura(env.minion.modDB, modList)
 			end
 			buffExports["Aura"]["extraAura"].modList:AddMod(value.mod)
 			local totemModBlacklist = value.mod.name and (value.mod.name == "Speed" or value.mod.name == "CritMultiplier" or value.mod.name == "CritChance")
@@ -3377,17 +3545,29 @@ function calcs.perform(env, skipEHP)
 			end
 		end
 	end
+	local function applyAlliedExtraAura(modList, source, onlyAllies)
+		local affectsAllies = not source or not source.modDB:Flag(nil, "SelfAurasCannotAffectAllies")
+		if affectsAllies and (not source or not modDB:Flag(nil, "AlliesAurasCannotAffectSelf")) then
+			applyExtraAura(modDB, modList)
+		end
+		if env.minion then
+			if env.minion == source then
+				if not onlyAllies then
+					applyExtraAura(env.minion.modDB, modList)
+				end
+			elseif affectsAllies and (not source or (not env.minion.hostile and not env.minion.modDB:Flag(nil, "AlliesAurasCannotAffectSelf"))) then
+				applyExtraAura(env.minion.modDB, modList)
+			end
+		end
+	end
+	if guardian and env.mode_buffs then
+		for _, value in ipairs(guardian.modDB:List(nil, "ExtraAura")) do
+			applyAlliedExtraAura({ value.mod }, guardian, value.onlyAllies)
+		end
+	end
 	if allyBuffs["extraAura"] then
 		for _, buff in pairs(allyBuffs["extraAura"]) do
-			local modList = buff.modList
-			local inc = modDB:Sum("INC", nil, "BuffEffectOnSelf", "AuraEffectOnSelf")
-			local more = modDB:More(nil, "BuffEffectOnSelf", "AuraEffectOnSelf")
-			modDB:ScaleAddList(modList, (1 + inc / 100) * more)
-			if env.minion then
-				local inc = env.minion.modDB:Sum("INC", nil, "BuffEffectOnSelf", "AuraEffectOnSelf")
-				local more = env.minion.modDB:More(nil, "BuffEffectOnSelf", "AuraEffectOnSelf")
-				env.minion.modDB:ScaleAddList(modList, (1 + inc / 100) * more)
-			end
+			applyAlliedExtraAura(buff.modList)
 		end
 	end
 
@@ -3578,6 +3758,11 @@ function calcs.perform(env, skipEHP)
 				for _, mod in ipairs(modDB:Tabulate("BASE", nil, "ExtraExposure", "Extra"..element.."Exposure")) do
 					min = min + mod.value
 				end
+				-- Scale the resulting magnitude by increased effect of Exposure you inflict
+				local exposureEffectInc = modDB:Sum("INC", nil, "ExposureEffect", element.."ExposureEffect")
+				if exposureEffectInc ~= 0 then
+					min = min * (1 + exposureEffectInc / 100)
+				end
 				enemyDB:NewMod("Condition:Has"..element.."Exposure", "FLAG", true, "")
 				enemyDB:NewMod(element.."Resist", "BASE", m_min(min, modDB:Override(nil, "ExposureMin")), source)
 				modDB:NewMod("Condition:AppliedExposureRecently", "FLAG", true, "")
@@ -3635,7 +3820,7 @@ function calcs.perform(env, skipEHP)
 					if canAdd then
 						if not minionLife then
 							if minion ~= env.minion then
-								initMinionModDB(env, activeSkill)
+								initMinionModDB(env, activeSkill, nil, minion == guardian)
 								addMinionModifiers(activeSkill.skillModList, activeSkill.skillCfg, minion)
 								for _, modList in pairs(buffs) do
 									addMinionModifiers(modList, activeSkill.skillCfg, minion)
@@ -3722,11 +3907,14 @@ function calcs.perform(env, skipEHP)
 	end
 
 	calcs.triggers(env, env.player)
-	if not calcs.mirages(env) then
-		calcs.offence(env, env.player, env.player.mainSkill)
+	if not calcs.mirages(env) and calcs.offence(env, env.player, env.player.mainSkill) == false then
+		return false -- Rejected trigger-source probes are never cached
 	end
 
 	if env.minion then
+		if modDB:Flag(nil, "MinionsGainYourSpellSuppressionChance") then
+			env.minion.modDB:NewMod("SpellSuppressionChance", "BASE", env.player.output.SpellSuppressionChance, "Player")
+		end
 		calcs.defence(env, env.minion)
 		if not skipEHP then -- main.build.calcsTab.input.showMinion and -- should be disabled unless "calcsTab.input.showMinion" is true
 			calcs.buildDefenceEstimations(env, env.minion)
@@ -3867,19 +4055,22 @@ function calcs.perform(env, skipEHP)
 			if mainSkill.activeEffect.level then
 				local baseLevel = mainSkill.skillModList:Sum("BASE", mainSkill.skillCfg, "GemLevel")
 				local totalItemLevel = mainSkill.skillModList:Sum("BASE", mainSkill.skillCfg, "GemItemLevel")
+				local totalGlobalLevel = mainSkill.skillModList:Sum("BASE", mainSkill.skillCfg, "GemGlobalLevel")
 				local totalSupportLevel = mainSkill.skillModList:Sum("BASE", mainSkill.skillCfg, "GemSupportLevel")
 
 				output.GemHasLevel = true
-				output.GemLevel = baseLevel + totalSupportLevel + totalItemLevel
+				output.GemLevel = mainSkill.activeEffect.level
 
 				if env.player.breakdown then
 					env.player.breakdown.GemLevel = {}
 					t_insert(env.player.breakdown.GemLevel, s_format("%d ^8(level from gem)", baseLevel))
-					if totalSupportLevel > 0 then
-						t_insert(env.player.breakdown.GemLevel, s_format("+ %d ^8(level from support)", totalSupportLevel))
+					for _, source in ipairs({ { totalItemLevel, "items" }, { totalGlobalLevel, "global modifiers" }, { totalSupportLevel, "support" } }) do
+						if source[1] ~= 0 then
+							t_insert(env.player.breakdown.GemLevel, s_format("%s %d ^8(level from %s)", source[1] > 0 and "+" or "-", math.abs(source[1]), source[2]))
+						end
 					end
-					if totalItemLevel > 0 then
-						t_insert(env.player.breakdown.GemLevel, s_format("+ %d ^8(level from items)", totalItemLevel))
+					if output.GemLevel ~= baseLevel + totalItemLevel + totalGlobalLevel + totalSupportLevel then
+						t_insert(env.player.breakdown.GemLevel, s_format("^8Limited to Level %d", output.GemLevel))
 					end
 					t_insert(env.player.breakdown.GemLevel, s_format("= %d", output.GemLevel))
 				end
@@ -3889,19 +4080,20 @@ function calcs.perform(env, skipEHP)
 			if mainSkill.activeEffect.quality then
 				local baseQuality = mainSkill.skillModList:Sum("BASE", mainSkill.skillCfg, "GemQuality")
 				local totalItemQuality = mainSkill.skillModList:Sum("BASE", mainSkill.skillCfg, "GemItemQuality")
+				local totalGlobalQuality = mainSkill.skillModList:Sum("BASE", mainSkill.skillCfg, "GemGlobalQuality")
 				local totalSupportQuality = mainSkill.skillModList:Sum("BASE", mainSkill.skillCfg, "GemSupportQuality")
+				local socketQuality = mainSkill.skillModList:Sum("BASE", mainSkill.skillCfg, "GemSocketQuality")
 
 				output.GemHasQuality = true
-				output.GemQuality = baseQuality + totalSupportQuality + totalItemQuality
+				output.GemQuality = baseQuality + totalSupportQuality + totalItemQuality + totalGlobalQuality + socketQuality
 
 				if env.player.breakdown then
 					env.player.breakdown.GemQuality = {}
 					t_insert(env.player.breakdown.GemQuality, s_format("%d ^8(quality from gem)", baseQuality))
-					if totalSupportQuality > 0 then
-						t_insert(env.player.breakdown.GemQuality, s_format("+ %d ^8(quality from support)", totalSupportQuality))
-					end
-					if totalItemQuality > 0 then
-						t_insert(env.player.breakdown.GemQuality, s_format("+ %d ^8(quality from items)", totalItemQuality))
+					for _, source in ipairs({ { totalItemQuality, "items" }, { totalGlobalQuality, "global modifiers" }, { totalSupportQuality, "support" }, { socketQuality, "socket colour" } }) do
+						if source[1] ~= 0 then
+							t_insert(env.player.breakdown.GemQuality, s_format("%s %d ^8(quality from %s)", source[1] > 0 and "+" or "-", math.abs(source[1]), source[2]))
+						end
 					end
 					t_insert(env.player.breakdown.GemQuality, s_format("= %d", output.GemQuality))
 				end

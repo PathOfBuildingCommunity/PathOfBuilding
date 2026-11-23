@@ -5,9 +5,13 @@
 --
 local t_remove = table.remove
 
-local SpecColListClass = newClass("SpecColListControl", "ListControl", function(self, anchor, rect)
-	self.ListControl(anchor, rect, 14, "VERTICAL", true)
-end)
+---@class SpecColListControl: ListControl
+local SpecColListClass = newClass("SpecColListControl", "ListControl")
+
+function SpecColListClass:SpecColListControl(anchor, rect)
+	self:ListControl(anchor, rect, 14, "VERTICAL", true)
+	return self
+end
 
 function SpecColListClass:GetRowValue(column, index, specCol)
 	if column == 1 then

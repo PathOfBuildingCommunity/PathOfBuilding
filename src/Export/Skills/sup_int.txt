@@ -3,8 +3,7 @@
 -- Intelligence support gems
 -- Skill data (c) Grinding Gear Games
 --
-local skills, mod, flag, skill = ...
-
+return function(skills, mod, flag, skill)
 #skill SupportAddedChaosDamage
 #mods
 
@@ -815,12 +814,10 @@ local skills, mod, flag, skill = ...
 #skill SupportSacrifice
 	statMap = {
 		["support_sacrifice_sacrifice_%_of_current_life"] = {
-			mod("Multiplier:SacrificePercent", "BASE", nil, 0, 0, { type = "PercentStat", stat = "LifeUnreserved", percent = 1, actor = "parent" }),
+			skill("sacrificeLifePercent", nil),
 		},
 		["support_sacrifice_gain_%_of_sacrificed_life_as_added_chaos_damage"] = {
-			mod("ChaosMin", "BASE", nil, 0, 0, { type = "Multiplier", var = "SacrificePercent" }),
-			mod("ChaosMax", "BASE", nil, 0, 0, { type = "Multiplier", var = "SacrificePercent" }),
-			div = 100,
+			skill("sacrificeLifeAsChaos", nil),
 		},
 	},
 #mods
@@ -828,7 +825,8 @@ local skills, mod, flag, skill = ...
 #skill SupportScornfulHerald
 	statMap = {
 		["herald_no_buff_effect"] = {
-			flag("DisableBuff", { type = "SkillType", skillType = SkillType.Herald }),
+			mod("BuffEffect", "MORE", nil, 0, 0, { type = "SkillType", skillType = SkillType.Herald }),
+			value = -100,
 		},
 	},
 #mods
@@ -1027,3 +1025,5 @@ local skills, mod, flag, skill = ...
 		},
 	},
 #mods
+
+end

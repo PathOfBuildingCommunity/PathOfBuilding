@@ -53,7 +53,54 @@ local rageCost = {
 	"RageCost", "Cost", "RageCostNoMult", "RageCostEfficiency", "CostEfficiency"
 }
 
--- format {width, id, group, color, subsection:{default hidden, label, data:{}}}
+---@class CalcSectionEntry A single description which is in the shown breakdown popup
+---@field breakdown? string Key indicating which output breakdown should be displayed
+---@field modName? string|string[]
+---@field modType? "BASE"|"INC"|"MORE"|"OVERRIDE"
+---@field cfg? string Config source
+---@field enemy? boolean Whether the enemy modDB should be used
+---@field actor? string Which actor should be used
+---@field modSource? string Restrict mods to e.g. items
+---@field label? string Heading shown above the resulting table
+---@field control? table Injected by calcs for e.g. the skill details
+---@field controlName? string
+---@field skipSideBarIndex boolean? Set to true if this cell should be ignored while indexing the side bar breakdowns, and a later breakdown source should be preferred.
+
+---@class CalcSectionColumn : CalcSectionEntry One column cell: a format and descriptions for the popup
+---@field [integer] CalcSectionEntry
+---@field format? string Value format string (e.g. "{0:output:Life}") or literal header text
+
+---@class CalcSectionRow One row of a subsection
+---@field [integer] CalcSectionColumn Column cells
+---@field label? string Row label
+---@field haveOutput? string Only show the row when this output value is non-zero
+---@field flag? string Only show when the skill has this flag
+---@field flagList? string[] Only show when the skill has all of these flags
+---@field playerFlag? string Only show when the player skill has this flag
+---@field notFlag? string Hide when the skill has this flag
+---@field notFlagList? string[] Hide when the skill has any of these flags
+
+---@class CalcSectionData A subsection's rows plus subsection configuration values
+---@field [integer] CalcSectionRow The rows
+---@field extra? string Summary text shown beside the header (e.g. "{0:output:Life}")
+---@field colWidth? integer Fixed width for value columns in this subsection
+---@field flag? string Applied to the whole subsection (via subSection[1].data.flag)
+---@field notFlag? string
+
+---@class CalcSectionSubsection
+---@field defaultCollapsed boolean
+---@field label string
+---@field data CalcSectionData
+
+---@class CalcSection
+---@field [1] integer Width in columns
+---@field [2] string Section id
+---@field [3] integer Group
+---@field [4] string Colour escape code
+---@field [5] CalcSectionSubsection[] Subsections
+---@field [6] fun()? Optional update function
+
+---@type CalcSection[]
 return {
 { 3, "HitDamage", 1, colorCodes.OFFENCE, {{ defaultCollapsed = false, label = "Skill Hit Damage", data = {
 	extra = "{output:DisplayDamage}",
@@ -428,6 +475,40 @@ return {
 	},
 } }
 } },
+{ 3, "Pacts", 1, colorCodes.OFFENCE, { { defaultCollapsed = false, label = "Empowered Spells", data = {
+	colWidth = 114,
+	{
+		haveOutput = "CreatePactOffensiveCalcSection",
+		{ format = "Uptime" },
+		{ format = "# of Empowered" },
+		{ format = "Projectiles" },
+		{ format = "Beam Chains" },
+		{ format = "Cascades" },
+	},
+	{ label = "Pact of Beidat", haveOutput = "BeidatUpTimeRatio",
+		{ format = "{2:output:BeidatUpTimeRatio}%", { breakdown = "BeidatUpTimeRatio" }, },
+		{ format = "{2:output:BeidatEmpoweredCount}" },
+		{ format = "+{2:output:BeidatAdditionalProjectiles}" },
+		{ format = "+{2:output:BeidatAdditionalBeamChains}" },
+		{ format = "+{2:output:BeidatAdditionalCascades}" },
+	},
+	{ label = "Pact of Ghorr", haveOutput = "GhorrUpTimeRatio",
+		{ format = "{2:output:GhorrUpTimeRatio}%", { breakdown = "GhorrUpTimeRatio" }, },
+		{ format = "{2:output:GhorrEmpoweredCount}" },
+		{ format = "" }, { format = "" }, { format = "" },
+	},
+	{ label = "Pact of K'Tash", haveOutput = "KtashUpTimeRatio",
+		{ format = "{2:output:KtashUpTimeRatio}%", { breakdown = "KtashUpTimeRatio" }, },
+		{ format = "{2:output:KtashEmpoweredCount}" },
+		{ format = "" }, { format = "" }, { format = "" },
+	},
+	{ label = "Pact of Lycia", haveOutput = "LyciaUpTimeRatio",
+		{ format = "{2:output:LyciaUpTimeRatio}%", { breakdown = "LyciaUpTimeRatio" }, },
+		{ format = "{2:output:LyciaEmpoweredCount}" },
+		{ format = "" }, { format = "" }, { format = "" },
+	},
+} }
+} },
 { 3, "Dot", 1, colorCodes.OFFENCE, {{ defaultCollapsed = false, label = "Skill Damage over Time", data = {
 	extra = "{1:output:TotalDotCalcSection} total DoT",
 	flag = "dot",
@@ -624,13 +705,13 @@ return {
 	{ label = "OH DMG Mod.", bgCol = colorCodes.OFFHANDBG, flag = "weapon2Attack", haveOutput = "OffHand.ImpaleModifier", { format = "{3:output:OffHand.ImpaleModifier}", modType = "MORE",
 		{ breakdown = "OffHand.ImpaleModifier" },
 	}, },
-	{ label = "Impale DPS", flag = "impale", flag = "notAverage", { format = "{1:output:ImpaleDPS}", { breakdown = "ImpaleDPS" }, }, },
-	{ label = "Impale Damage", flag = "impale", flag = "showAverage", { format = "{1:output:ImpaleDPS}", { breakdown = "ImpaleDPS" }, }, },
+	{ label = "Impale DPS", flag = "notAverage", { format = "{1:output:ImpaleDPS}", { breakdown = "ImpaleDPS" }, }, },
+	{ label = "Impale Damage", flag = "showAverage", { format = "{1:output:ImpaleDPS}", { breakdown = "ImpaleDPS" }, }, },
 } }
 } },
 { 1, "SkillTypeStats", 1, colorCodes.OFFENCE, {{ defaultCollapsed = false, label = "Skill type-specific Stats", data = {
-	{ label = "Gem Level", haveOutput = "GemHasLevel", { format = "{0:output:GemLevel}", { breakdown = "GemLevel" }, { modName = { "GemLevel" }, cfg = "skill" },{ modName = { "GemSupportLevel" }, cfg = "skill" }, { modName = { "GemItemLevel" }, cfg = "skill" }, }, },
-	{ label = "Gem Quality", haveOutput = "GemHasQuality", { format = "{0:output:GemQuality}", { breakdown = "GemQuality" }, { modName = { "GemQuality" }, cfg = "skill" },{ modName = { "GemSupportQuality" }, cfg = "skill" }, { modName = { "GemItemQuality" }, cfg = "skill" }, }, },
+	{ label = "Gem Level", haveOutput = "GemHasLevel", { format = "{0:output:GemLevel}", { breakdown = "GemLevel" }, { modName = { "GemLevel" }, cfg = "skill" }, { modName = { "GemItemLevel" }, cfg = "skill" }, { modName = { "GemGlobalLevel" }, cfg = "skill" }, { modName = { "GemSupportLevel" }, cfg = "skill" }, }, },
+	{ label = "Gem Quality", haveOutput = "GemHasQuality", { format = "{0:output:GemQuality}%", { breakdown = "GemQuality" }, { modName = { "GemQuality" }, cfg = "skill" }, { modName = { "GemItemQuality" }, cfg = "skill" }, { modName = { "GemGlobalQuality" }, cfg = "skill" }, { modName = { "GemSupportQuality" }, cfg = "skill" }, { modName = { "GemSocketQuality" }, cfg = "skill" }, }, },
 	{ label = "Mana Cost", color = colorCodes.MANA, haveOutput = "ManaHasCost", { format = "{0:output:ManaCost}", { breakdown = "ManaCost" }, { modName = manaCost, cfg = "skill" }, }, },
 	{ label = "Mana % Cost", color = colorCodes.MANA, haveOutput = "ManaPercentHasCost", { format = "{0:output:ManaPercentCost}", { breakdown = "ManaPercentCost" }, { modName = manaCost, cfg = "skill" }, }, },
 	{ label = "Mana per second", color = colorCodes.MANA, haveOutput = "ManaPerSecondHasCost", { format = "{2:output:ManaPerSecondCost}", { breakdown = "ManaPerSecondCost" }, { modName = manaCost, cfg = "skill" }, }, },
@@ -670,6 +751,7 @@ return {
 	{ label = "Aura Duration", haveOutput = "AuraDuration", { format = "{3:output:AuraDuration}s", { breakdown = "AuraDuration" }, }, },
 	{ label = "Reserve Duration", haveOutput = "ReserveDuration", { format = "{3:output:ReserveDuration}s", { breakdown = "ReserveDuration" }, }, },
 	{ label = "Soul Gain Prevent.", haveOutput = "SoulGainPreventionDuration", { format = "{3:output:SoulGainPreventionDuration}s", { breakdown = "SoulGainPreventionDuration" }, }, },
+	{ label = "Soul Refund Chance", haveOutput = "KtashSoulRefundChance", { format = "{2:output:KtashSoulRefundChance}%" }, },
 	{ label = "Uptime", haveOutput = "DurationUptime", { format = "{2:output:DurationUptime}%", { breakdown = "DurationUptime" }, }, },
 	{ label = "Secondary Uptime", haveOutput = "DurationSecondaryUptime", { format = "{2:output:DurationSecondaryUptime}%", { breakdown = "DurationSecondaryUptime" }, }, },
 	{ label = "Tertiary Uptime", haveOutput = "DurationTertiaryUptime", { format = "{2:output:DurationTertiaryUptime}%", { breakdown = "DurationTertiaryUptime" }, }, },
@@ -1413,6 +1495,10 @@ return {
 	{ label = "Total More", { format = "{0:mod:1}%", { modName = "Life", modType = "MORE", }, }, },
 	{ label = "Total", { format = "{0:output:Life}", { breakdown = "Life" }, }, },
 	{ label = "Reserved", { format = "{0:output:LifeReserved} ({0:output:LifeReservedPercent}%)", { breakdown = "LifeReserved" }, }, },
+	{ label = "Reservation Eff.", { format = "{0:output:LifeReservationEfficiency}%",
+		{ breakdown = "LifeReservationEfficiency" },
+		{ modName = { "LifeReservationEfficiency", "ReservationEfficiency" } },
+	}, },
 	{ label = "Unreserved", { format = "{0:output:LifeUnreserved} ({0:output:LifeUnreservedPercent}%)" }, },
 	{ label = "Total Recoverable", haveOutput = "CappingLife", { format = "{0:output:LifeRecoverable}", { breakdown = "LifeUnreserved" }, }, },
 	{ label = "Recharge Rate", haveOutput = "EnergyShieldRechargeAppliesToLife", { format = "{1:output:LifeRecharge}", 
@@ -1477,6 +1563,10 @@ return {
 	{ label = "Total Increased", { format = "{0:mod:1}%", { modName = "Mana", modType = "INC" }, }, },
 	{ label = "Total", { format = "{0:output:Mana}", { breakdown = "Mana" }, }, },
 	{ label = "Reserved", { format = "{0:output:ManaReserved} ({0:output:ManaReservedPercent}%)", { breakdown = "ManaReserved" }, }, },
+	{ label = "Reservation Eff.", { format = "{0:output:ManaReservationEfficiency}%",
+		{ breakdown = "ManaReservationEfficiency" },
+		{ modName = { "ManaReservationEfficiency", "ReservationEfficiency" } },
+	}, },
 	{ label = "Unreserved", { format = "{0:output:ManaUnreserved} ({0:output:ManaUnreservedPercent}%)" }, },
 	{ label = "Recovery", { format = "{1:output:ManaRegenRecovery} ({1:output:ManaRegenPercent}%)",
 		{ breakdown = "ManaRegenRecovery" }, 
@@ -1486,15 +1576,15 @@ return {
 		{ label = "Recovery modifiers", modName = "ManaRecoveryRate" },
 	}, },
 	{ label = "Recoup", haveOutput = "ManaRecoup", { format = "{1:output:ManaRecoup}%", { breakdown = "ManaRecoup" }, 
-		{ label = "Sources", modName = "ManaRecoup" },
-		{ label = "Recovery modifiers", modName = "ManaRecoveryRate" },
+		{ label = "Sources", modName = { "ManaRecoup", "AddLifeRecoupToManaRecoup" } },
+		{ label = "Recovery modifiers", modName = { "ManaRecoveryRate", "RecoupRecoveryAmount" } },
 		{ label = "FasterRecoup", modName = "3SecondRecoup" },
 	}, },
 } }
 } },
 { 1, "EnergyShield", 2, colorCodes.ES, {{ defaultCollapsed = false, label = "Energy Shield", data = {
 	extra = "{0:output:EnergyShield}",
-	{ label = "Base from Armours", { format = "{0:output:Gear:EnergyShield}", { breakdown = "EnergyShield", gearOnly = true }, }, },
+			{ label = "Base from Armours", { format = "{0:output:Gear:EnergyShield}", { breakdown = "EnergyShield", gearOnly = true, skipSideBarIndex = true }, }, },
 	{ label = "Global Base", { format = "{0:mod:1}", { modName = "EnergyShield", modType = "BASE" }, }, },
 	{ label = "Inc. from Tree", { format = "{0:mod:1}%", { modName = "EnergyShield", modType = "INC", modSource = "Tree" }, }, },
 	{ label = "Total Increased", { format = "{0:mod:1}%", { modName = { "EnergyShield", "Defences" }, modType = "INC" }, }, },
@@ -1556,7 +1646,7 @@ return {
 } },
 { 1, "Ward", 2, colorCodes.WARD, {{ defaultCollapsed = false, label = "Ward", data = {
 	extra = "{0:output:Ward}",
-	{ label = "Base from Armours", { format = "{0:output:Gear:Ward}", { breakdown = "Ward", gearOnly = true }, }, },
+			{ label = "Base from Armours", { format = "{0:output:Gear:Ward}", { breakdown = "Ward", gearOnly = true }, }, },
 	{ label = "Global Base", { format = "{0:mod:1}", { modName = "Ward", modType = "BASE" }, }, },
 	{ label = "Inc. from Tree", { format = "{0:mod:1}%", { modName = "Ward", modType = "INC", modSource = "Tree" }, }, },
 	{ label = "Total Increased", { format = "{0:mod:1}%", { modName = { "Ward", "Defences" }, modType = "INC" }, }, },
@@ -1591,7 +1681,7 @@ return {
 } },
 { 1, "Armour", 3, colorCodes.ARMOUR, {{ defaultCollapsed = false, label = "Armour", data = {
 	extra = "{0:output:Armour}",
-	{ label = "Base from Armours", { format = "{0:output:Gear:Armour}", { breakdown = "Armour", gearOnly = true }, }, },
+			{ label = "Base from Armours", { format = "{0:output:Gear:Armour}", { breakdown = "Armour", gearOnly = true, skipSideBarIndex = true, }, }, },
 	{ label = "Global Base", { format = "{0:mod:1}", { modName = { "Armour", "ArmourAndEvasion" }, modType = "BASE" }, }, },
 	{ label = "Inc. from Tree", { format = "{0:mod:1}%", { modName = { "Armour", "ArmourAndEvasion" }, modType = "INC", modSource = "Tree", }, }, },
 	{ label = "Total Increased", { format = "{0:mod:1}%", { modName = { "Armour", "ArmourAndEvasion", "Defences" }, modType = "INC" }, }, },
@@ -1622,7 +1712,7 @@ return {
 } },
 { 1, "Evasion", 3, colorCodes.EVASION, {{ defaultCollapsed = false, label = "Evasion", data = {
 	extra = "{0:output:Evasion}",
-	{ label = "Base from Armours", { format = "{0:output:Gear:Evasion}", { breakdown = "Evasion", gearOnly = true }, }, },
+			{ label = "Base from Armours", { format = "{0:output:Gear:Evasion}", { breakdown = "Evasion", gearOnly = true, skipSideBarIndex = true }, }, },
 	{ label = "Global Base", { format = "{0:mod:1}", { modName = { "Evasion", "ArmourAndEvasion" }, modType = "BASE" }, }, },
 	{ label = "Inc. from Tree", { format = "{0:mod:1}%", { modName = { "Evasion", "ArmourAndEvasion" }, modType = "INC", modSource = "Tree" }, }, },
 	{ label = "Total Increased", { format = "{0:mod:1}%", { modName = { "Evasion", "ArmourAndEvasion", "Defences" }, modType = "INC" }, }, },
@@ -1716,6 +1806,7 @@ return {
 	{ label = "Inc. Recovery Rate", { format = "{0:mod:1,2}%",
 		{ label = "Life Flask Recovery Rate", modName = "FlaskLifeRecoveryRate", modType = "INC"},
 		{ label = "Generic Flask Recovery Rate", modName = "FlaskRecoveryRate", modType = "INC" }}, },
+	{ label = "More Recovery Rate", { format = "{0:mod:1}%", { modName = "FlaskLifeRecoveryRate", modType = "MORE" }}, },
 	{ label = "Charges/s", { format = "{2:output:LifeFlaskChargeGen}",
 		{ label = "Life Flask Charges/s", modName = "LifeFlaskChargesGenerated", modType = "BASE"},
 		{ label = "Generic Flask Charges/s", modName = { "FlaskChargesGenerated", "FlaskChargesGeneratedPerEmptyFlask" }, modType = "BASE" }}, },

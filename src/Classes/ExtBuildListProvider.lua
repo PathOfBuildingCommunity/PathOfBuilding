@@ -10,14 +10,16 @@
 -- .buildList [Needs to be filled in :GetBuilds with current list. buildName and buildLink fields are required.]
 -- .statusMsg [This can be used to print status message on the screen. Builds will not be listed if it has a value other than nil.]
 
-local ExtBuildListProviderClass = newClass("ExtBuildListProvider",
-	function(self, listTitles)
-		self.listTitles = listTitles
-		self.buildList = {}
-		self.activeList = nil
-		self.statusMsg = nil
-	end
-)
+---@class ExtBuildListProvider
+local ExtBuildListProviderClass = newClass("ExtBuildListProvider")
+
+function ExtBuildListProviderClass:ExtBuildListProvider(listTitles)
+	self.listTitles = listTitles
+	self.buildList = {}
+	self.activeList = nil
+	self.statusMsg = nil
+	return self
+end
 
 function ExtBuildListProviderClass:GetPageUrl()
 	return nil

@@ -39,8 +39,8 @@ Implicits: 3
 (25-30)% increased Cast Speed
 +(5-10)% to Chaos Resistance
 {variant:1,2,3}40% increased Mana Cost of Skills
-{variant:3,4}Poisons you inflict deal Damage 20% faster
-{variant:5,6}Poisons you inflict deal Damage (30-50)% faster
+{variant:3,4}Poisons you inflict deal Damage 20% Faster
+{variant:5,6}Poisons you inflict deal Damage (30-50)% Faster
 {variant:4,5,6}Lose 40 Mana when you use a Skill
 ]],[[
 Ashcaller
@@ -62,7 +62,7 @@ Implicits: 3
 {variant:1}Adds (10-14) to (18-22) Fire Damage
 {variant:3,4,5}Adds (20-24) to (38-46) Fire Damage
 {variant:1,2}Adds (4-6) to (7-9) Fire Damage to Spells
-{variant:3,4,5}Adds (20-24) to (36-46) Fire Damage to Spells
+{variant:3,4,5}Adds (20-24) to (38-46) Fire Damage to Spells
 {variant:1}(40-50)% increased Burning Damage
 {variant:2}(20-30)% increased Burning Damage
 {variant:1,2}(16-22)% chance to Ignite
@@ -91,16 +91,16 @@ Implicits: 4
 {variant:2,3,4,5,6}+(27-33)% to Global Critical Strike Multiplier
 {variant:1,2,3,4,5}20% increased Light Radius
 {variant:6}(15-20)% increased Light Radius
-Nearby Enemies are Blinded
+Enemies within 3.5 metres are Blinded
 (120-140)% increased Critical Strike Chance against Blinded Enemies
-Adds 2 to 5 Fire Damage to Attacks for every 1% your Light Radius is above base value
+{variant:6}Adds 2 to 5 Fire Damage to Attacks for every 1% your Light Radius is above base value
 ]],[[
 Corona Solaris
 Crystal Wand
 Source: No longer obtainable
 Variant: Pre 3.10.0
 Variant: Current
-LevelReq: 63
+Requires Level 63
 Implicits: 1
 (30-34)% increased Spell Damage
 Triggers Level 20 Blinding Aura when Equipped
@@ -182,7 +182,6 @@ Minions deal (50-70)% increased Damage
 +3 to maximum number of Summoned Phantasms
 ]],[[
 Moonsorrow
-Imbued Wand
 {variant:1,2,3,4}Imbued Wand
 {variant:5}Kinetic Wand
 Variant: Pre 2.0.0
@@ -194,8 +193,8 @@ Implicits: 3
 {variant:1,2}(15-19)% increased Spell Damage
 {variant:3,4}(33-37)% increased Spell Damage
 {variant:5}Cannot roll Caster Modifiers
-{variant:1,2,3}Socketed Gems are supported by Level 5 Blind
-{variant:4,5}Socketed Gems are supported by Level 20 Blind
+{variant:1,2,3}Socketed Gems are Supported by Level 5 Blind Support
+{variant:4,5}Socketed Gems are Supported by Level 20 Blind Support
 +10 to Intelligence
 (30-40)% increased Spell Damage
 {variant:1}125% increased Physical Damage
@@ -203,13 +202,12 @@ Implicits: 3
 {variant:4,5}(250-275)% increased Physical Damage
 (20-30)% increased Lightning Damage
 10% increased Cast Speed
-10% chance to Blind Enemies on hit
+10% chance to Blind Enemies on Hit
 ]],[[
 Mystic Refractor
 Pagan Wand
 Variant: Pre 3.29.0
 Variant: Current
-Requires Level 34, 118 Int
 Implicits: 1
 10% increased Cast Speed
 Skills fire (2-3) additional Projectiles
@@ -247,6 +245,7 @@ Piscator's Vigil
 Variant: Pre 2.3.0
 Variant: Pre 2.6.0
 Variant: Pre 3.21.0
+Variant: Pre 3.27.0
 Variant: Current
 Implicits: 4
 {variant:1}(16-19)% increased Spell Damage
@@ -263,13 +262,15 @@ Attacks with this Weapon have (100-115)% increased Elemental Damage
 The Poet's Pen
 {variant:1}Carved Wand
 {variant:2}Somatic Wand
-Implicits: 1
+Variant: Pre 3.27.0
+Variant: Current
+Implicits: 2
 {variant:1}(11-15)% increased Spell Damage
+{variant:2}Cannot roll Caster Modifiers
 +1 to Level of Socketed Skill Gems per 25 Player Levels
 Trigger a Socketed Spell when you Attack with this Weapon, with a 0.25 second Cooldown
 Adds 3 to 5 Physical Damage to Attacks with this Weapon per 3 Player Levels
 (8-12)% increased Attack Speed
-{variant:2}Cannot roll Caster Modifiers
 ]],[[
 Reverberation Rod
 Spiraled Wand
@@ -284,9 +285,9 @@ Implicits: 3
 {variant:5}Adds (1-2) to (9-11) Lightning Damage to Spells and Attacks
 {variant:1,2}+1 to Level of Socketed Gems
 {variant:3,4,5}+2 to Level of Socketed Gems
-{variant:4,5}Socketed Gems are Supported by Level 10 Arcane Surge
-Socketed Gems are Supported by Level 10 Spell Echo
-{variant:4,5}Socketed Gems are Supported by Level 10 Controlled Destruction
+{variant:4,5}Socketed Gems are Supported by Level 10 Arcane Surge Support
+Socketed Gems are Supported by Level 10 Spell Echo Support
+{variant:4,5}Socketed Gems are Supported by Level 10 Controlled Destruction Support
 +(10-30) to Intelligence
 ]],[[
 Relic of the Pact
@@ -299,7 +300,7 @@ Source: Drops from unique{The Trialmaster}
 Implicits: 2
 {variant:1}(15-19)% increased Spell Damage
 {variant:2}(17-21)% increased Spell Damage
-Grants Level 1 Blood Sacrament Skill
+Grants Level 1 Blood Sacrament
 Your Critical Strike Chance is Lucky while on Low Life
 ]],[[
 Amplification Rod
@@ -307,14 +308,14 @@ Spiraled Wand
 Source: No longer obtainable
 Variant: Pre 3.11.0
 Variant: Current
-LevelReq: 36
+Requires Level 36
 Implicits: 1
 (15-19)% increased Spell Damage
 {variant:1}+1 to Level of Socketed Gems
 {variant:2}+2 to Level of Socketed Gems
-Socketed Gems are Supported by Level 10 Intensify
-Socketed Gems are Supported by Level 10 Spell Echo
-Socketed Gems are Supported by Level 10 Controlled Destruction
+Socketed Gems are Supported by Level 10 Intensify Support
+Socketed Gems are Supported by Level 10 Spell Echo Support
+Socketed Gems are Supported by Level 10 Controlled Destruction Support
 +(10-30) to Intelligence
 ]],[[
 Shade of Solaris
@@ -337,8 +338,8 @@ Variant: Pre 3.21.0
 Variant: Pre 3.29.0
 Variant: Current
 Implicits: 2
-{variant:1,2}(35-39)% increased Spell Damage
-{variant:3,4}Adds (3-5) to (70-82) Lightning Damage to Spells and Attacks
+{variant:1,2,4}(35-39)% increased Spell Damage
+{variant:3}Adds (3-5) to (70-82) Lightning Damage to Spells and Attacks
 {variant:1,2,3}(30-40)% increased Spell Damage
 {variant:1,2,3}Adds (26-35) to (95-105) Lightning Damage to Spells
 {variant:4}+1 to Maximum Power Charges
@@ -372,41 +373,45 @@ Adds 1 to (35-45) Lightning Damage
 ]],[[
 Tulborn
 {variant:1,2}Spiraled Wand
-{variant:3}Opal Wand
+{variant:3,4}Opal Wand
 Variant: Pre 3.16.0
 Variant: Pre 3.21.0
+Variant: Pre 3.29.0
 Variant: Current
 League: Breach
 Source: Drops in Tul Breach or from unique{Tul, Creeping Avalanche}
 Upgrade: Upgrades to unique{Tulfall} using currency{Blessing of Tul}
-Implicits: 2
+Implicits: 3
 {variant:1,2}(15-19)% increased Spell Damage
+{variant:4}(31-35)% increased Spell Damage
 {variant:3}Adds (14-29) to (42-47) Cold Damage to Spells and Attacks
-{variant:3}Adds (120-140) to (150-170) Cold Damage to Spells
+{variant:3,4}Adds (120-140) to (150-170) Cold Damage to Spells
 {variant:1,2}(10-15)% increased Cast Speed
 {variant:1,2}50% chance to gain a Power Charge on Killing a Frozen Enemy
-{variant:3}Gain a Power Charge on Killing a Frozen Enemy
+{variant:3,4}Gain a Power Charge on Killing a Frozen Enemy
 {variant:1,2}Adds 10 to 20 Cold Damage to Spells per Power Charge
-{variant:3}Cold Exposure you inflict applies an extra -12% to Cold Resistance
+{variant:3,4}Cold Exposure you inflict applies an extra -12% to Cold Resistance
 +(20-25) Mana gained on Killing a Frozen Enemy
 ]],[[
 Tulfall
 {variant:1,2}Tornado Wand
-{variant:3}Opal Wand
+{variant:3,4}Opal Wand
 Variant: Pre 3.16.0
 Variant: Pre 3.21.0
+Variant: Pre 3.29.0
 Variant: Current
 League: Breach
 Source: Upgraded from unique{Tulborn} using currency{Blessing of Tul}
-Implicits: 2
+Implicits: 3
 {variant:1,2}(35-39)% increased Spell Damage
+{variant:4}(31-35)% increased Spell Damage
 {variant:3}Adds (14-29) to (42-47) Cold Damage to Spells and Attacks
 {variant:1,2}(10-15)% increased Cast Speed
-{variant:3}(10-20)% increased Cast Speed
+{variant:3,4}(10-20)% increased Cast Speed
 {variant:1}50% chance to gain a Power Charge on Killing a Frozen Enemy
-{variant:2,3}Gain a Power Charge on Killing a Frozen Enemy
+{variant:2,3,4}Gain a Power Charge on Killing a Frozen Enemy
 {variant:1,2}Adds 15 to 25 Cold Damage to Spells per Power Charge
-{variant:3}Adds 50 to 70 Cold Damage to Spells per Power Charge
+{variant:3,4}Adds 50 to 70 Cold Damage to Spells per Power Charge
 Lose all Power Charges on reaching Maximum Power Charges
 Gain a Frenzy Charge on reaching Maximum Power Charges
 {variant:1}(10-15)% increased Cold Damage per Frenzy Charge
@@ -414,15 +419,16 @@ Gain a Frenzy Charge on reaching Maximum Power Charges
 ]],[[
 Replica Tulfall
 {variant:1}Tornado Wand
-{variant:2}Opal Wand
+{variant:2,3}Opal Wand
 Variant: Pre 3.21.0
 Variant: Pre 3.29.0
 Variant: Current
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
-Implicits: 2
+Implicits: 3
 {variant:1}(35-39)% increased Spell Damage
-{variant:2,3}Adds (14-29) to (42-47) Cold Damage to Spells and Attacks
+{variant:3}(31-35)% increased Spell Damage
+{variant:2}Adds (14-29) to (42-47) Cold Damage to Spells and Attacks
 (15-25)% increased Cast Speed
 Lose all Power Charges on reaching Maximum Power Charges
 Gain a Frenzy Charge on reaching Maximum Power Charges
@@ -437,16 +443,16 @@ Twyzel
 Variant: Pre 2.3.0
 Variant: Pre 2.27.0
 Variant: Current
-Implicits: 2
+Implicits: 3
 {variant:1}(11-14)% increased Spell Damage
 {variant:2}(17-21)% increased Spell Damage
+{variant:3}Cannot roll Caster Modifiers
 {variant:1,2}Socketed Gems fire an additional Projectile
 {variant:1,2}(80-120)% increased Physical Damage
 {variant:3}(80-140)% increased Physical Damage
 Adds (5-8) to (13-17) Physical Damage
 (5-10)% increased Attack Speed
 (10-20)% increased Critical Strike Chance
-{variant:3}Cannot roll Caster Modifiers
 {variant:3}Attacks fire (1-2) additional Projectile when in Off Hand
 {variant:3}Attacks have (40-60)% increased Area of Effect when in Main Hand
 ]],[[
@@ -467,7 +473,6 @@ Attacks fire an additional Projectile
 ]],[[
 Unlight Extant
 Sage Wand
-Requires Level 30, 119 Int
 Implicits: 1
 (17-21)% increased Spell Damage
 (31-43)% increased Chaos Damage
@@ -493,5 +498,16 @@ Implicits: 2
 +1 to Maximum Power Charges
 {variant:1,2}25% increased Spell Damage per Power Charge
 {variant:3}(10-15)% increased Spell Damage per Power Charge
-]],
+]], [[
+Corpse Rose
+Imbued Wand
+League: Covens
+Source: Drops from a boss empowered by a Fate that rewards this item
+Implicits: 1
+(33-37)% increased Spell Damage
+Trigger Level 20 Goreblossom after spending (10-20)% of your Maximum Life on Spells
+(20-30)% increased Cast Speed
+Skills Cost Life instead of 50% of Mana Cost
+Goreblossom has +(1-3) maximum Bloom
+]]
 }

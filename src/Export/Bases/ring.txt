@@ -1,6 +1,5 @@
 -- Item data (c) Grinding Gear Games
-local itemBases = ...
-
+return function(itemBases)
 #type Ring
 #influenceBaseTag ring
 
@@ -20,3 +19,4 @@ local itemBases = ...
 #base Metadata/Items/Rings/BreachRing
 #base Metadata/Items/Rings/RingDemigods1
 #base Metadata/Items/Rings/RingVictor1
+end

@@ -21,7 +21,7 @@ local weaponClassMap = {
 	["One Hand Axe"] = "One Handed Axe",
 	["One Hand Mace"] = "One Handed Mace",
 	["Bow"] = "Bow",
-	["Fishing Rod"] = "Fishing Rod",
+	["FishingRod"] = "Fishing Rod",
 	["Staff"] = "Staff",
 	["Two Hand Sword"] = "Two Handed Sword",
 	["Two Hand Axe"] = "Two Handed Axe",
@@ -33,7 +33,7 @@ local weaponClassMap = {
 local skillStatScope = { }
 do
 	local text = convertUTF16to8(getFile("Metadata/StatDescriptions/skillpopup_stat_filters.txt"))
-	for skillName, scope in text:gmatch('([%w_]+) "Metadata/StatDescriptions/([%w_]+)%.txt"') do
+	for skillName, scope in text:gmatch('([%w_]+) "Metadata/StatDescriptions/([%w_]+)%.csd"') do
 		skillStatScope[skillName] = scope
 	end
 	for skillName, copyFromSkill in text:gmatch('copy ([%w_]+) ([%w_]+)') do

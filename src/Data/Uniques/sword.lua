@@ -28,6 +28,15 @@ Implicits: 1
 Skills fire 2 additional Projectiles if you've used a Movement Skill Recently
 Far Shot
 ]],[[
+Dread Captain's Cutlass
+Ghostflame Blade
+Source: Drops from unique{Captainsbane} in normal{The Fathomless Depths}
+League: Allflame
+Crafted: true
+Implicits: 2
+Can be Allflame Crafted as if Rare
+Cannot gain Intangibility
+]],[[
 Dreamfeather
 Eternal Sword
 Variant: Pre 2.0.0
@@ -83,6 +92,20 @@ Implicits: 2
 {variant:4,5}Attacks with this Weapon have Added Maximum Lightning Damage equal to 20% of Player's Maximum Energy Shield
 {variant:6}Attacks with this Weapon have Added Maximum Lightning Damage equal to (10-15)% of Player's Maximum Energy Shield
 ]],[[
+Fleshrender
+Exquisite Blade
+League: Mirage
+Source: No longer obtainable
+Implicits: 1
++50% to Global Critical Strike Multiplier
+(180-240)% increased Physical Damage
++(20-40)% to Damage over Time Multiplier
+(20-40)% increased Critical Strike Chance
+Cannot Poison Enemies with at least 12 Poisons on them
+Inflict (2-3) additional Poisons on the same Target
+when you inflict Poison with this weapon
+Wither on Hit with this weapon against Enemies with at least 12 Poisons on them
+]],[[
 The Goddess Scorned
 Elegant Sword
 Source: Vendor Recipe
@@ -100,7 +123,7 @@ Uses both hand slots
 +(40-50)% to Fire Resistance
 Cannot be Ignited
 100% of Physical Damage Converted to Fire Damage
-Ignites you inflict deal Damage 50% faster
+Ignites you inflict deal Damage 50% Faster
 You can only deal Damage with this Weapon or Ignite
 ]],[[
 The Goddess Unleashed
@@ -108,7 +131,7 @@ Eternal Sword
 Source: No longer obtainable
 Variant: Pre 2.6.0
 Variant: Current
-LevelReq: 51
+Requires Level 51
 Implicits: 2
 {variant:1}18% increased Global Accuracy Rating
 {variant:2}+475 to Accuracy Rating
@@ -118,7 +141,7 @@ Adds (3-6) to (33-66) Physical Damage
 33% increased Ignite Duration on Enemies
 Gain (66-99)% of Sword Physical Damage as Extra Fire Damage
 Gain Her Blessing for 3 seconds when you Ignite an Enemy
-33% chance to Blind nearby Enemies when gaining Her Blessing
+33% chance to Blind Enemies within 1.2 metres when gaining Her Blessing
 100% chance to Avoid being Ignited, Chilled or Frozen with Her Blessing
 20% increased Attack and Movement Speed with Her Blessing
 ]],[[
@@ -224,7 +247,7 @@ Variant: Current
 Implicits: 2
 {variant:1}18% increased Global Accuracy Rating
 {variant:2}+190 to Accuracy Rating
-Socketed Gems are supported by Level 1 Multistrike
+Socketed Gems are Supported by Level 1 Multistrike Support
 (60-80)% increased Physical Damage
 Adds (5-8) to (10-14) Physical Damage
 (10-15)% increased Attack Speed
@@ -234,13 +257,12 @@ Adds (5-8) to (10-14) Physical Damage
 The Living Blade
 Ezomyte Blade
 League: Settlers of Kalguur
-Requires Level 61, 113 Str, 113 Dex
 Implicits: 1
 +25% to Global Critical Strike Multiplier
 (100-140)% increased Physical Damage
 (25-35)% increased Attack Speed
 Cannot be Poisoned
-You can have an additional Tincture active
+You can have 2 additional Tinctures active
 10% chance to remove 1 Mana Burn on Kill
 ]],[[
 Oni-Goroshi
@@ -358,7 +380,7 @@ Source: No longer obtainable
 Variant: Pre 2.6.0
 Variant: Pre 3.7.0
 Variant: Current
-LevelReq: 61
+Requires Level 61
 Implicits: 2
 {variant:1}18% increased Global Accuracy Rating
 {variant:2,3}40% increased Global Accuracy Rating
@@ -396,7 +418,7 @@ League: Harbinger
 Source: No longer obtainable
 Implicits: 1
 40% increased Global Accuracy Rating
-Grants Summon Harbinger of the Arcane Skill
+Grants Summon Harbinger of the Arcane
 Trigger Level 20 Storm Cascade when you Attack
 (75-90)% increased Spell Damage
 (140-160)% increased Physical Damage
@@ -404,11 +426,26 @@ Adds 1 to (60-70) Lightning Damage
 Adds 1 to (60-70) Lightning Damage to Spells
 10% increased Area of Effect
 ]],[[
+Skysunder
+Exquisite Blade
+League: Mirage
+Source: No longer obtainable
+Implicits: 1
++50% to Global Critical Strike Multiplier
+(130-160)% increased Physical Damage
++(20-40)% to Damage over Time Multiplier
+(20-40)% increased Critical Strike Chance
+100% of Physical Damage Converted to Fire Damage
+Ignites you cause are reflected back to you
+50% less Duration of Ignites you inflict
+Ignites you inflict with this weapon spread to other Enemies within 2.8 metres
+Unaffected by Ignite
+]],[[
 The Surging Thoughts
 Legion Sword
 Implicits: 1
 40% increased Global Accuracy Rating
-Grants Summon Greater Harbinger of the Arcane Skill
+Grants Summon Greater Harbinger of the Arcane
 Trigger Level 20 Storm Cascade when you Attack
 (75-90)% increased Spell Damage
 (140-160)% increased Physical Damage
@@ -456,6 +493,7 @@ Adds (75-92) to (125-154) Physical Damage
 The Redblade
 Gladius
 League: Crucible
+Source: Drops from Crucible monsters
 Implicits: 1
 40% increased Global Accuracy Rating
 (150-180)% increased Physical Damage
@@ -474,10 +512,11 @@ Variant: Pre 3.0.0
 Variant: Pre 3.21.0
 Variant: Current
 League: Breach
+Requires Level 69
 Implicits: 2
 {variant:1}18% increased Global Accuracy Rating
 {variant:2,3,4}40% increased Global Accuracy Rating
-{variant:4}Grants Level 25 Envy Skill
+{variant:4}Grants Level 25 Envy
 {variant:1,2,3}+(10-20) to all Attributes
 {variant:1,2,3}Minions deal (20-30)% increased Damage
 {variant:1,2,3}Minions have +17% to Chaos Resistance
@@ -497,14 +536,14 @@ Variant: Pre 3.16.0
 Variant: Pre 3.21.0
 Variant: Current
 League: Breach
-LevelReq: 69
+Requires Level 69
 Implicits: 2
 {variant:1}18% increased Global Accuracy Rating
 {variant:2,3,4,5}40% increased Global Accuracy Rating
-{variant:1,2,3}Grants Level 15 Envy Skill
-{variant:4,5}Grants Level 25 Envy Skill
+{variant:1,2,3}Grants Level 15 Envy
+{variant:4,5}Grants Level 25 Envy
 {variant:1,2,3}Minions deal (30-40)% increased Damage
-{variant:4}Minions deal (60-80)% increased Damage
+{variant:4}Minions deal (80-100)% increased Damage
 Minions have +29% to Chaos Resistance
 {variant:1,2}Minions Poison Enemies on Hit
 {variant:3,4,5}Minions have 60% chance to Poison Enemies on Hit
@@ -604,7 +643,7 @@ Implicits: 3
 {variant:2}+30% to Global Critical Strike Multiplier
 {variant:3}+25% to Global Critical Strike Multiplier
 (120-150)% increased Physical Damage
-20% reduced Rarity of Items found
+-20% to Item Rarity
 +(40-60)% to all Elemental Resistances
 Grants 3 Life per Enemy Hit
 ]],[[
@@ -686,7 +725,6 @@ Grants 2 Life per Enemy Hit
 Nametaker
 Graceful Sword
 League: Affliction
-Requires Level 50, 78 Str, 94 Dex
 Implicits: 1
 +350 to Accuracy Rating
 (20-40)% increased Critical Strike Chance
@@ -711,7 +749,7 @@ Adds 3 to 7 Fire Damage
 20% increased Attack Speed
 30% increased Global Critical Strike Chance
 +(20-40) to Evasion Rating
-20% reduced Rarity of Items found
+-20% to Item Rarity
 30% increased Movement Speed when on Low Life
 ]],
 -- Weapon: Two Handed Sword
@@ -775,6 +813,18 @@ Socketed Melee Gems have 15% increased Area of Effect
 {variant:4,5}Attack Skills gain 5% of Physical Damage as Extra Fire Damage per Socketed Red Gem
 {variant:4,5}You have Vaal Pact while all Socketed Gems are Red
 ]],[[
+Echoforge
+Infernal Sword
+Source: Drops from unique{The Maven}
+Implicits: 1
+30% increased Chaos Damage
+Adds (600-650) to (750-800) Chaos Damage
+(-16-16)% reduced Attack Speed
++(-200-200) to maximum Life
+Your Chaos Damage can Shock
+(-40-40)% reduced Area of Effect for Attacks
+Deal no Physical or Elemental Damage
+]],[[
 Edge of Madness
 Etched Greatsword
 League: Beyond
@@ -795,6 +845,19 @@ Adds (60-68) to (90-102) Chaos Damage
 {variant:1,2,4}1% increased Chaos Damage per Level
 {variant:2,3,4}Adds 1 to 2 Physical Damage to Attacks per Level
 ]],[[
+The Golden Charlatan
+Lion Sword
+Source: Drops from unique{Uber Incarnation of Dread} in normal{Moment of Reverence}
+Implicits: 1
++50 to Strength and Dexterity
++200 Intelligence Requirement
+(200-300)% increased Physical Damage
+(10-16)% increased Attack Speed
+(100-200)% increased Critical Strike Chance
+Critical Strikes with this Weapon do not deal extra Damage
+Gain a random Shrine Buff for 30 seconds when you Kill a Rare or Unique Enemy
++1 to maximum Mana per 2 Intelligence
+]],[[
 Hiltless
 Reaver Sword
 Variant: Pre 2.6.0
@@ -804,7 +867,7 @@ Implicits: 3
 {variant:1}18% increased Global Accuracy Rating
 {variant:2}40% increased Global Accuracy Rating
 {variant:3}60% increased Global Accuracy Rating
-Socketed Gems are Supported by Level 1 Lifetap
+Socketed Gems are Supported by Level 1 Lifetap Support
 Adds (90-115) to (230-260) Physical Damage
 (40-50)% increased Critical Strike Chance
 Enemies you Attack Reflect 100 Physical Damage to you
@@ -864,18 +927,6 @@ Adds (385-440) to (490-545) Cold Damage
 {variant:2}Culling Strike against Frozen Enemies
 Gain an Endurance Charge if an Attack Freezes an Enemy
 ]],[[
-Echoforge
-Infernal Sword
-Source: Drops from unique{The Maven}
-Implicits: 1
-30% increased Chaos Damage
-Adds (600-650) to (750-800) Chaos Damage
-(-16-16)% reduced Attack Speed
-+(-200-200) to maximum Life
-Your Chaos Damage can Shock
-(-40-40)% reduced Area of Effect for Attacks
-Deal no Physical or Elemental Damage
-]],[[
 Queen's Decree
 Ornate Sword
 Variant: Pre 2.6.0
@@ -904,7 +955,7 @@ Source: No longer obtainable
 Variant: Pre 2.6.0
 Variant: Pre 3.8.0
 Variant: Current
-LevelReq: 38
+Requires Level 38
 Implicits: 2
 {variant:1}18% increased Global Accuracy Rating
 {variant:2,3}+185 to Accuracy Rating
@@ -922,7 +973,6 @@ Minions have (80-100)% increased Movement Speed
 ]],[[
 Rakiata's Dance
 Engraved Greatsword
-Requires Level 48, 91 Str, 76 Dex
 Implicits: 1
 60% increased Global Accuracy Rating
 Adds (150-200) to (300-350) Cold Damage
@@ -953,7 +1003,7 @@ Bastard Sword
 Variant: Pre 2.6.0
 Variant: Pre 3.11.0
 Variant: Current
-LevelReq: 14
+Requires Level 14
 Implicits: 3
 {variant:1}18% increased Global Accuracy Rating
 {variant:2}40% increased Global Accuracy Rating
@@ -1019,20 +1069,33 @@ Your Elemental Damage can Shock
 {variant:3}Gain 700% of Weapon Physical Damage as Extra Damage of a random Element
 20% increased Area of Effect for Attacks
 Deal no Non-Elemental Damage
-]],
-[[
-The Golden Charlatan
-Lion Sword
-Source: Drops from unique{Uber Incarnation of Dread} in normal{Moment of Reverence}
-Requires Level 65, 104 Str, 122 Dex
+]],[[
+Paradoxica
+Vaal Rapier
+League: Betrayal
+Source: Drops from unique{Intervention Leaders} in normal{Safehouses}
+Crafted: true
 Implicits: 1
-+50 to Strength and Dexterity
-+200 Intelligence Requirement
-(200-300)% increased Physical Damage
-(10-16)% increased Attack Speed
-(100-200)% increased Critical Strike Chance
-Critical Strikes with this Weapon do not deal extra Damage
-Gain a random Shrine Buff for 30 seconds when you Kill a Rare or Unique Enemy
-+1 to maximum Mana per 2 Intelligence
-]],
++25% to Global Critical Strike Multiplier
+Attacks with this Weapon deal Double Damage
+]],[[
+Replica Paradoxica
+Vaal Rapier
+League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
+Crafted: true
+Implicits: 1
++25% to Global Critical Strike Multiplier
+]],[[
+The Sword of Ages
+Exquisite Blade
+League: Covens
+Implicits: 1
++50% to Global Critical Strike Multiplier
+Trigger level 20 Temporal Mirage on using a Movement Attack
++(2-4) to Level of all Movement Skill Gems
+(250-300)% increased Physical Damage
+(12-24)% increased Attack Speed
+(100-180)% increased Damage with Movement Skills
+]]
 }

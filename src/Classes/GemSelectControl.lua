@@ -11,13 +11,23 @@ local m_min = math.min
 local m_max = math.max
 local m_floor = math.floor
 
-local gemTooltip = LoadModule("Classes/GemTooltip")
+local gemTooltip = require("Classes.GemTooltip")
 local toolTipText = "Prefix tag searches with a colon and exclude tags with a dash. e.g. :fire:lightning:-cold:area"
 local imbuedTooltipText = "\"Socketed in\" item must be set in order to add an imbued support.\nOnly one imbued support is allowed per item."
 
-local GemSelectClass = newClass("GemSelectControl", "EditControl", function(self, anchor, rect, skillsTab, index, changeFunc, forceTooltip, imbued)
-	self.EditControl(anchor, rect, nil, nil, "^ %a':-")
-	self.controls.scrollBar = new("ScrollBarControl", { "TOPRIGHT", self, "TOPRIGHT" }, {-1, 0, 18, 0}, (self.height - 4) * 4)
+---@class GemSelectControl: EditControl
+local GemSelectClass = newClass("GemSelectControl", "EditControl")
+
+---@param anchor Anchor?
+---@param rect Rect?
+---@param skillsTab SkillsTab
+---@param index integer
+---@param changeFunc fun(...)
+---@param forceTooltip boolean
+---@param imbued boolean
+function GemSelectClass:GemSelectControl(anchor, rect, skillsTab, index, changeFunc, forceTooltip, imbued)
+	self:EditControl(anchor, rect, nil, nil, "^ %a':-")
+	self.controls.scrollBar = new("ScrollBarControl"):ScrollBarControl({ "TOPRIGHT", self, "TOPRIGHT" }, {-1, 0, 18, 0}, (self.height - 4) * 4)
 	self.controls.scrollBar.y = function()
 		local width, height = self:GetSize()
 		return height + 1
@@ -54,7 +64,8 @@ local GemSelectClass = newClass("GemSelectControl", "EditControl", function(self
 	}
 	self.imbuedSelect = imbued
 	self.dpsBuildFlag = false
-end)
+	return self
+end
 
 function GemSelectClass:CalcOutputWithThisGem(calcFunc, gemData, useFullDPS)
 	local gemList = self.skillsTab.displayGroup.gemList
@@ -120,7 +131,7 @@ function GemSelectClass:PopulateGemList()
 					if gemData.grantedEffect.support and not gemData.tagString:match("Exceptional") and not isLegacyAwakened and (not gemData.secondaryGrantedEffect or gemData.secondaryGrantedEffect.support) then
 						self.gems["Default:" .. gemId] = gemData
 					end
-				else
+				elseif not gemData.grantedEffect.imbuedOnly then
 					if (showExceptional or showAll) and (isLegacyAwakened or gemData.tagString:match("Exceptional")) then
 						if self.skillsTab.showLegacyGems or not gemData.grantedEffect.legacy then
 							self.gems["Default:" .. gemId] = gemData
@@ -383,6 +394,24 @@ function GemSelectClass:SortGemList(gemList)
 	end)
 end
 
+function GemSelectClass:SyncSelection()
+	self.selIndex = 0
+	for index, gemId in ipairs(self.list) do
+		if self.gems[gemId] and self.gems[gemId].name:lower() == self.buf:lower() then
+			self.selIndex = index
+			self:ScrollSelIntoView()
+			break
+		end
+	end
+end
+
+function GemSelectClass:SortCurrentList()
+	if #self.searchStr == 0 then
+		self:SortGemList(self.list)
+		self:SyncSelection()
+	end
+end
+
 function GemSelectClass:DPSBuilder()
 	local sortCache = self.sortCache
 	if not sortCache or not sortCache.pendingGems then return end
@@ -409,9 +438,7 @@ function GemSelectClass:DPSBuilder()
 		end
 		local now = GetTime()
 		if now - start > 50 then
-			if #self.searchStr == 0 then
-				self:SortGemList(self.list)
-			end
+			self:SortCurrentList()
 			if self.dpsBuilderCallback then
 				self.dpsBuilderCallback(m_floor(index/#pending*100))
 			end
@@ -420,9 +447,7 @@ function GemSelectClass:DPSBuilder()
 		end
 	end
 
-	if #self.searchStr == 0 then
-		self:SortGemList(self.list)
-	end
+	self:SortCurrentList()
 	sortCache.pendingGems = nil
 end
 
@@ -685,27 +710,23 @@ end
 function GemSelectClass:OnFocusGained()
 	self.EditControl:OnFocusGained()
 	self.dropped = true
-	self.selIndex = 0
 	self:UpdateSortCache()
 	self:BuildList("")
-	for index, gemId in pairs(self.list) do
-		if self.gems[gemId] and self.gems[gemId].name == self.buf then
-			self.selIndex = index
-			self:ScrollSelIntoView()
-			break
-		end
-	end
+	self:SyncSelection()
 	self.initialBuf = self.buf
-	self.initialIndex = self.selIndex
+end
+
+function GemSelectClass:CancelSelection()
+	self.dropped = false
+	self.buf = self.initialBuf
+	self:BuildList("")
+	self:SyncSelection()
+	self:UpdateGem(false, true, true)
 end
 
 function GemSelectClass:OnFocusLost()
 	if self.dropped then
-		self.dropped = false
-		if self.noMatches then
-			self:SetText("")
-		end
-		self:UpdateGem(true,true, true)
+		self:CancelSelection()
 	end
 end
 
@@ -739,6 +760,7 @@ function GemSelectClass:OnKeyDown(key, doubleClick)
 	end
 	if self.dropped then
 		if key:match("BUTTON") and not self:IsMouseOver() then
+			self:CancelSelection()
 			return
 		end
 		if key == "LEFTBUTTON" then
@@ -761,11 +783,7 @@ function GemSelectClass:OnKeyDown(key, doubleClick)
 			self:UpdateGem(true, true, true)
 			return
 		elseif key == "ESCAPE" then
-			self.dropped = false
-			self:BuildList("")
-			self.buf = self.initialBuf
-			self.selIndex = self.initialIndex
-			self:UpdateGem(false,true, true)
+			self:CancelSelection()
 			return
 		elseif self.controls.scrollBar:IsScrollUpKey(key) then
 			self.controls.scrollBar:Scroll(-1)
@@ -793,7 +811,6 @@ function GemSelectClass:OnKeyDown(key, doubleClick)
 	elseif key == "RETURN" or key == "RIGHTBUTTON" then
 		self.dropped = true
 		self:UpdateSortCache()
-		self.initialIndex = self.selIndex
 		self.initialBuf = self.buf
 		return self
 	end

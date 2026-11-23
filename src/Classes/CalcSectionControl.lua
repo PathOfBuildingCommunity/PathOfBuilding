@@ -7,9 +7,19 @@ local t_insert = table.insert
 local m_max = math.max
 local m_min = math.min
 
-local CalcSectionClass = newClass("CalcSectionControl", "Control", "ControlHost", function(self, calcsTab, width, id, group, colour, subSection, updateFunc)
-	self.Control(calcsTab, {0, 0, width, 0})
-	self.ControlHost()
+---@class CalcSectionControl: Control, ControlHost
+local CalcSectionClass = newClass("CalcSectionControl", "Control", "ControlHost")
+
+---@param calcsTab CalcsTab
+---@param width any
+---@param id any
+---@param group any
+---@param colour any
+---@param subSection any
+---@param updateFunc any
+function CalcSectionClass:CalcSectionControl(calcsTab, width, id, group, colour, subSection, updateFunc)
+	self:Control(calcsTab, {0, 0, width, 0})
+	self:ControlHost()
 	self.calcsTab = calcsTab
 	self.id = id
 	self.group = group
@@ -37,7 +47,7 @@ local CalcSectionClass = newClass("CalcSectionControl", "Control", "ControlHost"
 			end
 		end
 		subSec.collapsed = subSec.defaultCollapsed
-		self.controls["toggle"..i] = new("ButtonControl", {"TOPRIGHT",self,"TOPRIGHT"}, {-3, -13 + (16 * i), 16, 16}, function()
+		self.controls["toggle"..i] = new("ButtonControl"):ButtonControl({"TOPRIGHT",self,"TOPRIGHT"}, {-3, -13 + (16 * i), 16, 16}, function()
 			return subSec.collapsed and "+" or "-"
 		end, function()
 			subSec.collapsed = not subSec.collapsed
@@ -53,7 +63,7 @@ local CalcSectionClass = newClass("CalcSectionControl", "Control", "ControlHost"
 			end
 		end
 	end
-	self.controls.popOut = new("ButtonControl", {"TOPRIGHT",self,"TOPRIGHT"}, {-22, 3, 16, 16}, "^", function()
+	self.controls.popOut = new("ButtonControl"):ButtonControl({"TOPRIGHT",self,"TOPRIGHT"}, {-22, 3, 16, 16}, "^", function()
 		self:ToggleOverlay()
 	end)
 	self.controls.popOut.shown = function()
@@ -68,7 +78,8 @@ local CalcSectionClass = newClass("CalcSectionControl", "Control", "ControlHost"
 	self.shown = function()
 		return self.enabled and not self.isOverlay
 	end
-end)
+	return self
+end
 
 function CalcSectionClass:IsMouseOver()
 	if not self:IsShown() then
@@ -380,7 +391,7 @@ function CalcSectionClass:DrawOverlay(viewPort, inputEvents)
 	local totalHeight = self:GetOverlayHeight()
 
 	-- Ensure it's above most other controls
-	SetDrawLayer(12)
+	SetDrawLayer(10)
 
 	-- Draw background
 	SetDrawColor(0.08, 0.08, 0.08, 0.95)

@@ -4,8 +4,7 @@
 -- Spectre active skills
 -- Skill data (c) Grinding Gear Games
 --
-local skills, mod, flag, skill = ...
-
+return function(skills, mod, flag, skill)
 skills["AxisCasterGlacialCascade"] = {
 	name = "Glacial Cascade",
 	hidden = true,
@@ -16241,3 +16240,5 @@ skills["LegionMarakethSergeantMelee"] = {
 		[1] = { baseMultiplier = 0.9, levelRequirement = 1, },
 	},
 }
+
+end

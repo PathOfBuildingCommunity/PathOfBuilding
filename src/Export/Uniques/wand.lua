@@ -62,7 +62,7 @@ Implicits: 3
 {variant:1}LocalAddedFireDamageUnique__2[10,14][18,22]
 {variant:3,4,5}LocalAddedFireDamageUnique__2
 {variant:1,2}SpellAddedFireDamageUniqueWand10[4,6][7,9]
-{variant:3,4,5}SpellAddedFireDamageUniqueWand10[20,24][36,46]
+{variant:3,4,5}SpellAddedFireDamageUnique__3
 {variant:1}BurnDamageUnique__1[40,50]
 {variant:2}BurnDamageUnique__1
 {variant:1,2}ChanceToIgniteUnique__1
@@ -93,14 +93,13 @@ Implicits: 4
 {variant:6}LightRadiusUnique__1
 DisplayBlindAuraUnique__1
 CriticalChanceAgainstBlindedEnemiesUnique__1
-AddedFireDamageFromLightRadiusUnique__1
+{variant:6}AddedFireDamageFromLightRadiusUnique__1
 ]],[[
 Corona Solaris
 Crystal Wand
 Source: No longer obtainable
 Variant: Pre 3.10.0
 Variant: Current
-LevelReq: 63
 Implicits: 1
 SpellDamageOnWeaponImplicitWand13
 BlindingAuraSkillUnique__1
@@ -150,14 +149,14 @@ Variant: Current
 Implicits: 3
 {variant:1}SpellDamageOnWeaponImplicitWand9[12,16]
 {variant:2,3}SpellDamageOnWeaponImplicitWand9
-{variant:4}MinionDamageUniqueWand2[12,16]
+{variant:4}MinionDamageImplicitWand3
 LifeReservationUniqueWand2
 IntelligenceUniqueWand2
 {variant:1,2}MinionRunSpeedUniqueWand2[10,20]
 {variant:3,4}MinionRunSpeedUniqueWand2
 {variant:1,2}MinionDamageUniqueWand2[10,30]
 {variant:3,4}MinionDamageUniqueWand2
-MaximumMinionCountUniqueWand2
+MaximumMinionCountUniqueWand2Updated
 ]],[[
 Replica Midnight Bargain
 {variant:1}Engraved Wand
@@ -168,7 +167,7 @@ League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
 Implicits: 2
 {variant:1}SpellDamageOnWeaponImplicitWand9
-{variant:2}MinionDamageUniqueWand2[12,16]
+{variant:2}MinionDamageImplicitWand3
 LifeReservationUniqueWand2
 IntelligenceUniqueWand2
 MinionRunSpeedUnique__5
@@ -177,7 +176,6 @@ ExtraRagingSpiritsUnique__1
 ExtraMaximumPhantasmsUnique__1
 ]],[[
 Moonsorrow
-Imbued Wand
 {variant:1,2,3,4}Imbued Wand
 {variant:5}Kinetic Wand
 Variant: Pre 2.0.0
@@ -197,20 +195,19 @@ SpellDamageUniqueWand1
 {variant:2,3}LocalIncreasedPhysicalDamagePercentUnique__26[175,175]
 {variant:4,5}LocalIncreasedPhysicalDamagePercentUniqueWand1
 LightningDamageUniqueWand1
-IncreasedCastSpeedImplicitMarakethWand1
+IncreasedCastSpeedUniqueWand1
 BlindingHitUniqueWand1
 ]],[[
 Mystic Refractor
 Pagan Wand
 Variant: Pre 3.29.0
 Variant: Current
-Requires Level 34, 118 Int
 Implicits: 1
 IncreasedCastSpeedImplicitMarakethWand1
 AdditionalProjectilesUniqueWand_1
 {variant:1}ProjectileSpeedUnique__9[10,20]
 {variant:2}ProjectileSpeedUnique__9
-IncreasedProjectileDamageUnique__1
+IncreasedProjectileDamageUnique___12
 ProjectilesExpireOnHitUniqueWand_1
 ]],[[
 Obliteration
@@ -242,6 +239,7 @@ Piscator's Vigil
 Variant: Pre 2.3.0
 Variant: Pre 2.6.0
 Variant: Pre 3.21.0
+Variant: Pre 3.27.0
 Variant: Current
 Implicits: 4
 {variant:1}SpellDamageOnWeaponImplicitWand15[16,19]
@@ -258,13 +256,15 @@ ThisWeaponsWeaponElementalDamageUniqueWand6
 The Poet's Pen
 {variant:1}Carved Wand
 {variant:2}Somatic Wand
-Implicits: 1
+Variant: Pre 3.27.0
+Variant: Current
+Implicits: 2
 {variant:1}SpellDamageOnWeaponImplicitWand3
+{variant:2}KineticWandImplicit
 SocketedGemLevelPer25PlayerLevelsUnique__1
 TriggerSocketedSpellOnAttackUnique__1
 AddsPhysicalDamagePer3PlayerLevelsUnique__1_
 LocalIncreasedAttackSpeedUnique__24
-{variant:2}KineticWandImplicit
 ]],[[
 Reverberation Rod
 Spiraled Wand
@@ -302,14 +302,13 @@ Spiraled Wand
 Source: No longer obtainable
 Variant: Pre 3.11.0
 Variant: Current
-LevelReq: 36
 Implicits: 1
 SpellDamageOnWeaponImplicitWand5
 {variant:1}LocalIncreaseSocketedGemLevelUniqueWand8[1,1]
 {variant:2}LocalIncreaseSocketedGemLevelUniqueWand8
-SocketedGemsGetIncreasedAreaOfEffectUnique__1
-SupportedByEchoUniqueWand8
-ControlledDestructionSupportUniqueWand8
+SupportedByIntensifyUnique__1
+SupportedByEchoUniqueWand8New_
+ControlledDestructionSupportUnique__1New_
 IntelligenceUniqueWand8
 ]],[[
 Shade of Solaris
@@ -318,7 +317,7 @@ Variant: Pre 3.5.0
 Variant: Current
 Implicits: 1
 SpellDamageOnWeaponImplicitWand6
-ElementalDamagePercentAddedAsChaosUnique__3
+ElementalDamagePercentAddedAsChaosUnique__1
 CriticalStrikesDealNoDamageUnique__1
 {variant:1}SpellDamageIfYouHaveCritRecentlyUnique__1[120,120]
 {variant:2}SpellDamageIfYouHaveCritRecentlyUnique__1
@@ -332,11 +331,11 @@ Variant: Pre 3.21.0
 Variant: Pre 3.29.0
 Variant: Current
 Implicits: 2
-{variant:1,2}SpellDamageUniqueWand1[35,39]
-{variant:3,4}AddedLightningDamageSpellsAndAttacksImplicit3
+{variant:1,2,4}SpellDamageOnWeaponImplicitWand16
+{variant:3}AddedLightningDamageSpellsAndAttacksImplicit3
 {variant:1,2,3}SpellDamageUniqueWand1
 {variant:1,2,3}SpellAddedLightningDamageUnique__5
-{variant:4}IncreasedMaximumPowerChargesUnique__5
+{variant:4}IncreasedMaximumPowerChargesUnique__6
 CriticalMultiplierPerPowerChargeUnique__1
 AdditionalCriticalStrikeChancePerPowerChargeUnique__1
 ChanceToBlockSpellsPerPowerChargeUnique__1
@@ -359,46 +358,50 @@ Implicits: 3
 LocalIncreasedPhysicalDamagePercentUnique__8
 LocalAddedLightningDamageUnique__2
 ManaRegenerationUnique__1
-IncreasedMaximumPowerChargesUniqueWand3
+IncreasedMaximumPowerChargesUnique__1
 PowerChargeOnKillChanceUnique__1
 ]],[[
 Tulborn
 {variant:1,2}Spiraled Wand
-{variant:3}Opal Wand
+{variant:3,4}Opal Wand
 Variant: Pre 3.16.0
 Variant: Pre 3.21.0
+Variant: Pre 3.29.0
 Variant: Current
 League: Breach
 Source: Drops in Tul Breach or from unique{Tul, Creeping Avalanche}
 Upgrade: Upgrades to unique{Tulfall} using currency{Blessing of Tul}
-Implicits: 2
+Implicits: 3
 {variant:1,2}SpellDamageOnWeaponImplicitWand5
 {variant:3}AddedColdDamageSpellsAndAttacksImplicit3
+{variant:4}SpellDamageOnWeaponImplicitWand14
 {variant:1,2}IncreasedCastSpeedUnique__20
-{variant:3}SpellAddedColdDamageUnique__7
+{variant:3,4}SpellAddedColdDamageUnique__7
 {variant:1,2}GainPowerChargeOnKillingFrozenEnemyUnique__1[50,50]
-{variant:3}GainPowerChargeOnKillingFrozenEnemyUnique__1
+{variant:3,4}GainPowerChargeOnKillingFrozenEnemyUnique__1
 {variant:1,2}AddedColdDamagePerPowerChargeUnique__1
-{variant:3}ColdExposureAdditionalResistanceUnique__1
+{variant:3,4}ColdExposureAdditionalResistanceUnique__1
 GainManaOnKillingFrozenEnemyUnique__1
 ]],[[
 Tulfall
 {variant:1,2}Tornado Wand
-{variant:3}Opal Wand
+{variant:3,4}Opal Wand
 Variant: Pre 3.16.0
 Variant: Pre 3.21.0
+Variant: Pre 3.29.0
 Variant: Current
 League: Breach
 Source: Upgraded from unique{Tulborn} using currency{Blessing of Tul}
-Implicits: 2
+Implicits: 3
 {variant:1,2}SpellDamageOnWeaponImplicitWand16
 {variant:3}AddedColdDamageSpellsAndAttacksImplicit3
+{variant:4}SpellDamageOnWeaponImplicitWand14
 {variant:1,2}IncreasedCastSpeedUniqueWand3[10,15]
-{variant:3}IncreasedCastSpeedUniqueWand3
+{variant:3,4}IncreasedCastSpeedUnique__8
 {variant:1}GainPowerChargeOnKillingFrozenEnemyUnique__1[50,50]
-{variant:2,3}GainPowerChargeOnKillingFrozenEnemyUnique__1
+{variant:2,3,4}GainPowerChargeOnKillingFrozenEnemyUnique__1
 {variant:1,2}AddedColdDamagePerPowerChargeUnique__2[15,15][25,25]
-{variant:3}AddedColdDamagePerPowerChargeUnique__2
+{variant:3,4}AddedColdDamagePerPowerChargeUnique__2
 LosePowerChargesOnMaxPowerChargesUnique__2
 WhenReachingMaxPowerChargesGainAFrenzyChargeUnique__1
 {variant:1}IncreasedColdDamagePerFrenzyChargeUnique__1[10,15]
@@ -406,17 +409,18 @@ WhenReachingMaxPowerChargesGainAFrenzyChargeUnique__1
 ]],[[
 Replica Tulfall
 {variant:1}Tornado Wand
-{variant:2}Opal Wand
+{variant:2,3}Opal Wand
 Variant: Pre 3.21.0
 Variant: Pre 3.29.0
 Variant: Current
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
-Implicits: 2
+Implicits: 3
 {variant:1}SpellDamageOnWeaponImplicitWand16
-{variant:2,3}AddedColdDamageSpellsAndAttacksImplicit3
+{variant:2}AddedColdDamageSpellsAndAttacksImplicit3
+{variant:3}SpellDamageOnWeaponImplicitWand14
 IncreasedCastSpeedUnique__22
-LosePowerChargesOnMaxPowerChargesUnique__1
+LosePowerChargesOnMaxPowerChargesUnique__2
 WhenReachingMaxPowerChargesGainAFrenzyChargeUnique__1
 {variant:1,2}IncreasedColdDamagePerFrenzyChargeUnique__2[15,20]
 {variant:3}IncreasedColdDamagePerFrenzyChargeUnique__2
@@ -429,16 +433,16 @@ Twyzel
 Variant: Pre 2.3.0
 Variant: Pre 2.27.0
 Variant: Current
-Implicits: 2
+Implicits: 3
 {variant:1}SpellDamageOnWeaponImplicitWand6[11,14]
 {variant:2}SpellDamageOnWeaponImplicitWand6
+{variant:3}KineticWandImplicit
 {variant:1,2}SocketedGemsAdditionalProjectilesUniqueWand9
 {variant:1,2}LocalIncreasedPhysicalDamagePercentUniqueWand9[80,120]
 {variant:3}LocalIncreasedPhysicalDamagePercentUniqueWand9
 LocalAddedPhysicalDamageUniqueWand9
 LocalIncreasedAttackSpeedUniqueWand9
 LocalCriticalStrikeChanceUniqueWand9
-{variant:3}KineticWandImplicit
 {variant:3}MainHandAdditionalProjectilesWhileInOffHandUnique__1
 {variant:3}OffHandAreaOfEffectWhileInMainHandUnique__1
 ]],[[
@@ -454,12 +458,11 @@ Implicits: 2
 {variant:2}KineticWandImplicit
 LocalIncreasedPhysicalDamagePercentUniqueWand9x
 LocalIncreasedAttackSpeedUniqueWand9
-LocalCriticalStrikeChanceUnique__22
+LocalCriticalStrikeChanceUnique__20
 AttackAdditionalProjectilesUnique__1
 ]],[[
 Unlight Extant
 Sage Wand
-Requires Level 30, 119 Int
 Implicits: 1
 SpellDamageOnWeaponImplicitWand6
 IncreasedChaosDamageUniqueWand_1
@@ -485,5 +488,16 @@ CriticalStrikeChanceUniqueWand3
 IncreasedMaximumPowerChargesUniqueWand3
 {variant:1,2}IncreasedSpellDamagePerPowerChargeUniqueWand3[25,25]
 {variant:3}IncreasedSpellDamagePerPowerChargeUniqueWand3
-]],
+]], [[
+Corpse Rose
+Imbued Wand
+League: Covens
+Source: Drops from a boss empowered by a Fate that rewards this item
+Implicits: 1
+SpellDamageOnWeaponImplicitWand15
+GrantsCreateBloodFlowerSkillUnique__1
+IncreasedCastSpeedUnique__29
+SkillLifeCostInsteadOfManaUnique__1
+MaximumBloodFlowersUnique__1
+]]
 }

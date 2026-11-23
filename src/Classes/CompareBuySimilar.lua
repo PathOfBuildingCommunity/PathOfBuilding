@@ -6,15 +6,19 @@
 local t_insert = table.insert
 local m_floor = math.floor
 local dkjson = require "dkjson"
-local tradeHelpers = LoadModule("Classes/TradeHelpers")
-local tradeStats = tradeHelpers.getTradeStats()
+local tradeHelpers = require("Classes.TradeHelpers")
 
--- used to check what stats actually exist on the trade site.
-local existingStats = {}
-for _, cat in ipairs(tradeStats or {}) do
-	for _, entry in ipairs(cat.entries) do
-		existingStats[entry.id] = true
+-- used to check what stats actually exist on the trade site
+local _existingStats
+local function getStats()
+	if _existingStats then return _existingStats end
+	_existingStats = {}
+	for _, cat in ipairs(tradeHelpers.getTradeStats() or {}) do
+		for _, entry in ipairs(cat.entries) do
+			_existingStats[entry.id] = true
+		end
 	end
+	return _existingStats
 end
 
 local M = {}
@@ -39,7 +43,6 @@ for i, entry in ipairs(LISTED_STATUS_OPTIONS) do
 end
 
 
-
 -- Build the trade search URL based on popup selections
 local function buildURL(item, slotName, controls, modEntries, defenceEntries, isUnique)
 	-- Determine realm and league from the popup's dropdowns
@@ -57,16 +60,13 @@ local function buildURL(item, slotName, controls, modEntries, defenceEntries, is
 
 	-- Build query
 	local queryTable = {
-		query = {
-			status = { option = listedApiValue },
-			stats = {
-				{
-					type = "and",
-					filters = {}
-				}
-			},
+		status = { option = listedApiValue },
+		stats = {
+			{
+				type = "and",
+				filters = {}
+			}
 		},
-		sort = { price = "asc" }
 	}
 	local queryFilters = {}
 
@@ -74,8 +74,18 @@ local function buildURL(item, slotName, controls, modEntries, defenceEntries, is
 		-- Search by unique name
 		-- Strip "Foulborn" prefix from unique name for trade search
 		local tradeName = (item.title or item.name):gsub("^Foulborn%s+", "")
-		queryTable.query.name = tradeName
-		queryTable.query.type = item.baseName
+		-- only strip a trailing numeric identifier to avoid e.g. including
+		-- timeless jewel ids or other numbers appended to the item name.
+		tradeName = tradeName:gsub("%s+$", "")
+		tradeName = (tradeName:match("^(.-)%s+%d+$") or tradeName)?.:lower()
+		-- verify the name since the trade site will error on an invalid name
+		for _, dbUnique in pairs(main.uniqueDB.list) do
+			if tradeName:find(dbUnique.title:lower(), 1, true) then
+				queryTable.name = dbUnique.title
+				break
+			end
+		end
+		queryTable.type = item.baseName
 		-- If item is Foulborn, add the foulborn_item filter
 		if item.foulborn then
 			queryFilters.misc_filters = queryFilters.misc_filters or { filters = {} }
@@ -94,7 +104,7 @@ local function buildURL(item, slotName, controls, modEntries, defenceEntries, is
 
 		-- Base type filter
 		if controls.baseTypeCheck and controls.baseTypeCheck.state then
-			queryTable.query.type = item.baseName
+			queryTable.type = item.baseName
 		end
 
 		-- Item level filter
@@ -166,21 +176,21 @@ local function buildURL(item, slotName, controls, modEntries, defenceEntries, is
 		if controls[prefix .. "Check"] and controls[prefix .. "Check"].state then
 			if #entry.tradeIds == 1 then
 				-- 1 id entries are added to the stat filters section
-				t_insert(queryTable.query.stats[1].filters, getFilter(entry.tradeIds[1]))
+				t_insert(queryTable.stats[1].filters, getFilter(entry.tradeIds[1]))
 			elseif #entry.tradeIds > 1 then
 				-- ambiguous entries are added as a separate count filter
 				local countFilter = { type = "count", value = { min = 1 }, filters = {} }
 				for _, tradeId in ipairs(entry.tradeIds) do
 					t_insert(countFilter.filters, getFilter(tradeId))
 				end
-				t_insert(queryTable.query.stats, countFilter)
+				t_insert(queryTable.stats, countFilter)
 			end
 		end
 	end
 
 	-- Only include filters if we have any
 	if next(queryFilters) then
-		queryTable.query.filters = queryFilters
+		queryTable.filters = queryFilters
 	end
 
 	-- Build URL
@@ -192,8 +202,8 @@ local function buildURL(item, slotName, controls, modEntries, defenceEntries, is
 	local encodedLeague = league:gsub("[^%w%-%.%_%~]", function(c)
 		return string.format("%%%02X", string.byte(c))
 	end):gsub(" ", "+")
-	url = url .. "/" .. encodedLeague
-	url = url .. "?q=" .. urlEncode(queryJson)
+	url ..= "/" .. encodedLeague
+	url ..= "/" .. tradeHelpers.B64GzipEncode(queryJson)
 
 	return url
 end
@@ -211,7 +221,7 @@ function M.addModEntries(item, modTypeSources)
 		for _, existingFilter in ipairs(modEntries) do
 			-- check if all result trade ids are equal
 			local sameHashes = #entry.tradeIds > 0 and tableDeepEquals(entry.tradeIds, existingFilter.tradeIds)
-			if sameHashes and existingFilter.type == entry.type then
+			if sameHashes and existingFilter.type == entry.type and not entry.isOption then
 				if entry.value then
 					local value = (entry.invert ~= existingFilter.invert) and -entry.value or entry.value or 0
 					existingFilter.value = (existingFilter.value or 0) + value
@@ -250,12 +260,13 @@ function M.addModEntries(item, modTypeSources)
 							value = value,
 						}
 						if not tradeId then
-							local resultHashes, value, invert = tradeHelpers.findTradeHash(resolvedLine)
+							local resultHashes, value, invert, prefix = tradeHelpers.findTradeHash(resolvedLine)
 							-- convert hashes to string ids
 							local resultIds = {}
 							if resultHashes then
+								local existingStats = getStats()
 								for idx = 1, #resultHashes do
-									local id = string.format("%s.stat_%s", source.type, resultHashes[idx])
+									local id = string.format("%s.%s%s", source.type, prefix, resultHashes[idx])
 									if existingStats[id] then
 										t_insert(resultIds, id)
 									end
@@ -331,7 +342,7 @@ function M.openPopup(item, slotName, primaryBuild)
 	local tradeQuery = primaryBuild.itemsTab and primaryBuild.itemsTab.tradeQuery
 	local tradeQueryRequests = tradeQuery and tradeQuery.tradeQueryRequests
 	if not tradeQueryRequests then
-		tradeQueryRequests = new("TradeQueryRequests")
+		tradeQueryRequests = new("TradeQueryRequests"):TradeQueryRequests()
 	end
 
 	local function rebuildUrl()
@@ -370,8 +381,8 @@ function M.openPopup(item, slotName, primaryBuild)
 	end
 
 	-- Realm dropdown
-	controls.realmLabel = new("LabelControl", {"TOPLEFT", nil, "TOPLEFT"}, {leftMargin, ctrlY, 0, 16}, "^7Realm:")
-	controls.realmDrop = new("DropDownControl", {"LEFT", controls.realmLabel, "RIGHT"}, {4, 0, 80, 20}, {"PC", "PS4", "Xbox"}, function(index, value)
+	controls.realmLabel = new("LabelControl"):LabelControl({"TOPLEFT", nil, "TOPLEFT"}, {leftMargin, ctrlY, 0, 16}, "^7Realm:")
+	controls.realmDrop = new("DropDownControl"):DropDownControl({"LEFT", controls.realmLabel, "RIGHT"}, {4, 0, 80, 20}, {"PC", "PS4", "Xbox"}, function(index, value)
 		local realmApiId = REALM_API_IDS[value] or "pc"
 		fetchLeaguesForRealm(realmApiId)
 		rebuildUrl()
@@ -382,8 +393,8 @@ function M.openPopup(item, slotName, primaryBuild)
 	end
 
 	-- League dropdown
-	controls.leagueLabel = new("LabelControl", {"LEFT", controls.realmDrop, "RIGHT"}, {12, 0, 0, 16}, "^7League:")
-	controls.leagueDrop = new("DropDownControl", { "LEFT", controls.leagueLabel, "RIGHT" }, { 4, 0, 160, 20 },
+	controls.leagueLabel = new("LabelControl"):LabelControl({"LEFT", controls.realmDrop, "RIGHT"}, {12, 0, 0, 16}, "^7League:")
+	controls.leagueDrop = new("DropDownControl"):DropDownControl({"LEFT", controls.leagueLabel, "RIGHT" }, { 4, 0, 160, 20 },
 		{ "Loading..." }, function(index, value)
 			local realmApiId = REALM_API_IDS[controls.realmDrop:GetSelValue()] or "pc"
 			M.lastLeagueByRealm = M.lastLeagueByRealm or {}
@@ -393,14 +404,14 @@ function M.openPopup(item, slotName, primaryBuild)
 	controls.leagueDrop.enabled = function() return #controls.leagueDrop.list > 0 and controls.leagueDrop.list[1] ~= "Loading..." end
 
 	-- Listed status dropdown
-	controls.listedDrop = new("DropDownControl", { "TOPRIGHT", nil, "TOPRIGHT" }, { -leftMargin, ctrlY, 242, 20 }, LISTED_STATUS_LABELS, function(index, value)
+	controls.listedDrop = new("DropDownControl"):DropDownControl({ "TOPRIGHT", nil, "TOPRIGHT" }, { -leftMargin, ctrlY, 242, 20 }, LISTED_STATUS_LABELS, function(index, value)
 		M.lastListedIndex = index
 		rebuildUrl()
 	end)
 	if M.lastListedIndex then
 		controls.listedDrop:SetSel(M.lastListedIndex, true)
 	end
-	controls.listedLabel = new("LabelControl", {"RIGHT", controls.listedDrop, "LEFT"}, {-4, 0, 0, 16}, "^7Listed:")
+	controls.listedLabel = new("LabelControl"):LabelControl({"RIGHT", controls.listedDrop, "LEFT"}, {-4, 0, 0, 16}, "^7Listed:")
 
 	-- Fetch initial leagues for the selected realm
 	fetchLeaguesForRealm(REALM_API_IDS[controls.realmDrop:GetSelValue()] or "pc")
@@ -409,22 +420,22 @@ function M.openPopup(item, slotName, primaryBuild)
 
 	if isUnique then
 		-- Unique item name label
-		controls.nameLabel = new("LabelControl", nil, {0, ctrlY, 0, 16}, "^x" .. (colorCodes[item.rarity] or "FFFFFF"):gsub("%^x","") .. item.name)
+		controls.nameLabel = new("LabelControl"):LabelControl(nil, {0, ctrlY, 0, 16}, "^x" .. (colorCodes[item.rarity] or "FFFFFF"):gsub("%^x","") .. item.name)
 		ctrlY = ctrlY + rowHeight
 	else
 		-- Category label
 		local categoryLabel = tradeHelpers.getTradeCategoryLabel(slotName, item)
-		controls.categoryLabel = new("LabelControl", {"TOPLEFT", nil, "TOPLEFT"}, {leftMargin, ctrlY, 0, 16}, "^7Category: " .. categoryLabel)
+		controls.categoryLabel = new("LabelControl"):LabelControl({"TOPLEFT", nil, "TOPLEFT"}, {leftMargin, ctrlY, 0, 16}, "^7Category: " .. categoryLabel)
 		ctrlY = ctrlY + rowHeight
 
 		-- Base type checkbox
-		controls.baseTypeCheck = new("CheckBoxControl", nil, {-popupWidth/2 + leftMargin + checkboxSize/2, ctrlY, checkboxSize}, "", rebuildUrl)
-		controls.baseTypeLabel = new("LabelControl", {"LEFT", controls.baseTypeCheck, "RIGHT"}, {4, 0, 0, 16}, "^7Use specific base: " .. (item.baseName or "Unknown"))
+		controls.baseTypeCheck = new("CheckBoxControl"):CheckBoxControl(nil, {-popupWidth/2 + leftMargin + checkboxSize/2, ctrlY, checkboxSize}, "", rebuildUrl)
+		controls.baseTypeLabel = new("LabelControl"):LabelControl({"LEFT", controls.baseTypeCheck, "RIGHT"}, {4, 0, 0, 16}, "^7Use specific base: " .. (item.baseName or "Unknown"))
 		ctrlY = ctrlY + rowHeight
 
 		-- Item level
 		ctrlY = ctrlY + 4
-		controls.ilvlLabel = new("LabelControl", {"TOPLEFT", nil, "TOPLEFT"}, {leftMargin, ctrlY, 0, 16}, "^7Item Level:")
+		controls.ilvlLabel = new("LabelControl"):LabelControl({"TOPLEFT", nil, "TOPLEFT"}, {leftMargin, ctrlY, 0, 16}, "^7Item Level:")
 		controls.ilvlMin = tradeHelpers.newPlainNumericEdit(nil, { minFieldX - popupWidth / 2, ctrlY, fieldW, fieldH }, "", "Min", 4, true, rebuildUrl)
 		controls.ilvlMax = tradeHelpers.newPlainNumericEdit(nil, { maxFieldX - popupWidth / 2, ctrlY, fieldW, fieldH }, "", "Max", 4, true, rebuildUrl)
 		ctrlY = ctrlY + rowHeight
@@ -432,8 +443,8 @@ function M.openPopup(item, slotName, primaryBuild)
 		-- Defence stat rows
 		for i, def in ipairs(defenceEntries) do
 			local prefix = "def" .. i
-			controls[prefix .. "Check"] = new("CheckBoxControl", nil, {-popupWidth/2 + leftMargin + checkboxSize/2, ctrlY, checkboxSize}, "", rebuildUrl)
-			controls[prefix .. "Label"] = new("LabelControl", {"LEFT", controls[prefix .. "Check"], "RIGHT"}, {4, 0, 0, 16}, "^7" .. def.label)
+			controls[prefix .. "Check"] = new("CheckBoxControl"):CheckBoxControl(nil, {-popupWidth/2 + leftMargin + checkboxSize/2, ctrlY, checkboxSize}, "", rebuildUrl)
+			controls[prefix .. "Label"] = new("LabelControl"):LabelControl({"LEFT", controls[prefix .. "Check"], "RIGHT"}, {4, 0, 0, 16}, "^7" .. def.label)
 			controls[prefix .. "Min"] = tradeHelpers.newPlainNumericEdit(nil, { minFieldX - popupWidth / 2, ctrlY, fieldW, fieldH }, tostring(m_floor(def.value)), "Min", 6, true, rebuildUrl)
 			controls[prefix .. "Max"] = tradeHelpers.newPlainNumericEdit(nil, { maxFieldX - popupWidth / 2, ctrlY, fieldW, fieldH }, "", "Max", 6, true, rebuildUrl)
 			ctrlY = ctrlY + rowHeight
@@ -462,7 +473,7 @@ function M.openPopup(item, slotName, primaryBuild)
 		-- adjust down by half a text row for each row over 1
 		local controlYPos = ctrlY + (rows - 1) * 8
 		local checkBoxXPos = -popupWidth/2 + leftMargin + checkboxSize/2
-		controls[prefix .. "Check"] = new("CheckBoxControl", nil, {checkBoxXPos, controlYPos, checkboxSize}, "", rebuildUrl)
+		controls[prefix .. "Check"] = new("CheckBoxControl"):CheckBoxControl(nil, { checkBoxXPos, controlYPos, checkboxSize }, "", rebuildUrl)
 		controls[prefix .. "Check"].enabled = function() return canSearch end
 
 
@@ -489,7 +500,7 @@ function M.openPopup(item, slotName, primaryBuild)
 		-- labels anchor based on the first row instead of the middle row, so adjust upwards
 		local labelXOffset = (rows - 1) * -8
 
-		controls[prefix .. "Label"] = new("LabelControl", {"LEFT", controls[prefix .. "Check"], "RIGHT"},{ 4, labelXOffset, 0, fontSize },
+		controls[prefix .. "Label"] = new("LabelControl"):LabelControl({ "LEFT", controls[prefix .. "Check"], "RIGHT" }, { 4, labelXOffset, 0, fontSize },
 			displayText)
 		-- when the trade site has a dropdown for the value, we opt to disable
 		-- the inputs as they are numeric
@@ -506,7 +517,7 @@ function M.openPopup(item, slotName, primaryBuild)
 
 	-- Search button
 	ctrlY = ctrlY + 8
-	controls.search = new("ButtonControl", nil, {0, ctrlY, 110, 20}, "Open URL", function()
+	controls.search = new("ButtonControl"):ButtonControl(nil, { 0, ctrlY, 110, 20 }, "Open URL", function()
 		Copy(uri)
 		OpenURL(uri)
 	end, nil)
@@ -515,7 +526,7 @@ function M.openPopup(item, slotName, primaryBuild)
 		return uri and uri ~= ""
 	end
 
-	controls.close = new("ButtonControl", nil, {popupWidth/2 - 50, ctrlY, 60, 20}, "Close", function()
+	controls.close = new("ButtonControl"):ButtonControl(nil, { popupWidth / 2 - 50, ctrlY, 60, 20 }, "Close", function()
 		main:ClosePopup()
 	end)
 

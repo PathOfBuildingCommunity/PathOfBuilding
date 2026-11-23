@@ -554,13 +554,11 @@ end
 end
 
  -- #skillList
- directiveTable.skills.skillList = function(state, args, out)
-	out:write('},{\n')
+directiveTable.skills.skillList = function(state, args, out)
 	out:write('    { val = "None", label = "None" }')
 	for _, skillName in pairs(state.skillList) do
 		out:write(',\n    { val = "', skillName, '", label = "', skillName, '" }')
 	end
-	out:write('\n}')
 	state.boss = nil
 	state.skillList = nil
 end

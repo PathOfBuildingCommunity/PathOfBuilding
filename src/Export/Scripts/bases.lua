@@ -2,7 +2,7 @@ if not loadStatFile then
 	dofile("statdesc.lua")
 end
 local utils = LoadModule("../Modules/Utils")
-loadStatFile("tincture_stat_descriptions.txt")
+loadStatFile("tincture_stat_descriptions.csd")
 
 local s_format = string.format
 
@@ -117,6 +117,7 @@ directiveTable.base = function(state, args, out)
 	displayName = displayName:gsub("^%s*(.-)%s*$", "%1") -- trim spaces GGG might leave in by accident
 	displayName = displayName ~= "Energy Blade" and displayName or (state.type == "One Handed Sword" and "Energy Blade One Handed" or "Energy Blade Two Handed")
 	out:write('itemBases["', displayName, '"] = {\n')
+	out:write('\tbaseId = "', baseTypeId, '",\n')
 	out:write('\ttype = "', state.type, '",\n')
 	if state.subType and #state.subType > 0 then
 		out:write('\tsubType = "', state.subType, '",\n')
@@ -188,6 +189,10 @@ directiveTable.base = function(state, args, out)
 	end
 	if #enchantLines > 0 then
 		out:write('\tenchant = "', table.concat(enchantLines, "\\n"), '",\n')
+		if #enchantModIds > 0 then
+			local modIdLine = string.format('\tenchantIds = %s,\n', utils.stringifyInline(enchantModIds))
+			out:write(modIdLine)
+		end
 		out:write('\tenchantModTypes = { ')
 		for i = 1, #enchantModTypes do
 			out:write('{ ', enchantModTypes[i], ' }, ')
@@ -276,7 +281,7 @@ directiveTable.base = function(state, args, out)
 			reqLevel = baseItemType.DropLevel
 		end
 	end
-	if flask then
+	if flask or tincture then
 		if baseItemType.DropLevel > 2 then
 			reqLevel = baseItemType.DropLevel
 		end
@@ -435,6 +440,7 @@ local itemTypes = {
 	"flask",
 	"tincture",
 	"graft",
+	"wickerman",
 }
 for _, name in pairs(itemTypes) do
 	processTemplateFile(name, "Bases/", "../Data/Bases/", directiveTable)

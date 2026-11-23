@@ -39,6 +39,9 @@ local applyRangeTests = {
 	-- Fallback scaling
 	[{ "+(10-20) to unsupported value", 1.0, 1.0, 1.22 }] = "+24 to unsupported value",
 	[{ "+(10-20) to unsupported value", 1.0, 1.5, 1.22 }] = "+36 to unsupported value",
+	-- Formatting which doesn't result in zero value
+	[{ "0.1 metres to Weapon Range per 10% Quality", 1.0, 1.0, 1.0 }] = "0.1 metres to Weapon Range per 10% Quality",
+	[{ "0.1 metres to Weapon Range per 10% Quality", 0.5, 1.0, 1.0 }] = "0.1 metres to Weapon Range per 10% Quality",
 }
 
 describe("TestItemTools", function()
@@ -63,7 +66,7 @@ describe("TestItemTools", function()
 		if not common.classes.ItemsTab then
 			LoadModule("Classes/ItemsTab")
 		end
-		local item = new("Item", [[
+		local item = new("Item"):Item([[
 Rarity: Rare
 Dire Thread
 Cord Belt

@@ -4,8 +4,10 @@
 -- Spectre Data
 -- Monster data (c) Grinding Gear Games
 --
-local minions, mod, flag = ...
 
+return function(mod, flag)
+	---@class SpectreData
+	local minions = {}
 -- Abyss
 minions["Metadata/Monsters/ParasiticSquid/ParasiticSquidAbyssSpectre"] = {
 	name = "Corpse Thief",
@@ -1771,7 +1773,6 @@ minions["Metadata/Monsters/LeagueBetrayal/LaboratoryRatEmerge_"] = {
 		"Melee",
 	},
 	modList = {
-		-- MonsterNoDrops [monster_no_drops = 1]
 		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -30]
 	},
 }
@@ -10163,7 +10164,7 @@ minions["Metadata/Monsters/LeagueExpedition/Arbalest/ExpeditionArbalestSpectre"]
 	coldResist = 0,
 	lightningResist = 75,
 	chaosResist = 0,
-	damage = 2.55,
+	damage = 2.56,
 	damageSpread = 0.2,
 	attackTime = 1.5,
 	attackRange = 68,
@@ -10270,7 +10271,7 @@ minions["Metadata/Monsters/LeagueExpedition/Golemancer/ExpeditionGolemancerSpect
 	name = "Priest of the Chalice",
 	monsterTags = { "bone_armour", "bones", "caster", "cold_affinity", "is_runic_monster", "is_unarmed", "not_int", "not_str", "skeleton", "slashing_weapon", "slow_movement", "undead", "ward_armour", },
 	baseDamageIgnoresAttackSpeed = true,
-	life = 2.6,
+	life = 2.61,
 	evasion = 0.25,
 	fireResist = 37,
 	coldResist = 37,
@@ -10339,7 +10340,7 @@ minions["Metadata/Monsters/LeagueExpedition/RatMonster/ExpeditionRatSpectre"] = 
 	name = "Druidic Dire Familiar",
 	monsterTags = { "animal_claw_weapon", "bone_armour", "demon", "is_runic_monster", "is_unarmed", "medium_movement", "melee", "not_int", "not_str", "physical_affinity", "red_blood", "rodent", "undead", },
 	baseDamageIgnoresAttackSpeed = true,
-	life = 2.6,
+	life = 2.61,
 	evasion = 0.5,
 	fireResist = 0,
 	coldResist = 75,
@@ -12624,7 +12625,7 @@ minions["Metadata/Monsters/LeagueHarvest/Red/HarvestSpikerT2Spectre"] = {
 }
 minions["Metadata/Monsters/LeagueHarvest/Red/HarvestBeastT3Spectre"] = {
 	name = "Wild Bristle Matron",
-	monsterTags = { "animal_claw_weapon", "beast", "flesh_armour", "has_one_hand_sword", "has_one_handed_melee", "large_model", "mammal_beast", "melee", "physical_affinity", "red_blood", "ursine_beast", "very_slow_movement", },
+	monsterTags = { "animal_claw_weapon", "beast", "flesh_armour", "harvest_tier3_monster", "has_one_hand_sword", "has_one_handed_melee", "large_model", "mammal_beast", "melee", "physical_affinity", "red_blood", "ursine_beast", "very_slow_movement", },
 	life = 3.6,
 	lifeScaling = "AltLife2",
 	fireResist = 20,
@@ -12657,7 +12658,7 @@ minions["Metadata/Monsters/LeagueHarvest/Red/HarvestBeastT3Spectre"] = {
 }
 minions["Metadata/Monsters/LeagueHarvest/Red/HarvestHellionT3Spectre"] = {
 	name = "Wild Hellion Alpha",
-	monsterTags = { "animal_claw_weapon", "beast", "caster", "fast_movement", "feline_beast", "fire_affinity", "flesh_armour", "has_dagger", "has_one_handed_melee", "large_model", "mammal_beast", "melee", "not_int", "not_str", "physical_affinity", "red_blood", },
+	monsterTags = { "animal_claw_weapon", "beast", "caster", "fast_movement", "feline_beast", "fire_affinity", "flesh_armour", "harvest_tier3_monster", "has_dagger", "has_one_handed_melee", "large_model", "mammal_beast", "melee", "not_int", "not_str", "physical_affinity", "red_blood", },
 	life = 3,
 	lifeScaling = "AltLife2",
 	evasion = 0.1,
@@ -12691,7 +12692,7 @@ minions["Metadata/Monsters/LeagueHarvest/Red/HarvestHellionT3Spectre"] = {
 }
 minions["Metadata/Monsters/LeagueHarvest/Red/HarvestBirddogT3Spectre"] = {
 	name = "Wild Thornmaw",
-	monsterTags = { "animal_claw_weapon", "beast", "demon", "fast_movement", "flesh_armour", "is_unarmed", "large_model", "melee", "not_int", "not_str", "physical_affinity", "red_blood", },
+	monsterTags = { "animal_claw_weapon", "beast", "demon", "fast_movement", "flesh_armour", "harvest_tier3_monster", "is_unarmed", "large_model", "melee", "not_int", "not_str", "physical_affinity", "red_blood", },
 	life = 3.63,
 	lifeScaling = "AltLife2",
 	evasion = 0.1,
@@ -12722,7 +12723,7 @@ minions["Metadata/Monsters/LeagueHarvest/Red/HarvestBirddogT3Spectre"] = {
 }
 minions["Metadata/Monsters/LeagueHarvest/Red/HarvestBrambleHulkT3Spectre"] = {
 	name = "Wild Brambleback",
-	monsterTags = { "animal_claw_weapon", "beast", "demon", "hard_armour", "has_dagger", "has_one_handed_melee", "large_model", "medium_movement", "melee", "not_int", "not_str", "physical_affinity", "primate_beast", "red_blood", },
+	monsterTags = { "animal_claw_weapon", "beast", "demon", "hard_armour", "harvest_tier3_monster", "has_dagger", "has_one_handed_melee", "large_model", "medium_movement", "melee", "not_int", "not_str", "physical_affinity", "primate_beast", "red_blood", },
 	life = 3.63,
 	lifeScaling = "AltLife2",
 	evasion = 0.1,
@@ -12755,7 +12756,7 @@ minions["Metadata/Monsters/LeagueHarvest/Red/HarvestBrambleHulkT3Spectre"] = {
 }
 minions["Metadata/Monsters/LeagueHarvest/Red/HarvestInsectSpawnerT3Spectre"] = {
 	name = "Wild Infestation Queen",
-	monsterTags = { "beast", "bludgeoning_weapon", "caster", "fire_affinity", "hard_armour", "insect", "insect_blood", "is_unarmed", "large_model", "ranged", "very_slow_movement", },
+	monsterTags = { "beast", "bludgeoning_weapon", "caster", "fire_affinity", "hard_armour", "harvest_tier3_monster", "insect", "insect_blood", "is_unarmed", "large_model", "ranged", "very_slow_movement", },
 	baseDamageIgnoresAttackSpeed = true,
 	life = 3.57,
 	lifeScaling = "AltLife2",
@@ -12815,6 +12816,8 @@ minions["Metadata/Monsters/LeagueHarvest/Red/HarvestHoundT2MemoryLine"] = {
 	modList = {
 		-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66]
 		-- BreachReducedBeyondPortalChance [monster_hellscape_charge_+% = -66]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 9]
+		-- set_monster_drops_harvest_seeds [set_monster_drops_harvest_seeds = 1]
 		-- damage_hit_effect_index [damage_hit_effect_index = 1]
 		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -20]
 	},
@@ -12852,6 +12855,8 @@ minions["Metadata/Monsters/LeagueHarvest/Red/HarvestChieftainT2MemoryLine"] = {
 	modList = {
 		-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66]
 		-- BreachReducedBeyondPortalChance [monster_hellscape_charge_+% = -66]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 9]
+		-- set_monster_drops_harvest_seeds [set_monster_drops_harvest_seeds = 1]
 		-- damage_hit_effect_index [damage_hit_effect_index = 1]
 		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -20]
 	},
@@ -12888,13 +12893,15 @@ minions["Metadata/Monsters/LeagueHarvest/Red/HarvestSpikerT2MemoryLine_"] = {
 	modList = {
 		-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66]
 		-- BreachReducedBeyondPortalChance [monster_hellscape_charge_+% = -66]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 9]
+		-- set_monster_drops_harvest_seeds [set_monster_drops_harvest_seeds = 1]
 		-- damage_hit_effect_index [damage_hit_effect_index = 1]
 		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -20]
 	},
 }
 minions["Metadata/Monsters/LeagueHarvest/Red/HarvestBeastT3MemoryLine_"] = {
 	name = "Wild Bristle Matron",
-	monsterTags = { "animal_claw_weapon", "beast", "flesh_armour", "has_one_hand_sword", "has_one_handed_melee", "large_model", "mammal_beast", "medium_height", "melee", "physical_affinity", "red_blood", "ursine_beast", "very_slow_movement", },
+	monsterTags = { "animal_claw_weapon", "beast", "flesh_armour", "harvest_tier3_monster", "has_one_hand_sword", "has_one_handed_melee", "large_model", "mammal_beast", "medium_height", "melee", "physical_affinity", "red_blood", "ursine_beast", "very_slow_movement", },
 	life = 4.95,
 	lifeScaling = "AltLife2",
 	fireResist = 20,
@@ -12923,6 +12930,8 @@ minions["Metadata/Monsters/LeagueHarvest/Red/HarvestBeastT3MemoryLine_"] = {
 	modList = {
 		-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66]
 		-- BreachReducedBeyondPortalChance [monster_hellscape_charge_+% = -66]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 9]
+		-- set_monster_drops_harvest_seeds [set_monster_drops_harvest_seeds = 1]
 		-- damage_hit_effect_index [damage_hit_effect_index = 1]
 		-- set_cannot_be_used_as_minion [set_cannot_be_used_as_minion = 1]
 		-- set_corpse_cannot_be_destroyed [set_corpse_cannot_be_destroyed = 1]
@@ -12932,7 +12941,7 @@ minions["Metadata/Monsters/LeagueHarvest/Red/HarvestBeastT3MemoryLine_"] = {
 }
 minions["Metadata/Monsters/LeagueHarvest/Red/HarvestHellionT3MemoryLine"] = {
 	name = "Wild Hellion Alpha",
-	monsterTags = { "animal_claw_weapon", "beast", "caster", "fast_movement", "feline_beast", "fire_affinity", "flesh_armour", "has_dagger", "has_one_handed_melee", "large_model", "mammal_beast", "melee", "not_int", "not_str", "physical_affinity", "red_blood", "small_height", },
+	monsterTags = { "animal_claw_weapon", "beast", "caster", "fast_movement", "feline_beast", "fire_affinity", "flesh_armour", "harvest_tier3_monster", "has_dagger", "has_one_handed_melee", "large_model", "mammal_beast", "melee", "not_int", "not_str", "physical_affinity", "red_blood", "small_height", },
 	life = 3,
 	lifeScaling = "AltLife2",
 	evasion = 0.1,
@@ -12962,6 +12971,8 @@ minions["Metadata/Monsters/LeagueHarvest/Red/HarvestHellionT3MemoryLine"] = {
 	modList = {
 		-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66]
 		-- BreachReducedBeyondPortalChance [monster_hellscape_charge_+% = -66]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 9]
+		-- set_monster_drops_harvest_seeds [set_monster_drops_harvest_seeds = 1]
 		-- damage_hit_effect_index [damage_hit_effect_index = 1]
 		-- set_cannot_be_used_as_minion [set_cannot_be_used_as_minion = 1]
 		-- set_corpse_cannot_be_destroyed [set_corpse_cannot_be_destroyed = 1]
@@ -12971,7 +12982,7 @@ minions["Metadata/Monsters/LeagueHarvest/Red/HarvestHellionT3MemoryLine"] = {
 }
 minions["Metadata/Monsters/LeagueHarvest/Red/HarvestBrambleHulkT3MemoryLine"] = {
 	name = "Wild Brambleback",
-	monsterTags = { "animal_claw_weapon", "beast", "demon", "hard_armour", "has_dagger", "has_one_handed_melee", "large_model", "medium_height", "medium_movement", "melee", "not_int", "not_str", "physical_affinity", "primate_beast", "red_blood", },
+	monsterTags = { "animal_claw_weapon", "beast", "demon", "hard_armour", "harvest_tier3_monster", "has_dagger", "has_one_handed_melee", "large_model", "medium_height", "medium_movement", "melee", "not_int", "not_str", "physical_affinity", "primate_beast", "red_blood", },
 	life = 3.63,
 	lifeScaling = "AltLife2",
 	evasion = 0.1,
@@ -13000,6 +13011,8 @@ minions["Metadata/Monsters/LeagueHarvest/Red/HarvestBrambleHulkT3MemoryLine"] = 
 	modList = {
 		-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66]
 		-- BreachReducedBeyondPortalChance [monster_hellscape_charge_+% = -66]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 9]
+		-- set_monster_drops_harvest_seeds [set_monster_drops_harvest_seeds = 1]
 		-- damage_hit_effect_index [damage_hit_effect_index = 1]
 		-- set_cannot_be_used_as_minion [set_cannot_be_used_as_minion = 1]
 		-- set_corpse_cannot_be_destroyed [set_corpse_cannot_be_destroyed = 1]
@@ -13323,7 +13336,7 @@ minions["Metadata/Monsters/LeagueHarvest/Green/HarvestPlagueSpiderT2Spectre"] = 
 }
 minions["Metadata/Monsters/LeagueHarvest/Green/HarvestBlackstriderT3Spectre"] = {
 	name = "Vivid Whipleg",
-	monsterTags = { "animal_claw_weapon", "beast", "chaos_affinity", "flesh_armour", "insect_blood", "is_unarmed", "melee", "physical_affinity", "ranged", "slow_movement", "spider", },
+	monsterTags = { "animal_claw_weapon", "beast", "chaos_affinity", "flesh_armour", "harvest_tier3_monster", "insect_blood", "is_unarmed", "melee", "physical_affinity", "ranged", "slow_movement", "spider", },
 	life = 3.38,
 	lifeScaling = "AltLife2",
 	fireResist = 20,
@@ -13354,7 +13367,7 @@ minions["Metadata/Monsters/LeagueHarvest/Green/HarvestBlackstriderT3Spectre"] = 
 }
 minions["Metadata/Monsters/LeagueHarvest/Green/HarvestSquidT3Spectre"] = {
 	name = "Vivid Watcher",
-	monsterTags = { "animal_claw_weapon", "beast", "caster", "chaos_affinity", "flesh_armour", "is_unarmed", "medium_movement", "melee", "not_str", "physical_affinity", "ranged", "red_blood", },
+	monsterTags = { "animal_claw_weapon", "beast", "caster", "chaos_affinity", "flesh_armour", "harvest_tier3_monster", "is_unarmed", "medium_movement", "melee", "not_str", "physical_affinity", "ranged", "red_blood", },
 	baseDamageIgnoresAttackSpeed = true,
 	life = 3,
 	lifeScaling = "AltLife2",
@@ -13389,7 +13402,7 @@ minions["Metadata/Monsters/LeagueHarvest/Green/HarvestSquidT3Spectre"] = {
 }
 minions["Metadata/Monsters/LeagueHarvest/Green/HarvestVultureParasiteT3Spectre"] = {
 	name = "Vivid Vulture",
-	monsterTags = { "animal_claw_weapon", "avian_beast", "beast", "flesh_armour", "flying", "has_one_hand_sword", "has_one_handed_melee", "medium_movement", "melee", "physical_affinity", "red_blood", },
+	monsterTags = { "animal_claw_weapon", "avian_beast", "beast", "flesh_armour", "flying", "harvest_tier3_monster", "has_one_hand_sword", "has_one_handed_melee", "medium_movement", "melee", "physical_affinity", "red_blood", },
 	life = 3.63,
 	lifeScaling = "AltLife2",
 	fireResist = 20,
@@ -13423,7 +13436,7 @@ minions["Metadata/Monsters/LeagueHarvest/Green/HarvestVultureParasiteT3Spectre"]
 }
 minions["Metadata/Monsters/LeagueHarvest/Green/HarvestPlatedScorpionT3Spectre"] = {
 	name = "Vivid Abberarach",
-	monsterTags = { "animal_claw_weapon", "beast", "caster", "chaos_affinity", "hard_armour", "insect_blood", "is_unarmed", "melee", "physical_affinity", "slow_movement", "spider", },
+	monsterTags = { "animal_claw_weapon", "beast", "caster", "chaos_affinity", "hard_armour", "harvest_tier3_monster", "insect_blood", "is_unarmed", "melee", "physical_affinity", "slow_movement", "spider", },
 	life = 3.9,
 	lifeScaling = "AltLife2",
 	fireResist = 20,
@@ -13480,6 +13493,8 @@ minions["Metadata/Monsters/LeagueHarvest/Green/HarvestMeleeSpiderT1MemoryLine"] 
 	modList = {
 		-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66]
 		-- BreachReducedBeyondPortalChance [monster_hellscape_charge_+% = -66]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 9]
+		-- set_monster_drops_harvest_seeds [set_monster_drops_harvest_seeds = 1]
 		-- damage_hit_effect_index [damage_hit_effect_index = 3]
 		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -20]
 		-- set_is_spider [set_is_spider = 1]
@@ -13511,6 +13526,8 @@ minions["Metadata/Monsters/LeagueHarvest/Green/HarvestParasiteT1MemoryLine"] = {
 	modList = {
 		-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66]
 		-- BreachReducedBeyondPortalChance [monster_hellscape_charge_+% = -66]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 9]
+		-- set_monster_drops_harvest_seeds [set_monster_drops_harvest_seeds = 1]
 		-- damage_hit_effect_index [damage_hit_effect_index = 3]
 		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -20]
 	},
@@ -13544,13 +13561,15 @@ minions["Metadata/Monsters/LeagueHarvest/Green/HarvestScorpionT1MemoryLine"] = {
 	modList = {
 		-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66]
 		-- BreachReducedBeyondPortalChance [monster_hellscape_charge_+% = -66]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 9]
+		-- set_monster_drops_harvest_seeds [set_monster_drops_harvest_seeds = 1]
 		-- damage_hit_effect_index [damage_hit_effect_index = 3]
 		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -20]
 	},
 }
 minions["Metadata/Monsters/LeagueHarvest/Green/HarvestSquidT3MemoryLine_"] = {
 	name = "Vivid Watcher",
-	monsterTags = { "animal_claw_weapon", "beast", "caster", "chaos_affinity", "flesh_armour", "is_unarmed", "medium_height", "medium_movement", "melee", "not_str", "physical_affinity", "ranged", "red_blood", },
+	monsterTags = { "animal_claw_weapon", "beast", "caster", "chaos_affinity", "flesh_armour", "harvest_tier3_monster", "is_unarmed", "medium_height", "medium_movement", "melee", "not_str", "physical_affinity", "ranged", "red_blood", },
 	baseDamageIgnoresAttackSpeed = true,
 	life = 3,
 	lifeScaling = "AltLife2",
@@ -13581,6 +13600,8 @@ minions["Metadata/Monsters/LeagueHarvest/Green/HarvestSquidT3MemoryLine_"] = {
 	modList = {
 		-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66]
 		-- BreachReducedBeyondPortalChance [monster_hellscape_charge_+% = -66]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 9]
+		-- set_monster_drops_harvest_seeds [set_monster_drops_harvest_seeds = 1]
 		-- damage_hit_effect_index [damage_hit_effect_index = 3]
 		-- set_cannot_be_used_as_minion [set_cannot_be_used_as_minion = 1]
 		-- set_corpse_cannot_be_destroyed [set_corpse_cannot_be_destroyed = 1]
@@ -13590,7 +13611,7 @@ minions["Metadata/Monsters/LeagueHarvest/Green/HarvestSquidT3MemoryLine_"] = {
 }
 minions["Metadata/Monsters/LeagueHarvest/Green/HarvestVultureParasiteT3MemoryLine"] = {
 	name = "Vivid Vulture",
-	monsterTags = { "animal_claw_weapon", "avian_beast", "beast", "extra_small_height", "flesh_armour", "flying", "has_one_hand_sword", "has_one_handed_melee", "medium_movement", "melee", "physical_affinity", "red_blood", },
+	monsterTags = { "animal_claw_weapon", "avian_beast", "beast", "extra_small_height", "flesh_armour", "flying", "harvest_tier3_monster", "has_one_hand_sword", "has_one_handed_melee", "medium_movement", "melee", "physical_affinity", "red_blood", },
 	life = 3.63,
 	lifeScaling = "AltLife2",
 	fireResist = 20,
@@ -13620,6 +13641,8 @@ minions["Metadata/Monsters/LeagueHarvest/Green/HarvestVultureParasiteT3MemoryLin
 	modList = {
 		-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66]
 		-- BreachReducedBeyondPortalChance [monster_hellscape_charge_+% = -66]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 9]
+		-- set_monster_drops_harvest_seeds [set_monster_drops_harvest_seeds = 1]
 		-- damage_hit_effect_index [damage_hit_effect_index = 3]
 		-- set_cannot_be_used_as_minion [set_cannot_be_used_as_minion = 1]
 		-- set_corpse_cannot_be_destroyed [set_corpse_cannot_be_destroyed = 1]
@@ -13629,7 +13652,7 @@ minions["Metadata/Monsters/LeagueHarvest/Green/HarvestVultureParasiteT3MemoryLin
 }
 minions["Metadata/Monsters/LeagueHarvest/Green/HarvestPlatedScorpionT3MemoryLine"] = {
 	name = "Vivid Abberarach",
-	monsterTags = { "animal_claw_weapon", "beast", "caster", "chaos_affinity", "hard_armour", "insect_blood", "is_unarmed", "melee", "physical_affinity", "slow_movement", "small_height", "spider", },
+	monsterTags = { "animal_claw_weapon", "beast", "caster", "chaos_affinity", "hard_armour", "harvest_tier3_monster", "insect_blood", "is_unarmed", "melee", "physical_affinity", "slow_movement", "small_height", "spider", },
 	life = 3.9,
 	lifeScaling = "AltLife2",
 	fireResist = 20,
@@ -13657,6 +13680,8 @@ minions["Metadata/Monsters/LeagueHarvest/Green/HarvestPlatedScorpionT3MemoryLine
 	modList = {
 		-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66]
 		-- BreachReducedBeyondPortalChance [monster_hellscape_charge_+% = -66]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 9]
+		-- set_monster_drops_harvest_seeds [set_monster_drops_harvest_seeds = 1]
 		-- damage_hit_effect_index [damage_hit_effect_index = 3]
 		-- set_cannot_be_used_as_minion [set_cannot_be_used_as_minion = 1]
 		-- set_corpse_cannot_be_destroyed [set_corpse_cannot_be_destroyed = 1]
@@ -13918,7 +13943,7 @@ minions["Metadata/Monsters/LeagueHarvest/Blue/HarvestSandLeaperT2Spectre"] = {
 }
 minions["Metadata/Monsters/LeagueHarvest/Blue/HarvestKitavaDemonT3Spectre"] = {
 	name = "Primal Blisterlord",
-	monsterTags = { "caster", "cleaving_weapon", "cultist", "demon", "flesh_armour", "has_one_hand_sword", "has_one_handed_melee", "lightning_affinity", "melee", "not_int", "physical_affinity", "red_blood", "slow_movement", },
+	monsterTags = { "caster", "cleaving_weapon", "cultist", "demon", "flesh_armour", "harvest_tier3_monster", "has_one_hand_sword", "has_one_handed_melee", "lightning_affinity", "melee", "not_int", "physical_affinity", "red_blood", "slow_movement", },
 	life = 3.6,
 	lifeScaling = "AltLife2",
 	armour = 0.5,
@@ -13955,7 +13980,7 @@ minions["Metadata/Monsters/LeagueHarvest/Blue/HarvestKitavaDemonT3Spectre"] = {
 }
 minions["Metadata/Monsters/LeagueHarvest/Blue/HarvestGoatmanT3Spectre"] = {
 	name = "Primal Cystcaller",
-	monsterTags = { "beast", "bludgeoning_weapon", "caster", "flesh_armour", "goatman", "has_staff", "has_two_handed_melee", "humanoid", "lightning_affinity", "mammal_beast", "not_dex", "not_str", "ranged", "red_blood", "very_slow_movement", },
+	monsterTags = { "beast", "bludgeoning_weapon", "caster", "flesh_armour", "goatman", "harvest_tier3_monster", "has_staff", "has_two_handed_melee", "humanoid", "lightning_affinity", "mammal_beast", "not_dex", "not_str", "ranged", "red_blood", "very_slow_movement", },
 	life = 3,
 	lifeScaling = "AltLife2",
 	energyShield = 0.5,
@@ -13987,7 +14012,7 @@ minions["Metadata/Monsters/LeagueHarvest/Blue/HarvestGoatmanT3Spectre"] = {
 }
 minions["Metadata/Monsters/LeagueHarvest/Blue/HarvestLanternMinerT3Spectre"] = {
 	name = "Primal Reborn",
-	monsterTags = { "caster", "cold_affinity", "has_one_hand_sword", "has_one_handed_melee", "humanoid", "mud_blood", "not_int", "not_str", "ranged", "stone_armour", "undead", "very_slow_movement", },
+	monsterTags = { "caster", "cold_affinity", "harvest_tier3_monster", "has_one_hand_sword", "has_one_handed_melee", "humanoid", "mud_blood", "not_int", "not_str", "ranged", "stone_armour", "undead", "very_slow_movement", },
 	baseDamageIgnoresAttackSpeed = true,
 	life = 3.63,
 	lifeScaling = "AltLife2",
@@ -14048,6 +14073,8 @@ minions["Metadata/Monsters/LeagueHarvest/Blue/HarvestRhoaT1MemoryLine"] = {
 	modList = {
 		-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66]
 		-- BreachReducedBeyondPortalChance [monster_hellscape_charge_+% = -66]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 9]
+		-- set_monster_drops_harvest_seeds [set_monster_drops_harvest_seeds = 1]
 		-- damage_hit_effect_index [damage_hit_effect_index = 2]
 		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -20]
 	},
@@ -14080,6 +14107,8 @@ minions["Metadata/Monsters/LeagueHarvest/Blue/HarvestSandspitterT1MemoryLine"] =
 	modList = {
 		-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66]
 		-- BreachReducedBeyondPortalChance [monster_hellscape_charge_+% = -66]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 9]
+		-- set_monster_drops_harvest_seeds [set_monster_drops_harvest_seeds = 1]
 		-- damage_hit_effect_index [damage_hit_effect_index = 2]
 		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -20]
 	},
@@ -14113,13 +14142,15 @@ minions["Metadata/Monsters/LeagueHarvest/Blue/HarvestFrogT1MemoryLine"] = {
 	modList = {
 		-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66]
 		-- BreachReducedBeyondPortalChance [monster_hellscape_charge_+% = -66]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 9]
+		-- set_monster_drops_harvest_seeds [set_monster_drops_harvest_seeds = 1]
 		-- damage_hit_effect_index [damage_hit_effect_index = 2]
 		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -20]
 	},
 }
 minions["Metadata/Monsters/LeagueHarvest/Blue/HarvestRhexT3MemoryLine"] = {
 	name = "Primal Rhex Matriarch",
-	monsterTags = { "animal_claw_weapon", "beast", "caster", "fast_movement", "flesh_armour", "is_unarmed", "lightning_affinity", "melee", "not_int", "not_str", "physical_affinity", "red_blood", "reptile_beast", "small_height", },
+	monsterTags = { "animal_claw_weapon", "beast", "caster", "fast_movement", "flesh_armour", "harvest_tier3_monster", "is_unarmed", "lightning_affinity", "melee", "not_int", "not_str", "physical_affinity", "red_blood", "reptile_beast", "small_height", },
 	life = 4.2,
 	lifeScaling = "AltLife2",
 	evasion = 0.5,
@@ -14149,6 +14180,8 @@ minions["Metadata/Monsters/LeagueHarvest/Blue/HarvestRhexT3MemoryLine"] = {
 	modList = {
 		-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66]
 		-- BreachReducedBeyondPortalChance [monster_hellscape_charge_+% = -66]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 9]
+		-- set_monster_drops_harvest_seeds [set_monster_drops_harvest_seeds = 1]
 		-- damage_hit_effect_index [damage_hit_effect_index = 2]
 		-- set_cannot_be_used_as_minion [set_cannot_be_used_as_minion = 1]
 		-- set_corpse_cannot_be_destroyed [set_corpse_cannot_be_destroyed = 1]
@@ -14158,7 +14191,7 @@ minions["Metadata/Monsters/LeagueHarvest/Blue/HarvestRhexT3MemoryLine"] = {
 }
 minions["Metadata/Monsters/LeagueHarvest/Blue/HarvestNessaCrabT3MemoryLine_"] = {
 	name = "Primal Crushclaw",
-	monsterTags = { "animal_claw_weapon", "beast", "cold_affinity", "crustacean_beast", "hard_armour", "is_unarmed", "large_model", "medium_height", "melee", "not_dex", "not_int", "red_blood", "slow_movement", },
+	monsterTags = { "animal_claw_weapon", "beast", "cold_affinity", "crustacean_beast", "hard_armour", "harvest_tier3_monster", "is_unarmed", "large_model", "medium_height", "melee", "not_dex", "not_int", "red_blood", "slow_movement", },
 	life = 5.1,
 	lifeScaling = "AltLife2",
 	armour = 1,
@@ -14187,6 +14220,8 @@ minions["Metadata/Monsters/LeagueHarvest/Blue/HarvestNessaCrabT3MemoryLine_"] = 
 	modList = {
 		-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66]
 		-- BreachReducedBeyondPortalChance [monster_hellscape_charge_+% = -66]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 9]
+		-- set_monster_drops_harvest_seeds [set_monster_drops_harvest_seeds = 1]
 		-- damage_hit_effect_index [damage_hit_effect_index = 2]
 		-- set_cannot_be_used_as_minion [set_cannot_be_used_as_minion = 1]
 		-- set_corpse_cannot_be_destroyed [set_corpse_cannot_be_destroyed = 1]
@@ -14196,7 +14231,7 @@ minions["Metadata/Monsters/LeagueHarvest/Blue/HarvestNessaCrabT3MemoryLine_"] = 
 }
 minions["Metadata/Monsters/LeagueHarvest/Blue/HarvestGoatmanT3MemoryLine"] = {
 	name = "Primal Cystcaller",
-	monsterTags = { "beast", "bludgeoning_weapon", "caster", "flesh_armour", "goatman", "has_staff", "has_two_handed_melee", "humanoid", "lightning_affinity", "mammal_beast", "medium_height", "not_dex", "not_str", "red_blood", "very_slow_movement", },
+	monsterTags = { "beast", "bludgeoning_weapon", "caster", "flesh_armour", "goatman", "harvest_tier3_monster", "has_staff", "has_two_handed_melee", "humanoid", "lightning_affinity", "mammal_beast", "medium_height", "not_dex", "not_str", "red_blood", "very_slow_movement", },
 	life = 3,
 	lifeScaling = "AltLife2",
 	energyShield = 0.5,
@@ -14224,6 +14259,8 @@ minions["Metadata/Monsters/LeagueHarvest/Blue/HarvestGoatmanT3MemoryLine"] = {
 	modList = {
 		-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66]
 		-- BreachReducedBeyondPortalChance [monster_hellscape_charge_+% = -66]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 9]
+		-- set_monster_drops_harvest_seeds [set_monster_drops_harvest_seeds = 1]
 		-- damage_hit_effect_index [damage_hit_effect_index = 2]
 		-- set_cannot_be_used_as_minion [set_cannot_be_used_as_minion = 1]
 		-- set_corpse_cannot_be_destroyed [set_corpse_cannot_be_destroyed = 1]
@@ -14923,7 +14960,7 @@ minions["Metadata/Monsters/GemMonster/IguanaBossPhoenixMapStandaloneAtlasUber"] 
 		"IguanaFlamethrowerRightToLeft",
 	},
 	modList = {
-		mod("AreaOfEffect", "MORE", -25, 0, 0), -- MonsterReducedAoE [active_skill_area_of_effect_radius_+%_final = -25]
+		mod("AreaOfEffectRadius", "MORE", -25, 0, 0), -- MonsterReducedAoE [active_skill_area_of_effect_radius_+%_final = -25]
 	},
 }
 minions["Metadata/Monsters/GemMonster/IguanaUntainted"] = {
@@ -17251,7 +17288,6 @@ minions["Metadata/Monsters/incaminion/FragmentPoisonCloud"] = {
 		"Fragmented Memory",
 		"Maze (Map)",
 		"Olmec's Sanctum (Map)",
-		"The Vaal Ruins (Act 2)",
 		"Underground River (Map)",
 		"Vaal Pyramid (Map)",
 		"Vaults of Atziri (Map)",
@@ -17367,7 +17403,7 @@ minions["Metadata/Monsters/incaminion/FragmentMachinariumNormal"] = {
 }
 minions["Metadata/Monsters/incaminion/FragmentIncursion"] = {
 	name = "Ancient Construct",
-	monsterTags = { "caster", "chaos_affinity", "construct", "ghost_armour", "is_unarmed", "medium_height", "medium_movement", "no_pantheon_mod", "not_dex", "not_str", "puncturing_weapon", "ranged", },
+	monsterTags = { "caster", "chaos_affinity", "construct", "ghost_armour", "incursion_monster", "is_unarmed", "medium_height", "medium_movement", "no_pantheon_mod", "not_dex", "not_str", "puncturing_weapon", "ranged", },
 	baseDamageIgnoresAttackSpeed = true,
 	life = 1.2,
 	lifeScaling = "AltLife2",
@@ -18633,7 +18669,7 @@ minions["Metadata/Monsters/KitavaCultist/VaalCultistSpearPhysicsTest"] = {
 }
 minions["Metadata/Monsters/KitavaCultist/VaalCultistSpearLightningChampion_"] = {
 	name = "Vaal Advocate",
-	monsterTags = { "caster", "cultist", "flesh_armour", "has_one_handed_melee", "has_thrusting_one_hand_sword", "human", "humanoid", "lightning_affinity", "medium_height", "medium_movement", "not_int", "puncturing_weapon", "ranged", "red_blood", },
+	monsterTags = { "caster", "cultist", "flesh_armour", "has_one_handed_melee", "has_thrusting_one_hand_sword", "human", "humanoid", "incursion_monster", "lightning_affinity", "medium_height", "medium_movement", "not_int", "puncturing_weapon", "ranged", "red_blood", },
 	life = 2.03,
 	lifeScaling = "AltLife2",
 	armour = 0.25,
@@ -18664,7 +18700,7 @@ minions["Metadata/Monsters/KitavaCultist/VaalCultistSpearLightningChampion_"] = 
 }
 minions["Metadata/Monsters/KitavaCultist/VaalCultistSpearChaosMapAtlasUber"] = {
 	name = "Chaos Fanatic",
-	monsterTags = { "caster", "chaos_affinity", "cultist", "flesh_armour", "has_one_handed_melee", "has_thrusting_one_hand_sword", "human", "humanoid", "medium_height", "medium_movement", "not_int", "puncturing_weapon", "ranged", "red_blood", },
+	monsterTags = { "caster", "chaos_affinity", "cultist", "flesh_armour", "has_one_handed_melee", "has_thrusting_one_hand_sword", "human", "humanoid", "incursion_monster", "medium_height", "medium_movement", "not_int", "puncturing_weapon", "ranged", "red_blood", },
 	life = 2.88,
 	lifeScaling = "AltLife2",
 	armour = 0.25,
@@ -18883,7 +18919,7 @@ minions["Metadata/Monsters/KitavaCultist/KitavaCultistSpearCandle"] = {
 }
 minions["Metadata/Monsters/KitavaCultist/VaalCultistDaggersFire"] = {
 	name = "Vaal Zealot",
-	monsterTags = { "cultist", "flesh_armour", "has_dagger", "has_one_handed_melee", "human", "humanoid", "medium_height", "medium_movement", "melee", "not_int", "physical_affinity", "red_blood", "slashing_weapon", },
+	monsterTags = { "cultist", "flesh_armour", "has_dagger", "has_one_handed_melee", "human", "humanoid", "incursion_monster", "medium_height", "medium_movement", "melee", "not_int", "physical_affinity", "red_blood", "slashing_weapon", },
 	life = 1.25,
 	lifeScaling = "AltLife2",
 	armour = 0.25,
@@ -18912,7 +18948,7 @@ minions["Metadata/Monsters/KitavaCultist/VaalCultistDaggersFire"] = {
 }
 minions["Metadata/Monsters/KitavaCultist/VaalCultistSpearLightning"] = {
 	name = "Vaal Fanatic",
-	monsterTags = { "caster", "cultist", "flesh_armour", "has_one_handed_melee", "has_thrusting_one_hand_sword", "human", "humanoid", "lightning_affinity", "medium_height", "medium_movement", "not_int", "puncturing_weapon", "ranged", "red_blood", },
+	monsterTags = { "caster", "cultist", "flesh_armour", "has_one_handed_melee", "has_thrusting_one_hand_sword", "human", "humanoid", "incursion_monster", "lightning_affinity", "medium_height", "medium_movement", "not_int", "puncturing_weapon", "ranged", "red_blood", },
 	life = 1.25,
 	lifeScaling = "AltLife2",
 	armour = 0.25,
@@ -18941,7 +18977,7 @@ minions["Metadata/Monsters/KitavaCultist/VaalCultistSpearLightning"] = {
 }
 minions["Metadata/Monsters/KitavaCultist/VaalCultistSpearFire"] = {
 	name = "Vaal Fanatic",
-	monsterTags = { "caster", "cultist", "fire_affinity", "flesh_armour", "has_one_handed_melee", "has_thrusting_one_hand_sword", "human", "humanoid", "medium_height", "medium_movement", "not_int", "puncturing_weapon", "ranged", "red_blood", },
+	monsterTags = { "caster", "cultist", "fire_affinity", "flesh_armour", "has_one_handed_melee", "has_thrusting_one_hand_sword", "human", "humanoid", "incursion_monster", "medium_height", "medium_movement", "not_int", "puncturing_weapon", "ranged", "red_blood", },
 	life = 1.25,
 	lifeScaling = "AltLife2",
 	armour = 0.25,
@@ -18970,7 +19006,7 @@ minions["Metadata/Monsters/KitavaCultist/VaalCultistSpearFire"] = {
 }
 minions["Metadata/Monsters/KitavaCultist/VaalCultistSpearFireChampion"] = {
 	name = "Vaal Advocate",
-	monsterTags = { "caster", "cultist", "fire_affinity", "flesh_armour", "has_one_handed_melee", "has_thrusting_one_hand_sword", "human", "humanoid", "medium_height", "medium_movement", "not_int", "puncturing_weapon", "ranged", "red_blood", },
+	monsterTags = { "caster", "cultist", "fire_affinity", "flesh_armour", "has_one_handed_melee", "has_thrusting_one_hand_sword", "human", "humanoid", "incursion_monster", "medium_height", "medium_movement", "not_int", "puncturing_weapon", "ranged", "red_blood", },
 	life = 2.03,
 	lifeScaling = "AltLife2",
 	armour = 0.25,
@@ -19000,7 +19036,7 @@ minions["Metadata/Monsters/KitavaCultist/VaalCultistSpearFireChampion"] = {
 }
 minions["Metadata/Monsters/KitavaCultist/VaalCultistSpearBlood"] = {
 	name = "Vaal Fanatic",
-	monsterTags = { "caster", "cultist", "flesh_armour", "has_one_handed_melee", "has_thrusting_one_hand_sword", "human", "humanoid", "medium_height", "medium_movement", "not_int", "physical_affinity", "puncturing_weapon", "ranged", "red_blood", },
+	monsterTags = { "caster", "cultist", "flesh_armour", "has_one_handed_melee", "has_thrusting_one_hand_sword", "human", "humanoid", "incursion_monster", "medium_height", "medium_movement", "not_int", "physical_affinity", "puncturing_weapon", "ranged", "red_blood", },
 	life = 1.25,
 	lifeScaling = "AltLife2",
 	armour = 0.25,
@@ -19029,7 +19065,7 @@ minions["Metadata/Monsters/KitavaCultist/VaalCultistSpearBlood"] = {
 }
 minions["Metadata/Monsters/KitavaCultist/VaalCultistSpearBloodChampion"] = {
 	name = "Vaal Advocate",
-	monsterTags = { "caster", "cultist", "flesh_armour", "has_one_handed_melee", "has_thrusting_one_hand_sword", "human", "humanoid", "medium_height", "medium_movement", "not_int", "physical_affinity", "puncturing_weapon", "ranged", "red_blood", },
+	monsterTags = { "caster", "cultist", "flesh_armour", "has_one_handed_melee", "has_thrusting_one_hand_sword", "human", "humanoid", "incursion_monster", "medium_height", "medium_movement", "not_int", "physical_affinity", "puncturing_weapon", "ranged", "red_blood", },
 	life = 2.03,
 	lifeScaling = "AltLife2",
 	armour = 0.25,
@@ -19119,7 +19155,7 @@ minions["Metadata/Monsters/KitavaCultist/VaalCultistSpearChaosChampion"] = {
 }
 minions["Metadata/Monsters/KitavaCultist/VaalCultistKnifestickFire_"] = {
 	name = "Vaal Zealot",
-	monsterTags = { "cultist", "fire_affinity", "flesh_armour", "has_one_handed_melee", "has_thrusting_one_hand_sword", "human", "humanoid", "medium_height", "medium_movement", "melee", "not_int", "physical_affinity", "puncturing_weapon", "red_blood", },
+	monsterTags = { "cultist", "fire_affinity", "flesh_armour", "has_one_handed_melee", "has_thrusting_one_hand_sword", "human", "humanoid", "incursion_monster", "medium_height", "medium_movement", "melee", "not_int", "physical_affinity", "puncturing_weapon", "red_blood", },
 	life = 1.25,
 	lifeScaling = "AltLife2",
 	armour = 0.25,
@@ -19149,7 +19185,7 @@ minions["Metadata/Monsters/KitavaCultist/VaalCultistKnifestickFire_"] = {
 }
 minions["Metadata/Monsters/KitavaCultist/VaalCultistKnifestickLightning"] = {
 	name = "Vaal Zealot",
-	monsterTags = { "cultist", "flesh_armour", "has_one_handed_melee", "has_thrusting_one_hand_sword", "human", "humanoid", "lightning_affinity", "medium_height", "medium_movement", "melee", "not_int", "physical_affinity", "puncturing_weapon", "red_blood", },
+	monsterTags = { "cultist", "flesh_armour", "has_one_handed_melee", "has_thrusting_one_hand_sword", "human", "humanoid", "incursion_monster", "lightning_affinity", "medium_height", "medium_movement", "melee", "not_int", "physical_affinity", "puncturing_weapon", "red_blood", },
 	life = 1.25,
 	lifeScaling = "AltLife2",
 	armour = 0.25,
@@ -19179,7 +19215,7 @@ minions["Metadata/Monsters/KitavaCultist/VaalCultistKnifestickLightning"] = {
 }
 minions["Metadata/Monsters/KitavaCultist/VaalCultistKnifestickBlood"] = {
 	name = "Vaal Zealot",
-	monsterTags = { "cultist", "flesh_armour", "has_one_handed_melee", "has_thrusting_one_hand_sword", "human", "humanoid", "medium_height", "medium_movement", "melee", "not_int", "physical_affinity", "puncturing_weapon", "red_blood", },
+	monsterTags = { "cultist", "flesh_armour", "has_one_handed_melee", "has_thrusting_one_hand_sword", "human", "humanoid", "incursion_monster", "medium_height", "medium_movement", "melee", "not_int", "physical_affinity", "puncturing_weapon", "red_blood", },
 	life = 1.25,
 	lifeScaling = "AltLife2",
 	armour = 0.25,
@@ -26443,7 +26479,7 @@ minions["Metadata/Monsters/Skeletons/SkeletonBowProjectileWeaknessCurse"] = {
 }
 minions["Metadata/Monsters/Skeletons/SkeletonMeleeKnightElementalSwordIncursionChampion"] = {
 	name = "Enhanced Vaal Fallen",
-	monsterTags = { "bone_armour", "bones", "construct", "has_two_hand_sword", "has_two_handed_melee", "medium_height", "melee", "no_pantheon_mod", "not_dex", "not_int", "physical_affinity", "skeleton", "slashing_weapon", "undead", "very_slow_movement", },
+	monsterTags = { "bone_armour", "bones", "construct", "has_two_hand_sword", "has_two_handed_melee", "incursion_monster", "medium_height", "melee", "no_pantheon_mod", "not_dex", "not_int", "physical_affinity", "skeleton", "slashing_weapon", "undead", "very_slow_movement", },
 	baseDamageIgnoresAttackSpeed = true,
 	life = 2.25,
 	lifeScaling = "AltLife2",
@@ -31930,7 +31966,7 @@ minions["Metadata/Monsters/Skeletons/WbSkeletonMinionCasterLightning"] = {
 }
 minions["Metadata/Monsters/Skeletons/SkeletonMeleeKnightElementalMaulIncursion"] = {
 	name = "Vaal Fallen",
-	monsterTags = { "bludgeoning_weapon", "bone_armour", "bones", "construct", "has_two_hand_mace", "has_two_handed_melee", "medium_height", "melee", "no_pantheon_mod", "not_dex", "not_int", "physical_affinity", "skeleton", "undead", "very_slow_movement", },
+	monsterTags = { "bludgeoning_weapon", "bone_armour", "bones", "construct", "has_two_hand_mace", "has_two_handed_melee", "incursion_monster", "medium_height", "melee", "no_pantheon_mod", "not_dex", "not_int", "physical_affinity", "skeleton", "undead", "very_slow_movement", },
 	baseDamageIgnoresAttackSpeed = true,
 	life = 1.4,
 	lifeScaling = "AltLife2",
@@ -31973,7 +32009,7 @@ minions["Metadata/Monsters/Skeletons/SkeletonMeleeKnightElementalMaulIncursion"]
 }
 minions["Metadata/Monsters/Skeletons/SkeletonBowKnightElementalIncursion"] = {
 	name = "Vaal Slayer",
-	monsterTags = { "bone_armour", "bones", "construct", "has_bow", "medium_height", "no_pantheon_mod", "not_int", "physical_affinity", "puncturing_weapon", "ranged", "very_slow_movement", },
+	monsterTags = { "bone_armour", "bones", "construct", "has_bow", "incursion_monster", "medium_height", "no_pantheon_mod", "not_int", "physical_affinity", "puncturing_weapon", "ranged", "very_slow_movement", },
 	life = 1.5,
 	armour = 1,
 	evasion = 0.1,
@@ -32011,7 +32047,7 @@ minions["Metadata/Monsters/Skeletons/SkeletonBowKnightElementalIncursion"] = {
 }
 minions["Metadata/Monsters/Skeletons/SkeletonMeleeKnightElementalLargeSwordIncursion"] = {
 	name = "Colossal Vaal Fallen",
-	monsterTags = { "bone_armour", "bones", "construct", "has_one_hand_sword", "has_one_handed_melee", "large_height", "melee", "no_pantheon_mod", "not_dex", "not_int", "physical_affinity", "skeleton", "slashing_weapon", "slow_movement", "undead", },
+	monsterTags = { "bone_armour", "bones", "construct", "has_one_hand_sword", "has_one_handed_melee", "incursion_monster", "large_height", "melee", "no_pantheon_mod", "not_dex", "not_int", "physical_affinity", "skeleton", "slashing_weapon", "slow_movement", "undead", },
 	baseDamageIgnoresAttackSpeed = true,
 	life = 2.48,
 	armour = 1,
@@ -33586,12 +33622,12 @@ minions["Metadata/Monsters/Spiders/SpiderWebChampion"] = {
 	name = "Webbed Spider",
 	monsterTags = { "animal_claw_weapon", "beast", "extra_small_height", "flesh_armour", "has_dagger", "has_one_handed_melee", "insect_blood", "large_model", "melee", "physical_affinity", "slow_movement", "spider", },
 	baseDamageIgnoresAttackSpeed = true,
-	life = 1.5,
+	life = 3.6,
 	fireResist = 0,
 	coldResist = 0,
 	lightningResist = 75,
 	chaosResist = 0,
-	damage = 1.72,
+	damage = 2.25,
 	damageSpread = 0.2,
 	attackTime = 0.945,
 	attackRange = 13,
@@ -33620,12 +33656,12 @@ minions["Metadata/Monsters/Spiders/SpiderPoisonChampion_"] = {
 	name = "Virulent Spider",
 	monsterTags = { "animal_claw_weapon", "beast", "caster", "chaos_affinity", "extra_small_height", "flesh_armour", "has_dagger", "has_one_handed_melee", "insect_blood", "large_model", "melee", "physical_affinity", "ranged", "slow_movement", "spider", },
 	baseDamageIgnoresAttackSpeed = true,
-	life = 1.5,
+	life = 3.6,
 	fireResist = 0,
 	coldResist = 0,
 	lightningResist = 75,
 	chaosResist = 0,
-	damage = 1.72,
+	damage = 2.25,
 	damageSpread = 0.2,
 	attackTime = 0.945,
 	attackRange = 13,
@@ -39503,7 +39539,7 @@ minions["Metadata/Monsters/AtlasExiles/EyrieInfluenceMonsters/EyrieSeraphFighter
 -- Primal Crushclaw
 minions["Metadata/Monsters/LeagueHarvest/Blue/HarvestNessaCrabT3Spectre"] = {
 	name = "Primal Crushclaw",
-	monsterTags = { "animal_claw_weapon", "beast", "cold_affinity", "crustacean_beast", "hard_armour", "is_unarmed", "large_model", "melee", "not_dex", "not_int", "red_blood", "slow_movement", },
+	monsterTags = { "animal_claw_weapon", "beast", "cold_affinity", "crustacean_beast", "hard_armour", "harvest_tier3_monster", "is_unarmed", "large_model", "melee", "not_dex", "not_int", "red_blood", "slow_movement", },
 	extraFlags = {
 		recommendedSpectre = true,
 	},
@@ -39541,7 +39577,7 @@ minions["Metadata/Monsters/LeagueHarvest/Blue/HarvestNessaCrabT3Spectre"] = {
 -- Primal Rhex Matriarch
 minions["Metadata/Monsters/LeagueHarvest/Blue/HarvestRhexT3Spectre"] = {
 	name = "Primal Rhex Matriarch",
-	monsterTags = { "animal_claw_weapon", "beast", "caster", "fast_movement", "flesh_armour", "is_unarmed", "lightning_affinity", "melee", "not_int", "not_str", "physical_affinity", "red_blood", "reptile_beast", },
+	monsterTags = { "animal_claw_weapon", "beast", "caster", "fast_movement", "flesh_armour", "harvest_tier3_monster", "is_unarmed", "lightning_affinity", "melee", "not_int", "not_str", "physical_affinity", "red_blood", "reptile_beast", },
 	life = 3.57,
 	lifeScaling = "AltLife2",
 	evasion = 0.5,
@@ -40377,6 +40413,7 @@ minions["Metadata/Monsters/LeagueHellscape/DemonFaction/HellscapeDemonElite1Spec
 	baseMovementSpeed = 45,
 	monsterCategory = "Demon",
 	spawnLocation = {
+		"The Swarmforge (Act 1)",
 	},
 	skillList = {
 		"MeleeAtAnimationSpeedFire",
@@ -41014,6 +41051,7 @@ minions["Metadata/Monsters/LeagueHellscape/DemonFaction/HellscapeDemonElite2_Spe
 	baseMovementSpeed = 53,
 	monsterCategory = "Demon",
 	spawnLocation = {
+		"The Swarmforge (Act 1)",
 	},
 	skillList = {
 		"GTHellscapeDemonEliteVomit",
@@ -41806,6 +41844,7 @@ minions["Metadata/Monsters/LeagueHellscape/PaleFaction/HellscapePaleElite2Spectr
 	monsterCategory = "Demon",
 	spawnLocation = {
 		"Sanctuary (Map)",
+		"The Pale (Act 1)",
 	},
 	skillList = {
 		"EAAHellscapeStabbyStab",
@@ -41841,6 +41880,7 @@ minions["Metadata/Monsters/LeagueHellscape/FleshFaction/HellscapeFleshFodder4Spe
 	baseMovementSpeed = 32,
 	monsterCategory = "Demon",
 	spawnLocation = {
+		"The Fetid Fleshpit (Act 1)",
 	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
@@ -41870,6 +41910,7 @@ minions["Metadata/Monsters/LeagueHellscape/FleshFaction/HellscapeFleshElite1Spec
 	baseMovementSpeed = 55,
 	monsterCategory = "Demon",
 	spawnLocation = {
+		"The Fetid Fleshpit (Act 1)",
 	},
 	skillList = {
 		"MPSHellscapeFleshEliteBasicProj",
@@ -43413,6 +43454,7 @@ minions["Metadata/Monsters/LeagueHellscape/DemonFaction/HellscapeDemonFodder1Spe
 	baseMovementSpeed = 30,
 	monsterCategory = "Demon",
 	spawnLocation = {
+		"The Swarmforge (Act 1)",
 	},
 	skillList = {
 		"MPSHellscapeDemonFodderProj",
@@ -43440,6 +43482,7 @@ minions["Metadata/Monsters/LeagueHellscape/DemonFaction/HellscapeDemonFodder2_Sp
 	baseMovementSpeed = 58,
 	monsterCategory = "Demon",
 	spawnLocation = {
+		"The Swarmforge (Act 1)",
 	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
@@ -43466,6 +43509,7 @@ minions["Metadata/Monsters/LeagueHellscape/DemonFaction/HellscapeDemonFodder3Spe
 	baseMovementSpeed = 55,
 	monsterCategory = "Demon",
 	spawnLocation = {
+		"The Swarmforge (Act 1)",
 	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
@@ -43491,6 +43535,7 @@ minions["Metadata/Monsters/LeagueHellscape/FleshFaction/HellscapeFleshFodder1Spe
 	baseMovementSpeed = 37,
 	monsterCategory = "Demon",
 	spawnLocation = {
+		"The Fetid Fleshpit (Act 1)",
 	},
 	skillList = {
 		"MeleeAtAnimationSpeedFire",
@@ -43519,6 +43564,7 @@ minions["Metadata/Monsters/LeagueHellscape/FleshFaction/HellscapeFleshFodder2Spe
 	baseMovementSpeed = 37,
 	monsterCategory = "Demon",
 	spawnLocation = {
+		"The Fetid Fleshpit (Act 1)",
 	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
@@ -43548,6 +43594,7 @@ minions["Metadata/Monsters/LeagueHellscape/FleshFaction/HellscapeFleshFodder3Spe
 	baseMovementSpeed = 41,
 	monsterCategory = "Demon",
 	spawnLocation = {
+		"The Fetid Fleshpit (Act 1)",
 	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
@@ -43578,6 +43625,7 @@ minions["Metadata/Monsters/LeagueHellscape/FleshFaction/HellscapeFleshElite1Spec
 	baseMovementSpeed = 55,
 	monsterCategory = "Demon",
 	spawnLocation = {
+		"The Fetid Fleshpit (Act 1)",
 	},
 	skillList = {
 		"MPSHellscapeFleshEliteBasicProj",
@@ -43606,6 +43654,7 @@ minions["Metadata/Monsters/LeagueHellscape/FleshFaction/HellscapeFleshElite2_Spe
 	baseMovementSpeed = 30,
 	monsterCategory = "Demon",
 	spawnLocation = {
+		"The Fetid Fleshpit (Act 1)",
 	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
@@ -43642,6 +43691,7 @@ minions["Metadata/Monsters/LeagueHellscape/PaleFaction/HellscapePaleFodder1Spect
 	monsterCategory = "Demon",
 	spawnLocation = {
 		"Sanctuary (Map)",
+		"The Pale (Act 1)",
 	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
@@ -43669,6 +43719,7 @@ minions["Metadata/Monsters/LeagueHellscape/PaleFaction/HellscapePaleFodder2Spect
 	baseMovementSpeed = 62,
 	monsterCategory = "Demon",
 	spawnLocation = {
+		"The Pale (Act 1)",
 	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
@@ -43700,6 +43751,7 @@ minions["Metadata/Monsters/LeagueHellscape/PaleFaction/HellscapePaleFodder3Spect
 	monsterCategory = "Demon",
 	spawnLocation = {
 		"Sanctuary (Map)",
+		"The Pale (Act 1)",
 	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
@@ -48800,7 +48852,7 @@ minions["Metadata/Monsters/LeagueBetrayal/BetrayalTotemGroundEffect"] = {
 		"BetrayalTotemCastGroundEffect",
 	},
 	modList = {
-		mod("AreaOfEffect", "MORE", 0, 0, 0), -- MonsterAreaOfEffectFinalVariance [active_skill_area_of_effect_radius_+%_final = 0]
+		mod("AreaOfEffectRadius", "MORE", 0, 0, 0), -- MonsterAreaOfEffectFinalVariance [active_skill_area_of_effect_radius_+%_final = 0]
 		-- immune_to_curses [immune_to_curses = 1]
 		-- set_is_totem_object [set_is_totem_object = 1]
 		-- set_item_drop_slots [set_item_drop_slots = 0]
@@ -49123,7 +49175,6 @@ minions["Metadata/Monsters/LeagueBetrayal/LaboratoryRat"] = {
 		"WalkEmergeBetrayal",
 	},
 	modList = {
-		-- MonsterNoDrops [monster_no_drops = 1]
 		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -30]
 	},
 }
@@ -53436,6 +53487,7 @@ minions["Metadata/Monsters/LeagueNecropolis/TankyZombieTorment__"] = {
 		"MeleeAtAnimationSpeed",
 	},
 	modList = {
+		-- TormentedUnearthedMeatsackPossessLimit [monster_num_possessed_can_not_be_released = 1]
 	},
 }
 minions["Metadata/Monsters/LeagueNecropolis/TankyZombieSpectre"] = {
@@ -58589,13 +58641,13 @@ minions["Metadata/Monsters/AbyssTwoLeague/Cocoon"] = {
 	name = "Lightless Abomination",
 	monsterTags = { "abyss_blood", "abyssal", "demon", "large_height", "not_dex", "not_int", "slow_movement", },
 	baseDamageIgnoresAttackSpeed = true,
-	life = 2.28,
+	life = 2.31,
 	armour = 0.4,
 	fireResist = 0,
 	coldResist = 0,
 	lightningResist = 0,
 	chaosResist = 0,
-	damage = 1.33,
+	damage = 1.32,
 	damageSpread = 0.2,
 	attackTime = 1.5,
 	attackRange = 18,
@@ -58828,13 +58880,13 @@ minions["Metadata/Monsters/AbyssTwoLeague/CorpseStrider"] = {
 	name = "Strider of the Pit",
 	monsterTags = { "abyss_blood", "abyssal", "demon", "lightning_affinity", "medium_movement", "not_dex", "not_int", "ranged", "undead", },
 	baseDamageIgnoresAttackSpeed = true,
-	life = 1.9,
+	life = 2.09,
 	armour = 0.4,
 	fireResist = 0,
 	coldResist = 0,
 	lightningResist = 0,
 	chaosResist = 0,
-	damage = 1.9,
+	damage = 1.89,
 	damageSpread = 0.2,
 	attackTime = 1.5,
 	attackRange = 14,
@@ -58894,13 +58946,13 @@ minions["Metadata/Monsters/AbyssTwoLeague/Tarhulk"] = {
 	name = "Blackblooded Tarhulk",
 	monsterTags = { "abyss_blood", "abyssal", "demon", "large_height", "large_model", "not_dex", "not_int", "very_slow_movement", },
 	baseDamageIgnoresAttackSpeed = true,
-	life = 2.85,
+	life = 2.86,
 	armour = 0.4,
 	fireResist = 0,
 	coldResist = 40,
 	lightningResist = 0,
 	chaosResist = 0,
-	damage = 1.9,
+	damage = 1.89,
 	damageSpread = 0.2,
 	attackTime = 1.5,
 	attackRange = 16,
@@ -58983,3 +59035,5 @@ minions["Metadata/Monsters/AbyssTwoLeague/PrimordialMonster03"] = {
 		-- monster_beyond_portal_chance_+%_final [monster_beyond_portal_chance_+%_final = -50]
 	},
 }
+	return minions
+end

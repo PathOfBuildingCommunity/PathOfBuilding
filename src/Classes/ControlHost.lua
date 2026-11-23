@@ -4,9 +4,13 @@
 -- Host for UI controls
 --
 
-local ControlHostClass = newClass("ControlHost", function(self)
-	self.controls = { }
-end)
+---@class ControlHost
+local ControlHostClass = newClass("ControlHost")
+
+function ControlHostClass:ControlHost()
+    self.controls = {}
+	return self
+end
 
 function ControlHostClass:SelectControl(newSelControl)
 	if self.selControl == newSelControl then
@@ -27,7 +31,17 @@ end
 function ControlHostClass:GetMouseOverControl()
 	for _, control in pairs(self.controls) do
 		if control.IsMouseOver and control:IsMouseOver() then
-			return control
+			local clip = control.mouseClipRect
+			if type(clip) == "function" then
+				clip = clip(control)
+			end
+			if not clip then
+				return control
+			end
+			local cursorX, cursorY = GetCursorPos()
+			if cursorX >= clip[1] and cursorY >= clip[2] and cursorX < clip[1] + clip[3] and cursorY < clip[2] + clip[4] then
+				return control
+			end
 		end
 	end
 end
@@ -36,6 +50,7 @@ function ControlHostClass:ProcessControlsInput(inputEvents, viewPort)
 	local processedImbuedControl
 	for id, event in ipairs(inputEvents) do
 		if event.type == "KeyDown" then
+			local prevSelControl = self.selControl
 			if self.selControl then
 				processedImbuedControl = self.selControl.imbuedSelect and self.selControl.dropped and event.key:match("BUTTON")
 				self:SelectControl(self.selControl:OnKeyDown(event.key, event.doubleClick))
@@ -48,7 +63,8 @@ function ControlHostClass:ProcessControlsInput(inputEvents, viewPort)
 				self:SelectControl()
 				if isMouseInRegion(viewPort) then
 					local mOverControl = self:GetMouseOverControl()
-					if mOverControl and mOverControl.OnKeyDown then
+					-- Skip the control that just handled this event and released focus, otherwise it would process the same click twice
+					if mOverControl and mOverControl ~= prevSelControl and mOverControl.OnKeyDown then
 						self:SelectControl(mOverControl:OnKeyDown(event.key, event.doubleClick))
 						inputEvents[id] = nil
 					end
@@ -90,10 +106,23 @@ function ControlHostClass:ProcessControlsInput(inputEvents, viewPort)
 	end	
 end
 
+-- A focused control only hides other tooltips while it is hovered or dropped down, so they can't overlap
+local function getTooltipBlocker(control)
+	if control and control.hasFocus and (control.dropped or not control.IsMouseOver or control:IsMouseOver()) then
+		return control
+	end
+end
+
+function ControlHostClass:GetTooltipBlocker()
+	return getTooltipBlocker(self.selControl)
+end
+
 function ControlHostClass:DrawControls(viewPort, selControl)
+	local blocker = getTooltipBlocker(self.selControl)
+	local outerBlocker = getTooltipBlocker(selControl)
 	for _, control in pairs(self.controls) do
 		if control:IsShown() and control.Draw then
-			control:Draw(viewPort, (self.selControl and self.selControl.hasFocus and self.selControl ~= control) or (selControl and selControl.hasFocus and selControl ~= control))
+			control:Draw(viewPort, (blocker and blocker ~= control) or (outerBlocker and outerBlocker ~= control))
 		end
 	end
 end

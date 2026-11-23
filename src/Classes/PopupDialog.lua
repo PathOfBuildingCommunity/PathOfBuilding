@@ -5,10 +5,13 @@
 --
 local m_floor = math.floor
 
-local PopupDialogClass = newClass("PopupDialog", "ControlHost", "Control", function(self, width, height, title, controls, enterControl, defaultControl,
+---@class PopupDialog: ControlHost, Control
+local PopupDialogClass = newClass("PopupDialog", "ControlHost", "Control")
+
+function PopupDialogClass:PopupDialog(width, height, title, controls, enterControl, defaultControl,
 									escapeControl, scrollBarFunc, resizeFunc)
-	self.ControlHost()
-	self.Control(nil, {0, 0, width, height})
+	self:ControlHost()
+	self:Control(nil, {0, 0, width, height})
 	self.x = function()
 		return m_floor((main.screenW - width) / 2)
 	end
@@ -35,7 +38,8 @@ local PopupDialogClass = newClass("PopupDialog", "ControlHost", "Control", funct
 	self.scrollBarFunc = scrollBarFunc
 	-- allow resizing of popup
 	self.resizeFunc = resizeFunc
-end)
+	return self
+end
 
 function PopupDialogClass:Draw(viewPort)
 	local x, y = self:GetPos()

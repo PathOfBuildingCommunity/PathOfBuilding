@@ -3,8 +3,7 @@
 -- Spectre active skills
 -- Skill data (c) Grinding Gear Games
 --
-local skills, mod, flag, skill = ...
-
+return function(skills, mod, flag, skill)
 #skill AxisCasterGlacialCascade
 #flags spell area
 #baseMod skill("radius", 12)
@@ -2908,3 +2907,5 @@ skills["LegionKaruiMeleeCombo2"] = {
 #flags attack melee projectile
 #mods
 
+
+end

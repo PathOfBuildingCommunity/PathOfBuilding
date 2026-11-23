@@ -1019,6 +1019,57 @@ return {
 				["type"] = "pseudo",
 			},
 			{
+				["id"] = "pseudo.pseudo_temple_queens_chambers_1",
+				["option"] = {
+					["options"] = {
+						{
+							["id"] = 1,
+							["text"] = "Open Room",
+						},
+						{
+							["id"] = 2,
+							["text"] = "Closed Room",
+						},
+					},
+				},
+				["text"] = "Has Room: Cradle of Creation (Tier 1)",
+				["type"] = "pseudo",
+			},
+			{
+				["id"] = "pseudo.pseudo_temple_queens_chambers_2",
+				["option"] = {
+					["options"] = {
+						{
+							["id"] = 1,
+							["text"] = "Open Room",
+						},
+						{
+							["id"] = 2,
+							["text"] = "Closed Room",
+						},
+					},
+				},
+				["text"] = "Has Room: Cradle of Creation (Tier 2)",
+				["type"] = "pseudo",
+			},
+			{
+				["id"] = "pseudo.pseudo_temple_queens_chambers_3",
+				["option"] = {
+					["options"] = {
+						{
+							["id"] = 1,
+							["text"] = "Open Room",
+						},
+						{
+							["id"] = 2,
+							["text"] = "Closed Room",
+						},
+					},
+				},
+				["text"] = "Has Room: Cradle of Creation (Tier 3)",
+				["type"] = "pseudo",
+			},
+			{
 				["id"] = "pseudo.pseudo_temple_boss_fire_3",
 				["option"] = {
 					["options"] = {
@@ -1305,23 +1356,6 @@ return {
 					},
 				},
 				["text"] = "Has Room: Hall of Locks (Tier 2)",
-				["type"] = "pseudo",
-			},
-			{
-				["id"] = "pseudo.pseudo_temple_queens_chambers_2",
-				["option"] = {
-					["options"] = {
-						{
-							["id"] = 1,
-							["text"] = "Open Room",
-						},
-						{
-							["id"] = 2,
-							["text"] = "Closed Room",
-						},
-					},
-				},
-				["text"] = "Has Room: Hall of Lords (Tier 2)",
 				["type"] = "pseudo",
 			},
 			{
@@ -1665,23 +1699,6 @@ return {
 				["type"] = "pseudo",
 			},
 			{
-				["id"] = "pseudo.pseudo_temple_queens_chambers_1",
-				["option"] = {
-					["options"] = {
-						{
-							["id"] = 1,
-							["text"] = "Open Room",
-						},
-						{
-							["id"] = 2,
-							["text"] = "Closed Room",
-						},
-					},
-				},
-				["text"] = "Has Room: Royal Meeting Room (Tier 1)",
-				["type"] = "pseudo",
-			},
-			{
 				["id"] = "pseudo.pseudo_temple_sacrifice_room_1",
 				["option"] = {
 					["options"] = {
@@ -1951,23 +1968,6 @@ return {
 					},
 				},
 				["text"] = "Has Room: Temple Nexus (Tier 3)",
-				["type"] = "pseudo",
-			},
-			{
-				["id"] = "pseudo.pseudo_temple_queens_chambers_3",
-				["option"] = {
-					["options"] = {
-						{
-							["id"] = 1,
-							["text"] = "Open Room",
-						},
-						{
-							["id"] = 2,
-							["text"] = "Closed Room",
-						},
-					},
-				},
-				["text"] = "Has Room: Throne of Atziri (Tier 3)",
 				["type"] = "pseudo",
 			},
 			{
@@ -2592,6 +2592,16 @@ return {
 	{
 		["entries"] = {
 			{
+				["id"] = "explicit.stat_2054162825",
+				["text"] = "#",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_3360430812",
+				["text"] = "#",
+				["type"] = "explicit",
+			},
+			{
 				["id"] = "explicit.stat_4079888060",
 				["text"] = "# Added Passive Skills are Jewel Sockets",
 				["type"] = "explicit",
@@ -2652,8 +2662,18 @@ return {
 				["type"] = "explicit",
 			},
 			{
+				["id"] = "explicit.stat_181387736",
+				["text"] = "# Prefix Modifier cannot be changed",
+				["type"] = "explicit",
+			},
+			{
 				["id"] = "explicit.stat_552705983",
 				["text"] = "# Strength per 1 Strength on Allocated Passives in Radius",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2390914662",
+				["text"] = "# Suffix Modifier cannot be changed",
 				["type"] = "explicit",
 			},
 			{
@@ -2714,6 +2734,11 @@ return {
 			{
 				["id"] = "explicit.stat_972201717",
 				["text"] = "# to # Added Cold Damage with Sword Attacks",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2644626772",
+				["text"] = "# to # Added Cold Damage with Unarmed Attacks",
 				["type"] = "explicit",
 			},
 			{
@@ -3138,7 +3163,7 @@ return {
 			},
 			{
 				["id"] = "explicit.stat_3927388937",
-				["text"] = "#% chance for Impales on Enemies you Kill to Reflect Damage to surrounding Enemies",
+				["text"] = "#% chance for Impales on Enemies you Kill to Reflect Damage to Enemies within 2.2 metres",
 				["type"] = "explicit",
 			},
 			{
@@ -3194,6 +3219,11 @@ return {
 			{
 				["id"] = "explicit.stat_407036985",
 				["text"] = "#% chance for Timeless Splinters to drop as Timeless Emblems instead in your Maps",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_86321750",
+				["text"] = "#% chance for a damaging Retaliation skill to become usable for every 100 life removed this way",
 				["type"] = "explicit",
 			},
 			{
@@ -3259,6 +3289,11 @@ return {
 			{
 				["id"] = "explicit.stat_986381677",
 				["text"] = "#% chance in Heists for Items to drop with an additional Socket",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1764672620",
+				["text"] = "#% chance in Heists for Jeweller's Orbs to drop as Chromatic Orbs instead",
 				["type"] = "explicit",
 			},
 			{
@@ -3409,6 +3444,11 @@ return {
 			{
 				["id"] = "explicit.stat_1618589784",
 				["text"] = "#% chance to Avoid Bleeding",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2961618300",
+				["text"] = "#% chance to Avoid Blind",
 				["type"] = "explicit",
 			},
 			{
@@ -3572,13 +3612,13 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_318953428",
-				["text"] = "#% chance to Blind Enemies on Hit with Attacks",
+				["id"] = "explicit.stat_2301191210",
+				["text"] = "#% chance to Blind Enemies on Hit",
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_2301191210",
-				["text"] = "#% chance to Blind Enemies on hit",
+				["id"] = "explicit.stat_318953428",
+				["text"] = "#% chance to Blind Enemies on Hit with Attacks",
 				["type"] = "explicit",
 			},
 			{
@@ -3588,7 +3628,7 @@ return {
 			},
 			{
 				["id"] = "explicit.stat_2327728343",
-				["text"] = "#% chance to Blind nearby Enemies when gaining Her Blessing",
+				["text"] = "#% chance to Blind Enemies within 1.2 metres when gaining Her Blessing",
 				["type"] = "explicit",
 			},
 			{
@@ -3897,6 +3937,11 @@ return {
 				["type"] = "explicit",
 			},
 			{
+				["id"] = "explicit.stat_764329137",
+				["text"] = "#% chance to Trigger Explosive Toad when you kill an Enemy",
+				["type"] = "explicit",
+			},
+			{
 				["id"] = "explicit.stat_205619502",
 				["text"] = "#% chance to Trigger Level 1 Blood Rage when you Kill an Enemy",
 				["type"] = "explicit",
@@ -3939,6 +3984,11 @@ return {
 			{
 				["id"] = "explicit.stat_3141831683",
 				["text"] = "#% chance to Trigger Level 20 Glimpse of Eternity when Hit",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2746497881",
+				["text"] = "#% chance to Trigger Level 20 Moonfall on Melee Critical Strike",
 				["type"] = "explicit",
 			},
 			{
@@ -4092,6 +4142,11 @@ return {
 				["type"] = "explicit",
 			},
 			{
+				["id"] = "explicit.stat_729118116",
+				["text"] = "#% chance to avoid Projectiles that have Chained",
+				["type"] = "explicit",
+			},
+			{
 				["id"] = "explicit.stat_2155467472",
 				["text"] = "#% chance to be inflicted with Bleeding when Hit by an Attack",
 				["type"] = "explicit",
@@ -4207,6 +4262,11 @@ return {
 				["type"] = "explicit",
 			},
 			{
+				["id"] = "explicit.stat_3532157821",
+				["text"] = "#% chance to deal Double Damage with Attacks if Attack Time is longer than 1 second",
+				["type"] = "explicit",
+			},
+			{
 				["id"] = "explicit.stat_2445189705",
 				["text"] = "#% chance to deal Triple Damage",
 				["type"] = "explicit",
@@ -4297,6 +4357,11 @@ return {
 				["type"] = "explicit",
 			},
 			{
+				["id"] = "explicit.stat_1793331740",
+				["text"] = "#% chance to gain Phasing on Hit with this weapon",
+				["type"] = "explicit",
+			},
+			{
 				["id"] = "explicit.stat_3562211447",
 				["text"] = "#% chance to gain Unholy Might for 3 seconds on Kill",
 				["type"] = "explicit",
@@ -4304,6 +4369,11 @@ return {
 			{
 				["id"] = "explicit.stat_2807857784",
 				["text"] = "#% chance to gain Unholy Might for 4 seconds on Critical Strike",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_3682839745",
+				["text"] = "#% chance to gain a Brine Charge instead of an Endurance Charge",
 				["type"] = "explicit",
 			},
 			{
@@ -4487,11 +4557,6 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_3682839745",
-				["text"] = "#% chance to gain a [BrineCharges|Brine Charge] instead of an Endurance Charge",
-				["type"] = "explicit",
-			},
-			{
 				["id"] = "explicit.stat_2542650946",
 				["text"] = "#% chance to gain an Endurance Charge on Critical Strike",
 				["type"] = "explicit",
@@ -4548,22 +4613,22 @@ return {
 			},
 			{
 				["id"] = "explicit.stat_3607444087",
-				["text"] = "#% chance to grant Chaotic Might to nearby Enemies on Kill",
+				["text"] = "#% chance to grant Chaotic Might to Enemies within 2 metres on Kill",
 				["type"] = "explicit",
 			},
 			{
 				["id"] = "explicit.stat_1924591908",
-				["text"] = "#% chance to grant Onslaught to nearby Enemies on Kill",
+				["text"] = "#% chance to grant Onslaught to Enemies within 2 metres on Kill",
 				["type"] = "explicit",
 			},
 			{
 				["id"] = "explicit.stat_991168463",
-				["text"] = "#% chance to grant a Frenzy Charge to nearby Allies on Hit",
+				["text"] = "#% chance to grant a Frenzy Charge to Allies within 4 metres on Hit",
 				["type"] = "explicit",
 			},
 			{
 				["id"] = "explicit.stat_2367680009",
-				["text"] = "#% chance to grant a Power Charge to nearby Allies on Kill",
+				["text"] = "#% chance to grant a Power Charge to Allies within 4 metres on Kill",
 				["type"] = "explicit",
 			},
 			{
@@ -5037,6 +5102,11 @@ return {
 				["type"] = "explicit",
 			},
 			{
+				["id"] = "explicit.stat_1901408736",
+				["text"] = "#% increased Armour from Equipped Boots and Gloves",
+				["type"] = "explicit",
+			},
+			{
 				["id"] = "explicit.stat_2424133568",
 				["text"] = "#% increased Armour if you haven't Killed Recently",
 				["type"] = "explicit",
@@ -5137,6 +5207,11 @@ return {
 				["type"] = "explicit",
 			},
 			{
+				["id"] = "explicit.stat_2941183243",
+				["text"] = "#% increased Attack Damage per Raised Zombie",
+				["type"] = "explicit",
+			},
+			{
 				["id"] = "explicit.stat_444174528",
 				["text"] = "#% increased Attack Damage while Dual Wielding",
 				["type"] = "explicit",
@@ -5212,6 +5287,11 @@ return {
 				["type"] = "explicit",
 			},
 			{
+				["id"] = "explicit.stat_3267026680",
+				["text"] = "#% increased Attack Speed if you've used an Attack Movement Skill Recently",
+				["type"] = "explicit",
+			},
+			{
 				["id"] = "explicit.stat_889691035",
 				["text"] = "#% increased Attack Speed per 10 Dexterity",
 				["type"] = "explicit",
@@ -5227,6 +5307,11 @@ return {
 				["type"] = "explicit",
 			},
 			{
+				["id"] = "explicit.stat_3459071185",
+				["text"] = "#% increased Attack Speed per Enemy in Close Range",
+				["type"] = "explicit",
+			},
+			{
 				["id"] = "explicit.stat_1039149869",
 				["text"] = "#% increased Attack Speed per Fortification",
 				["type"] = "explicit",
@@ -5234,6 +5319,11 @@ return {
 			{
 				["id"] = "explicit.stat_3548561213",
 				["text"] = "#% increased Attack Speed per Frenzy Charge",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1635906349",
+				["text"] = "#% increased Attack Speed per socketed Searching Eye Jewel",
 				["type"] = "explicit",
 			},
 			{
@@ -5273,7 +5363,7 @@ return {
 			},
 			{
 				["id"] = "explicit.stat_314741699",
-				["text"] = "#% increased Attack Speed while a Rare or Unique Enemy is Nearby",
+				["text"] = "#% increased Attack Speed while a Rare or Unique Enemy is within 6 metres",
 				["type"] = "explicit",
 			},
 			{
@@ -5353,7 +5443,7 @@ return {
 			},
 			{
 				["id"] = "explicit.stat_1027670161",
-				["text"] = "#% increased Attack and Cast Speed for each nearby Enemy, up to a maximum of 30%",
+				["text"] = "#% increased Attack and Cast Speed for each Enemy within 6 metres, up to a maximum of 30%",
 				["type"] = "explicit",
 			},
 			{
@@ -5787,6 +5877,11 @@ return {
 				["type"] = "explicit",
 			},
 			{
+				["id"] = "explicit.stat_2078691497",
+				["text"] = "#% increased Cost of Building and Upgrading Towers in your Maps",
+				["type"] = "explicit",
+			},
+			{
 				["id"] = "explicit.stat_2904711338",
 				["text"] = "#% increased Cost of Skills",
 				["type"] = "explicit",
@@ -5912,6 +6007,11 @@ return {
 				["type"] = "explicit",
 			},
 			{
+				["id"] = "explicit.stat_1714168814",
+				["text"] = "#% increased Critical Strike Chance per socketed Hypnotic Eye Jewel",
+				["type"] = "explicit",
+			},
+			{
 				["id"] = "explicit.stat_2620656067",
 				["text"] = "#% increased Critical Strike Chance while Physical Aegis is depleted",
 				["type"] = "explicit",
@@ -5959,6 +6059,11 @@ return {
 			{
 				["id"] = "explicit.stat_1186596295",
 				["text"] = "#% increased Critical Strike Chance with Lightning Skills",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_214031493",
+				["text"] = "#% increased Critical Strike Chance with Mines",
 				["type"] = "explicit",
 			},
 			{
@@ -6019,6 +6124,11 @@ return {
 			{
 				["id"] = "explicit.stat_1034580601",
 				["text"] = "#% increased Damage for each Poison on you up to a maximum of 75%",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1351682252",
+				["text"] = "#% increased Damage for each Trap and Mine you have",
 				["type"] = "explicit",
 			},
 			{
@@ -6254,6 +6364,11 @@ return {
 			{
 				["id"] = "explicit.stat_1069260037",
 				["text"] = "#% increased Damage with Claws",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2529155377",
+				["text"] = "#% increased Damage with Claws against Enemies that are on Low Life",
 				["type"] = "explicit",
 			},
 			{
@@ -6632,6 +6747,11 @@ return {
 				["type"] = "explicit",
 			},
 			{
+				["id"] = "explicit.stat_1123294660",
+				["text"] = "#% increased Effect of Cruelty",
+				["type"] = "explicit",
+			},
+			{
 				["id"] = "explicit.stat_1661698405",
 				["text"] = "#% increased Effect of Curses on Monsters",
 				["type"] = "explicit",
@@ -6754,6 +6874,11 @@ return {
 			{
 				["id"] = "explicit.stat_1939175721",
 				["text"] = "#% increased Effect of Shrine Buffs on you",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1674759049",
+				["text"] = "#% increased Effect of Shrine Buffs on you for each 5% of Life Reserved",
 				["type"] = "explicit",
 			},
 			{
@@ -7029,6 +7154,11 @@ return {
 			{
 				["id"] = "explicit.stat_156734303",
 				["text"] = "#% increased Evasion Rating during Onslaught",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_3509362078",
+				["text"] = "#% increased Evasion Rating from Equipped Body Armour",
 				["type"] = "explicit",
 			},
 			{
@@ -7462,11 +7592,6 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_144675621",
-				["text"] = "#% increased Item Rarity per White Socket",
-				["type"] = "explicit",
-			},
-			{
 				["id"] = "explicit.stat_3569230441",
 				["text"] = "#% increased Job Experience gain",
 				["type"] = "explicit",
@@ -7607,8 +7732,18 @@ return {
 				["type"] = "explicit",
 			},
 			{
+				["id"] = "explicit.stat_2814910323",
+				["text"] = "#% increased Mana Cost Efficiency for 2 seconds after Spending a total of 800 Mana",
+				["type"] = "explicit",
+			},
+			{
 				["id"] = "explicit.stat_2407942498",
 				["text"] = "#% increased Mana Cost Efficiency of Minion Skills",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1601265558",
+				["text"] = "#% increased Mana Cost Efficiency of Skills which throw Traps or Mines",
 				["type"] = "explicit",
 			},
 			{
@@ -7739,6 +7874,11 @@ return {
 			{
 				["id"] = "explicit.stat_2676451350",
 				["text"] = "#% increased Mana Reservation Efficiency of Skills per 250 total Attributes",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2265342288",
+				["text"] = "#% increased Mana Reservation Efficiency of Skills that throw Mines",
 				["type"] = "explicit",
 			},
 			{
@@ -7992,18 +8132,18 @@ return {
 				["type"] = "explicit",
 			},
 			{
+				["id"] = "explicit.stat_1426967889",
+				["text"] = "#% increased Movement Speed for each Enemy within 6 metres, up to a maximum of 50%",
+				["type"] = "explicit",
+			},
+			{
 				["id"] = "explicit.stat_1360723495",
 				["text"] = "#% increased Movement Speed for each Poison on you up to a maximum of 50%",
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_1426967889",
-				["text"] = "#% increased Movement Speed for each nearby Enemy, up to a maximum of 50%",
-				["type"] = "explicit",
-			},
-			{
 				["id"] = "explicit.stat_3410049114",
-				["text"] = "#% increased Movement Speed for you and nearby Allies",
+				["text"] = "#% increased Movement Speed for you and Allies within 5 metres",
 				["type"] = "explicit",
 			},
 			{
@@ -8197,6 +8337,11 @@ return {
 				["type"] = "explicit",
 			},
 			{
+				["id"] = "explicit.stat_3081449522",
+				["text"] = "#% increased Physical Damage per socketed Murderous Eye Jewel",
+				["type"] = "explicit",
+			},
+			{
 				["id"] = "explicit.stat_3853018505",
 				["text"] = "#% increased Physical Damage taken",
 				["type"] = "explicit",
@@ -8372,11 +8517,6 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_1083387327",
-				["text"] = "#% increased Quantity of Expedition Logbooks dropped by Runic Monsters in your Maps",
-				["type"] = "explicit",
-			},
-			{
 				["id"] = "explicit.stat_3802667447",
 				["text"] = "#% increased Quantity of Fish Caught",
 				["type"] = "explicit",
@@ -8472,6 +8612,11 @@ return {
 				["type"] = "explicit",
 			},
 			{
+				["id"] = "explicit.stat_2416650879",
+				["text"] = "#% increased Rage Cost Efficiency",
+				["type"] = "explicit",
+			},
+			{
 				["id"] = "explicit.stat_3415234440",
 				["text"] = "#% increased Rage Cost of Skills",
 				["type"] = "explicit",
@@ -8492,18 +8637,13 @@ return {
 				["type"] = "explicit",
 			},
 			{
+				["id"] = "explicit.stat_2459602321",
+				["text"] = "#% increased Rarity of Fish Caught per held Dead Fish",
+				["type"] = "explicit",
+			},
+			{
 				["id"] = "explicit.stat_2786105132",
 				["text"] = "#% increased Rarity of Items Dropped by Abyssal Troves in your Maps",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_21824003",
-				["text"] = "#% increased Rarity of Items Dropped by Enemies killed with a Critical Strike",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_2138434718",
-				["text"] = "#% increased Rarity of Items Dropped by Frozen Enemies",
 				["type"] = "explicit",
 			},
 			{
@@ -8517,21 +8657,6 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_3433676080",
-				["text"] = "#% increased Rarity of Items Dropped by Slain Magic Enemies",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_2161689853",
-				["text"] = "#% increased Rarity of Items Dropped by Slain Rare or Unique Enemies",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_3188291252",
-				["text"] = "#% increased Rarity of Items Dropped by Slain Shocked Enemies",
-				["type"] = "explicit",
-			},
-			{
 				["id"] = "explicit.stat_4105955491",
 				["text"] = "#% increased Rarity of Items Dropped by Wild Rogue Exiles in your Maps",
 				["type"] = "explicit",
@@ -8542,33 +8667,8 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_3917489142",
-				["text"] = "#% increased Rarity of Items found",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_1740200922",
-				["text"] = "#% increased Rarity of Items found during Effect",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_3251705960",
-				["text"] = "#% increased Rarity of Items found during Effect",
-				["type"] = "explicit",
-			},
-			{
 				["id"] = "explicit.stat_301625329",
 				["text"] = "#% increased Rarity of Items found during any Flask Effect",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_3967804254",
-				["text"] = "#% increased Rarity of Items found from Hiveborn Monsters",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_121185030",
-				["text"] = "#% increased Rarity of Items found from Slain Unique Enemies",
 				["type"] = "explicit",
 			},
 			{
@@ -8579,21 +8679,6 @@ return {
 			{
 				["id"] = "explicit.stat_3433267351",
 				["text"] = "#% increased Rarity of Items found in your Maps affected by Fortune Favours the Brave",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_3226452989",
-				["text"] = "#% increased Rarity of Items found per Mana Burn, up to a maximum of 100%",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_2929867083",
-				["text"] = "#% increased Rarity of Items found when on Low Life",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_4151190513",
-				["text"] = "#% increased Rarity of Items found with a Normal Item Equipped",
 				["type"] = "explicit",
 			},
 			{
@@ -8659,11 +8744,6 @@ return {
 			{
 				["id"] = "explicit.stat_2357136187",
 				["text"] = "#% increased Rogue's Marker value of primary Heist Target",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_1351268685",
-				["text"] = "#% increased Scarabs found in your Maps",
 				["type"] = "explicit",
 			},
 			{
@@ -8797,6 +8877,11 @@ return {
 				["type"] = "explicit",
 			},
 			{
+				["id"] = "explicit.stat_2001753918",
+				["text"] = "#% increased Spell Damage per Summoned Skeleton",
+				["type"] = "explicit",
+			},
+			{
 				["id"] = "explicit.stat_3557561376",
 				["text"] = "#% increased Spell Damage taken when on Low Mana",
 				["type"] = "explicit",
@@ -8877,6 +8962,11 @@ return {
 				["type"] = "explicit",
 			},
 			{
+				["id"] = "explicit.stat_1351268685",
+				["text"] = "#% increased Threads found in your Maps",
+				["type"] = "explicit",
+			},
+			{
 				["id"] = "explicit.stat_553402472",
 				["text"] = "#% increased Total Heist Fee",
 				["type"] = "explicit",
@@ -8889,6 +8979,11 @@ return {
 			{
 				["id"] = "explicit.stat_2566390555",
 				["text"] = "#% increased Totem Damage per 10 Devotion",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2357996603",
+				["text"] = "#% increased Totem Duration",
 				["type"] = "explicit",
 			},
 			{
@@ -8947,6 +9042,11 @@ return {
 				["type"] = "explicit",
 			},
 			{
+				["id"] = "explicit.stat_1584440377",
+				["text"] = "#% increased Unarmed Attack Speed with Melee Skills",
+				["type"] = "explicit",
+			},
+			{
 				["id"] = "explicit.stat_586037801",
 				["text"] = "#% increased Unveiled Modifier magnitudes",
 				["type"] = "explicit",
@@ -9002,6 +9102,11 @@ return {
 				["type"] = "explicit",
 			},
 			{
+				["id"] = "explicit.stat_1259656520",
+				["text"] = "#% increased chance for Immortal Syndicate Members in your Maps to offer to Bargain for Items",
+				["type"] = "explicit",
+			},
+			{
 				["id"] = "explicit.stat_113049735",
 				["text"] = "#% increased chance for Legion Encounters in your Maps to include a General",
 				["type"] = "explicit",
@@ -9013,17 +9118,17 @@ return {
 			},
 			{
 				["id"] = "explicit.stat_1415269999",
-				["text"] = "#% increased chance for Memory Threads to lead towards the Incarnation of Dread",
+				["text"] = "#% increased chance for Memory Traces to lead towards the Incarnation of Dread",
 				["type"] = "explicit",
 			},
 			{
 				["id"] = "explicit.stat_1493453364",
-				["text"] = "#% increased chance for Memory Threads to lead towards the Incarnation of Fear",
+				["text"] = "#% increased chance for Memory Traces to lead towards the Incarnation of Fear",
 				["type"] = "explicit",
 			},
 			{
 				["id"] = "explicit.stat_3126598962",
-				["text"] = "#% increased chance for Memory Threads to lead towards the Incarnation of Neglect",
+				["text"] = "#% increased chance for Memory Traces to lead towards the Incarnation of Neglect",
 				["type"] = "explicit",
 			},
 			{
@@ -9064,6 +9169,11 @@ return {
 			{
 				["id"] = "explicit.stat_4016588303",
 				["text"] = "#% increased chance for your Maps to contain Memory Tears (Tier 16+)",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2172921782",
+				["text"] = "#% increased chance of Ritual Altars in your Maps to have Special Rewards",
 				["type"] = "explicit",
 			},
 			{
@@ -9252,6 +9362,16 @@ return {
 				["type"] = "explicit",
 			},
 			{
+				["id"] = "explicit.stat_4219583418",
+				["text"] = "#% increased quantity of Artifacts dropped by Monsters in your Maps",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1083387327",
+				["text"] = "#% increased quantity of Expedition Logbooks dropped by Runic Monsters in your Maps",
+				["type"] = "explicit",
+			},
+			{
 				["id"] = "explicit.stat_703341733",
 				["text"] = "#% increased raising of Alert Level",
 				["type"] = "explicit",
@@ -9387,6 +9507,16 @@ return {
 				["type"] = "explicit",
 			},
 			{
+				["id"] = "explicit.stat_1702492342",
+				["text"] = "#% more Damage with Mines if one of your Traps has Triggered Recently",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2513988000",
+				["text"] = "#% more Damage with Traps if you have Detonated a Mine Recently",
+				["type"] = "explicit",
+			},
+			{
 				["id"] = "explicit.stat_1340524145",
 				["text"] = "#% more Divination Cards found from Beyond Demons in your Maps that are followers of K'Tash",
 				["type"] = "explicit",
@@ -9459,6 +9589,11 @@ return {
 			{
 				["id"] = "explicit.stat_3029185248",
 				["text"] = "#% more Maximum Physical Attack Damage",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1353128245",
+				["text"] = "#% more Melee Damage while Burning",
 				["type"] = "explicit",
 			},
 			{
@@ -9797,6 +9932,11 @@ return {
 				["type"] = "explicit",
 			},
 			{
+				["id"] = "explicit.stat_822568652",
+				["text"] = "#% of Damage taken Recouped as Energy Shield",
+				["type"] = "explicit",
+			},
+			{
 				["id"] = "explicit.stat_1444556985",
 				["text"] = "#% of Damage taken Recouped as Life",
 				["type"] = "explicit",
@@ -9958,7 +10098,7 @@ return {
 			},
 			{
 				["id"] = "explicit.stat_2264655303",
-				["text"] = "#% of Life Recovery from Flasks is applied to nearby Allies instead of You",
+				["text"] = "#% of Life Recovery from Flasks is applied to Allies within 7.5 metres instead of You",
 				["type"] = "explicit",
 			},
 			{
@@ -10752,11 +10892,6 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_4280703528",
-				["text"] = "+# to Accuracy Rating for each Empty Green Socket on any Equipped Item",
-				["type"] = "explicit",
-			},
-			{
 				["id"] = "explicit.stat_100820057",
 				["text"] = "+# to Accuracy Rating per 10 Dexterity on Unallocated Passives in Radius",
 				["type"] = "explicit",
@@ -11119,6 +11254,11 @@ return {
 			{
 				["id"] = "explicit.indexable_skill_220",
 				["text"] = "+# to Level of all Arcane Cloak Gems",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.indexable_skill_288",
+				["text"] = "+# to Level of all Arcane Link Gems",
 				["type"] = "explicit",
 			},
 			{
@@ -11997,6 +12137,11 @@ return {
 				["type"] = "explicit",
 			},
 			{
+				["id"] = "explicit.indexable_skill_287",
+				["text"] = "+# to Level of all Mana-Infused Staff Gems",
+				["type"] = "explicit",
+			},
+			{
 				["id"] = "explicit.indexable_skill_256",
 				["text"] = "+# to Level of all Manabond Gems",
 				["type"] = "explicit",
@@ -12024,6 +12169,11 @@ return {
 			{
 				["id"] = "explicit.indexable_skill_112",
 				["text"] = "+# to Level of all Molten Strike Gems",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2378187488",
+				["text"] = "+# to Level of all Movement Skill Gems",
 				["type"] = "explicit",
 			},
 			{
@@ -12522,6 +12672,11 @@ return {
 				["type"] = "explicit",
 			},
 			{
+				["id"] = "explicit.stat_4180346416",
+				["text"] = "+# to Level of all Vaal Skill Gems",
+				["type"] = "explicit",
+			},
+			{
 				["id"] = "explicit.indexable_skill_266",
 				["text"] = "+# to Level of all Vampiric Link Gems",
 				["type"] = "explicit",
@@ -12932,11 +13087,6 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_726359715",
-				["text"] = "+# to maximum Life for each Empty Red Socket on any Equipped Item",
-				["type"] = "explicit",
-			},
-			{
 				["id"] = "explicit.stat_2927667525",
 				["text"] = "+# to maximum Life if there are no Life Modifiers on other Equipped Items",
 				["type"] = "explicit",
@@ -12944,11 +13094,6 @@ return {
 			{
 				["id"] = "explicit.stat_1050105434",
 				["text"] = "+# to maximum Mana",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_2962020005",
-				["text"] = "+# to maximum Mana for each Empty Blue Socket on any Equipped Item",
 				["type"] = "explicit",
 			},
 			{
@@ -13058,7 +13203,7 @@ return {
 			},
 			{
 				["id"] = "explicit.stat_1214532298",
-				["text"] = "+#% Chance to Block Attack Damage if there are at least 5 nearby Enemies",
+				["text"] = "+#% Chance to Block Attack Damage if there are at least 5 Enemies within 6 metres",
 				["type"] = "explicit",
 			},
 			{
@@ -13253,7 +13398,7 @@ return {
 			},
 			{
 				["id"] = "explicit.stat_3992439283",
-				["text"] = "+#% Critical Strike Multiplier while a Rare or Unique Enemy is Nearby",
+				["text"] = "+#% Critical Strike Multiplier while a Rare or Unique Enemy is within 6 metres",
 				["type"] = "explicit",
 			},
 			{
@@ -13314,6 +13459,16 @@ return {
 			{
 				["id"] = "explicit.stat_3839688967",
 				["text"] = "+#% Player Lightning Resistance per 25% Alert Level",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1871805225",
+				["text"] = "+#% Surpassing Chance for Remnants in your Maps to have an additional Suffix Modifier",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1871805225",
+				["text"] = "+#% Surpassing Chance for Remnants to have an additional Suffix Modifier",
 				["type"] = "explicit",
 			},
 			{
@@ -13542,6 +13697,11 @@ return {
 				["type"] = "explicit",
 			},
 			{
+				["id"] = "explicit.stat_1909401378",
+				["text"] = "+#% to Critical Strike Chance",
+				["type"] = "explicit",
+			},
+			{
 				["id"] = "explicit.stat_1535051459",
 				["text"] = "+#% to Critical Strike Chance against Enemies on Consecrated Ground during Effect",
 				["type"] = "explicit",
@@ -13687,8 +13847,18 @@ return {
 				["type"] = "explicit",
 			},
 			{
+				["id"] = "explicit.stat_2529112796",
+				["text"] = "+#% to Critical Strike Multiplier with Mines",
+				["type"] = "explicit",
+			},
+			{
 				["id"] = "explicit.stat_670153687",
 				["text"] = "+#% to Critical Strike Multiplier with One Handed Melee Weapons",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1780168381",
+				["text"] = "+#% to Critical Strike Multiplier with Traps",
 				["type"] = "explicit",
 			},
 			{
@@ -13837,6 +14007,56 @@ return {
 				["type"] = "explicit",
 			},
 			{
+				["id"] = "explicit.stat_3917489142",
+				["text"] = "+#% to Item Rarity",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1740200922",
+				["text"] = "+#% to Item Rarity during Effect",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_3251705960",
+				["text"] = "+#% to Item Rarity during Effect",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_3967804254",
+				["text"] = "+#% to Item Rarity from Hiveborn Monsters",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2161689853",
+				["text"] = "+#% to Item Rarity from Slain Rare or Unique Enemies",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_121185030",
+				["text"] = "+#% to Item Rarity from Slain Unique Enemies",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_3226452989",
+				["text"] = "+#% to Item Rarity per Mana Burn, up to a maximum of 100%",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_144675621",
+				["text"] = "+#% to Item Rarity per White Socket",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2929867083",
+				["text"] = "+#% to Item Rarity when on Low Life",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4151190513",
+				["text"] = "+#% to Item Rarity with a Normal Item Equipped",
+				["type"] = "explicit",
+			},
+			{
 				["id"] = "explicit.stat_1671376347",
 				["text"] = "+#% to Lightning Resistance",
 				["type"] = "explicit",
@@ -13889,6 +14109,11 @@ return {
 			{
 				["id"] = "explicit.stat_3285400610",
 				["text"] = "+#% to Off Hand Critical Strike Chance per 10 Maximum Energy Shield on Shield",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_3547436813",
+				["text"] = "+#% to Off Hand Critical Strike Chance while Dual Wielding",
 				["type"] = "explicit",
 			},
 			{
@@ -13967,6 +14192,26 @@ return {
 				["type"] = "explicit",
 			},
 			{
+				["id"] = "explicit.stat_21824003",
+				["text"] = "+#% to Rarity of Items Dropped by Enemies killed with a Critical Strike",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2138434718",
+				["text"] = "+#% to Rarity of Items Dropped by Frozen Enemies",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_3433676080",
+				["text"] = "+#% to Rarity of Items Dropped by Slain Magic Enemies",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_3188291252",
+				["text"] = "+#% to Rarity of Items Dropped by Slain Shocked Enemies",
+				["type"] = "explicit",
+			},
+			{
 				["id"] = "explicit.stat_791835907",
 				["text"] = "+#% to Spell Critical Strike Chance",
 				["type"] = "explicit",
@@ -13984,11 +14229,6 @@ return {
 			{
 				["id"] = "explicit.stat_2901986750",
 				["text"] = "+#% to all Elemental Resistances",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_597739519",
-				["text"] = "+#% to all Elemental Resistances for each Empty White Socket on any Equipped Item",
 				["type"] = "explicit",
 			},
 			{
@@ -14154,6 +14394,11 @@ return {
 			{
 				["id"] = "explicit.stat_4056985119",
 				["text"] = "+1 to maximum number of Raised Zombies per # Strength",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4260403588",
+				["text"] = "+1% to Item Rarity per # Rampage Kills",
 				["type"] = "explicit",
 			},
 			{
@@ -15707,11 +15952,6 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_4260403588",
-				["text"] = "1% increased Rarity of Items found per # Rampage Kills",
-				["type"] = "explicit",
-			},
-			{
 				["id"] = "explicit.stat_699783004",
 				["text"] = "1% increased maximum Energy Shield per # Strength when in Off Hand",
 				["type"] = "explicit",
@@ -15782,18 +16022,13 @@ return {
 				["type"] = "explicit",
 			},
 			{
+				["id"] = "explicit.stat_4049011082",
+				["text"] = "Abyss Pits in your Maps have #% chance to be guarded by 5 additional Rare Monsters",
+				["type"] = "explicit",
+			},
+			{
 				["id"] = "explicit.stat_1086708760",
 				["text"] = "Abyss Pits in your Maps have #% chance to spawn 100% increased Monsters",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_4049011082",
-				["text"] = "Abyss Pits in your Maps have #% chance to spawn 5 additional Rare Monsters",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_4157613372",
-				["text"] = "Abyss Pits in your Maps have #% chance to spawn all Monsters as at least Magic",
 				["type"] = "explicit",
 			},
 			{
@@ -15802,8 +16037,18 @@ return {
 				["type"] = "explicit",
 			},
 			{
+				["id"] = "explicit.stat_4157613372",
+				["text"] = "Abyss Pits in your Maps have #% chance to spawn all Monsters as at least Magic",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1927544133",
+				["text"] = "Abyss Pits in your Maps spawn #% increased Monsters for each prior Pit closed",
+				["type"] = "explicit",
+			},
+			{
 				["id"] = "explicit.stat_1028265433",
-				["text"] = "Abyssal Troves and Stygian Spires in your Maps have #% chance to drop an Abyss Scarab",
+				["text"] = "Abyssal Troves and Stygian Spires in your Maps have #% chance to drop an Abyss Thread",
 				["type"] = "explicit",
 			},
 			{
@@ -16102,11 +16347,6 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_3408048164",
-				["text"] = "Adds # minimum Cold Damage to Spells per Power Charge",
-				["type"] = "explicit",
-			},
-			{
 				["id"] = "explicit.stat_3531280422",
 				["text"] = "Adds # to # Chaos Damage",
 				["type"] = "explicit",
@@ -16239,6 +16479,11 @@ return {
 			{
 				["id"] = "explicit.stat_1662717006",
 				["text"] = "Adds # to # Cold Damage to Spells and Attacks",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_3408048164",
+				["text"] = "Adds # to # Cold Damage to Spells per Power Charge",
 				["type"] = "explicit",
 			},
 			{
@@ -16642,8 +16887,33 @@ return {
 				["type"] = "explicit",
 			},
 			{
+				["id"] = "explicit.stat_3299583952",
+				["text"] = "All Damage can Freeze against Cursed Enemies",
+				["type"] = "explicit",
+			},
+			{
 				["id"] = "explicit.stat_1369840970",
 				["text"] = "All Damage can Ignite",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1977950683",
+				["text"] = "All Damage can Ignite against Cursed Enemies",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4246782633",
+				["text"] = "All Damage can Shock against Cursed Enemies",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2899274448",
+				["text"] = "All Damage from Critical Strikes can apply Cold Ailments during effect",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1807432231",
+				["text"] = "All Damage from Critical Strikes can apply Lightning Ailments during effect",
 				["type"] = "explicit",
 			},
 			{
@@ -16739,6 +17009,71 @@ return {
 			{
 				["id"] = "explicit.stat_2004435129",
 				["text"] = "All Unstable Breaches must be Stabilised and Closed to claim Reward",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1722463112",
+				["text"] = "Allies within 3 metres have #% increased Item Rarity",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_244825991",
+				["text"] = "Allies within 3 metres have +# Fortification",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_3152714748",
+				["text"] = "Allies within 3 metres have +#% to Critical Strike Multiplier",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1560540713",
+				["text"] = "Allies within 3 metres have Culling Strike",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_3484267929",
+				["text"] = "Allies within 3.5 metres Recover #% of your Maximum Life when you Die",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1356468153",
+				["text"] = "Allies within 5 metres cannot have their Action Speed modified to below Base Value",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_778848857",
+				["text"] = "Allies within 5 metres gain #% increased Mana Regeneration Rate",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_3462673103",
+				["text"] = "Allies within 5 metres gain #% of Life Regenerated per second",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_3941641418",
+				["text"] = "Allies within 6 metres have #% Chance to Block Attack Damage per 100 Strength you have",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2373999301",
+				["text"] = "Allies within 6 metres have #% increased Cast Speed per 100 Intelligence you have",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_3767939384",
+				["text"] = "Allies within 6 metres have #% increased Defences per 100 Strength you have",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1438488526",
+				["text"] = "Allies within 6 metres have +#% to Critical Strike Multiplier per 100 Dexterity you have",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_3175679225",
+				["text"] = "Allies within 7.5 metres gain #% increased Damage",
 				["type"] = "explicit",
 			},
 			{
@@ -17404,6 +17739,16 @@ return {
 			{
 				["id"] = "explicit.stat_1190333629|11412",
 				["text"] = "Allocates Inspirational if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|3154",
+				["text"] = "Allocates Instruments of Justice if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|3154",
+				["text"] = "Allocates Instruments of Justice if you have the matching modifier on Forbidden Flesh",
 				["type"] = "explicit",
 			},
 			{
@@ -18177,6 +18522,16 @@ return {
 				["type"] = "explicit",
 			},
 			{
+				["id"] = "explicit.stat_2460506030|5502",
+				["text"] = "Allocates Unhallowed Rite if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|5502",
+				["text"] = "Allocates Unhallowed Rite if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
 				["id"] = "explicit.stat_2460506030|31344",
 				["text"] = "Allocates Unholy Authority if you have the matching modifier on Forbidden Flame",
 				["type"] = "explicit",
@@ -18397,6 +18752,11 @@ return {
 				["type"] = "explicit",
 			},
 			{
+				["id"] = "explicit.stat_270993809",
+				["text"] = "Always Hits Burning Enemies",
+				["type"] = "explicit",
+			},
+			{
 				["id"] = "explicit.stat_2499038519",
 				["text"] = "Always Sap while affected by Wrath",
 				["type"] = "explicit",
@@ -18424,11 +18784,6 @@ return {
 			{
 				["id"] = "explicit.stat_2664271989",
 				["text"] = "An additional #% of Damage from Hits is taken from Heart of Flame Buff used by this Graft before Life or Energy Shield",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_2962051214",
-				["text"] = "An additional Basic Currency Item drops when the first Invasion Boss is slain",
 				["type"] = "explicit",
 			},
 			{
@@ -18572,6 +18927,11 @@ return {
 				["type"] = "explicit",
 			},
 			{
+				["id"] = "explicit.stat_3187151138|3",
+				["text"] = "Area contains Alva",
+				["type"] = "explicit",
+			},
+			{
 				["id"] = "explicit.stat_25225034",
 				["text"] = "Area contains Drowning Orbs",
 				["type"] = "explicit",
@@ -18702,6 +19062,16 @@ return {
 				["type"] = "explicit",
 			},
 			{
+				["id"] = "explicit.stat_2436559047",
+				["text"] = "Area contains a Mirage",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2398157267",
+				["text"] = "Area contains a Mirror of Delirium",
+				["type"] = "explicit",
+			},
+			{
 				["id"] = "explicit.stat_2589977608",
 				["text"] = "Area contains a Rare Monster carrying a Tier 2 Talisman",
 				["type"] = "explicit",
@@ -18744,6 +19114,21 @@ return {
 			{
 				["id"] = "explicit.stat_2978408106",
 				["text"] = "Area contains a Voidspawn of Abaxoth Bloodline Pack",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2788592463",
+				["text"] = "Area contains a buried Apex Sentinel",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_70969043",
+				["text"] = "Area contains a buried Pandemonium Sentinel",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2712450522",
+				["text"] = "Area contains a buried Stalker Sentinel",
 				["type"] = "explicit",
 			},
 			{
@@ -18797,6 +19182,21 @@ return {
 				["type"] = "explicit",
 			},
 			{
+				["id"] = "explicit.stat_260515856",
+				["text"] = "Area contains an Evocator of Beidat",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1290924623",
+				["text"] = "Area contains an Evocator of Ghorr",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2896557935",
+				["text"] = "Area contains an Evocator of K'Tash",
+				["type"] = "explicit",
+			},
+			{
 				["id"] = "explicit.stat_3557750122",
 				["text"] = "Area contains an Expedition Encounter",
 				["type"] = "explicit",
@@ -18804,6 +19204,11 @@ return {
 			{
 				["id"] = "explicit.stat_2130441002",
 				["text"] = "Area contains an Uul-Netol Breach",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1070816711",
+				["text"] = "Area contains an additional Abyss",
 				["type"] = "explicit",
 			},
 			{
@@ -18912,11 +19317,6 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_1070816711",
-				["text"] = "Area contains an additional [ContainsAbyss|Abyss]",
-				["type"] = "explicit",
-			},
-			{
 				["id"] = "explicit.stat_1612402470",
 				["text"] = "Area contains an additional guarded Exquisite Vaal Vessel",
 				["type"] = "explicit",
@@ -18959,6 +19359,11 @@ return {
 			{
 				["id"] = "explicit.stat_4017859836",
 				["text"] = "Area contains roaming Hexfields",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1975119765",
+				["text"] = "Area contains the Viridian Wildwood",
 				["type"] = "explicit",
 			},
 			{
@@ -19378,7 +19783,7 @@ return {
 			},
 			{
 				["id"] = "explicit.stat_2544408546",
-				["text"] = "Aspect of the Avian also grants Avian's Might and Avian's Flight to nearby Allies",
+				["text"] = "Aspect of the Avian also grants Avian's Might and Avian's Flight to Allies within 6 metres",
 				["type"] = "explicit",
 			},
 			{
@@ -19517,6 +19922,11 @@ return {
 				["type"] = "explicit",
 			},
 			{
+				["id"] = "explicit.stat_326480871",
+				["text"] = "Attacks with Axes or Swords grant # Rage on Hit",
+				["type"] = "explicit",
+			},
+			{
 				["id"] = "explicit.stat_3418949024",
 				["text"] = "Attacks with this Weapon Maim on hit",
 				["type"] = "explicit",
@@ -19569,6 +19979,11 @@ return {
 			{
 				["id"] = "explicit.stat_625037258",
 				["text"] = "Attacks with this Weapon deal Double Damage to Chilled Enemies",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1930039303",
+				["text"] = "Attacks with this Weapon have #% chance to deal Triple Damage",
 				["type"] = "explicit",
 			},
 			{
@@ -19777,12 +20192,12 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_2541655454",
+				["id"] = "explicit.stat_3034695397",
 				["text"] = "Beyond Demons in your Maps have #% increased chance to be followers of Ghorr",
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_3175325766",
+				["id"] = "explicit.stat_1672730861",
 				["text"] = "Beyond Demons in your Maps have #% increased chance to be followers of K'tash",
 				["type"] = "explicit",
 			},
@@ -19817,8 +20232,18 @@ return {
 				["type"] = "explicit",
 			},
 			{
+				["id"] = "explicit.pseudo_timeless_jewel_zorath",
+				["text"] = "Binding # souls to phylacteries to sustain Zorath",
+				["type"] = "explicit",
+			},
+			{
 				["id"] = "explicit.stat_3604585015",
 				["text"] = "Bismuth Ore Deposits in your Maps have #% chance to add an additional Modifier to Monsters they affect",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_3898949460",
+				["text"] = "Bitter Frost",
 				["type"] = "explicit",
 			},
 			{
@@ -19848,12 +20273,12 @@ return {
 			},
 			{
 				["id"] = "explicit.stat_3828375170",
-				["text"] = "Bleeding you inflict deals Damage #% faster",
+				["text"] = "Bleeding you inflict deals Damage #% Faster",
 				["type"] = "explicit",
 			},
 			{
 				["id"] = "explicit.stat_1670470989",
-				["text"] = "Bleeding you inflict deals Damage #% faster per Frenzy Charge",
+				["text"] = "Bleeding you inflict deals Damage #% Faster per Frenzy Charge",
 				["type"] = "explicit",
 			},
 			{
@@ -19883,7 +20308,7 @@ return {
 			},
 			{
 				["id"] = "explicit.stat_4091793171",
-				["text"] = "Blight Encounters in your Maps spawn #% more Non-Unique Monsters",
+				["text"] = "Blight Encounters in your Maps spawn #% increased Non-Unique Monsters",
 				["type"] = "explicit",
 			},
 			{
@@ -19913,7 +20338,7 @@ return {
 			},
 			{
 				["id"] = "explicit.stat_1421406768",
-				["text"] = "Blight Towers in your Maps can be Salvaged after the Blight Encounter Higher Tier Towers grant better Salvaged Rewards Salvaged Rewards are improved for each different Tower Type built during Encounter",
+				["text"] = "Blight Towers in your Maps can be Salvaged after the Blight Encounter",
 				["type"] = "explicit",
 			},
 			{
@@ -19949,6 +20374,16 @@ return {
 			{
 				["id"] = "explicit.stat_2458598175",
 				["text"] = "Blind you inflict is Reflected to you",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1823668305",
+				["text"] = "Blind you inflict is permanent",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_699502241",
+				["text"] = "Blinding a non-Blinded Pinnacle Atlas Boss with this Weapon will steal a Modifier for this item (# Modifier remaining)",
 				["type"] = "explicit",
 			},
 			{
@@ -19994,6 +20429,11 @@ return {
 			{
 				["id"] = "explicit.stat_3261557635",
 				["text"] = "Bow Knockback at Close Range",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2795287443",
+				["text"] = "Brand Recall has #% increased Cooldown Recovery Rate",
 				["type"] = "explicit",
 			},
 			{
@@ -20222,6 +20662,11 @@ return {
 				["type"] = "explicit",
 			},
 			{
+				["id"] = "explicit.stat_2264031073",
+				["text"] = "Can Attack as though using a Claw while main hand is empty",
+				["type"] = "explicit",
+			},
+			{
 				["id"] = "explicit.stat_4005027470",
 				["text"] = "Can be Enchanted by a Kalguuran Runesmith",
 				["type"] = "explicit",
@@ -20234,6 +20679,11 @@ return {
 			{
 				["id"] = "explicit.stat_1161337167",
 				["text"] = "Can be modified while Corrupted",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_3431224784",
+				["text"] = "Can catch Abyssal Fish",
 				["type"] = "explicit",
 			},
 			{
@@ -20722,6 +21172,11 @@ return {
 				["type"] = "explicit",
 			},
 			{
+				["id"] = "explicit.stat_663080464",
+				["text"] = "Chaos Resistance of Enemies within 6 metres is 0",
+				["type"] = "explicit",
+			},
+			{
 				["id"] = "explicit.stat_3573128085",
 				["text"] = "Chaos Skills have #% chance to Ignite",
 				["type"] = "explicit",
@@ -20767,18 +21222,18 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_2459809121",
-				["text"] = "Chill Enemy for # second when Hit, reducing their Action Speed by 30%",
-				["type"] = "explicit",
-			},
-			{
 				["id"] = "explicit.stat_583277599",
-				["text"] = "Chill Nearby Enemies when you Block",
+				["text"] = "Chill Enemies within 3 metres when you Block",
 				["type"] = "explicit",
 			},
 			{
 				["id"] = "explicit.stat_2384145996",
-				["text"] = "Chill nearby Enemies when you Focus, causing 30% reduced Action Speed",
+				["text"] = "Chill Enemies within 3 metres when you Focus, causing 30% reduced Action Speed",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2459809121",
+				["text"] = "Chill Enemy for # second when Hit, reducing their Action Speed by 30%",
 				["type"] = "explicit",
 			},
 			{
@@ -20982,6 +21437,11 @@ return {
 				["type"] = "explicit",
 			},
 			{
+				["id"] = "explicit.stat_2680060124",
+				["text"] = "Convocation has #% increased Cooldown Recovery Rate",
+				["type"] = "explicit",
+			},
+			{
 				["id"] = "explicit.stat_586568910",
 				["text"] = "Corpses you Spawn have #% increased Maximum Life",
 				["type"] = "explicit",
@@ -21117,6 +21577,11 @@ return {
 				["type"] = "explicit",
 			},
 			{
+				["id"] = "explicit.stat_1928468569",
+				["text"] = "Critical Strikes with Bows have a #% chance to Poison the Enemy",
+				["type"] = "explicit",
+			},
+			{
 				["id"] = "explicit.stat_4084476257",
 				["text"] = "Critical Strikes with Spells have #% chance to inflict Impale",
 				["type"] = "explicit",
@@ -21174,6 +21639,11 @@ return {
 			{
 				["id"] = "explicit.stat_866347860",
 				["text"] = "Currency Shards dropped by Harbingers in your Maps can drop as Currency Items instead",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_3840847348",
+				["text"] = "Curse Aura Skills reserve Life instead of Mana",
 				["type"] = "explicit",
 			},
 			{
@@ -21254,6 +21724,11 @@ return {
 			{
 				["id"] = "explicit.stat_3804297142",
 				["text"] = "Curse Non-Cursed Enemies with Enfeeble on Hit",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2280341859",
+				["text"] = "Curse Skills cost Life instead of Mana",
 				["type"] = "explicit",
 			},
 			{
@@ -21412,6 +21887,16 @@ return {
 				["type"] = "explicit",
 			},
 			{
+				["id"] = "explicit.stat_1609344921",
+				["text"] = "Damage with Hits is Lucky while your Offhand is Magic",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_655871604",
+				["text"] = "Damage with Hits of Allies within 5 metres is Lucky",
+				["type"] = "explicit",
+			},
+			{
 				["id"] = "explicit.stat_2237902788",
 				["text"] = "Damage with Weapons Penetrates #% Chaos Resistance",
 				["type"] = "explicit",
@@ -21438,17 +21923,17 @@ return {
 			},
 			{
 				["id"] = "explicit.stat_538241406",
-				["text"] = "Damaging Ailments deal damage #% faster",
+				["text"] = "Damaging Ailments deal damage #% Faster",
 				["type"] = "explicit",
 			},
 			{
 				["id"] = "explicit.stat_4230320163",
-				["text"] = "Damaging Ailments inflicted by Skills used by this Graft deal damage #% faster",
+				["text"] = "Damaging Ailments inflicted by Skills used by this Graft deal Damage #% Faster",
 				["type"] = "explicit",
 			},
 			{
 				["id"] = "explicit.stat_3468843137",
-				["text"] = "Damaging Ailments you inflict deal Damage #% faster while affected by Malevolence",
+				["text"] = "Damaging Ailments you inflict deal Damage #% Faster while affected by Malevolence",
 				["type"] = "explicit",
 			},
 			{
@@ -21523,7 +22008,7 @@ return {
 			},
 			{
 				["id"] = "explicit.stat_2280313599",
-				["text"] = "Deals # Chaos Damage per second to nearby Enemies",
+				["text"] = "Deals # Chaos Damage per second to Enemies within 3 metres",
 				["type"] = "explicit",
 			},
 			{
@@ -21533,7 +22018,7 @@ return {
 			},
 			{
 				["id"] = "explicit.stat_545593248",
-				["text"] = "Debilitate nearby Enemies for # Seconds when Effect ends",
+				["text"] = "Debilitate Enemies within 3 metres for # Seconds when Effect ends",
 				["type"] = "explicit",
 			},
 			{
@@ -21644,6 +22129,71 @@ return {
 			{
 				["id"] = "explicit.stat_3580714718",
 				["text"] = "Delirium Monsters in your Maps have #% increased chance to drop Cluster Jewels",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.delirium_reward_armour",
+				["text"] = "Delirium Reward Type: Armour",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.delirium_reward_blight",
+				["text"] = "Delirium Reward Type: Blight Items",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.delirium_reward_metamorphosis",
+				["text"] = "Delirium Reward Type: Catalysts",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.delirium_reward_currency",
+				["text"] = "Delirium Reward Type: Currency",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.delirium_reward_divinationcards",
+				["text"] = "Delirium Reward Type: Divination Cards",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.delirium_reward_essences",
+				["text"] = "Delirium Reward Type: Essences",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.delirium_reward_fossils",
+				["text"] = "Delirium Reward Type: Fossils",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.delirium_reward_gems",
+				["text"] = "Delirium Reward Type: Gems",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.delirium_reward_trinkets",
+				["text"] = "Delirium Reward Type: Jewellery",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.delirium_reward_maps",
+				["text"] = "Delirium Reward Type: Map Items",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.delirium_reward_scarabs",
+				["text"] = "Delirium Reward Type: Threads",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.delirium_reward_uniques",
+				["text"] = "Delirium Reward Type: Unique Items",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.delirium_reward_weapon",
+				["text"] = "Delirium Reward Type: Weapons",
 				["type"] = "explicit",
 			},
 			{
@@ -21769,6 +22319,11 @@ return {
 			{
 				["id"] = "explicit.stat_1686969928",
 				["text"] = "Does not inflict Mana Burn over time",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2084152132",
+				["text"] = "Draugurflames burn enemies around you for 8 seconds after you Ignite a target",
 				["type"] = "explicit",
 			},
 			{
@@ -22158,7 +22713,7 @@ return {
 			},
 			{
 				["id"] = "explicit.stat_979288792",
-				["text"] = "Enemies inflict Elemental Ailments on you instead of nearby Allies",
+				["text"] = "Enemies inflict Elemental Ailments on you instead of Allies within 6 metres",
 				["type"] = "explicit",
 			},
 			{
@@ -22179,6 +22734,166 @@ return {
 			{
 				["id"] = "explicit.stat_3507915723",
 				["text"] = "Enemies take #% increased Elemental Damage from your Hits for each Withered you have inflicted on them",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2899095498",
+				["text"] = "Enemies within 2.5 metres are Intimidated",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2504709365",
+				["text"] = "Enemies within 3 metres are Blinded while Physical Aegis is not depleted",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2159555743",
+				["text"] = "Enemies within 3 metres are Chilled",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_746994389",
+				["text"] = "Enemies within 3 metres are Covered in Ash",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_3069588220",
+				["text"] = "Enemies within 3 metres are Crushed while you have at least # Rage",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2006060276",
+				["text"] = "Enemies within 3 metres are Debilitated",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_3733114005",
+				["text"] = "Enemies within 3 metres are Scorched",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4273356746",
+				["text"] = "Enemies within 3 metres have #% increased Fire and Cold Resistances",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_3952509108",
+				["text"] = "Enemies within 3 metres have Fire Exposure while at maximum Rage",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2826979740",
+				["text"] = "Enemies within 3.5 metres are Blinded",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_607839150",
+				["text"] = "Enemies within 3.5 metres are Hindered, with #% reduced Movement Speed",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2307982579",
+				["text"] = "Enemies within 4 metres Killed by anyone count as being Killed by you instead",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_3729324251",
+				["text"] = "Enemies within 6 metres Convert #% of their Physical Damage to Fire",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_3844045281",
+				["text"] = "Enemies within 6 metres are Blinded if 2 Redeemer Items are Equipped",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2480873346",
+				["text"] = "Enemies within 6 metres are Chilled",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1142276332",
+				["text"] = "Enemies within 6 metres are Intimidated if 2 Warlord Items are Equipped",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1439308328",
+				["text"] = "Enemies within 6 metres are Unnerved",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_282325999",
+				["text"] = "Enemies within 6 metres are Unnerved if 2 Elder Items are Equipped",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1177959871",
+				["text"] = "Enemies within 6 metres cannot deal Critical Strikes",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4031527864",
+				["text"] = "Enemies within 6 metres cannot gain Power, Frenzy or Endurance Charges",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_3547189490",
+				["text"] = "Enemies within 6 metres grant #% increased Flask Charges",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_3169825297",
+				["text"] = "Enemies within 6 metres have #% reduced Stun and Block Recovery",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_668145148",
+				["text"] = "Enemies within 6 metres have #% to all Resistances",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1902595112",
+				["text"] = "Enemies within 6 metres have +#% to Chaos Resistance",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2674336304",
+				["text"] = "Enemies within 6 metres have +#% to Cold Resistance",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_3914021960",
+				["text"] = "Enemies within 6 metres have +#% to Fire Resistance",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1849749435",
+				["text"] = "Enemies within 6 metres have +#% to Lightning Resistance",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_3549734978",
+				["text"] = "Enemies within 6 metres have Lightning Resistance equal to yours",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_639595152",
+				["text"] = "Enemies within 6 metres take #% increased Elemental Damage",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_415837237",
+				["text"] = "Enemies within 6 metres take #% increased Physical Damage",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4187518631",
+				["text"] = "Enemies within 6 metres take #% increased Physical Damage per two Fortification on you",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_443525707",
+				["text"] = "Enemies within 7.5 metres have #% increased Effect of Curses on them",
 				["type"] = "explicit",
 			},
 			{
@@ -22249,6 +22964,11 @@ return {
 			{
 				["id"] = "explicit.stat_1955994922",
 				["text"] = "Enemy Hits inflict Temporal Chains on you",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1063263585",
+				["text"] = "Enemy Monsters within 3 metres have at least #% of Life Reserved",
 				["type"] = "explicit",
 			},
 			{
@@ -22374,6 +23094,21 @@ return {
 			{
 				["id"] = "explicit.stat_1431402553",
 				["text"] = "Every Rage also grants #% of Physical Damage as Extra Fire Damage",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2100268747",
+				["text"] = "Every fourth time you cast each Spell, Damage of its Hits is Lucky",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_3334947764",
+				["text"] = "Every second time you cast each Spell, gain Mana equal to its Upfront Cost",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4031934041",
+				["text"] = "Every sixth time you cast each Spell, All Hits are Critically Strikes These effects do not apply to Reservation, Duration or Channelling Spells",
 				["type"] = "explicit",
 			},
 			{
@@ -22507,18 +23242,13 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_1384053575",
-				["text"] = "Final Map Boss in each Map has #% chance to drop an additional Sacrifice Fragment",
+				["id"] = "explicit.stat_3546420819",
+				["text"] = "Final Map Boss in each Map has #% chance to drop an additional Talisman",
 				["type"] = "explicit",
 			},
 			{
 				["id"] = "explicit.stat_4086926366",
-				["text"] = "Final Map Boss in each Map has #% chance to drop an additional Scarab",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_3546420819",
-				["text"] = "Final Map Boss in each Map has #% chance to drop an additional Talisman",
+				["text"] = "Final Map Boss in each Map has #% chance to drop an additional Thread",
 				["type"] = "explicit",
 			},
 			{
@@ -22539,6 +23269,11 @@ return {
 			{
 				["id"] = "explicit.stat_1946193520",
 				["text"] = "Final Map Boss in each Map have #% chance to drop an additional Map Item",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1775318819",
+				["text"] = "Final Repeat of Spells has #% increased Area of Effect",
 				["type"] = "explicit",
 			},
 			{
@@ -22633,17 +23368,17 @@ return {
 			},
 			{
 				["id"] = "explicit.stat_504462346",
-				["text"] = "For each nearby corpse, #% increased Movement Speed",
+				["text"] = "For each corpse within 6 metres, #% increased Movement Speed",
 				["type"] = "explicit",
 			},
 			{
 				["id"] = "explicit.stat_2500585555",
-				["text"] = "For each nearby corpse, Regenerate # Life per second",
+				["text"] = "For each corpse within 6 metres, Regenerate # Life per second",
 				["type"] = "explicit",
 			},
 			{
 				["id"] = "explicit.stat_3845048660",
-				["text"] = "For each nearby corpse, Regenerate #% Life per second, up to 3%",
+				["text"] = "For each corpse within 6 metres, Regenerate #% Life per second, up to 3%",
 				["type"] = "explicit",
 			},
 			{
@@ -23232,6 +23967,16 @@ return {
 				["type"] = "explicit",
 			},
 			{
+				["id"] = "explicit.stat_3481254135",
+				["text"] = "Gain Added Spell Damage equal to #% of Damage of Equipped Dagger If two Daggers are Equipped, each contributes 60% as much Added Damage",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1274429432",
+				["text"] = "Gain Added Spell Damage equal to #% of Damage of Equipped Wand If two Wands are Equipped, each contributes half as much Added Damage",
+				["type"] = "explicit",
+			},
+			{
 				["id"] = "explicit.stat_4145689649",
 				["text"] = "Gain Adrenaline for # second on Kill",
 				["type"] = "explicit",
@@ -23274,6 +24019,11 @@ return {
 			{
 				["id"] = "explicit.stat_3221795893",
 				["text"] = "Gain Arcane Surge when you use a Movement Skill",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_3945412713",
+				["text"] = "Gain Bitterblood equal to Life spent",
 				["type"] = "explicit",
 			},
 			{
@@ -23474,6 +24224,16 @@ return {
 			{
 				["id"] = "explicit.stat_34273389",
 				["text"] = "Gain a Void Charge every # seconds",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1758488586",
+				["text"] = "Gain a random Blood Shrine buff every 1 second",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_3653779134",
+				["text"] = "Gain a random Shrine Buff for # seconds when you Blind a non-Blinded Rare or Unique Enemy",
 				["type"] = "explicit",
 			},
 			{
@@ -23682,6 +24442,11 @@ return {
 				["type"] = "explicit",
 			},
 			{
+				["id"] = "explicit.stat_1597503116",
+				["text"] = "Goreblossom has +# maximum Bloom",
+				["type"] = "explicit",
+			},
+			{
 				["id"] = "explicit.stat_1803598623",
 				["text"] = "Grace has #% increased Mana Reservation Efficiency",
 				["type"] = "explicit",
@@ -23702,13 +24467,18 @@ return {
 				["type"] = "explicit",
 			},
 			{
+				["id"] = "explicit.stat_1478637533",
+				["text"] = "Granite Flasks applied to you have #% increased Effect",
+				["type"] = "explicit",
+			},
+			{
 				["id"] = "explicit.stat_1243641369",
-				["text"] = "Grant a Frenzy Charge to nearby Allies on Kill",
+				["text"] = "Grant a Frenzy Charge to Allies within 4 metres on Kill",
 				["type"] = "explicit",
 			},
 			{
 				["id"] = "explicit.stat_3174788165",
-				["text"] = "Grant an Endurance Charge to nearby Allies on Hit",
+				["text"] = "Grant an Endurance Charge to Allies within 4 metres on Hit",
 				["type"] = "explicit",
 			},
 			{
@@ -23728,12 +24498,17 @@ return {
 			},
 			{
 				["id"] = "explicit.stat_681709908",
-				["text"] = "Grants Armour equal to #% of your Reserved Mana to you and nearby Allies",
+				["text"] = "Grants Armour equal to #% of your Reserved Mana to you and Allies within 6 metres",
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_3637628300",
+				["id"] = "explicit.effect_3467858890",
 				["text"] = "Grants Call of Steel",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.effect_2338856567",
+				["text"] = "Grants Embrace Madness",
 				["type"] = "explicit",
 			},
 			{
@@ -23802,38 +24577,63 @@ return {
 				["type"] = "explicit",
 			},
 			{
+				["id"] = "explicit.effect_459241192",
+				["text"] = "Grants Level # Affliction",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.effect_2014162730",
+				["text"] = "Grants Level # Anger",
+				["type"] = "explicit",
+			},
+			{
 				["id"] = "explicit.stat_449494711",
 				["text"] = "Grants Level # Anger Skill",
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_484879947",
-				["text"] = "Grants Level # Anger Skill",
+				["id"] = "explicit.effect_694876310",
+				["text"] = "Grants Level # Approaching Flames",
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_1943415243",
-				["text"] = "Grants Level # Approaching Flames Skill",
+				["id"] = "explicit.effect_3676299820",
+				["text"] = "Grants Level # Aspect of Arakaali",
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_3914740665",
-				["text"] = "Grants Level # Aspect of the Avian Skill",
+				["id"] = "explicit.effect_4273541898",
+				["text"] = "Grants Level # Aspect of Lunaris",
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_1265282021",
-				["text"] = "Grants Level # Aspect of the Cat Skill",
+				["id"] = "explicit.effect_3654111757",
+				["text"] = "Grants Level # Aspect of Solaris",
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_4102318278",
-				["text"] = "Grants Level # Aspect of the Crab Skill",
+				["id"] = "explicit.effect_3115071909",
+				["text"] = "Grants Level # Aspect of the Avian",
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_956546305",
-				["text"] = "Grants Level # Aspect of the Spider Skill",
+				["id"] = "explicit.effect_3963374775",
+				["text"] = "Grants Level # Aspect of the Brine King",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.effect_771254875",
+				["text"] = "Grants Level # Aspect of the Cat",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.effect_3385179923",
+				["text"] = "Grants Level # Aspect of the Crab",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.effect_149184016",
+				["text"] = "Grants Level # Aspect of the Spider",
 				["type"] = "explicit",
 			},
 			{
@@ -23842,8 +24642,8 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_3541114083",
-				["text"] = "Grants Level # Bear Trap Skill",
+				["id"] = "explicit.effect_2589518277",
+				["text"] = "Grants Level # Bear Trap",
 				["type"] = "explicit",
 			},
 			{
@@ -23852,23 +24652,23 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_1198418726",
-				["text"] = "Grants Level # Blight Skill",
+				["id"] = "explicit.effect_994816571",
+				["text"] = "Grants Level # Blight",
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_3985468650",
-				["text"] = "Grants Level # Blood Offering Skill",
+				["id"] = "explicit.effect_2109649836",
+				["text"] = "Grants Level # Blood Offering",
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_738386056",
-				["text"] = "Grants Level # Blood Sacrament Skill",
+				["id"] = "explicit.effect_299595248",
+				["text"] = "Grants Level # Blood Sacrament",
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_2859437049",
-				["text"] = "Grants Level # Brandsurge Skill",
+				["id"] = "explicit.effect_2360840648",
+				["text"] = "Grants Level # Brandsurge",
 				["type"] = "explicit",
 			},
 			{
@@ -23877,33 +24677,33 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_3511815065",
-				["text"] = "Grants Level # Clarity Skill",
+				["id"] = "explicit.effect_2190102120",
+				["text"] = "Grants Level # Clarity",
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_1786401772",
-				["text"] = "Grants Level # Convocation Skill",
+				["id"] = "explicit.effect_234218186",
+				["text"] = "Grants Level # Convocation",
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_2434330144",
-				["text"] = "Grants Level # Crushing Fist Skill",
+				["id"] = "explicit.effect_2758343153",
+				["text"] = "Grants Level # Crushing Fist",
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_3883691934",
-				["text"] = "Grants Level # Dash Skill",
+				["id"] = "explicit.effect_2937199581",
+				["text"] = "Grants Level # Dash",
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_1965393792",
-				["text"] = "Grants Level # Death Wish Skill",
+				["id"] = "explicit.effect_1543118831",
+				["text"] = "Grants Level # Death Wish",
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_3566242751",
-				["text"] = "Grants Level # Decoy Totem Skill",
+				["id"] = "explicit.effect_476766308",
+				["text"] = "Grants Level # Decoy Totem",
 				["type"] = "explicit",
 			},
 			{
@@ -23912,18 +24712,18 @@ return {
 				["type"] = "explicit",
 			},
 			{
+				["id"] = "explicit.effect_723113949",
+				["text"] = "Grants Level # Determination",
+				["type"] = "explicit",
+			},
+			{
 				["id"] = "explicit.stat_3231614028",
 				["text"] = "Grants Level # Determination Skill",
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_4265392510",
-				["text"] = "Grants Level # Determination Skill",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_2341269061",
-				["text"] = "Grants Level # Discipline Skill",
+				["id"] = "explicit.effect_599791292",
+				["text"] = "Grants Level # Discipline",
 				["type"] = "explicit",
 			},
 			{
@@ -23932,43 +24732,43 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_2498303876",
-				["text"] = "Grants Level # Doryani's Touch Skill",
+				["id"] = "explicit.effect_2753888557",
+				["text"] = "Grants Level # Doryani's Touch",
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_1749783861",
-				["text"] = "Grants Level # Embrace Madness Skill",
+				["id"] = "explicit.effect_1255519432",
+				["text"] = "Grants Level # Enduring Cry",
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_1031644844",
-				["text"] = "Grants Level # Enduring Cry Skill",
+				["id"] = "explicit.effect_2236653998",
+				["text"] = "Grants Level # Envy",
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_52953650",
-				["text"] = "Grants Level # Envy Skill",
+				["id"] = "explicit.effect_2455845502",
+				["text"] = "Grants Level # Frostbite",
 				["type"] = "explicit",
 			},
 			{
 				["id"] = "explicit.stat_1169502663",
-				["text"] = "Grants Level # Frostbite Skill",
+				["text"] = "Grants Level # Frostbite",
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_2911866787",
-				["text"] = "Grants Level # Frostblink Skill",
+				["id"] = "explicit.effect_273196120",
+				["text"] = "Grants Level # Frostblink",
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_3321235265",
-				["text"] = "Grants Level # Gluttony of Elements Skill",
+				["id"] = "explicit.effect_442407318",
+				["text"] = "Grants Level # Gluttony of Elements",
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_2867050084",
-				["text"] = "Grants Level # Grace Skill",
+				["id"] = "explicit.effect_3568418482",
+				["text"] = "Grants Level # Grace",
 				["type"] = "explicit",
 			},
 			{
@@ -23977,8 +24777,8 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_1188846263",
-				["text"] = "Grants Level # Haste Skill",
+				["id"] = "explicit.effect_2559654739",
+				["text"] = "Grants Level # Haste",
 				["type"] = "explicit",
 			},
 			{
@@ -23987,48 +24787,53 @@ return {
 				["type"] = "explicit",
 			},
 			{
+				["id"] = "explicit.effect_3051142611",
+				["text"] = "Grants Level # Hatred",
+				["type"] = "explicit",
+			},
+			{
 				["id"] = "explicit.stat_178394804",
 				["text"] = "Grants Level # Hatred Skill",
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_2429546158",
-				["text"] = "Grants Level # Hatred Skill",
+				["id"] = "explicit.effect_415209642",
+				["text"] = "Grants Level # Herald of Ash",
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_3880462354",
-				["text"] = "Grants Level # Herald of Ash Skill",
+				["id"] = "explicit.effect_1659491511",
+				["text"] = "Grants Level # Herald of Ice",
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_3846248551",
-				["text"] = "Grants Level # Herald of Ice Skill",
+				["id"] = "explicit.effect_2128724272",
+				["text"] = "Grants Level # Herald of Thunder",
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_1665492921",
-				["text"] = "Grants Level # Herald of Thunder Skill",
+				["id"] = "explicit.effect_1708392771",
+				["text"] = "Grants Level # Herald of the Hive",
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_3610535490",
-				["text"] = "Grants Level # Herald of the Hive Skill",
+				["id"] = "explicit.effect_3952702255",
+				["text"] = "Grants Level # Icestorm",
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_2103009393",
-				["text"] = "Grants Level # Icestorm Skill",
+				["id"] = "explicit.effect_2820548076",
+				["text"] = "Grants Level # Illusory Warp",
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_3279574030",
-				["text"] = "Grants Level # Illusory Warp Skill",
+				["id"] = "explicit.effect_3337525114",
+				["text"] = "Grants Level # Intimidating Cry",
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_1271338211",
-				["text"] = "Grants Level # Intimidating Cry Skill",
+				["id"] = "explicit.effect_4211392390",
+				["text"] = "Grants Level # Lightning Warp",
 				["type"] = "explicit",
 			},
 			{
@@ -24042,13 +24847,23 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_1904419785",
-				["text"] = "Grants Level # Petrification Statue Skill",
+				["id"] = "explicit.effect_1974816132",
+				["text"] = "Grants Level # Pacify",
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_2721815210",
-				["text"] = "Grants Level # Precision Skill",
+				["id"] = "explicit.effect_3188237829",
+				["text"] = "Grants Level # Penance Mark",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.effect_1463464665",
+				["text"] = "Grants Level # Petrification Statue",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.effect_2496940419",
+				["text"] = "Grants Level # Precision",
 				["type"] = "explicit",
 			},
 			{
@@ -24057,8 +24872,13 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_105466375",
-				["text"] = "Grants Level # Purity of Elements Skill",
+				["id"] = "explicit.effect_2174769737",
+				["text"] = "Grants Level # Purity of Elements",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.effect_994349216",
+				["text"] = "Grants Level # Purity of Fire",
 				["type"] = "explicit",
 			},
 			{
@@ -24067,8 +24887,8 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_3970432307",
-				["text"] = "Grants Level # Purity of Fire Skill",
+				["id"] = "explicit.effect_4154731776",
+				["text"] = "Grants Level # Purity of Ice",
 				["type"] = "explicit",
 			},
 			{
@@ -24077,8 +24897,8 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_4193390599",
-				["text"] = "Grants Level # Purity of Ice Skill",
+				["id"] = "explicit.effect_426005818",
+				["text"] = "Grants Level # Purity of Lightning",
 				["type"] = "explicit",
 			},
 			{
@@ -24087,38 +24907,53 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_3822878124",
-				["text"] = "Grants Level # Purity of Lightning Skill",
+				["id"] = "explicit.effect_669480840",
+				["text"] = "Grants Level # Queen's Demand",
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_509572644",
-				["text"] = "Grants Level # Queen's Demand Skill",
+				["id"] = "explicit.effect_1702053472",
+				["text"] = "Grants Level # Rallying Cry",
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_2007746338",
-				["text"] = "Grants Level # Rallying Cry Skill",
+				["id"] = "explicit.effect_388828889",
+				["text"] = "Grants Level # Ravenous",
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_636370122",
-				["text"] = "Grants Level # Ravenous Skill",
+				["id"] = "explicit.effect_405979710",
+				["text"] = "Grants Level # Savage Barnacle",
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_1540840",
-				["text"] = "Grants Level # Scorching Ray Skill",
+				["id"] = "explicit.effect_4004746559",
+				["text"] = "Grants Level # Scorching Ray",
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_979973117",
-				["text"] = "Grants Level # Smite Skill",
+				["id"] = "explicit.effect_1389174793",
+				["text"] = "Grants Level # Smite",
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_2343098806",
-				["text"] = "Grants Level # Snipe Skill",
+				["id"] = "explicit.effect_3880597684",
+				["text"] = "Grants Level # Snipe",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.effect_4195991223",
+				["text"] = "Grants Level # Summon Bestial Rhoa",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.effect_2377502094",
+				["text"] = "Grants Level # Summon Bestial Snake",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.effect_2092916684",
+				["text"] = "Grants Level # Summon Bestial Ursa",
 				["type"] = "explicit",
 			},
 			{
@@ -24132,43 +24967,38 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_3056188914",
-				["text"] = "Grants Level # Summon Stone Golem Skill",
+				["id"] = "explicit.effect_2998965359",
+				["text"] = "Grants Level # Summon Stone Golem",
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_1209807941",
-				["text"] = "Grants Level # Thirst for Blood Skill",
+				["id"] = "explicit.effect_1931234481",
+				["text"] = "Grants Level # Thirst for Blood",
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_3239991868",
-				["text"] = "Grants Level # Unhinge Skill",
+				["id"] = "explicit.effect_1306984944",
+				["text"] = "Grants Level # Unhinge",
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_2700934265",
-				["text"] = "Grants Level # Vaal Impurity of Fire Skill",
+				["id"] = "explicit.effect_192206434",
+				["text"] = "Grants Level # Vaal Impurity of Fire",
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_1300125165",
-				["text"] = "Grants Level # Vaal Impurity of Ice Skill",
+				["id"] = "explicit.effect_1149451356",
+				["text"] = "Grants Level # Vaal Impurity of Ice",
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_2959369472",
-				["text"] = "Grants Level # Vaal Impurity of Lightning Skill",
+				["id"] = "explicit.effect_3460970428",
+				["text"] = "Grants Level # Vaal Impurity of Lightning",
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_4122367945",
-				["text"] = "Grants Level # Vengeance Skill",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_2410613176",
-				["text"] = "Grants Level # Vitality Skill",
+				["id"] = "explicit.effect_2649350521",
+				["text"] = "Grants Level # Vitality",
 				["type"] = "explicit",
 			},
 			{
@@ -24177,22 +25007,27 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_608058997",
-				["text"] = "Grants Level # Will of the Lords Skill",
+				["id"] = "explicit.effect_2579976590",
+				["text"] = "Grants Level # Will of the Lords",
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_1826753218",
-				["text"] = "Grants Level # Wintertide Brand Skill",
+				["id"] = "explicit.effect_582742716",
+				["text"] = "Grants Level # Wintertide Brand",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.effect_1825763431",
+				["text"] = "Grants Level # Witchhunter's Pyre",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.effect_2461314210",
+				["text"] = "Grants Level # Wrath",
 				["type"] = "explicit",
 			},
 			{
 				["id"] = "explicit.stat_1568319697",
-				["text"] = "Grants Level # Wrath Skill",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_2265307453",
 				["text"] = "Grants Level # Wrath Skill",
 				["type"] = "explicit",
 			},
@@ -24203,7 +25038,7 @@ return {
 			},
 			{
 				["id"] = "explicit.stat_367775264",
-				["text"] = "Grants Level 20 Summon Shaper Memory Grants Level 20 Shaper's Devastation, which will be used by Shaper Memory",
+				["text"] = "Grants Level 20 Summon Shaper Memory Grants Level 20 #, which will be used by Shaper Memory",
 				["type"] = "explicit",
 			},
 			{
@@ -24214,6 +25049,66 @@ return {
 			{
 				["id"] = "explicit.stat_3741365813",
 				["text"] = "Grants Perfect Agony during effect",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.effect_3184099572",
+				["text"] = "Grants Summon Greater Harbinger of Brutality",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.effect_603152644",
+				["text"] = "Grants Summon Greater Harbinger of Directions",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.effect_1795027869",
+				["text"] = "Grants Summon Greater Harbinger of Focus",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.effect_3850673820",
+				["text"] = "Grants Summon Greater Harbinger of Storms",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.effect_1633788232",
+				["text"] = "Grants Summon Greater Harbinger of Time",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.effect_293985888",
+				["text"] = "Grants Summon Greater Harbinger of the Arcane",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.effect_1659734482",
+				["text"] = "Grants Summon Harbinger of Brutality",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.effect_2959432267",
+				["text"] = "Grants Summon Harbinger of Directions",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.effect_4121000032",
+				["text"] = "Grants Summon Harbinger of Focus",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.effect_668260863",
+				["text"] = "Grants Summon Harbinger of Storms",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.effect_1315696378",
+				["text"] = "Grants Summon Harbinger of Time",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.effect_1954139129",
+				["text"] = "Grants Summon Harbinger of the Arcane",
 				["type"] = "explicit",
 			},
 			{
@@ -24237,13 +25132,8 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_913306901",
-				["text"] = "Grants level # Pacify",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_88120117",
-				["text"] = "Grants level # Penance Mark",
+				["id"] = "explicit.stat_2255402066",
+				["text"] = "Grows four random Passive Skills when Anointed Passive Skills grown are influenced by Oils used when Anointing",
 				["type"] = "explicit",
 			},
 			{
@@ -24307,16 +25197,6 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_2992379436",
-				["text"] = "Harvest Crops in your Maps have #% increased chance to contain Tier 3 Plants",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_1505882627",
-				["text"] = "Harvest Crops in your Maps have #% increased chance to contain a Tier 4 Plant",
-				["type"] = "explicit",
-			},
-			{
 				["id"] = "explicit.stat_1234594761",
 				["text"] = "Harvest Crops in your Maps have #% increased chance to grow Blue Plants",
 				["type"] = "explicit",
@@ -24334,26 +25214,6 @@ return {
 			{
 				["id"] = "explicit.stat_2456335054",
 				["text"] = "Harvest Crops in your Maps have an extra chance to grow higher Tier Plants",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_3483648190",
-				["text"] = "Harvest Monsters in your Maps drop #% increased Quantity of Lifeforce",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_4251234305",
-				["text"] = "Harvest Monsters in your Maps grant #% increased Experience",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_4128958145",
-				["text"] = "Harvested Plants in Area have #% chance to spawn an additional Monster",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_4128958145",
-				["text"] = "Harvested Plants in your Maps have #% chance to spawn an additional Monster",
 				["type"] = "explicit",
 			},
 			{
@@ -24389,11 +25249,6 @@ return {
 			{
 				["id"] = "explicit.stat_2141582975",
 				["text"] = "Has a Two Handed Sword Crucible Passive Skill Tree Crucible Passive Skill Tree is removed if this Modifier is removed",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_2489070122",
-				["text"] = "Has an additional Implicit Mod",
 				["type"] = "explicit",
 			},
 			{
@@ -24527,13 +25382,13 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_4216809421",
-				["text"] = "Heist Chests have a #% chance to Duplicate contained Scarabs",
+				["id"] = "explicit.stat_590557979",
+				["text"] = "Heist Chests have a #% chance to Duplicate contained Sextants",
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_590557979",
-				["text"] = "Heist Chests have a #% chance to Duplicate contained Sextants",
+				["id"] = "explicit.stat_4216809421",
+				["text"] = "Heist Chests have a #% chance to Duplicate contained Threads",
 				["type"] = "explicit",
 			},
 			{
@@ -24713,12 +25568,12 @@ return {
 			},
 			{
 				["id"] = "explicit.stat_1462364052",
-				["text"] = "Hinders nearby Enemies with #% reduced Movement Speed if used while not on Full Life",
+				["text"] = "Hinders Enemies within 3 metres with #% reduced Movement Speed if used while not on Full Life",
 				["type"] = "explicit",
 			},
 			{
 				["id"] = "explicit.stat_2313899959",
-				["text"] = "Hinders nearby Enemies with #% reduced Movement Speed if used while not on Full Mana",
+				["text"] = "Hinders Enemies within 3 metres with #% reduced Movement Speed if used while not on Full Mana",
 				["type"] = "explicit",
 			},
 			{
@@ -24738,12 +25593,12 @@ return {
 			},
 			{
 				["id"] = "explicit.stat_3896241826",
-				["text"] = "Hits against Nearby Enemies have #% increased Critical Strike Chance",
+				["text"] = "Hits against Enemies within 6 metres have #% increased Critical Strike Chance",
 				["type"] = "explicit",
 			},
 			{
 				["id"] = "explicit.stat_992435560",
-				["text"] = "Hits against Nearby Enemies have 50% increased Critical Strike Chance",
+				["text"] = "Hits against Enemies within 6 metres have 50% increased Critical Strike Chance",
 				["type"] = "explicit",
 			},
 			{
@@ -24923,27 +25778,27 @@ return {
 			},
 			{
 				["id"] = "explicit.stat_4089969970",
-				["text"] = "If you Consumed a corpse Recently, you and nearby Allies Regenerate #% of Life per second",
+				["text"] = "If you Consumed a corpse Recently, you and Allies within 5 metres Regenerate #% of Life per second",
 				["type"] = "explicit",
 			},
 			{
 				["id"] = "explicit.stat_176085824",
-				["text"] = "If you have Blocked Recently, you and nearby Allies Regenerate #% of Life per second",
+				["text"] = "If you have Blocked Recently, you and Allies within 5 metres Regenerate #% of Life per second",
 				["type"] = "explicit",
 			},
 			{
 				["id"] = "explicit.stat_1453771408",
-				["text"] = "If you've Attacked Recently, you and nearby Allies have +#% Chance to Block Attack Damage",
+				["text"] = "If you've Attacked Recently, you and Allies within 6 metres have +#% Chance to Block Attack Damage",
 				["type"] = "explicit",
 			},
 			{
 				["id"] = "explicit.stat_1952992278",
-				["text"] = "If you've Cast a Spell Recently, you and nearby Allies have +#% Chance to Block Spell Damage",
+				["text"] = "If you've Cast a Spell Recently, you and Allies within 6 metres have +#% Chance to Block Spell Damage",
 				["type"] = "explicit",
 			},
 			{
 				["id"] = "explicit.stat_1464115829",
-				["text"] = "If you've Warcried Recently, you and nearby allies have #% increased Attack, Cast and Movement Speed",
+				["text"] = "If you've Warcried Recently, you and Allies within 6 metres have #% increased Attack, Cast and Movement Speed",
 				["type"] = "explicit",
 			},
 			{
@@ -24973,7 +25828,7 @@ return {
 			},
 			{
 				["id"] = "explicit.stat_2443492284",
-				["text"] = "Ignites you inflict deal Damage #% faster",
+				["text"] = "Ignites you inflict deal Damage #% Faster",
 				["type"] = "explicit",
 			},
 			{
@@ -24988,7 +25843,7 @@ return {
 			},
 			{
 				["id"] = "explicit.stat_1420236871",
-				["text"] = "Ignites you inflict with Attacks deal Damage #% faster",
+				["text"] = "Ignites you inflict with Attacks deal Damage #% Faster",
 				["type"] = "explicit",
 			},
 			{
@@ -25029,11 +25884,6 @@ return {
 			{
 				["id"] = "explicit.stat_3615401038",
 				["text"] = "Immortal Syndicate Members Executed in your Maps have #% chance to gain an additional Rank",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_1259656520",
-				["text"] = "Immortal Syndicate Members in your Maps are #% more likely to offer to Bargain for Items",
 				["type"] = "explicit",
 			},
 			{
@@ -25342,6 +26192,11 @@ return {
 				["type"] = "explicit",
 			},
 			{
+				["id"] = "explicit.stat_4091694419",
+				["text"] = "Increases and Reductions to your Evasion Rating also apply to your Spell Damage",
+				["type"] = "explicit",
+			},
+			{
 				["id"] = "explicit.stat_103999915",
 				["text"] = "Increases to Cast Speed from Arcane Surge also applies to Movement Speed",
 				["type"] = "explicit",
@@ -25349,16 +26204,6 @@ return {
 			{
 				["id"] = "explicit.stat_617548179",
 				["text"] = "Incursion Architects have #% chance to be Possessed by a Tormented Spirit",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_3349136454",
-				["text"] = "Incursion Architects have #% chance to drop an additional Rare Incursion Item",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_3349136454",
-				["text"] = "Incursion Architects in your Maps have #% chance to drop an additional Rare Incursion Item",
 				["type"] = "explicit",
 			},
 			{
@@ -25403,7 +26248,7 @@ return {
 			},
 			{
 				["id"] = "explicit.stat_3933226405",
-				["text"] = "Inflict Fire, Cold and Lightning Exposure on nearby Enemies when used",
+				["text"] = "Inflict Fire, Cold and Lightning Exposure on Enemies within 3 metres when used",
 				["type"] = "explicit",
 			},
 			{
@@ -25682,11 +26527,6 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_2054162825",
-				["text"] = "Karui Stone Hook",
-				["type"] = "explicit",
-			},
-			{
 				["id"] = "explicit.stat_1211779989",
 				["text"] = "Keystone Passive Skills in Radius can be Allocated without being connected to your tree Passage",
 				["type"] = "explicit",
@@ -25922,6 +26762,11 @@ return {
 				["type"] = "explicit",
 			},
 			{
+				["id"] = "explicit.stat_771469730",
+				["text"] = "Life Leech from Critical Strikes is instant",
+				["type"] = "explicit",
+			},
+			{
 				["id"] = "explicit.stat_272906215",
 				["text"] = "Life Leech from Exerted Attacks is instant",
 				["type"] = "explicit",
@@ -25958,7 +26803,7 @@ return {
 			},
 			{
 				["id"] = "explicit.stat_2591612078",
-				["text"] = "Lifeforce dropped by Harvest Monsters in your Maps has #% chance to be Duplicated",
+				["text"] = "Lifeforce dropped by Sacred Fauna in your Maps has #% chance to be Duplicated",
 				["type"] = "explicit",
 			},
 			{
@@ -26044,6 +26889,11 @@ return {
 			{
 				["id"] = "explicit.stat_155220198",
 				["text"] = "Lone Messenger",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1559341337",
+				["text"] = "Lose # Life per second",
 				["type"] = "explicit",
 			},
 			{
@@ -26358,7 +27208,7 @@ return {
 			},
 			{
 				["id"] = "explicit.stat_4140427516",
-				["text"] = "Map Device has #% chance not to consume Scarabs",
+				["text"] = "Map Device has #% chance not to consume Threads",
 				["type"] = "explicit",
 			},
 			{
@@ -26459,6 +27309,11 @@ return {
 			{
 				["id"] = "explicit.stat_2817027713",
 				["text"] = "Maximum Affliction Charges is equal to Maximum Frenzy Charges",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_3664562804",
+				["text"] = "Maximum Bitterblood is equal to your Maximum Life",
 				["type"] = "explicit",
 			},
 			{
@@ -26647,6 +27502,11 @@ return {
 				["type"] = "explicit",
 			},
 			{
+				["id"] = "explicit.stat_3814785829",
+				["text"] = "Melee Strikes Curse Enemies with Flammability on Hit, ignoring Curse Limit",
+				["type"] = "explicit",
+			},
+			{
 				["id"] = "explicit.stat_802532569",
 				["text"] = "Melee Weapon Attacks have Culling Strike",
 				["type"] = "explicit",
@@ -26699,6 +27559,11 @@ return {
 			{
 				["id"] = "explicit.stat_3085465082",
 				["text"] = "Mines have #% increased Detonation Speed",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2445634879",
+				["text"] = "Mines have a #% chance to be Detonated an Additional Time",
 				["type"] = "explicit",
 			},
 			{
@@ -26807,6 +27672,11 @@ return {
 				["type"] = "explicit",
 			},
 			{
+				["id"] = "explicit.stat_1045292082",
+				["text"] = "Minions convert #% of Physical Damage to Fire Damage",
+				["type"] = "explicit",
+			},
+			{
 				["id"] = "explicit.stat_2139569643",
 				["text"] = "Minions convert #% of Physical Damage to Fire Damage per Red Socket",
 				["type"] = "explicit",
@@ -26814,6 +27684,11 @@ return {
 			{
 				["id"] = "explicit.stat_3011514440",
 				["text"] = "Minions convert #% of Physical Damage to Fire Damage per Socketed Red Gem",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2105061711",
+				["text"] = "Minions convert #% of Physical Damage to Lightning Damage",
 				["type"] = "explicit",
 			},
 			{
@@ -26959,6 +27834,11 @@ return {
 			{
 				["id"] = "explicit.stat_3945908658",
 				["text"] = "Minions have #% chance to Ignite",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2415223729",
+				["text"] = "Minions have #% chance to Impale on Attack Hit per socketed Ghastly Eye Jewel",
 				["type"] = "explicit",
 			},
 			{
@@ -27422,6 +28302,16 @@ return {
 				["type"] = "explicit",
 			},
 			{
+				["id"] = "explicit.stat_4136294199",
+				["text"] = "Monsters cannot Block your Attacks",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_870219767",
+				["text"] = "Monsters cannot Suppress your Spells",
+				["type"] = "explicit",
+			},
+			{
 				["id"] = "explicit.stat_1140978125",
 				["text"] = "Monsters cannot be Leeched from",
 				["type"] = "explicit",
@@ -27434,6 +28324,11 @@ return {
 			{
 				["id"] = "explicit.stat_1106651798",
 				["text"] = "Monsters cannot be Taunted",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1455353008",
+				["text"] = "Monsters cannot steal or remove your Power, Frenzy or Endurance charges on Hit",
 				["type"] = "explicit",
 			},
 			{
@@ -27862,253 +28757,8 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_778848857",
-				["text"] = "Nearby Allies gain #% increased Mana Regeneration Rate",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_3462673103",
-				["text"] = "Nearby Allies gain #% of Life Regenerated per second",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_3941641418",
-				["text"] = "Nearby Allies have #% Chance to Block Attack Damage per 100 Strength you have",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_2373999301",
-				["text"] = "Nearby Allies have #% increased Cast Speed per 100 Intelligence you have",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_3767939384",
-				["text"] = "Nearby Allies have #% increased Defences per 100 Strength you have",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_1722463112",
-				["text"] = "Nearby Allies have #% increased Item Rarity",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_244825991",
-				["text"] = "Nearby Allies have +# Fortification",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_3152714748",
-				["text"] = "Nearby Allies have +#% to Critical Strike Multiplier",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_1438488526",
-				["text"] = "Nearby Allies have +#% to Critical Strike Multiplier per 100 Dexterity you have",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_1560540713",
-				["text"] = "Nearby Allies have Culling Strike",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_1356468153",
-				["text"] = "Nearby Allies' Action Speed cannot be modified to below Base Value",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_655871604",
-				["text"] = "Nearby Allies' Damage with Hits is Lucky",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_3729324251",
-				["text"] = "Nearby Enemies Convert #% of their Physical Damage to Fire",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_2307982579",
-				["text"] = "Nearby Enemies Killed by anyone count as being Killed by you instead",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_2826979740",
-				["text"] = "Nearby Enemies are Blinded",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_3844045281",
-				["text"] = "Nearby Enemies are Blinded if 2 Redeemer Items are Equipped",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_2504709365",
-				["text"] = "Nearby Enemies are Blinded while Physical Aegis is not depleted",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_2159555743",
-				["text"] = "Nearby Enemies are Chilled",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_2480873346",
-				["text"] = "Nearby Enemies are Chilled",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_746994389",
-				["text"] = "Nearby Enemies are Covered in Ash",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_3069588220",
-				["text"] = "Nearby Enemies are Crushed while you have at least # Rage",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_2006060276",
-				["text"] = "Nearby Enemies are Debilitated",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_607839150",
-				["text"] = "Nearby Enemies are Hindered, with #% reduced Movement Speed",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_2899095498",
-				["text"] = "Nearby Enemies are Intimidated",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_1142276332",
-				["text"] = "Nearby Enemies are Intimidated if 2 Warlord Items are Equipped",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_3733114005",
-				["text"] = "Nearby Enemies are Scorched",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_1439308328",
-				["text"] = "Nearby Enemies are Unnerved",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_282325999",
-				["text"] = "Nearby Enemies are Unnerved if 2 Elder Items are Equipped",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_1177959871",
-				["text"] = "Nearby Enemies cannot deal Critical Strikes",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_4031527864",
-				["text"] = "Nearby Enemies cannot gain Power, Frenzy or Endurance Charges",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_3547189490",
-				["text"] = "Nearby Enemies grant #% increased Flask Charges",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_443525707",
-				["text"] = "Nearby Enemies have #% increased Effect of Curses on them",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_4273356746",
-				["text"] = "Nearby Enemies have #% increased Fire and Cold Resistances",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_3169825297",
-				["text"] = "Nearby Enemies have #% reduced Stun and Block Recovery",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_668145148",
-				["text"] = "Nearby Enemies have #% to all Resistances",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_1902595112",
-				["text"] = "Nearby Enemies have +#% to Chaos Resistance",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_2674336304",
-				["text"] = "Nearby Enemies have +#% to Cold Resistance",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_3914021960",
-				["text"] = "Nearby Enemies have +#% to Fire Resistance",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_1849749435",
-				["text"] = "Nearby Enemies have +#% to Lightning Resistance",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_3952509108",
-				["text"] = "Nearby Enemies have Fire Exposure while at maximum Rage",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_3549734978",
-				["text"] = "Nearby Enemies have Lightning Resistance equal to yours",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_639595152",
-				["text"] = "Nearby Enemies take #% increased Elemental Damage",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_415837237",
-				["text"] = "Nearby Enemies take #% increased Physical Damage",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_4187518631",
-				["text"] = "Nearby Enemies take #% increased Physical Damage per two Fortification on you",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_663080464",
-				["text"] = "Nearby Enemies' Chaos Resistance is 0",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_1063263585",
-				["text"] = "Nearby Enemy Monsters have at least #% of Life Reserved",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_3484267929",
-				["text"] = "Nearby allies Recover #% of your Maximum Life when you Die",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_3175679225",
-				["text"] = "Nearby allies gain #% increased Damage",
-				["type"] = "explicit",
-			},
-			{
 				["id"] = "explicit.stat_293071889",
 				["text"] = "Nearby corpses Explode when you Warcry, dealing #% of their Life as Physical Damage",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_3469279727",
-				["text"] = "Nearby stationary Enemies gain a Grasping Vine every second",
 				["type"] = "explicit",
 			},
 			{
@@ -28322,6 +28972,31 @@ return {
 				["type"] = "explicit",
 			},
 			{
+				["id"] = "explicit.stat_3642528642|3",
+				["text"] = "Only affects Passives in Large Ring",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_3642528642|5",
+				["text"] = "Only affects Passives in Massive Ring",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_3642528642|2",
+				["text"] = "Only affects Passives in Medium Ring",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_3642528642|1",
+				["text"] = "Only affects Passives in Small Ring",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_3642528642|4",
+				["text"] = "Only affects Passives in Very Large Ring",
+				["type"] = "explicit",
+			},
+			{
 				["id"] = "explicit.stat_3418377329",
 				["text"] = "Only opens # Portal to Area",
 				["type"] = "explicit",
@@ -28389,6 +29064,21 @@ return {
 			{
 				["id"] = "explicit.stat_2495041954",
 				["text"] = "Overwhelm #% Physical Damage Reduction",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_3129228821",
+				["text"] = "Pact Skills grant Boons instead of Afflictions",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_3120620173",
+				["text"] = "Pact Skills have #% increased Cast Speed",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1144742318",
+				["text"] = "Pact Skills have #% increased Cooldown Recovery Rate",
 				["type"] = "explicit",
 			},
 			{
@@ -28499,6 +29189,11 @@ return {
 			{
 				["id"] = "explicit.stat_2422708892|44941",
 				["text"] = "Passive Skills in Radius of Avatar of Fire can be Allocated without being connected to your tree Passage",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2422708892|12128",
+				["text"] = "Passive Skills in Radius of Bitter Frost can be Allocated without being connected to your tree Passage",
 				["type"] = "explicit",
 			},
 			{
@@ -28647,6 +29342,11 @@ return {
 				["type"] = "explicit",
 			},
 			{
+				["id"] = "explicit.stat_2422708892|40351",
+				["text"] = "Passive Skills in Radius of Roiling Tempest can be Allocated without being connected to your tree Passage",
+				["type"] = "explicit",
+			},
+			{
 				["id"] = "explicit.stat_2422708892|42343",
 				["text"] = "Passive Skills in Radius of Runebinder can be Allocated without being connected to your tree Passage",
 				["type"] = "explicit",
@@ -28684,6 +29384,11 @@ return {
 			{
 				["id"] = "explicit.stat_2422708892|50679",
 				["text"] = "Passive Skills in Radius of Versatile Combatant can be Allocated without being connected to your tree Passage",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2422708892|63903",
+				["text"] = "Passive Skills in Radius of Voracious Flame can be Allocated without being connected to your tree Passage",
 				["type"] = "explicit",
 			},
 			{
@@ -28877,6 +29582,11 @@ return {
 				["type"] = "explicit",
 			},
 			{
+				["id"] = "explicit.stat_489372526",
+				["text"] = "Physical Damage Reduction is zero",
+				["type"] = "explicit",
+			},
+			{
 				["id"] = "explicit.stat_2424163939",
 				["text"] = "Physical Damage of Enemies Hitting you is Lucky",
 				["type"] = "explicit",
@@ -28894,11 +29604,6 @@ return {
 			{
 				["id"] = "explicit.stat_1042687374",
 				["text"] = "Plants Harvested in your Maps have #% chance to give an additional Crafting option",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_2634325281",
-				["text"] = "Plants Harvested in your Maps have #% chance to spawn duplicated Monsters",
 				["type"] = "explicit",
 			},
 			{
@@ -29202,11 +29907,6 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_1489997462",
-				["text"] = "Players have #% increased Rarity of Items Found per 15 Rampage Kills",
-				["type"] = "explicit",
-			},
-			{
 				["id"] = "explicit.stat_2450628570",
 				["text"] = "Players have #% increased effect of Non-Curse Auras from Skills",
 				["type"] = "explicit",
@@ -29282,8 +29982,38 @@ return {
 				["type"] = "explicit",
 			},
 			{
+				["id"] = "explicit.stat_4280703528",
+				["text"] = "Players have +# to Accuracy Rating for each Empty Green Socket on any Equipped Item",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_726359715",
+				["text"] = "Players have +# to maximum Life for each Empty Red Socket on any Equipped Item",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2962020005",
+				["text"] = "Players have +# to maximum Mana for each Empty Blue Socket on any Equipped Item",
+				["type"] = "explicit",
+			},
+			{
 				["id"] = "explicit.stat_2912613786",
 				["text"] = "Players have +# to maximum number of Summoned Totems",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1489997462",
+				["text"] = "Players have +#% to Item Rarity per 15 Rampage Kills",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_597739519",
+				["text"] = "Players have +#% to all Elemental Resistances for each Empty White Socket on any Equipped Item",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_845062586",
+				["text"] = "Players have Acceleration Shrine Buff while affected by no Flasks",
 				["type"] = "explicit",
 			},
 			{
@@ -29292,8 +30022,53 @@ return {
 				["type"] = "explicit",
 			},
 			{
+				["id"] = "explicit.stat_1665800734",
+				["text"] = "Players have Brutal Shrine Buff while affected by no Flasks",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1962944794",
+				["text"] = "Players have Diamond Shrine Buff while affected by no Flasks",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1941745370",
+				["text"] = "Players have Echoing Shrine Buff while affected by no Flasks",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1525347447",
+				["text"] = "Players have Gloom Shrine Buff while affected by no Flasks",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_3677336814",
+				["text"] = "Players have Greater Freezing Shrine Buff while affected by no Flasks",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1838429243",
+				["text"] = "Players have Greater Shocking Shrine Buff while affected by no Flasks",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_3878995435",
+				["text"] = "Players have Greater Skeletal Shrine Buff while affected by no Flasks",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1451444229",
+				["text"] = "Players have Impenetrable Shrine Buff while affected by no Flasks",
+				["type"] = "explicit",
+			},
+			{
 				["id"] = "explicit.stat_1413930902",
 				["text"] = "Players have Level 20 Dash Skill",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_3810260531",
+				["text"] = "Players have Massive Shrine Buff while affected by no Flasks",
 				["type"] = "explicit",
 			},
 			{
@@ -29304,6 +30079,21 @@ return {
 			{
 				["id"] = "explicit.stat_2835888248",
 				["text"] = "Players have Point Blank",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2752009372",
+				["text"] = "Players have Replenishing Shrine Buff while affected by no Flasks",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_3934633832",
+				["text"] = "Players have Resistance Shrine Buff while affected by no Flasks",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_736980450",
+				["text"] = "Players have Resonating Shrine Buff while affected by no Flasks",
 				["type"] = "explicit",
 			},
 			{
@@ -29338,7 +30128,7 @@ return {
 			},
 			{
 				["id"] = "explicit.stat_4045850340",
-				["text"] = "Players in Area take #% increased Damage per nearby Ally",
+				["text"] = "Players in Area take #% increased Damage per Ally within 6 metres",
 				["type"] = "explicit",
 			},
 			{
@@ -29438,7 +30228,7 @@ return {
 			},
 			{
 				["id"] = "explicit.stat_2907156609",
-				["text"] = "Poisons you inflict deal Damage #% faster",
+				["text"] = "Poisons you inflict deal Damage #% Faster",
 				["type"] = "explicit",
 			},
 			{
@@ -29473,7 +30263,7 @@ return {
 			},
 			{
 				["id"] = "explicit.stat_2879723104",
-				["text"] = "Prefixes Cannot Be Changed",
+				["text"] = "Prefix Modifiers cannot be changed",
 				["type"] = "explicit",
 			},
 			{
@@ -29489,6 +30279,11 @@ return {
 			{
 				["id"] = "explicit.stat_3725714391",
 				["text"] = "Preserving Stillness used by this Graft can take # additional Damage",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1571797746",
+				["text"] = "Prevent +#% of Reflected Damage",
 				["type"] = "explicit",
 			},
 			{
@@ -29593,7 +30388,7 @@ return {
 			},
 			{
 				["id"] = "explicit.stat_1284333657",
-				["text"] = "Projectiles Pierce all nearby Targets",
+				["text"] = "Projectiles Pierce all Targets within 3.5 metres",
 				["type"] = "explicit",
 			},
 			{
@@ -29629,6 +30424,11 @@ return {
 			{
 				["id"] = "explicit.stat_883169830",
 				["text"] = "Projectiles deal #% increased Damage with Hits and Ailments for each Enemy Pierced",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1923210508",
+				["text"] = "Projectiles deal #% increased Damage with Hits and Ailments for each time they have Chained",
 				["type"] = "explicit",
 			},
 			{
@@ -29783,7 +30583,7 @@ return {
 			},
 			{
 				["id"] = "explicit.stat_699756626",
-				["text"] = "Quicksilver Flasks you Use also apply to nearby Allies",
+				["text"] = "Quicksilver Flasks you Use also apply to Allies within 6 metres",
 				["type"] = "explicit",
 			},
 			{
@@ -29932,23 +30732,18 @@ return {
 				["type"] = "explicit",
 			},
 			{
+				["id"] = "explicit.stat_3938822425",
+				["text"] = "Rare Monsters have Elemental Thorns reflecting # Elemental Damage",
+				["type"] = "explicit",
+			},
+			{
 				["id"] = "explicit.stat_2220602676",
 				["text"] = "Rare Monsters have Essence effects",
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_3938822425",
-				["text"] = "Rare Monsters have [ElementalThorns|Elemental Thorns] reflecting # Elemental Damage",
-				["type"] = "explicit",
-			},
-			{
 				["id"] = "explicit.stat_3278889477",
-				["text"] = "Rare Monsters have [PhysicalThorns|Physical Thorns] reflecting # Physical Damage",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_2550456553",
-				["text"] = "Rare Monsters in your Maps have # additional Modifier",
+				["text"] = "Rare Monsters have Physical Thorns reflecting # Physical Damage",
 				["type"] = "explicit",
 			},
 			{
@@ -29978,7 +30773,12 @@ return {
 			},
 			{
 				["id"] = "explicit.stat_829341851",
-				["text"] = "Rare Monsters in your Maps have #% increased chance to drop Scarabs per Monster Modifier affecting them",
+				["text"] = "Rare Monsters in your Maps have #% increased chance to drop Threads per Monster Modifier affecting them",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2550456553",
+				["text"] = "Rare Monsters in your Maps have an additional Modifier",
 				["type"] = "explicit",
 			},
 			{
@@ -30253,7 +31053,7 @@ return {
 			},
 			{
 				["id"] = "explicit.stat_615884286",
-				["text"] = "Reflect Shocks applied to you to all Nearby Enemies",
+				["text"] = "Reflect Shocks applied to you to all Enemies within # metres",
 				["type"] = "explicit",
 			},
 			{
@@ -30338,7 +31138,7 @@ return {
 			},
 			{
 				["id"] = "explicit.stat_2238019079",
-				["text"] = "Regenerate # Energy Shield per second while a Rare or Unique Enemy is Nearby",
+				["text"] = "Regenerate # Energy Shield per second while a Rare or Unique Enemy is within 6 metres",
 				["type"] = "explicit",
 			},
 			{
@@ -30497,6 +31297,11 @@ return {
 				["type"] = "explicit",
 			},
 			{
+				["id"] = "explicit.stat_1373957102",
+				["text"] = "Regenerate #% of Life per Second if you've Detonated a Mine Recently",
+				["type"] = "explicit",
+			},
+			{
 				["id"] = "explicit.stat_836936635",
 				["text"] = "Regenerate #% of Life per second",
 				["type"] = "explicit",
@@ -30637,16 +31442,6 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_1871805225",
-				["text"] = "Remnants have #% chance to have an additional Suffix Modifier",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_1871805225",
-				["text"] = "Remnants in your Maps have #% chance to have an additional Suffix Modifier",
-				["type"] = "explicit",
-			},
-			{
 				["id"] = "explicit.stat_3296873305",
 				["text"] = "Remove Chill and Freeze when you use a Flask",
 				["type"] = "explicit",
@@ -30769,11 +31564,6 @@ return {
 			{
 				["id"] = "explicit.stat_4056408881",
 				["text"] = "Reward Rooms have #% increased Monsters",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_3360430812",
-				["text"] = "Rhoa Feather Lure",
 				["type"] = "explicit",
 			},
 			{
@@ -30902,6 +31692,16 @@ return {
 				["type"] = "explicit",
 			},
 			{
+				["id"] = "explicit.stat_2903189090",
+				["text"] = "Roiling Tempest",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_758685542",
+				["text"] = "Ruby Flasks applied to you have #% increased Effect",
+				["type"] = "explicit",
+			},
+			{
 				["id"] = "explicit.stat_4080245957",
 				["text"] = "Runebinder",
 				["type"] = "explicit",
@@ -30917,6 +31717,41 @@ return {
 				["type"] = "explicit",
 			},
 			{
+				["id"] = "explicit.stat_3483648190",
+				["text"] = "Sacred Fauna in your Maps drop #% increased Quantity of Lifeforce",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4251234305",
+				["text"] = "Sacred Fauna in your Maps grant #% increased Experience",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2634325281",
+				["text"] = "Sacred Fauna in your Maps have #% chance to be duplicated",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1505882627",
+				["text"] = "Sacred Fauna in your Maps have #% increased chance to be a Boss",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2992379436",
+				["text"] = "Sacred Fauna in your Maps have #% increased chance to be a Tier 3 Monster",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4128958145",
+				["text"] = "Sacred Flora in Area have #% chance to spawn an additional Monster",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4128958145",
+				["text"] = "Sacred Flora in your Maps have #% chance to spawn an additional Monster",
+				["type"] = "explicit",
+			},
+			{
 				["id"] = "explicit.stat_613752285",
 				["text"] = "Sacrifice #% of Life to gain that much Energy Shield when you Cast a Spell",
 				["type"] = "explicit",
@@ -30927,283 +31762,8 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_1849225887",
-				["text"] = "Scarabs dropped in Area have #% increased chance to be Abyss Scarabs",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_723578929",
-				["text"] = "Scarabs dropped in Area have #% increased chance to be Anarchy Scarabs",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_9949109",
-				["text"] = "Scarabs dropped in Area have #% increased chance to be Bestiary Scarabs",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_1048062553",
-				["text"] = "Scarabs dropped in Area have #% increased chance to be Betrayal Scarabs",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_2507275343",
-				["text"] = "Scarabs dropped in Area have #% increased chance to be Beyond Scarabs",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_3866432319",
-				["text"] = "Scarabs dropped in Area have #% increased chance to be Blight Scarabs",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_1762451150",
-				["text"] = "Scarabs dropped in Area have #% increased chance to be Cartography Scarabs",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_1571899068",
-				["text"] = "Scarabs dropped in Area have #% increased chance to be Delirium Scarabs",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_1684527465",
-				["text"] = "Scarabs dropped in Area have #% increased chance to be Divination Scarabs",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_2477998669",
-				["text"] = "Scarabs dropped in Area have #% increased chance to be Domination Scarabs",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_751635784",
-				["text"] = "Scarabs dropped in Area have #% increased chance to be Essence Scarabs",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_46751559",
-				["text"] = "Scarabs dropped in Area have #% increased chance to be Expedition Scarabs",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_1560748306",
-				["text"] = "Scarabs dropped in Area have #% increased chance to be Harbinger Scarabs",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_316950976",
-				["text"] = "Scarabs dropped in Area have #% increased chance to be Harvest Scarabs",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_1215465898",
-				["text"] = "Scarabs dropped in Area have #% increased chance to be Incursion Scarabs",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_3346769137",
-				["text"] = "Scarabs dropped in Area have #% increased chance to be Kalguuran Scarabs",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_1858240316",
-				["text"] = "Scarabs dropped in Area have #% increased chance to be Legion Scarabs",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_2810822634",
-				["text"] = "Scarabs dropped in Area have #% increased chance to be Ritual Scarabs",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_1395445308",
-				["text"] = "Scarabs dropped in Area have #% increased chance to be Sulphite Scarabs",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_2584308379",
-				["text"] = "Scarabs dropped in Area have #% increased chance to be Titanic Scarabs",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_3070577277",
-				["text"] = "Scarabs dropped in Area have #% increased chance to be Torment Scarabs",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_2263557454",
-				["text"] = "Scarabs dropped in Area have #% increased chance to be Ultimatum Scarabs",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_1849225887",
-				["text"] = "Scarabs dropped in your Maps have #% increased chance to be Abyss Scarabs",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_723578929",
-				["text"] = "Scarabs dropped in your Maps have #% increased chance to be Anarchy Scarabs",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_9949109",
-				["text"] = "Scarabs dropped in your Maps have #% increased chance to be Bestiary Scarabs",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_1048062553",
-				["text"] = "Scarabs dropped in your Maps have #% increased chance to be Betrayal Scarabs",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_2507275343",
-				["text"] = "Scarabs dropped in your Maps have #% increased chance to be Beyond Scarabs",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_3866432319",
-				["text"] = "Scarabs dropped in your Maps have #% increased chance to be Blight Scarabs",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_1762451150",
-				["text"] = "Scarabs dropped in your Maps have #% increased chance to be Cartography Scarabs",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_1571899068",
-				["text"] = "Scarabs dropped in your Maps have #% increased chance to be Delirium Scarabs",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_1684527465",
-				["text"] = "Scarabs dropped in your Maps have #% increased chance to be Divination Scarabs",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_2477998669",
-				["text"] = "Scarabs dropped in your Maps have #% increased chance to be Domination Scarabs",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_751635784",
-				["text"] = "Scarabs dropped in your Maps have #% increased chance to be Essence Scarabs",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_46751559",
-				["text"] = "Scarabs dropped in your Maps have #% increased chance to be Expedition Scarabs",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_1560748306",
-				["text"] = "Scarabs dropped in your Maps have #% increased chance to be Harbinger Scarabs",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_316950976",
-				["text"] = "Scarabs dropped in your Maps have #% increased chance to be Harvest Scarabs",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_1215465898",
-				["text"] = "Scarabs dropped in your Maps have #% increased chance to be Incursion Scarabs",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_3346769137",
-				["text"] = "Scarabs dropped in your Maps have #% increased chance to be Kalguuran Scarabs",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_1858240316",
-				["text"] = "Scarabs dropped in your Maps have #% increased chance to be Legion Scarabs",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_2810822634",
-				["text"] = "Scarabs dropped in your Maps have #% increased chance to be Ritual Scarabs",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_1395445308",
-				["text"] = "Scarabs dropped in your Maps have #% increased chance to be Sulphite Scarabs",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_2584308379",
-				["text"] = "Scarabs dropped in your Maps have #% increased chance to be Titanic Scarabs",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_3070577277",
-				["text"] = "Scarabs dropped in your Maps have #% increased chance to be Torment Scarabs",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_2263557454",
-				["text"] = "Scarabs dropped in your Maps have #% increased chance to be Ultimatum Scarabs",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_3017211510",
-				["text"] = "Scarabs found in Area have #% increased chance to be Ambush Scarabs",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_2789471089",
-				["text"] = "Scarabs found in your Maps are more likely to be less common varieties",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_1978710645",
-				["text"] = "Scarabs found in your Maps cannot be Abyss Scarabs",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_785938790",
-				["text"] = "Scarabs found in your Maps cannot be Blight Scarabs",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_1089629910",
-				["text"] = "Scarabs found in your Maps cannot be Breach Scarabs",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_278421201",
-				["text"] = "Scarabs found in your Maps cannot be Delirium Scarabs",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_3965835074",
-				["text"] = "Scarabs found in your Maps cannot be Expedition Scarabs",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_388787643",
-				["text"] = "Scarabs found in your Maps cannot be Harvest Scarabs",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_3777973541",
-				["text"] = "Scarabs found in your Maps cannot be Legion Scarabs",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_1693489030",
-				["text"] = "Scarabs found in your Maps cannot be Ritual Scarabs",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_264552782",
-				["text"] = "Scarabs found in your Maps cannot be Ultimatum Scarabs",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_3017211510",
-				["text"] = "Scarabs found in your Maps have #% increased chance to be Ambush Scarabs",
+				["id"] = "explicit.stat_1982347220",
+				["text"] = "Sapphire Flasks applied to you have #% increased Effect",
 				["type"] = "explicit",
 			},
 			{
@@ -31223,7 +31783,7 @@ return {
 			},
 			{
 				["id"] = "explicit.stat_1881314095",
-				["text"] = "Share Endurance Charges with nearby party members",
+				["text"] = "Share Endurance Charges with Party members within 12 metres",
 				["type"] = "explicit",
 			},
 			{
@@ -31247,13 +31807,13 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_3291999509",
-				["text"] = "Shock Reflection",
+				["id"] = "explicit.stat_3031766858",
+				["text"] = "Shock Enemies within 3 metres for # Seconds when you Focus",
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_3031766858",
-				["text"] = "Shock nearby Enemies for # Seconds when you Focus",
+				["id"] = "explicit.stat_3291999509",
+				["text"] = "Shock Reflection",
 				["type"] = "explicit",
 			},
 			{
@@ -31267,13 +31827,13 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_1712740586",
-				["text"] = "Shocks from your Hits always increase Damage taken by at least #%",
+				["id"] = "explicit.stat_3446170049",
+				["text"] = "Shocks Enemies within 3 metres during Effect, causing 10% increased Damage taken",
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_3446170049",
-				["text"] = "Shocks nearby Enemies during Effect, causing 10% increased Damage taken",
+				["id"] = "explicit.stat_1712740586",
+				["text"] = "Shocks from your Hits always increase Damage taken by at least #%",
 				["type"] = "explicit",
 			},
 			{
@@ -31304,11 +31864,6 @@ return {
 			{
 				["id"] = "explicit.stat_1124661381",
 				["text"] = "Shrapnel Ballista has +# to maximum number of Summoned Totems per 200 Strength",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_2305944553",
-				["text"] = "Shrines drop a Basic Currency Item when used",
 				["type"] = "explicit",
 			},
 			{
@@ -31362,6 +31917,11 @@ return {
 				["type"] = "explicit",
 			},
 			{
+				["id"] = "explicit.stat_2480498143",
+				["text"] = "Skills Cost Life instead of #% of Mana Cost",
+				["type"] = "explicit",
+			},
+			{
 				["id"] = "explicit.stat_1669220541",
 				["text"] = "Skills Cost no Mana during Effect",
 				["type"] = "explicit",
@@ -31369,6 +31929,2451 @@ return {
 			{
 				["id"] = "explicit.stat_1031404836",
 				["text"] = "Skills Fire # additional Projectile for 4 seconds after you consume a total of 8 Steel Shards",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|126",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Added Chaos Damage",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|125",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Added Cold Damage",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|124",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Added Fire Damage",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|123",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Added Lightning Damage",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|122",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Additional Accuracy",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|6",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Advanced Traps",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|14",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Ancestral Call",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|121",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Arcane Surge",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|120",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Archmage",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|114",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Arrogance",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|119",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Arrow Nova",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|26",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Ballista Totem",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|118",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Barrage",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|137",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Behead",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|117",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Blasphemy",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|22",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Blastchain Mine",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|162",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Blessed Call",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|116",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Blind",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|115",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Bloodlust",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|132",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Bloodthirst",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|113",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Bonechill",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|112",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Brutality",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|67",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Burning Damage",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|111",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Cast On Critical Strike",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|109",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Cast on Death",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|108",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Cast on Melee Kill",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|110",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Cast when Damage Taken",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|107",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Cast when Stunned",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|106",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Cast while Channelling",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|105",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Chain",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|104",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Chance to Bleed",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|80",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Chance to Flee",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|53",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Chance to Poison",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|101",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Charged Mines",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|77",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Charged Traps",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|100",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Close Combat",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|99",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Cluster Traps",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|98",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Cold Penetration",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|97",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Cold to Fire",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|103",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Combustion",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|96",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Concentrated Effect",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|158",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Controlled Blaze",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|95",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Controlled Destruction",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|151",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Corrupting Cry",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|30",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Critical Strike Affliction",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|133",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Cruelty",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|94",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Culling Strike",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|142",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Cursed Ground",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|46",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Damage on Full Life",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|92",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Deadly Ailments",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|91",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Decay",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|148",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Devour",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|90",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Efficacy",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|11",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Elemental Army",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|75",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Elemental Damage with Attacks",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|89",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Elemental Focus",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|88",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Elemental Proliferation",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|87",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Endurance Charge on Melee Stun",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|86",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Energy Leech",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|140",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Eternal Blessing",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|161",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Excommunicate",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|163",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Exemplar",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|159",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Expert Retaliation",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|85",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Faster Attacks",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|84",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Faster Casting",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|83",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Faster Projectiles",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|82",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Feeding Frenzy",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|81",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Fire Penetration",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|127",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Fist of War",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|135",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Focused Ballista",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|160",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Focused Channelling",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|79",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Fork",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|78",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Fortify",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|149",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Fresh Meat",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|155",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Frigid Bond",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|76",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Generosity",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|150",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Greater Multiple Projectiles",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|74",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Greater Volley",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|153",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Guardian's Blessing",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|164",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Hallow",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|143",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Hex Bloom",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|93",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Hextouch",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|21",
+				["text"] = "Skills Socketed in your Boots are Supported by level # High-Impact Mine",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|73",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Hypothermia",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|72",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Ice Bite",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|71",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Ignite Proliferation",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|70",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Immolate",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|69",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Impale",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|68",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Increased Area of Effect",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|66",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Increased Critical Damage",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|65",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Increased Critical Strikes",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|60",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Infernal Legion",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|13",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Infused Channelling",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|59",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Innervate",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|23",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Inspiration",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|16",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Intensify",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|58",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Iron Grip",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|57",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Iron Will",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|56",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Item Rarity",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|55",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Knockback",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|24",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Less Duration",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|52",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Life Gain on Hit",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|51",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Life Leech",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|134",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Lifetap",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|50",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Lightning Penetration",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|156",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Locus Mine",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|49",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Maim",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|48",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Mana Leech",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|144",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Manaforged Arrows",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|138",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Mark On Hit",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|47",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Meat Shield",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|45",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Melee Physical Damage",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|44",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Melee Splash",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|43",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Minefield",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|63",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Minion Damage",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|62",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Minion Life",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|61",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Minion Speed",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|42",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Mirage Archer",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|36",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Momentum",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|64",
+				["text"] = "Skills Socketed in your Boots are Supported by level # More Duration",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|54",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Multiple Projectiles",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|39",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Multiple Totems",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|38",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Multiple Traps",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|40",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Multistrike",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|37",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Nightblade",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|141",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Overcharge",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|136",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Overexertion",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|33",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Physical to Lightning",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|32",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Pierce",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|130",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Pinpoint",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|31",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Point Blank",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|29",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Power Charge On Critical",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|28",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Pulverise",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|27",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Rage",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|145",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Returning Projectiles",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|139",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Rupture",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|20",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Ruthless",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|154",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Sacrifice",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|157",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Sadism",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|19",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Second Wind",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|18",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Slower Projectiles",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|17",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Spell Cascade",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|41",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Spell Echo",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|15",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Spell Totem",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|147",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Spellblade",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|12",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Stun",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|10",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Summon Phantasm",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|25",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Swift Affliction",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|9",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Swift Assembly",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|128",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Swiftbrand",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|8",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Trap",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|7",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Trap and Mine Damage",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|146",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Trauma",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|131",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Trinity",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|5",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Unbound Ailments",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|4",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Unleash",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|129",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Urgent Orders",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|34",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Vicious Projectiles",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|3",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Vile Toxins",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|2",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Void Manipulation",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|152",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Volatility",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|35",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Volley",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|3|102",
+				["text"] = "Skills Socketed in your Boots are Supported by level # Withering Touch",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|126",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Added Chaos Damage",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|125",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Added Cold Damage",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|124",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Added Fire Damage",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|123",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Added Lightning Damage",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|122",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Additional Accuracy",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|6",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Advanced Traps",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|14",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Ancestral Call",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|121",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Arcane Surge",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|120",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Archmage",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|114",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Arrogance",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|119",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Arrow Nova",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|26",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Ballista Totem",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|118",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Barrage",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|137",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Behead",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|117",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Blasphemy",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|22",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Blastchain Mine",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|162",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Blessed Call",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|116",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Blind",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|115",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Bloodlust",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|132",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Bloodthirst",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|113",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Bonechill",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|112",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Brutality",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|67",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Burning Damage",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|111",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Cast On Critical Strike",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|109",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Cast on Death",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|108",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Cast on Melee Kill",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|110",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Cast when Damage Taken",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|107",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Cast when Stunned",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|106",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Cast while Channelling",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|105",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Chain",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|104",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Chance to Bleed",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|80",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Chance to Flee",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|53",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Chance to Poison",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|101",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Charged Mines",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|77",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Charged Traps",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|100",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Close Combat",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|99",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Cluster Traps",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|98",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Cold Penetration",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|97",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Cold to Fire",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|103",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Combustion",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|96",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Concentrated Effect",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|158",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Controlled Blaze",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|95",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Controlled Destruction",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|151",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Corrupting Cry",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|30",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Critical Strike Affliction",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|133",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Cruelty",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|94",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Culling Strike",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|142",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Cursed Ground",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|46",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Damage on Full Life",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|92",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Deadly Ailments",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|91",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Decay",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|148",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Devour",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|90",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Efficacy",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|11",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Elemental Army",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|75",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Elemental Damage with Attacks",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|89",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Elemental Focus",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|88",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Elemental Proliferation",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|87",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Endurance Charge on Melee Stun",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|86",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Energy Leech",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|140",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Eternal Blessing",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|161",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Excommunicate",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|163",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Exemplar",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|159",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Expert Retaliation",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|85",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Faster Attacks",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|84",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Faster Casting",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|83",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Faster Projectiles",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|82",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Feeding Frenzy",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|81",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Fire Penetration",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|127",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Fist of War",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|135",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Focused Ballista",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|160",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Focused Channelling",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|79",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Fork",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|78",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Fortify",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|149",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Fresh Meat",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|155",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Frigid Bond",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|76",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Generosity",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|150",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Greater Multiple Projectiles",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|74",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Greater Volley",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|153",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Guardian's Blessing",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|164",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Hallow",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|143",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Hex Bloom",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|93",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Hextouch",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|21",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # High-Impact Mine",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|73",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Hypothermia",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|72",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Ice Bite",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|71",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Ignite Proliferation",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|70",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Immolate",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|69",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Impale",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|68",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Increased Area of Effect",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|66",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Increased Critical Damage",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|65",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Increased Critical Strikes",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|60",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Infernal Legion",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|13",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Infused Channelling",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|59",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Innervate",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|23",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Inspiration",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|16",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Intensify",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|58",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Iron Grip",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|57",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Iron Will",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|56",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Item Rarity",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|55",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Knockback",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|24",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Less Duration",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|52",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Life Gain on Hit",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|51",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Life Leech",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|134",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Lifetap",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|50",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Lightning Penetration",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|156",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Locus Mine",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|49",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Maim",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|48",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Mana Leech",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|144",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Manaforged Arrows",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|138",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Mark On Hit",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|47",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Meat Shield",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|45",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Melee Physical Damage",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|44",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Melee Splash",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|43",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Minefield",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|63",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Minion Damage",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|62",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Minion Life",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|61",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Minion Speed",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|42",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Mirage Archer",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|36",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Momentum",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|64",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # More Duration",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|54",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Multiple Projectiles",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|39",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Multiple Totems",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|38",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Multiple Traps",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|40",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Multistrike",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|37",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Nightblade",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|141",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Overcharge",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|136",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Overexertion",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|33",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Physical to Lightning",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|32",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Pierce",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|130",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Pinpoint",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|31",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Point Blank",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|29",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Power Charge On Critical",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|28",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Pulverise",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|27",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Rage",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|145",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Returning Projectiles",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|139",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Rupture",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|20",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Ruthless",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|154",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Sacrifice",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|157",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Sadism",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|19",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Second Wind",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|18",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Slower Projectiles",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|17",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Spell Cascade",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|41",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Spell Echo",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|15",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Spell Totem",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|147",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Spellblade",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|12",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Stun",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|10",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Summon Phantasm",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|25",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Swift Affliction",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|9",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Swift Assembly",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|128",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Swiftbrand",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|8",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Trap",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|7",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Trap and Mine Damage",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|146",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Trauma",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|131",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Trinity",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|5",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Unbound Ailments",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|4",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Unleash",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|129",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Urgent Orders",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|34",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Vicious Projectiles",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|3",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Vile Toxins",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|2",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Void Manipulation",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|152",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Volatility",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|35",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Volley",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|2|102",
+				["text"] = "Skills Socketed in your Gloves are Supported by level # Withering Touch",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|126",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Added Chaos Damage",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|125",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Added Cold Damage",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|124",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Added Fire Damage",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|123",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Added Lightning Damage",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|122",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Additional Accuracy",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|6",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Advanced Traps",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|14",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Ancestral Call",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|121",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Arcane Surge",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|120",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Archmage",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|114",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Arrogance",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|119",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Arrow Nova",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|26",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Ballista Totem",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|118",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Barrage",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|137",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Behead",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|117",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Blasphemy",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|22",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Blastchain Mine",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|162",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Blessed Call",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|116",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Blind",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|115",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Bloodlust",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|132",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Bloodthirst",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|113",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Bonechill",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|112",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Brutality",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|67",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Burning Damage",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|111",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Cast On Critical Strike",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|109",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Cast on Death",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|108",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Cast on Melee Kill",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|110",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Cast when Damage Taken",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|107",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Cast when Stunned",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|106",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Cast while Channelling",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|105",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Chain",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|104",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Chance to Bleed",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|80",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Chance to Flee",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|53",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Chance to Poison",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|101",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Charged Mines",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|77",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Charged Traps",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|100",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Close Combat",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|99",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Cluster Traps",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|98",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Cold Penetration",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|97",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Cold to Fire",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|103",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Combustion",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|96",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Concentrated Effect",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|158",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Controlled Blaze",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|95",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Controlled Destruction",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|151",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Corrupting Cry",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|30",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Critical Strike Affliction",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|133",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Cruelty",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|94",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Culling Strike",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|142",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Cursed Ground",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|46",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Damage on Full Life",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|92",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Deadly Ailments",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|91",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Decay",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|148",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Devour",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|90",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Efficacy",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|11",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Elemental Army",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|75",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Elemental Damage with Attacks",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|89",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Elemental Focus",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|88",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Elemental Proliferation",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|87",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Endurance Charge on Melee Stun",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|86",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Energy Leech",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|140",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Eternal Blessing",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|161",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Excommunicate",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|163",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Exemplar",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|159",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Expert Retaliation",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|85",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Faster Attacks",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|84",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Faster Casting",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|83",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Faster Projectiles",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|82",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Feeding Frenzy",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|81",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Fire Penetration",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|127",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Fist of War",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|135",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Focused Ballista",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|160",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Focused Channelling",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|79",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Fork",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|78",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Fortify",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|149",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Fresh Meat",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|155",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Frigid Bond",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|76",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Generosity",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|150",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Greater Multiple Projectiles",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|74",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Greater Volley",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|153",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Guardian's Blessing",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|164",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Hallow",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|143",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Hex Bloom",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|93",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Hextouch",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|21",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # High-Impact Mine",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|73",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Hypothermia",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|72",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Ice Bite",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|71",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Ignite Proliferation",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|70",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Immolate",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|69",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Impale",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|68",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Increased Area of Effect",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|66",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Increased Critical Damage",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|65",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Increased Critical Strikes",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|60",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Infernal Legion",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|13",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Infused Channelling",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|59",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Innervate",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|23",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Inspiration",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|16",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Intensify",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|58",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Iron Grip",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|57",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Iron Will",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|56",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Item Rarity",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|55",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Knockback",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|24",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Less Duration",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|52",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Life Gain on Hit",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|51",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Life Leech",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|134",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Lifetap",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|50",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Lightning Penetration",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|156",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Locus Mine",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|49",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Maim",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|48",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Mana Leech",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|144",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Manaforged Arrows",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|138",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Mark On Hit",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|47",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Meat Shield",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|45",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Melee Physical Damage",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|44",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Melee Splash",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|43",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Minefield",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|63",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Minion Damage",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|62",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Minion Life",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|61",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Minion Speed",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|42",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Mirage Archer",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|36",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Momentum",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|64",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # More Duration",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|54",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Multiple Projectiles",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|39",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Multiple Totems",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|38",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Multiple Traps",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|40",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Multistrike",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|37",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Nightblade",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|141",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Overcharge",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|136",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Overexertion",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|33",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Physical to Lightning",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|32",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Pierce",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|130",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Pinpoint",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|31",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Point Blank",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|29",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Power Charge On Critical",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|28",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Pulverise",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|27",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Rage",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|145",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Returning Projectiles",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|139",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Rupture",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|20",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Ruthless",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|154",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Sacrifice",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|157",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Sadism",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|19",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Second Wind",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|18",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Slower Projectiles",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|17",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Spell Cascade",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|41",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Spell Echo",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|15",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Spell Totem",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|147",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Spellblade",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|12",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Stun",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|10",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Summon Phantasm",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|25",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Swift Affliction",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|9",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Swift Assembly",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|128",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Swiftbrand",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|8",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Trap",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|7",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Trap and Mine Damage",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|146",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Trauma",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|131",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Trinity",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|5",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Unbound Ailments",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|4",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Unleash",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|129",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Urgent Orders",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|34",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Vicious Projectiles",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|3",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Vile Toxins",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|2",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Void Manipulation",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|152",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Volatility",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|35",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Volley",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|1|102",
+				["text"] = "Skills Socketed in your Helmet are Supported by level # Withering Touch",
 				["type"] = "explicit",
 			},
 			{
@@ -31422,6 +34427,821 @@ return {
 				["type"] = "explicit",
 			},
 			{
+				["id"] = "explicit.stat_4089743927|4|126",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Added Chaos Damage",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|125",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Added Cold Damage",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|124",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Added Fire Damage",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|123",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Added Lightning Damage",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|122",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Additional Accuracy",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|6",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Advanced Traps",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|14",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Ancestral Call",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|121",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Arcane Surge",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|120",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Archmage",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|114",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Arrogance",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|119",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Arrow Nova",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|26",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Ballista Totem",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|118",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Barrage",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|137",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Behead",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|117",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Blasphemy",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|22",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Blastchain Mine",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|162",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Blessed Call",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|116",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Blind",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|115",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Bloodlust",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|132",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Bloodthirst",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|113",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Bonechill",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|112",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Brutality",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|67",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Burning Damage",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|111",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Cast On Critical Strike",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|109",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Cast on Death",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|108",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Cast on Melee Kill",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|110",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Cast when Damage Taken",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|107",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Cast when Stunned",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|106",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Cast while Channelling",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|105",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Chain",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|104",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Chance to Bleed",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|80",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Chance to Flee",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|53",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Chance to Poison",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|101",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Charged Mines",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|77",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Charged Traps",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|100",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Close Combat",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|99",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Cluster Traps",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|98",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Cold Penetration",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|97",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Cold to Fire",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|103",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Combustion",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|96",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Concentrated Effect",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|158",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Controlled Blaze",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|95",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Controlled Destruction",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|151",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Corrupting Cry",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|30",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Critical Strike Affliction",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|133",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Cruelty",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|94",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Culling Strike",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|142",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Cursed Ground",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|46",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Damage on Full Life",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|92",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Deadly Ailments",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|91",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Decay",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|148",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Devour",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|90",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Efficacy",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|11",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Elemental Army",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|75",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Elemental Damage with Attacks",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|89",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Elemental Focus",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|88",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Elemental Proliferation",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|87",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Endurance Charge on Melee Stun",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|86",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Energy Leech",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|140",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Eternal Blessing",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|161",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Excommunicate",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|163",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Exemplar",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|159",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Expert Retaliation",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|85",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Faster Attacks",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|84",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Faster Casting",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|83",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Faster Projectiles",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|82",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Feeding Frenzy",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|81",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Fire Penetration",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|127",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Fist of War",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|135",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Focused Ballista",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|160",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Focused Channelling",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|79",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Fork",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|78",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Fortify",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|149",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Fresh Meat",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|155",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Frigid Bond",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|76",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Generosity",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|150",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Greater Multiple Projectiles",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|74",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Greater Volley",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|153",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Guardian's Blessing",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|164",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Hallow",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|143",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Hex Bloom",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|93",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Hextouch",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|21",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # High-Impact Mine",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|73",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Hypothermia",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|72",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Ice Bite",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|71",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Ignite Proliferation",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|70",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Immolate",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|69",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Impale",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|68",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Increased Area of Effect",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|66",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Increased Critical Damage",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|65",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Increased Critical Strikes",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|60",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Infernal Legion",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|13",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Infused Channelling",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|59",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Innervate",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|23",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Inspiration",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|16",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Intensify",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|58",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Iron Grip",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|57",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Iron Will",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|56",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Item Rarity",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|55",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Knockback",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|24",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Less Duration",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|52",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Life Gain on Hit",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|51",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Life Leech",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|134",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Lifetap",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|50",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Lightning Penetration",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|156",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Locus Mine",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|49",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Maim",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|48",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Mana Leech",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|144",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Manaforged Arrows",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|138",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Mark On Hit",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|47",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Meat Shield",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|45",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Melee Physical Damage",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|44",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Melee Splash",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|43",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Minefield",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|63",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Minion Damage",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|62",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Minion Life",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|61",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Minion Speed",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|42",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Mirage Archer",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|36",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Momentum",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|64",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # More Duration",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|54",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Multiple Projectiles",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|39",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Multiple Totems",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|38",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Multiple Traps",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|40",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Multistrike",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|37",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Nightblade",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|141",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Overcharge",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|136",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Overexertion",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|33",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Physical to Lightning",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|32",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Pierce",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|130",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Pinpoint",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|31",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Point Blank",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|29",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Power Charge On Critical",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|28",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Pulverise",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|27",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Rage",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|145",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Returning Projectiles",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|139",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Rupture",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|20",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Ruthless",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|154",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Sacrifice",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|157",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Sadism",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|19",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Second Wind",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|18",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Slower Projectiles",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|17",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Spell Cascade",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|41",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Spell Echo",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|15",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Spell Totem",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|147",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Spellblade",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|12",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Stun",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|10",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Summon Phantasm",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|25",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Swift Affliction",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|9",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Swift Assembly",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|128",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Swiftbrand",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|8",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Trap",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|7",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Trap and Mine Damage",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|146",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Trauma",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|131",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Trinity",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|5",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Unbound Ailments",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|4",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Unleash",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|129",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Urgent Orders",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|34",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Vicious Projectiles",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|3",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Vile Toxins",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|2",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Void Manipulation",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|152",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Volatility",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|35",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Volley",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4089743927|4|102",
+				["text"] = "Skills granted by your Passive Tree are Supported by level # Withering Touch",
+				["type"] = "explicit",
+			},
+			{
 				["id"] = "explicit.stat_3528761893",
 				["text"] = "Skills have +#% to Critical Strike Chance for each Warcry Exerting them",
 				["type"] = "explicit",
@@ -31449,6 +35269,11 @@ return {
 			{
 				["id"] = "explicit.stat_3959546773",
 				["text"] = "Skills used by Spectral Totems deal #% more Damage",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1372249491",
+				["text"] = "Skills used by Traps and Mines have #% increased Area of Effect",
 				["type"] = "explicit",
 			},
 			{
@@ -31777,8 +35602,8 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_411460446",
-				["text"] = "Socketed Gems are Supported by Level # Added Chaos Damage",
+				["id"] = "explicit.effect_1673391040",
+				["text"] = "Socketed Gems are Supported by Level # Added Chaos Damage Support",
 				["type"] = "explicit",
 			},
 			{
@@ -31787,8 +35612,8 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_4020144606",
-				["text"] = "Socketed Gems are Supported by Level # Added Cold Damage",
+				["id"] = "explicit.effect_3362019776",
+				["text"] = "Socketed Gems are Supported by Level # Added Cold Damage Support",
 				["type"] = "explicit",
 			},
 			{
@@ -31797,8 +35622,8 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_2572192375",
-				["text"] = "Socketed Gems are Supported by Level # Added Fire Damage",
+				["id"] = "explicit.effect_1571191461",
+				["text"] = "Socketed Gems are Supported by Level # Added Fire Damage Support",
 				["type"] = "explicit",
 			},
 			{
@@ -31807,8 +35632,8 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_1647529598",
-				["text"] = "Socketed Gems are Supported by Level # Added Lightning Damage",
+				["id"] = "explicit.effect_3607696303",
+				["text"] = "Socketed Gems are Supported by Level # Added Lightning Damage Support",
 				["type"] = "explicit",
 			},
 			{
@@ -31817,13 +35642,18 @@ return {
 				["type"] = "explicit",
 			},
 			{
+				["id"] = "explicit.effect_338557223",
+				["text"] = "Socketed Gems are Supported by Level # Additional Accuracy Support",
+				["type"] = "explicit",
+			},
+			{
 				["id"] = "explicit.indexable_support_6",
 				["text"] = "Socketed Gems are Supported by Level # Advanced Traps",
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_3839163699",
-				["text"] = "Socketed Gems are Supported by Level # Advanced Traps",
+				["id"] = "explicit.effect_3479500684",
+				["text"] = "Socketed Gems are Supported by Level # Advanced Traps Support",
 				["type"] = "explicit",
 			},
 			{
@@ -31832,13 +35662,8 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_696805682",
-				["text"] = "Socketed Gems are Supported by Level # Ancestral Call",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_833438017",
-				["text"] = "Socketed Gems are Supported by Level # Annihilation",
+				["id"] = "explicit.effect_3672428602",
+				["text"] = "Socketed Gems are Supported by Level # Ancestral Call Support",
 				["type"] = "explicit",
 			},
 			{
@@ -31847,8 +35672,8 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_2287264161",
-				["text"] = "Socketed Gems are Supported by Level # Arcane Surge",
+				["id"] = "explicit.effect_3438910899",
+				["text"] = "Socketed Gems are Supported by Level # Arcane Surge Support",
 				["type"] = "explicit",
 			},
 			{
@@ -31857,8 +35682,8 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_3652278215",
-				["text"] = "Socketed Gems are Supported by Level # Archmage",
+				["id"] = "explicit.effect_2963700146",
+				["text"] = "Socketed Gems are Supported by Level # Archmage Support",
 				["type"] = "explicit",
 			},
 			{
@@ -31867,8 +35692,8 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_3922006600",
-				["text"] = "Socketed Gems are Supported by Level # Arrogance",
+				["id"] = "explicit.effect_1740076026",
+				["text"] = "Socketed Gems are Supported by Level # Arrogance Support",
 				["type"] = "explicit",
 			},
 			{
@@ -31877,173 +35702,128 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_1331336999",
-				["text"] = "Socketed Gems are Supported by Level # Arrow Nova",
+				["id"] = "explicit.effect_1405334938",
+				["text"] = "Socketed Gems are Supported by Level # Arrow Nova Support",
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_2722592119",
-				["text"] = "Socketed Gems are Supported by Level # Awakened Added Chaos Damage",
+				["id"] = "explicit.effect_2052193809",
+				["text"] = "Socketed Gems are Supported by Level # Awakened Added Chaos Damage Support",
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_2509486489",
-				["text"] = "Socketed Gems are Supported by Level # Awakened Added Cold Damage",
+				["id"] = "explicit.effect_2912209560",
+				["text"] = "Socketed Gems are Supported by Level # Awakened Added Cold Damage Support",
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_339131601",
-				["text"] = "Socketed Gems are Supported by Level # Awakened Added Fire Damage",
+				["id"] = "explicit.effect_3311634296",
+				["text"] = "Socketed Gems are Supported by Level # Awakened Added Lightning Damage Support",
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_3429304534",
-				["text"] = "Socketed Gems are Supported by Level # Awakened Added Lightning Damage",
+				["id"] = "explicit.effect_3257625635",
+				["text"] = "Socketed Gems are Supported by Level # Awakened Blasphemy Support",
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_4055526353",
-				["text"] = "Socketed Gems are Supported by Level # Awakened Ancestral Call",
+				["id"] = "explicit.effect_2367771894",
+				["text"] = "Socketed Gems are Supported by Level # Awakened Brutality Support",
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_1046449631",
-				["text"] = "Socketed Gems are Supported by Level # Awakened Blasphemy",
+				["id"] = "explicit.effect_4028786187",
+				["text"] = "Socketed Gems are Supported by Level # Awakened Burning Damage Support",
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_3610200044",
-				["text"] = "Socketed Gems are Supported by Level # Awakened Brutality",
+				["id"] = "explicit.effect_1311270539",
+				["text"] = "Socketed Gems are Supported by Level # Awakened Chain Support",
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_493707013",
-				["text"] = "Socketed Gems are Supported by Level # Awakened Burning Damage",
+				["id"] = "explicit.effect_3879545743",
+				["text"] = "Socketed Gems are Supported by Level # Awakened Deadly Ailments Support",
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_2249251344",
-				["text"] = "Socketed Gems are Supported by Level # Awakened Chain",
+				["id"] = "explicit.effect_786034009",
+				["text"] = "Socketed Gems are Supported by Level # Awakened Elemental Damage with Attacks Support",
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_1889095429",
-				["text"] = "Socketed Gems are Supported by Level # Awakened Cold Penetration",
+				["id"] = "explicit.effect_2513678384",
+				["text"] = "Socketed Gems are Supported by Level # Awakened Elemental Focus Support",
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_271119551",
-				["text"] = "Socketed Gems are Supported by Level # Awakened Controlled Destruction",
+				["id"] = "explicit.effect_3059751250",
+				["text"] = "Socketed Gems are Supported by Level # Awakened Empower Support",
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_1621366871",
-				["text"] = "Socketed Gems are Supported by Level # Awakened Deadly Ailments",
+				["id"] = "explicit.effect_1899953379",
+				["text"] = "Socketed Gems are Supported by Level # Awakened Fork Support",
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_1786672841",
-				["text"] = "Socketed Gems are Supported by Level # Awakened Elemental Damage With Attacks",
+				["id"] = "explicit.effect_3960686014",
+				["text"] = "Socketed Gems are Supported by Level # Awakened Greater Multiple Projectiles Support",
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_2111661233",
-				["text"] = "Socketed Gems are Supported by Level # Awakened Elemental Focus",
+				["id"] = "explicit.effect_3002947169",
+				["text"] = "Socketed Gems are Supported by Level # Awakened Increased Area of Effect Support",
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_3739157305",
-				["text"] = "Socketed Gems are Supported by Level # Awakened Empower",
+				["id"] = "explicit.effect_3874278368",
+				["text"] = "Socketed Gems are Supported by Level # Awakened Lightning Penetration Support",
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_2133566731",
-				["text"] = "Socketed Gems are Supported by Level # Awakened Enhance",
+				["id"] = "explicit.effect_2260732373",
+				["text"] = "Socketed Gems are Supported by Level # Awakened Melee Physical Damage Support",
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_170274897",
-				["text"] = "Socketed Gems are Supported by Level # Awakened Fire Penetration",
+				["id"] = "explicit.effect_672697655",
+				["text"] = "Socketed Gems are Supported by Level # Awakened Melee Splash Support",
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_1803865171",
-				["text"] = "Socketed Gems are Supported by Level # Awakened Fork",
+				["id"] = "explicit.effect_1380260970",
+				["text"] = "Socketed Gems are Supported by Level # Awakened Minion Damage Support",
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_1007586373",
-				["text"] = "Socketed Gems are Supported by Level # Awakened Generosity",
+				["id"] = "explicit.effect_115345895",
+				["text"] = "Socketed Gems are Supported by Level # Awakened Multistrike Support",
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_1980028507",
-				["text"] = "Socketed Gems are Supported by Level # Awakened Greater Multiple Projectiles",
+				["id"] = "explicit.effect_2307564778",
+				["text"] = "Socketed Gems are Supported by Level # Awakened Spell Echo Support",
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_2333301609",
-				["text"] = "Socketed Gems are Supported by Level # Awakened Increased Area Of Effect",
+				["id"] = "explicit.effect_3745700985",
+				["text"] = "Socketed Gems are Supported by Level # Awakened Swift Affliction Support",
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_1544223714",
-				["text"] = "Socketed Gems are Supported by Level # Awakened Lightning Penetration",
+				["id"] = "explicit.effect_1134484173",
+				["text"] = "Socketed Gems are Supported by Level # Awakened Unbound Ailments Support",
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_2173069393",
-				["text"] = "Socketed Gems are Supported by Level # Awakened Melee Physical Damage",
+				["id"] = "explicit.effect_482188560",
+				["text"] = "Socketed Gems are Supported by Level # Awakened Vicious Projectiles Support",
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_2253550081",
-				["text"] = "Socketed Gems are Supported by Level # Awakened Melee Splash",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_2100048639",
-				["text"] = "Socketed Gems are Supported by Level # Awakened Minion Damage",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_511417258",
-				["text"] = "Socketed Gems are Supported by Level # Awakened Multistrike",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_2222752567",
-				["text"] = "Socketed Gems are Supported by Level # Awakened Spell Cascade",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_48859060",
-				["text"] = "Socketed Gems are Supported by Level # Awakened Spell Echo",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_4089933397",
-				["text"] = "Socketed Gems are Supported by Level # Awakened Swift Affliction",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_2116002108",
-				["text"] = "Socketed Gems are Supported by Level # Awakened Unbound Ailments",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_3428829446",
-				["text"] = "Socketed Gems are Supported by Level # Awakened Unleash",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_2647355055",
-				["text"] = "Socketed Gems are Supported by Level # Awakened Vicious Projectiles",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_1882929618",
-				["text"] = "Socketed Gems are Supported by Level # Awakened Void Manipulation",
+				["id"] = "explicit.effect_2653498431",
+				["text"] = "Socketed Gems are Supported by Level # Awakened Void Manipulation Support",
 				["type"] = "explicit",
 			},
 			{
@@ -32052,8 +35832,8 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_3030692053",
-				["text"] = "Socketed Gems are Supported by Level # Ballista Totem",
+				["id"] = "explicit.effect_2686067790",
+				["text"] = "Socketed Gems are Supported by Level # Ballista Totem Support",
 				["type"] = "explicit",
 			},
 			{
@@ -32062,8 +35842,8 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_3827538724",
-				["text"] = "Socketed Gems are Supported by Level # Barrage",
+				["id"] = "explicit.effect_3805221392",
+				["text"] = "Socketed Gems are Supported by Level # Barrage Support",
 				["type"] = "explicit",
 			},
 			{
@@ -32072,8 +35852,8 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_1019145105",
-				["text"] = "Socketed Gems are Supported by Level # Behead",
+				["id"] = "explicit.effect_3897784788",
+				["text"] = "Socketed Gems are Supported by Level # Behead Support",
 				["type"] = "explicit",
 			},
 			{
@@ -32082,8 +35862,8 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_539747809",
-				["text"] = "Socketed Gems are Supported by Level # Blasphemy",
+				["id"] = "explicit.effect_434885230",
+				["text"] = "Socketed Gems are Supported by Level # Blasphemy Support",
 				["type"] = "explicit",
 			},
 			{
@@ -32092,8 +35872,8 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_1710508327",
-				["text"] = "Socketed Gems are Supported by Level # Blastchain Mine",
+				["id"] = "explicit.effect_3082206530",
+				["text"] = "Socketed Gems are Supported by Level # Blastchain Mine Support",
 				["type"] = "explicit",
 			},
 			{
@@ -32107,8 +35887,13 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_1966051190",
-				["text"] = "Socketed Gems are Supported by Level # Block Chance Reduction",
+				["id"] = "explicit.effect_3972941836",
+				["text"] = "Socketed Gems are Supported by Level # Blind Support",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.effect_155410994",
+				["text"] = "Socketed Gems are Supported by Level # Block Chance Reduction Support",
 				["type"] = "explicit",
 			},
 			{
@@ -32117,8 +35902,8 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_804508379",
-				["text"] = "Socketed Gems are Supported by Level # Bloodlust",
+				["id"] = "explicit.effect_3124293229",
+				["text"] = "Socketed Gems are Supported by Level # Bloodlust Support",
 				["type"] = "explicit",
 			},
 			{
@@ -32132,8 +35917,8 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_1859244771",
-				["text"] = "Socketed Gems are Supported by Level # Bonechill",
+				["id"] = "explicit.effect_3024539694",
+				["text"] = "Socketed Gems are Supported by Level # Bonechill Support",
 				["type"] = "explicit",
 			},
 			{
@@ -32142,8 +35927,8 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_715256302",
-				["text"] = "Socketed Gems are Supported by Level # Brutality",
+				["id"] = "explicit.effect_3869346801",
+				["text"] = "Socketed Gems are Supported by Level # Brutality Support",
 				["type"] = "explicit",
 			},
 			{
@@ -32152,8 +35937,8 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_2680613507",
-				["text"] = "Socketed Gems are Supported by Level # Burning Damage",
+				["id"] = "explicit.effect_1200122555",
+				["text"] = "Socketed Gems are Supported by Level # Burning Damage Support",
 				["type"] = "explicit",
 			},
 			{
@@ -32162,13 +35947,8 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_3312593243",
-				["text"] = "Socketed Gems are Supported by Level # Cast On Melee Kill",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_1316646496",
-				["text"] = "Socketed Gems are Supported by Level # Cast While Channelling",
+				["id"] = "explicit.effect_4267977279",
+				["text"] = "Socketed Gems are Supported by Level # Cast On Critical Strike Support",
 				["type"] = "explicit",
 			},
 			{
@@ -32177,13 +35957,23 @@ return {
 				["type"] = "explicit",
 			},
 			{
+				["id"] = "explicit.effect_626699959",
+				["text"] = "Socketed Gems are Supported by Level # Cast on Death Support",
+				["type"] = "explicit",
+			},
+			{
 				["id"] = "explicit.indexable_support_110",
 				["text"] = "Socketed Gems are Supported by Level # Cast on Melee Kill",
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_668102856",
-				["text"] = "Socketed Gems are Supported by Level # Cast on Ward Break",
+				["id"] = "explicit.effect_2640673956",
+				["text"] = "Socketed Gems are Supported by Level # Cast on Melee Kill Support",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.effect_2594535436",
+				["text"] = "Socketed Gems are Supported by Level # Cast on Ward Break Support",
 				["type"] = "explicit",
 			},
 			{
@@ -32192,8 +35982,8 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_3036440332",
-				["text"] = "Socketed Gems are Supported by Level # Cast when Damage Taken",
+				["id"] = "explicit.effect_2581493934",
+				["text"] = "Socketed Gems are Supported by Level # Cast when Damage Taken Support",
 				["type"] = "explicit",
 			},
 			{
@@ -32202,8 +35992,18 @@ return {
 				["type"] = "explicit",
 			},
 			{
+				["id"] = "explicit.effect_3474714415",
+				["text"] = "Socketed Gems are Supported by Level # Cast when Stunned Support",
+				["type"] = "explicit",
+			},
+			{
 				["id"] = "explicit.indexable_support_108",
 				["text"] = "Socketed Gems are Supported by Level # Cast while Channelling",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.effect_1723015380",
+				["text"] = "Socketed Gems are Supported by Level # Cast while Channelling Support",
 				["type"] = "explicit",
 			},
 			{
@@ -32212,13 +36012,8 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_2643665787",
-				["text"] = "Socketed Gems are Supported by Level # Chain",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_4197676934",
-				["text"] = "Socketed Gems are Supported by Level # Chance To Bleed",
+				["id"] = "explicit.effect_3009566559",
+				["text"] = "Socketed Gems are Supported by Level # Chain Support",
 				["type"] = "explicit",
 			},
 			{
@@ -32227,8 +36022,18 @@ return {
 				["type"] = "explicit",
 			},
 			{
+				["id"] = "explicit.effect_1561428496",
+				["text"] = "Socketed Gems are Supported by Level # Chance to Bleed Support",
+				["type"] = "explicit",
+			},
+			{
 				["id"] = "explicit.indexable_support_81",
 				["text"] = "Socketed Gems are Supported by Level # Chance to Flee",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.effect_3318957131",
+				["text"] = "Socketed Gems are Supported by Level # Chance to Flee Support",
 				["type"] = "explicit",
 			},
 			{
@@ -32237,8 +36042,8 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_228165595",
-				["text"] = "Socketed Gems are Supported by Level # Chance to Poison",
+				["id"] = "explicit.effect_2141384509",
+				["text"] = "Socketed Gems are Supported by Level # Chance to Poison Support",
 				["type"] = "explicit",
 			},
 			{
@@ -32247,8 +36052,8 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_1365328494",
-				["text"] = "Socketed Gems are Supported by Level # Charged Mines",
+				["id"] = "explicit.effect_2638439725",
+				["text"] = "Socketed Gems are Supported by Level # Charged Mines Support",
 				["type"] = "explicit",
 			},
 			{
@@ -32257,8 +36062,8 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_479453859",
-				["text"] = "Socketed Gems are Supported by Level # Charged Traps",
+				["id"] = "explicit.effect_3872728076",
+				["text"] = "Socketed Gems are Supported by Level # Charged Traps Support",
 				["type"] = "explicit",
 			},
 			{
@@ -32267,13 +36072,8 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_694651314",
-				["text"] = "Socketed Gems are Supported by Level # Close Combat",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_2854183975",
-				["text"] = "Socketed Gems are Supported by Level # Cluster Trap",
+				["id"] = "explicit.effect_1602381821",
+				["text"] = "Socketed Gems are Supported by Level # Close Combat Support",
 				["type"] = "explicit",
 			},
 			{
@@ -32282,13 +36082,18 @@ return {
 				["type"] = "explicit",
 			},
 			{
+				["id"] = "explicit.effect_3808743835",
+				["text"] = "Socketed Gems are Supported by Level # Cluster Traps Support",
+				["type"] = "explicit",
+			},
+			{
 				["id"] = "explicit.indexable_support_100",
 				["text"] = "Socketed Gems are Supported by Level # Cold Penetration",
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_1991958615",
-				["text"] = "Socketed Gems are Supported by Level # Cold Penetration",
+				["id"] = "explicit.effect_3851855898",
+				["text"] = "Socketed Gems are Supported by Level # Cold Penetration Support",
 				["type"] = "explicit",
 			},
 			{
@@ -32297,8 +36102,8 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_550444281",
-				["text"] = "Socketed Gems are Supported by Level # Cold to Fire",
+				["id"] = "explicit.effect_3756080110",
+				["text"] = "Socketed Gems are Supported by Level # Cold to Fire Support",
 				["type"] = "explicit",
 			},
 			{
@@ -32307,18 +36112,8 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_1828254451",
-				["text"] = "Socketed Gems are Supported by Level # Combustion",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_991044906",
-				["text"] = "Socketed Gems are Supported by Level # Communion",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_2020568221",
-				["text"] = "Socketed Gems are Supported by Level # Companionship",
+				["id"] = "explicit.effect_3985111281",
+				["text"] = "Socketed Gems are Supported by Level # Combustion Support",
 				["type"] = "explicit",
 			},
 			{
@@ -32327,13 +36122,13 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_2388360415",
-				["text"] = "Socketed Gems are Supported by Level # Concentrated Effect",
+				["id"] = "explicit.effect_3293595800",
+				["text"] = "Socketed Gems are Supported by Level # Concentrated Effect Support",
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_1674086814",
-				["text"] = "Socketed Gems are Supported by Level # Congregation",
+				["id"] = "explicit.effect_3136470162",
+				["text"] = "Socketed Gems are Supported by Level # Congregation Support",
 				["type"] = "explicit",
 			},
 			{
@@ -32342,8 +36137,8 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_124226929",
-				["text"] = "Socketed Gems are Supported by Level # Controlled Blaze",
+				["id"] = "explicit.effect_189485532",
+				["text"] = "Socketed Gems are Supported by Level # Controlled Blaze Support",
 				["type"] = "explicit",
 			},
 			{
@@ -32352,17 +36147,12 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_3718597497",
-				["text"] = "Socketed Gems are Supported by Level # Controlled Destruction",
+				["id"] = "explicit.effect_3431656752",
+				["text"] = "Socketed Gems are Supported by Level # Controlled Destruction Support",
 				["type"] = "explicit",
 			},
 			{
 				["id"] = "explicit.indexable_support_155",
-				["text"] = "Socketed Gems are Supported by Level # Corrupting Cry",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_3486166615",
 				["text"] = "Socketed Gems are Supported by Level # Corrupting Cry",
 				["type"] = "explicit",
 			},
@@ -32372,8 +36162,8 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_2228279620",
-				["text"] = "Socketed Gems are Supported by Level # Critical Strike Affliction",
+				["id"] = "explicit.effect_602948540",
+				["text"] = "Socketed Gems are Supported by Level # Critical Strike Affliction Support",
 				["type"] = "explicit",
 			},
 			{
@@ -32382,13 +36172,8 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_1679136",
-				["text"] = "Socketed Gems are Supported by Level # Cruelty",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_2252088501",
-				["text"] = "Socketed Gems are Supported by Level # Cull the Weak",
+				["id"] = "explicit.effect_2251567057",
+				["text"] = "Socketed Gems are Supported by Level # Cruelty Support",
 				["type"] = "explicit",
 			},
 			{
@@ -32397,8 +36182,8 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_1135493957",
-				["text"] = "Socketed Gems are Supported by Level # Culling Strike",
+				["id"] = "explicit.effect_1961292105",
+				["text"] = "Socketed Gems are Supported by Level # Culling Strike Support",
 				["type"] = "explicit",
 			},
 			{
@@ -32407,13 +36192,8 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_3998071134",
-				["text"] = "Socketed Gems are Supported by Level # Cursed Ground",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_2126431157",
-				["text"] = "Socketed Gems are Supported by Level # Damage On Full Life",
+				["id"] = "explicit.effect_3984157052",
+				["text"] = "Socketed Gems are Supported by Level # Cursed Ground Support",
 				["type"] = "explicit",
 			},
 			{
@@ -32422,13 +36202,18 @@ return {
 				["type"] = "explicit",
 			},
 			{
+				["id"] = "explicit.effect_918792330",
+				["text"] = "Socketed Gems are Supported by Level # Damage on Full Life Support",
+				["type"] = "explicit",
+			},
+			{
 				["id"] = "explicit.indexable_support_94",
 				["text"] = "Socketed Gems are Supported by Level # Deadly Ailments",
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_103909236",
-				["text"] = "Socketed Gems are Supported by Level # Deadly Ailments",
+				["id"] = "explicit.effect_1329591193",
+				["text"] = "Socketed Gems are Supported by Level # Deadly Ailments Support",
 				["type"] = "explicit",
 			},
 			{
@@ -32437,8 +36222,8 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_388696990",
-				["text"] = "Socketed Gems are Supported by Level # Decay",
+				["id"] = "explicit.effect_153063788",
+				["text"] = "Socketed Gems are Supported by Level # Decay Support",
 				["type"] = "explicit",
 			},
 			{
@@ -32447,23 +36232,28 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_2820883532",
-				["text"] = "Socketed Gems are Supported by Level # Devour",
+				["id"] = "explicit.effect_1726066205",
+				["text"] = "Socketed Gems are Supported by Level # Devour Support",
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_3274973940",
-				["text"] = "Socketed Gems are Supported by Level # Divine Blessing",
+				["id"] = "explicit.effect_3161048706",
+				["text"] = "Socketed Gems are Supported by Level # Divine Blessing Support",
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_2755724036",
-				["text"] = "Socketed Gems are Supported by Level # Divine Sentinel",
+				["id"] = "explicit.effect_2031996092",
+				["text"] = "Socketed Gems are Supported by Level # Divine Sentinel Support",
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_3207084920",
-				["text"] = "Socketed Gems are Supported by Level # Eclipse",
+				["id"] = "explicit.effect_3947742455",
+				["text"] = "Socketed Gems are Supported by Level # Earthbreaker Support",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.effect_3959464467",
+				["text"] = "Socketed Gems are Supported by Level # Eclipse Support",
 				["type"] = "explicit",
 			},
 			{
@@ -32472,8 +36262,8 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_3924539382",
-				["text"] = "Socketed Gems are Supported by Level # Efficacy",
+				["id"] = "explicit.effect_2795990092",
+				["text"] = "Socketed Gems are Supported by Level # Efficacy Support",
 				["type"] = "explicit",
 			},
 			{
@@ -32482,7 +36272,7 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_514705332",
+				["id"] = "explicit.effect_400129667",
 				["text"] = "Socketed Gems are Supported by Level # Elemental Army Support",
 				["type"] = "explicit",
 			},
@@ -32492,18 +36282,23 @@ return {
 				["type"] = "explicit",
 			},
 			{
+				["id"] = "explicit.effect_468251502",
+				["text"] = "Socketed Gems are Supported by Level # Elemental Damage with Attacks Support",
+				["type"] = "explicit",
+			},
+			{
 				["id"] = "explicit.indexable_support_90",
 				["text"] = "Socketed Gems are Supported by Level # Elemental Focus",
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_1169422227",
-				["text"] = "Socketed Gems are Supported by Level # Elemental Focus",
+				["id"] = "explicit.effect_2722476813",
+				["text"] = "Socketed Gems are Supported by Level # Elemental Focus Support",
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_1994143317",
-				["text"] = "Socketed Gems are Supported by Level # Elemental Penetration",
+				["id"] = "explicit.effect_3232631539",
+				["text"] = "Socketed Gems are Supported by Level # Elemental Penetration Support",
 				["type"] = "explicit",
 			},
 			{
@@ -32512,13 +36307,13 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_2929101122",
-				["text"] = "Socketed Gems are Supported by Level # Elemental Proliferation",
+				["id"] = "explicit.effect_3828086965",
+				["text"] = "Socketed Gems are Supported by Level # Elemental Proliferation Support",
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_3581578643",
-				["text"] = "Socketed Gems are Supported by Level # Empower",
+				["id"] = "explicit.effect_360069007",
+				["text"] = "Socketed Gems are Supported by Level # Empower Support",
 				["type"] = "explicit",
 			},
 			{
@@ -32527,8 +36322,8 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_3375208082",
-				["text"] = "Socketed Gems are Supported by Level # Endurance Charge on Melee Stun",
+				["id"] = "explicit.effect_144941225",
+				["text"] = "Socketed Gems are Supported by Level # Endurance Charge on Melee Stun Support",
 				["type"] = "explicit",
 			},
 			{
@@ -32537,18 +36332,18 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_799443127",
-				["text"] = "Socketed Gems are Supported by Level # Energy Leech",
+				["id"] = "explicit.effect_9279802",
+				["text"] = "Socketed Gems are Supported by Level # Energy Leech Support",
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_2556436882",
-				["text"] = "Socketed Gems are Supported by Level # Enhance",
+				["id"] = "explicit.effect_3006785117",
+				["text"] = "Socketed Gems are Supported by Level # Enhance Support",
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_2065361612",
-				["text"] = "Socketed Gems are Supported by Level # Enlighten",
+				["id"] = "explicit.effect_1979264894",
+				["text"] = "Socketed Gems are Supported by Level # Enlighten Support",
 				["type"] = "explicit",
 			},
 			{
@@ -32557,8 +36352,8 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_3062849155",
-				["text"] = "Socketed Gems are Supported by Level # Eternal Blessing",
+				["id"] = "explicit.effect_222199368",
+				["text"] = "Socketed Gems are Supported by Level # Eternal Blessing Support",
 				["type"] = "explicit",
 			},
 			{
@@ -32567,17 +36362,12 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_1385879224",
-				["text"] = "Socketed Gems are Supported by Level # Excommunicate",
+				["id"] = "explicit.effect_2612646353",
+				["text"] = "Socketed Gems are Supported by Level # Excommunicate Support",
 				["type"] = "explicit",
 			},
 			{
 				["id"] = "explicit.indexable_support_171",
-				["text"] = "Socketed Gems are Supported by Level # Exemplar",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_3370631451",
 				["text"] = "Socketed Gems are Supported by Level # Exemplar",
 				["type"] = "explicit",
 			},
@@ -32587,18 +36377,13 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_3570337997",
-				["text"] = "Socketed Gems are Supported by Level # Expert Retaliation",
-				["type"] = "explicit",
-			},
-			{
 				["id"] = "explicit.indexable_support_86",
 				["text"] = "Socketed Gems are Supported by Level # Faster Attacks",
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_928701213",
-				["text"] = "Socketed Gems are Supported by Level # Faster Attacks",
+				["id"] = "explicit.effect_4291787627",
+				["text"] = "Socketed Gems are Supported by Level # Faster Attacks Support",
 				["type"] = "explicit",
 			},
 			{
@@ -32607,8 +36392,8 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_2169938251",
-				["text"] = "Socketed Gems are Supported by Level # Faster Casting",
+				["id"] = "explicit.effect_1324938267",
+				["text"] = "Socketed Gems are Supported by Level # Faster Casting Support",
 				["type"] = "explicit",
 			},
 			{
@@ -32617,13 +36402,18 @@ return {
 				["type"] = "explicit",
 			},
 			{
+				["id"] = "explicit.effect_1770376530",
+				["text"] = "Socketed Gems are Supported by Level # Faster Projectiles Support",
+				["type"] = "explicit",
+			},
+			{
 				["id"] = "explicit.indexable_support_83",
 				["text"] = "Socketed Gems are Supported by Level # Feeding Frenzy",
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_2269282877",
-				["text"] = "Socketed Gems are Supported by Level # Feeding Frenzy",
+				["id"] = "explicit.effect_3628997762",
+				["text"] = "Socketed Gems are Supported by Level # Feeding Frenzy Support",
 				["type"] = "explicit",
 			},
 			{
@@ -32632,13 +36422,8 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_1979658770",
-				["text"] = "Socketed Gems are Supported by Level # Fire Penetration",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_3265951306",
-				["text"] = "Socketed Gems are Supported by Level # Fire Penetration",
+				["id"] = "explicit.effect_3161142268",
+				["text"] = "Socketed Gems are Supported by Level # Fire Penetration Support",
 				["type"] = "explicit",
 			},
 			{
@@ -32647,8 +36432,8 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_2419657101",
-				["text"] = "Socketed Gems are Supported by Level # Fist of War",
+				["id"] = "explicit.effect_813521895",
+				["text"] = "Socketed Gems are Supported by Level # Fist of War Support",
 				["type"] = "explicit",
 			},
 			{
@@ -32667,18 +36452,13 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_921536976",
-				["text"] = "Socketed Gems are Supported by Level # Focused Ballista",
-				["type"] = "explicit",
-			},
-			{
 				["id"] = "explicit.indexable_support_165",
 				["text"] = "Socketed Gems are Supported by Level # Focused Channelling",
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_1948535732",
-				["text"] = "Socketed Gems are Supported by Level # Focused Channelling",
+				["id"] = "explicit.effect_2653742489",
+				["text"] = "Socketed Gems are Supported by Level # Focused Channelling Support",
 				["type"] = "explicit",
 			},
 			{
@@ -32687,13 +36467,18 @@ return {
 				["type"] = "explicit",
 			},
 			{
+				["id"] = "explicit.effect_3553187279",
+				["text"] = "Socketed Gems are Supported by Level # Fork Support",
+				["type"] = "explicit",
+			},
+			{
 				["id"] = "explicit.indexable_support_79",
 				["text"] = "Socketed Gems are Supported by Level # Fortify",
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_107118693",
-				["text"] = "Socketed Gems are Supported by Level # Fortify",
+				["id"] = "explicit.effect_3543464371",
+				["text"] = "Socketed Gems are Supported by Level # Fortify Support",
 				["type"] = "explicit",
 			},
 			{
@@ -32702,8 +36487,8 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_3713917371",
-				["text"] = "Socketed Gems are Supported by Level # Fresh Meat",
+				["id"] = "explicit.effect_967395006",
+				["text"] = "Socketed Gems are Supported by Level # Fresh Meat Support",
 				["type"] = "explicit",
 			},
 			{
@@ -32712,8 +36497,8 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_3031999964",
-				["text"] = "Socketed Gems are Supported by Level # Frigid Bond",
+				["id"] = "explicit.effect_4154493255",
+				["text"] = "Socketed Gems are Supported by Level # Frigid Bond Support",
 				["type"] = "explicit",
 			},
 			{
@@ -32722,13 +36507,8 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_2593773031",
-				["text"] = "Socketed Gems are Supported by Level # Generosity",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_2336972637",
-				["text"] = "Socketed Gems are Supported by Level # Greater Fork",
+				["id"] = "explicit.effect_1339810278",
+				["text"] = "Socketed Gems are Supported by Level # Generosity Support",
 				["type"] = "explicit",
 			},
 			{
@@ -32737,28 +36517,28 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_359450079",
-				["text"] = "Socketed Gems are Supported by Level # Greater Multiple Projectiles",
+				["id"] = "explicit.effect_2107340112",
+				["text"] = "Socketed Gems are Supported by Level # Greater Multiple Projectiles Support",
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_3144811156",
-				["text"] = "Socketed Gems are Supported by Level # Greater Multistrike",
+				["id"] = "explicit.effect_907088360",
+				["text"] = "Socketed Gems are Supported by Level # Greater Multistrike Support",
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_2292610865",
-				["text"] = "Socketed Gems are Supported by Level # Greater Spell Cascade",
+				["id"] = "explicit.effect_1865320540",
+				["text"] = "Socketed Gems are Supported by Level # Greater Spell Cascade Support",
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_3388448323",
-				["text"] = "Socketed Gems are Supported by Level # Greater Spell Echo",
+				["id"] = "explicit.effect_3544093007",
+				["text"] = "Socketed Gems are Supported by Level # Greater Spell Echo Support",
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_90008414",
-				["text"] = "Socketed Gems are Supported by Level # Greater Unleash",
+				["id"] = "explicit.effect_603124590",
+				["text"] = "Socketed Gems are Supported by Level # Greater Unleash Support",
 				["type"] = "explicit",
 			},
 			{
@@ -32767,8 +36547,8 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_2223565123",
-				["text"] = "Socketed Gems are Supported by Level # Greater Volley",
+				["id"] = "explicit.effect_2447178998",
+				["text"] = "Socketed Gems are Supported by Level # Greater Volley Support",
 				["type"] = "explicit",
 			},
 			{
@@ -32777,8 +36557,8 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_3434296257",
-				["text"] = "Socketed Gems are Supported by Level # Guardian's Blessing",
+				["id"] = "explicit.effect_1263906374",
+				["text"] = "Socketed Gems are Supported by Level # Guardian's Blessing Support",
 				["type"] = "explicit",
 			},
 			{
@@ -32792,13 +36572,8 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_3199084318",
-				["text"] = "Socketed Gems are Supported by Level # Hex Bloom",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_3684412823",
-				["text"] = "Socketed Gems are Supported by Level # Hexpass",
+				["id"] = "explicit.effect_548051260",
+				["text"] = "Socketed Gems are Supported by Level # Hex Bloom Support",
 				["type"] = "explicit",
 			},
 			{
@@ -32812,8 +36587,8 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_2697741965",
-				["text"] = "Socketed Gems are Supported by Level # Hextouch",
+				["id"] = "explicit.effect_1749703704",
+				["text"] = "Socketed Gems are Supported by Level # Hextouch Support",
 				["type"] = "explicit",
 			},
 			{
@@ -32822,8 +36597,8 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_2116100988",
-				["text"] = "Socketed Gems are Supported by Level # High-Impact Mine",
+				["id"] = "explicit.effect_3482292969",
+				["text"] = "Socketed Gems are Supported by Level # High-Impact Mine Support",
 				["type"] = "explicit",
 			},
 			{
@@ -32832,8 +36607,8 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_13669281",
-				["text"] = "Socketed Gems are Supported by Level # Hypothermia",
+				["id"] = "explicit.effect_1214076534",
+				["text"] = "Socketed Gems are Supported by Level # Hypothermia Support",
 				["type"] = "explicit",
 			},
 			{
@@ -32842,8 +36617,8 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_1384629003",
-				["text"] = "Socketed Gems are Supported by Level # Ice Bite",
+				["id"] = "explicit.effect_2409633913",
+				["text"] = "Socketed Gems are Supported by Level # Ice Bite Support",
 				["type"] = "explicit",
 			},
 			{
@@ -32852,8 +36627,8 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_3593797653",
-				["text"] = "Socketed Gems are Supported by Level # Ignite Proliferation",
+				["id"] = "explicit.effect_2343871202",
+				["text"] = "Socketed Gems are Supported by Level # Ignite Proliferation Support",
 				["type"] = "explicit",
 			},
 			{
@@ -32862,8 +36637,8 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_2420410470",
-				["text"] = "Socketed Gems are Supported by Level # Immolate",
+				["id"] = "explicit.effect_1199731147",
+				["text"] = "Socketed Gems are Supported by Level # Immolate Support",
 				["type"] = "explicit",
 			},
 			{
@@ -32872,8 +36647,8 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_1900098804",
-				["text"] = "Socketed Gems are Supported by Level # Impale",
+				["id"] = "explicit.effect_3419961156",
+				["text"] = "Socketed Gems are Supported by Level # Impale Support",
 				["type"] = "explicit",
 			},
 			{
@@ -32892,8 +36667,8 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_3720936304",
-				["text"] = "Socketed Gems are Supported by Level # Increased Area of Effect",
+				["id"] = "explicit.effect_3737592146",
+				["text"] = "Socketed Gems are Supported by Level # Increased Area of Effect Support",
 				["type"] = "explicit",
 			},
 			{
@@ -32902,13 +36677,18 @@ return {
 				["type"] = "explicit",
 			},
 			{
+				["id"] = "explicit.effect_4278342035",
+				["text"] = "Socketed Gems are Supported by Level # Increased Critical Damage Support",
+				["type"] = "explicit",
+			},
+			{
 				["id"] = "explicit.indexable_support_66",
 				["text"] = "Socketed Gems are Supported by Level # Increased Critical Strikes",
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_2259700079",
-				["text"] = "Socketed Gems are Supported by Level # Increased Critical Strikes",
+				["id"] = "explicit.effect_1355803435",
+				["text"] = "Socketed Gems are Supported by Level # Increased Critical Strikes Support",
 				["type"] = "explicit",
 			},
 			{
@@ -32917,8 +36697,8 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_2201102274",
-				["text"] = "Socketed Gems are Supported by Level # Infernal Legion",
+				["id"] = "explicit.effect_2264294898",
+				["text"] = "Socketed Gems are Supported by Level # Infernal Legion Support",
 				["type"] = "explicit",
 			},
 			{
@@ -32927,8 +36707,8 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_4048257027",
-				["text"] = "Socketed Gems are Supported by Level # Infused Channelling",
+				["id"] = "explicit.effect_1303915392",
+				["text"] = "Socketed Gems are Supported by Level # Infused Channelling Support",
 				["type"] = "explicit",
 			},
 			{
@@ -32937,8 +36717,8 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_1106668565",
-				["text"] = "Socketed Gems are Supported by Level # Innervate",
+				["id"] = "explicit.effect_1994599451",
+				["text"] = "Socketed Gems are Supported by Level # Innervate Support",
 				["type"] = "explicit",
 			},
 			{
@@ -32947,13 +36727,8 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_1866911844",
-				["text"] = "Socketed Gems are Supported by Level # Inspiration",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_749770518",
-				["text"] = "Socketed Gems are Supported by Level # Inspiration",
+				["id"] = "explicit.effect_859488427",
+				["text"] = "Socketed Gems are Supported by Level # Inspiration Support",
 				["type"] = "explicit",
 			},
 			{
@@ -32962,18 +36737,8 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_1792524915",
-				["text"] = "Socketed Gems are Supported by Level # Intensify",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_1876637240",
-				["text"] = "Socketed Gems are Supported by Level # Intensify",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_28821524",
-				["text"] = "Socketed Gems are Supported by Level # Intensify",
+				["id"] = "explicit.effect_429242364",
+				["text"] = "Socketed Gems are Supported by Level # Intensify Support",
 				["type"] = "explicit",
 			},
 			{
@@ -32982,13 +36747,18 @@ return {
 				["type"] = "explicit",
 			},
 			{
+				["id"] = "explicit.effect_3121158131",
+				["text"] = "Socketed Gems are Supported by Level # Invert the Rules Support",
+				["type"] = "explicit",
+			},
+			{
 				["id"] = "explicit.indexable_support_59",
 				["text"] = "Socketed Gems are Supported by Level # Iron Grip",
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_251446805",
-				["text"] = "Socketed Gems are Supported by Level # Iron Grip",
+				["id"] = "explicit.effect_865121484",
+				["text"] = "Socketed Gems are Supported by Level # Iron Grip Support",
 				["type"] = "explicit",
 			},
 			{
@@ -32997,13 +36767,13 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_906997920",
-				["text"] = "Socketed Gems are Supported by Level # Iron Will",
+				["id"] = "explicit.effect_351343865",
+				["text"] = "Socketed Gems are Supported by Level # Iron Will Support",
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_248646071",
-				["text"] = "Socketed Gems are Supported by Level # Item Quantity",
+				["id"] = "explicit.effect_1733367133",
+				["text"] = "Socketed Gems are Supported by Level # Item Quantity Support",
 				["type"] = "explicit",
 			},
 			{
@@ -33012,8 +36782,8 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_3587013273",
-				["text"] = "Socketed Gems are Supported by Level # Item Rarity",
+				["id"] = "explicit.effect_3334987531",
+				["text"] = "Socketed Gems are Supported by Level # Item Rarity Support",
 				["type"] = "explicit",
 			},
 			{
@@ -33027,8 +36797,8 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_4066711249",
-				["text"] = "Socketed Gems are Supported by Level # Knockback",
+				["id"] = "explicit.effect_838736469",
+				["text"] = "Socketed Gems are Supported by Level # Knockback Support",
 				["type"] = "explicit",
 			},
 			{
@@ -33037,13 +36807,8 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_2487643588",
-				["text"] = "Socketed Gems are Supported by Level # Less Duration",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_2032386732",
-				["text"] = "Socketed Gems are Supported by Level # Life Gain On Hit",
+				["id"] = "explicit.effect_4185976903",
+				["text"] = "Socketed Gems are Supported by Level # Less Duration Support",
 				["type"] = "explicit",
 			},
 			{
@@ -33052,8 +36817,18 @@ return {
 				["type"] = "explicit",
 			},
 			{
+				["id"] = "explicit.effect_4282732147",
+				["text"] = "Socketed Gems are Supported by Level # Life Gain on Hit Support",
+				["type"] = "explicit",
+			},
+			{
 				["id"] = "explicit.indexable_support_52",
 				["text"] = "Socketed Gems are Supported by Level # Life Leech",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.effect_2713755048",
+				["text"] = "Socketed Gems are Supported by Level # Life Leech Support",
 				["type"] = "explicit",
 			},
 			{
@@ -33062,8 +36837,8 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_1079239905",
-				["text"] = "Socketed Gems are Supported by Level # Lifetap",
+				["id"] = "explicit.effect_265550805",
+				["text"] = "Socketed Gems are Supported by Level # Lifetap Support",
 				["type"] = "explicit",
 			},
 			{
@@ -33072,8 +36847,8 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_3354027870",
-				["text"] = "Socketed Gems are Supported by Level # Lightning Penetration",
+				["id"] = "explicit.effect_724848072",
+				["text"] = "Socketed Gems are Supported by Level # Lightning Penetration Support",
 				["type"] = "explicit",
 			},
 			{
@@ -33097,8 +36872,8 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_3826977109",
-				["text"] = "Socketed Gems are Supported by Level # Maim",
+				["id"] = "explicit.effect_1243416714",
+				["text"] = "Socketed Gems are Supported by Level # Maim Support",
 				["type"] = "explicit",
 			},
 			{
@@ -33107,8 +36882,8 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_2608615082",
-				["text"] = "Socketed Gems are Supported by Level # Mana Leech",
+				["id"] = "explicit.effect_952649073",
+				["text"] = "Socketed Gems are Supported by Level # Mana Leech Support",
 				["type"] = "explicit",
 			},
 			{
@@ -33117,17 +36892,12 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_4022502578",
-				["text"] = "Socketed Gems are Supported by Level # Manaforged Arrows",
+				["id"] = "explicit.effect_1787679190",
+				["text"] = "Socketed Gems are Supported by Level # Manaforged Arrows Support",
 				["type"] = "explicit",
 			},
 			{
 				["id"] = "explicit.indexable_support_141",
-				["text"] = "Socketed Gems are Supported by Level # Mark On Hit",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_3485498591",
 				["text"] = "Socketed Gems are Supported by Level # Mark On Hit",
 				["type"] = "explicit",
 			},
@@ -33137,8 +36907,8 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_858460086",
-				["text"] = "Socketed Gems are Supported by Level # Meat Shield",
+				["id"] = "explicit.effect_1933760319",
+				["text"] = "Socketed Gems are Supported by Level # Meat Shield Support",
 				["type"] = "explicit",
 			},
 			{
@@ -33147,8 +36917,8 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_2985291457",
-				["text"] = "Socketed Gems are Supported by Level # Melee Physical Damage",
+				["id"] = "explicit.effect_369135889",
+				["text"] = "Socketed Gems are Supported by Level # Melee Physical Damage Support",
 				["type"] = "explicit",
 			},
 			{
@@ -33157,13 +36927,18 @@ return {
 				["type"] = "explicit",
 			},
 			{
+				["id"] = "explicit.effect_682681978",
+				["text"] = "Socketed Gems are Supported by Level # Melee Splash Support",
+				["type"] = "explicit",
+			},
+			{
 				["id"] = "explicit.indexable_support_44",
 				["text"] = "Socketed Gems are Supported by Level # Minefield",
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_2805586447",
-				["text"] = "Socketed Gems are Supported by Level # Minefield",
+				["id"] = "explicit.effect_2617381612",
+				["text"] = "Socketed Gems are Supported by Level # Minefield Support",
 				["type"] = "explicit",
 			},
 			{
@@ -33172,8 +36947,8 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_808939569",
-				["text"] = "Socketed Gems are Supported by Level # Minion Damage",
+				["id"] = "explicit.effect_174595432",
+				["text"] = "Socketed Gems are Supported by Level # Minion Damage Support",
 				["type"] = "explicit",
 			},
 			{
@@ -33182,8 +36957,8 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_1337327984",
-				["text"] = "Socketed Gems are Supported by Level # Minion Life",
+				["id"] = "explicit.effect_3858590323",
+				["text"] = "Socketed Gems are Supported by Level # Minion Life Support",
 				["type"] = "explicit",
 			},
 			{
@@ -33192,8 +36967,8 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_995332031",
-				["text"] = "Socketed Gems are Supported by Level # Minion Speed",
+				["id"] = "explicit.effect_540595610",
+				["text"] = "Socketed Gems are Supported by Level # Minion Speed Support",
 				["type"] = "explicit",
 			},
 			{
@@ -33202,8 +36977,8 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_3239503729",
-				["text"] = "Socketed Gems are Supported by Level # Mirage Archer",
+				["id"] = "explicit.effect_2937933274",
+				["text"] = "Socketed Gems are Supported by Level # Mirage Archer Support",
 				["type"] = "explicit",
 			},
 			{
@@ -33212,8 +36987,8 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_3237923082",
-				["text"] = "Socketed Gems are Supported by Level # Momentum",
+				["id"] = "explicit.effect_3893320621",
+				["text"] = "Socketed Gems are Supported by Level # Momentum Support",
 				["type"] = "explicit",
 			},
 			{
@@ -33222,8 +36997,8 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_407317553",
-				["text"] = "Socketed Gems are Supported by Level # More Duration",
+				["id"] = "explicit.effect_1544569957",
+				["text"] = "Socketed Gems are Supported by Level # More Duration Support",
 				["type"] = "explicit",
 			},
 			{
@@ -33232,8 +37007,8 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_584144941",
-				["text"] = "Socketed Gems are Supported by Level # Multiple Projectiles",
+				["id"] = "explicit.effect_1153652646",
+				["text"] = "Socketed Gems are Supported by Level # Multiple Projectiles Support",
 				["type"] = "explicit",
 			},
 			{
@@ -33242,17 +37017,12 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_807186595",
-				["text"] = "Socketed Gems are Supported by Level # Multiple Totems",
+				["id"] = "explicit.effect_4083688802",
+				["text"] = "Socketed Gems are Supported by Level # Multiple Totems Support",
 				["type"] = "explicit",
 			},
 			{
 				["id"] = "explicit.indexable_support_39",
-				["text"] = "Socketed Gems are Supported by Level # Multiple Traps",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_3016436615",
 				["text"] = "Socketed Gems are Supported by Level # Multiple Traps",
 				["type"] = "explicit",
 			},
@@ -33262,13 +37032,18 @@ return {
 				["type"] = "explicit",
 			},
 			{
+				["id"] = "explicit.effect_2100902429",
+				["text"] = "Socketed Gems are Supported by Level # Multistrike Support",
+				["type"] = "explicit",
+			},
+			{
 				["id"] = "explicit.indexable_support_38",
 				["text"] = "Socketed Gems are Supported by Level # Nightblade",
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_2861649515",
-				["text"] = "Socketed Gems are Supported by Level # Nightblade",
+				["id"] = "explicit.effect_1505316781",
+				["text"] = "Socketed Gems are Supported by Level # Nightblade Support",
 				["type"] = "explicit",
 			},
 			{
@@ -33277,8 +37052,8 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_3462081007",
-				["text"] = "Socketed Gems are Supported by Level # Overcharge",
+				["id"] = "explicit.effect_707288393",
+				["text"] = "Socketed Gems are Supported by Level # Overcharge Support",
 				["type"] = "explicit",
 			},
 			{
@@ -33287,13 +37062,13 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_3327487371",
-				["text"] = "Socketed Gems are Supported by Level # Physical To Lightning",
+				["id"] = "explicit.indexable_support_34",
+				["text"] = "Socketed Gems are Supported by Level # Physical to Lightning",
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.indexable_support_34",
-				["text"] = "Socketed Gems are Supported by Level # Physical to Lightning",
+				["id"] = "explicit.effect_1059201360",
+				["text"] = "Socketed Gems are Supported by Level # Physical to Lightning Support",
 				["type"] = "explicit",
 			},
 			{
@@ -33307,12 +37082,12 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.indexable_support_132",
-				["text"] = "Socketed Gems are Supported by Level # Pinpoint",
+				["id"] = "explicit.effect_3457811678",
+				["text"] = "Socketed Gems are Supported by Level # Pierce Support",
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_1609369521",
+				["id"] = "explicit.indexable_support_132",
 				["text"] = "Socketed Gems are Supported by Level # Pinpoint",
 				["type"] = "explicit",
 			},
@@ -33322,8 +37097,8 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_3754129682",
-				["text"] = "Socketed Gems are Supported by Level # Point Blank",
+				["id"] = "explicit.effect_3737573678",
+				["text"] = "Socketed Gems are Supported by Level # Point Blank Support",
 				["type"] = "explicit",
 			},
 			{
@@ -33332,8 +37107,8 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_4015918489",
-				["text"] = "Socketed Gems are Supported by Level # Power Charge On Critical Strike",
+				["id"] = "explicit.effect_949715883",
+				["text"] = "Socketed Gems are Supported by Level # Power Charge On Critical Support",
 				["type"] = "explicit",
 			},
 			{
@@ -33362,8 +37137,13 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_282757414",
-				["text"] = "Socketed Gems are Supported by Level # Pulverise",
+				["id"] = "explicit.effect_971650107",
+				["text"] = "Socketed Gems are Supported by Level # Pulverise Support",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_165595385",
+				["text"] = "Socketed Gems are Supported by Level # Pyre",
 				["type"] = "explicit",
 			},
 			{
@@ -33372,8 +37152,8 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_369650395",
-				["text"] = "Socketed Gems are Supported by Level # Rage",
+				["id"] = "explicit.effect_3512123051",
+				["text"] = "Socketed Gems are Supported by Level # Rage Support",
 				["type"] = "explicit",
 			},
 			{
@@ -33382,22 +37162,12 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_1549219417",
-				["text"] = "Socketed Gems are Supported by Level # Returning Projectiles",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_52197415",
-				["text"] = "Socketed Gems are Supported by Level # Returning Projectiles",
+				["id"] = "explicit.effect_2714845045",
+				["text"] = "Socketed Gems are Supported by Level # Returning Projectiles Support",
 				["type"] = "explicit",
 			},
 			{
 				["id"] = "explicit.indexable_support_142",
-				["text"] = "Socketed Gems are Supported by Level # Rupture",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_970734352",
 				["text"] = "Socketed Gems are Supported by Level # Rupture",
 				["type"] = "explicit",
 			},
@@ -33407,8 +37177,8 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_3796013729",
-				["text"] = "Socketed Gems are Supported by Level # Ruthless",
+				["id"] = "explicit.effect_3921181872",
+				["text"] = "Socketed Gems are Supported by Level # Ruthless Support",
 				["type"] = "explicit",
 			},
 			{
@@ -33427,18 +37197,13 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_2302807931",
-				["text"] = "Socketed Gems are Supported by Level # Sacrifice",
-				["type"] = "explicit",
-			},
-			{
 				["id"] = "explicit.indexable_support_161",
 				["text"] = "Socketed Gems are Supported by Level # Sadism",
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_794471597",
-				["text"] = "Socketed Gems are Supported by Level # Sadism",
+				["id"] = "explicit.effect_2142148729",
+				["text"] = "Socketed Gems are Supported by Level # Sadism Support",
 				["type"] = "explicit",
 			},
 			{
@@ -33447,8 +37212,8 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_402499111",
-				["text"] = "Socketed Gems are Supported by Level # Second Wind",
+				["id"] = "explicit.effect_876810709",
+				["text"] = "Socketed Gems are Supported by Level # Second Wind Support",
 				["type"] = "explicit",
 			},
 			{
@@ -33467,8 +37232,13 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_1390285657",
-				["text"] = "Socketed Gems are Supported by Level # Slower Projectiles",
+				["id"] = "explicit.effect_1276857842",
+				["text"] = "Socketed Gems are Supported by Level # Slower Projectiles Support",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.effect_2282649307",
+				["text"] = "Socketed Gems are Supported by Level # Snipe Support",
 				["type"] = "explicit",
 			},
 			{
@@ -33477,8 +37247,8 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_503990161",
-				["text"] = "Socketed Gems are Supported by Level # Spell Cascade",
+				["id"] = "explicit.effect_3678242906",
+				["text"] = "Socketed Gems are Supported by Level # Spell Cascade Support",
 				["type"] = "explicit",
 			},
 			{
@@ -33487,13 +37257,8 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_438778966",
-				["text"] = "Socketed Gems are Supported by Level # Spell Echo",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_913919528",
-				["text"] = "Socketed Gems are Supported by Level # Spell Echo",
+				["id"] = "explicit.effect_3995245401",
+				["text"] = "Socketed Gems are Supported by Level # Spell Echo Support",
 				["type"] = "explicit",
 			},
 			{
@@ -33502,8 +37267,8 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_2962840349",
-				["text"] = "Socketed Gems are Supported by Level # Spell Totem",
+				["id"] = "explicit.effect_1858870975",
+				["text"] = "Socketed Gems are Supported by Level # Spell Totem Support",
 				["type"] = "explicit",
 			},
 			{
@@ -33512,8 +37277,8 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_633235561",
-				["text"] = "Socketed Gems are Supported by Level # Spellblade",
+				["id"] = "explicit.effect_4055657913",
+				["text"] = "Socketed Gems are Supported by Level # Spellblade Support",
 				["type"] = "explicit",
 			},
 			{
@@ -33522,18 +37287,18 @@ return {
 				["type"] = "explicit",
 			},
 			{
+				["id"] = "explicit.effect_1878151040",
+				["text"] = "Socketed Gems are Supported by Level # Stun Support",
+				["type"] = "explicit",
+			},
+			{
 				["id"] = "explicit.indexable_support_10",
 				["text"] = "Socketed Gems are Supported by Level # Summon Phantasm",
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_2169409479",
-				["text"] = "Socketed Gems are Supported by Level # Summon Phantasm",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_3155072742",
-				["text"] = "Socketed Gems are Supported by Level # Summon Phantasm",
+				["id"] = "explicit.effect_2439286871",
+				["text"] = "Socketed Gems are Supported by Level # Summon Phantasm Support",
 				["type"] = "explicit",
 			},
 			{
@@ -33542,8 +37307,8 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_1636220212",
-				["text"] = "Socketed Gems are Supported by Level # Swift Affliction",
+				["id"] = "explicit.effect_1115172759",
+				["text"] = "Socketed Gems are Supported by Level # Swift Affliction Support",
 				["type"] = "explicit",
 			},
 			{
@@ -33552,8 +37317,8 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_4021476585",
-				["text"] = "Socketed Gems are Supported by Level # Swift Assembly",
+				["id"] = "explicit.effect_2142007278",
+				["text"] = "Socketed Gems are Supported by Level # Swift Assembly Support",
 				["type"] = "explicit",
 			},
 			{
@@ -33562,13 +37327,8 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_2127532091",
-				["text"] = "Socketed Gems are Supported by Level # Swiftbrand",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_3740740992",
-				["text"] = "Socketed Gems are Supported by Level # Transfusion",
+				["id"] = "explicit.effect_2129634187",
+				["text"] = "Socketed Gems are Supported by Level # Swiftbrand Support",
 				["type"] = "explicit",
 			},
 			{
@@ -33577,13 +37337,8 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_1122134690",
-				["text"] = "Socketed Gems are Supported by Level # Trap",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_3814066599",
-				["text"] = "Socketed Gems are Supported by Level # Trap And Mine Damage",
+				["id"] = "explicit.effect_1854569159",
+				["text"] = "Socketed Gems are Supported by Level # Trap Support",
 				["type"] = "explicit",
 			},
 			{
@@ -33592,12 +37347,12 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.indexable_support_150",
-				["text"] = "Socketed Gems are Supported by Level # Trauma",
+				["id"] = "explicit.effect_4174205387",
+				["text"] = "Socketed Gems are Supported by Level # Trap and Mine Damage Support",
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_1715139253",
+				["id"] = "explicit.indexable_support_150",
 				["text"] = "Socketed Gems are Supported by Level # Trauma",
 				["type"] = "explicit",
 			},
@@ -33607,8 +37362,8 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_3111091501",
-				["text"] = "Socketed Gems are Supported by Level # Trinity",
+				["id"] = "explicit.effect_2242579123",
+				["text"] = "Socketed Gems are Supported by Level # Trinity Support",
 				["type"] = "explicit",
 			},
 			{
@@ -33617,8 +37372,8 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_3699494172",
-				["text"] = "Socketed Gems are Supported by Level # Unbound Ailments",
+				["id"] = "explicit.effect_880096186",
+				["text"] = "Socketed Gems are Supported by Level # Unbound Ailments Support",
 				["type"] = "explicit",
 			},
 			{
@@ -33627,17 +37382,12 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_3356013982",
-				["text"] = "Socketed Gems are Supported by Level # Unleash",
+				["id"] = "explicit.effect_1710445055",
+				["text"] = "Socketed Gems are Supported by Level # Unleash Support",
 				["type"] = "explicit",
 			},
 			{
 				["id"] = "explicit.indexable_support_131",
-				["text"] = "Socketed Gems are Supported by Level # Urgent Orders",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_1485525812",
 				["text"] = "Socketed Gems are Supported by Level # Urgent Orders",
 				["type"] = "explicit",
 			},
@@ -33647,8 +37397,8 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_2513293614",
-				["text"] = "Socketed Gems are Supported by Level # Vicious Projectiles",
+				["id"] = "explicit.effect_4119948431",
+				["text"] = "Socketed Gems are Supported by Level # Vicious Projectiles Support",
 				["type"] = "explicit",
 			},
 			{
@@ -33657,8 +37407,8 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_1002855537",
-				["text"] = "Socketed Gems are Supported by Level # Vile Toxins",
+				["id"] = "explicit.effect_2698327786",
+				["text"] = "Socketed Gems are Supported by Level # Vile Toxins Support",
 				["type"] = "explicit",
 			},
 			{
@@ -33667,8 +37417,8 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_1866583932",
-				["text"] = "Socketed Gems are Supported by Level # Void Manipulation",
+				["id"] = "explicit.effect_2742501709",
+				["text"] = "Socketed Gems are Supported by Level # Void Manipulation Support",
 				["type"] = "explicit",
 			},
 			{
@@ -33682,8 +37432,8 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_4184135167",
-				["text"] = "Socketed Gems are Supported by Level # Volatility",
+				["id"] = "explicit.effect_3498266457",
+				["text"] = "Socketed Gems are Supported by Level # Volatility Support",
 				["type"] = "explicit",
 			},
 			{
@@ -33692,8 +37442,8 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_2696557965",
-				["text"] = "Socketed Gems are Supported by Level # Volley",
+				["id"] = "explicit.effect_3022937704",
+				["text"] = "Socketed Gems are Supported by Level # Volley Support",
 				["type"] = "explicit",
 			},
 			{
@@ -33707,108 +37457,8 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_3287477747",
-				["text"] = "Socketed Gems are Supported by Level # Withering Touch",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_2530022765",
-				["text"] = "Socketed Gems are Supported by Level 1 Greater Spell Echo",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_3425526049",
-				["text"] = "Socketed Gems are Supported by Level 10 Controlled Destruction",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_3561676020",
-				["text"] = "Socketed Gems are Supported by Level 10 Intensify",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_725896422",
-				["text"] = "Socketed Gems are Supported by Level 10 Spell Echo",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_1567462963",
-				["text"] = "Socketed Gems are supported by Level # Additional Accuracy",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_2223640518",
-				["text"] = "Socketed Gems are supported by Level # Blind",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_2325632050",
-				["text"] = "Socketed Gems are supported by Level # Cast On Critical Strike",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_3878987051",
-				["text"] = "Socketed Gems are supported by Level # Cast on Death",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_1079148723",
-				["text"] = "Socketed Gems are supported by Level # Cast when Stunned",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_2178803872",
-				["text"] = "Socketed Gems are supported by Level # Chance to Bleed",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_952060721",
-				["text"] = "Socketed Gems are supported by Level # Chance to Flee",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_2532625478",
-				["text"] = "Socketed Gems are supported by Level # Elemental Damage with Attacks",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_99089516",
-				["text"] = "Socketed Gems are supported by Level # Faster Projectiles",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_2062753054",
-				["text"] = "Socketed Gems are supported by Level # Fork",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_1108755349",
-				["text"] = "Socketed Gems are supported by Level # Increased Critical Damage",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_891277550",
-				["text"] = "Socketed Gems are supported by Level # Life Leech",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_1811422871",
-				["text"] = "Socketed Gems are supported by Level # Melee Splash",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_2501237765",
-				["text"] = "Socketed Gems are supported by Level # Multistrike",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_2433615566",
-				["text"] = "Socketed Gems are supported by Level # Pierce",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_689720069",
-				["text"] = "Socketed Gems are supported by Level # Stun",
+				["id"] = "explicit.effect_602297583",
+				["text"] = "Socketed Gems are Supported by Level # Withering Touch Support",
 				["type"] = "explicit",
 			},
 			{
@@ -33829,6 +37479,11 @@ return {
 			{
 				["id"] = "explicit.stat_3835899275",
 				["text"] = "Socketed Gems deal #% more Elemental Damage",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2876425796",
+				["text"] = "Socketed Gems deal #% more damage per Socketed Skill Gem",
 				["type"] = "explicit",
 			},
 			{
@@ -33927,11 +37582,6 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_3282302743",
-				["text"] = "Socketed Non-Channelling Bow Skills are Triggered by Snipe Socketed Triggered Bow Skills gain a 0.05 second Cooldown",
-				["type"] = "explicit",
-			},
-			{
 				["id"] = "explicit.stat_2443457281",
 				["text"] = "Socketed Projectile Spells deal #% more Damage with Hits",
 				["type"] = "explicit",
@@ -33992,8 +37642,8 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_940684417",
-				["text"] = "Socketed Slam Gems are Supported by Level 25 Earthbreaker",
+				["id"] = "explicit.stat_3361806635",
+				["text"] = "Socketed Spells are Supported by level # Crab Totem",
 				["type"] = "explicit",
 			},
 			{
@@ -34019,6 +37669,11 @@ return {
 			{
 				["id"] = "explicit.stat_806627038",
 				["text"] = "Socketed Support Gems can also Support Skills from your Main Hand",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1521791684",
+				["text"] = "Socketed Support Gems have no effect",
 				["type"] = "explicit",
 			},
 			{
@@ -34167,6 +37822,11 @@ return {
 				["type"] = "explicit",
 			},
 			{
+				["id"] = "explicit.stat_3469279727",
+				["text"] = "Stationary Enemies within 6 metres gain a Grasping Vine every second",
+				["type"] = "explicit",
+			},
+			{
 				["id"] = "explicit.stat_2237528173",
 				["text"] = "Strength from Passives in Radius is Transformed to Dexterity",
 				["type"] = "explicit",
@@ -34282,8 +37942,28 @@ return {
 				["type"] = "explicit",
 			},
 			{
+				["id"] = "explicit.pseudo_timeless_jewel_amanamu",
+				["text"] = "Subjugating # souls in the thrall of Amanamu",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.pseudo_timeless_jewel_kurgal",
+				["text"] = "Subjugating # souls in the thrall of Kurgal",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.pseudo_timeless_jewel_tecrod",
+				["text"] = "Subjugating # souls in the thrall of Tecrod",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.pseudo_timeless_jewel_ulaman",
+				["text"] = "Subjugating # souls in the thrall of Ulaman",
+				["type"] = "explicit",
+			},
+			{
 				["id"] = "explicit.stat_3464137628",
-				["text"] = "Suffixes Cannot Be Changed",
+				["text"] = "Suffix Modifiers cannot be changed",
 				["type"] = "explicit",
 			},
 			{
@@ -34687,6 +38367,11 @@ return {
 				["type"] = "explicit",
 			},
 			{
+				["id"] = "explicit.stat_3440719546",
+				["text"] = "The Effect of Chill on you is reversed while on Chilled ground",
+				["type"] = "explicit",
+			},
+			{
 				["id"] = "explicit.stat_4070390513",
 				["text"] = "The Grey Wind Howls used by this Graft also grants #% chance to Avoid Elemental Ailments",
 				["type"] = "explicit",
@@ -34737,13 +38422,13 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_648923098",
-				["text"] = "The first Strongbox Opened in this Area is guarded by an additional Rare Monster",
+				["id"] = "explicit.stat_3246496608",
+				["text"] = "The first # Mana Burn applied to you has no effect",
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_4048158159",
-				["text"] = "The first time a Player reaches # Rampage Kills in this Area, 6 Basic Currency Items will drop",
+				["id"] = "explicit.stat_648923098",
+				["text"] = "The first Strongbox Opened in this Area is guarded by an additional Rare Monster",
 				["type"] = "explicit",
 			},
 			{
@@ -34763,7 +38448,7 @@ return {
 			},
 			{
 				["id"] = "explicit.stat_436556261",
-				["text"] = "This Area's Modifiers to Quantity of Items found also apply to Rarity",
+				["text"] = "This Area's Modifiers to Atlas Drops also apply to Item Rarity",
 				["type"] = "explicit",
 			},
 			{
@@ -34773,7 +38458,7 @@ return {
 			},
 			{
 				["id"] = "explicit.stat_436556261",
-				["text"] = "This Map's Modifiers to Quantity of Items found also apply to Rarity",
+				["text"] = "This Map's Modifiers to Atlas Drops also apply to Item Rarity",
 				["type"] = "explicit",
 			},
 			{
@@ -34782,8 +38467,138 @@ return {
 				["type"] = "explicit",
 			},
 			{
+				["id"] = "explicit.stat_1849225887",
+				["text"] = "Threads dropped in Area have #% increased chance to be Abyss Threads",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_9949109",
+				["text"] = "Threads dropped in Area have #% increased chance to be Bestiary Threads",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1048062553",
+				["text"] = "Threads dropped in Area have #% increased chance to be Betrayal Threads",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_3866432319",
+				["text"] = "Threads dropped in Area have #% increased chance to be Blight Threads",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_46751559",
+				["text"] = "Threads dropped in Area have #% increased chance to be Expedition Threads",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1215465898",
+				["text"] = "Threads dropped in Area have #% increased chance to be Incursion Threads",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1858240316",
+				["text"] = "Threads dropped in Area have #% increased chance to be Legion Threads",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2810822634",
+				["text"] = "Threads dropped in Area have #% increased chance to be Ritual Threads",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2263557454",
+				["text"] = "Threads dropped in Area have #% increased chance to be Ultimatum Threads",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1849225887",
+				["text"] = "Threads dropped in your Maps have #% increased chance to be Abyss Threads",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_9949109",
+				["text"] = "Threads dropped in your Maps have #% increased chance to be Bestiary Threads",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1048062553",
+				["text"] = "Threads dropped in your Maps have #% increased chance to be Betrayal Threads",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_3866432319",
+				["text"] = "Threads dropped in your Maps have #% increased chance to be Blight Threads",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_46751559",
+				["text"] = "Threads dropped in your Maps have #% increased chance to be Expedition Threads",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1215465898",
+				["text"] = "Threads dropped in your Maps have #% increased chance to be Incursion Threads",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1858240316",
+				["text"] = "Threads dropped in your Maps have #% increased chance to be Legion Threads",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2810822634",
+				["text"] = "Threads dropped in your Maps have #% increased chance to be Ritual Threads",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2263557454",
+				["text"] = "Threads dropped in your Maps have #% increased chance to be Ultimatum Threads",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1978710645",
+				["text"] = "Threads found in your Maps cannot be Abyss Threads",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_785938790",
+				["text"] = "Threads found in your Maps cannot be Blight Threads",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1089629910",
+				["text"] = "Threads found in your Maps cannot be Breach Threads",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_3965835074",
+				["text"] = "Threads found in your Maps cannot be Expedition Threads",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_3777973541",
+				["text"] = "Threads found in your Maps cannot be Legion Threads",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1693489030",
+				["text"] = "Threads found in your Maps cannot be Ritual Threads",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_264552782",
+				["text"] = "Threads found in your Maps cannot be Ultimatum Threads",
+				["type"] = "explicit",
+			},
+			{
 				["id"] = "explicit.stat_2395088636",
 				["text"] = "Throw an additional Mine",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2130824945",
+				["text"] = "Throw up to # additional Trap if dual wielding",
 				["type"] = "explicit",
 			},
 			{
@@ -34812,6 +38627,11 @@ return {
 				["type"] = "explicit",
 			},
 			{
+				["id"] = "explicit.stat_806147232",
+				["text"] = "Topaz Flasks applied to you have #% increased Effect",
+				["type"] = "explicit",
+			},
+			{
 				["id"] = "explicit.stat_3249943883",
 				["text"] = "Tormented Spirits can Possess Players for 20 seconds Tormented Spirits cannot Possess Monsters",
 				["type"] = "explicit",
@@ -34837,13 +38657,13 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_1582162479",
+				["id"] = "explicit.stat_3249943883",
 				["text"] = "Tormented Spirits in your Maps can Possess Players for 20 seconds Tormented Spirits in your Maps cannot Possess Monsters",
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_3249943883",
-				["text"] = "Tormented Spirits in your Maps can Possess Players for 20 seconds Tormented Spirits in your Maps cannot Possess Monsters",
+				["id"] = "explicit.stat_1582162479",
+				["text"] = "Tormented Spirits in your Maps can Possess Players for 30 seconds Tormented Spirits in your Maps cannot Possess Monsters",
 				["type"] = "explicit",
 			},
 			{
@@ -34863,7 +38683,7 @@ return {
 			},
 			{
 				["id"] = "explicit.stat_1723061251",
-				["text"] = "Totems Reflect #% of their maximum Life as Fire Damage to nearby Enemies when Hit",
+				["text"] = "Totems Reflect #% of their maximum Life as Fire Damage to Enemies within 1.8 metres when Hit",
 				["type"] = "explicit",
 			},
 			{
@@ -34884,6 +38704,11 @@ return {
 			{
 				["id"] = "explicit.stat_1809006367",
 				["text"] = "Totems gain +#% to all Elemental Resistances",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1778855371",
+				["text"] = "Totems have #% increased Movement Speed",
 				["type"] = "explicit",
 			},
 			{
@@ -35077,11 +38902,6 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_1662669872",
-				["text"] = "Trigger Level # Stalking Pustule on Kill",
-				["type"] = "explicit",
-			},
-			{
 				["id"] = "explicit.stat_818329660",
 				["text"] = "Trigger Level # Storm Cascade when you Attack",
 				["type"] = "explicit",
@@ -35134,6 +38954,16 @@ return {
 			{
 				["id"] = "explicit.stat_1468606528",
 				["text"] = "Trigger Level 10 Summon Spectral Wolf on Kill",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1662669872",
+				["text"] = "Trigger Level 15 Stalking Pustule on Kill",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4034618287",
+				["text"] = "Trigger Level 20 Goreblossom after spending #% of your Maximum Life on Spells",
 				["type"] = "explicit",
 			},
 			{
@@ -35197,8 +39027,18 @@ return {
 				["type"] = "explicit",
 			},
 			{
+				["id"] = "explicit.stat_1273709603",
+				["text"] = "Trigger level # Ghostly Artillery when you Attack with this Weapon",
+				["type"] = "explicit",
+			},
+			{
 				["id"] = "explicit.stat_1925643497",
 				["text"] = "Trigger level 20 Suspend in Time on Casting a Spell",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_3500769326",
+				["text"] = "Trigger level 20 Temporal Mirage on using a Movement Attack",
 				["type"] = "explicit",
 			},
 			{
@@ -35738,7 +39578,7 @@ return {
 			},
 			{
 				["id"] = "explicit.stat_3190161627",
-				["text"] = "Unique Monsters in your Maps have #% increased chance to drop Scarabs",
+				["text"] = "Unique Monsters in your Maps have #% increased chance to drop Threads",
 				["type"] = "explicit",
 			},
 			{
@@ -35902,6 +39742,11 @@ return {
 				["type"] = "explicit",
 			},
 			{
+				["id"] = "explicit.stat_3458351769",
+				["text"] = "Voracious Flame",
+				["type"] = "explicit",
+			},
+			{
 				["id"] = "explicit.stat_1798031916",
 				["text"] = "Vulnerability has #% reduced Reservation if Cast as an Aura",
 				["type"] = "explicit",
@@ -36047,18 +39892,18 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_1353527704",
-				["text"] = "When a fifth Impale is inflicted on a Player, Impales are removed to Reflect their Physical Damage multiplied by their remaining Hits to that Player and their Allies within 1.8 metres",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_1353527704",
-				["text"] = "When a fifth Impale is inflicted on a Player, Impales are removed to Reflect their Physical Damage multiplied by their remaining Hits to that Player and their Allies within 1.8 metres",
-				["type"] = "explicit",
-			},
-			{
 				["id"] = "explicit.stat_1960869129",
-				["text"] = "When a nearby Minion dies, gain Rotten Bulwark equal to #% of its maximum Life",
+				["text"] = "When a Minion within 4 metres dies, gain Rotten Bulwark equal to #% of its maximum Life",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1353527704",
+				["text"] = "When a fifth Impale is inflicted on a Player, Impales are removed to Reflect their Physical Damage multiplied by their remaining Hits to that Player and their Allies within 1.8 metres",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1353527704",
+				["text"] = "When a fifth Impale is inflicted on a Player, Impales are removed to Reflect their Physical Damage multiplied by their remaining Hits to that Player and their Allies within 1.8 metres",
 				["type"] = "explicit",
 			},
 			{
@@ -36098,7 +39943,7 @@ return {
 			},
 			{
 				["id"] = "explicit.stat_3462132936",
-				["text"] = "When you Kill a Shocked Enemy, inflict an equivalent Shock on each nearby Enemy",
+				["text"] = "When you Kill a Shocked Enemy, inflict an equivalent Shock on each Enemy within 2 metres",
 				["type"] = "explicit",
 			},
 			{
@@ -36108,7 +39953,7 @@ return {
 			},
 			{
 				["id"] = "explicit.stat_2638352064",
-				["text"] = "When you Kill an Ignited Enemy, inflict an equivalent Ignite on each nearby Enemy",
+				["text"] = "When you Kill an Ignited Enemy, inflict an equivalent Ignite on each Enemy within 2 metres",
 				["type"] = "explicit",
 			},
 			{
@@ -36148,7 +39993,7 @@ return {
 			},
 			{
 				["id"] = "explicit.stat_3730497630",
-				["text"] = "While there are at least five nearby Allies, you and nearby Allies have Onslaught",
+				["text"] = "While there are at least five Allies within 6 metres, you and Allies within 6 metres have Onslaught",
 				["type"] = "explicit",
 			},
 			{
@@ -36547,13 +40392,13 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_1250317014",
-				["text"] = "With at least 40 Strength in Radius, #% increased Rarity of Items dropped by Enemies Shattered by Glacial Hammer",
+				["id"] = "explicit.stat_3738331820",
+				["text"] = "With at least 40 Strength in Radius, #% of Glacial Hammer Physical Damage Converted to Cold Damage",
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_3738331820",
-				["text"] = "With at least 40 Strength in Radius, #% of Glacial Hammer Physical Damage Converted to Cold Damage",
+				["id"] = "explicit.stat_1250317014",
+				["text"] = "With at least 40 Strength in Radius, +#% to Rarity of Items dropped by Enemies Shattered by Glacial Hammer",
 				["type"] = "explicit",
 			},
 			{
@@ -36563,7 +40408,7 @@ return {
 			},
 			{
 				["id"] = "explicit.stat_1539696482",
-				["text"] = "With at least 40 Strength in Radius, Cleave has +0.1 metres to Radius per Nearby Enemy, up to a maximum of +1 metre",
+				["text"] = "With at least 40 Strength in Radius, Cleave has +0.1 metres to Radius per Enemy within 2 metres, up to a maximum of +1 metre",
 				["type"] = "explicit",
 			},
 			{
@@ -36598,7 +40443,7 @@ return {
 			},
 			{
 				["id"] = "explicit.stat_530280833",
-				["text"] = "With at least 40 Strength in Radius, Hits with Vigilant Strike Fortify you and Nearby Allies for # seconds",
+				["text"] = "With at least 40 Strength in Radius, Hits with Vigilant Strike Fortify you and Allies within a 10 metre base radius for # seconds",
 				["type"] = "explicit",
 			},
 			{
@@ -36677,48 +40522,53 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_113536037",
-				["text"] = "You and Enemies in your Presence count as moving while affected by Elemental Ailments",
+				["id"] = "explicit.stat_790453126",
+				["text"] = "You and Allies near your Banner have +#% to Damage over Time Multiplier per 2 Valour consumed for that Banner",
 				["type"] = "explicit",
 			},
 			{
 				["id"] = "explicit.stat_3232695173",
-				["text"] = "You and Nearby Allies have # to # added Chaos Damage per White Socket",
+				["text"] = "You and Allies within 6 metres have # to # added Chaos Damage per White Socket",
 				["type"] = "explicit",
 			},
 			{
 				["id"] = "explicit.stat_2665149933",
-				["text"] = "You and Nearby Allies have # to # added Cold Damage per Green Socket",
+				["text"] = "You and Allies within 6 metres have # to # added Cold Damage per Green Socket",
 				["type"] = "explicit",
 			},
 			{
 				["id"] = "explicit.stat_1666896662",
-				["text"] = "You and Nearby Allies have # to # added Fire Damage per Red Socket",
+				["text"] = "You and Allies within 6 metres have # to # added Fire Damage per Red Socket",
 				["type"] = "explicit",
 			},
 			{
 				["id"] = "explicit.stat_3726585224",
-				["text"] = "You and Nearby Allies have # to # added Lightning Damage per Blue Socket",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_549203380",
-				["text"] = "You and Nearby Allies have #% increased Item Rarity",
+				["text"] = "You and Allies within 6 metres have # to # added Lightning Damage per Blue Socket",
 				["type"] = "explicit",
 			},
 			{
 				["id"] = "explicit.stat_319842716",
-				["text"] = "You and nearby Allies have +#% to Elemental Resistances",
+				["text"] = "You and Allies within 6 metres have +#% to Elemental Resistances",
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_2936084533",
-				["text"] = "You and nearby Allies have 30% increased Mana Regeneration Rate",
+				["id"] = "explicit.stat_549203380",
+				["text"] = "You and Allies within 6 metres have +#% to Item Rarity",
 				["type"] = "explicit",
 			},
 			{
 				["id"] = "explicit.stat_637766438",
-				["text"] = "You and nearby allies gain #% increased Damage",
+				["text"] = "You and Allies within 7.5 metres gain #% increased Damage",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2936084533",
+				["text"] = "You and Allies within 7.5 metres have 30% increased Mana Regeneration Rate",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_113536037",
+				["text"] = "You and Enemies in your Presence count as moving while affected by Elemental Ailments",
 				["type"] = "explicit",
 			},
 			{
@@ -36822,6 +40672,11 @@ return {
 				["type"] = "explicit",
 			},
 			{
+				["id"] = "explicit.stat_1248307887",
+				["text"] = "You are affected by Delirium Fog",
+				["type"] = "explicit",
+			},
+			{
 				["id"] = "explicit.stat_2584264074",
 				["text"] = "You are at Maximum Chance to Block Attack Damage if you have not Blocked Recently",
 				["type"] = "explicit",
@@ -36919,6 +40774,11 @@ return {
 			{
 				["id"] = "explicit.stat_1052583507",
 				["text"] = "You cannot Regenerate Energy Shield",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_301822628",
+				["text"] = "You cannot Regenerate or Recoup Life",
 				["type"] = "explicit",
 			},
 			{
@@ -37093,12 +40953,7 @@ return {
 			},
 			{
 				["id"] = "explicit.stat_2105456174",
-				["text"] = "You grant # Frenzy Charges to allies on Death",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_845062586",
-				["text"] = "You have Acceleration Shrine Buff while affected by no Flasks",
+				["text"] = "You grant # Frenzy Charges to Allies within 5 metres on Death",
 				["type"] = "explicit",
 			},
 			{
@@ -37107,8 +40962,8 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_1665800734",
-				["text"] = "You have Brutal Shrine Buff while affected by no Flasks",
+				["id"] = "explicit.stat_1190121450|1",
+				["text"] = "You have Chilling Conflux for 3 seconds every 8 seconds",
 				["type"] = "explicit",
 			},
 			{
@@ -37137,16 +40992,6 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_1962944794",
-				["text"] = "You have Diamond Shrine Buff while affected by no Flasks",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_1941745370",
-				["text"] = "You have Echoing Shrine Buff while affected by no Flasks",
-				["type"] = "explicit",
-			},
-			{
 				["id"] = "explicit.stat_2741732114",
 				["text"] = "You have Elemental Conflux if the stars are aligned",
 				["type"] = "explicit",
@@ -37162,23 +41007,8 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_1525347447",
-				["text"] = "You have Gloom Shrine Buff while affected by no Flasks",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_3677336814",
-				["text"] = "You have Greater Freezing Shrine Buff while affected by no Flasks",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_1838429243",
-				["text"] = "You have Greater Shocking Shrine Buff while affected by no Flasks",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_3878995435",
-				["text"] = "You have Greater Skeletal Shrine Buff while affected by no Flasks",
+				["id"] = "explicit.stat_1190121450|3",
+				["text"] = "You have Igniting Conflux for 3 seconds every 8 seconds",
 				["type"] = "explicit",
 			},
 			{
@@ -37189,11 +41019,6 @@ return {
 			{
 				["id"] = "explicit.stat_2954550164",
 				["text"] = "You have Immortal Ambition while all Socketed Gems are Red",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_1451444229",
-				["text"] = "You have Impenetrable Shrine Buff while affected by no Flasks",
 				["type"] = "explicit",
 			},
 			{
@@ -37209,11 +41034,6 @@ return {
 			{
 				["id"] = "explicit.stat_3779398176",
 				["text"] = "You have Lesser Massive Shrine Buff",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_3810260531",
-				["text"] = "You have Massive Shrine Buff while affected by no Flasks",
 				["type"] = "explicit",
 			},
 			{
@@ -37287,28 +41107,18 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_2752009372",
-				["text"] = "You have Replenishing Shrine Buff while affected by no Flasks",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_3934633832",
-				["text"] = "You have Resistance Shrine Buff while affected by no Flasks",
-				["type"] = "explicit",
-			},
-			{
 				["id"] = "explicit.stat_2905429068",
 				["text"] = "You have Resolute Technique while you do not have Elemental Overload",
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_736980450",
-				["text"] = "You have Resonating Shrine Buff while affected by no Flasks",
+				["id"] = "explicit.stat_1518701332",
+				["text"] = "You have Scorching Conflux, Brittle Conflux and Sapping Conflux while your two highest Attributes are equal",
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_1518701332",
-				["text"] = "You have Scorching Conflux, Brittle Conflux and Sapping Conflux while your two highest Attributes are equal",
+				["id"] = "explicit.stat_1190121450|2",
+				["text"] = "You have Shocking Conflux for 3 seconds every 8 seconds",
 				["type"] = "explicit",
 			},
 			{
@@ -37637,6 +41447,11 @@ return {
 				["type"] = "explicit",
 			},
 			{
+				["id"] = "explicit.stat_2670735758",
+				["text"] = "Your Linked targets deal #% increased Damage",
+				["type"] = "explicit",
+			},
+			{
 				["id"] = "explicit.stat_675784826",
 				["text"] = "Your Lucky or Unlucky effects use the best or worst from three rolls instead of two",
 				["type"] = "explicit",
@@ -37697,8 +41512,18 @@ return {
 				["type"] = "explicit",
 			},
 			{
+				["id"] = "explicit.stat_2398157267",
+				["text"] = "Your Maps contain a Mirror of Delirium",
+				["type"] = "explicit",
+			},
+			{
 				["id"] = "explicit.stat_2055257822",
 				["text"] = "Your Maps contain an Ultimatum Encounter",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1070816711",
+				["text"] = "Your Maps contain an additional Abyss",
 				["type"] = "explicit",
 			},
 			{
@@ -37727,11 +41552,6 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_1070816711",
-				["text"] = "Your Maps contain an additional [ContainsAbyss|Abyss]",
-				["type"] = "explicit",
-			},
-			{
 				["id"] = "explicit.stat_2810286377",
 				["text"] = "Your Maps contain an additional pack with a Rare monster",
 				["type"] = "explicit",
@@ -37744,11 +41564,6 @@ return {
 			{
 				["id"] = "explicit.stat_2528440851",
 				["text"] = "Your Maps contains # additional packs of Shaper Creations",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_588512487",
-				["text"] = "Your Maps have # additional random Modifier",
 				["type"] = "explicit",
 			},
 			{
@@ -37827,6 +41642,11 @@ return {
 				["type"] = "explicit",
 			},
 			{
+				["id"] = "explicit.stat_4111037980",
+				["text"] = "Your Maps have #% increased chance to contain an Abyss",
+				["type"] = "explicit",
+			},
+			{
 				["id"] = "explicit.stat_1561678231",
 				["text"] = "Your Maps have #% increased chance to contain an Expedition Encounter",
 				["type"] = "explicit",
@@ -37834,11 +41654,6 @@ return {
 			{
 				["id"] = "explicit.stat_880963174",
 				["text"] = "Your Maps have #% increased chance to contain an Ultimatum Encounter",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_4111037980",
-				["text"] = "Your Maps have #% increased chance to contain an [ContainsAbyss|Abyss]",
 				["type"] = "explicit",
 			},
 			{
@@ -37932,6 +41747,16 @@ return {
 				["type"] = "explicit",
 			},
 			{
+				["id"] = "explicit.stat_4278144676",
+				["text"] = "Your Maps have +#% chance to contain an Abyss",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_827686764",
+				["text"] = "Your Maps have +#% chance to contain an Abyss per 2% increased Pack Size",
+				["type"] = "explicit",
+			},
+			{
 				["id"] = "explicit.stat_4154778375",
 				["text"] = "Your Maps have +#% chance to contain an Expedition Encounter",
 				["type"] = "explicit",
@@ -37944,16 +41769,6 @@ return {
 			{
 				["id"] = "explicit.stat_1365687125",
 				["text"] = "Your Maps have +#% chance to contain an Ultimatum Encounter",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_4278144676",
-				["text"] = "Your Maps have +#% chance to contain an [ContainsAbyss|Abyss]",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_827686764",
-				["text"] = "Your Maps have +#% chance to contain an [ContainsAbyss|Abyss] per 2% increased Pack Size",
 				["type"] = "explicit",
 			},
 			{
@@ -38002,6 +41817,16 @@ return {
 				["type"] = "explicit",
 			},
 			{
+				["id"] = "explicit.stat_588512487",
+				["text"] = "Your Maps have an additional random Modifier",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2399560930",
+				["text"] = "Your Maps have no chance to contain Abysses",
+				["type"] = "explicit",
+			},
+			{
 				["id"] = "explicit.stat_1981776737",
 				["text"] = "Your Maps have no chance to contain Blight Encounters",
 				["type"] = "explicit",
@@ -38039,11 +41864,6 @@ return {
 			{
 				["id"] = "explicit.stat_3819443367",
 				["text"] = "Your Maps have no chance to contain Ultimatum Encounters",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_2399560930",
-				["text"] = "Your Maps have no chance to contain [ContainsAbyss|Abysses]",
 				["type"] = "explicit",
 			},
 			{
@@ -38108,7 +41928,7 @@ return {
 			},
 			{
 				["id"] = "explicit.stat_1104120660",
-				["text"] = "Your Mark Transfers to another Enemy when Marked Enemy dies",
+				["text"] = "Your Mark Transfers to another Enemy within 3 metres when Marked Enemy dies",
 				["type"] = "explicit",
 			},
 			{
@@ -38134,6 +41954,16 @@ return {
 			{
 				["id"] = "explicit.stat_2537902937",
 				["text"] = "Your Melee Hits can't be Evaded while wielding a Sword",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_3888619765",
+				["text"] = "Your Minions gain your chance to Suppress Spell Damage",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4060457653",
+				["text"] = "Your Minions have no Armour or Maximum Energy Shield",
 				["type"] = "explicit",
 			},
 			{
@@ -38253,7 +42083,7 @@ return {
 			},
 			{
 				["id"] = "explicit.stat_598215770",
-				["text"] = "Your nearby party members maximum Endurance Charges is equal to yours",
+				["text"] = "Your party members within 6 metres maximum Endurance Charges is equal to yours",
 				["type"] = "explicit",
 			},
 			{
@@ -38301,21 +42131,6 @@ return {
 				["text"] = "Zealotry has no Reservation",
 				["type"] = "explicit",
 			},
-			{
-				["id"] = "explicit.stat_1927544133",
-				["text"] = "[ContainsAbyss|Abyss] Pits in your Maps spawn #% increased Monsters for each prior Pit closed",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_3898949460",
-				["text"] = "[KeystoneColdPurist|Bitter Frost]",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_3458351769",
-				["text"] = "[KeystoneFirePurist|Voracious Flame]",
-				["type"] = "explicit",
-			},
 		},
 		["id"] = "explicit",
 		["label"] = "Explicit",
@@ -38330,6 +42145,11 @@ return {
 			{
 				["id"] = "implicit.stat_2122183138",
 				["text"] = "# Mana gained when you Block",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1209237645",
+				["text"] = "# Maximum Void Charges",
 				["type"] = "implicit",
 			},
 			{
@@ -38360,6 +42180,11 @@ return {
 			{
 				["id"] = "implicit.stat_1040269876",
 				["text"] = "# to # Added Lightning Damage with Bow Attacks",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2787733863",
+				["text"] = "# to # Added Lightning Damage with Wand Attacks",
 				["type"] = "implicit",
 			},
 			{
@@ -38408,6 +42233,46 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_204458505",
+				["text"] = "#% chance for Elemental Resistances to count as being 90% against Enemy Hits",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1618482990",
+				["text"] = "#% chance for Energy Shield Recharge to start when you Kill an Enemy",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3927388937",
+				["text"] = "#% chance for Impales on Enemies you Kill to Reflect Damage to Enemies within 2.2 metres",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2920230984",
+				["text"] = "#% chance for Slain monsters to drop an additional Scroll of Wisdom",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2450413567",
+				["text"] = "#% chance for a Coin Shower on Kill",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1232004574",
+				["text"] = "#% chance that if you would gain Power Charges, you instead gain up to your maximum number of Power Charges",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2710292678",
+				["text"] = "#% chance that if you would gain Rage on Hit, you instead gain up to your maximum Rage",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1829869055",
+				["text"] = "#% chance that if you would gain a Crab Barrier, you instead gain up to your maximum number of Crab Barriers",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_2705185939",
 				["text"] = "#% chance to Aggravate Bleeding on targets you Hit with Attacks",
 				["type"] = "implicit",
@@ -38438,8 +42303,18 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_2415497478",
+				["text"] = "#% chance to Avoid Physical Damage from Hits",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_3483999943",
 				["text"] = "#% chance to Avoid being Chilled",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3706656107",
+				["text"] = "#% chance to Avoid being Chilled or Frozen if you have used a Fire Skill Recently",
 				["type"] = "implicit",
 			},
 			{
@@ -38450,6 +42325,11 @@ return {
 			{
 				["id"] = "implicit.stat_1783006896",
 				["text"] = "#% chance to Avoid being Ignited",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_4271082039",
+				["text"] = "#% chance to Avoid being Ignited while on Low Life",
 				["type"] = "implicit",
 			},
 			{
@@ -38483,6 +42363,11 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_2674214144",
+				["text"] = "#% chance to Curse Enemies which Hit you with a random Hex, ignoring Curse Limit",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_2950697759",
 				["text"] = "#% chance to Curse Enemies with Punishment on Hit",
 				["type"] = "implicit",
@@ -38493,6 +42378,11 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_59033544",
+				["text"] = "#% chance to Eat a Soul when you Consume the corpse of a Rare Monster",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_49183689",
 				["text"] = "#% chance to Extinguish Enemies on Hit",
 				["type"] = "implicit",
@@ -38500,6 +42390,11 @@ return {
 			{
 				["id"] = "implicit.stat_2309614417",
 				["text"] = "#% chance to Freeze",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2168861013",
+				["text"] = "#% chance to Freeze Enemies for 1 second when they Hit you",
 				["type"] = "implicit",
 			},
 			{
@@ -38543,6 +42438,11 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_3094222195",
+				["text"] = "#% chance to Impale on Spell Hit",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_2089652545",
 				["text"] = "#% chance to Intimidate Enemies for 4 seconds on Hit",
 				["type"] = "implicit",
@@ -38583,8 +42483,28 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_1214232297",
+				["text"] = "#% chance to Recover all Life when you Kill an Enemy",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_532324017",
+				["text"] = "#% chance to Sap Enemies",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3057853352",
+				["text"] = "#% chance to Sap Enemies in Chilling Areas",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_2113677718",
 				["text"] = "#% chance to Sap Enemies when you Block their Damage",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_606940191",
+				["text"] = "#% chance to Scorch Enemies",
 				["type"] = "implicit",
 			},
 			{
@@ -38603,13 +42523,53 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_875143443",
+				["text"] = "#% chance to Steal Power, Frenzy, and Endurance Charges on Hit",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_280213220",
 				["text"] = "#% chance to Taunt Enemies on Hit with Attacks",
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_3251948367",
+				["text"] = "#% chance to Trigger Commandment of Inferno on Critical Strike",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3141831683",
+				["text"] = "#% chance to Trigger Level 20 Glimpse of Eternity when Hit",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3657377047",
+				["text"] = "#% chance to Trigger Socketed Curse Spell when you Cast a Curse Spell, with a 0.25 second Cooldown",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_723388324",
+				["text"] = "#% chance to Trigger Socketed Spells when you Spend at least # Mana on an Upfront Cost to Use or Trigger a Skill, with a 0.1 second Cooldown",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3302736916",
+				["text"] = "#% chance to Trigger a Socketed Spell when you Attack with a Bow, with a 0.3 second Cooldown",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_763611529",
 				["text"] = "#% chance to Unnerve Enemies for 4 seconds on Hit",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_434725481",
+				["text"] = "#% chance to avoid Corrupted Blood",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3452269808",
+				["text"] = "#% chance to avoid Projectiles",
 				["type"] = "implicit",
 			},
 			{
@@ -38628,8 +42588,28 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_4224978303",
+				["text"] = "#% chance to deal Double Damage if you have Stunned an Enemy Recently",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1299868012",
+				["text"] = "#% chance to deal Double Damage while affected by Glorious Madness",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_2622251413",
 				["text"] = "#% chance to double Stun Duration",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_414749123",
+				["text"] = "#% chance to gain Adrenaline for 2 Seconds when Leech is removed by Filling Unreserved Life",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_922882178",
+				["text"] = "#% chance to gain Elusive on Kill",
 				["type"] = "implicit",
 			},
 			{
@@ -38638,8 +42618,33 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_2918708827",
+				["text"] = "#% chance to gain Phasing for 4 seconds on Kill",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_62884658",
+				["text"] = "#% chance to gain Phasing on Hit",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_3562211447",
 				["text"] = "#% chance to gain Unholy Might for 3 seconds on Kill",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3682839745",
+				["text"] = "#% chance to gain a Brine Charge instead of an Endurance Charge",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1302845655",
+				["text"] = "#% chance to gain a Frenzy Charge for each Enemy you hit with a Critical Strike",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_911695185",
+				["text"] = "#% chance to gain a Frenzy Charge on Critical Strike at Close Range",
 				["type"] = "implicit",
 			},
 			{
@@ -38653,8 +42658,23 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_3769211656",
+				["text"] = "#% chance to gain a Frenzy Charge when you Block",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3738335639",
+				["text"] = "#% chance to gain a Frenzy Charge when your Trap is triggered by an Enemy",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_3814876985",
 				["text"] = "#% chance to gain a Power Charge on Critical Strike",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1453197917",
+				["text"] = "#% chance to gain a Power Charge on Hit",
 				["type"] = "implicit",
 			},
 			{
@@ -38663,8 +42683,33 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_273206351",
+				["text"] = "#% chance to gain a Power Charge on hitting an Enemy affected by a Spider's Web",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1936544447",
+				["text"] = "#% chance to gain a Power Charge when you Throw a Trap",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_498214257",
+				["text"] = "#% chance to gain a Power, Frenzy or Endurance Charge on Kill",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2087475423",
+				["text"] = "#% chance to gain an Endurance Charge on Hit",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_1054322244",
 				["text"] = "#% chance to gain an Endurance Charge on Kill",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_417188801",
+				["text"] = "#% chance to gain an Endurance Charge when you Block",
 				["type"] = "implicit",
 			},
 			{
@@ -38673,8 +42718,28 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_4067960074",
+				["text"] = "#% chance to gain an Endurance Charge when you Stun an Enemy with a Melee Hit",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_1962922582",
 				["text"] = "#% chance to gain an additional Vaal Soul on Kill",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_991168463",
+				["text"] = "#% chance to grant a Frenzy Charge to Allies within 4 metres on Hit",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2367680009",
+				["text"] = "#% chance to grant a Power Charge to Allies within 4 metres on Kill",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2238174408",
+				["text"] = "#% chance to inflict Brittle",
 				["type"] = "implicit",
 			},
 			{
@@ -38683,8 +42748,38 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_2630708439",
+				["text"] = "#% chance to inflict Cold Exposure on Hit",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2523122963",
+				["text"] = "#% chance to inflict Corrosion on Hit with Attacks",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3602667353",
+				["text"] = "#% chance to inflict Fire Exposure on Hit",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1957711555",
+				["text"] = "#% chance to inflict Withered for 2 seconds on Hit",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_514698677",
+				["text"] = "#% chance to inflict an additional Poison on the same Target when you inflict Poison",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_1469603435",
 				["text"] = "#% chance to take 20% less Area Damage from Hits per 2% Overcapped Cold Resistance",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3132227798",
+				["text"] = "#% chance to throw up to 4 additional Traps",
 				["type"] = "implicit",
 			},
 			{
@@ -38743,6 +42838,11 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_3548404923",
+				["text"] = "#% increased Action Speed while Ignited",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_3422638915",
 				["text"] = "#% increased Agility speed",
 				["type"] = "implicit",
@@ -38763,6 +42863,11 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_1840985759",
+				["text"] = "#% increased Area of Effect for Attacks",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_430248187",
 				["text"] = "#% increased Area of Effect if you have Stunned an Enemy Recently",
 				["type"] = "implicit",
@@ -38770,6 +42875,16 @@ return {
 			{
 				["id"] = "implicit.stat_895264825",
 				["text"] = "#% increased Area of Effect of Aura Skills",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_250553316",
+				["text"] = "#% increased Area of Effect per Enemy killed recently, up to 25%",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2216127021",
+				["text"] = "#% increased Area of Effect while Unarmed",
 				["type"] = "implicit",
 			},
 			{
@@ -38783,8 +42898,38 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_2840285057",
+				["text"] = "#% increased Armour from Equipped Body Armour",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1633157811",
+				["text"] = "#% increased Armour from Equipped Helmet",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_791154540",
 				["text"] = "#% increased Armour from Equipped Helmet and Gloves",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3209419976",
+				["text"] = "#% increased Armour from Equipped Helmet, Body Armour, Gloves, and Boots",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_749219868",
+				["text"] = "#% increased Armour per 100 Reserved Mana",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3523867985",
+				["text"] = "#% increased Armour, Evasion and Energy Shield (Local)",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1746347097",
+				["text"] = "#% increased Aspect of the Avian Buff Effect",
 				["type"] = "implicit",
 			},
 			{
@@ -38833,8 +42978,28 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_2188905761",
+				["text"] = "#% increased Attack Speed if you've changed Stance Recently",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3267026680",
+				["text"] = "#% increased Attack Speed if you've used an Attack Movement Skill Recently",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_3548561213",
 				["text"] = "#% increased Attack Speed per Frenzy Charge",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_4268321763",
+				["text"] = "#% increased Attack Speed when on Full Life",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_4249220643",
+				["text"] = "#% increased Attack Speed while Dual Wielding",
 				["type"] = "implicit",
 			},
 			{
@@ -38893,6 +43058,11 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_2831922878",
+				["text"] = "#% increased Attack and Cast Speed if you've used a Movement Skill Recently",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_3143208761",
 				["text"] = "#% increased Attributes",
 				["type"] = "implicit",
@@ -38935,6 +43105,11 @@ return {
 			{
 				["id"] = "implicit.stat_1175385867",
 				["text"] = "#% increased Burning Damage",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_928477193",
+				["text"] = "#% increased Burning Damage taken",
 				["type"] = "implicit",
 			},
 			{
@@ -39088,6 +43263,11 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_2409504914",
+				["text"] = "#% increased Critical Strike Chance per Brand",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_2091591880",
 				["text"] = "#% increased Critical Strike Chance with Bows",
 				["type"] = "implicit",
@@ -39103,6 +43283,11 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_4276479762",
+				["text"] = "#% increased Damage against Beasts",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_2947215268",
 				["text"] = "#% increased Damage during any Flask Effect",
 				["type"] = "implicit",
@@ -39110,6 +43295,16 @@ return {
 			{
 				["id"] = "implicit.stat_767196662",
 				["text"] = "#% increased Damage if Corrupted",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2118708619",
+				["text"] = "#% increased Damage if you have Consumed a corpse Recently",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3098087057",
+				["text"] = "#% increased Damage on Burning Ground",
 				["type"] = "implicit",
 			},
 			{
@@ -39148,6 +43343,11 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_1019020209",
+				["text"] = "#% increased Damage per Curse on you",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_3515686789",
 				["text"] = "#% increased Damage per Endurance Charge",
 				["type"] = "implicit",
@@ -39155,6 +43355,11 @@ return {
 			{
 				["id"] = "implicit.stat_902747843",
 				["text"] = "#% increased Damage per Frenzy Charge",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_683892962",
+				["text"] = "#% increased Damage per Minion, up to a maximum of 40%",
 				["type"] = "implicit",
 			},
 			{
@@ -39178,6 +43383,16 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_546701346",
+				["text"] = "#% increased Damage while Bleeding",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_396291184",
+				["text"] = "#% increased Damage while Blind",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_3582580206",
 				["text"] = "#% increased Damage while Dead",
 				["type"] = "implicit",
@@ -39198,6 +43413,11 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_1313678015",
+				["text"] = "#% increased Damage while in Blood Stance",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_690707482",
 				["text"] = "#% increased Damage with Ailments",
 				["type"] = "implicit",
@@ -39213,8 +43433,43 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_2805714016",
+				["text"] = "#% increased Damage with Hits against Chilled Enemies",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2137878565",
+				["text"] = "#% increased Damage with Hits against Rare monsters",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_3257279374",
 				["text"] = "#% increased Damage with Hits and Ailments against Abyssal Monsters",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3503466234",
+				["text"] = "#% increased Damage with Hits and Ailments against Blinded Enemies",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3565956680",
+				["text"] = "#% increased Damage with Hits and Ailments against Blinded Enemies",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3537775677",
+				["text"] = "#% increased Damage with Hits and Ailments against Enemies that are on Full Life",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_485151258",
+				["text"] = "#% increased Damage with Hits and Ailments against Ignited Enemies",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1818773442",
+				["text"] = "#% increased Damage with Hits and Ailments per Curse on Enemy",
 				["type"] = "implicit",
 			},
 			{
@@ -39230,6 +43485,11 @@ return {
 			{
 				["id"] = "implicit.stat_776174407",
 				["text"] = "#% increased Damage with Poison from Melee Weapons",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_367782342",
+				["text"] = "#% increased Damage with Skills that Cost Life",
 				["type"] = "implicit",
 			},
 			{
@@ -39255,6 +43515,11 @@ return {
 			{
 				["id"] = "implicit.stat_4139681126",
 				["text"] = "#% increased Dexterity",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2022724400",
+				["text"] = "#% increased Dexterity if Strength is higher than Intelligence",
 				["type"] = "implicit",
 			},
 			{
@@ -39298,6 +43563,26 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_4058190193",
+				["text"] = "#% increased Effect of Consecrated Ground you create",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1480595847",
+				["text"] = "#% increased Effect of Impales inflicted with Spells",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3081816887",
+				["text"] = "#% increased Effect of Lightning Ailments",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3995650818",
+				["text"] = "#% increased Effect of Non-Curse Auras from your Skills while you have a Linked Target",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_782230869",
 				["text"] = "#% increased Effect of Non-Damaging Ailments",
 				["type"] = "implicit",
@@ -39323,8 +43608,18 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_1939175721",
+				["text"] = "#% increased Effect of Shrine Buffs on you",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_1482572705",
 				["text"] = "#% increased Effect of Socketed Abyss Jewels",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2545584555",
+				["text"] = "#% increased Effect of Withered",
 				["type"] = "implicit",
 			},
 			{
@@ -39423,6 +43718,11 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_1195319608",
+				["text"] = "#% increased Energy Shield from Equipped Body Armour",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_506942497",
 				["text"] = "#% increased Energy Shield per 10 Strength",
 				["type"] = "implicit",
@@ -39448,13 +43748,38 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_156734303",
+				["text"] = "#% increased Evasion Rating during Onslaught",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3509362078",
+				["text"] = "#% increased Evasion Rating from Equipped Body Armour",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_623823763",
 				["text"] = "#% increased Evasion Rating from Equipped Helmet and Boots",
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_3482421817",
+				["text"] = "#% increased Evasion Rating from Equipped Helmet, Body Armour Gloves and Boots",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1073310669",
+				["text"] = "#% increased Evasion Rating if you have been Hit Recently",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_810772344",
 				["text"] = "#% increased Evasion Rating per 10 Intelligence",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3147253569",
+				["text"] = "#% increased Evasion Rating per 500 Maximum Mana",
 				["type"] = "implicit",
 			},
 			{
@@ -39573,6 +43898,11 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_2695354435",
+				["text"] = "#% increased Global Evasion Rating when on Low Life",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_1310194496",
 				["text"] = "#% increased Global Physical Damage",
 				["type"] = "implicit",
@@ -39580,6 +43910,11 @@ return {
 			{
 				["id"] = "implicit.stat_1086147743",
 				["text"] = "#% increased Ignite Duration on Enemies",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_298173317",
+				["text"] = "#% increased Impale Effect",
 				["type"] = "implicit",
 			},
 			{
@@ -39598,6 +43933,16 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_3193713651",
+				["text"] = "#% increased Life Recovery rate per 5% missing Unreserved Life",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_738897289",
+				["text"] = "#% increased Life Recovery rate while Recouping Life",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_44972811",
 				["text"] = "#% increased Life Regeneration rate",
 				["type"] = "implicit",
@@ -39610,6 +43955,11 @@ return {
 			{
 				["id"] = "implicit.stat_2231156303",
 				["text"] = "#% increased Lightning Damage",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_990219738",
+				["text"] = "#% increased Lightning Damage per 10 Intelligence",
 				["type"] = "implicit",
 			},
 			{
@@ -39658,6 +44008,11 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_1212083058",
+				["text"] = "#% increased Mana Reservation Efficiency of Skills per 250 total Attributes",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_2227180465",
 				["text"] = "#% increased Mana Reservation of Skills",
 				["type"] = "implicit",
@@ -39670,6 +44025,16 @@ return {
 			{
 				["id"] = "implicit.stat_1234687045",
 				["text"] = "#% increased Maximum Energy Shield from Equipped Gloves and Boots",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2217962305",
+				["text"] = "#% increased Maximum Life if no Equipped Items are Corrupted",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3101897388",
+				["text"] = "#% increased Maximum Recovery per Life Leech",
 				["type"] = "implicit",
 			},
 			{
@@ -39713,6 +44078,11 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_4047895119",
+				["text"] = "#% increased Minion Attack Speed per 50 Dexterity",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_2306522833",
 				["text"] = "#% increased Monster Movement Speed",
 				["type"] = "implicit",
@@ -39728,13 +44098,48 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_1360723495",
+				["text"] = "#% increased Movement Speed for each Poison on you up to a maximum of 50%",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_2880601380",
 				["text"] = "#% increased Movement Speed if Corrupted",
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_2223256941",
+				["text"] = "#% increased Movement Speed per 1800 Evasion Rating, up to 25%",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1541516339",
+				["text"] = "#% increased Movement Speed per Frenzy Charge",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3393547195",
+				["text"] = "#% increased Movement Speed when on Full Life",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_581625445",
+				["text"] = "#% increased Movement Speed while Ignited",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_3684879618",
 				["text"] = "#% increased Movement Speed while Phasing",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_59612558",
+				["text"] = "#% increased Movement Speed while on Burning Ground",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2825197711",
+				["text"] = "#% increased Movement Speed while on Full Energy Shield",
 				["type"] = "implicit",
 			},
 			{
@@ -39783,6 +44188,11 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_766615564",
+				["text"] = "#% increased Physical Damage with Ranged Weapons",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_1430255627",
 				["text"] = "#% increased Physical Damage with Spell Skills",
 				["type"] = "implicit",
@@ -39828,6 +44238,11 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_1426001733",
+				["text"] = "#% increased Projectile Attack Damage per 400 Accuracy Rating",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_1839076647",
 				["text"] = "#% increased Projectile Damage",
 				["type"] = "implicit",
@@ -39853,6 +44268,11 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_253956903",
+				["text"] = "#% increased Quantity of Gold Dropped by Slain Enemies",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_884586851",
 				["text"] = "#% increased Quantity of Items found",
 				["type"] = "implicit",
@@ -39875,11 +44295,6 @@ return {
 			{
 				["id"] = "implicit.stat_2833896424",
 				["text"] = "#% increased Rarity of Items dropped in Heists",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_3917489142",
-				["text"] = "#% increased Rarity of Items found",
 				["type"] = "implicit",
 			},
 			{
@@ -39915,6 +44330,16 @@ return {
 			{
 				["id"] = "implicit.stat_737908626",
 				["text"] = "#% increased Spell Critical Strike Chance",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3775574601",
+				["text"] = "#% increased Spell Critical Strike Chance per 100 Player Maximum Life",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_495095219",
+				["text"] = "#% increased Spell Critical Strike Chance per Raised Spectre",
 				["type"] = "implicit",
 			},
 			{
@@ -39983,6 +44408,11 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_1710381148",
+				["text"] = "#% increased Stun Duration against Enemies that are on Full Life",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_2517001139",
 				["text"] = "#% increased Stun Duration on Enemies",
 				["type"] = "implicit",
@@ -40033,6 +44463,11 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_1050359418",
+				["text"] = "#% increased Valour gained",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_1065909420",
 				["text"] = "#% increased Vulnerability Curse Effect",
 				["type"] = "implicit",
@@ -40043,8 +44478,23 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_4159248054",
+				["text"] = "#% increased Warcry Cooldown Recovery Rate",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_1316278494",
 				["text"] = "#% increased Warcry Speed",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1590183647",
+				["text"] = "#% increased bonuses gained from Equipped Boots",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3971521684",
+				["text"] = "#% increased bonuses gained from Equipped Gloves",
 				["type"] = "implicit",
 			},
 			{
@@ -40098,6 +44548,11 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_4219583418",
+				["text"] = "#% increased quantity of Artifacts dropped by Monsters in your Maps",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_703341733",
 				["text"] = "#% increased raising of Alert Level",
 				["type"] = "implicit",
@@ -40123,13 +44578,78 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_2733459550",
+				["text"] = "#% less Damage taken per 5 Rage, up to a maximum of 30%",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1237693206",
+				["text"] = "#% less Poison Duration",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_170394517",
 				["text"] = "#% more Accuracy Rating",
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_1450081919",
+				["text"] = "#% more Damage against Undead Monsters",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2844915624",
+				["text"] = "#% more Damage against Undead Monsters",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1214601201",
+				["text"] = "#% more Maximum Life",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_137377270",
+				["text"] = "#% more Maximum Life",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_261712318",
+				["text"] = "#% more Maximum Lightning Damage",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_440826461",
+				["text"] = "#% more Maximum Lightning Damage",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2994988431",
+				["text"] = "#% more Maximum Physical Attack Damage",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3376335115",
+				["text"] = "#% more Maximum Physical Attack Damage",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_95249895",
 				["text"] = "#% more Monster Life",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1814782245",
+				["text"] = "#% more Physical Damage with Unarmed Melee Attacks",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3972229254",
+				["text"] = "#% of Armour also applies to Chaos Damage taken from Hits",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2200571612",
+				["text"] = "#% of Armour also applies to Lightning Damage taken from Hits",
 				["type"] = "implicit",
 			},
 			{
@@ -40158,6 +44678,11 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_3967028570",
+				["text"] = "#% of Chaos Damage is taken from Mana before Life",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_2459451600",
 				["text"] = "#% of Cold Damage Leeched as Life",
 				["type"] = "implicit",
@@ -40183,8 +44708,48 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_1642347505",
+				["text"] = "#% of Cold Damage taken as Fire Damage",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2881210047",
+				["text"] = "#% of Cold Damage taken as Lightning Damage",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_807450540",
+				["text"] = "#% of Damage dealt by your Mines is Leeched to you as Life",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3812562802",
+				["text"] = "#% of Damage dealt by your Totems is Leeched to you as Life",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3691190311",
+				["text"] = "#% of Damage from Hits is taken from Marked Target's Life before you",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_474853513",
+				["text"] = "#% of Damage from Hits is taken from your Damagable Minions' Life before you",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2762445213",
+				["text"] = "#% of Damage from Hits is taken from your nearest Totem's Life before you",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_458438597",
 				["text"] = "#% of Damage is taken from Mana before Life",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_822568652",
+				["text"] = "#% of Damage taken Recouped as Energy Shield",
 				["type"] = "implicit",
 			},
 			{
@@ -40198,8 +44763,33 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_3913936991",
+				["text"] = "#% of Damage taken from Stunning Hits is Recovered as Life",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_743992531",
+				["text"] = "#% of Damage you Reflect to Enemies when Hit is leeched as Life",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_720395808",
 				["text"] = "#% of Elemental Damage Leeched as Life",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1175213674",
+				["text"] = "#% of Elemental Damage from Hits taken as Chaos Damage",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2340750293",
+				["text"] = "#% of Elemental Damage from Hits taken as Physical Damage",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2731249891",
+				["text"] = "#% of Fire Damage Converted to Chaos Damage",
 				["type"] = "implicit",
 			},
 			{
@@ -40213,6 +44803,11 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_3633399302",
+				["text"] = "#% of Fire Damage Leeched as Life while Ignited",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_2522672898",
 				["text"] = "#% of Fire Damage from Hits taken as Cold Damage",
 				["type"] = "implicit",
@@ -40223,8 +44818,18 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_3205239847",
+				["text"] = "#% of Fire Damage from Hits taken as Physical Damage",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_1742651309",
 				["text"] = "#% of Fire Damage taken Recouped as Life",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_4142376596",
+				["text"] = "#% of Fire Damage taken as Lightning Damage",
 				["type"] = "implicit",
 			},
 			{
@@ -40250,6 +44855,26 @@ return {
 			{
 				["id"] = "implicit.stat_2970621759",
 				["text"] = "#% of Lightning Damage taken Recouped as Life",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1244494473",
+				["text"] = "#% of Lightning Damage taken as Fire Damage",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2458962764",
+				["text"] = "#% of Maximum Life Converted to Energy Shield",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2761237769",
+				["text"] = "#% of Melee Cold Damage taken reflected to Attacker",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1092987622",
+				["text"] = "#% of Melee Physical Damage taken reflected to Attacker",
 				["type"] = "implicit",
 			},
 			{
@@ -40333,6 +44958,11 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_1640937241",
+				["text"] = "#% of Physical Damage over Time taken as Chaos Damage",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_4021566756",
 				["text"] = "#% of Physical Damage taken Recouped as Life",
 				["type"] = "implicit",
@@ -40355,6 +44985,11 @@ return {
 			{
 				["id"] = "implicit.stat_2960683632",
 				["text"] = "#% reduced Chaos Damage taken",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3762784591",
+				["text"] = "#% reduced Chaos Damage taken over time",
 				["type"] = "implicit",
 			},
 			{
@@ -40408,6 +45043,16 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_76848920",
+				["text"] = "#% reduced Elemental Resistances",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2846448337",
+				["text"] = "#% reduced Enemy Chance to Block Sword Attacks",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_1443060084",
 				["text"] = "#% reduced Enemy Stun Threshold",
 				["type"] = "implicit",
@@ -40448,6 +45093,11 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_511024200",
+				["text"] = "#% reduced Physical Damage taken over time",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_3846810663",
 				["text"] = "#% reduced Reflected Damage taken",
 				["type"] = "implicit",
@@ -40465,6 +45115,11 @@ return {
 			{
 				["id"] = "implicit.stat_99927264",
 				["text"] = "#% reduced Shock Duration on you",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1429385513",
+				["text"] = "+# Armour per Summoned Totem",
 				["type"] = "implicit",
 			},
 			{
@@ -40495,6 +45150,21 @@ return {
 			{
 				["id"] = "implicit.stat_3441651621",
 				["text"] = "+# Physical Damage taken from Attack Hits",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3277537093",
+				["text"] = "+# Physical Damage taken from Hits by Animals",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3652380199",
+				["text"] = "+# Physical Damage taken from Hits per Level",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3612407781",
+				["text"] = "+# Physical Damage taken from Projectile Attacks",
 				["type"] = "implicit",
 			},
 			{
@@ -40613,6 +45283,11 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_3571342795",
+				["text"] = "+# to Level of Socketed Elemental Gems",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_339179093",
 				["text"] = "+# to Level of Socketed Fire Gems",
 				["type"] = "implicit",
@@ -40620,6 +45295,11 @@ return {
 			{
 				["id"] = "implicit.stat_2843100721",
 				["text"] = "+# to Level of Socketed Gems",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1344805487",
+				["text"] = "+# to Level of Socketed Herald Gems",
 				["type"] = "implicit",
 			},
 			{
@@ -40640,6 +45320,11 @@ return {
 			{
 				["id"] = "implicit.stat_3604946673",
 				["text"] = "+# to Level of Socketed Minion Gems",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3852526385",
+				["text"] = "+# to Level of Socketed Movement Gems",
 				["type"] = "implicit",
 			},
 			{
@@ -40708,8 +45393,23 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_2378187488",
+				["text"] = "+# to Level of all Movement Skill Gems",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_1600707273",
 				["text"] = "+# to Level of all Physical Spell Skill Gems",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3235814433",
+				["text"] = "+# to Level of all Raise Spectre Gems",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2739830820",
+				["text"] = "+# to Level of all Raise Zombie Gems",
 				["type"] = "implicit",
 			},
 			{
@@ -40728,6 +45428,11 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_3806100539",
+				["text"] = "+# to Maximum Life per 10 Dexterity",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_227523295",
 				["text"] = "+# to Maximum Power Charges",
 				["type"] = "implicit",
@@ -40740,6 +45445,11 @@ return {
 			{
 				["id"] = "implicit.stat_1181501418",
 				["text"] = "+# to Maximum Rage",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2894704558",
+				["text"] = "+# to Maximum number of Crab Barriers",
 				["type"] = "implicit",
 			},
 			{
@@ -40760,6 +45470,11 @@ return {
 			{
 				["id"] = "implicit.stat_1999711879",
 				["text"] = "+# to Minimum Power Charges",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2428638878",
+				["text"] = "+# to Minimum Rage",
 				["type"] = "implicit",
 			},
 			{
@@ -40798,13 +45513,28 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_2094299742",
+				["text"] = "+# to maximum Fortification",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_335507772",
 				["text"] = "+# to maximum Fortification",
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_2611224062",
+				["text"] = "+# to maximum Fortification while affected by Glorious Madness",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_3299347043",
 				["text"] = "+# to maximum Life",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2927667525",
+				["text"] = "+# to maximum Life if there are no Life Modifiers on other Equipped Items",
 				["type"] = "implicit",
 			},
 			{
@@ -40818,6 +45548,26 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_13590525",
+				["text"] = "+# to maximum number of Sacred Wisps +# to number of Sacred Wisps Summoned",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1225383362",
+				["text"] = "+# to maximum number of Skeletons",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_125218179",
+				["text"] = "+# to maximum number of Spectres",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2056575682",
+				["text"] = "+# to maximum number of Summoned Holy Relics",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_4253454700",
 				["text"] = "+#% Chance to Block (Shields)",
 				["type"] = "implicit",
@@ -40825,6 +45575,16 @@ return {
 			{
 				["id"] = "implicit.stat_1702195217",
 				["text"] = "+#% Chance to Block Attack Damage",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3304203764",
+				["text"] = "+#% Chance to Block Attack Damage from Cursed Enemies",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1061631617",
+				["text"] = "+#% Chance to Block Attack Damage per 50 Strength",
 				["type"] = "implicit",
 			},
 			{
@@ -40840,6 +45600,16 @@ return {
 			{
 				["id"] = "implicit.stat_19803471",
 				["text"] = "+#% Chance to Block Spell Damage",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_816458107",
+				["text"] = "+#% Chance to Block Spell Damage per Power Charge",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2253286128",
+				["text"] = "+#% Chance to Block Spell Damage while on Low Life",
 				["type"] = "implicit",
 			},
 			{
@@ -40868,6 +45638,21 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_1871805225",
+				["text"] = "+#% Surpassing Chance for Remnants in your Maps to have an additional Suffix Modifier",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1871805225",
+				["text"] = "+#% Surpassing Chance for Remnants to have an additional Suffix Modifier",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3416410609",
+				["text"] = "+#% chance to Block Projectile Attack Damage",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_2021058489",
 				["text"] = "+#% chance to Evade Attack Hits",
 				["type"] = "implicit",
@@ -40888,6 +45673,11 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_4108186648",
+				["text"] = "+#% chance to Suppress Spell Damage while Channelling",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_2907896585",
 				["text"] = "+#% chance to Suppress Spell Damage while moving",
 				["type"] = "implicit",
@@ -40903,8 +45693,23 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_3313028660",
+				["text"] = "+#% to Chaos Damage over Time Multiplier while Poisoned",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_2923486259",
 				["text"] = "+#% to Chaos Resistance",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_392168009",
+				["text"] = "+#% to Chaos Resistance during any Flask Effect",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_779829642",
+				["text"] = "+#% to Chaos Resistance while stationary",
 				["type"] = "implicit",
 			},
 			{
@@ -40920,6 +45725,11 @@ return {
 			{
 				["id"] = "implicit.stat_4277795662",
 				["text"] = "+#% to Cold and Lightning Resistances",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1909401378",
+				["text"] = "+#% to Critical Strike Chance",
 				["type"] = "implicit",
 			},
 			{
@@ -40950,6 +45760,11 @@ return {
 			{
 				["id"] = "implicit.stat_3629080637",
 				["text"] = "+#% to Critical Strike Multiplier for Spells while wielding a Staff",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_956384511",
+				["text"] = "+#% to Critical Strike Multiplier per 1% Chance to Block Attack Damage",
 				["type"] = "implicit",
 			},
 			{
@@ -40998,13 +45813,38 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_2212731469",
+				["text"] = "+#% to Damage over Time Multiplier for Ailments per Elder Item Equipped",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_1423749435",
 				["text"] = "+#% to Damage over Time Multiplier for Bleeding",
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_3504652942",
+				["text"] = "+#% to Damage over Time Multiplier for Poison per Frenzy Charge",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3203086927",
+				["text"] = "+#% to Damage over Time Multiplier if you've dealt a Critical Strike in the past 8 seconds",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_3382807662",
 				["text"] = "+#% to Fire Damage over Time Multiplier",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_420435377",
+				["text"] = "+#% to Fire Damage over Time Multiplier while Ignited",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2139660169",
+				["text"] = "+#% to Fire Damage over Time Multiplier with Attack Skills",
 				["type"] = "implicit",
 			},
 			{
@@ -41028,8 +45868,23 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_3917489142",
+				["text"] = "+#% to Item Rarity",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2929867083",
+				["text"] = "+#% to Item Rarity when on Low Life",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_1671376347",
 				["text"] = "+#% to Lightning Resistance",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1400414838",
+				["text"] = "+#% to Maximum Effect of Chill",
 				["type"] = "implicit",
 			},
 			{
@@ -41050,6 +45905,11 @@ return {
 			{
 				["id"] = "implicit.stat_1314617696",
 				["text"] = "+#% to Physical Damage over Time Multiplier",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2390518055",
+				["text"] = "+#% to Physical Damage over Time Multiplier while Bleeding",
 				["type"] = "implicit",
 			},
 			{
@@ -41123,8 +45983,18 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_3655769732",
+				["text"] = "+#% to Quality of all Skill Gems",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_791835907",
 				["text"] = "+#% to Spell Critical Strike Chance",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3613173483",
+				["text"] = "+#% to Unarmed Melee Attack Critical Strike Chance",
 				["type"] = "implicit",
 			},
 			{
@@ -41138,8 +46008,23 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_1978899297",
+				["text"] = "+#% to all maximum Elemental Resistances",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_569299859",
 				["text"] = "+#% to all maximum Resistances",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1030987123",
+				["text"] = "+#% to all maximum Resistances while Poisoned",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3635566977",
+				["text"] = "+#% to all maximum Resistances while you have no Endurance Charges",
 				["type"] = "implicit",
 			},
 			{
@@ -41188,6 +46073,16 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_1493090598",
+				["text"] = "35% chance to avoid being Stunned for each Herald Buff affecting you",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_628716294",
+				["text"] = "Action Speed cannot be modified to below Base Value",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_3531280422",
 				["text"] = "Adds # to # Chaos Damage",
 				["type"] = "implicit",
@@ -41198,8 +46093,18 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_4294344579",
+				["text"] = "Adds # to # Chaos Damage for each Curse on the Enemy",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_674553446",
 				["text"] = "Adds # to # Chaos Damage to Attacks",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_117885424",
+				["text"] = "Adds # to # Chaos Damage to Attacks per 80 Strength",
 				["type"] = "implicit",
 			},
 			{
@@ -41223,8 +46128,18 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_769783486",
+				["text"] = "Adds # to # Cold Damage to Attacks per 10 Dexterity",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_149574107",
 				["text"] = "Adds # to # Cold Damage to Attacks with this Weapon per 10 Dexterity",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1109700751",
+				["text"] = "Adds # to # Cold Damage to Retaliation Skills",
 				["type"] = "implicit",
 			},
 			{
@@ -41235,6 +46150,16 @@ return {
 			{
 				["id"] = "implicit.stat_1662717006",
 				["text"] = "Adds # to # Cold Damage to Spells and Attacks",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1247498990",
+				["text"] = "Adds # to # Cold Damage to Unarmed Attacks",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3485231932",
+				["text"] = "Adds # to # Cold Damage while you have Avian's Might",
 				["type"] = "implicit",
 			},
 			{
@@ -41250,6 +46175,11 @@ return {
 			{
 				["id"] = "implicit.stat_1573130764",
 				["text"] = "Adds # to # Fire Damage to Attacks",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_68673913",
+				["text"] = "Adds # to # Fire Damage to Attacks per 10 Strength",
 				["type"] = "implicit",
 			},
 			{
@@ -41283,6 +46213,11 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_3168149399",
+				["text"] = "Adds # to # Lightning Damage to Attacks per 10 Intelligence",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_3390848861",
 				["text"] = "Adds # to # Lightning Damage to Attacks with this Weapon per 10 Intelligence",
 				["type"] = "implicit",
@@ -41295,6 +46230,16 @@ return {
 			{
 				["id"] = "implicit.stat_2885144362",
 				["text"] = "Adds # to # Lightning Damage to Spells and Attacks",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3835522656",
+				["text"] = "Adds # to # Lightning Damage to Unarmed Melee Hits",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_855634301",
+				["text"] = "Adds # to # Lightning Damage while you have Avian's Might",
 				["type"] = "implicit",
 			},
 			{
@@ -41313,8 +46258,33 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_4052117756",
+				["text"] = "All Damage can Freeze",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_264042990",
 				["text"] = "All Damage from Hits with This Weapon can Poison",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3359218839",
+				["text"] = "All Damage inflicts Poison while affected by Glorious Madness",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2740018301",
+				["text"] = "All Sockets Linked",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3484267929",
+				["text"] = "Allies within 3.5 metres Recover #% of your Maximum Life when you Die",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2648570028",
+				["text"] = "Ancestral Bond",
 				["type"] = "implicit",
 			},
 			{
@@ -41328,8 +46298,23 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_91242932",
+				["text"] = "Animated and Manifested Minions' Melee Strikes deal Splash Damage to surrounding targets",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_2351239732",
 				["text"] = "Arctic Armour has #% increased Mana Reservation Efficiency",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1483066460",
+				["text"] = "Arctic Armour has no Reservation",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_683595855",
+				["text"] = "Area Skills have #% chance to deal Double Damage",
 				["type"] = "implicit",
 			},
 			{
@@ -41363,13 +46348,33 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_3159649981|1",
+				["text"] = "Area contains Medved, Feller of Heroes",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_1994562755",
 				["text"] = "Area contains Metamorph Monsters",
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_3159649981|4",
+				["text"] = "Area contains Olroth, Origin of the Fall",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_1145451936",
 				["text"] = "Area contains The Sacred Grove",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3159649981|3",
+				["text"] = "Area contains Uhtred, Covetous Traitor",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3159649981|2",
+				["text"] = "Area contains Vorana, Last to Fall",
 				["type"] = "implicit",
 			},
 			{
@@ -41418,6 +46423,11 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_1070816711",
+				["text"] = "Area contains an additional Abyss",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_504850499",
 				["text"] = "Area contains an additional Harbinger",
 				["type"] = "implicit",
@@ -41443,11 +46453,6 @@ return {
 				["type"] = "implicit",
 			},
 			{
-				["id"] = "implicit.stat_3307533469",
-				["text"] = "Area contains an additional Smuggler's Cache",
-				["type"] = "implicit",
-			},
-			{
 				["id"] = "implicit.stat_3240183538",
 				["text"] = "Area contains an additional Strongbox",
 				["type"] = "implicit",
@@ -41455,11 +46460,6 @@ return {
 			{
 				["id"] = "implicit.stat_1160596338",
 				["text"] = "Area contains an additional Underground Area",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_1070816711",
-				["text"] = "Area contains an additional [ContainsAbyss|Abyss]",
 				["type"] = "implicit",
 			},
 			{
@@ -41498,11 +46498,6 @@ return {
 				["type"] = "implicit",
 			},
 			{
-				["id"] = "implicit.stat_754268389",
-				["text"] = "Area has an additional random Scarab effect",
-				["type"] = "implicit",
-			},
-			{
 				["id"] = "implicit.stat_2696470877",
 				["text"] = "Area is Influenced by the Originator's Memories",
 				["type"] = "implicit",
@@ -41519,7 +46514,17 @@ return {
 			},
 			{
 				["id"] = "implicit.stat_299373046",
-				["text"] = "Area is infested with Fungal Growths Map's Item Quantity Modifiers also affect Blight Chest count at 25% value Can be Anointed up to 3 times",
+				["text"] = "Area is infested with Fungal Growths Can be Anointed up to 3 times",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1792283443|2",
+				["text"] = "Area is influenced by The Elder",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1792283443|1",
+				["text"] = "Area is influenced by The Shaper",
 				["type"] = "implicit",
 			},
 			{
@@ -41543,8 +46548,18 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_1671639542",
+				["text"] = "Armour is increased by #% of Overcapped Fire Resistance",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_1001077145",
 				["text"] = "Arrows Chain +# times",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2421436896",
+				["text"] = "Arrows Fork",
 				["type"] = "implicit",
 			},
 			{
@@ -41553,8 +46568,28 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_2138799639",
+				["text"] = "Arrows Pierce all Targets after Forking",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_3423006863",
 				["text"] = "Arrows Pierce an additional Target",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1019891080",
+				["text"] = "Arrows deal #% increased Damage with Hits and Ailments to Targets they Pierce",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3850409117",
+				["text"] = "Aspect of the Cat has no Reservation",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1509532587",
+				["text"] = "Aspect of the Spider can inflict Spider's Web on Enemies an additional time",
 				["type"] = "implicit",
 			},
 			{
@@ -41568,6 +46603,16 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_3266394681",
+				["text"] = "Attack Skills have +# to maximum number of Summoned Totems",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2778228111",
+				["text"] = "Attack Skills have Added Lightning Damage equal to #% of maximum Mana",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_2146663823",
 				["text"] = "Attacks Exerted by Ancestral Cry deal #% increased Damage",
 				["type"] = "implicit",
@@ -41578,6 +46623,11 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_2059771038",
+				["text"] = "Attacks always inflict Bleeding while you have Cat's Stealth",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_1510714129",
 				["text"] = "Attacks have #% chance to Maim on Hit",
 				["type"] = "implicit",
@@ -41585,6 +46635,11 @@ return {
 			{
 				["id"] = "implicit.stat_1923879260",
 				["text"] = "Attacks have #% chance to cause Bleeding",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_280530196",
+				["text"] = "Attacks have #% increased Ignite Duration",
 				["type"] = "implicit",
 			},
 			{
@@ -41603,6 +46658,21 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_4268284087",
+				["text"] = "Banners also grant #% of Physical Damage gained as Extra Cold Damage to you and Allies",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_4088932395",
+				["text"] = "Banners also grant #% of Physical Damage gained as Extra Fire Damage to you and Allies",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3133323410",
+				["text"] = "Bleeding Enemies you Kill Explode, dealing #% of their Maximum Life as Physical Damage",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_1901158930",
 				["text"] = "Bleeding cannot be inflicted on you",
 				["type"] = "implicit",
@@ -41614,7 +46684,12 @@ return {
 			},
 			{
 				["id"] = "implicit.stat_3828375170",
-				["text"] = "Bleeding you inflict deals Damage #% faster",
+				["text"] = "Bleeding you inflict deals Damage #% Faster",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_4170725899",
+				["text"] = "Blight has #% increased Hinder Duration",
 				["type"] = "implicit",
 			},
 			{
@@ -41623,13 +46698,38 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_151300265",
+				["text"] = "Bow Attacks Sacrifice a random Damageable Minion to fire # additional Arrow",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_3885405204",
 				["text"] = "Bow Attacks fire # additional Arrows",
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_3292262540",
+				["text"] = "Call to Arms",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3512432760",
+				["text"] = "Can be Allflame Crafted as if Rare Cannot gain Intangibility",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_52068049",
 				["text"] = "Can be Anointed",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1161337167",
+				["text"] = "Can be modified while Corrupted",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1135194732",
+				["text"] = "Can have # additional Enchantment Modifiers",
 				["type"] = "implicit",
 			},
 			{
@@ -41650,6 +46750,11 @@ return {
 			{
 				["id"] = "implicit.stat_1436284579",
 				["text"] = "Cannot be Blinded",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_283649372",
+				["text"] = "Cannot be Chilled",
 				["type"] = "implicit",
 			},
 			{
@@ -41675,6 +46780,31 @@ return {
 			{
 				["id"] = "implicit.stat_491899612",
 				["text"] = "Cannot be Shocked",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2916280114",
+				["text"] = "Cannot be Stunned by Suppressed Spell Damage",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_612223930",
+				["text"] = "Cannot inflict Freeze or Chill",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_4198497576",
+				["text"] = "Cannot inflict Ignite",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_990377349",
+				["text"] = "Cannot inflict Shock",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_241251790",
+				["text"] = "Cannot lose Crab Barriers if you have lost Crab Barriers Recently",
 				["type"] = "implicit",
 			},
 			{
@@ -41708,6 +46838,51 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_3262991862",
+				["text"] = "Causes Bleeding on Melee Critical Strike",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3307066983",
+				["text"] = "Chance to Block Projectile Attack Damage is Lucky",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1865744989",
+				["text"] = "Chaos Damage taken does not bypass Energy Shield",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_887556907",
+				["text"] = "Chaos Damage taken does not bypass Energy Shield while not on Low Life",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2439129490",
+				["text"] = "Chaos Resistance is Zero",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_496075050",
+				["text"] = "Cold Resistance is #%",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2474564741",
+				["text"] = "Consecrated Ground you create applies #% increased Damage taken to Enemies",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3660255193",
+				["text"] = "Consecrated Ground you create grants #% reduced damage taken to you and Allies",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3262369040",
+				["text"] = "Consumes a Void Charge to Trigger Level # Void Shot when you fire Arrows with a Non-Triggered Skill",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_3001853534",
 				["text"] = "Contains a Forge that can Combine Crucible Passive Skill Trees",
 				["type"] = "implicit",
@@ -41723,8 +46898,28 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_586568910",
+				["text"] = "Corpses you Spawn have #% increased Maximum Life",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_1658498488",
 				["text"] = "Corrupted Blood cannot be inflicted on you",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1911037487",
+				["text"] = "Corrupted Soul",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1243613350",
+				["text"] = "Create Profane Ground instead of Consecrated Ground",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2485187927",
+				["text"] = "Create a Blighted Spore when your Skills or Minions Kill a Rare Monster",
 				["type"] = "implicit",
 			},
 			{
@@ -41753,8 +46948,18 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_3840847348",
+				["text"] = "Curse Aura Skills reserve Life instead of Mana",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_710372469",
 				["text"] = "Curse Enemies with Conductivity on Hit",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1289472451",
+				["text"] = "Curse Enemies with Conductivity on Hit if 5 Crusader Items are Equipped",
 				["type"] = "implicit",
 			},
 			{
@@ -41763,8 +46968,18 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_3931566161",
+				["text"] = "Curse Enemies with Despair on Hit if 5 Hunter Items are Equipped",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_2028847114",
 				["text"] = "Curse Enemies with Elemental Weakness on Hit",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2048643052",
+				["text"] = "Curse Enemies with Elemental Weakness when you Block their Spell Damage, ignoring Curse Limit",
 				["type"] = "implicit",
 			},
 			{
@@ -41778,8 +46993,23 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_3966765615",
+				["text"] = "Curse Enemies with Flammability on Hit if 5 Warlord Items are Equipped",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_426847518",
 				["text"] = "Curse Enemies with Frostbite on Hit",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1012433600",
+				["text"] = "Curse Enemies with Frostbite on Hit if 5 Redeemer Items are Equipped",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2922377850",
+				["text"] = "Curse Enemies with Punishment when you Block their Melee Damage, ignoring Curse Limit",
 				["type"] = "implicit",
 			},
 			{
@@ -41788,8 +47018,23 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_541329769",
+				["text"] = "Curse Enemies with Temporal Chains when you Block their Projectile Attack Damage, ignoring Curse Limit",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3477714116",
+				["text"] = "Curse Enemies with Vulnerability on Block",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_3967845372",
 				["text"] = "Curse Enemies with Vulnerability on Hit",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2280341859",
+				["text"] = "Curse Skills cost Life instead of Mana",
 				["type"] = "implicit",
 			},
 			{
@@ -41818,6 +47063,16 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_3629143471",
+				["text"] = "Damage of Enemies Hitting you is Unlucky while you are on Full Life",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2510276385",
+				["text"] = "Damage of Enemies Hitting you is Unlucky while you have a Magic Ring Equipped",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_1211769158",
 				["text"] = "Damage with Weapons Penetrates #% Cold Resistance",
 				["type"] = "implicit",
@@ -41830,6 +47085,26 @@ return {
 			{
 				["id"] = "implicit.stat_3301510262",
 				["text"] = "Damage with Weapons Penetrates #% Lightning Resistance",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3188898882",
+				["text"] = "Damaging Ailments inflicted by Minions deal damage #% Faster",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1631195850",
+				["text"] = "Damaging Retaliation Skills become Usable every # seconds",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1373673887",
+				["text"] = "Debilitate Enemies you Hit that are on Full Life for 4 seconds",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1238227257",
+				["text"] = "Debuffs on you expire #% faster",
 				["type"] = "implicit",
 			},
 			{
@@ -41878,6 +47153,11 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_2084152132",
+				["text"] = "Draugurflames burn enemies around you for 8 seconds after you Ignite a target",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_984148407",
 				["text"] = "Drops Brittle Ground while moving, lasting # seconds",
 				["type"] = "implicit",
@@ -41893,6 +47173,11 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_3002060175",
+				["text"] = "Drops Shocked Ground while moving, lasting # seconds",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_2103621252",
 				["text"] = "Eat a Soul when you Hit a Rare or Unique Enemy, no more than once every second",
 				["type"] = "implicit",
@@ -41900,6 +47185,11 @@ return {
 			{
 				["id"] = "implicit.stat_3399320226",
 				["text"] = "Effect is removed when Hit by a Player",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_4113372195",
+				["text"] = "Effects of Consecrated Ground you create Linger for 1 second",
 				["type"] = "implicit",
 			},
 			{
@@ -41913,6 +47203,11 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_85576425",
+				["text"] = "Elemental Resistances are Zero",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_3617955571",
 				["text"] = "Enduring Cry has #% increased Cooldown Recovery Rate",
 				["type"] = "implicit",
@@ -41923,8 +47218,103 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_3119292058",
+				["text"] = "Enemies Chilled by your Hits can be Shattered as though Frozen",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1816894864",
+				["text"] = "Enemies Chilled by your Hits have Damage taken increased by Chill Effect",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3723063276",
+				["text"] = "Enemies Cursed by you cannot deal Critical Strikes",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_759530725",
+				["text"] = "Enemies Taunted by your Warcries have #% increased Action Speed",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_785655723",
+				["text"] = "Enemies affected by your Spider's Webs have +#% to All Resistances",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_4164361381",
+				["text"] = "Enemies display their Monster Category",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_947144250",
+				["text"] = "Enemies near your Banner take #% increased Cold Damage",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_4163360392",
+				["text"] = "Enemies near your Banner take #% increased Fire Damage",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1217730254",
+				["text"] = "Enemies take #% increased Damage for each type of Ailment you have inflicted on them",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3608782127",
+				["text"] = "Enemies within 3 metres are Crushed",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3733114005",
+				["text"] = "Enemies within 3 metres are Scorched",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2774148053",
+				["text"] = "Enemies within 3 metres have Malediction",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2826979740",
+				["text"] = "Enemies within 3.5 metres are Blinded",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2307982579",
+				["text"] = "Enemies within 4 metres Killed by anyone count as being Killed by you instead",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1177959871",
+				["text"] = "Enemies within 6 metres cannot deal Critical Strikes",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_668145148",
+				["text"] = "Enemies within 6 metres have #% to all Resistances",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1666645630",
+				["text"] = "Enemies within 6 metres of corpses you spawned Recently have #% reduced Life Regeneration Rate",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1846105968",
+				["text"] = "Enemies you Blind while in Sand Stance take #% increased Damage",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_1220361974",
 				["text"] = "Enemies you Kill Explode, dealing #% of their Life as Physical Damage",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2360921519",
+				["text"] = "Enemies you Kill have a #% chance to Explode, dealing a tenth of their maximum Life as Damage of a Random Element",
 				["type"] = "implicit",
 			},
 			{
@@ -41933,8 +47323,53 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_2780297117",
+				["text"] = "Enemies you Kill while affected by Glorious Madness have a #% chance to Explode, dealing a quarter of their Life as Chaos Damage",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_3903907406",
 				["text"] = "Enemies you've Hit Recently have #% reduced Life Regeneration rate",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1063263585",
+				["text"] = "Enemy Monsters within 3 metres have at least #% of Life Reserved",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1308467455",
+				["text"] = "Eternal Youth",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2358015838",
+				["text"] = "Evasion Rating is increased by Overcapped Cold Resistance",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_145598447",
+				["text"] = "Everlasting Sacrifice",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3764198549",
+				["text"] = "Every 3 seconds, Consume a Corpse within 5 metres to Recover #% of Life",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1645957840",
+				["text"] = "Every 3 seconds, Consume a Corpse within 5 metres to Recover #% of Mana",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3334947764",
+				["text"] = "Every second time you cast each Spell, gain Mana equal to its Upfront Cost",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1417918566",
+				["text"] = "Every second, inflict Withered on Enemies within 6 metres for # seconds",
 				["type"] = "implicit",
 			},
 			{
@@ -41943,8 +47378,23 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_2765129230",
+				["text"] = "Excommunicate Enemies on Melee Hit for # second",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_1569101201",
 				["text"] = "Exerted Attacks deal #% increased Damage",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2356684802",
+				["text"] = "Fire Exposure you inflict applies an extra +#% to Fire Resistance",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_763311546",
+				["text"] = "Fire Resistance is #%",
 				["type"] = "implicit",
 			},
 			{
@@ -41993,6 +47443,11 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_3915702459",
+				["text"] = "Gain # Life when you lose an Endurance Charge",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_820939409",
 				["text"] = "Gain # Mana per Enemy Hit with Attacks",
 				["type"] = "implicit",
@@ -42023,6 +47478,11 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_3086896309",
+				["text"] = "Gain #% of Cold Damage as Extra Fire Damage per 1% Chill Effect on Enemy",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_1599775597",
 				["text"] = "Gain #% of Fire Damage as Extra Chaos Damage",
 				["type"] = "implicit",
@@ -42030,6 +47490,16 @@ return {
 			{
 				["id"] = "implicit.stat_2402136583",
 				["text"] = "Gain #% of Lightning Damage as Extra Chaos Damage",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3115319277",
+				["text"] = "Gain #% of Lightning Damage as Extra Chaos Damage per Power Charge",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_13172430",
+				["text"] = "Gain #% of Lightning Damage as Extra Cold Damage per 2% Shock Effect on Enemy",
 				["type"] = "implicit",
 			},
 			{
@@ -42045,6 +47515,11 @@ return {
 			{
 				["id"] = "implicit.stat_3319896421",
 				["text"] = "Gain #% of Physical Damage as Extra Chaos Damage",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3492297134",
+				["text"] = "Gain #% of Physical Damage as Extra Chaos Damage while at maximum Power Charges",
 				["type"] = "implicit",
 			},
 			{
@@ -42073,8 +47548,38 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_3535421504",
+				["text"] = "Gain Added Chaos Damage equal to #% of Ward",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_4231915769",
+				["text"] = "Gain Adrenaline for # second when Ward Breaks",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3221795893",
+				["text"] = "Gain Arcane Surge when you use a Movement Skill",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3442107889",
+				["text"] = "Gain Maddening Presence for 10 seconds when you Kill a Rare or Unique Enemy",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_581055101",
 				["text"] = "Gain Maximum Life instead of Maximum Energy Shield from Equipped Armour Items at #% of the value",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2287328323",
+				["text"] = "Gain Sacrificial Zeal when you use a Skill, dealing you #% of the Skill's Mana Cost as Physical Damage per Second",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1091613629",
+				["text"] = "Gain Shaper's Presence for 10 seconds when you kill a Rare or Unique Enemy",
 				["type"] = "implicit",
 			},
 			{
@@ -42093,6 +47598,16 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_34273389",
+				["text"] = "Gain a Void Charge every # seconds",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3493440964",
+				["text"] = "Gain a random Shrine Buff for # seconds when you Kill a Rare or Unique Enemy",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_2555092341",
 				["text"] = "Gain an Endurance Charge every # seconds",
 				["type"] = "implicit",
@@ -42105,6 +47620,21 @@ return {
 			{
 				["id"] = "implicit.stat_4080206249",
 				["text"] = "Gain up to maximum Endurance Charges when you take a Critical Strike",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2236460050",
+				["text"] = "Gems Socketed in Blue Sockets gain #% increased Experience",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3799930101",
+				["text"] = "Gems Socketed in Green Sockets have +#% to Quality",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2886998024",
+				["text"] = "Gems Socketed in Red Sockets have +# to Level",
 				["type"] = "implicit",
 			},
 			{
@@ -42138,6 +47668,16 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_1243641369",
+				["text"] = "Grant a Frenzy Charge to Allies within 4 metres on Kill",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3174788165",
+				["text"] = "Grant an Endurance Charge to Allies within 4 metres on Hit",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_1420170973",
 				["text"] = "Grants # Life and Mana per Enemy Hit",
 				["type"] = "implicit",
@@ -42153,128 +47693,223 @@ return {
 				["type"] = "implicit",
 			},
 			{
-				["id"] = "implicit.stat_484879947",
-				["text"] = "Grants Level # Anger Skill",
+				["id"] = "implicit.effect_2014162730",
+				["text"] = "Grants Level # Anger",
 				["type"] = "implicit",
 			},
 			{
-				["id"] = "implicit.stat_3736925508",
-				["text"] = "Grants Level # Assassin's Mark Skill",
+				["id"] = "implicit.effect_3115071909",
+				["text"] = "Grants Level # Aspect of the Avian",
 				["type"] = "implicit",
 			},
 			{
-				["id"] = "implicit.stat_3511815065",
-				["text"] = "Grants Level # Clarity Skill",
+				["id"] = "implicit.effect_771254875",
+				["text"] = "Grants Level # Aspect of the Cat",
 				["type"] = "implicit",
 			},
 			{
-				["id"] = "implicit.stat_461472247",
-				["text"] = "Grants Level # Conductivity Skill",
+				["id"] = "implicit.effect_149184016",
+				["text"] = "Grants Level # Aspect of the Spider",
 				["type"] = "implicit",
 			},
 			{
-				["id"] = "implicit.stat_2044547677",
-				["text"] = "Grants Level # Despair Skill",
+				["id"] = "implicit.effect_1576376285",
+				["text"] = "Grants Level # Assassin's Mark",
 				["type"] = "implicit",
 			},
 			{
-				["id"] = "implicit.stat_4265392510",
-				["text"] = "Grants Level # Determination Skill",
+				["id"] = "implicit.effect_2109649836",
+				["text"] = "Grants Level # Blood Offering",
 				["type"] = "implicit",
 			},
 			{
-				["id"] = "implicit.stat_2341269061",
-				["text"] = "Grants Level # Discipline Skill",
+				["id"] = "implicit.effect_2190102120",
+				["text"] = "Grants Level # Clarity",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.effect_2867330025",
+				["text"] = "Grants Level # Conductivity",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.effect_2765861847",
+				["text"] = "Grants Level # Despair",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.effect_723113949",
+				["text"] = "Grants Level # Determination",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.effect_599791292",
+				["text"] = "Grants Level # Discipline",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.effect_2753888557",
+				["text"] = "Grants Level # Doryani's Touch",
 				["type"] = "implicit",
 			},
 			{
 				["id"] = "implicit.stat_3792821911",
-				["text"] = "Grants Level # Elemental Weakness Skill",
+				["text"] = "Grants Level # Elemental Weakness",
 				["type"] = "implicit",
 			},
 			{
-				["id"] = "implicit.stat_2209668839",
-				["text"] = "Grants Level # Flammability Skill",
+				["id"] = "implicit.effect_479399165",
+				["text"] = "Grants Level # Flammability",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.effect_2455845502",
+				["text"] = "Grants Level # Frostbite",
 				["type"] = "implicit",
 			},
 			{
 				["id"] = "implicit.stat_1169502663",
-				["text"] = "Grants Level # Frostbite Skill",
+				["text"] = "Grants Level # Frostbite",
 				["type"] = "implicit",
 			},
 			{
-				["id"] = "implicit.stat_2867050084",
-				["text"] = "Grants Level # Grace Skill",
+				["id"] = "implicit.effect_3568418482",
+				["text"] = "Grants Level # Grace",
 				["type"] = "implicit",
 			},
 			{
-				["id"] = "implicit.stat_1188846263",
-				["text"] = "Grants Level # Haste Skill",
+				["id"] = "implicit.effect_2559654739",
+				["text"] = "Grants Level # Haste",
 				["type"] = "implicit",
 			},
 			{
-				["id"] = "implicit.stat_2429546158",
-				["text"] = "Grants Level # Hatred Skill",
+				["id"] = "implicit.effect_3051142611",
+				["text"] = "Grants Level # Hatred",
 				["type"] = "implicit",
 			},
 			{
-				["id"] = "implicit.stat_2148556029",
-				["text"] = "Grants Level # Malevolence Skill",
+				["id"] = "implicit.effect_1061473510",
+				["text"] = "Grants Level # Malevolence",
 				["type"] = "implicit",
 			},
 			{
-				["id"] = "implicit.stat_4184565463",
-				["text"] = "Grants Level # Pride Skill",
+				["id"] = "implicit.effect_1463464665",
+				["text"] = "Grants Level # Petrification Statue",
 				["type"] = "implicit",
 			},
 			{
-				["id"] = "implicit.stat_105466375",
-				["text"] = "Grants Level # Purity of Elements Skill",
+				["id"] = "implicit.effect_1270291096",
+				["text"] = "Grants Level # Pride",
 				["type"] = "implicit",
 			},
 			{
-				["id"] = "implicit.stat_3970432307",
-				["text"] = "Grants Level # Purity of Fire Skill",
+				["id"] = "implicit.effect_2174769737",
+				["text"] = "Grants Level # Purity of Elements",
 				["type"] = "implicit",
 			},
 			{
-				["id"] = "implicit.stat_4193390599",
-				["text"] = "Grants Level # Purity of Ice Skill",
+				["id"] = "implicit.effect_994349216",
+				["text"] = "Grants Level # Purity of Fire",
 				["type"] = "implicit",
 			},
 			{
-				["id"] = "implicit.stat_3822878124",
-				["text"] = "Grants Level # Purity of Lightning Skill",
+				["id"] = "implicit.effect_4154731776",
+				["text"] = "Grants Level # Purity of Ice",
 				["type"] = "implicit",
 			},
 			{
-				["id"] = "implicit.stat_3536689603",
-				["text"] = "Grants Level # Sniper's Mark Skill",
+				["id"] = "implicit.effect_426005818",
+				["text"] = "Grants Level # Purity of Lightning",
 				["type"] = "implicit",
 			},
 			{
-				["id"] = "implicit.stat_940324562",
-				["text"] = "Grants Level # Temporal Chains Skill",
+				["id"] = "implicit.effect_388828889",
+				["text"] = "Grants Level # Ravenous",
 				["type"] = "implicit",
 			},
 			{
-				["id"] = "implicit.stat_2410613176",
-				["text"] = "Grants Level # Vitality Skill",
+				["id"] = "implicit.effect_405979710",
+				["text"] = "Grants Level # Savage Barnacle",
 				["type"] = "implicit",
 			},
 			{
-				["id"] = "implicit.stat_1447222021",
-				["text"] = "Grants Level # Vulnerability Skill",
+				["id"] = "implicit.effect_2890244883",
+				["text"] = "Grants Level # Sniper's Mark",
 				["type"] = "implicit",
 			},
 			{
-				["id"] = "implicit.stat_2265307453",
-				["text"] = "Grants Level # Wrath Skill",
+				["id"] = "implicit.effect_4195991223",
+				["text"] = "Grants Level # Summon Bestial Rhoa",
 				["type"] = "implicit",
 			},
 			{
-				["id"] = "implicit.stat_3224664127",
-				["text"] = "Grants Level # Zealotry Skill",
+				["id"] = "implicit.effect_2377502094",
+				["text"] = "Grants Level # Summon Bestial Snake",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.effect_2092916684",
+				["text"] = "Grants Level # Summon Bestial Ursa",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.effect_3636926002",
+				["text"] = "Grants Level # Temporal Chains",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.effect_2649350521",
+				["text"] = "Grants Level # Vitality",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.effect_120392055",
+				["text"] = "Grants Level # Vulnerability",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.effect_2579976590",
+				["text"] = "Grants Level # Will of the Lords",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.effect_2461314210",
+				["text"] = "Grants Level # Wrath",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.effect_2851059126",
+				["text"] = "Grants Level # Zealotry",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2918150296",
+				["text"] = "Grants Malachai's Endurance, Frenzy and Power for 6 seconds each, in sequence",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.effect_603152644",
+				["text"] = "Grants Summon Greater Harbinger of Directions",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.effect_1795027869",
+				["text"] = "Grants Summon Greater Harbinger of Focus",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.effect_3850673820",
+				["text"] = "Grants Summon Greater Harbinger of Storms",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.effect_4121000032",
+				["text"] = "Grants Summon Harbinger of Focus",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2195137717",
+				["text"] = "Half of your Strength is added to your Minions",
 				["type"] = "implicit",
 			},
 			{
@@ -42333,8 +47968,33 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_986616727",
+				["text"] = "Hexes Transfer to all Enemies within 3 metres when Hexed Enemy dies",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_32859524",
+				["text"] = "Hexes applied by Socketed Curse Skills are Reflected back to you",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_2839577586",
 				["text"] = "Hits have #% chance to ignore Enemy Physical Damage Reduction",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3402448478",
+				["text"] = "Hits have #% chance to treat Enemy Monster Cold Resistance values as inverted",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_560643297",
+				["text"] = "Hits have #% chance to treat Enemy Monster Fire Resistance values as inverted",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2705969278",
+				["text"] = "Hits have #% chance to treat Enemy Monster Lightning Resistance values as inverted",
 				["type"] = "implicit",
 			},
 			{
@@ -42349,7 +48009,7 @@ return {
 			},
 			{
 				["id"] = "implicit.stat_2443492284",
-				["text"] = "Ignites you inflict deal Damage #% faster",
+				["text"] = "Ignites you inflict deal Damage #% Faster",
 				["type"] = "implicit",
 			},
 			{
@@ -42358,13 +48018,43 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_192371942",
+				["text"] = "Ignites you inflict spread to other Enemies within a Radius of 1.5 metres",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1311723478",
+				["text"] = "Ignore all Movement Penalties from Armour",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2413219096",
+				["text"] = "Immortal Ambition",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_1954526925",
 				["text"] = "Immune to Curses if Corrupted",
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_1065479853",
+				["text"] = "Immune to Elemental Ailments while affected by Glorious Madness",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3660138886",
+				["text"] = "Immune to Hinder",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_532463031",
 				["text"] = "Implicit Modifiers Cannot Be Changed",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3520223758",
+				["text"] = "Increases and Reductions to Cast Speed also Apply to Trap Throwing Speed",
 				["type"] = "implicit",
 			},
 			{
@@ -42378,8 +48068,33 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_3519807287",
+				["text"] = "Increases and Reductions to Light Radius also apply to Damage",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3708520172",
+				["text"] = "Increases and Reductions to Light Radius also apply to Life Regeneration Rate at #% value",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1916233589",
+				["text"] = "Increases and Reductions to Mana Regeneration Rate also apply to Energy Shield Recharge Rate",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_4100175081",
 				["text"] = "Increases and Reductions to Maximum Energy Shield instead apply to Ward",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3942379359",
+				["text"] = "Increases and Reductions to Minion Maximum Life also apply to you at #% of their value",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_4091694419",
+				["text"] = "Increases and Reductions to your Evasion Rating also apply to your Spell Damage",
 				["type"] = "implicit",
 			},
 			{
@@ -42403,8 +48118,33 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_1345113611",
+				["text"] = "Inflict non-Damaging Ailments as though dealing #% more Damage",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_354080151",
+				["text"] = "Inner Conviction",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_1134560807",
 				["text"] = "Intimidating Cry has #% increased Cooldown Recovery Rate",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2316295572",
+				["text"] = "Iron Flasks applied to you have #% increased Effect",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_573347393",
+				["text"] = "Iron Grip",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_4092697134",
+				["text"] = "Iron Will",
 				["type"] = "implicit",
 			},
 			{
@@ -42415,6 +48155,36 @@ return {
 			{
 				["id"] = "implicit.stat_3513534186",
 				["text"] = "Item sells for much more to vendors",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_752930724",
+				["text"] = "Items and Gems have #% increased Attribute Requirements",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_4052113003",
+				["text"] = "Kill Undead Enemies that have 15% or lower Life when Hit by your Skills",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1218107074",
+				["text"] = "Killing Blows Consume corpses to Recover # Life and # Mana",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_190157226",
+				["text"] = "Killing Blows Consume corpses to Recover #% of Life",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_822106893",
+				["text"] = "Killing Blows Consume corpses to Recover #% of Mana",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_281201999",
+				["text"] = "Knockback direction is reversed",
 				["type"] = "implicit",
 			},
 			{
@@ -42453,6 +48223,11 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_1942151132",
+				["text"] = "Lightning Resistance is #%",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_4175197580",
 				["text"] = "Malevolence has #% increased Aura Effect",
 				["type"] = "implicit",
@@ -42468,8 +48243,68 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_2563183002|3",
+				["text"] = "Map contains Al-Hezmin's Citadel",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2563183002|1",
+				["text"] = "Map contains Baran's Citadel",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2563183002|4",
+				["text"] = "Map contains Drox's Citadel",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2563183002|2",
+				["text"] = "Map contains Veritania's Citadel",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3624393862|3",
+				["text"] = "Map is occupied by The Constrictor",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3624393862|1",
+				["text"] = "Map is occupied by The Enslaver",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3624393862|2",
+				["text"] = "Map is occupied by The Eradicator",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3624393862|4",
+				["text"] = "Map is occupied by The Purifier",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2635385320",
+				["text"] = "Melee Critical Strikes have #% chance to Poison the Enemy",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_1166417447",
 				["text"] = "Melee Hits Fortify",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3675300253",
+				["text"] = "Melee Strike Skills deal Splash Damage to surrounding targets",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1586164348",
+				["text"] = "Minion Life is increased by their Overcapped Fire Resistance",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2602664175",
+				["text"] = "Minions Recover #% of Life on Killing a Poisoned Enemy",
 				["type"] = "implicit",
 			},
 			{
@@ -42478,8 +48313,68 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_128585622",
+				["text"] = "Minions are Aggressive",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3262016885",
+				["text"] = "Minions are Aggressive if you've used a Minion Skill Recently",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2510300854",
+				["text"] = "Minions created Recently have #% increased Attack and Cast Speed",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2414462207",
+				["text"] = "Minions created Recently have Onslaught",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_1589917703",
 				["text"] = "Minions deal #% increased Damage",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2337295272",
+				["text"] = "Minions deal #% increased Damage if you've Hit Recently",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_247168950",
+				["text"] = "Minions gain #% of Elemental Damage as Extra Chaos Damage",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1236638414",
+				["text"] = "Minions gain #% of Physical Damage as Extra Cold Damage",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3217428772",
+				["text"] = "Minions gain #% of Physical Damage as Extra Fire Damage",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2370748292",
+				["text"] = "Minions gain added Resistances equal to #% of your Resistances",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1994549323",
+				["text"] = "Minions have #% chance to Freeze, Shock and Ignite",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_755922799",
+				["text"] = "Minions have #% chance to deal Double Damage",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2834476618",
+				["text"] = "Minions have #% faster start of Energy Shield Recharge",
 				["type"] = "implicit",
 			},
 			{
@@ -42498,13 +48393,43 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_491450213",
+				["text"] = "Minions have #% increased Critical Strike Chance",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_446070669",
+				["text"] = "Minions have #% increased Critical Strike Chance per Maximum Power Charge you have",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_174664100",
 				["text"] = "Minions have #% increased Movement Speed",
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_1371407912",
+				["text"] = "Minions have #% increased Movement Speed if you've used a Minion Skill Recently",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_770672621",
 				["text"] = "Minions have #% increased maximum Life",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3374054207",
+				["text"] = "Minions have +#% Chance to Block Attack Damage",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2762046953",
+				["text"] = "Minions have +#% Chance to Block Spell Damage",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2759003954",
+				["text"] = "Minions have +#% to Damage over Time Multiplier",
 				["type"] = "implicit",
 			},
 			{
@@ -42543,33 +48468,43 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_935326447",
+				["text"] = "Moving while Bleeding doesn't cause you to take extra Damage",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_2656027173",
 				["text"] = "Natural inhabitants of this area have been removed",
 				["type"] = "implicit",
 			},
 			{
-				["id"] = "implicit.stat_2307982579",
-				["text"] = "Nearby Enemies Killed by anyone count as being Killed by you instead",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_2826979740",
-				["text"] = "Nearby Enemies are Blinded",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_3608782127",
-				["text"] = "Nearby Enemies are Crushed",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_2774148053",
-				["text"] = "Nearby Enemies have Malediction",
+				["id"] = "implicit.stat_293071889",
+				["text"] = "Nearby corpses Explode when you Warcry, dealing #% of their Life as Physical Damage",
 				["type"] = "implicit",
 			},
 			{
 				["id"] = "implicit.stat_1661253443",
 				["text"] = "Non-Vaal Strike Skills target # additional nearby Enemy",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2262007777",
+				["text"] = "Non-instant Mana Recovery from Flasks is also Recovered as Life",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2957407601",
+				["text"] = "Offering Skills have #% increased Duration",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_4246915004",
+				["text"] = "Offerings you create also grant #% increased Damage",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_517280174",
+				["text"] = "On Killing a Rare monster, a random Linked Minion gains its Modifiers for # seconds",
 				["type"] = "implicit",
 			},
 			{
@@ -42580,6 +48515,36 @@ return {
 			{
 				["id"] = "implicit.stat_2495041954",
 				["text"] = "Overwhelm #% Physical Damage Reduction",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3120620173",
+				["text"] = "Pact Skills have #% increased Cast Speed",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1144742318",
+				["text"] = "Pact Skills have #% increased Cooldown Recovery Rate",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_98977150",
+				["text"] = "Pain Attunement",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2930706364",
+				["text"] = "Permanently Intimidate Enemies on Block",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2221035608",
+				["text"] = "Petrification on you expires #% faster",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2424163939",
+				["text"] = "Physical Damage of Enemies Hitting you is Lucky",
 				["type"] = "implicit",
 			},
 			{
@@ -42594,7 +48559,12 @@ return {
 			},
 			{
 				["id"] = "implicit.stat_2907156609",
-				["text"] = "Poisons you inflict deal Damage #% faster",
+				["text"] = "Poisons you inflict deal Damage #% Faster",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3750544543",
+				["text"] = "Poisons you inflict on non-Poisoned Enemies deal #% increased Damage",
 				["type"] = "implicit",
 			},
 			{
@@ -42623,6 +48593,11 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_383509486",
+				["text"] = "Projectiles Chain +# times while you have Phasing",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_2067062068",
 				["text"] = "Projectiles Pierce # additional Targets",
 				["type"] = "implicit",
@@ -42633,6 +48608,16 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_97250660",
+				["text"] = "Projectiles Pierce an additional Target while you have Phasing",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3019598671",
+				["text"] = "Projectiles Pierce, Fork or Chain an additional time at random",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_883169830",
 				["text"] = "Projectiles deal #% increased Damage with Hits and Ailments for each Enemy Pierced",
 				["type"] = "implicit",
@@ -42640,6 +48625,11 @@ return {
 			{
 				["id"] = "implicit.stat_1923210508",
 				["text"] = "Projectiles deal #% increased Damage with Hits and Ailments for each time they have Chained",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1698276268",
+				["text"] = "Projectiles that have Chained gain #% of Non-Chaos Damage as extra Chaos Damage",
 				["type"] = "implicit",
 			},
 			{
@@ -42723,6 +48713,21 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_699756626",
+				["text"] = "Quicksilver Flasks you Use also apply to Allies within 6 metres",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3007107372",
+				["text"] = "Rage grants Spell Damage instead of Attack Damage at 50% of the value",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_16924183",
+				["text"] = "Raise Zombie does not require a corpse",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_3645693773",
 				["text"] = "Raised Spectres have #% increased Damage",
 				["type"] = "implicit",
@@ -42730,6 +48735,26 @@ return {
 			{
 				["id"] = "implicit.stat_2228518621",
 				["text"] = "Raised Zombies deal #% increased Damage",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_927817294",
+				["text"] = "Raised Zombies have #% increased maximum Life",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2397408229",
+				["text"] = "Rampage",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1678831767",
+				["text"] = "Recover # Life when you Block",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1807705940",
+				["text"] = "Recover # Life when you Suppress Spell Damage",
 				["type"] = "implicit",
 			},
 			{
@@ -42753,13 +48778,53 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_3681057026",
+				["text"] = "Recover Energy Shield equal to #% of Armour when you Block",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_4235886357",
+				["text"] = "Reflects # Cold Damage to Melee Attackers",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1757945818",
+				["text"] = "Reflects # Fire Damage to Melee Attackers",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3868184702",
+				["text"] = "Reflects # Lightning Damage to Melee Attackers",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_3767873853",
 				["text"] = "Reflects # Physical Damage to Melee Attackers",
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_1445684883",
+				["text"] = "Reflects # to # Physical Damage to Attackers on Block",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2161482953",
+				["text"] = "Regenerate # Life per Second while on Low Life",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_3325883026",
 				["text"] = "Regenerate # Life per second",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1704843611",
+				["text"] = "Regenerate # Life per second if you have at least 1000 Maximum Energy Shield",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1898967950",
+				["text"] = "Regenerate # Life per second per Endurance Charge",
 				["type"] = "implicit",
 			},
 			{
@@ -42788,6 +48853,11 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_2504632495",
+				["text"] = "Regenerate #% Life over one second when Hit while Sane",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_991194404",
 				["text"] = "Regenerate #% of Energy Shield per Second while affected by Discipline",
 				["type"] = "implicit",
@@ -42803,6 +48873,26 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_2841618445",
+				["text"] = "Regenerate #% of Life per second for each Raised Zombie",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2201614328",
+				["text"] = "Regenerate #% of Life per second if you have been Hit Recently",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1107877645",
+				["text"] = "Regenerate #% of Life per second if you've Consumed a corpse Recently",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1960833438",
+				["text"] = "Regenerate #% of Life per second per 500 Player Maximum Energy Shield",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_989800292",
 				["text"] = "Regenerate #% of Life per second per Endurance Charge",
 				["type"] = "implicit",
@@ -42813,13 +48903,8 @@ return {
 				["type"] = "implicit",
 			},
 			{
-				["id"] = "implicit.stat_1871805225",
-				["text"] = "Remnants have #% chance to have an additional Suffix Modifier",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_1871805225",
-				["text"] = "Remnants in your Maps have #% chance to have an additional Suffix Modifier",
+				["id"] = "implicit.stat_1309492287",
+				["text"] = "Regenerate #% of Mana per second if you've Consumed a corpse Recently",
 				["type"] = "implicit",
 			},
 			{
@@ -42845,6 +48930,11 @@ return {
 			{
 				["id"] = "implicit.stat_2451856207",
 				["text"] = "Restores Ward on use",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2547149004",
+				["text"] = "Retaliation Skills become Usable for #% longer",
 				["type"] = "implicit",
 			},
 			{
@@ -42883,13 +48973,43 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_613752285",
+				["text"] = "Sacrifice #% of Life to gain that much Energy Shield when you Cast a Spell",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_41178696",
+				["text"] = "Scorch Enemies in Close Range when you Block",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_261342933",
 				["text"] = "Secrets of Suffering",
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_1881314095",
+				["text"] = "Share Endurance Charges with Party members within 12 metres",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_956038713",
+				["text"] = "Shared Suffering",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2706994884",
+				["text"] = "Shocked Enemies you Kill Explode, dealing #% of their Life as Lightning Damage which cannot Shock",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_424549222",
 				["text"] = "Shocks you inflict spread to other Enemies within # metre",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1640259660",
+				["text"] = "Shocks you inflict spread to other Enemies within 1.5 metres",
 				["type"] = "implicit",
 			},
 			{
@@ -42903,8 +49023,63 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_1504513372",
+				["text"] = "Skills Supported by Unleash have #% increased Seal gain frequency",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2101631651",
+				["text"] = "Skills deal #% increased Projectile damage per Projectile created",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_74338099",
 				["text"] = "Skills fire an additional Projectile",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_988207959",
+				["text"] = "Skills fire an additional Projectile if you've been Hit Recently",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2809802678",
+				["text"] = "Skills fire an additional Projectile if you've used a Movement Skill Recently",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2059097830",
+				["text"] = "Skills socketed in Equipped Boots have #% increased Mana Cost Efficiency",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1264919148",
+				["text"] = "Skills supported by Unleash have +# to maximum number of Seals",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1183036145",
+				["text"] = "Skills that Cost Life have #% chance to deal Double Damage",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1870732546",
+				["text"] = "Skills that Summon a Totem have #% chance to Summon two Totems instead of one",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2538411280",
+				["text"] = "Skills which Exert an Attack have #% chance to not count that Attack",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1917661185",
+				["text"] = "Skills which throw Mines throw up to 1 additional Mine if you have at least 800 Dexterity",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_5955083",
+				["text"] = "Skills which throw Mines throw up to 1 additional Mine if you have at least 800 Intelligence",
 				["type"] = "implicit",
 			},
 			{
@@ -42918,153 +49093,223 @@ return {
 				["type"] = "implicit",
 			},
 			{
-				["id"] = "implicit.stat_411460446",
-				["text"] = "Socketed Gems are Supported by Level # Added Chaos Damage",
+				["id"] = "implicit.stat_1471600638",
+				["text"] = "Socketed Curse Gems have #% increased Reservation Efficiency",
 				["type"] = "implicit",
 			},
 			{
-				["id"] = "implicit.stat_2572192375",
-				["text"] = "Socketed Gems are Supported by Level # Added Fire Damage",
+				["id"] = "implicit.effect_1673391040",
+				["text"] = "Socketed Gems are Supported by Level # Added Chaos Damage Support",
 				["type"] = "implicit",
 			},
 			{
-				["id"] = "implicit.stat_3922006600",
-				["text"] = "Socketed Gems are Supported by Level # Arrogance",
+				["id"] = "implicit.effect_3362019776",
+				["text"] = "Socketed Gems are Supported by Level # Added Cold Damage Support",
 				["type"] = "implicit",
 			},
 			{
-				["id"] = "implicit.stat_2643665787",
-				["text"] = "Socketed Gems are Supported by Level # Chain",
+				["id"] = "implicit.effect_1571191461",
+				["text"] = "Socketed Gems are Supported by Level # Added Fire Damage Support",
 				["type"] = "implicit",
 			},
 			{
-				["id"] = "implicit.stat_1679136",
-				["text"] = "Socketed Gems are Supported by Level # Cruelty",
+				["id"] = "implicit.effect_3607696303",
+				["text"] = "Socketed Gems are Supported by Level # Added Lightning Damage Support",
 				["type"] = "implicit",
 			},
 			{
-				["id"] = "implicit.stat_1994143317",
-				["text"] = "Socketed Gems are Supported by Level # Elemental Penetration",
+				["id"] = "implicit.effect_338557223",
+				["text"] = "Socketed Gems are Supported by Level # Additional Accuracy Support",
 				["type"] = "implicit",
 			},
 			{
-				["id"] = "implicit.stat_2929101122",
-				["text"] = "Socketed Gems are Supported by Level # Elemental Proliferation",
+				["id"] = "implicit.effect_434885230",
+				["text"] = "Socketed Gems are Supported by Level # Blasphemy Support",
 				["type"] = "implicit",
 			},
 			{
-				["id"] = "implicit.stat_2169938251",
-				["text"] = "Socketed Gems are Supported by Level # Faster Casting",
+				["id"] = "implicit.effect_3972941836",
+				["text"] = "Socketed Gems are Supported by Level # Blind Support",
 				["type"] = "implicit",
 			},
 			{
-				["id"] = "implicit.stat_107118693",
-				["text"] = "Socketed Gems are Supported by Level # Fortify",
+				["id"] = "implicit.effect_4267977279",
+				["text"] = "Socketed Gems are Supported by Level # Cast On Critical Strike Support",
 				["type"] = "implicit",
 			},
 			{
-				["id"] = "implicit.stat_1900098804",
-				["text"] = "Socketed Gems are Supported by Level # Impale",
+				["id"] = "implicit.effect_626699959",
+				["text"] = "Socketed Gems are Supported by Level # Cast on Death Support",
 				["type"] = "implicit",
 			},
 			{
-				["id"] = "implicit.stat_3720936304",
-				["text"] = "Socketed Gems are Supported by Level # Increased Area of Effect",
+				["id"] = "implicit.effect_3474714415",
+				["text"] = "Socketed Gems are Supported by Level # Cast when Stunned Support",
 				["type"] = "implicit",
 			},
 			{
-				["id"] = "implicit.stat_1866911844",
-				["text"] = "Socketed Gems are Supported by Level # Inspiration",
+				["id"] = "implicit.effect_3009566559",
+				["text"] = "Socketed Gems are Supported by Level # Chain Support",
 				["type"] = "implicit",
 			},
 			{
-				["id"] = "implicit.stat_2032386732",
-				["text"] = "Socketed Gems are Supported by Level # Life Gain On Hit",
+				["id"] = "implicit.effect_2141384509",
+				["text"] = "Socketed Gems are Supported by Level # Chance to Poison Support",
 				["type"] = "implicit",
 			},
 			{
-				["id"] = "implicit.stat_1079239905",
-				["text"] = "Socketed Gems are Supported by Level # Lifetap",
+				["id"] = "implicit.effect_3293595800",
+				["text"] = "Socketed Gems are Supported by Level # Concentrated Effect Support",
 				["type"] = "implicit",
 			},
 			{
-				["id"] = "implicit.stat_3237923082",
-				["text"] = "Socketed Gems are Supported by Level # Momentum",
+				["id"] = "implicit.effect_2251567057",
+				["text"] = "Socketed Gems are Supported by Level # Cruelty Support",
 				["type"] = "implicit",
 			},
 			{
-				["id"] = "implicit.stat_584144941",
-				["text"] = "Socketed Gems are Supported by Level # Multiple Projectiles",
+				["id"] = "implicit.effect_468251502",
+				["text"] = "Socketed Gems are Supported by Level # Elemental Damage with Attacks Support",
 				["type"] = "implicit",
 			},
 			{
-				["id"] = "implicit.stat_369650395",
-				["text"] = "Socketed Gems are Supported by Level # Rage",
+				["id"] = "implicit.effect_3232631539",
+				["text"] = "Socketed Gems are Supported by Level # Elemental Penetration Support",
 				["type"] = "implicit",
 			},
 			{
-				["id"] = "implicit.stat_1567462963",
-				["text"] = "Socketed Gems are supported by Level # Additional Accuracy",
+				["id"] = "implicit.effect_3828086965",
+				["text"] = "Socketed Gems are Supported by Level # Elemental Proliferation Support",
 				["type"] = "implicit",
 			},
 			{
-				["id"] = "implicit.stat_2223640518",
-				["text"] = "Socketed Gems are supported by Level # Blind",
+				["id"] = "implicit.effect_4291787627",
+				["text"] = "Socketed Gems are Supported by Level # Faster Attacks Support",
 				["type"] = "implicit",
 			},
 			{
-				["id"] = "implicit.stat_2325632050",
-				["text"] = "Socketed Gems are supported by Level # Cast On Critical Strike",
+				["id"] = "implicit.effect_1324938267",
+				["text"] = "Socketed Gems are Supported by Level # Faster Casting Support",
 				["type"] = "implicit",
 			},
 			{
-				["id"] = "implicit.stat_1079148723",
-				["text"] = "Socketed Gems are supported by Level # Cast when Stunned",
+				["id"] = "implicit.effect_1770376530",
+				["text"] = "Socketed Gems are Supported by Level # Faster Projectiles Support",
 				["type"] = "implicit",
 			},
 			{
-				["id"] = "implicit.stat_2532625478",
-				["text"] = "Socketed Gems are supported by Level # Elemental Damage with Attacks",
+				["id"] = "implicit.effect_3553187279",
+				["text"] = "Socketed Gems are Supported by Level # Fork Support",
 				["type"] = "implicit",
 			},
 			{
-				["id"] = "implicit.stat_99089516",
-				["text"] = "Socketed Gems are supported by Level # Faster Projectiles",
+				["id"] = "implicit.effect_3543464371",
+				["text"] = "Socketed Gems are Supported by Level # Fortify Support",
 				["type"] = "implicit",
 			},
 			{
-				["id"] = "implicit.stat_2062753054",
-				["text"] = "Socketed Gems are supported by Level # Fork",
+				["id"] = "implicit.effect_3419961156",
+				["text"] = "Socketed Gems are Supported by Level # Impale Support",
 				["type"] = "implicit",
 			},
 			{
-				["id"] = "implicit.stat_1108755349",
-				["text"] = "Socketed Gems are supported by Level # Increased Critical Damage",
+				["id"] = "implicit.effect_3737592146",
+				["text"] = "Socketed Gems are Supported by Level # Increased Area of Effect Support",
 				["type"] = "implicit",
 			},
 			{
-				["id"] = "implicit.stat_891277550",
-				["text"] = "Socketed Gems are supported by Level # Life Leech",
+				["id"] = "implicit.effect_4278342035",
+				["text"] = "Socketed Gems are Supported by Level # Increased Critical Damage Support",
 				["type"] = "implicit",
 			},
 			{
-				["id"] = "implicit.stat_1811422871",
-				["text"] = "Socketed Gems are supported by Level # Melee Splash",
+				["id"] = "implicit.effect_859488427",
+				["text"] = "Socketed Gems are Supported by Level # Inspiration Support",
 				["type"] = "implicit",
 			},
 			{
-				["id"] = "implicit.stat_2501237765",
-				["text"] = "Socketed Gems are supported by Level # Multistrike",
+				["id"] = "implicit.effect_4282732147",
+				["text"] = "Socketed Gems are Supported by Level # Life Gain on Hit Support",
 				["type"] = "implicit",
 			},
 			{
-				["id"] = "implicit.stat_689720069",
-				["text"] = "Socketed Gems are supported by Level # Stun",
+				["id"] = "implicit.effect_2713755048",
+				["text"] = "Socketed Gems are Supported by Level # Life Leech Support",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.effect_265550805",
+				["text"] = "Socketed Gems are Supported by Level # Lifetap Support",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.effect_682681978",
+				["text"] = "Socketed Gems are Supported by Level # Melee Splash Support",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.effect_3893320621",
+				["text"] = "Socketed Gems are Supported by Level # Momentum Support",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.effect_1153652646",
+				["text"] = "Socketed Gems are Supported by Level # Multiple Projectiles Support",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.effect_2100902429",
+				["text"] = "Socketed Gems are Supported by Level # Multistrike Support",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_254728692",
+				["text"] = "Socketed Gems are Supported by Level # Pierce",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.effect_3457811678",
+				["text"] = "Socketed Gems are Supported by Level # Pierce Support",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.effect_3512123051",
+				["text"] = "Socketed Gems are Supported by Level # Rage Support",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.effect_1858870975",
+				["text"] = "Socketed Gems are Supported by Level # Spell Totem Support",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.effect_1878151040",
+				["text"] = "Socketed Gems are Supported by Level # Stun Support",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.effect_1710445055",
+				["text"] = "Socketed Gems are Supported by Level # Unleash Support",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.effect_2698327786",
+				["text"] = "Socketed Gems are Supported by Level # Vile Toxins Support",
 				["type"] = "implicit",
 			},
 			{
 				["id"] = "implicit.stat_3289633055",
 				["text"] = "Socketed Gems have #% increased Reservation Efficiency",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2816901897",
+				["text"] = "Socketed Gems have #% less Mana Cost",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_4006301249",
+				["text"] = "Socketed Minion Gems are Supported by Level # Life Leech",
 				["type"] = "implicit",
 			},
 			{
@@ -43078,13 +49323,28 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_3784504781",
+				["text"] = "Socketed Warcry Skills have +# Cooldown Use",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_1967040409",
 				["text"] = "Spell Skills have #% increased Area of Effect",
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_1090897989",
+				["text"] = "Spell Skills have #% increased Critical Strike Chance on Final Repeat",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_2813626504",
 				["text"] = "Spells have a #% chance to deal Double Damage",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3362832740",
+				["text"] = "Spells you Cast have Added Spell Damage equal to #% of the Damage of your Main Hand Weapon",
 				["type"] = "implicit",
 			},
 			{
@@ -43098,13 +49358,48 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_3469279727",
+				["text"] = "Stationary Enemies within 6 metres gain a Grasping Vine every second",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2783093471",
+				["text"] = "Strike Skills which target additional Enemies can do so from #% further away",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_2898944747",
 				["text"] = "Stun Threshold is increased by Overcapped Fire Resistance",
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_7847395",
+				["text"] = "Summoned Phantasms have #% chance to refresh their Duration when they Hit a Rare or Unique Enemy",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_4070754804",
+				["text"] = "Summoned Raging Spirits have #% chance to refresh their Duration when they Hit a Rare or Unique Enemy",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_221328679",
+				["text"] = "Summoned Raging Spirits' Melee Strikes deal Fire-only Splash Damage to Surrounding Targets",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1021552211",
+				["text"] = "Summoned Skeleton Warriors are Permanent and Follow you Summon Skeletons cannot Summon more than 1 Skeleton Warrior",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_4294267596",
+				["text"] = "Take no Extra Damage from Critical Strikes",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_2005503156",
-				["text"] = "Taunts nearby Enemies on use",
+				["text"] = "Taunts Enemies within # metres on use",
 				["type"] = "implicit",
 			},
 			{
@@ -43113,8 +49408,28 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_1723061251",
+				["text"] = "Totems Reflect #% of their maximum Life as Fire Damage to Enemies within 1.8 metres when Hit",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_1809006367",
 				["text"] = "Totems gain +#% to all Elemental Resistances",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_881645355",
+				["text"] = "Transfiguration of Body",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2571899044",
+				["text"] = "Transfiguration of Mind",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3268519799",
+				["text"] = "Transfiguration of Soul",
 				["type"] = "implicit",
 			},
 			{
@@ -43123,8 +49438,23 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_1607193320",
+				["text"] = "Travel Skills have #% chance to not consume a Cooldown on use",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_3924520095",
 				["text"] = "Trigger Level # Assassin's Mark when you Hit a Rare or Unique Enemy and have no Mark",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_825352061",
+				["text"] = "Trigger Level # Death Aura when Equipped",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1024189516",
+				["text"] = "Trigger Level # Feast of Flesh every 5 seconds",
 				["type"] = "implicit",
 			},
 			{
@@ -43138,13 +49468,58 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_208447205",
+				["text"] = "Trigger Level # Fog of War when your Trap is triggered",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3892608176",
+				["text"] = "Trigger Level # Intimidating Cry when you lose Cat's Stealth",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_2935409762",
 				["text"] = "Trigger Level # Rain of Arrows when you Attack with a Bow",
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_401685616",
+				["text"] = "Trigger Level # Shield Shatter when you Block",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_1774370437",
 				["text"] = "Trigger Level # Summon Taunting Contraption when you use a Flask",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_658873122",
+				["text"] = "Trigger Level # Summon Void Spawn every 4 seconds",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_767464019",
+				["text"] = "Trigger Level # Toxic Rain when you Attack with a Bow",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1869144397",
+				["text"] = "Trigger Level # Void Gaze when you use a Skill",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_32458272",
+				["text"] = "Trigger Level 20 Lesser Raise Spiders on Kill",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2554328719",
+				["text"] = "Trigger Level 20 Twister when you gain Avian's Might or Avian's Flight",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2603798371",
+				["text"] = "Trigger Level 30 Shade Form when Hit",
 				["type"] = "implicit",
 			},
 			{
@@ -43158,8 +49533,33 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_3250579936",
+				["text"] = "Triggers Level # Abberath's Fury when Equipped",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3918947537",
+				["text"] = "Triggers Level # Cold Aegis when Equipped",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_779168081",
 				["text"] = "Triggers Level # Corpse Walk when Equipped",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2602585351",
+				["text"] = "Triggers Level # Elemental Aegis when Equipped",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1128763150",
+				["text"] = "Triggers Level # Fire Aegis when Equipped",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_850729424",
+				["text"] = "Triggers Level # Lightning Aegis when Equipped",
 				["type"] = "implicit",
 			},
 			{
@@ -43168,8 +49568,18 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_3664803307",
+				["text"] = "Triggers Level # Summon Arbalists when Equipped",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_1643688236",
 				["text"] = "Unaffected by Burning Ground",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_4014328139",
+				["text"] = "Unaffected by Chill while Leeching Mana",
 				["type"] = "implicit",
 			},
 			{
@@ -43178,8 +49588,33 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_3809896400",
+				["text"] = "Unaffected by Curses",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1575046591",
+				["text"] = "Unaffected by Damaging Ailments",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_4004298002",
 				["text"] = "Unaffected by Desecrated Ground",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2716882575",
+				["text"] = "Unaffected by Ignite or Shock if Maximum Life and Maximum Mana are within 500",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1953432004",
+				["text"] = "Unaffected by Poison",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_4102393882",
+				["text"] = "Unaffected by Shock while Leeching Energy Shield",
 				["type"] = "implicit",
 			},
 			{
@@ -43278,6 +49713,11 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_2567919918",
+				["text"] = "Utility Flasks gain # Charge every 3 seconds",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_2257118425",
 				["text"] = "Vaal Pact",
 				["type"] = "implicit",
@@ -43318,8 +49758,38 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_3399924348",
+				["text"] = "Warcries grant Arcane Surge to you and Allies, with #% increased effect per 5 power, up to 50%",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2567751411",
+				["text"] = "Warcry Skills have #% increased Area of Effect",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_1504905117",
 				["text"] = "Warcry Skills have +# seconds to Cooldown",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3281809492",
+				["text"] = "When Hit, gain a random Movement Speed modifier from #% reduced to #% increased, until Hit again",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_820827484",
+				["text"] = "When you Cast a Spell, Sacrifice all Mana to gain Added Maximum Lightning Damage equal to #% of Sacrificed Mana for 4 seconds",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2736829661",
+				["text"] = "When you Kill a Rare Monster, #% chance to gain one of its Modifiers for 10 seconds",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2751374419",
+				["text"] = "When you Poison a non-Poisoned target, also inflict # Withered debuffs, lasting 2 seconds",
 				["type"] = "implicit",
 			},
 			{
@@ -43348,8 +49818,33 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_2661498709",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% chance to Avoid being Frozen",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_911929910",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% chance to Avoid being Ignited",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_2714750784",
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% chance to Avoid being Poisoned",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3823702653",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% chance to Avoid being Shocked",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_990874979",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% chance to Avoid being Stunned",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1158288860",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% chance to Extinguish Enemies on Hit",
 				["type"] = "implicit",
 			},
 			{
@@ -43373,6 +49868,11 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_3004272949",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% chance to Intimidate Enemies for 4 seconds on Hit",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_532792006",
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% chance to Poison on Hit",
 				["type"] = "implicit",
@@ -43380,6 +49880,26 @@ return {
 			{
 				["id"] = "implicit.stat_2459490852",
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% chance to Shock",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_4018420421",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% chance to Unnerve Enemies for 4 seconds on Hit",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2251857767",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Action Speed",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3744585764",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Arctic Armour Buff Effect",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_568930056",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Area of Effect",
 				["type"] = "implicit",
 			},
 			{
@@ -43398,6 +49918,11 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_2446980928",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Attack Speed",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_1455812442",
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Battlemage's Cry Buff Effect",
 				["type"] = "implicit",
@@ -43408,6 +49933,31 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_2391109128",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Brand Attachment range",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_4098747485",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Cast Speed",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2070979181",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Chaos Damage",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1576689223",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Cold Damage",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2095999895",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Conductivity Curse Effect",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_668321613",
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Cooldown Recovery Rate",
 				["type"] = "implicit",
@@ -43415,6 +49965,11 @@ return {
 			{
 				["id"] = "implicit.stat_850668052",
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Cooldown Recovery Rate of Travel Skills",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1840069423",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Critical Strike Chance for Attacks",
 				["type"] = "implicit",
 			},
 			{
@@ -43433,6 +49988,26 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_740797388",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Damage per Endurance Charge",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1855179125",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Damage per Frenzy Charge",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2809284200",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Damage per Power Charge",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2775855429",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Despair Curse Effect",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_867827325",
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Duration of Ailments on Enemies",
 				["type"] = "implicit",
@@ -43443,13 +50018,63 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_4128294206",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Effect of Buffs granted by your Golems",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_1016769968",
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Effect of Non-Damaging Ailments",
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_3209267362",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Effect of Onslaught on you",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1080711147",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Effect of the Buff granted by your Carrion Golems",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_510803146",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Effect of the Buff granted by your Chaos Golems",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_783010498",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Effect of the Buff granted by your Flame Golems",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_168204696",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Effect of the Buff granted by your Ice Golems",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2527345629",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Effect of the Buff granted by your Lightning Golems",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_438468314",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Effect of the Buff granted by your Stone Golems",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1350472585",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Effect of your Curses",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_1138753695",
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Effect of your Marks",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2029969019",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Elemental Weakness Curse Effect",
 				["type"] = "implicit",
 			},
 			{
@@ -43468,6 +50093,11 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_38083709",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Enfeeble Curse Effect",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_2386062386",
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Evasion Rating",
 				["type"] = "implicit",
@@ -43478,8 +50108,28 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_2782184338",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Fire Damage",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_323292443",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Flammability Curse Effect",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2068042138",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Frostbite Curse Effect",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_2086047206",
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Global Accuracy Rating",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2545907302",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Global Physical Damage",
 				["type"] = "implicit",
 			},
 			{
@@ -43490,6 +50140,16 @@ return {
 			{
 				["id"] = "implicit.stat_498250787",
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Life Regeneration rate",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1328859059",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Lightning Damage",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3996548075",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Mana Cost Efficiency",
 				["type"] = "implicit",
 			},
 			{
@@ -43518,6 +50178,21 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_3827973062",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Mine Throwing Speed",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1702124724",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Movement Speed",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_40584863",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Punishment Curse Effect",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_2063107864",
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Rallying Cry Buff Effect",
 				["type"] = "implicit",
@@ -43525,6 +50200,11 @@ return {
 			{
 				["id"] = "implicit.stat_2828309116",
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Skill Effect Duration",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1412947753",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Spell Critical Strike Chance",
 				["type"] = "implicit",
 			},
 			{
@@ -43538,8 +50218,43 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_3695602451",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Temporal Chains Curse Effect",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_100371300",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Totem Placement speed",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_547463927",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Trap Throwing Speed",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1668340466",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Vulnerability Curse Effect",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_794753348",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Warcry Buff Effect",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_2117066923",
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Warcry Speed",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3788782813",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased effect of Non-Curse Auras from your Skills",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2526554500",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased effect of Offerings",
 				["type"] = "implicit",
 			},
 			{
@@ -43558,13 +50273,38 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_2181576428",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% of Cold Damage taken Recouped as Life",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_699673918",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% of Damage is taken from Mana before Life",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2525287976",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% of Damage taken Recouped as Life",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_3480255365",
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% of Fire Damage Leeched as Life",
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_1613190388",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% of Fire Damage taken Recouped as Life",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_373606913",
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% of Lightning Damage Leeched as Life",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3870554516",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% of Lightning Damage taken Recouped as Life",
 				["type"] = "implicit",
 			},
 			{
@@ -43613,8 +50353,18 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_286128234",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% of Physical Damage taken Recouped as Life",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_433740375",
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% reduced Effect of Shock on you",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2169620689",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% reduced Enemy Stun Threshold",
 				["type"] = "implicit",
 			},
 			{
@@ -43628,6 +50378,11 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_1297664519",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% reduced Mana Cost of Attacks",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_771112337",
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, +# to Accuracy Rating per Frenzy Charge",
 				["type"] = "implicit",
@@ -43638,8 +50393,83 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_2163155983",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, +#% to Chaos Damage over Time Multiplier",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_74135418",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, +#% to Chaos Resistance",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2619970520",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, +#% to Cold Damage over Time Multiplier",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3864103630",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, +#% to Cold Resistance",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_529984126",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, +#% to Critical Strike Multiplier for Attack Damage",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2955927568",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, +#% to Critical Strike Multiplier for Spell Damage",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1870961528",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, +#% to Fire Damage over Time Multiplier",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1299790658",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, +#% to Fire Resistance",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3980173235",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, +#% to Lightning Resistance",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_4084536353",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, +#% to Physical Damage over Time Multiplier",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_2251516251",
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, +#% to all Elemental Resistances",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_673499528",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, +#% to all maximum Resistances",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_944522962",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, +#% to maximum Chaos Resistance",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3415855998",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, +#% to maximum Cold Resistance",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1133929401",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, +#% to maximum Fire Resistance",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_4136085904",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, +#% to maximum Lightning Resistance",
 				["type"] = "implicit",
 			},
 			{
@@ -43655,6 +50485,56 @@ return {
 			{
 				["id"] = "implicit.stat_514187658",
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, 1% less Damage Taken per # Strength",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3953801646",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Adds # to # Chaos Damage to Attacks",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3206883665",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Adds # to # Chaos Damage to Spells",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1016130575",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Adds # to # Cold Damage to Attacks",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3349767748",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Adds # to # Cold Damage to Spells",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3972399670",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Adds # to # Fire Damage to Attacks",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3954869480",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Adds # to # Fire Damage to Spells",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2925105924",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Adds # to # Lightning Damage to Attacks",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3874289",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Adds # to # Lightning Damage to Spells",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3477311591",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Adds # to # Physical Damage to Attacks",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_485268361",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Adds # to # Physical Damage to Spells",
 				["type"] = "implicit",
 			},
 			{
@@ -43684,7 +50564,12 @@ return {
 			},
 			{
 				["id"] = "implicit.stat_4106235309",
-				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Bleeding you inflict deals Damage #% faster",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Bleeding you inflict deals Damage #% Faster",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_689723685",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Bone Offering has #% increased Effect",
 				["type"] = "implicit",
 			},
 			{
@@ -43713,6 +50598,21 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_4007728388",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Drops Brittle Ground while moving, lasting # seconds",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3812596254",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Drops Sapped Ground while moving, lasting # seconds",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2022820500",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Drops Scorched Ground while moving, lasting # seconds",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_906749304",
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Enduring Cry has #% increased Cooldown Recovery Rate",
 				["type"] = "implicit",
@@ -43725,6 +50625,36 @@ return {
 			{
 				["id"] = "implicit.stat_376260015",
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Exerted Attacks deal #% increased Damage",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_4155771029",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Flasks applied to you have #% increased Effect",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1519845279",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Flasks gain # Charges every 3 seconds",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2013839784",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Flesh Offering has #% increased Effect",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_764963982",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Flesh and Stone has #% increased Area of Effect",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2689351720",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Freezes you inflict spread to other Enemies within # metre",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3344624374",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Gain # Rage on Attack Hit",
 				["type"] = "implicit",
 			},
 			{
@@ -43748,6 +50678,26 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_1774362541",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Gain 1 Rage on Hit with Attacks",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2237382624",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Gain a Frenzy Charge every # seconds",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2776235850",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Gain a Power Charge every # seconds",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2896379260",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Gain an Endurance Charge every # seconds",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_133006298",
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, General's Cry has #% increased Cooldown Recovery Rate",
 				["type"] = "implicit",
@@ -43768,13 +50718,43 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_3001066983",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Herald of Agony has #% increased Buff Effect",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3045509476",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Herald of Ash has #% increased Buff Effect",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1609260458",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Herald of Ice has #% increased Buff Effect",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3005679448",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Herald of Purity has #% increased Buff Effect",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1553385903",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Herald of Thunder has #% increased Buff Effect",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_3990398819",
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Hits have #% chance to ignore Enemy Physical Damage Reduction",
 				["type"] = "implicit",
 			},
 			{
 				["id"] = "implicit.stat_1053495752",
-				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Ignites you inflict deal Damage #% faster",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Ignites you inflict deal Damage #% Faster",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3343791355",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Ignites you inflict spread to other Enemies within # metre",
 				["type"] = "implicit",
 			},
 			{
@@ -43813,13 +50793,33 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_3141084961",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Minions deal #% increased Damage",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2809900883",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Minions have #% increased Movement Speed",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_4057257145",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Minions have #% increased maximum Life",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_1973340656",
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Minions prevent +#% of Reflected Damage they would take",
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_1884100040",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Non-Vaal Strike Skills target # additional nearby Enemy",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_995369618",
-				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Poisons you inflict deal Damage #% faster",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Poisons you inflict deal Damage #% Faster",
 				["type"] = "implicit",
 			},
 			{
@@ -43863,6 +50863,21 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_2218095219",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Shocks you inflict spread to other Enemies within # metre",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_726251263",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Spirit Offering has #% increased Effect",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1138488752",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Tempest Shield has #% increased Buff Effect",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_3457821036",
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Withered you Inflict expires #% faster",
 				["type"] = "implicit",
@@ -43878,6 +50893,31 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_725501141",
+				["text"] = "While a Unique Enemy is in your Presence, #% Chance to Block Attack Damage",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1358320252",
+				["text"] = "While a Unique Enemy is in your Presence, #% Chance to Block Spell Damage",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_172529037",
+				["text"] = "While a Unique Enemy is in your Presence, #% chance to Aggravate Bleeding on targets you Hit with Attacks",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2651293339",
+				["text"] = "While a Unique Enemy is in your Presence, #% chance to Avoid Bleeding",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3264420229",
+				["text"] = "While a Unique Enemy is in your Presence, #% chance to Avoid Elemental Ailments",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_3887072924",
 				["text"] = "While a Unique Enemy is in your Presence, #% chance to Avoid being Frozen",
 				["type"] = "implicit",
@@ -43885,6 +50925,11 @@ return {
 			{
 				["id"] = "implicit.stat_2796083262",
 				["text"] = "While a Unique Enemy is in your Presence, #% chance to Avoid being Ignited",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3553907672",
+				["text"] = "While a Unique Enemy is in your Presence, #% chance to Avoid being Poisoned",
 				["type"] = "implicit",
 			},
 			{
@@ -43903,8 +50948,38 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_1542827808",
+				["text"] = "While a Unique Enemy is in your Presence, #% chance to Freeze",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3423886807",
+				["text"] = "While a Unique Enemy is in your Presence, #% chance to Hinder Enemies on Hit with Spells",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_874990741",
+				["text"] = "While a Unique Enemy is in your Presence, #% chance to Ignite",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2391907787",
+				["text"] = "While a Unique Enemy is in your Presence, #% chance to Impale Enemies on Hit with Attacks",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_144453866",
 				["text"] = "While a Unique Enemy is in your Presence, #% chance to Intimidate Enemies for 4 seconds on Hit",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2433754249",
+				["text"] = "While a Unique Enemy is in your Presence, #% chance to Poison on Hit",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2621869142",
+				["text"] = "While a Unique Enemy is in your Presence, #% chance to Shock",
 				["type"] = "implicit",
 			},
 			{
@@ -43928,8 +51003,33 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_1980216452",
+				["text"] = "While a Unique Enemy is in your Presence, #% increased Armour",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_4053459163",
+				["text"] = "While a Unique Enemy is in your Presence, #% increased Armour from Equipped Helmet and Gloves",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_4061200499",
+				["text"] = "While a Unique Enemy is in your Presence, #% increased Attack Damage",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_3401410854",
 				["text"] = "While a Unique Enemy is in your Presence, #% increased Attack Speed",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3173180145",
+				["text"] = "While a Unique Enemy is in your Presence, #% increased Battlemage's Cry Buff Effect",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_886650454",
+				["text"] = "While a Unique Enemy is in your Presence, #% increased Blind Effect",
 				["type"] = "implicit",
 			},
 			{
@@ -43958,8 +51058,33 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_2491353340",
+				["text"] = "While a Unique Enemy is in your Presence, #% increased Cooldown Recovery Rate",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2986495340",
+				["text"] = "While a Unique Enemy is in your Presence, #% increased Cooldown Recovery Rate of Travel Skills",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_3710240762",
 				["text"] = "While a Unique Enemy is in your Presence, #% increased Critical Strike Chance for Attacks",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3966336964",
+				["text"] = "While a Unique Enemy is in your Presence, #% increased Damage per 100 Dexterity",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_545832642",
+				["text"] = "While a Unique Enemy is in your Presence, #% increased Damage per 100 Intelligence",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_410716074",
+				["text"] = "While a Unique Enemy is in your Presence, #% increased Damage per 100 Strength",
 				["type"] = "implicit",
 			},
 			{
@@ -43983,8 +51108,23 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_3341892633",
+				["text"] = "While a Unique Enemy is in your Presence, #% increased Duration of Ailments on Enemies",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3163099942",
+				["text"] = "While a Unique Enemy is in your Presence, #% increased Effect of Arcane Surge on you",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_2159248495",
 				["text"] = "While a Unique Enemy is in your Presence, #% increased Effect of Buffs granted by your Golems",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2950684886",
+				["text"] = "While a Unique Enemy is in your Presence, #% increased Effect of Non-Damaging Ailments",
 				["type"] = "implicit",
 			},
 			{
@@ -44028,13 +51168,43 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_505694848",
+				["text"] = "While a Unique Enemy is in your Presence, #% increased Effect of your Marks",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_771845579",
 				["text"] = "While a Unique Enemy is in your Presence, #% increased Elemental Weakness Curse Effect",
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_2413932980",
+				["text"] = "While a Unique Enemy is in your Presence, #% increased Elusive Effect",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3806837783",
+				["text"] = "While a Unique Enemy is in your Presence, #% increased Energy Shield Recharge Rate",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_587322642",
+				["text"] = "While a Unique Enemy is in your Presence, #% increased Energy Shield Recovery rate",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_937462392",
 				["text"] = "While a Unique Enemy is in your Presence, #% increased Enfeeble Curse Effect",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3394288644",
+				["text"] = "While a Unique Enemy is in your Presence, #% increased Evasion Rating",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1825301877",
+				["text"] = "While a Unique Enemy is in your Presence, #% increased Evasion Rating from Equipped Helmet and Boots",
 				["type"] = "implicit",
 			},
 			{
@@ -44053,13 +51223,58 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_2423625781",
+				["text"] = "While a Unique Enemy is in your Presence, #% increased Global Accuracy Rating",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_604852150",
 				["text"] = "While a Unique Enemy is in your Presence, #% increased Global Physical Damage",
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_1481249164",
+				["text"] = "While a Unique Enemy is in your Presence, #% increased Life Recovery rate",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1916766878",
+				["text"] = "While a Unique Enemy is in your Presence, #% increased Life Regeneration rate",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_2668120423",
 				["text"] = "While a Unique Enemy is in your Presence, #% increased Lightning Damage",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_4094153038",
+				["text"] = "While a Unique Enemy is in your Presence, #% increased Mana Cost Efficiency",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1217759839",
+				["text"] = "While a Unique Enemy is in your Presence, #% increased Mana Recovery rate",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_760444887",
+				["text"] = "While a Unique Enemy is in your Presence, #% increased Mana Regeneration Rate",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1918872160",
+				["text"] = "While a Unique Enemy is in your Presence, #% increased Mana Regeneration Rate per Power Charge",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2358903592",
+				["text"] = "While a Unique Enemy is in your Presence, #% increased Mana Reservation Efficiency of Skills",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2734758957",
+				["text"] = "While a Unique Enemy is in your Presence, #% increased Maximum Energy Shield from Equipped Gloves and Boots",
 				["type"] = "implicit",
 			},
 			{
@@ -44078,8 +51293,28 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_1381761351",
+				["text"] = "While a Unique Enemy is in your Presence, #% increased Rallying Cry Buff Effect",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_614709726",
+				["text"] = "While a Unique Enemy is in your Presence, #% increased Skill Effect Duration",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_4191234472",
 				["text"] = "While a Unique Enemy is in your Presence, #% increased Spell Critical Strike Chance",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_4136821316",
+				["text"] = "While a Unique Enemy is in your Presence, #% increased Spell Damage",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_266654028",
+				["text"] = "While a Unique Enemy is in your Presence, #% increased Stun Threshold",
 				["type"] = "implicit",
 			},
 			{
@@ -44108,6 +51343,11 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_2255001736",
+				["text"] = "While a Unique Enemy is in your Presence, #% increased Warcry Speed",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_2558323947",
 				["text"] = "While a Unique Enemy is in your Presence, #% increased effect of Non-Curse Auras from your Skills",
 				["type"] = "implicit",
@@ -44115,6 +51355,21 @@ return {
 			{
 				["id"] = "implicit.stat_1132843482",
 				["text"] = "While a Unique Enemy is in your Presence, #% increased effect of Offerings",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1114962813",
+				["text"] = "While a Unique Enemy is in your Presence, #% increased maximum Energy Shield",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_676741860",
+				["text"] = "While a Unique Enemy is in your Presence, #% of Chaos Damage Leeched as Life",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2887638881",
+				["text"] = "While a Unique Enemy is in your Presence, #% of Cold Damage Leeched as Life",
 				["type"] = "implicit",
 			},
 			{
@@ -44133,8 +51388,18 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_2940779795",
+				["text"] = "While a Unique Enemy is in your Presence, #% of Fire Damage Leeched as Life",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_2143647966",
 				["text"] = "While a Unique Enemy is in your Presence, #% of Fire Damage taken Recouped as Life",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1944219739",
+				["text"] = "While a Unique Enemy is in your Presence, #% of Lightning Damage Leeched as Life",
 				["type"] = "implicit",
 			},
 			{
@@ -44143,8 +51408,58 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_1623369100",
+				["text"] = "While a Unique Enemy is in your Presence, #% of Physical Damage Converted to Chaos Damage",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1153825002",
+				["text"] = "While a Unique Enemy is in your Presence, #% of Physical Damage Converted to Cold Damage",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_380027104",
+				["text"] = "While a Unique Enemy is in your Presence, #% of Physical Damage Converted to Fire Damage",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1516273114",
+				["text"] = "While a Unique Enemy is in your Presence, #% of Physical Damage Converted to Lightning Damage",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3678860707",
+				["text"] = "While a Unique Enemy is in your Presence, #% of Physical Damage Leeched as Life",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2393004388",
+				["text"] = "While a Unique Enemy is in your Presence, #% of Physical Damage from Hits taken as Chaos Damage",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_848890513",
+				["text"] = "While a Unique Enemy is in your Presence, #% of Physical Damage from Hits taken as Cold Damage",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1283684786",
+				["text"] = "While a Unique Enemy is in your Presence, #% of Physical Damage from Hits taken as Fire Damage",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_196824923",
+				["text"] = "While a Unique Enemy is in your Presence, #% of Physical Damage from Hits taken as Lightning Damage",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_428533194",
 				["text"] = "While a Unique Enemy is in your Presence, #% of Physical Damage taken Recouped as Life",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1343931641",
+				["text"] = "While a Unique Enemy is in your Presence, #% reduced Effect of Shock on you",
 				["type"] = "implicit",
 			},
 			{
@@ -44153,8 +51468,28 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_3985862221",
+				["text"] = "While a Unique Enemy is in your Presence, #% reduced Freeze Duration on you",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2520245478",
+				["text"] = "While a Unique Enemy is in your Presence, #% reduced Ignite Duration on you",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_2879204033",
 				["text"] = "While a Unique Enemy is in your Presence, #% reduced Mana Cost of Attacks",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1492071500",
+				["text"] = "While a Unique Enemy is in your Presence, +# to Accuracy Rating per Frenzy Charge",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3998961962",
+				["text"] = "While a Unique Enemy is in your Presence, +#% chance to Suppress Spell Damage",
 				["type"] = "implicit",
 			},
 			{
@@ -44208,6 +51543,11 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_2358153166",
+				["text"] = "While a Unique Enemy is in your Presence, +#% to all Elemental Resistances",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_3062531896",
 				["text"] = "While a Unique Enemy is in your Presence, +#% to all maximum Resistances",
 				["type"] = "implicit",
@@ -44230,6 +51570,21 @@ return {
 			{
 				["id"] = "implicit.stat_789714862",
 				["text"] = "While a Unique Enemy is in your Presence, +#% to maximum Lightning Resistance",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3123599008",
+				["text"] = "While a Unique Enemy is in your Presence, 1% less Damage Taken per # Dexterity",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_535043290",
+				["text"] = "While a Unique Enemy is in your Presence, 1% less Damage Taken per # Intelligence",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_184959267",
+				["text"] = "While a Unique Enemy is in your Presence, 1% less Damage Taken per # Strength",
 				["type"] = "implicit",
 			},
 			{
@@ -44283,8 +51638,63 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_778803098",
+				["text"] = "While a Unique Enemy is in your Presence, Anger has #% increased Aura Effect",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3598887112",
+				["text"] = "While a Unique Enemy is in your Presence, Attacks Exerted by Ancestral Cry deal #% increased Damage",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1505297139",
+				["text"] = "While a Unique Enemy is in your Presence, Attacks Exerted by Seismic Cry deal #% increased Damage",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_720015764",
+				["text"] = "While a Unique Enemy is in your Presence, Attacks have #% chance to Maim on Hit",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3757358729",
+				["text"] = "While a Unique Enemy is in your Presence, Attacks have #% chance to cause Bleeding",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_738837643",
+				["text"] = "While a Unique Enemy is in your Presence, Bleeding you inflict deals Damage #% Faster",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_666003799",
 				["text"] = "While a Unique Enemy is in your Presence, Bone Offering has #% increased Effect",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1477049675",
+				["text"] = "While a Unique Enemy is in your Presence, Damage Penetrates #% Cold Resistance",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3425675761",
+				["text"] = "While a Unique Enemy is in your Presence, Damage Penetrates #% Fire Resistance",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1598254831",
+				["text"] = "While a Unique Enemy is in your Presence, Damage Penetrates #% Lightning Resistance",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2366356855",
+				["text"] = "While a Unique Enemy is in your Presence, Determination has #% increased Aura Effect",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_334238649",
+				["text"] = "While a Unique Enemy is in your Presence, Discipline has #% increased Aura Effect",
 				["type"] = "implicit",
 			},
 			{
@@ -44300,6 +51710,21 @@ return {
 			{
 				["id"] = "implicit.stat_3096936188",
 				["text"] = "While a Unique Enemy is in your Presence, Drops Scorched Ground while moving, lasting # seconds",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2792560229",
+				["text"] = "While a Unique Enemy is in your Presence, Enduring Cry has #% increased Cooldown Recovery Rate",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_577552701",
+				["text"] = "While a Unique Enemy is in your Presence, Enemies you've Hit Recently have #% reduced Life Regeneration rate",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3291139981",
+				["text"] = "While a Unique Enemy is in your Presence, Exerted Attacks deal #% increased Damage",
 				["type"] = "implicit",
 			},
 			{
@@ -44333,6 +51758,26 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_620552892",
+				["text"] = "While a Unique Enemy is in your Presence, Gain #% of Physical Damage as Extra Chaos Damage",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3171354842",
+				["text"] = "While a Unique Enemy is in your Presence, Gain #% of Physical Damage as Extra Cold Damage",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3549954477",
+				["text"] = "While a Unique Enemy is in your Presence, Gain #% of Physical Damage as Extra Fire Damage",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1918094957",
+				["text"] = "While a Unique Enemy is in your Presence, Gain #% of Physical Damage as Extra Lightning Damage",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_996960575",
 				["text"] = "While a Unique Enemy is in your Presence, Gain 1 Rage on Hit with Attacks",
 				["type"] = "implicit",
@@ -44350,6 +51795,26 @@ return {
 			{
 				["id"] = "implicit.stat_290895331",
 				["text"] = "While a Unique Enemy is in your Presence, Gain an Endurance Charge every # seconds",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_942266300",
+				["text"] = "While a Unique Enemy is in your Presence, General's Cry has #% increased Cooldown Recovery Rate",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3303144948",
+				["text"] = "While a Unique Enemy is in your Presence, Grace has #% increased Aura Effect",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2735804076",
+				["text"] = "While a Unique Enemy is in your Presence, Haste has #% increased Aura Effect",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_4218330172",
+				["text"] = "While a Unique Enemy is in your Presence, Hatred has #% increased Aura Effect",
 				["type"] = "implicit",
 			},
 			{
@@ -44378,8 +51843,53 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_4105610833",
+				["text"] = "While a Unique Enemy is in your Presence, Hits have #% chance to ignore Enemy Physical Damage Reduction",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2349328837",
+				["text"] = "While a Unique Enemy is in your Presence, Ignites you inflict deal Damage #% Faster",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_1698847655",
 				["text"] = "While a Unique Enemy is in your Presence, Ignites you inflict spread to other Enemies within # metre",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1373026185",
+				["text"] = "While a Unique Enemy is in your Presence, Infernal Cry has #% increased Area of Effect",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1836549522",
+				["text"] = "While a Unique Enemy is in your Presence, Inflict Cold Exposure on Hit, applying #% to Cold Resistance",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3473165335",
+				["text"] = "While a Unique Enemy is in your Presence, Inflict Fire Exposure on Hit, applying #% to Fire Resistance",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2996354577",
+				["text"] = "While a Unique Enemy is in your Presence, Inflict Lightning Exposure on Hit, applying #% to Lightning Resistance",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3381588096",
+				["text"] = "While a Unique Enemy is in your Presence, Intimidating Cry has #% increased Cooldown Recovery Rate",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1327020319",
+				["text"] = "While a Unique Enemy is in your Presence, Malevolence has #% increased Aura Effect",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_993223747",
+				["text"] = "While a Unique Enemy is in your Presence, Melee Hits Fortify",
 				["type"] = "implicit",
 			},
 			{
@@ -44398,8 +51908,58 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_1695965847",
+				["text"] = "While a Unique Enemy is in your Presence, Minions prevent +#% of Reflected Damage they would take",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_1524679549",
 				["text"] = "While a Unique Enemy is in your Presence, Non-Vaal Strike Skills target # additional nearby Enemy",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3828039449",
+				["text"] = "While a Unique Enemy is in your Presence, Poisons you inflict deal Damage #% Faster",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2195698019",
+				["text"] = "While a Unique Enemy is in your Presence, Prevent +#% of Reflected Damage",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_4039774101",
+				["text"] = "While a Unique Enemy is in your Presence, Pride has #% increased Aura Effect",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3924473787",
+				["text"] = "While a Unique Enemy is in your Presence, Projectiles Pierce # additional Targets",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_348693938",
+				["text"] = "While a Unique Enemy is in your Presence, Purity of Elements has #% increased Aura Effect",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1926772156",
+				["text"] = "While a Unique Enemy is in your Presence, Purity of Fire has #% increased Aura Effect",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3499126604",
+				["text"] = "While a Unique Enemy is in your Presence, Purity of Ice has #% increased Aura Effect",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_908556575",
+				["text"] = "While a Unique Enemy is in your Presence, Purity of Lightning has #% increased Aura Effect",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1123587207",
+				["text"] = "While a Unique Enemy is in your Presence, Regenerate #% of Life per second per Endurance Charge",
 				["type"] = "implicit",
 			},
 			{
@@ -44418,6 +51978,26 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_3262721796",
+				["text"] = "While a Unique Enemy is in your Presence, Withered you Inflict expires #% faster",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_399528178",
+				["text"] = "While a Unique Enemy is in your Presence, Wrath has #% increased Aura Effect",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3550578554",
+				["text"] = "While a Unique Enemy is in your Presence, Zealotry has #% increased Aura Effect",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1831757355",
+				["text"] = "Wintertide Brand has #% increased Chill Effect",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_1625982517",
 				["text"] = "Withered you Inflict expires #% faster",
 				["type"] = "implicit",
@@ -44433,8 +52013,28 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_2567747215",
+				["text"] = "You and Allies within 5 metres deal # to # additional Cold Damage",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_1419713278",
-				["text"] = "You and nearby Allies deal #% increased Damage",
+				["text"] = "You and Allies within 6 metres deal #% increased Damage",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_637766438",
+				["text"] = "You and Allies within 7.5 metres gain #% increased Damage",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2936084533",
+				["text"] = "You and Allies within 7.5 metres have 30% increased Mana Regeneration Rate",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_113536037",
+				["text"] = "You and Enemies in your Presence count as moving while affected by Elemental Ailments",
 				["type"] = "implicit",
 			},
 			{
@@ -44450,6 +52050,11 @@ return {
 			{
 				["id"] = "implicit.stat_30642521",
 				["text"] = "You can apply # additional Curses",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_4197792189",
+				["text"] = "You can be Touched by Tormented Spirits",
 				["type"] = "implicit",
 			},
 			{
@@ -44473,13 +52078,73 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_798111687",
+				["text"] = "You cannot be Shocked while at maximum Endurance Charges",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2755326667",
+				["text"] = "You cannot be Stunned if you've been Stunned or Blocked a Stunning Hit in the past 2 seconds",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_2514424018",
 				["text"] = "You gain Onslaught for # seconds on Hit",
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_2654043939",
+				["text"] = "You gain Onslaught for # seconds on using a Vaal Skill",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_799872465",
+				["text"] = "You have Fungal Ground around you while stationary",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3909952544",
+				["text"] = "You have Igniting, Chilling and Shocking Conflux while affected by Glorious Madness",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2761538350",
+				["text"] = "You have Lesser Brutal Shrine Buff",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3779398176",
+				["text"] = "You have Lesser Massive Shrine Buff",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1959256242",
+				["text"] = "You have Onslaught while not on Low Mana",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_4274075490",
+				["text"] = "You have Onslaught while you have Cat's Agility",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3058395672",
+				["text"] = "You have Perfect Agony if you've dealt a Critical Strike recently",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3492654051",
+				["text"] = "You have Phasing if you have Blocked Recently",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_1032751668",
 				["text"] = "You have Vaal Pact if you've dealt a Critical Strike Recently",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_455217103",
+				["text"] = "You only lose # Crab Barriers when you take Physical Damage from a Hit",
 				["type"] = "implicit",
 			},
 			{
@@ -44490,6 +52155,56 @@ return {
 			{
 				["id"] = "implicit.stat_3855016469",
 				["text"] = "You take #% reduced Extra Damage from Critical Strikes",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1623397857",
+				["text"] = "You take Chaos Damage instead of Physical Damage from Bleeding",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2973498992",
+				["text"] = "Your Chaos Damage can Freeze",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1139878780",
+				["text"] = "Your Chaos Damage can Ignite",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1261612903",
+				["text"] = "Your Cold Damage can Ignite but not Freeze or Chill",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1917124426",
+				["text"] = "Your Cold Damage can Poison",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1985969957",
+				["text"] = "Your Fire Damage can Poison",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2949096603",
+				["text"] = "Your Fire Damage can Shock but not Ignite",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1367119630",
+				["text"] = "Your Hexes can affect Hexproof Enemies",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1011772129",
+				["text"] = "Your Lightning Damage can Freeze but not Shock",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1604984482",
+				["text"] = "Your Lightning Damage can Poison",
 				["type"] = "implicit",
 			},
 			{
@@ -44533,6 +52248,11 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_1070816711",
+				["text"] = "Your Maps contain an additional Abyss",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_504850499",
 				["text"] = "Your Maps contain an additional Harbinger",
 				["type"] = "implicit",
@@ -44555,11 +52275,6 @@ return {
 			{
 				["id"] = "implicit.stat_1468737867",
 				["text"] = "Your Maps contain an additional Shrine",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_1070816711",
-				["text"] = "Your Maps contain an additional [ContainsAbyss|Abyss]",
 				["type"] = "implicit",
 			},
 			{
@@ -44590,6 +52305,21 @@ return {
 			{
 				["id"] = "implicit.stat_3945685369",
 				["text"] = "Your Movement Speed is #% of its base value",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_99487834",
+				["text"] = "Your Skills deal you #% of Mana Spent on Upfront Skill Mana Costs as Physical Damage",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_893038512",
+				["text"] = "Your chance to cause monsters to Flee on Hit is also chance to Terrify Monsters on Hit",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_632761194",
+				["text"] = "Zealot's Oath",
 				["type"] = "implicit",
 			},
 			{
@@ -44739,6 +52469,11 @@ return {
 				["type"] = "imbued",
 			},
 			{
+				["id"] = "imbued.pseudo_built_in_support|2842604691",
+				["text"] = "Supported by Level 1 Cast when Damage Taken",
+				["type"] = "imbued",
+			},
+			{
 				["id"] = "imbued.pseudo_built_in_support|3311033584",
 				["text"] = "Supported by Level 1 Cast when Stunned",
 				["type"] = "imbued",
@@ -44809,6 +52544,11 @@ return {
 				["type"] = "imbued",
 			},
 			{
+				["id"] = "imbued.pseudo_built_in_support|2642139747",
+				["text"] = "Supported by Level 1 Constriction",
+				["type"] = "imbued",
+			},
+			{
 				["id"] = "imbued.pseudo_built_in_support|3498757786",
 				["text"] = "Supported by Level 1 Controlled Blaze",
 				["type"] = "imbued",
@@ -44859,8 +52599,23 @@ return {
 				["type"] = "imbued",
 			},
 			{
+				["id"] = "imbued.pseudo_built_in_support|2208650143",
+				["text"] = "Supported by Level 1 Destitution",
+				["type"] = "imbued",
+			},
+			{
 				["id"] = "imbued.pseudo_built_in_support|2451084442",
 				["text"] = "Supported by Level 1 Devour",
+				["type"] = "imbued",
+			},
+			{
+				["id"] = "imbued.pseudo_built_in_support|1452519409",
+				["text"] = "Supported by Level 1 Diminishment",
+				["type"] = "imbued",
+			},
+			{
+				["id"] = "imbued.pseudo_built_in_support|3192305202",
+				["text"] = "Supported by Level 1 Disempower",
 				["type"] = "imbued",
 			},
 			{
@@ -44886,6 +52641,11 @@ return {
 			{
 				["id"] = "imbued.pseudo_built_in_support|1666671509",
 				["text"] = "Supported by Level 1 Elemental Proliferation",
+				["type"] = "imbued",
+			},
+			{
+				["id"] = "imbued.pseudo_built_in_support|3989015253",
+				["text"] = "Supported by Level 1 Encumbrance",
 				["type"] = "imbued",
 			},
 			{
@@ -45044,6 +52804,11 @@ return {
 				["type"] = "imbued",
 			},
 			{
+				["id"] = "imbued.pseudo_built_in_support|3674002686",
+				["text"] = "Supported by Level 1 Impotence",
+				["type"] = "imbued",
+			},
+			{
 				["id"] = "imbued.pseudo_built_in_support|1466145569",
 				["text"] = "Supported by Level 1 Increased Area of Effect",
 				["type"] = "imbued",
@@ -45109,6 +52874,11 @@ return {
 				["type"] = "imbued",
 			},
 			{
+				["id"] = "imbued.pseudo_built_in_support|3435483009",
+				["text"] = "Supported by Level 1 Lethargy",
+				["type"] = "imbued",
+			},
+			{
 				["id"] = "imbued.pseudo_built_in_support|763543857",
 				["text"] = "Supported by Level 1 Life Gain on Hit",
 				["type"] = "imbued",
@@ -45156,6 +52926,11 @@ return {
 			{
 				["id"] = "imbued.pseudo_built_in_support|3535984827",
 				["text"] = "Supported by Level 1 Meat Shield",
+				["type"] = "imbued",
+			},
+			{
+				["id"] = "imbued.pseudo_built_in_support|3186808105",
+				["text"] = "Supported by Level 1 Mediocrity",
 				["type"] = "imbued",
 			},
 			{
@@ -45229,6 +53004,11 @@ return {
 				["type"] = "imbued",
 			},
 			{
+				["id"] = "imbued.pseudo_built_in_support|601991273",
+				["text"] = "Supported by Level 1 Nullification",
+				["type"] = "imbued",
+			},
+			{
 				["id"] = "imbued.pseudo_built_in_support|1961131194",
 				["text"] = "Supported by Level 1 Overcharge",
 				["type"] = "imbued",
@@ -45236,6 +53016,11 @@ return {
 			{
 				["id"] = "imbued.pseudo_built_in_support|3676897366",
 				["text"] = "Supported by Level 1 Overexertion",
+				["type"] = "imbued",
+			},
+			{
+				["id"] = "imbued.pseudo_built_in_support|3870057454",
+				["text"] = "Supported by Level 1 Penance",
 				["type"] = "imbued",
 			},
 			{
@@ -45256,6 +53041,11 @@ return {
 			{
 				["id"] = "imbued.pseudo_built_in_support|910857224",
 				["text"] = "Supported by Level 1 Point Blank",
+				["type"] = "imbued",
+			},
+			{
+				["id"] = "imbued.pseudo_built_in_support|2327564307",
+				["text"] = "Supported by Level 1 Poverty",
 				["type"] = "imbued",
 			},
 			{
@@ -45354,6 +53144,11 @@ return {
 				["type"] = "imbued",
 			},
 			{
+				["id"] = "imbued.pseudo_built_in_support|2082748837",
+				["text"] = "Supported by Level 1 Taxation",
+				["type"] = "imbued",
+			},
+			{
 				["id"] = "imbued.pseudo_built_in_support|865602902",
 				["text"] = "Supported by Level 1 Trap",
 				["type"] = "imbued",
@@ -45425,6 +53220,16 @@ return {
 	{
 		["entries"] = {
 			{
+				["id"] = "fractured.stat_2054162825",
+				["text"] = "#",
+				["type"] = "fractured",
+			},
+			{
+				["id"] = "fractured.stat_3360430812",
+				["text"] = "#",
+				["type"] = "fractured",
+			},
+			{
 				["id"] = "fractured.stat_4079888060",
 				["text"] = "# Added Passive Skills are Jewel Sockets",
 				["type"] = "fractured",
@@ -45437,6 +53242,11 @@ return {
 			{
 				["id"] = "fractured.stat_2122183138",
 				["text"] = "# Mana gained when you Block",
+				["type"] = "fractured",
+			},
+			{
+				["id"] = "fractured.stat_2390914662",
+				["text"] = "# Suffix Modifier cannot be changed",
 				["type"] = "fractured",
 			},
 			{
@@ -45830,6 +53640,11 @@ return {
 				["type"] = "fractured",
 			},
 			{
+				["id"] = "fractured.stat_2961618300",
+				["text"] = "#% chance to Avoid Blind",
+				["type"] = "fractured",
+			},
+			{
 				["id"] = "fractured.stat_3743375737",
 				["text"] = "#% chance to Avoid Cold Damage from Hits",
 				["type"] = "fractured",
@@ -45920,13 +53735,13 @@ return {
 				["type"] = "fractured",
 			},
 			{
-				["id"] = "fractured.stat_318953428",
-				["text"] = "#% chance to Blind Enemies on Hit with Attacks",
+				["id"] = "fractured.stat_2301191210",
+				["text"] = "#% chance to Blind Enemies on Hit",
 				["type"] = "fractured",
 			},
 			{
-				["id"] = "fractured.stat_2301191210",
-				["text"] = "#% chance to Blind Enemies on hit",
+				["id"] = "fractured.stat_318953428",
+				["text"] = "#% chance to Blind Enemies on Hit with Attacks",
 				["type"] = "fractured",
 			},
 			{
@@ -46120,6 +53935,11 @@ return {
 				["type"] = "fractured",
 			},
 			{
+				["id"] = "fractured.stat_3532157821",
+				["text"] = "#% chance to deal Double Damage with Attacks if Attack Time is longer than 1 second",
+				["type"] = "fractured",
+			},
+			{
 				["id"] = "fractured.stat_2989883253",
 				["text"] = "#% chance to gain Alchemist's Genius when you use a Flask",
 				["type"] = "fractured",
@@ -46157,6 +53977,11 @@ return {
 			{
 				["id"] = "fractured.stat_2918708827",
 				["text"] = "#% chance to gain Phasing for 4 seconds on Kill",
+				["type"] = "fractured",
+			},
+			{
+				["id"] = "fractured.stat_1793331740",
+				["text"] = "#% chance to gain Phasing on Hit with this weapon",
 				["type"] = "fractured",
 			},
 			{
@@ -46415,6 +54240,11 @@ return {
 				["type"] = "fractured",
 			},
 			{
+				["id"] = "fractured.stat_1901408736",
+				["text"] = "#% increased Armour from Equipped Boots and Gloves",
+				["type"] = "fractured",
+			},
+			{
 				["id"] = "fractured.stat_2424133568",
 				["text"] = "#% increased Armour if you haven't Killed Recently",
 				["type"] = "fractured",
@@ -46485,6 +54315,11 @@ return {
 				["type"] = "fractured",
 			},
 			{
+				["id"] = "fractured.stat_3459071185",
+				["text"] = "#% increased Attack Speed per Enemy in Close Range",
+				["type"] = "fractured",
+			},
+			{
 				["id"] = "fractured.stat_4249220643",
 				["text"] = "#% increased Attack Speed while Dual Wielding",
 				["type"] = "fractured",
@@ -46501,7 +54336,7 @@ return {
 			},
 			{
 				["id"] = "fractured.stat_314741699",
-				["text"] = "#% increased Attack Speed while a Rare or Unique Enemy is Nearby",
+				["text"] = "#% increased Attack Speed while a Rare or Unique Enemy is within 6 metres",
 				["type"] = "fractured",
 			},
 			{
@@ -46566,7 +54401,7 @@ return {
 			},
 			{
 				["id"] = "fractured.stat_1027670161",
-				["text"] = "#% increased Attack and Cast Speed for each nearby Enemy, up to a maximum of 30%",
+				["text"] = "#% increased Attack and Cast Speed for each Enemy within 6 metres, up to a maximum of 30%",
 				["type"] = "fractured",
 			},
 			{
@@ -46700,6 +54535,11 @@ return {
 				["type"] = "fractured",
 			},
 			{
+				["id"] = "fractured.stat_2171629017",
+				["text"] = "#% increased Charge Duration",
+				["type"] = "fractured",
+			},
+			{
 				["id"] = "fractured.stat_3196823591",
 				["text"] = "#% increased Charge Recovery",
 				["type"] = "fractured",
@@ -46800,8 +54640,18 @@ return {
 				["type"] = "fractured",
 			},
 			{
+				["id"] = "fractured.stat_214031493",
+				["text"] = "#% increased Critical Strike Chance with Mines",
+				["type"] = "fractured",
+			},
+			{
 				["id"] = "fractured.stat_2381842786",
 				["text"] = "#% increased Critical Strike Chance with One Handed Melee Weapons",
+				["type"] = "fractured",
+			},
+			{
+				["id"] = "fractured.stat_1192661666",
+				["text"] = "#% increased Critical Strike Chance with Traps",
 				["type"] = "fractured",
 			},
 			{
@@ -46827,6 +54677,11 @@ return {
 			{
 				["id"] = "fractured.stat_886366428",
 				["text"] = "#% increased Damage for each Magic Item Equipped",
+				["type"] = "fractured",
+			},
+			{
+				["id"] = "fractured.stat_1351682252",
+				["text"] = "#% increased Damage for each Trap and Mine you have",
 				["type"] = "fractured",
 			},
 			{
@@ -46932,6 +54787,11 @@ return {
 			{
 				["id"] = "fractured.stat_1069260037",
 				["text"] = "#% increased Damage with Claws",
+				["type"] = "fractured",
+			},
+			{
+				["id"] = "fractured.stat_2529155377",
+				["text"] = "#% increased Damage with Claws against Enemies that are on Low Life",
 				["type"] = "fractured",
 			},
 			{
@@ -47080,6 +54940,11 @@ return {
 				["type"] = "fractured",
 			},
 			{
+				["id"] = "fractured.stat_1123294660",
+				["text"] = "#% increased Effect of Cruelty",
+				["type"] = "fractured",
+			},
+			{
 				["id"] = "fractured.stat_1661698405",
 				["text"] = "#% increased Effect of Curses on Monsters",
 				["type"] = "fractured",
@@ -47185,6 +55050,11 @@ return {
 				["type"] = "fractured",
 			},
 			{
+				["id"] = "fractured.stat_240857668",
+				["text"] = "#% increased Elusive Effect",
+				["type"] = "fractured",
+			},
+			{
 				["id"] = "fractured.stat_4015621042",
 				["text"] = "#% increased Energy Shield (Local)",
 				["type"] = "fractured",
@@ -47227,6 +55097,11 @@ return {
 			{
 				["id"] = "fractured.stat_299054775",
 				["text"] = "#% increased Evasion Rating during Effect",
+				["type"] = "fractured",
+			},
+			{
+				["id"] = "fractured.stat_3509362078",
+				["text"] = "#% increased Evasion Rating from Equipped Body Armour",
 				["type"] = "fractured",
 			},
 			{
@@ -47555,6 +55430,11 @@ return {
 				["type"] = "fractured",
 			},
 			{
+				["id"] = "fractured.stat_3663580344",
+				["text"] = "#% increased Mirage Archer Duration",
+				["type"] = "fractured",
+			},
+			{
 				["id"] = "fractured.stat_1913583994",
 				["text"] = "#% increased Monster Attack Speed",
 				["type"] = "fractured",
@@ -47591,7 +55471,7 @@ return {
 			},
 			{
 				["id"] = "fractured.stat_1426967889",
-				["text"] = "#% increased Movement Speed for each nearby Enemy, up to a maximum of 50%",
+				["text"] = "#% increased Movement Speed for each Enemy within 6 metres, up to a maximum of 50%",
 				["type"] = "fractured",
 			},
 			{
@@ -47765,28 +55645,13 @@ return {
 				["type"] = "fractured",
 			},
 			{
-				["id"] = "fractured.stat_2161689853",
-				["text"] = "#% increased Rarity of Items Dropped by Slain Rare or Unique Enemies",
-				["type"] = "fractured",
-			},
-			{
 				["id"] = "fractured.stat_2833896424",
 				["text"] = "#% increased Rarity of Items dropped in Heists",
 				["type"] = "fractured",
 			},
 			{
-				["id"] = "fractured.stat_3917489142",
-				["text"] = "#% increased Rarity of Items found",
-				["type"] = "fractured",
-			},
-			{
 				["id"] = "fractured.stat_301625329",
 				["text"] = "#% increased Rarity of Items found during any Flask Effect",
-				["type"] = "fractured",
-			},
-			{
-				["id"] = "fractured.stat_121185030",
-				["text"] = "#% increased Rarity of Items found from Slain Unique Enemies",
 				["type"] = "fractured",
 			},
 			{
@@ -47935,6 +55800,11 @@ return {
 				["type"] = "fractured",
 			},
 			{
+				["id"] = "fractured.stat_497716276",
+				["text"] = "#% increased Trap Trigger Area of Effect",
+				["type"] = "fractured",
+			},
+			{
 				["id"] = "fractured.stat_464535071",
 				["text"] = "#% increased Trap and Mine Throwing Speed",
 				["type"] = "fractured",
@@ -47942,6 +55812,11 @@ return {
 			{
 				["id"] = "fractured.stat_2904116257",
 				["text"] = "#% increased Travel Fee",
+				["type"] = "fractured",
+			},
+			{
+				["id"] = "fractured.stat_1584440377",
+				["text"] = "#% increased Unarmed Attack Speed with Melee Skills",
 				["type"] = "fractured",
 			},
 			{
@@ -48060,6 +55935,11 @@ return {
 				["type"] = "fractured",
 			},
 			{
+				["id"] = "fractured.stat_1353128245",
+				["text"] = "#% more Melee Damage while Burning",
+				["type"] = "fractured",
+			},
+			{
 				["id"] = "fractured.stat_95249895",
 				["text"] = "#% more Monster Life",
 				["type"] = "fractured",
@@ -48161,7 +56041,7 @@ return {
 			},
 			{
 				["id"] = "fractured.stat_2264655303",
-				["text"] = "#% of Life Recovery from Flasks is applied to nearby Allies instead of You",
+				["text"] = "#% of Life Recovery from Flasks is applied to Allies within 7.5 metres instead of You",
 				["type"] = "fractured",
 			},
 			{
@@ -48805,8 +56685,13 @@ return {
 				["type"] = "fractured",
 			},
 			{
+				["id"] = "fractured.stat_1702195217",
+				["text"] = "+#% Chance to Block Attack Damage",
+				["type"] = "fractured",
+			},
+			{
 				["id"] = "fractured.stat_1214532298",
-				["text"] = "+#% Chance to Block Attack Damage if there are at least 5 nearby Enemies",
+				["text"] = "+#% Chance to Block Attack Damage if there are at least 5 Enemies within 6 metres",
 				["type"] = "fractured",
 			},
 			{
@@ -48881,7 +56766,7 @@ return {
 			},
 			{
 				["id"] = "fractured.stat_3992439283",
-				["text"] = "+#% Critical Strike Multiplier while a Rare or Unique Enemy is Nearby",
+				["text"] = "+#% Critical Strike Multiplier while a Rare or Unique Enemy is within 6 metres",
 				["type"] = "fractured",
 			},
 			{
@@ -49055,8 +56940,18 @@ return {
 				["type"] = "fractured",
 			},
 			{
+				["id"] = "fractured.stat_2529112796",
+				["text"] = "+#% to Critical Strike Multiplier with Mines",
+				["type"] = "fractured",
+			},
+			{
 				["id"] = "fractured.stat_670153687",
 				["text"] = "+#% to Critical Strike Multiplier with One Handed Melee Weapons",
+				["type"] = "fractured",
+			},
+			{
+				["id"] = "fractured.stat_1780168381",
+				["text"] = "+#% to Critical Strike Multiplier with Traps",
 				["type"] = "fractured",
 			},
 			{
@@ -49120,6 +57015,21 @@ return {
 				["type"] = "fractured",
 			},
 			{
+				["id"] = "fractured.stat_3917489142",
+				["text"] = "+#% to Item Rarity",
+				["type"] = "fractured",
+			},
+			{
+				["id"] = "fractured.stat_2161689853",
+				["text"] = "+#% to Item Rarity from Slain Rare or Unique Enemies",
+				["type"] = "fractured",
+			},
+			{
+				["id"] = "fractured.stat_121185030",
+				["text"] = "+#% to Item Rarity from Slain Unique Enemies",
+				["type"] = "fractured",
+			},
+			{
 				["id"] = "fractured.stat_1671376347",
 				["text"] = "+#% to Lightning Resistance",
 				["type"] = "fractured",
@@ -49142,6 +57052,11 @@ return {
 			{
 				["id"] = "fractured.stat_1653010703",
 				["text"] = "+#% to Non-Ailment Chaos Damage over Time Multiplier",
+				["type"] = "fractured",
+			},
+			{
+				["id"] = "fractured.stat_3547436813",
+				["text"] = "+#% to Off Hand Critical Strike Chance while Dual Wielding",
 				["type"] = "fractured",
 			},
 			{
@@ -49212,6 +57127,11 @@ return {
 			{
 				["id"] = "fractured.stat_1011760251",
 				["text"] = "+#% to maximum Lightning Resistance",
+				["type"] = "fractured",
+			},
+			{
+				["id"] = "fractured.stat_4260403588",
+				["text"] = "+1% to Item Rarity per # Rampage Kills",
 				["type"] = "fractured",
 			},
 			{
@@ -50725,11 +58645,6 @@ return {
 				["type"] = "fractured",
 			},
 			{
-				["id"] = "fractured.stat_4260403588",
-				["text"] = "1% increased Rarity of Items found per # Rampage Kills",
-				["type"] = "fractured",
-			},
-			{
 				["id"] = "fractured.stat_383557755",
 				["text"] = "Acrobatics",
 				["type"] = "fractured",
@@ -50950,11 +58865,6 @@ return {
 				["type"] = "fractured",
 			},
 			{
-				["id"] = "fractured.stat_3408048164",
-				["text"] = "Adds # minimum Cold Damage to Spells per Power Charge",
-				["type"] = "fractured",
-			},
-			{
 				["id"] = "fractured.stat_2223678961",
 				["text"] = "Adds # to # Chaos Damage (Local)",
 				["type"] = "fractured",
@@ -51032,6 +58942,11 @@ return {
 			{
 				["id"] = "fractured.stat_2469416729",
 				["text"] = "Adds # to # Cold Damage to Spells",
+				["type"] = "fractured",
+			},
+			{
+				["id"] = "fractured.stat_3408048164",
+				["text"] = "Adds # to # Cold Damage to Spells per Power Charge",
 				["type"] = "fractured",
 			},
 			{
@@ -51205,6 +59120,11 @@ return {
 				["type"] = "fractured",
 			},
 			{
+				["id"] = "fractured.stat_270993809",
+				["text"] = "Always Hits Burning Enemies",
+				["type"] = "fractured",
+			},
+			{
 				["id"] = "fractured.stat_2648570028",
 				["text"] = "Ancestral Bond",
 				["type"] = "fractured",
@@ -51260,6 +59180,11 @@ return {
 				["type"] = "fractured",
 			},
 			{
+				["id"] = "fractured.stat_2436559047",
+				["text"] = "Area contains a Mirage",
+				["type"] = "fractured",
+			},
+			{
 				["id"] = "fractured.stat_1000591322",
 				["text"] = "Area contains many Totems",
 				["type"] = "fractured",
@@ -51267,6 +59192,11 @@ return {
 			{
 				["id"] = "fractured.stat_2796704737",
 				["text"] = "Area contains patches of moving Marked Ground, inflicting random Marks",
+				["type"] = "fractured",
+			},
+			{
+				["id"] = "fractured.stat_1975119765",
+				["text"] = "Area contains the Viridian Wildwood",
 				["type"] = "fractured",
 			},
 			{
@@ -51395,6 +59325,11 @@ return {
 				["type"] = "fractured",
 			},
 			{
+				["id"] = "fractured.stat_1195705739",
+				["text"] = "Attacks fire an additional Projectile",
+				["type"] = "fractured",
+			},
+			{
 				["id"] = "fractured.stat_1510714129",
 				["text"] = "Attacks have #% chance to Maim on Hit",
 				["type"] = "fractured",
@@ -51407,6 +59342,11 @@ return {
 			{
 				["id"] = "fractured.stat_2572042788",
 				["text"] = "Attacks have +#% to Critical Strike Chance",
+				["type"] = "fractured",
+			},
+			{
+				["id"] = "fractured.stat_326480871",
+				["text"] = "Attacks with Axes or Swords grant # Rage on Hit",
 				["type"] = "fractured",
 			},
 			{
@@ -51456,7 +59396,7 @@ return {
 			},
 			{
 				["id"] = "fractured.stat_3828375170",
-				["text"] = "Bleeding you inflict deals Damage #% faster",
+				["text"] = "Bleeding you inflict deals Damage #% Faster",
 				["type"] = "fractured",
 			},
 			{
@@ -51472,6 +59412,11 @@ return {
 			{
 				["id"] = "fractured.stat_3885405204",
 				["text"] = "Bow Attacks fire # additional Arrows",
+				["type"] = "fractured",
+			},
+			{
+				["id"] = "fractured.stat_2795287443",
+				["text"] = "Brand Recall has #% increased Cooldown Recovery Rate",
 				["type"] = "fractured",
 			},
 			{
@@ -51565,13 +59510,13 @@ return {
 				["type"] = "fractured",
 			},
 			{
-				["id"] = "fractured.stat_2459809121",
-				["text"] = "Chill Enemy for # second when Hit, reducing their Action Speed by 30%",
+				["id"] = "fractured.stat_583277599",
+				["text"] = "Chill Enemies within 3 metres when you Block",
 				["type"] = "fractured",
 			},
 			{
-				["id"] = "fractured.stat_583277599",
-				["text"] = "Chill Nearby Enemies when you Block",
+				["id"] = "fractured.stat_2459809121",
+				["text"] = "Chill Enemy for # second when Hit, reducing their Action Speed by 30%",
 				["type"] = "fractured",
 			},
 			{
@@ -51582,6 +59527,11 @@ return {
 			{
 				["id"] = "fractured.stat_1235229114",
 				["text"] = "Consecrated Ground you create grants +#% maximum Chaos Resistance to you and Allies",
+				["type"] = "fractured",
+			},
+			{
+				["id"] = "fractured.stat_2680060124",
+				["text"] = "Convocation has #% increased Cooldown Recovery Rate",
 				["type"] = "fractured",
 			},
 			{
@@ -51602,6 +59552,11 @@ return {
 			{
 				["id"] = "fractured.stat_2478752719",
 				["text"] = "Critical Strike Chance is increased by Overcapped Lightning Resistance",
+				["type"] = "fractured",
+			},
+			{
+				["id"] = "fractured.stat_1928468569",
+				["text"] = "Critical Strikes with Bows have a #% chance to Poison the Enemy",
 				["type"] = "fractured",
 			},
 			{
@@ -51681,7 +59636,7 @@ return {
 			},
 			{
 				["id"] = "fractured.stat_538241406",
-				["text"] = "Damaging Ailments deal damage #% faster",
+				["text"] = "Damaging Ailments deal damage #% Faster",
 				["type"] = "fractured",
 			},
 			{
@@ -51780,6 +59735,46 @@ return {
 				["type"] = "fractured",
 			},
 			{
+				["id"] = "fractured.stat_2826979740",
+				["text"] = "Enemies within 3.5 metres are Blinded",
+				["type"] = "fractured",
+			},
+			{
+				["id"] = "fractured.stat_1902595112",
+				["text"] = "Enemies within 6 metres have +#% to Chaos Resistance",
+				["type"] = "fractured",
+			},
+			{
+				["id"] = "fractured.stat_2674336304",
+				["text"] = "Enemies within 6 metres have +#% to Cold Resistance",
+				["type"] = "fractured",
+			},
+			{
+				["id"] = "fractured.stat_3914021960",
+				["text"] = "Enemies within 6 metres have +#% to Fire Resistance",
+				["type"] = "fractured",
+			},
+			{
+				["id"] = "fractured.stat_1849749435",
+				["text"] = "Enemies within 6 metres have +#% to Lightning Resistance",
+				["type"] = "fractured",
+			},
+			{
+				["id"] = "fractured.stat_639595152",
+				["text"] = "Enemies within 6 metres take #% increased Elemental Damage",
+				["type"] = "fractured",
+			},
+			{
+				["id"] = "fractured.stat_415837237",
+				["text"] = "Enemies within 6 metres take #% increased Physical Damage",
+				["type"] = "fractured",
+			},
+			{
+				["id"] = "fractured.stat_4187518631",
+				["text"] = "Enemies within 6 metres take #% increased Physical Damage per two Fortification on you",
+				["type"] = "fractured",
+			},
+			{
 				["id"] = "fractured.stat_1776945532",
 				["text"] = "Enemies you Kill have a #% chance to Explode, dealing a quarter of their maximum Life as Chaos Damage",
 				["type"] = "fractured",
@@ -51807,6 +59802,11 @@ return {
 			{
 				["id"] = "fractured.stat_1569101201",
 				["text"] = "Exerted Attacks deal #% increased Damage",
+				["type"] = "fractured",
+			},
+			{
+				["id"] = "fractured.stat_1775318819",
+				["text"] = "Final Repeat of Spells has #% increased Area of Effect",
 				["type"] = "fractured",
 			},
 			{
@@ -51960,6 +59960,16 @@ return {
 				["type"] = "fractured",
 			},
 			{
+				["id"] = "fractured.stat_3481254135",
+				["text"] = "Gain Added Spell Damage equal to #% of Damage of Equipped Dagger If two Daggers are Equipped, each contributes 60% as much Added Damage",
+				["type"] = "fractured",
+			},
+			{
+				["id"] = "fractured.stat_1274429432",
+				["text"] = "Gain Added Spell Damage equal to #% of Damage of Equipped Wand If two Wands are Equipped, each contributes half as much Added Damage",
+				["type"] = "fractured",
+			},
+			{
 				["id"] = "fractured.stat_913614572",
 				["text"] = "Gain Arcane Surge after Spending a total of # Mana",
 				["type"] = "fractured",
@@ -52050,58 +60060,8 @@ return {
 				["type"] = "fractured",
 			},
 			{
-				["id"] = "fractured.stat_484879947",
-				["text"] = "Grants Level # Anger Skill",
-				["type"] = "fractured",
-			},
-			{
-				["id"] = "fractured.stat_3914740665",
-				["text"] = "Grants Level # Aspect of the Avian Skill",
-				["type"] = "fractured",
-			},
-			{
-				["id"] = "fractured.stat_1265282021",
-				["text"] = "Grants Level # Aspect of the Cat Skill",
-				["type"] = "fractured",
-			},
-			{
-				["id"] = "fractured.stat_4102318278",
-				["text"] = "Grants Level # Aspect of the Crab Skill",
-				["type"] = "fractured",
-			},
-			{
-				["id"] = "fractured.stat_956546305",
-				["text"] = "Grants Level # Aspect of the Spider Skill",
-				["type"] = "fractured",
-			},
-			{
-				["id"] = "fractured.stat_3511815065",
-				["text"] = "Grants Level # Clarity Skill",
-				["type"] = "fractured",
-			},
-			{
-				["id"] = "fractured.stat_1786401772",
-				["text"] = "Grants Level # Convocation Skill",
-				["type"] = "fractured",
-			},
-			{
-				["id"] = "fractured.stat_3566242751",
-				["text"] = "Grants Level # Decoy Totem Skill",
-				["type"] = "fractured",
-			},
-			{
 				["id"] = "fractured.stat_3231614028",
 				["text"] = "Grants Level # Determination Skill",
-				["type"] = "fractured",
-			},
-			{
-				["id"] = "fractured.stat_4265392510",
-				["text"] = "Grants Level # Determination Skill",
-				["type"] = "fractured",
-			},
-			{
-				["id"] = "fractured.stat_2341269061",
-				["text"] = "Grants Level # Discipline Skill",
 				["type"] = "fractured",
 			},
 			{
@@ -52110,28 +60070,8 @@ return {
 				["type"] = "fractured",
 			},
 			{
-				["id"] = "fractured.stat_1031644844",
-				["text"] = "Grants Level # Enduring Cry Skill",
-				["type"] = "fractured",
-			},
-			{
-				["id"] = "fractured.stat_52953650",
-				["text"] = "Grants Level # Envy Skill",
-				["type"] = "fractured",
-			},
-			{
-				["id"] = "fractured.stat_2867050084",
-				["text"] = "Grants Level # Grace Skill",
-				["type"] = "fractured",
-			},
-			{
 				["id"] = "fractured.stat_3914774028",
 				["text"] = "Grants Level # Grace Skill",
-				["type"] = "fractured",
-			},
-			{
-				["id"] = "fractured.stat_1188846263",
-				["text"] = "Grants Level # Haste Skill",
 				["type"] = "fractured",
 			},
 			{
@@ -52142,31 +60082,6 @@ return {
 			{
 				["id"] = "fractured.stat_178394804",
 				["text"] = "Grants Level # Hatred Skill",
-				["type"] = "fractured",
-			},
-			{
-				["id"] = "fractured.stat_2429546158",
-				["text"] = "Grants Level # Hatred Skill",
-				["type"] = "fractured",
-			},
-			{
-				["id"] = "fractured.stat_3880462354",
-				["text"] = "Grants Level # Herald of Ash Skill",
-				["type"] = "fractured",
-			},
-			{
-				["id"] = "fractured.stat_3846248551",
-				["text"] = "Grants Level # Herald of Ice Skill",
-				["type"] = "fractured",
-			},
-			{
-				["id"] = "fractured.stat_1665492921",
-				["text"] = "Grants Level # Herald of Thunder Skill",
-				["type"] = "fractured",
-			},
-			{
-				["id"] = "fractured.stat_1271338211",
-				["text"] = "Grants Level # Intimidating Cry Skill",
 				["type"] = "fractured",
 			},
 			{
@@ -52195,22 +60110,7 @@ return {
 				["type"] = "fractured",
 			},
 			{
-				["id"] = "fractured.stat_2007746338",
-				["text"] = "Grants Level # Rallying Cry Skill",
-				["type"] = "fractured",
-			},
-			{
-				["id"] = "fractured.stat_2410613176",
-				["text"] = "Grants Level # Vitality Skill",
-				["type"] = "fractured",
-			},
-			{
 				["id"] = "fractured.stat_1568319697",
-				["text"] = "Grants Level # Wrath Skill",
-				["type"] = "fractured",
-			},
-			{
-				["id"] = "fractured.stat_2265307453",
 				["text"] = "Grants Level # Wrath Skill",
 				["type"] = "fractured",
 			},
@@ -52310,23 +60210,23 @@ return {
 				["type"] = "fractured",
 			},
 			{
-				["id"] = "fractured.stat_4216809421",
-				["text"] = "Heist Chests have a #% chance to Duplicate contained Scarabs",
-				["type"] = "fractured",
-			},
-			{
 				["id"] = "fractured.stat_590557979",
 				["text"] = "Heist Chests have a #% chance to Duplicate contained Sextants",
 				["type"] = "fractured",
 			},
 			{
+				["id"] = "fractured.stat_4216809421",
+				["text"] = "Heist Chests have a #% chance to Duplicate contained Threads",
+				["type"] = "fractured",
+			},
+			{
 				["id"] = "fractured.stat_1462364052",
-				["text"] = "Hinders nearby Enemies with #% reduced Movement Speed if used while not on Full Life",
+				["text"] = "Hinders Enemies within 3 metres with #% reduced Movement Speed if used while not on Full Life",
 				["type"] = "fractured",
 			},
 			{
 				["id"] = "fractured.stat_2313899959",
-				["text"] = "Hinders nearby Enemies with #% reduced Movement Speed if used while not on Full Mana",
+				["text"] = "Hinders Enemies within 3 metres with #% reduced Movement Speed if used while not on Full Mana",
 				["type"] = "fractured",
 			},
 			{
@@ -52361,7 +60261,7 @@ return {
 			},
 			{
 				["id"] = "fractured.stat_2443492284",
-				["text"] = "Ignites you inflict deal Damage #% faster",
+				["text"] = "Ignites you inflict deal Damage #% Faster",
 				["type"] = "fractured",
 			},
 			{
@@ -52437,11 +60337,6 @@ return {
 			{
 				["id"] = "fractured.stat_728267040",
 				["text"] = "Items found in your Maps have #% chance to be Corrupted",
-				["type"] = "fractured",
-			},
-			{
-				["id"] = "fractured.stat_2054162825",
-				["text"] = "Karui Stone Hook",
 				["type"] = "fractured",
 			},
 			{
@@ -52540,8 +60435,18 @@ return {
 				["type"] = "fractured",
 			},
 			{
+				["id"] = "fractured.stat_3814785829",
+				["text"] = "Melee Strikes Curse Enemies with Flammability on Hit, ignoring Curse Limit",
+				["type"] = "fractured",
+			},
+			{
 				["id"] = "fractured.stat_3085465082",
 				["text"] = "Mines have #% increased Detonation Speed",
+				["type"] = "fractured",
+			},
+			{
+				["id"] = "fractured.stat_2445634879",
+				["text"] = "Mines have a #% chance to be Detonated an Additional Time",
 				["type"] = "fractured",
 			},
 			{
@@ -52572,6 +60477,21 @@ return {
 			{
 				["id"] = "fractured.stat_2727256287",
 				["text"] = "Minions convert #% of Fire Damage to Chaos Damage",
+				["type"] = "fractured",
+			},
+			{
+				["id"] = "fractured.stat_264042266",
+				["text"] = "Minions convert #% of Physical Damage to Cold Damage",
+				["type"] = "fractured",
+			},
+			{
+				["id"] = "fractured.stat_1045292082",
+				["text"] = "Minions convert #% of Physical Damage to Fire Damage",
+				["type"] = "fractured",
+			},
+			{
+				["id"] = "fractured.stat_2105061711",
+				["text"] = "Minions convert #% of Physical Damage to Lightning Damage",
 				["type"] = "fractured",
 			},
 			{
@@ -52970,46 +60890,6 @@ return {
 				["type"] = "fractured",
 			},
 			{
-				["id"] = "fractured.stat_2826979740",
-				["text"] = "Nearby Enemies are Blinded",
-				["type"] = "fractured",
-			},
-			{
-				["id"] = "fractured.stat_1902595112",
-				["text"] = "Nearby Enemies have +#% to Chaos Resistance",
-				["type"] = "fractured",
-			},
-			{
-				["id"] = "fractured.stat_2674336304",
-				["text"] = "Nearby Enemies have +#% to Cold Resistance",
-				["type"] = "fractured",
-			},
-			{
-				["id"] = "fractured.stat_3914021960",
-				["text"] = "Nearby Enemies have +#% to Fire Resistance",
-				["type"] = "fractured",
-			},
-			{
-				["id"] = "fractured.stat_1849749435",
-				["text"] = "Nearby Enemies have +#% to Lightning Resistance",
-				["type"] = "fractured",
-			},
-			{
-				["id"] = "fractured.stat_639595152",
-				["text"] = "Nearby Enemies take #% increased Elemental Damage",
-				["type"] = "fractured",
-			},
-			{
-				["id"] = "fractured.stat_415837237",
-				["text"] = "Nearby Enemies take #% increased Physical Damage",
-				["type"] = "fractured",
-			},
-			{
-				["id"] = "fractured.stat_4187518631",
-				["text"] = "Nearby Enemies take #% increased Physical Damage per two Fortification on you",
-				["type"] = "fractured",
-			},
-			{
 				["id"] = "fractured.stat_2946222246",
 				["text"] = "No Travel Cost",
 				["type"] = "fractured",
@@ -53032,6 +60912,11 @@ return {
 			{
 				["id"] = "fractured.stat_677564538",
 				["text"] = "Non-Channelling Skills have +# to Total Mana Cost",
+				["type"] = "fractured",
+			},
+			{
+				["id"] = "fractured.stat_1661253443",
+				["text"] = "Non-Vaal Strike Skills target # additional nearby Enemy",
 				["type"] = "fractured",
 			},
 			{
@@ -53316,7 +61201,7 @@ return {
 			},
 			{
 				["id"] = "fractured.stat_4045850340",
-				["text"] = "Players in Area take #% increased Damage per nearby Ally",
+				["text"] = "Players in Area take #% increased Damage per Ally within 6 metres",
 				["type"] = "fractured",
 			},
 			{
@@ -53341,12 +61226,17 @@ return {
 			},
 			{
 				["id"] = "fractured.stat_2907156609",
-				["text"] = "Poisons you inflict deal Damage #% faster",
+				["text"] = "Poisons you inflict deal Damage #% Faster",
 				["type"] = "fractured",
 			},
 			{
 				["id"] = "fractured.stat_2879723104",
-				["text"] = "Prefixes Cannot Be Changed",
+				["text"] = "Prefix Modifiers cannot be changed",
+				["type"] = "fractured",
+			},
+			{
+				["id"] = "fractured.stat_1571797746",
+				["text"] = "Prevent +#% of Reflected Damage",
 				["type"] = "fractured",
 			},
 			{
@@ -53375,6 +61265,11 @@ return {
 				["type"] = "fractured",
 			},
 			{
+				["id"] = "fractured.stat_1923210508",
+				["text"] = "Projectiles deal #% increased Damage with Hits and Ailments for each time they have Chained",
+				["type"] = "fractured",
+			},
+			{
 				["id"] = "fractured.stat_2521866096",
 				["text"] = "Projectiles gain Impale effect as they travel farther, causing Impales they inflict to have up to #% increased effect",
 				["type"] = "fractured",
@@ -53396,17 +61291,17 @@ return {
 			},
 			{
 				["id"] = "fractured.stat_3938822425",
-				["text"] = "Rare Monsters have [ElementalThorns|Elemental Thorns] reflecting # Elemental Damage",
+				["text"] = "Rare Monsters have Elemental Thorns reflecting # Elemental Damage",
 				["type"] = "fractured",
 			},
 			{
 				["id"] = "fractured.stat_3278889477",
-				["text"] = "Rare Monsters have [PhysicalThorns|Physical Thorns] reflecting # Physical Damage",
+				["text"] = "Rare Monsters have Physical Thorns reflecting # Physical Damage",
 				["type"] = "fractured",
 			},
 			{
 				["id"] = "fractured.stat_2550456553",
-				["text"] = "Rare Monsters in your Maps have # additional Modifier",
+				["text"] = "Rare Monsters in your Maps have an additional Modifier",
 				["type"] = "fractured",
 			},
 			{
@@ -53422,6 +61317,11 @@ return {
 			{
 				["id"] = "fractured.stat_2931889194",
 				["text"] = "Rare monsters in area are Shaper-Touched",
+				["type"] = "fractured",
+			},
+			{
+				["id"] = "fractured.stat_1678831767",
+				["text"] = "Recover # Life when you Block",
 				["type"] = "fractured",
 			},
 			{
@@ -53476,7 +61376,7 @@ return {
 			},
 			{
 				["id"] = "fractured.stat_2238019079",
-				["text"] = "Regenerate # Energy Shield per second while a Rare or Unique Enemy is Nearby",
+				["text"] = "Regenerate # Energy Shield per second while a Rare or Unique Enemy is within 6 metres",
 				["type"] = "fractured",
 			},
 			{
@@ -53492,6 +61392,11 @@ return {
 			{
 				["id"] = "fractured.stat_3594640492",
 				["text"] = "Regenerate #% of Energy Shield per second",
+				["type"] = "fractured",
+			},
+			{
+				["id"] = "fractured.stat_1373957102",
+				["text"] = "Regenerate #% of Life per Second if you've Detonated a Mine Recently",
 				["type"] = "fractured",
 			},
 			{
@@ -53585,11 +61490,6 @@ return {
 				["type"] = "fractured",
 			},
 			{
-				["id"] = "fractured.stat_3360430812",
-				["text"] = "Rhoa Feather Lure",
-				["type"] = "fractured",
-			},
-			{
 				["id"] = "fractured.stat_651133374",
 				["text"] = "Right ring slot: Shockwave has +# to Cooldown Uses",
 				["type"] = "fractured",
@@ -53600,13 +61500,23 @@ return {
 				["type"] = "fractured",
 			},
 			{
+				["id"] = "fractured.stat_3031766858",
+				["text"] = "Shock Enemies within 3 metres for # Seconds when you Focus",
+				["type"] = "fractured",
+			},
+			{
 				["id"] = "fractured.stat_3291999509",
 				["text"] = "Shock Reflection",
 				["type"] = "fractured",
 			},
 			{
-				["id"] = "fractured.stat_3031766858",
-				["text"] = "Shock nearby Enemies for # Seconds when you Focus",
+				["id"] = "fractured.stat_3181879507",
+				["text"] = "Shock yourself for # Seconds when you Focus",
+				["type"] = "fractured",
+			},
+			{
+				["id"] = "fractured.stat_2480498143",
+				["text"] = "Skills Cost Life instead of #% of Mana Cost",
 				["type"] = "fractured",
 			},
 			{
@@ -53622,6 +61532,11 @@ return {
 			{
 				["id"] = "fractured.stat_1264919148",
 				["text"] = "Skills supported by Unleash have +# to maximum number of Seals",
+				["type"] = "fractured",
+			},
+			{
+				["id"] = "fractured.stat_1870732546",
+				["text"] = "Skills that Summon a Totem have #% chance to Summon two Totems instead of one",
 				["type"] = "fractured",
 			},
 			{
@@ -53642,6 +61557,11 @@ return {
 			{
 				["id"] = "fractured.stat_2999750998",
 				["text"] = "Skills used by your Traps and Mines Chain an additional time",
+				["type"] = "fractured",
+			},
+			{
+				["id"] = "fractured.stat_4001105802",
+				["text"] = "Skills which Throw Traps have +# Cooldown Use",
 				["type"] = "fractured",
 			},
 			{
@@ -53667,326 +61587,6 @@ return {
 			{
 				["id"] = "fractured.stat_2788729902",
 				["text"] = "Socketed Gems Chain # additional times",
-				["type"] = "fractured",
-			},
-			{
-				["id"] = "fractured.stat_2572192375",
-				["text"] = "Socketed Gems are Supported by Level # Added Fire Damage",
-				["type"] = "fractured",
-			},
-			{
-				["id"] = "fractured.stat_3839163699",
-				["text"] = "Socketed Gems are Supported by Level # Advanced Traps",
-				["type"] = "fractured",
-			},
-			{
-				["id"] = "fractured.stat_696805682",
-				["text"] = "Socketed Gems are Supported by Level # Ancestral Call",
-				["type"] = "fractured",
-			},
-			{
-				["id"] = "fractured.stat_2287264161",
-				["text"] = "Socketed Gems are Supported by Level # Arcane Surge",
-				["type"] = "fractured",
-			},
-			{
-				["id"] = "fractured.stat_3030692053",
-				["text"] = "Socketed Gems are Supported by Level # Ballista Totem",
-				["type"] = "fractured",
-			},
-			{
-				["id"] = "fractured.stat_1710508327",
-				["text"] = "Socketed Gems are Supported by Level # Blastchain Mine",
-				["type"] = "fractured",
-			},
-			{
-				["id"] = "fractured.stat_715256302",
-				["text"] = "Socketed Gems are Supported by Level # Brutality",
-				["type"] = "fractured",
-			},
-			{
-				["id"] = "fractured.stat_2680613507",
-				["text"] = "Socketed Gems are Supported by Level # Burning Damage",
-				["type"] = "fractured",
-			},
-			{
-				["id"] = "fractured.stat_3312593243",
-				["text"] = "Socketed Gems are Supported by Level # Cast On Melee Kill",
-				["type"] = "fractured",
-			},
-			{
-				["id"] = "fractured.stat_1316646496",
-				["text"] = "Socketed Gems are Supported by Level # Cast While Channelling",
-				["type"] = "fractured",
-			},
-			{
-				["id"] = "fractured.stat_3036440332",
-				["text"] = "Socketed Gems are Supported by Level # Cast when Damage Taken",
-				["type"] = "fractured",
-			},
-			{
-				["id"] = "fractured.stat_4197676934",
-				["text"] = "Socketed Gems are Supported by Level # Chance To Bleed",
-				["type"] = "fractured",
-			},
-			{
-				["id"] = "fractured.stat_228165595",
-				["text"] = "Socketed Gems are Supported by Level # Chance to Poison",
-				["type"] = "fractured",
-			},
-			{
-				["id"] = "fractured.stat_1991958615",
-				["text"] = "Socketed Gems are Supported by Level # Cold Penetration",
-				["type"] = "fractured",
-			},
-			{
-				["id"] = "fractured.stat_2388360415",
-				["text"] = "Socketed Gems are Supported by Level # Concentrated Effect",
-				["type"] = "fractured",
-			},
-			{
-				["id"] = "fractured.stat_3718597497",
-				["text"] = "Socketed Gems are Supported by Level # Controlled Destruction",
-				["type"] = "fractured",
-			},
-			{
-				["id"] = "fractured.stat_2228279620",
-				["text"] = "Socketed Gems are Supported by Level # Critical Strike Affliction",
-				["type"] = "fractured",
-			},
-			{
-				["id"] = "fractured.stat_3924539382",
-				["text"] = "Socketed Gems are Supported by Level # Efficacy",
-				["type"] = "fractured",
-			},
-			{
-				["id"] = "fractured.stat_1169422227",
-				["text"] = "Socketed Gems are Supported by Level # Elemental Focus",
-				["type"] = "fractured",
-			},
-			{
-				["id"] = "fractured.stat_2929101122",
-				["text"] = "Socketed Gems are Supported by Level # Elemental Proliferation",
-				["type"] = "fractured",
-			},
-			{
-				["id"] = "fractured.stat_3581578643",
-				["text"] = "Socketed Gems are Supported by Level # Empower",
-				["type"] = "fractured",
-			},
-			{
-				["id"] = "fractured.stat_3375208082",
-				["text"] = "Socketed Gems are Supported by Level # Endurance Charge on Melee Stun",
-				["type"] = "fractured",
-			},
-			{
-				["id"] = "fractured.stat_2556436882",
-				["text"] = "Socketed Gems are Supported by Level # Enhance",
-				["type"] = "fractured",
-			},
-			{
-				["id"] = "fractured.stat_2065361612",
-				["text"] = "Socketed Gems are Supported by Level # Enlighten",
-				["type"] = "fractured",
-			},
-			{
-				["id"] = "fractured.stat_928701213",
-				["text"] = "Socketed Gems are Supported by Level # Faster Attacks",
-				["type"] = "fractured",
-			},
-			{
-				["id"] = "fractured.stat_2169938251",
-				["text"] = "Socketed Gems are Supported by Level # Faster Casting",
-				["type"] = "fractured",
-			},
-			{
-				["id"] = "fractured.stat_1979658770",
-				["text"] = "Socketed Gems are Supported by Level # Fire Penetration",
-				["type"] = "fractured",
-			},
-			{
-				["id"] = "fractured.stat_107118693",
-				["text"] = "Socketed Gems are Supported by Level # Fortify",
-				["type"] = "fractured",
-			},
-			{
-				["id"] = "fractured.stat_13669281",
-				["text"] = "Socketed Gems are Supported by Level # Hypothermia",
-				["type"] = "fractured",
-			},
-			{
-				["id"] = "fractured.stat_2420410470",
-				["text"] = "Socketed Gems are Supported by Level # Immolate",
-				["type"] = "fractured",
-			},
-			{
-				["id"] = "fractured.stat_3720936304",
-				["text"] = "Socketed Gems are Supported by Level # Increased Area of Effect",
-				["type"] = "fractured",
-			},
-			{
-				["id"] = "fractured.stat_2259700079",
-				["text"] = "Socketed Gems are Supported by Level # Increased Critical Strikes",
-				["type"] = "fractured",
-			},
-			{
-				["id"] = "fractured.stat_1106668565",
-				["text"] = "Socketed Gems are Supported by Level # Innervate",
-				["type"] = "fractured",
-			},
-			{
-				["id"] = "fractured.stat_1866911844",
-				["text"] = "Socketed Gems are Supported by Level # Inspiration",
-				["type"] = "fractured",
-			},
-			{
-				["id"] = "fractured.stat_3587013273",
-				["text"] = "Socketed Gems are Supported by Level # Item Rarity",
-				["type"] = "fractured",
-			},
-			{
-				["id"] = "fractured.stat_2487643588",
-				["text"] = "Socketed Gems are Supported by Level # Less Duration",
-				["type"] = "fractured",
-			},
-			{
-				["id"] = "fractured.stat_3354027870",
-				["text"] = "Socketed Gems are Supported by Level # Lightning Penetration",
-				["type"] = "fractured",
-			},
-			{
-				["id"] = "fractured.stat_3826977109",
-				["text"] = "Socketed Gems are Supported by Level # Maim",
-				["type"] = "fractured",
-			},
-			{
-				["id"] = "fractured.stat_2608615082",
-				["text"] = "Socketed Gems are Supported by Level # Mana Leech",
-				["type"] = "fractured",
-			},
-			{
-				["id"] = "fractured.stat_2985291457",
-				["text"] = "Socketed Gems are Supported by Level # Melee Physical Damage",
-				["type"] = "fractured",
-			},
-			{
-				["id"] = "fractured.stat_808939569",
-				["text"] = "Socketed Gems are Supported by Level # Minion Damage",
-				["type"] = "fractured",
-			},
-			{
-				["id"] = "fractured.stat_1337327984",
-				["text"] = "Socketed Gems are Supported by Level # Minion Life",
-				["type"] = "fractured",
-			},
-			{
-				["id"] = "fractured.stat_3237923082",
-				["text"] = "Socketed Gems are Supported by Level # Momentum",
-				["type"] = "fractured",
-			},
-			{
-				["id"] = "fractured.stat_407317553",
-				["text"] = "Socketed Gems are Supported by Level # More Duration",
-				["type"] = "fractured",
-			},
-			{
-				["id"] = "fractured.stat_584144941",
-				["text"] = "Socketed Gems are Supported by Level # Multiple Projectiles",
-				["type"] = "fractured",
-			},
-			{
-				["id"] = "fractured.stat_4015918489",
-				["text"] = "Socketed Gems are Supported by Level # Power Charge On Critical Strike",
-				["type"] = "fractured",
-			},
-			{
-				["id"] = "fractured.stat_3796013729",
-				["text"] = "Socketed Gems are Supported by Level # Ruthless",
-				["type"] = "fractured",
-			},
-			{
-				["id"] = "fractured.stat_1390285657",
-				["text"] = "Socketed Gems are Supported by Level # Slower Projectiles",
-				["type"] = "fractured",
-			},
-			{
-				["id"] = "fractured.stat_503990161",
-				["text"] = "Socketed Gems are Supported by Level # Spell Cascade",
-				["type"] = "fractured",
-			},
-			{
-				["id"] = "fractured.stat_913919528",
-				["text"] = "Socketed Gems are Supported by Level # Spell Echo",
-				["type"] = "fractured",
-			},
-			{
-				["id"] = "fractured.stat_2962840349",
-				["text"] = "Socketed Gems are Supported by Level # Spell Totem",
-				["type"] = "fractured",
-			},
-			{
-				["id"] = "fractured.stat_1122134690",
-				["text"] = "Socketed Gems are Supported by Level # Trap",
-				["type"] = "fractured",
-			},
-			{
-				["id"] = "fractured.stat_3814066599",
-				["text"] = "Socketed Gems are Supported by Level # Trap And Mine Damage",
-				["type"] = "fractured",
-			},
-			{
-				["id"] = "fractured.stat_3699494172",
-				["text"] = "Socketed Gems are Supported by Level # Unbound Ailments",
-				["type"] = "fractured",
-			},
-			{
-				["id"] = "fractured.stat_2696557965",
-				["text"] = "Socketed Gems are Supported by Level # Volley",
-				["type"] = "fractured",
-			},
-			{
-				["id"] = "fractured.stat_1567462963",
-				["text"] = "Socketed Gems are supported by Level # Additional Accuracy",
-				["type"] = "fractured",
-			},
-			{
-				["id"] = "fractured.stat_2223640518",
-				["text"] = "Socketed Gems are supported by Level # Blind",
-				["type"] = "fractured",
-			},
-			{
-				["id"] = "fractured.stat_2325632050",
-				["text"] = "Socketed Gems are supported by Level # Cast On Critical Strike",
-				["type"] = "fractured",
-			},
-			{
-				["id"] = "fractured.stat_2532625478",
-				["text"] = "Socketed Gems are supported by Level # Elemental Damage with Attacks",
-				["type"] = "fractured",
-			},
-			{
-				["id"] = "fractured.stat_99089516",
-				["text"] = "Socketed Gems are supported by Level # Faster Projectiles",
-				["type"] = "fractured",
-			},
-			{
-				["id"] = "fractured.stat_1108755349",
-				["text"] = "Socketed Gems are supported by Level # Increased Critical Damage",
-				["type"] = "fractured",
-			},
-			{
-				["id"] = "fractured.stat_891277550",
-				["text"] = "Socketed Gems are supported by Level # Life Leech",
-				["type"] = "fractured",
-			},
-			{
-				["id"] = "fractured.stat_1811422871",
-				["text"] = "Socketed Gems are supported by Level # Melee Splash",
-				["type"] = "fractured",
-			},
-			{
-				["id"] = "fractured.stat_2501237765",
-				["text"] = "Socketed Gems are supported by Level # Multistrike",
 				["type"] = "fractured",
 			},
 			{
@@ -54076,7 +61676,7 @@ return {
 			},
 			{
 				["id"] = "fractured.stat_3464137628",
-				["text"] = "Suffixes Cannot Be Changed",
+				["text"] = "Suffix Modifiers cannot be changed",
 				["type"] = "fractured",
 			},
 			{
@@ -54105,6 +61705,11 @@ return {
 				["type"] = "fractured",
 			},
 			{
+				["id"] = "fractured.stat_3440719546",
+				["text"] = "The Effect of Chill on you is reversed while on Chilled ground",
+				["type"] = "fractured",
+			},
+			{
 				["id"] = "fractured.stat_1441799693",
 				["text"] = "The Impaler",
 				["type"] = "fractured",
@@ -54125,13 +61730,23 @@ return {
 				["type"] = "fractured",
 			},
 			{
-				["id"] = "fractured.stat_436556261",
-				["text"] = "This Area's Modifiers to Quantity of Items found also apply to Rarity",
+				["id"] = "fractured.stat_3246496608",
+				["text"] = "The first # Mana Burn applied to you has no effect",
 				["type"] = "fractured",
 			},
 			{
 				["id"] = "fractured.stat_436556261",
-				["text"] = "This Map's Modifiers to Quantity of Items found also apply to Rarity",
+				["text"] = "This Area's Modifiers to Atlas Drops also apply to Item Rarity",
+				["type"] = "fractured",
+			},
+			{
+				["id"] = "fractured.stat_436556261",
+				["text"] = "This Map's Modifiers to Atlas Drops also apply to Item Rarity",
+				["type"] = "fractured",
+			},
+			{
+				["id"] = "fractured.stat_2130824945",
+				["text"] = "Throw up to # additional Trap if dual wielding",
 				["type"] = "fractured",
 			},
 			{
@@ -54147,6 +61762,11 @@ return {
 			{
 				["id"] = "fractured.stat_1582781759",
 				["text"] = "Trigger a Socketed Spell on Using a Skill, with a # second Cooldown Spells Triggered this way have 150% more Cost",
+				["type"] = "fractured",
+			},
+			{
+				["id"] = "fractured.stat_1273709603",
+				["text"] = "Trigger level # Ghostly Artillery when you Attack with this Weapon",
 				["type"] = "fractured",
 			},
 			{
@@ -54301,7 +61921,7 @@ return {
 			},
 			{
 				["id"] = "fractured.stat_1539696482",
-				["text"] = "With at least 40 Strength in Radius, Cleave has +0.1 metres to Radius per Nearby Enemy, up to a maximum of +1 metre",
+				["text"] = "With at least 40 Strength in Radius, Cleave has +0.1 metres to Radius per Enemy within 2 metres, up to a maximum of +1 metre",
 				["type"] = "fractured",
 			},
 			{
@@ -54327,6 +61947,11 @@ return {
 			{
 				["id"] = "fractured.stat_3444518809",
 				["text"] = "Wrath has #% increased Mana Reservation Efficiency",
+				["type"] = "fractured",
+			},
+			{
+				["id"] = "fractured.stat_790453126",
+				["text"] = "You and Allies near your Banner have +#% to Damage over Time Multiplier per 2 Valour consumed for that Banner",
 				["type"] = "fractured",
 			},
 			{
@@ -54357,6 +61982,11 @@ return {
 			{
 				["id"] = "fractured.stat_1766730250",
 				["text"] = "You are Immune to Ailments while Focused",
+				["type"] = "fractured",
+			},
+			{
+				["id"] = "fractured.stat_1248307887",
+				["text"] = "You are affected by Delirium Fog",
 				["type"] = "fractured",
 			},
 			{
@@ -54435,6 +62065,11 @@ return {
 				["type"] = "fractured",
 			},
 			{
+				["id"] = "fractured.stat_2670735758",
+				["text"] = "Your Linked targets deal #% increased Damage",
+				["type"] = "fractured",
+			},
+			{
 				["id"] = "fractured.stat_3550168289",
 				["text"] = "Your Maps are inhabited by an additional Rogue Exile",
 				["type"] = "fractured",
@@ -54478,6 +62113,61 @@ return {
 			{
 				["id"] = "enchant.stat_4079888060",
 				["text"] = "# Added Passive Skills are Jewel Sockets",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3552182293",
+				["text"] = "# Monster Packs in Area are substituted with Difficult and Rewarding Packs which drop 300% increased Maps",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_4151275322",
+				["text"] = "# Monster Packs in Area are substituted with Doedre's Devoted",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_1240937795",
+				["text"] = "# Monster Packs in Area are substituted with Fungal Shamans Pack Monsters that die when Rare spread Modifiers to other Rare Monsters in Area",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_429929284",
+				["text"] = "# Monster Packs in Area are substituted with Packs led by a Pantheon-Touched Rare Monster",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_228481227",
+				["text"] = "# Monster Packs in Area are substituted with Packs that cannot drop Equipment, Flasks or Tinctures",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_4093253847",
+				["text"] = "# Monster Packs in Area are substituted with Packs that convert dropped Equipment to Gold",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_4224467226",
+				["text"] = "# Monster Packs in Area are substituted with Packs that do not drop items Pack Monsters grant increased Item Rarity when slain, up to 400%, decaying over time",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_434437344",
+				["text"] = "# Monster Packs in Area are substituted with Syndicate Members Pack Monsters revive after Final Map Boss has been slain",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_940539199",
+				["text"] = "# Monster Packs in Area are substituted with Wildwood Fiends Pack Leaders Empower Map Bosses with Wildwood Wisps when slain",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_1776086971",
+				["text"] = "# Monster Packs in Area are substituted with a single meaty Monster",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2844829788",
+				["text"] = "# Monster Packs in Area are substituted with harmless Toads",
 				["type"] = "enchant",
 			},
 			{
@@ -54586,6 +62276,11 @@ return {
 				["type"] = "enchant",
 			},
 			{
+				["id"] = "enchant.stat_318953428",
+				["text"] = "#% chance to Blind Enemies on Hit with Attacks",
+				["type"] = "enchant",
+			},
+			{
 				["id"] = "enchant.stat_1012291104",
 				["text"] = "#% chance to Blind Enemies on Hit with Spells",
 				["type"] = "enchant",
@@ -54621,8 +62316,18 @@ return {
 				["type"] = "enchant",
 			},
 			{
+				["id"] = "enchant.stat_2168861013",
+				["text"] = "#% chance to Freeze Enemies for 1 second when they Hit you",
+				["type"] = "enchant",
+			},
+			{
 				["id"] = "enchant.stat_3915210550",
 				["text"] = "#% chance to Freeze, Shock and Ignite if you haven't Crit Recently",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3002506763",
+				["text"] = "#% chance to Hinder Enemies on Hit with Spells",
 				["type"] = "enchant",
 			},
 			{
@@ -54638,6 +62343,16 @@ return {
 			{
 				["id"] = "enchant.stat_3094222195",
 				["text"] = "#% chance to Impale on Spell Hit",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_977908611",
+				["text"] = "#% chance to Knock Enemies Back on hit",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_795138349",
+				["text"] = "#% chance to Poison on Hit",
 				["type"] = "enchant",
 			},
 			{
@@ -55141,8 +62856,23 @@ return {
 				["type"] = "enchant",
 			},
 			{
+				["id"] = "enchant.stat_1746347097",
+				["text"] = "#% increased Aspect of the Avian Buff Effect",
+				["type"] = "enchant",
+			},
+			{
 				["id"] = "enchant.stat_4065740293",
 				["text"] = "#% increased Aspect of the Cat Buff Effect",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_1883691564",
+				["text"] = "#% increased Aspect of the Crab Buff Effect",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2030415947",
+				["text"] = "#% increased Aspect of the Spider Debuff Effect",
 				["type"] = "enchant",
 			},
 			{
@@ -55331,6 +63061,11 @@ return {
 				["type"] = "enchant",
 			},
 			{
+				["id"] = "enchant.stat_736967255",
+				["text"] = "#% increased Chaos Damage",
+				["type"] = "enchant",
+			},
+			{
 				["id"] = "enchant.stat_3196823591",
 				["text"] = "#% increased Charge Recovery",
 				["type"] = "enchant",
@@ -55358,6 +63093,11 @@ return {
 			{
 				["id"] = "enchant.stat_1359058534",
 				["text"] = "#% increased Cleave Damage",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3291658075",
+				["text"] = "#% increased Cold Damage",
 				["type"] = "enchant",
 			},
 			{
@@ -55416,6 +63156,11 @@ return {
 				["type"] = "enchant",
 			},
 			{
+				["id"] = "enchant.stat_2078691497",
+				["text"] = "#% increased Cost of Building and Upgrading Towers in your Maps",
+				["type"] = "enchant",
+			},
+			{
 				["id"] = "enchant.stat_3816022821",
 				["text"] = "#% increased Creeping Frost Area of Effect",
 				["type"] = "enchant",
@@ -55463,6 +63208,11 @@ return {
 			{
 				["id"] = "enchant.stat_1454162553",
 				["text"] = "#% increased Cyclone Damage",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_622110632",
+				["text"] = "#% increased Damage per Moon Rite completed",
 				["type"] = "enchant",
 			},
 			{
@@ -55603,6 +63353,11 @@ return {
 			{
 				["id"] = "enchant.stat_3444629796",
 				["text"] = "#% increased Effect of Curses on you while on Consecrated Ground",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_870531513",
+				["text"] = "#% increased Effect of Herald Buffs on you",
 				["type"] = "enchant",
 			},
 			{
@@ -55808,6 +63563,11 @@ return {
 			{
 				["id"] = "enchant.stat_1739537617",
 				["text"] = "#% increased Eye of Winter Projectile Speed",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3962278098",
+				["text"] = "#% increased Fire Damage",
 				["type"] = "enchant",
 			},
 			{
@@ -56056,8 +63816,18 @@ return {
 				["type"] = "enchant",
 			},
 			{
+				["id"] = "enchant.stat_624954515",
+				["text"] = "#% increased Global Accuracy Rating",
+				["type"] = "enchant",
+			},
+			{
 				["id"] = "enchant.stat_1389153006",
 				["text"] = "#% increased Global Defences",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_1310194496",
+				["text"] = "#% increased Global Physical Damage",
 				["type"] = "enchant",
 			},
 			{
@@ -56266,6 +64036,11 @@ return {
 				["type"] = "enchant",
 			},
 			{
+				["id"] = "enchant.stat_2231156303",
+				["text"] = "#% increased Lightning Damage",
+				["type"] = "enchant",
+			},
+			{
 				["id"] = "enchant.stat_1978232370",
 				["text"] = "#% increased Lightning Spire Trap Throwing Speed",
 				["type"] = "enchant",
@@ -56316,6 +64091,11 @@ return {
 				["type"] = "enchant",
 			},
 			{
+				["id"] = "enchant.stat_1714706956",
+				["text"] = "#% increased Magic Pack Size in your Maps",
+				["type"] = "enchant",
+			},
+			{
 				["id"] = "enchant.stat_1409388882",
 				["text"] = "#% increased Mana Regeneration Rate if you've cast a Spell Recently",
 				["type"] = "enchant",
@@ -56338,6 +64118,11 @@ return {
 			{
 				["id"] = "enchant.stat_1609869231",
 				["text"] = "#% increased Manabond Damage",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_1002362373",
+				["text"] = "#% increased Melee Damage",
 				["type"] = "enchant",
 			},
 			{
@@ -56791,6 +64576,11 @@ return {
 				["type"] = "enchant",
 			},
 			{
+				["id"] = "enchant.stat_2517001139",
+				["text"] = "#% increased Stun Duration on Enemies",
+				["type"] = "enchant",
+			},
+			{
 				["id"] = "enchant.stat_82475304",
 				["text"] = "#% increased Summon Reaper Cooldown Recovery Rate",
 				["type"] = "enchant",
@@ -56921,6 +64711,11 @@ return {
 				["type"] = "enchant",
 			},
 			{
+				["id"] = "enchant.stat_4159248054",
+				["text"] = "#% increased Warcry Cooldown Recovery Rate",
+				["type"] = "enchant",
+			},
+			{
 				["id"] = "enchant.stat_1528965411",
 				["text"] = "#% increased Warlord's Mark Curse Effect",
 				["type"] = "enchant",
@@ -56988,6 +64783,11 @@ return {
 			{
 				["id"] = "enchant.stat_3009603087",
 				["text"] = "#% more Rogue's Marker value of primary Heist Target",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_141810208",
+				["text"] = "#% of Attack Damage Leeched as Life",
 				["type"] = "enchant",
 			},
 			{
@@ -57196,6 +64996,11 @@ return {
 				["type"] = "enchant",
 			},
 			{
+				["id"] = "enchant.stat_4283407333",
+				["text"] = "+# to Level of all Skill Gems",
+				["type"] = "enchant",
+			},
+			{
 				["id"] = "enchant.stat_124131830",
 				["text"] = "+# to Level of all Spell Skill Gems",
 				["type"] = "enchant",
@@ -57368,6 +65173,2366 @@ return {
 			{
 				["id"] = "enchant.stat_865345996",
 				["text"] = "+1 to maximum Blade Flurry stages",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|25970",
+				["text"] = "1 added passive skill is Acrimony",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|49621",
+				["text"] = "1 added passive skill is Acuity",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|49416",
+				["text"] = "1 added passive skill is Adamant",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|14587",
+				["text"] = "1 added passive skill is Adaptive Steel",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|32227",
+				["text"] = "1 added passive skill is Adder's Touch",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|31513",
+				["text"] = "1 added passive skill is Adjacent Animosity",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|50858",
+				["text"] = "1 added passive skill is Admonisher",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|861",
+				["text"] = "1 added passive skill is Aggressive Bastion",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|13739",
+				["text"] = "1 added passive skill is Always Angry",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|15085",
+				["text"] = "1 added passive skill is Ambidexterity",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|61308",
+				["text"] = "1 added passive skill is Amplify",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|53493",
+				["text"] = "1 added passive skill is Annihilation",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|11820",
+				["text"] = "1 added passive skill is Anointed Flesh",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|51108",
+				["text"] = "1 added passive skill is Arcane Capacitor",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|21634",
+				["text"] = "1 added passive skill is Arcane Chemistry",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|60085",
+				["text"] = "1 added passive skill is Arcane Conservation",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|53573",
+				["text"] = "1 added passive skill is Arcane Expanse",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|42795",
+				["text"] = "1 added passive skill is Arcane Focus",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|6770",
+				["text"] = "1 added passive skill is Arcane Guarding",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|46842",
+				["text"] = "1 added passive skill is Arcane Potency",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|55381",
+				["text"] = "1 added passive skill is Arcane Retaliation",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|46904",
+				["text"] = "1 added passive skill is Arcane Sanctuary",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|27163",
+				["text"] = "1 added passive skill is Arcane Will",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|11420",
+				["text"] = "1 added passive skill is Arcanist's Dominion",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|6615",
+				["text"] = "1 added passive skill is Arcing Blows",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|2550",
+				["text"] = "1 added passive skill is Arsonist",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|48807",
+				["text"] = "1 added passive skill is Art of the Gladiator",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|44191",
+				["text"] = "1 added passive skill is As The Mountain",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|27806",
+				["text"] = "1 added passive skill is As The Thunder",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|45317",
+				["text"] = "1 added passive skill is Ash, Frost and Storm",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|64217",
+				["text"] = "1 added passive skill is Aspect of Stone",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|65224",
+				["text"] = "1 added passive skill is Aspect of the Eagle",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|31508",
+				["text"] = "1 added passive skill is Aspect of the Lynx",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|28754",
+				["text"] = "1 added passive skill is Assassination",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|19730",
+				["text"] = "1 added passive skill is Assured Strike",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|4854",
+				["text"] = "1 added passive skill is Asylum",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|53013",
+				["text"] = "1 added passive skill is Atrophy",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|36687",
+				["text"] = "1 added passive skill is Avatar of the Hunt",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|40619",
+				["text"] = "1 added passive skill is Awe and Terror",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|8920",
+				["text"] = "1 added passive skill is Backstabbing",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|50338",
+				["text"] = "1 added passive skill is Ballistics",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|63033",
+				["text"] = "1 added passive skill is Bannerman",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|53118",
+				["text"] = "1 added passive skill is Barbarism",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|65107",
+				["text"] = "1 added passive skill is Bastion Breaker",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|37512",
+				["text"] = "1 added passive skill is Bastion of Faith",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|5289",
+				["text"] = "1 added passive skill is Battle Rouse",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|24716",
+				["text"] = "1 added passive skill is Battle Trance",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|4354",
+				["text"] = "1 added passive skill is Beacon of Hope",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|12809",
+				["text"] = "1 added passive skill is Berserking",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|55772",
+				["text"] = "1 added passive skill is Blacksmith's Clout",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|54268",
+				["text"] = "1 added passive skill is Blade Barrier",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|25367",
+				["text"] = "1 added passive skill is Blade Master",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|57839",
+				["text"] = "1 added passive skill is Blade of Cunning",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|65093",
+				["text"] = "1 added passive skill is Bladedancer",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|15711",
+				["text"] = "1 added passive skill is Blast Radius",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|6233",
+				["text"] = "1 added passive skill is Blast Waves",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|27788",
+				["text"] = "1 added passive skill is Blood Drinker",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|25058",
+				["text"] = "1 added passive skill is Blood Siphon",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|6289",
+				["text"] = "1 added passive skill is Bloodless",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|26294",
+				["text"] = "1 added passive skill is Bloodletting",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|64395",
+				["text"] = "1 added passive skill is Blunt Trauma",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|40645",
+				["text"] = "1 added passive skill is Bone Breaker",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|58449",
+				["text"] = "1 added passive skill is Born to Fight",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|64355",
+				["text"] = "1 added passive skill is Brand Equity",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|48438",
+				["text"] = "1 added passive skill is Bravery",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|11924",
+				["text"] = "1 added passive skill is Breath of Flames",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|11645",
+				["text"] = "1 added passive skill is Breath of Lightning",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|21460",
+				["text"] = "1 added passive skill is Breath of Rime",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|62802",
+				["text"] = "1 added passive skill is Brink of Death",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|20835",
+				["text"] = "1 added passive skill is Brinkmanship",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|59151",
+				["text"] = "1 added passive skill is Brutal Blade",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|39904",
+				["text"] = "1 added passive skill is Brutal Skewering",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|36736",
+				["text"] = "1 added passive skill is Burning Brutality",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|52030",
+				["text"] = "1 added passive skill is Burst of Energy",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|14606",
+				["text"] = "1 added passive skill is Butchery",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|56359",
+				["text"] = "1 added passive skill is Cannibalistic Rite",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|31585",
+				["text"] = "1 added passive skill is Careful Conservationist",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|59976",
+				["text"] = "1 added passive skill is Careful Counterattack",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|49645",
+				["text"] = "1 added passive skill is Cauterisation",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|33718",
+				["text"] = "1 added passive skill is Champion of the Cause",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|6799",
+				["text"] = "1 added passive skill is Charisma",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|52789",
+				["text"] = "1 added passive skill is Circle of Life",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|56648",
+				["text"] = "1 added passive skill is Claws of the Falcon",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|15614",
+				["text"] = "1 added passive skill is Claws of the Hawk",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|54791",
+				["text"] = "1 added passive skill is Claws of the Magpie",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|53759",
+				["text"] = "1 added passive skill is Cleansed Thoughts",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|4940",
+				["text"] = "1 added passive skill is Cleaving",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|55380",
+				["text"] = "1 added passive skill is Clever Construction",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|8001",
+				["text"] = "1 added passive skill is Clever Thief",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|21435",
+				["text"] = "1 added passive skill is Cloth and Chain",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|24050",
+				["text"] = "1 added passive skill is Coldhearted Calculation",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|34978",
+				["text"] = "1 added passive skill is Colloidal Mixture",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|21413",
+				["text"] = "1 added passive skill is Combat Stamina",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|57900",
+				["text"] = "1 added passive skill is Command of Steel",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|19794",
+				["text"] = "1 added passive skill is Concussive Force",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|45945",
+				["text"] = "1 added passive skill is Conjured Barrier",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|55485",
+				["text"] = "1 added passive skill is Constitution",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|20261",
+				["text"] = "1 added passive skill is Contemplative Meditation",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|5823",
+				["text"] = "1 added passive skill is Coordination",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|45283",
+				["text"] = "1 added passive skill is Cornered Prey",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|26620",
+				["text"] = "1 added passive skill is Corruption",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|39761",
+				["text"] = "1 added passive skill is Counterweight",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|49969",
+				["text"] = "1 added passive skill is Courage",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|7555",
+				["text"] = "1 added passive skill is Crackling Speed",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|21958",
+				["text"] = "1 added passive skill is Cruel Preparation",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|15226",
+				["text"] = "1 added passive skill is Cruel Retort",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|5624",
+				["text"] = "1 added passive skill is Crusader",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|41305",
+				["text"] = "1 added passive skill is Crushing Reply",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|40743",
+				["text"] = "1 added passive skill is Crystal Skin",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|29522",
+				["text"] = "1 added passive skill is Dance of Blades",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|39743",
+				["text"] = "1 added passive skill is Dark Arts",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|570",
+				["text"] = "1 added passive skill is Dazzling Strikes",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|48823",
+				["text"] = "1 added passive skill is Deadly Draw",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|41307",
+				["text"] = "1 added passive skill is Deadly Inclinations",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|19897",
+				["text"] = "1 added passive skill is Death Attunement",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|21973",
+				["text"] = "1 added passive skill is Decay Ward",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|49445",
+				["text"] = "1 added passive skill is Deep Breaths",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|24362",
+				["text"] = "1 added passive skill is Deep Thoughts",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|27929",
+				["text"] = "1 added passive skill is Deep Wisdom",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|49538",
+				["text"] = "1 added passive skill is Defiance",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|13703",
+				["text"] = "1 added passive skill is Defiant Stand",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|39986",
+				["text"] = "1 added passive skill is Defiled Forces",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|15437",
+				["text"] = "1 added passive skill is Deflection",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|56146",
+				["text"] = "1 added passive skill is Deliberate Brutality",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|47484",
+				["text"] = "1 added passive skill is Depth Perception",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|25456",
+				["text"] = "1 added passive skill is Dervish",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|34666",
+				["text"] = "1 added passive skill is Destroyer",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|21602",
+				["text"] = "1 added passive skill is Destructive Apparatus",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|33777",
+				["text"] = "1 added passive skill is Devastating Devices",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|36949",
+				["text"] = "1 added passive skill is Devotion",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|65308",
+				["text"] = "1 added passive skill is Diamond Skin",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|9015",
+				["text"] = "1 added passive skill is Dire Torment",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|59766",
+				["text"] = "1 added passive skill is Dirty Techniques",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|9261",
+				["text"] = "1 added passive skill is Disciple of the Forbidden",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|58921",
+				["text"] = "1 added passive skill is Disciple of the Slaughter",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|64882",
+				["text"] = "1 added passive skill is Disciple of the Unyielding",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|41472",
+				["text"] = "1 added passive skill is Discipline and Training",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|35233",
+				["text"] = "1 added passive skill is Discord Artisan",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|58831",
+				["text"] = "1 added passive skill is Disemboweling",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|52031",
+				["text"] = "1 added passive skill is Disintegration",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|37647",
+				["text"] = "1 added passive skill is Dismembering",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|30693",
+				["text"] = "1 added passive skill is Divine Fervour",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|44347",
+				["text"] = "1 added passive skill is Divine Fury",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|13164",
+				["text"] = "1 added passive skill is Divine Judgement",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|14665",
+				["text"] = "1 added passive skill is Divine Wrath",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|61981",
+				["text"] = "1 added passive skill is Doom Cast",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|10835",
+				["text"] = "1 added passive skill is Dreamer",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|51440",
+				["text"] = "1 added passive skill is Druidic Rite",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|24256",
+				["text"] = "1 added passive skill is Dynamo",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|2225",
+				["text"] = "1 added passive skill is Eagle Eye",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|44102",
+				["text"] = "1 added passive skill is Efficient Explosives",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|41476",
+				["text"] = "1 added passive skill is Elder Power",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|42686",
+				["text"] = "1 added passive skill is Elemental Focus",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|28034",
+				["text"] = "1 added passive skill is Empowered Bond",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|11730",
+				["text"] = "1 added passive skill is Endurance",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|7688",
+				["text"] = "1 added passive skill is Enduring Bond",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|7918",
+				["text"] = "1 added passive skill is Enigmatic Defence",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|65273",
+				["text"] = "1 added passive skill is Enigmatic Reach",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|59866",
+				["text"] = "1 added passive skill is Entrench",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|51212",
+				["text"] = "1 added passive skill is Entropy",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|59423",
+				["text"] = "1 added passive skill is Escalation",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|53802",
+				["text"] = "1 added passive skill is Essence Extraction",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|23690",
+				["text"] = "1 added passive skill is Essence Infusion",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|65053",
+				["text"] = "1 added passive skill is Essence Sap",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|62577",
+				["text"] = "1 added passive skill is Essence Surge",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|15852",
+				["text"] = "1 added passive skill is Ethereal Feast",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|53042",
+				["text"] = "1 added passive skill is Exceptional Performance",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|63453",
+				["text"] = "1 added passive skill is Excess Sustenance",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|10016",
+				["text"] = "1 added passive skill is Executioner",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|59556",
+				["text"] = "1 added passive skill is Expeditious Munitions",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|30974",
+				["text"] = "1 added passive skill is Expert Hunter",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|61689",
+				["text"] = "1 added passive skill is Explosive Elements",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|24324",
+				["text"] = "1 added passive skill is Explosive Impact",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|29861",
+				["text"] = "1 added passive skill is Explosive Runes",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|35958",
+				["text"] = "1 added passive skill is Faith and Steel",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|57199",
+				["text"] = "1 added passive skill is Fangs of Frost",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|46408",
+				["text"] = "1 added passive skill is Fangs of the Viper",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|47743",
+				["text"] = "1 added passive skill is Farsight",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|1568",
+				["text"] = "1 added passive skill is Fatal Blade",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|31359",
+				["text"] = "1 added passive skill is Fatal Toxins",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|35685",
+				["text"] = "1 added passive skill is Fearsome Force",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|18357",
+				["text"] = "1 added passive skill is Feline Swiftness",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|52090",
+				["text"] = "1 added passive skill is Feller of Foes",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|30160",
+				["text"] = "1 added passive skill is Fending",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|48614",
+				["text"] = "1 added passive skill is Fervour",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|41137",
+				["text"] = "1 added passive skill is Field Medicine",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|54142",
+				["text"] = "1 added passive skill is Finesse",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|58198",
+				["text"] = "1 added passive skill is Fingers of Frost",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|34661",
+				["text"] = "1 added passive skill is Fire Walker",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|17171",
+				["text"] = "1 added passive skill is Flash Freeze",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|36490",
+				["text"] = "1 added passive skill is Flaying",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|3309",
+				["text"] = "1 added passive skill is Fleetfoot",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|56330",
+				["text"] = "1 added passive skill is Flow of Battle",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|54713",
+				["text"] = "1 added passive skill is Force Shaper",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|5574",
+				["text"] = "1 added passive skill is Force of Darkness",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|33582",
+				["text"] = "1 added passive skill is Forceful Skewering",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|4481",
+				["text"] = "1 added passive skill is Forces of Nature",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|3452",
+				["text"] = "1 added passive skill is Foresight",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|26960",
+				["text"] = "1 added passive skill is Forethought",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|15344",
+				["text"] = "1 added passive skill is Freedom of Movement",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|42443",
+				["text"] = "1 added passive skill is Frenetic",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|1405",
+				["text"] = "1 added passive skill is From the Shadows",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|44955",
+				["text"] = "1 added passive skill is Frost Walker",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|60002",
+				["text"] = "1 added passive skill is Fury Bolts",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|16243",
+				["text"] = "1 added passive skill is Fusillade",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|60619",
+				["text"] = "1 added passive skill is Galvanic Hammer",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|62849",
+				["text"] = "1 added passive skill is Glacial Cage",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|63727",
+				["text"] = "1 added passive skill is Gladiator's Perseverance",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|45350",
+				["text"] = "1 added passive skill is Glory of Command",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|34506",
+				["text"] = "1 added passive skill is Golem Commander",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|1325",
+				["text"] = "1 added passive skill is Golem's Blood",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|38922",
+				["text"] = "1 added passive skill is Goliath",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|18703",
+				["text"] = "1 added passive skill is Graceful Assault",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|61982",
+				["text"] = "1 added passive skill is Grave Intentions",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|27308",
+				["text"] = "1 added passive skill is Gravepact",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|9864",
+				["text"] = "1 added passive skill is Growth and Decay",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|56207",
+				["text"] = "1 added passive skill is Hardened Scars",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|24858",
+				["text"] = "1 added passive skill is Harpooner",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|33545",
+				["text"] = "1 added passive skill is Harrier",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|27623",
+				["text"] = "1 added passive skill is Harsh Lessons",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|7440",
+				["text"] = "1 added passive skill is Harvester of Foes",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|52742",
+				["text"] = "1 added passive skill is Hasty Demise",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|26096",
+				["text"] = "1 added passive skill is Hatchet Master",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|27203",
+				["text"] = "1 added passive skill is Heart and Soul",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|48556",
+				["text"] = "1 added passive skill is Heart of Darkness",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|60501",
+				["text"] = "1 added passive skill is Heart of Flame",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|8833",
+				["text"] = "1 added passive skill is Heart of Ice",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|65210",
+				["text"] = "1 added passive skill is Heart of Oak",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|56716",
+				["text"] = "1 added passive skill is Heart of Thunder",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|61198",
+				["text"] = "1 added passive skill is Heart of the Warrior",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|65502",
+				["text"] = "1 added passive skill is Heartseeker",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|30302",
+				["text"] = "1 added passive skill is Hearty",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|42720",
+				["text"] = "1 added passive skill is Heavy Draw",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|22356",
+				["text"] = "1 added passive skill is Hematophagy",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|19858",
+				["text"] = "1 added passive skill is Herbalism",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|21297",
+				["text"] = "1 added passive skill is High Explosives",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|58168",
+				["text"] = "1 added passive skill is High Voltage",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|49379",
+				["text"] = "1 added passive skill is Hired Killer",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|33722",
+				["text"] = "1 added passive skill is Hollow Effigy",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|33435",
+				["text"] = "1 added passive skill is Holy Dominion",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|29049",
+				["text"] = "1 added passive skill is Holy Fire",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|9535",
+				["text"] = "1 added passive skill is Hunter's Gambit",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|23549",
+				["text"] = "1 added passive skill is Incorporeal",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|4918",
+				["text"] = "1 added passive skill is Indiscriminate Revenge",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|25409",
+				["text"] = "1 added passive skill is Indomitable Army",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|54629",
+				["text"] = "1 added passive skill is Inexorable",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|12143",
+				["text"] = "1 added passive skill is Influence",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|25411",
+				["text"] = "1 added passive skill is Infused",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|37403",
+				["text"] = "1 added passive skill is Infused Flesh",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|48298",
+				["text"] = "1 added passive skill is Insightfulness",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|60781",
+				["text"] = "1 added passive skill is Inspiring Bond",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|20528",
+				["text"] = "1 added passive skill is Instability",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|24067",
+				["text"] = "1 added passive skill is Instinct",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|37504",
+				["text"] = "1 added passive skill is Intuition",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|63251",
+				["text"] = "1 added passive skill is Inveterate",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|22133",
+				["text"] = "1 added passive skill is Invigorating Blaze",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|63150",
+				["text"] = "1 added passive skill is Ironwood",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|41169",
+				["text"] = "1 added passive skill is Jagged Wounds",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|33287",
+				["text"] = "1 added passive skill is Juggernaut",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|35436",
+				["text"] = "1 added passive skill is Kinetic Impacts",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|49459",
+				["text"] = "1 added passive skill is King of the Hill",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|1365",
+				["text"] = "1 added passive skill is Knowledge Barrier",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|51748",
+				["text"] = "1 added passive skill is Last Rites",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|56274",
+				["text"] = "1 added passive skill is Lasting Tempest",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|30439",
+				["text"] = "1 added passive skill is Lava Lash",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|58851",
+				["text"] = "1 added passive skill is Leader of the Pack",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|65097",
+				["text"] = "1 added passive skill is Leadership",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|3195",
+				["text"] = "1 added passive skill is Legacy of the Wilds",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|41119",
+				["text"] = "1 added passive skill is Lethality",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|28503",
+				["text"] = "1 added passive skill is Life Raker",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|9567",
+				["text"] = "1 added passive skill is Light Eater",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|54694",
+				["text"] = "1 added passive skill is Light of Divinity",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|30225",
+				["text"] = "1 added passive skill is Lightning Walker",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|8458",
+				["text"] = "1 added passive skill is Longshot",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|27611",
+				["text"] = "1 added passive skill is Lord of the Dead",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|63422",
+				["text"] = "1 added passive skill is Lust for Carnage",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|5430",
+				["text"] = "1 added passive skill is Magmatic Strikes",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|34591",
+				["text"] = "1 added passive skill is Malicious Intent",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|54776",
+				["text"] = "1 added passive skill is Mana Flows",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|32681",
+				["text"] = "1 added passive skill is Mark the Prey",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|41595",
+				["text"] = "1 added passive skill is Marked for Death",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|27301",
+				["text"] = "1 added passive skill is Martial Experience",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|51881",
+				["text"] = "1 added passive skill is Master Fletcher",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|7136",
+				["text"] = "1 added passive skill is Master Sapper",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|47065",
+				["text"] = "1 added passive skill is Master of Blades",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|31473",
+				["text"] = "1 added passive skill is Master of Wounds",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|34009",
+				["text"] = "1 added passive skill is Master of the Arena",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|34973",
+				["text"] = "1 added passive skill is Measured Fury",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|18865",
+				["text"] = "1 added passive skill is Melding",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|9432",
+				["text"] = "1 added passive skill is Mental Rapidity",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|9194",
+				["text"] = "1 added passive skill is Merciless Skewering",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|42804",
+				["text"] = "1 added passive skill is Mind Drinker",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|51360",
+				["text"] = "1 added passive skill is Mixed Munitions",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|13375",
+				["text"] = "1 added passive skill is Multishot",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|18174",
+				["text"] = "1 added passive skill is Mystic Bulwark",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|62596",
+				["text"] = "1 added passive skill is Mystic Talents",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|44824",
+				["text"] = "1 added passive skill is Mysticism",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|31257",
+				["text"] = "1 added passive skill is Natural Authority",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|41420",
+				["text"] = "1 added passive skill is Natural Remedies",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|2275",
+				["text"] = "1 added passive skill is Nature's Concoction",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|56276",
+				["text"] = "1 added passive skill is Nightstalker",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|9788",
+				["text"] = "1 added passive skill is Nimbleness",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|20605",
+				["text"] = "1 added passive skill is No Forgiveness",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|25989",
+				["text"] = "1 added passive skill is Nomadic Teachings",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|15842",
+				["text"] = "1 added passive skill is One With Nature",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|56094",
+				["text"] = "1 added passive skill is One with the River",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|34173",
+				["text"] = "1 added passive skill is Overcharge",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|47471",
+				["text"] = "1 added passive skill is Overcharged",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|27190",
+				["text"] = "1 added passive skill is Overprepared",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|39657",
+				["text"] = "1 added passive skill is Pain Forger",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|19506",
+				["text"] = "1 added passive skill is Path of the Hunter",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|37078",
+				["text"] = "1 added passive skill is Path of the Savant",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|12702",
+				["text"] = "1 added passive skill is Path of the Warrior",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|26763",
+				["text"] = "1 added passive skill is Perfected Formula",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|18707",
+				["text"] = "1 added passive skill is Perfectionist",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|40849",
+				["text"] = "1 added passive skill is Persistence",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|21228",
+				["text"] = "1 added passive skill is Piercing Shots",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|529",
+				["text"] = "1 added passive skill is Poisonous Fangs",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|1006",
+				["text"] = "1 added passive skill is Potency of Will",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|44788",
+				["text"] = "1 added passive skill is Potent Connections",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|46471",
+				["text"] = "1 added passive skill is Powerful Bond",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|8135",
+				["text"] = "1 added passive skill is Practical Application",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|37425",
+				["text"] = "1 added passive skill is Practised Reapplication",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|6237",
+				["text"] = "1 added passive skill is Precision",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|2599",
+				["text"] = "1 added passive skill is Prepared Response",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|38246",
+				["text"] = "1 added passive skill is Presage",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|63635",
+				["text"] = "1 added passive skill is Primal Manifestation",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|25178",
+				["text"] = "1 added passive skill is Primal Spirit",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|36281",
+				["text"] = "1 added passive skill is Primeval Force",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|63944",
+				["text"] = "1 added passive skill is Prism Weave",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|60031",
+				["text"] = "1 added passive skill is Prismatic Skin",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|10115",
+				["text"] = "1 added passive skill is Prodigal Perfection",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|42041",
+				["text"] = "1 added passive skill is Profane Chemistry",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|58218",
+				["text"] = "1 added passive skill is Purity of Flesh",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|21330",
+				["text"] = "1 added passive skill is Quick Recovery",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|2715",
+				["text"] = "1 added passive skill is Quickstep",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|61190",
+				["text"] = "1 added passive skill is Rallying Icon",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|1340",
+				["text"] = "1 added passive skill is Rampart",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|29381",
+				["text"] = "1 added passive skill is Ravenous Horde",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|33082",
+				["text"] = "1 added passive skill is Razor's Edge",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|15046",
+				["text"] = "1 added passive skill is Redemption",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|44103",
+				["text"] = "1 added passive skill is Reflexes",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|28878",
+				["text"] = "1 added passive skill is Relentless",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|25738",
+				["text"] = "1 added passive skill is Relentless Pursuit",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|58382",
+				["text"] = "1 added passive skill is Renowned Deeds",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|50690",
+				["text"] = "1 added passive skill is Replenishing Remedies",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|41989",
+				["text"] = "1 added passive skill is Resourcefulness",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|12878",
+				["text"] = "1 added passive skill is Retaliation",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|49254",
+				["text"] = "1 added passive skill is Retribution",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|14813",
+				["text"] = "1 added passive skill is Revelry",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|53114",
+				["text"] = "1 added passive skill is Revenge of the Hunted",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|24721",
+				["text"] = "1 added passive skill is Ribcage Crusher",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|19103",
+				["text"] = "1 added passive skill is Righteous Army",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|38516",
+				["text"] = "1 added passive skill is Righteous Decree",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|55002",
+				["text"] = "1 added passive skill is Righteous Fury",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|64226",
+				["text"] = "1 added passive skill is Roaring Challenge",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|31033",
+				["text"] = "1 added passive skill is Robust",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|21389",
+				["text"] = "1 added passive skill is Runesmith",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|46965",
+				["text"] = "1 added passive skill is Saboteur",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|36915",
+				["text"] = "1 added passive skill is Sacrifice",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|6967",
+				["text"] = "1 added passive skill is Safeguard",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|26866",
+				["text"] = "1 added passive skill is Sanctity",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|20832",
+				["text"] = "1 added passive skill is Sanctuary",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|27137",
+				["text"] = "1 added passive skill is Sanctum of Thought",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|22706",
+				["text"] = "1 added passive skill is Savage Intensity",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|6783",
+				["text"] = "1 added passive skill is Savage Skewering",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|26023",
+				["text"] = "1 added passive skill is Savage Wounds",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|23066",
+				["text"] = "1 added passive skill is Savagery",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|38849",
+				["text"] = "1 added passive skill is Searing Heat",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|2959",
+				["text"] = "1 added passive skill is Season of Ice",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|34284",
+				["text"] = "1 added passive skill is Seasoned Swordplay",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|24358",
+				["text"] = "1 added passive skill is Selective Precision",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|19144",
+				["text"] = "1 added passive skill is Sentinel",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|22702",
+				["text"] = "1 added passive skill is Serpent Stance",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|58032",
+				["text"] = "1 added passive skill is Serpentine Spellslinger",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|55194",
+				["text"] = "1 added passive skill is Settling Ash",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|44562",
+				["text"] = "1 added passive skill is Shaman's Dominion",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|53757",
+				["text"] = "1 added passive skill is Shamanistic Fury",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|63976",
+				["text"] = "1 added passive skill is Shaper",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|55027",
+				["text"] = "1 added passive skill is Shining Justice",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|17608",
+				["text"] = "1 added passive skill is Silent Steps",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|32853",
+				["text"] = "1 added passive skill is Sione's Ambition",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|15400",
+				["text"] = "1 added passive skill is Skittering Runes",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|16703",
+				["text"] = "1 added passive skill is Skull Cracking",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|23038",
+				["text"] = "1 added passive skill is Slaughter",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|60737",
+				["text"] = "1 added passive skill is Sleight of Hand",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|51559",
+				["text"] = "1 added passive skill is Smashing Strikes",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|42649",
+				["text"] = "1 added passive skill is Snowforged",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|52157",
+				["text"] = "1 added passive skill is Soul Siphon",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|32176",
+				["text"] = "1 added passive skill is Soul Thief",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|42009",
+				["text"] = "1 added passive skill is Soul of Steel",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|32932",
+				["text"] = "1 added passive skill is Sovereignty",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|10542",
+				["text"] = "1 added passive skill is Spiked Bulwark",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|5126",
+				["text"] = "1 added passive skill is Spinecruncher",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|1382",
+				["text"] = "1 added passive skill is Spirit Void",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|27422",
+				["text"] = "1 added passive skill is Spirit of War",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|4177",
+				["text"] = "1 added passive skill is Spiritual Aid",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|43689",
+				["text"] = "1 added passive skill is Spiritual Command",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|7069",
+				["text"] = "1 added passive skill is Split Shot",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|37326",
+				["text"] = "1 added passive skill is Stamina",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|26557",
+				["text"] = "1 added passive skill is Static Blows",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|13922",
+				["text"] = "1 added passive skill is Steadfast",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|36859",
+				["text"] = "1 added passive skill is Steelwood Stance",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|53652",
+				["text"] = "1 added passive skill is Steeped in the Profane",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|32455",
+				["text"] = "1 added passive skill is Storm Weaver",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|35663",
+				["text"] = "1 added passive skill is Strong Arm",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|45608",
+				["text"] = "1 added passive skill is Successive Detonations",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|28449",
+				["text"] = "1 added passive skill is Surge of Vigour",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|544",
+				["text"] = "1 added passive skill is Surveillance",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|24133",
+				["text"] = "1 added passive skill is Survivalist",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|33725",
+				["text"] = "1 added passive skill is Swagger",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|7263",
+				["text"] = "1 added passive skill is Swift Venoms",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|62094",
+				["text"] = "1 added passive skill is Taste for Blood",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|63207",
+				["text"] = "1 added passive skill is Tempest Blast",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|52282",
+				["text"] = "1 added passive skill is Tenacity",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|44207",
+				["text"] = "1 added passive skill is Testudo",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|19069",
+				["text"] = "1 added passive skill is Thick Skin",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|45067",
+				["text"] = "1 added passive skill is Thrill Killer",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|13935",
+				["text"] = "1 added passive skill is Thrill of Battle",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|47306",
+				["text"] = "1 added passive skill is Throatseeker",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|65108",
+				["text"] = "1 added passive skill is Tireless",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|32059",
+				["text"] = "1 added passive skill is Titanic Impacts",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|10511",
+				["text"] = "1 added passive skill is Tolerance",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|63933",
+				["text"] = "1 added passive skill is Totemic Zeal",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|16236",
+				["text"] = "1 added passive skill is Toxic Strikes",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|16246",
+				["text"] = "1 added passive skill is Tranquility",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|45657",
+				["text"] = "1 added passive skill is Trial of the Faith",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|27119",
+				["text"] = "1 added passive skill is Tribal Fury",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|45329",
+				["text"] = "1 added passive skill is Trick Shot",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|35894",
+				["text"] = "1 added passive skill is Trickery",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|30471",
+				["text"] = "1 added passive skill is True Strike",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|6",
+				["text"] = "1 added passive skill is Twin Terrors",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|25439",
+				["text"] = "1 added passive skill is Undertaker",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|14001",
+				["text"] = "1 added passive skill is Unfaltering",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|50029",
+				["text"] = "1 added passive skill is Unnatural Calm",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|59605",
+				["text"] = "1 added passive skill is Unstable Munitions",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|55114",
+				["text"] = "1 added passive skill is Utmost Intellect",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|49772",
+				["text"] = "1 added passive skill is Utmost Might",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|63921",
+				["text"] = "1 added passive skill is Utmost Swiftness",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|11784",
+				["text"] = "1 added passive skill is Vampirism",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|26564",
+				["text"] = "1 added passive skill is Vanquisher",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|53840",
+				["text"] = "1 added passive skill is Vengeance",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|57006",
+				["text"] = "1 added passive skill is Vengeant Cascade",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|12795",
+				["text"] = "1 added passive skill is Versatility",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|45803",
+				["text"] = "1 added passive skill is Veteran Soldier",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|50842",
+				["text"] = "1 added passive skill is Veteran's Wrath",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|4833",
+				["text"] = "1 added passive skill is Vigour",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|203",
+				["text"] = "1 added passive skill is Vinespike Cordial",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|39530",
+				["text"] = "1 added passive skill is Vitality Void",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|48698",
+				["text"] = "1 added passive skill is Void Barrier",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|9055",
+				["text"] = "1 added passive skill is Volatile Mines",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|32738",
+				["text"] = "1 added passive skill is Wall of Steel",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|22972",
+				["text"] = "1 added passive skill is Wandslinger",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|64077",
+				["text"] = "1 added passive skill is Warrior Training",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|24383",
+				["text"] = "1 added passive skill is Warrior's Blood",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|44988",
+				["text"] = "1 added passive skill is Wasting",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|15290",
+				["text"] = "1 added passive skill is Watchtowers",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|38706",
+				["text"] = "1 added passive skill is Way of the Warrior",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|7085",
+				["text"] = "1 added passive skill is Weapon Artistry",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|52230",
+				["text"] = "1 added passive skill is Weathered Hunter",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|42917",
+				["text"] = "1 added passive skill is Whirling Barrier",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|22535",
+				["text"] = "1 added passive skill is Whispers of Doom",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|12033",
+				["text"] = "1 added passive skill is Wicked Blade",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|61039",
+				["text"] = "1 added passive skill is Wild Hunger",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|33903",
+				["text"] = "1 added passive skill is Will of Blades",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|4207",
+				["text"] = "1 added passive skill is Window of Opportunity",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|43385",
+				["text"] = "1 added passive skill is Winter Spirit",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|41870",
+				["text"] = "1 added passive skill is Winter's Embrace",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|14079",
+				["text"] = "1 added passive skill is Wood, Stone, and Spell",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|27781",
+				["text"] = "1 added passive skill is Worship the Blightheart",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|49318",
+				["text"] = "1 added passive skill is Wrecking Ball",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|18769",
+				["text"] = "1 added passive skill is Written in Blood",
 				["type"] = "enchant",
 			},
 			{
@@ -57791,6 +67956,11 @@ return {
 				["type"] = "enchant",
 			},
 			{
+				["id"] = "enchant.stat_2954116742|60085",
+				["text"] = "Allocates Arcane Conservation",
+				["type"] = "enchant",
+			},
+			{
 				["id"] = "enchant.stat_2954116742|53573",
 				["text"] = "Allocates Arcane Expanse",
 				["type"] = "enchant",
@@ -58193,6 +68363,11 @@ return {
 			{
 				["id"] = "enchant.stat_2954116742|55485",
 				["text"] = "Allocates Constitution",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|20261",
+				["text"] = "Allocates Contemplative Meditation",
 				["type"] = "enchant",
 			},
 			{
@@ -60291,13 +70466,23 @@ return {
 				["type"] = "enchant",
 			},
 			{
+				["id"] = "enchant.stat_2436559047",
+				["text"] = "Area contains a Mirage",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2398157267",
+				["text"] = "Area contains a Mirror of Delirium",
+				["type"] = "enchant",
+			},
+			{
 				["id"] = "enchant.stat_3960907415",
 				["text"] = "Area contains a Smuggler's Cache",
 				["type"] = "enchant",
 			},
 			{
-				["id"] = "enchant.stat_2436559047",
-				["text"] = "Area contains an Empowered Mirage which covers the entire Map",
+				["id"] = "enchant.stat_1070816711",
+				["text"] = "Area contains an additional Abyss",
 				["type"] = "enchant",
 			},
 			{
@@ -60331,11 +70516,6 @@ return {
 				["type"] = "enchant",
 			},
 			{
-				["id"] = "enchant.stat_1070816711",
-				["text"] = "Area contains an additional [ContainsAbyss|Abyss]",
-				["type"] = "enchant",
-			},
-			{
 				["id"] = "enchant.stat_3747734818",
 				["text"] = "Area contains hunted traitors",
 				["type"] = "enchant",
@@ -60353,6 +70533,16 @@ return {
 			{
 				["id"] = "enchant.stat_2862290356",
 				["text"] = "Area is Alluring",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_1527404187",
+				["text"] = "Area is Tormented",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_667284445",
+				["text"] = "Area is dominated by Terror Shrines",
 				["type"] = "enchant",
 			},
 			{
@@ -60381,18 +70571,18 @@ return {
 				["type"] = "enchant",
 			},
 			{
-				["id"] = "enchant.stat_1671749203",
-				["text"] = "Areas contain Ritual Altars",
+				["id"] = "enchant.stat_112276874",
+				["text"] = "Area's inhabitants are lying in ambush",
 				["type"] = "enchant",
 			},
 			{
 				["id"] = "enchant.stat_3564826949",
-				["text"] = "Areas contain [ContainsAbyss|Abysses]",
+				["text"] = "Areas contain Abysses",
 				["type"] = "enchant",
 			},
 			{
-				["id"] = "enchant.stat_2398157267",
-				["text"] = "Areas contain a Mirror of Delirium",
+				["id"] = "enchant.stat_1671749203",
+				["text"] = "Areas contain Ritual Altars",
 				["type"] = "enchant",
 			},
 			{
@@ -60458,6 +70648,16 @@ return {
 			{
 				["id"] = "enchant.stat_3252913608",
 				["text"] = "Attacks Exerted by Seismic Cry deal #% increased Damage",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_1510714129",
+				["text"] = "Attacks have #% chance to Maim on Hit",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_1923879260",
+				["text"] = "Attacks have #% chance to cause Bleeding",
 				["type"] = "enchant",
 			},
 			{
@@ -60931,6 +71131,11 @@ return {
 				["type"] = "enchant",
 			},
 			{
+				["id"] = "enchant.stat_2987875489",
+				["text"] = "Deified",
+				["type"] = "enchant",
+			},
+			{
 				["id"] = "enchant.stat_4139181362",
 				["text"] = "Delirium Reward Bars fill #% faster",
 				["type"] = "enchant",
@@ -60941,108 +71146,108 @@ return {
 				["type"] = "enchant",
 			},
 			{
-				["id"] = "enchant.delirium_reward_incubators",
-				["text"] = "Delirium Reward Type: Delirium Reward Type: <invalid-AfflictionRewardTypeVisuals-index> (×#)",
-				["type"] = "enchant",
-			},
-			{
 				["id"] = "enchant.delirium_reward_abyss",
-				["text"] = "Delirium Reward Type: Delirium Reward Type: Abyss Items (×#)",
+				["text"] = "Delirium Reward Type: Abyss Items",
 				["type"] = "enchant",
 			},
 			{
 				["id"] = "enchant.delirium_reward_armour",
-				["text"] = "Delirium Reward Type: Delirium Reward Type: Armour (×#)",
-				["type"] = "enchant",
-			},
-			{
-				["id"] = "enchant.delirium_reward_metamorphosis",
-				["text"] = "Delirium Reward Type: Delirium Reward Type: Blight Items (×#)",
-				["type"] = "enchant",
-			},
-			{
-				["id"] = "enchant.delirium_reward_breach",
-				["text"] = "Delirium Reward Type: Delirium Reward Type: Breach Items (×#)",
-				["type"] = "enchant",
-			},
-			{
-				["id"] = "enchant.delirium_reward_currency",
-				["text"] = "Delirium Reward Type: Delirium Reward Type: Currency (×#)",
-				["type"] = "enchant",
-			},
-			{
-				["id"] = "enchant.delirium_reward_divinationcards",
-				["text"] = "Delirium Reward Type: Delirium Reward Type: Divination Cards (×#)",
-				["type"] = "enchant",
-			},
-			{
-				["id"] = "enchant.delirium_reward_essences",
-				["text"] = "Delirium Reward Type: Delirium Reward Type: Essences (×#)",
-				["type"] = "enchant",
-			},
-			{
-				["id"] = "enchant.delirium_reward_perandus",
-				["text"] = "Delirium Reward Type: Delirium Reward Type: Expedition Items (×#)",
-				["type"] = "enchant",
-			},
-			{
-				["id"] = "enchant.delirium_reward_fossils",
-				["text"] = "Delirium Reward Type: Delirium Reward Type: Fossils (×#)",
-				["type"] = "enchant",
-			},
-			{
-				["id"] = "enchant.delirium_reward_fragments",
-				["text"] = "Delirium Reward Type: Delirium Reward Type: Fragments (×#)",
-				["type"] = "enchant",
-			},
-			{
-				["id"] = "enchant.delirium_reward_gems",
-				["text"] = "Delirium Reward Type: Delirium Reward Type: Gems (×#)",
-				["type"] = "enchant",
-			},
-			{
-				["id"] = "enchant.delirium_reward_trinkets",
-				["text"] = "Delirium Reward Type: Delirium Reward Type: Jewellery (×#)",
-				["type"] = "enchant",
-			},
-			{
-				["id"] = "enchant.delirium_reward_labyrinth",
-				["text"] = "Delirium Reward Type: Delirium Reward Type: Labyrinth Items (×#)",
+				["text"] = "Delirium Reward Type: Armour",
 				["type"] = "enchant",
 			},
 			{
 				["id"] = "enchant.delirium_reward_blight",
-				["text"] = "Delirium Reward Type: Delirium Reward Type: Legion Items (×#)",
+				["text"] = "Delirium Reward Type: Blight Items",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.delirium_reward_breach",
+				["text"] = "Delirium Reward Type: Breach Items",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.delirium_reward_metamorphosis",
+				["text"] = "Delirium Reward Type: Catalysts",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.delirium_reward_currency",
+				["text"] = "Delirium Reward Type: Currency",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.delirium_reward_divinationcards",
+				["text"] = "Delirium Reward Type: Divination Cards",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.delirium_reward_essences",
+				["text"] = "Delirium Reward Type: Essences",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.delirium_reward_perandus",
+				["text"] = "Delirium Reward Type: Expedition Items",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.delirium_reward_fossils",
+				["text"] = "Delirium Reward Type: Fossils",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.delirium_reward_gems",
+				["text"] = "Delirium Reward Type: Gems",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.delirium_reward_trinkets",
+				["text"] = "Delirium Reward Type: Jewellery",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.delirium_reward_labyrinth",
+				["text"] = "Delirium Reward Type: Labyrinth Items",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.delirium_reward_incubators",
+				["text"] = "Delirium Reward Type: Legion Items",
 				["type"] = "enchant",
 			},
 			{
 				["id"] = "enchant.delirium_reward_maps",
-				["text"] = "Delirium Reward Type: Delirium Reward Type: Map Items (×#)",
+				["text"] = "Delirium Reward Type: Map Items",
 				["type"] = "enchant",
 			},
 			{
 				["id"] = "enchant.delirium_reward_generic",
-				["text"] = "Delirium Reward Type: Delirium Reward Type: Miscellaneous Items (×#)",
-				["type"] = "enchant",
-			},
-			{
-				["id"] = "enchant.delirium_reward_scarabs",
-				["text"] = "Delirium Reward Type: Delirium Reward Type: Scarabs (×#)",
+				["text"] = "Delirium Reward Type: Miscellaneous Items",
 				["type"] = "enchant",
 			},
 			{
 				["id"] = "enchant.delirium_reward_talismans",
-				["text"] = "Delirium Reward Type: Delirium Reward Type: Talismans (×#)",
+				["text"] = "Delirium Reward Type: Talismans",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.delirium_reward_fragments",
+				["text"] = "Delirium Reward Type: Threads",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.delirium_reward_scarabs",
+				["text"] = "Delirium Reward Type: Threads",
 				["type"] = "enchant",
 			},
 			{
 				["id"] = "enchant.delirium_reward_uniques",
-				["text"] = "Delirium Reward Type: Delirium Reward Type: Unique Items (×#)",
+				["text"] = "Delirium Reward Type: Unique Items",
 				["type"] = "enchant",
 			},
 			{
 				["id"] = "enchant.delirium_reward_weapon",
-				["text"] = "Delirium Reward Type: Delirium Reward Type: Weapons (×#)",
+				["text"] = "Delirium Reward Type: Weapons",
 				["type"] = "enchant",
 			},
 			{
@@ -61277,7 +71482,7 @@ return {
 			},
 			{
 				["id"] = "enchant.stat_3764198549",
-				["text"] = "Every 3 seconds, Consume a nearby Corpse to Recover #% of Life",
+				["text"] = "Every 3 seconds, Consume a Corpse within 5 metres to Recover #% of Life",
 				["type"] = "enchant",
 			},
 			{
@@ -61666,8 +71871,8 @@ return {
 				["type"] = "enchant",
 			},
 			{
-				["id"] = "enchant.stat_52953650",
-				["text"] = "Grants Level # Envy Skill",
+				["id"] = "enchant.effect_2236653998",
+				["text"] = "Grants Level # Envy",
 				["type"] = "enchant",
 			},
 			{
@@ -61686,16 +71891,6 @@ return {
 				["type"] = "enchant",
 			},
 			{
-				["id"] = "enchant.stat_2067409550",
-				["text"] = "Harvest Monsters have #% more Life",
-				["type"] = "enchant",
-			},
-			{
-				["id"] = "enchant.stat_2067409550",
-				["text"] = "Harvest Monsters in your Maps have #% more Life",
-				["type"] = "enchant",
-			},
-			{
 				["id"] = "enchant.stat_931294424",
 				["text"] = "Has # White Sockets",
 				["type"] = "enchant",
@@ -61703,6 +71898,11 @@ return {
 			{
 				["id"] = "enchant.stat_692420067",
 				["text"] = "Has #% increased Elemental Damage",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_4077843608",
+				["text"] = "Has 1 Socket",
 				["type"] = "enchant",
 			},
 			{
@@ -61772,7 +71972,7 @@ return {
 			},
 			{
 				["id"] = "enchant.stat_4168369352",
-				["text"] = "Heist Targets are always Currency or Scarabs",
+				["text"] = "Heist Targets are always Currency or Threads",
 				["type"] = "enchant",
 			},
 			{
@@ -62127,12 +72327,12 @@ return {
 			},
 			{
 				["id"] = "enchant.stat_3250634678",
-				["text"] = "Lifeforce dropped by Harvest Monsters in your Maps is Duplicated",
+				["text"] = "Lifeforce dropped by Sacred Fauna in your Maps is Duplicated",
 				["type"] = "enchant",
 			},
 			{
 				["id"] = "enchant.stat_3250634678",
-				["text"] = "Lifeforce dropped by Harvest Monsters is Duplicated",
+				["text"] = "Lifeforce dropped by Sacred Fauna is Duplicated",
 				["type"] = "enchant",
 			},
 			{
@@ -62306,6 +72506,11 @@ return {
 				["type"] = "enchant",
 			},
 			{
+				["id"] = "enchant.stat_3206381437",
+				["text"] = "Melee Hits which Stun have #% chance to Fortify",
+				["type"] = "enchant",
+			},
+			{
 				["id"] = "enchant.stat_3675300253",
 				["text"] = "Melee Strike Skills deal Splash Damage to surrounding targets",
 				["type"] = "enchant",
@@ -62428,11 +72633,6 @@ return {
 			{
 				["id"] = "enchant.stat_3026134008",
 				["text"] = "Monsters have #% more Life",
-				["type"] = "enchant",
-			},
-			{
-				["id"] = "enchant.stat_2329255938",
-				["text"] = "Nemesis Monsters drop # additional Basic Currency Item",
 				["type"] = "enchant",
 			},
 			{
@@ -62811,6 +73011,11 @@ return {
 				["type"] = "enchant",
 			},
 			{
+				["id"] = "enchant.stat_3661377675",
+				["text"] = "Rare monsters that are natural inhabitants are Calcified",
+				["type"] = "enchant",
+			},
+			{
 				["id"] = "enchant.stat_1545524769",
 				["text"] = "Reap deals #% increased Damage",
 				["type"] = "enchant",
@@ -62852,12 +73057,7 @@ return {
 			},
 			{
 				["id"] = "enchant.stat_2425554673",
-				["text"] = "Rerolling Favours at Ritual Altars has no Cost the first time",
-				["type"] = "enchant",
-			},
-			{
-				["id"] = "enchant.stat_2425554673",
-				["text"] = "Rerolling Favours at Ritual Altars in your Maps has no Cost the first # time",
+				["text"] = "Rerolling Favours at Ritual Altars in your Maps has no Cost # additional time",
 				["type"] = "enchant",
 			},
 			{
@@ -62918,6 +73118,16 @@ return {
 			{
 				["id"] = "enchant.stat_242209782",
 				["text"] = "Rune Blast teleports you to the detonated Rune if you have not detonated Runes in the past 1.5 seconds",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2067409550",
+				["text"] = "Sacred Fauna have #% more Life",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2067409550",
+				["text"] = "Sacred Fauna in your Maps have #% more Life",
 				["type"] = "enchant",
 			},
 			{
@@ -63441,13 +73651,13 @@ return {
 				["type"] = "enchant",
 			},
 			{
-				["id"] = "enchant.stat_3614009195",
-				["text"] = "Temporal Rift has #% increased Cooldown Recovery Rate",
+				["id"] = "enchant.stat_45233024",
+				["text"] = "Temporal Incursions in Area are Alluring",
 				["type"] = "enchant",
 			},
 			{
-				["id"] = "enchant.stat_1480568810",
-				["text"] = "The First 3 Possessed Monsters have a #% chance to drop an additional Gilded Scarab",
+				["id"] = "enchant.stat_3614009195",
+				["text"] = "Temporal Rift has #% increased Cooldown Recovery Rate",
 				["type"] = "enchant",
 			},
 			{
@@ -63456,23 +73666,8 @@ return {
 				["type"] = "enchant",
 			},
 			{
-				["id"] = "enchant.stat_1317250154",
-				["text"] = "The First 3 Possessed Monsters have a #% chance to drop an additional Polished Scarab",
-				["type"] = "enchant",
-			},
-			{
-				["id"] = "enchant.stat_3789079511",
-				["text"] = "The First 3 Possessed Monsters have a #% chance to drop an additional Rusted Scarab",
-				["type"] = "enchant",
-			},
-			{
 				["id"] = "enchant.stat_2392278281",
 				["text"] = "The First 3 Possessed Monsters have a #% chance to drop an additional Unique Item",
-				["type"] = "enchant",
-			},
-			{
-				["id"] = "enchant.stat_1697321918",
-				["text"] = "The First 3 Possessed Monsters have a #% chance to drop an additional Winged Scarab",
 				["type"] = "enchant",
 			},
 			{
@@ -63526,11 +73721,6 @@ return {
 				["type"] = "enchant",
 			},
 			{
-				["id"] = "enchant.stat_1662669872",
-				["text"] = "Trigger Level # Stalking Pustule on Kill",
-				["type"] = "enchant",
-			},
-			{
 				["id"] = "enchant.stat_3252082366",
 				["text"] = "Trigger Level # Summon Phantasm Skill when you Consume a corpse",
 				["type"] = "enchant",
@@ -63538,6 +73728,11 @@ return {
 			{
 				["id"] = "enchant.stat_1468606528",
 				["text"] = "Trigger Level 10 Summon Spectral Wolf on Kill",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_1662669872",
+				["text"] = "Trigger Level 15 Stalking Pustule on Kill",
 				["type"] = "enchant",
 			},
 			{
@@ -63807,12 +74002,17 @@ return {
 			},
 			{
 				["id"] = "enchant.stat_3462132936",
-				["text"] = "When you Kill a Shocked Enemy, inflict an equivalent Shock on each nearby Enemy",
+				["text"] = "When you Kill a Shocked Enemy, inflict an equivalent Shock on each Enemy within 2 metres",
 				["type"] = "enchant",
 			},
 			{
 				["id"] = "enchant.stat_2638352064",
-				["text"] = "When you Kill an Ignited Enemy, inflict an equivalent Ignite on each nearby Enemy",
+				["text"] = "When you Kill an Ignited Enemy, inflict an equivalent Ignite on each Enemy within 2 metres",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_1643298048",
+				["text"] = "Wild Rogue Exiles have a #% chance to be replaced by Rogue Giants",
 				["type"] = "enchant",
 			},
 			{
@@ -63887,7 +74087,7 @@ return {
 			},
 			{
 				["id"] = "enchant.stat_3726585224",
-				["text"] = "You and Nearby Allies have # to # added Lightning Damage per Blue Socket",
+				["text"] = "You and Allies within 6 metres have # to # added Lightning Damage per Blue Socket",
 				["type"] = "enchant",
 			},
 			{
@@ -64236,13 +74436,13 @@ return {
 				["type"] = "enchant",
 			},
 			{
-				["id"] = "enchant.stat_1671749203",
-				["text"] = "Your Maps contain Ritual Altars",
+				["id"] = "enchant.stat_3564826949",
+				["text"] = "Your Maps contain Abysses",
 				["type"] = "enchant",
 			},
 			{
-				["id"] = "enchant.stat_3564826949",
-				["text"] = "Your Maps contain [ContainsAbyss|Abysses]",
+				["id"] = "enchant.stat_1671749203",
+				["text"] = "Your Maps contain Ritual Altars",
 				["type"] = "enchant",
 			},
 			{
@@ -64258,6 +74458,11 @@ return {
 			{
 				["id"] = "enchant.stat_2055257822",
 				["text"] = "Your Maps contain an Ultimatum Encounter",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_1070816711",
+				["text"] = "Your Maps contain an additional Abyss",
 				["type"] = "enchant",
 			},
 			{
@@ -64283,11 +74488,6 @@ return {
 			{
 				["id"] = "enchant.stat_1468737867",
 				["text"] = "Your Maps contain an additional Shrine",
-				["type"] = "enchant",
-			},
-			{
-				["id"] = "enchant.stat_1070816711",
-				["text"] = "Your Maps contain an additional [ContainsAbyss|Abyss]",
 				["type"] = "enchant",
 			},
 			{
@@ -65007,11 +75207,6 @@ return {
 				["type"] = "scourge",
 			},
 			{
-				["id"] = "scourge.stat_3917489142",
-				["text"] = "#% increased Rarity of Items found",
-				["type"] = "scourge",
-			},
-			{
 				["id"] = "scourge.stat_1723063621",
 				["text"] = "#% increased Rarity of Items found in Nightmare",
 				["type"] = "scourge",
@@ -65507,6 +75702,11 @@ return {
 				["type"] = "scourge",
 			},
 			{
+				["id"] = "scourge.stat_3917489142",
+				["text"] = "+#% to Item Rarity",
+				["type"] = "scourge",
+			},
+			{
 				["id"] = "scourge.stat_1671376347",
 				["text"] = "+#% to Lightning Resistance",
 				["type"] = "scourge",
@@ -65643,7 +75843,7 @@ return {
 			},
 			{
 				["id"] = "scourge.stat_3828375170",
-				["text"] = "Bleeding you inflict deals Damage #% faster",
+				["text"] = "Bleeding you inflict deals Damage #% Faster",
 				["type"] = "scourge",
 			},
 			{
@@ -65798,7 +75998,7 @@ return {
 			},
 			{
 				["id"] = "scourge.stat_3643913768",
-				["text"] = "Deal #% of your maximum Life as Fire Damage to nearby Enemies when Hit",
+				["text"] = "Deal #% of your maximum Life as Fire Damage to Enemies within 1.8 metres when Hit",
 				["type"] = "scourge",
 			},
 			{
@@ -65844,6 +76044,31 @@ return {
 			{
 				["id"] = "scourge.stat_3574189159",
 				["text"] = "Elemental Overload",
+				["type"] = "scourge",
+			},
+			{
+				["id"] = "scourge.stat_1902595112",
+				["text"] = "Enemies within 6 metres have +#% to Chaos Resistance",
+				["type"] = "scourge",
+			},
+			{
+				["id"] = "scourge.stat_2674336304",
+				["text"] = "Enemies within 6 metres have +#% to Cold Resistance",
+				["type"] = "scourge",
+			},
+			{
+				["id"] = "scourge.stat_3914021960",
+				["text"] = "Enemies within 6 metres have +#% to Fire Resistance",
+				["type"] = "scourge",
+			},
+			{
+				["id"] = "scourge.stat_1849749435",
+				["text"] = "Enemies within 6 metres have +#% to Lightning Resistance",
+				["type"] = "scourge",
+			},
+			{
+				["id"] = "scourge.stat_415837237",
+				["text"] = "Enemies within 6 metres take #% increased Physical Damage",
 				["type"] = "scourge",
 			},
 			{
@@ -65902,33 +76127,33 @@ return {
 				["type"] = "scourge",
 			},
 			{
-				["id"] = "scourge.stat_1504952168",
-				["text"] = "Grants Level # Herald of Agony Skill",
+				["id"] = "scourge.effect_237745710",
+				["text"] = "Grants Level # Herald of Agony",
 				["type"] = "scourge",
 			},
 			{
-				["id"] = "scourge.stat_3880462354",
-				["text"] = "Grants Level # Herald of Ash Skill",
+				["id"] = "scourge.effect_415209642",
+				["text"] = "Grants Level # Herald of Ash",
 				["type"] = "scourge",
 			},
 			{
-				["id"] = "scourge.stat_3846248551",
-				["text"] = "Grants Level # Herald of Ice Skill",
+				["id"] = "scourge.effect_1659491511",
+				["text"] = "Grants Level # Herald of Ice",
 				["type"] = "scourge",
 			},
 			{
-				["id"] = "scourge.stat_738207023",
-				["text"] = "Grants Level # Herald of Purity Skill",
+				["id"] = "scourge.effect_2054781369",
+				["text"] = "Grants Level # Herald of Purity",
 				["type"] = "scourge",
 			},
 			{
-				["id"] = "scourge.stat_1665492921",
-				["text"] = "Grants Level # Herald of Thunder Skill",
+				["id"] = "scourge.effect_2128724272",
+				["text"] = "Grants Level # Herald of Thunder",
 				["type"] = "scourge",
 			},
 			{
-				["id"] = "scourge.stat_3536689603",
-				["text"] = "Grants Level # Sniper's Mark Skill",
+				["id"] = "scourge.effect_2890244883",
+				["text"] = "Grants Level # Sniper's Mark",
 				["type"] = "scourge",
 			},
 			{
@@ -65948,7 +76173,7 @@ return {
 			},
 			{
 				["id"] = "scourge.stat_2443492284",
-				["text"] = "Ignites you inflict deal Damage #% faster",
+				["text"] = "Ignites you inflict deal Damage #% Faster",
 				["type"] = "scourge",
 			},
 			{
@@ -66092,31 +76317,6 @@ return {
 				["type"] = "scourge",
 			},
 			{
-				["id"] = "scourge.stat_1902595112",
-				["text"] = "Nearby Enemies have +#% to Chaos Resistance",
-				["type"] = "scourge",
-			},
-			{
-				["id"] = "scourge.stat_2674336304",
-				["text"] = "Nearby Enemies have +#% to Cold Resistance",
-				["type"] = "scourge",
-			},
-			{
-				["id"] = "scourge.stat_3914021960",
-				["text"] = "Nearby Enemies have +#% to Fire Resistance",
-				["type"] = "scourge",
-			},
-			{
-				["id"] = "scourge.stat_1849749435",
-				["text"] = "Nearby Enemies have +#% to Lightning Resistance",
-				["type"] = "scourge",
-			},
-			{
-				["id"] = "scourge.stat_415837237",
-				["text"] = "Nearby Enemies take #% increased Physical Damage",
-				["type"] = "scourge",
-			},
-			{
 				["id"] = "scourge.stat_3638599682",
 				["text"] = "Never deal Critical Strikes",
 				["type"] = "scourge",
@@ -66188,7 +76388,7 @@ return {
 			},
 			{
 				["id"] = "scourge.stat_2907156609",
-				["text"] = "Poisons you inflict deal Damage #% faster",
+				["text"] = "Poisons you inflict deal Damage #% Faster",
 				["type"] = "scourge",
 			},
 			{
@@ -66262,11 +76462,6 @@ return {
 				["type"] = "scourge",
 			},
 			{
-				["id"] = "scourge.stat_2537141444",
-				["text"] = "Rare Scourge Monsters drop # additional Scarab",
-				["type"] = "scourge",
-			},
-			{
 				["id"] = "scourge.stat_1111686834",
 				["text"] = "Rare Scourge Monsters drop # additional Scourged Item",
 				["type"] = "scourge",
@@ -66279,6 +76474,11 @@ return {
 			{
 				["id"] = "scourge.stat_602265718",
 				["text"] = "Rare Scourge Monsters drop # additional Tainted Currency Item",
+				["type"] = "scourge",
+			},
+			{
+				["id"] = "scourge.stat_2537141444",
+				["text"] = "Rare Scourge Monsters drop # additional Thread",
 				["type"] = "scourge",
 			},
 			{
@@ -66357,18 +76557,18 @@ return {
 				["type"] = "scourge",
 			},
 			{
-				["id"] = "scourge.stat_411460446",
-				["text"] = "Socketed Gems are Supported by Level # Added Chaos Damage",
+				["id"] = "scourge.effect_1673391040",
+				["text"] = "Socketed Gems are Supported by Level # Added Chaos Damage Support",
 				["type"] = "scourge",
 			},
 			{
-				["id"] = "scourge.stat_4020144606",
-				["text"] = "Socketed Gems are Supported by Level # Added Cold Damage",
+				["id"] = "scourge.effect_3362019776",
+				["text"] = "Socketed Gems are Supported by Level # Added Cold Damage Support",
 				["type"] = "scourge",
 			},
 			{
-				["id"] = "scourge.stat_1647529598",
-				["text"] = "Socketed Gems are Supported by Level # Added Lightning Damage",
+				["id"] = "scourge.effect_3607696303",
+				["text"] = "Socketed Gems are Supported by Level # Added Lightning Damage Support",
 				["type"] = "scourge",
 			},
 			{
@@ -66583,6 +76783,16 @@ return {
 	{
 		["entries"] = {
 			{
+				["id"] = "crafted.stat_181387736",
+				["text"] = "# Prefix Modifier cannot be changed",
+				["type"] = "crafted",
+			},
+			{
+				["id"] = "crafted.stat_2390914662",
+				["text"] = "# Suffix Modifier cannot be changed",
+				["type"] = "crafted",
+			},
+			{
 				["id"] = "crafted.stat_2312652600",
 				["text"] = "#% Chance to Avoid being Stunned during Effect",
 				["type"] = "crafted",
@@ -66669,7 +76879,7 @@ return {
 			},
 			{
 				["id"] = "crafted.stat_2301191210",
-				["text"] = "#% chance to Blind Enemies on hit",
+				["text"] = "#% chance to Blind Enemies on Hit",
 				["type"] = "crafted",
 			},
 			{
@@ -66794,7 +77004,7 @@ return {
 			},
 			{
 				["id"] = "crafted.stat_314741699",
-				["text"] = "#% increased Attack Speed while a Rare or Unique Enemy is Nearby",
+				["text"] = "#% increased Attack Speed while a Rare or Unique Enemy is within 6 metres",
 				["type"] = "crafted",
 			},
 			{
@@ -67085,21 +77295,6 @@ return {
 			{
 				["id"] = "crafted.stat_3759663284",
 				["text"] = "#% increased Projectile Speed",
-				["type"] = "crafted",
-			},
-			{
-				["id"] = "crafted.stat_2161689853",
-				["text"] = "#% increased Rarity of Items Dropped by Slain Rare or Unique Enemies",
-				["type"] = "crafted",
-			},
-			{
-				["id"] = "crafted.stat_3917489142",
-				["text"] = "#% increased Rarity of Items found",
-				["type"] = "crafted",
-			},
-			{
-				["id"] = "crafted.stat_3251705960",
-				["text"] = "#% increased Rarity of Items found during Effect",
 				["type"] = "crafted",
 			},
 			{
@@ -67478,13 +77673,18 @@ return {
 				["type"] = "crafted",
 			},
 			{
+				["id"] = "crafted.stat_19803471",
+				["text"] = "+#% Chance to Block Spell Damage",
+				["type"] = "crafted",
+			},
+			{
 				["id"] = "crafted.stat_2266636761",
 				["text"] = "+#% Chaos Resistance against Damage Over Time",
 				["type"] = "crafted",
 			},
 			{
 				["id"] = "crafted.stat_3992439283",
-				["text"] = "+#% Critical Strike Multiplier while a Rare or Unique Enemy is Nearby",
+				["text"] = "+#% Critical Strike Multiplier while a Rare or Unique Enemy is within 6 metres",
 				["type"] = "crafted",
 			},
 			{
@@ -67555,6 +77755,21 @@ return {
 			{
 				["id"] = "crafted.stat_3556824919",
 				["text"] = "+#% to Global Critical Strike Multiplier",
+				["type"] = "crafted",
+			},
+			{
+				["id"] = "crafted.stat_3917489142",
+				["text"] = "+#% to Item Rarity",
+				["type"] = "crafted",
+			},
+			{
+				["id"] = "crafted.stat_3251705960",
+				["text"] = "+#% to Item Rarity during Effect",
+				["type"] = "crafted",
+			},
+			{
+				["id"] = "crafted.stat_2161689853",
+				["text"] = "+#% to Item Rarity from Slain Rare or Unique Enemies",
 				["type"] = "crafted",
 			},
 			{
@@ -67899,7 +78114,7 @@ return {
 			},
 			{
 				["id"] = "crafted.stat_2879723104",
-				["text"] = "Prefixes Cannot Be Changed",
+				["text"] = "Prefix Modifiers cannot be changed",
 				["type"] = "crafted",
 			},
 			{
@@ -67929,7 +78144,7 @@ return {
 			},
 			{
 				["id"] = "crafted.stat_2238019079",
-				["text"] = "Regenerate # Energy Shield per second while a Rare or Unique Enemy is Nearby",
+				["text"] = "Regenerate # Energy Shield per second while a Rare or Unique Enemy is within 6 metres",
 				["type"] = "crafted",
 			},
 			{
@@ -67959,7 +78174,7 @@ return {
 			},
 			{
 				["id"] = "crafted.stat_3031766858",
-				["text"] = "Shock nearby Enemies for # Seconds when you Focus",
+				["text"] = "Shock Enemies within 3 metres for # Seconds when you Focus",
 				["type"] = "crafted",
 			},
 			{
@@ -67968,18 +78183,8 @@ return {
 				["type"] = "crafted",
 			},
 			{
-				["id"] = "crafted.stat_3922006600",
-				["text"] = "Socketed Gems are Supported by Level # Arrogance",
-				["type"] = "crafted",
-			},
-			{
-				["id"] = "crafted.stat_1079239905",
-				["text"] = "Socketed Gems are Supported by Level # Lifetap",
-				["type"] = "crafted",
-			},
-			{
 				["id"] = "crafted.stat_3464137628",
-				["text"] = "Suffixes Cannot Be Changed",
+				["text"] = "Suffix Modifiers cannot be changed",
 				["type"] = "crafted",
 			},
 			{
@@ -68031,6 +78236,16 @@ return {
 			{
 				["id"] = "mercenary.skill_14992",
 				["text"] = "Abyssal Cry",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_50122",
+				["text"] = "Abyssal Spray",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_41822",
+				["text"] = "Abyssal Spray Detonation",
 				["type"] = "mercenary",
 			},
 			{
@@ -69459,6 +79674,11 @@ return {
 				["type"] = "mercenary",
 			},
 			{
+				["id"] = "mercenary.skill_31201",
+				["text"] = "Herald of Ash",
+				["type"] = "mercenary",
+			},
+			{
 				["id"] = "mercenary.skill_44334",
 				["text"] = "Herald of Ash",
 				["type"] = "mercenary",
@@ -70109,6 +80329,11 @@ return {
 				["type"] = "mercenary",
 			},
 			{
+				["id"] = "mercenary.skill_54593",
+				["text"] = "Power of the Depths",
+				["type"] = "mercenary",
+			},
+			{
 				["id"] = "mercenary.skill_36279",
 				["text"] = "Precision",
 				["type"] = "mercenary",
@@ -70596,6 +80821,11 @@ return {
 			{
 				["id"] = "mercenary.skill_1185",
 				["text"] = "Vaal Reap",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_40606",
+				["text"] = "Vaal Smite",
 				["type"] = "mercenary",
 			},
 			{
@@ -72313,12 +82543,12 @@ return {
 				["type"] = "sanctum",
 			},
 			{
-				["id"] = "sanctum.sanctum_floor_reward_awakened_sextant",
+				["id"] = "sanctum.sanctum_floor_reward_",
 				["text"] = "Receive #x Awakened Sextants at the end of the Floor",
 				["type"] = "sanctum",
 			},
 			{
-				["id"] = "sanctum.sanctum_final_reward_awakened_sextant",
+				["id"] = "sanctum.sanctum_final_reward_",
 				["text"] = "Receive #x Awakened Sextants on completing the Sanctum",
 				["type"] = "sanctum",
 			},
@@ -72420,6 +82650,16 @@ return {
 			{
 				["id"] = "sanctum.sanctum_final_reward_fracturing_orb",
 				["text"] = "Receive #x Fracturing Orbs on completing the Sanctum",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_floor_reward_frayed_thread",
+				["text"] = "Receive #x Frayed Threads at the end of the Floor",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_final_reward_frayed_thread",
+				["text"] = "Receive #x Frayed Threads on completing the Sanctum",
 				["type"] = "sanctum",
 			},
 			{
@@ -72640,16 +82880,6 @@ return {
 			{
 				["id"] = "sanctum.sanctum_final_reward_veiled_exalted_orb",
 				["text"] = "Receive #x Veiled Orbs on completing the Sanctum",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_floor_reward_veiled_scarab",
-				["text"] = "Receive #x Veiled Scarabs at the end of the Floor",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_final_reward_veiled_scarab",
-				["text"] = "Receive #x Veiled Scarabs on completing the Sanctum",
 				["type"] = "sanctum",
 			},
 			{
@@ -80755,12 +90985,12 @@ return {
 			},
 			{
 				["id"] = "crucible.mod_23155",
-				["text"] = "Decoy, Devouring and Rejuvenation Totems Reflect 100% of their maximum Life as Fire Damage to nearby Enemies when Hit (Tier 1)",
+				["text"] = "Decoy, Devouring and Rejuvenation Totems Reflect 100% of their maximum Life as Fire Damage to Enemies within a base radius of 1.8 metres when Hit (Tier 1)",
 				["type"] = "crucible",
 			},
 			{
 				["id"] = "crucible.mod_47012",
-				["text"] = "Decoy, Devouring and Rejuvenation Totems Reflect 200% of their maximum Life as Fire Damage to nearby Enemies when Hit (Tier 1)",
+				["text"] = "Decoy, Devouring and Rejuvenation Totems Reflect 200% of their maximum Life as Fire Damage to Enemies within a base radius of 1.8 metres when Hit (Tier 1)",
 				["type"] = "crucible",
 			},
 			{
@@ -81385,7 +91615,7 @@ return {
 			},
 			{
 				["id"] = "crucible.mod_42738",
-				["text"] = "Item sells for 2 additional Cartography Scarabs of every type (Tier 2)",
+				["text"] = "Item sells for 2 additional Threads (Tier 2)",
 				["type"] = "crucible",
 			},
 			{
@@ -81454,11 +91684,6 @@ return {
 				["type"] = "crucible",
 			},
 			{
-				["id"] = "crucible.mod_48243",
-				["text"] = "Item sells for an additional Cartography Scarab of every type (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
 				["id"] = "crucible.mod_4855",
 				["text"] = "Item sells for an additional Crystalline Geode (Tier 1)",
 				["type"] = "crucible",
@@ -81491,6 +91716,11 @@ return {
 			{
 				["id"] = "crucible.mod_36660",
 				["text"] = "Item sells for an additional Sacred Orb (Tier 1)",
+				["type"] = "crucible",
+			},
+			{
+				["id"] = "crucible.mod_48243",
+				["text"] = "Item sells for an additional Thread (Tier 1)",
 				["type"] = "crucible",
 			},
 			{
@@ -83924,366 +94154,6 @@ return {
 				["type"] = "crucible",
 			},
 			{
-				["id"] = "crucible.mod_24860",
-				["text"] = "Socketed Gems are Supported by Level 10 Advanced Traps (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_47622",
-				["text"] = "Socketed Gems are Supported by Level 10 Advanced Traps (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_4505",
-				["text"] = "Socketed Gems are Supported by Level 10 Ancestral Call (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_54847",
-				["text"] = "Socketed Gems are Supported by Level 10 Ancestral Call (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_51860",
-				["text"] = "Socketed Gems are Supported by Level 10 Arcane Surge (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_7059",
-				["text"] = "Socketed Gems are Supported by Level 10 Arcane Surge (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_14595",
-				["text"] = "Socketed Gems are Supported by Level 10 Arrow Nova (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_42041",
-				["text"] = "Socketed Gems are Supported by Level 10 Arrow Nova (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_54648",
-				["text"] = "Socketed Gems are Supported by Level 10 Behead (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_59639",
-				["text"] = "Socketed Gems are Supported by Level 10 Behead (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_16157",
-				["text"] = "Socketed Gems are Supported by Level 10 Chain (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_62681",
-				["text"] = "Socketed Gems are Supported by Level 10 Chain (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_38664",
-				["text"] = "Socketed Gems are Supported by Level 10 Chance To Bleed (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_49653",
-				["text"] = "Socketed Gems are Supported by Level 10 Chance To Bleed (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_26244",
-				["text"] = "Socketed Gems are Supported by Level 10 Chance to Poison (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_44530",
-				["text"] = "Socketed Gems are Supported by Level 10 Chance to Poison (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_5018",
-				["text"] = "Socketed Gems are Supported by Level 10 Combustion (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_62296",
-				["text"] = "Socketed Gems are Supported by Level 10 Combustion (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_22375",
-				["text"] = "Socketed Gems are Supported by Level 10 Culling Strike (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_38566",
-				["text"] = "Socketed Gems are Supported by Level 10 Culling Strike (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_26088",
-				["text"] = "Socketed Gems are Supported by Level 10 Elemental Army Support (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_29608",
-				["text"] = "Socketed Gems are Supported by Level 10 Elemental Army Support (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_26551",
-				["text"] = "Socketed Gems are Supported by Level 10 Elemental Proliferation (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_55379",
-				["text"] = "Socketed Gems are Supported by Level 10 Elemental Proliferation (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_21019",
-				["text"] = "Socketed Gems are Supported by Level 10 Energy Leech (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_47374",
-				["text"] = "Socketed Gems are Supported by Level 10 Energy Leech (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_26522",
-				["text"] = "Socketed Gems are Supported by Level 10 Faster Casting (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_40805",
-				["text"] = "Socketed Gems are Supported by Level 10 Faster Casting (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_41860",
-				["text"] = "Socketed Gems are Supported by Level 10 Feeding Frenzy (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_56354",
-				["text"] = "Socketed Gems are Supported by Level 10 Feeding Frenzy (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_18070",
-				["text"] = "Socketed Gems are Supported by Level 10 Fortify (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_20818",
-				["text"] = "Socketed Gems are Supported by Level 10 Fortify (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_16669",
-				["text"] = "Socketed Gems are Supported by Level 10 Ignite Proliferation (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_18624",
-				["text"] = "Socketed Gems are Supported by Level 10 Ignite Proliferation (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_55393",
-				["text"] = "Socketed Gems are Supported by Level 10 Impale (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_57406",
-				["text"] = "Socketed Gems are Supported by Level 10 Impale (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_25007",
-				["text"] = "Socketed Gems are Supported by Level 10 Increased Area of Effect (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_4568",
-				["text"] = "Socketed Gems are Supported by Level 10 Increased Area of Effect (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_28083",
-				["text"] = "Socketed Gems are Supported by Level 10 Intensify (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_36288",
-				["text"] = "Socketed Gems are Supported by Level 10 Intensify (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_10869",
-				["text"] = "Socketed Gems are Supported by Level 10 Iron Grip (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_24540",
-				["text"] = "Socketed Gems are Supported by Level 10 Iron Grip (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_14505",
-				["text"] = "Socketed Gems are Supported by Level 10 Iron Will (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_32183",
-				["text"] = "Socketed Gems are Supported by Level 10 Iron Will (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_13231",
-				["text"] = "Socketed Gems are Supported by Level 10 Item Rarity (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_60863",
-				["text"] = "Socketed Gems are Supported by Level 10 Item Rarity (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_56855",
-				["text"] = "Socketed Gems are Supported by Level 10 Knockback (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_61653",
-				["text"] = "Socketed Gems are Supported by Level 10 Knockback (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_10402",
-				["text"] = "Socketed Gems are Supported by Level 10 Less Duration (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_50107",
-				["text"] = "Socketed Gems are Supported by Level 10 Less Duration (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_48478",
-				["text"] = "Socketed Gems are Supported by Level 10 Lifetap (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_51911",
-				["text"] = "Socketed Gems are Supported by Level 10 Lifetap (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_19671",
-				["text"] = "Socketed Gems are Supported by Level 10 Maim (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_40150",
-				["text"] = "Socketed Gems are Supported by Level 10 Maim (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_28586",
-				["text"] = "Socketed Gems are Supported by Level 10 Mana Leech (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_32875",
-				["text"] = "Socketed Gems are Supported by Level 10 Mana Leech (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_16548",
-				["text"] = "Socketed Gems are Supported by Level 10 Minion Life (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_59753",
-				["text"] = "Socketed Gems are Supported by Level 10 Minion Life (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_17987",
-				["text"] = "Socketed Gems are Supported by Level 10 Minion Speed (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_21302",
-				["text"] = "Socketed Gems are Supported by Level 10 Minion Speed (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_17523",
-				["text"] = "Socketed Gems are Supported by Level 10 Momentum (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_4006",
-				["text"] = "Socketed Gems are Supported by Level 10 Momentum (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_39526",
-				["text"] = "Socketed Gems are Supported by Level 10 Multiple Projectiles (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_44253",
-				["text"] = "Socketed Gems are Supported by Level 10 Multiple Projectiles (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_50319",
-				["text"] = "Socketed Gems are Supported by Level 10 Overcharge (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_9520",
-				["text"] = "Socketed Gems are Supported by Level 10 Overcharge (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_11880",
-				["text"] = "Socketed Gems are Supported by Level 10 Physical To Lightning (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_36228",
-				["text"] = "Socketed Gems are Supported by Level 10 Physical To Lightning (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_33576",
-				["text"] = "Socketed Gems are Supported by Level 10 Pinpoint (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_4687",
-				["text"] = "Socketed Gems are Supported by Level 10 Pinpoint (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_26574",
-				["text"] = "Socketed Gems are Supported by Level 10 Point Blank (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_3749",
-				["text"] = "Socketed Gems are Supported by Level 10 Point Blank (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
 				["id"] = "crucible.mod_20961",
 				["text"] = "Socketed Gems are Supported by Level 10 Predator (Tier 1)",
 				["type"] = "crucible",
@@ -84291,16 +94161,6 @@ return {
 			{
 				["id"] = "crucible.mod_50055",
 				["text"] = "Socketed Gems are Supported by Level 10 Predator (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_2830",
-				["text"] = "Socketed Gems are Supported by Level 10 Rage (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_59412",
-				["text"] = "Socketed Gems are Supported by Level 10 Rage (Tier 1)",
 				["type"] = "crucible",
 			},
 			{
@@ -84314,76 +94174,6 @@ return {
 				["type"] = "crucible",
 			},
 			{
-				["id"] = "crucible.mod_15933",
-				["text"] = "Socketed Gems are Supported by Level 10 Slower Projectiles (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_30297",
-				["text"] = "Socketed Gems are Supported by Level 10 Slower Projectiles (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_21714",
-				["text"] = "Socketed Gems are Supported by Level 10 Spell Cascade (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_53361",
-				["text"] = "Socketed Gems are Supported by Level 10 Spell Cascade (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_48196",
-				["text"] = "Socketed Gems are Supported by Level 10 Swift Assembly (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_62518",
-				["text"] = "Socketed Gems are Supported by Level 10 Swift Assembly (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_21043",
-				["text"] = "Socketed Gems are Supported by Level 10 Swiftbrand (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_7315",
-				["text"] = "Socketed Gems are Supported by Level 10 Swiftbrand (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_52621",
-				["text"] = "Socketed Gems are Supported by Level 10 Volley (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_59155",
-				["text"] = "Socketed Gems are Supported by Level 10 Volley (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_42834",
-				["text"] = "Socketed Gems are Supported by Level 10 Withering Touch (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_7023",
-				["text"] = "Socketed Gems are Supported by Level 10 Withering Touch (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_38869",
-				["text"] = "Socketed Gems are Supported by Level 15 Decay (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_40092",
-				["text"] = "Socketed Gems are Supported by Level 15 Decay (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
 				["id"] = "crucible.mod_57446",
 				["text"] = "Socketed Gems are Supported by Level 15 Impending Doom (Tier 1)",
 				["type"] = "crucible",
@@ -84391,471 +94181,6 @@ return {
 			{
 				["id"] = "crucible.mod_62692",
 				["text"] = "Socketed Gems are Supported by Level 15 Impending Doom (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_49150",
-				["text"] = "Socketed Gems are Supported by Level 15 Infernal Legion (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_55874",
-				["text"] = "Socketed Gems are Supported by Level 15 Infernal Legion (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_37236",
-				["text"] = "Socketed Gems are Supported by Level 15 Life Gain On Hit (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_50613",
-				["text"] = "Socketed Gems are Supported by Level 15 Life Gain On Hit (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_42627",
-				["text"] = "Socketed Gems are Supported by Level 15 Summon Phantasm (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_7156",
-				["text"] = "Socketed Gems are Supported by Level 15 Summon Phantasm (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_12962",
-				["text"] = "Socketed Gems are Supported by Level 25 Arrogance (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_27356",
-				["text"] = "Socketed Gems are Supported by Level 25 Arrogance (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_52066",
-				["text"] = "Socketed Gems are Supported by Level 25 Blasphemy (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_58553",
-				["text"] = "Socketed Gems are Supported by Level 25 Blasphemy (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_16150",
-				["text"] = "Socketed Gems are Supported by Level 25 Cursed Ground (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_65411",
-				["text"] = "Socketed Gems are Supported by Level 25 Cursed Ground (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_24083",
-				["text"] = "Socketed Gems are Supported by Level 25 Divine Blessing (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_26284",
-				["text"] = "Socketed Gems are Supported by Level 25 Divine Blessing (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_25227",
-				["text"] = "Socketed Gems are Supported by Level 25 Eternal Blessing (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_63804",
-				["text"] = "Socketed Gems are Supported by Level 25 Eternal Blessing (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_23311",
-				["text"] = "Socketed Gems are Supported by Level 25 Generosity (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_44326",
-				["text"] = "Socketed Gems are Supported by Level 25 Generosity (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_19653",
-				["text"] = "Socketed Gems are Supported by Level 25 Hex Bloom (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_27843",
-				["text"] = "Socketed Gems are Supported by Level 25 Hex Bloom (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_36845",
-				["text"] = "Socketed Gems are Supported by Level 25 Second Wind (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_43937",
-				["text"] = "Socketed Gems are Supported by Level 25 Second Wind (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_24639",
-				["text"] = "Socketed Gems are Supported by Level 25 Urgent Orders (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_31465",
-				["text"] = "Socketed Gems are Supported by Level 25 Urgent Orders (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_48569",
-				["text"] = "Socketed Gems are Supported by Level 3 Empower (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_7514",
-				["text"] = "Socketed Gems are Supported by Level 3 Empower (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_26703",
-				["text"] = "Socketed Gems are Supported by Level 3 Enhance (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_40943",
-				["text"] = "Socketed Gems are Supported by Level 3 Enhance (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_18839",
-				["text"] = "Socketed Gems are Supported by Level 3 Enlighten (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_1950",
-				["text"] = "Socketed Gems are Supported by Level 3 Enlighten (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_20387",
-				["text"] = "Socketed Gems are Supported by Level 30 Added Chaos Damage (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_51067",
-				["text"] = "Socketed Gems are Supported by Level 30 Added Cold Damage (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_32855",
-				["text"] = "Socketed Gems are Supported by Level 30 Added Lightning Damage (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_9992",
-				["text"] = "Socketed Gems are Supported by Level 30 Arcane Surge (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_47182",
-				["text"] = "Socketed Gems are Supported by Level 30 Archmage (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_52828",
-				["text"] = "Socketed Gems are Supported by Level 30 Bonechill (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_45950",
-				["text"] = "Socketed Gems are Supported by Level 30 Burning Damage (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_20469",
-				["text"] = "Socketed Gems are Supported by Level 30 Cold Penetration (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_6705",
-				["text"] = "Socketed Gems are Supported by Level 30 Cold to Fire (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_16631",
-				["text"] = "Socketed Gems are Supported by Level 30 Combustion (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_64293",
-				["text"] = "Socketed Gems are Supported by Level 30 Concentrated Effect (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_18084",
-				["text"] = "Socketed Gems are Supported by Level 30 Controlled Destruction (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_23600",
-				["text"] = "Socketed Gems are Supported by Level 30 Critical Strike Affliction (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_21266",
-				["text"] = "Socketed Gems are Supported by Level 30 Deadly Ailments (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_47133",
-				["text"] = "Socketed Gems are Supported by Level 30 Decay (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_43613",
-				["text"] = "Socketed Gems are Supported by Level 30 Efficacy (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_49734",
-				["text"] = "Socketed Gems are Supported by Level 30 Elemental Focus (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_48244",
-				["text"] = "Socketed Gems are Supported by Level 30 Elemental Penetration (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_44300",
-				["text"] = "Socketed Gems are Supported by Level 30 Elemental Proliferation (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_42115",
-				["text"] = "Socketed Gems are Supported by Level 30 Energy Leech (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_63346",
-				["text"] = "Socketed Gems are Supported by Level 30 Faster Casting (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_45600",
-				["text"] = "Socketed Gems are Supported by Level 30 Fire Penetration (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_63124",
-				["text"] = "Socketed Gems are Supported by Level 30 Hypothermia (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_26563",
-				["text"] = "Socketed Gems are Supported by Level 30 Ice Bite (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_56134",
-				["text"] = "Socketed Gems are Supported by Level 30 Ignite Proliferation (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_42265",
-				["text"] = "Socketed Gems are Supported by Level 30 Immolate (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_54278",
-				["text"] = "Socketed Gems are Supported by Level 30 Increased Critical Strikes (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_25513",
-				["text"] = "Socketed Gems are Supported by Level 30 Infused Channelling (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_1810",
-				["text"] = "Socketed Gems are Supported by Level 30 Innervate (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_10770",
-				["text"] = "Socketed Gems are Supported by Level 30 Inspiration (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_46858",
-				["text"] = "Socketed Gems are Supported by Level 30 Intensify (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_42728",
-				["text"] = "Socketed Gems are Supported by Level 30 Lightning Penetration (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_52502",
-				["text"] = "Socketed Gems are Supported by Level 30 Overcharge (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_65339",
-				["text"] = "Socketed Gems are Supported by Level 30 Physical To Lightning (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_61170",
-				["text"] = "Socketed Gems are Supported by Level 30 Pinpoint (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_37407",
-				["text"] = "Socketed Gems are Supported by Level 30 Power Charge On Critical Strike (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_64913",
-				["text"] = "Socketed Gems are Supported by Level 30 Spell Cascade (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_3342",
-				["text"] = "Socketed Gems are Supported by Level 30 Spell Echo (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_51163",
-				["text"] = "Socketed Gems are Supported by Level 30 Summon Phantasm (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_22697",
-				["text"] = "Socketed Gems are Supported by Level 30 Swift Affliction (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_33117",
-				["text"] = "Socketed Gems are Supported by Level 30 Swiftbrand (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_5003",
-				["text"] = "Socketed Gems are Supported by Level 30 Trinity (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_8484",
-				["text"] = "Socketed Gems are Supported by Level 30 Unbound Ailments (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_12731",
-				["text"] = "Socketed Gems are Supported by Level 30 Unleash (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_35486",
-				["text"] = "Socketed Gems are supported by Level 10 Blind (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_5927",
-				["text"] = "Socketed Gems are supported by Level 10 Blind (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_18820",
-				["text"] = "Socketed Gems are supported by Level 10 Chance to Flee (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_24552",
-				["text"] = "Socketed Gems are supported by Level 10 Chance to Flee (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_3110",
-				["text"] = "Socketed Gems are supported by Level 10 Faster Projectiles (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_62468",
-				["text"] = "Socketed Gems are supported by Level 10 Faster Projectiles (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_36837",
-				["text"] = "Socketed Gems are supported by Level 10 Fork (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_61066",
-				["text"] = "Socketed Gems are supported by Level 10 Fork (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_29206",
-				["text"] = "Socketed Gems are supported by Level 10 Life Leech (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_8862",
-				["text"] = "Socketed Gems are supported by Level 10 Life Leech (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_45258",
-				["text"] = "Socketed Gems are supported by Level 10 Melee Splash (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_50080",
-				["text"] = "Socketed Gems are supported by Level 10 Melee Splash (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_12911",
-				["text"] = "Socketed Gems are supported by Level 10 Pierce (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_64810",
-				["text"] = "Socketed Gems are supported by Level 10 Pierce (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_53398",
-				["text"] = "Socketed Gems are supported by Level 10 Stun (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_7170",
-				["text"] = "Socketed Gems are supported by Level 10 Stun (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_11814",
-				["text"] = "Socketed Gems are supported by Level 15 Additional Accuracy (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_53347",
-				["text"] = "Socketed Gems are supported by Level 15 Additional Accuracy (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_3151",
-				["text"] = "Socketed Gems are supported by Level 30 Increased Critical Damage (Tier 1)",
 				["type"] = "crucible",
 			},
 			{
@@ -84959,6 +94284,11 @@ return {
 				["type"] = "crucible",
 			},
 			{
+				["id"] = "crucible.mod_42448",
+				["text"] = "Trigger Level 1 Stance Swap when you Attack with Perforate or Lacerate (Tier 1)",
+				["type"] = "crucible",
+			},
+			{
 				["id"] = "crucible.mod_53153",
 				["text"] = "Trigger Level 20 Blink Arrow when you Attack with Mirror Arrow Trigger Level 20 Mirror Arrow when you Attack with Blink Arrow (Tier 1)",
 				["type"] = "crucible",
@@ -84986,11 +94316,6 @@ return {
 			{
 				["id"] = "crucible.mod_38413",
 				["text"] = "Trigger Level 20 Ice Nova from the Final Burst location of Glacial Cascades you Cast (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_42448",
-				["text"] = "Trigger Level 20 Stance Swap when you Attack with Perforate or Lacerate (Tier 1)",
 				["type"] = "crucible",
 			},
 			{

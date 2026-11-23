@@ -3,8 +3,36 @@ describe("Buy similar mod stat matching", function()
 	local dkjson = require "dkjson"
 
 	describe("addModEntries mod matching", function()
+		it("matches granted skills against effect-based trade stats", function()
+			local helpers = LoadModule("Classes/TradeHelpers")
+			helpers.getTradeStats = function()
+				return {
+					{ id = "explicit", entries = {
+						{ id = "explicit.effect_2377502094", text = "Grants Level # Summon Bestial Snake" },
+					} },
+				}
+			end
+			local originalHelpers = package.loaded["Classes.TradeHelpers"]
+			package.loaded["Classes.TradeHelpers"] = helpers
+			local effectBuySimilar = LoadModule("Classes/CompareBuySimilar")
+			package.loaded["Classes.TradeHelpers"] = originalHelpers
+			local item = new("Item"):Item([[
+Rarity: UNIQUE
+Yriel's Fostering
+Exquisite Leather
+Implicits: 0
+Grants Level 20 Summon Bestial Snake Skill]])
+			local entries = effectBuySimilar.addModEntries(item, {
+				{ list = item.explicitModLines, type = "explicit" },
+			})
+			assert.equal(1, #entries)
+			assert.same({ "explicit.effect_2377502094" }, entries[1].tradeIds)
+			assert.equal(20, entries[1].value)
+			assert.is_false(entries[1].isOption)
+		end)
+
 		it("matches impossible escape mods as options", function()
-			local fromNothing = new("Item", [[
+			local fromNothing = new("Item"):Item([[
 Impossible Escape
 Viridian Jewel
 LevelReq: 0
@@ -32,7 +60,7 @@ Corrupted]])
 		end)
 
 		it("matches thread of hope radius as an option", function()
-			local thread = new("Item", [[
+			local thread = new("Item"):Item([[
 Rarity: UNIQUE
 Thread of Hope
 Crimson Jewel
@@ -52,7 +80,7 @@ Passage]])
 		end)
 
 		it("combines mods that are the same stat", function()
-			local lifeDiamond = new("Item", [[
+			local lifeDiamond = new("Item"):Item([[
 Test Subject
 Diamond
 Implicits: 0
@@ -67,7 +95,7 @@ Implicits: 0
 			assert.equal("+50 to Maximum Life", StripEscapes(entries[1].formattedLines[2]))
 			assert.equal(150, entries[1].value)
 
-			local lifelessDiamond = new("Item", [[
+			local lifelessDiamond = new("Item"):Item([[
 Test Subject
 Diamond
 Implicits: 0
@@ -82,7 +110,7 @@ Implicits: 0
 		end)
 
 		it("is not case-sensitive", function ()
-			local funnyItem = new("Item", [[
+			local funnyItem = new("Item"):Item([[
 Test Subject
 Diamond
 Implicits: 1
@@ -93,7 +121,7 @@ Implicits: 1
 		end)
 
 		it("does not combine implicit and explicit mods", function()
-			local lifelessDiamond = new("Item", [[
+			local lifelessDiamond = new("Item"):Item([[
 Test Subject
 Diamond
 Implicits: 1
@@ -105,8 +133,26 @@ Implicits: 1
 			assert.equal(-100, entries[1].value)
 			assert.equal(50, entries[2].value)
 		end)
+		it("does not combine options", function()
+			local lifelessDiamond = new("Item"):Item([[
+Test Subject
+Onyx Amulet
+Implicits: 2
+Allocates Adamant (enchant)
+Allocates Admonisher (enchant)
+Can have 3 additional Enchantment Modifiers]])
+			local entries = bs.addModEntries(lifelessDiamond,
+				{ { list = lifelessDiamond.enchantModLines, type = "enchant" }, { list = lifelessDiamond.explicitModLines, type = "explicit" } })
+			assert.equal(3, #entries)
+			assert.equal("enchant.stat_2954116742", entries[1].tradeIds[1])
+			assert.equal(49416, entries[1].value)
+			assert.equal("enchant.stat_2954116742", entries[2].tradeIds[1])
+			assert.equal(50858, entries[2].value)
+		end)
 	end)
 	describe("popup URL controls", function()
+		local tradeHelpers = require "Classes.TradeHelpers"
+		local originalEncode, encodedQuery
 		local originalCopy
 		local originalOpenURL
 		local originalFetchLeagues
@@ -119,6 +165,12 @@ Implicits: 1
 
 		before_each(function()
 			newBuild()
+			originalEncode = tradeHelpers.B64GzipEncode
+			-- SimpleGraphic provides compression; capture the query at that boundary.
+			tradeHelpers.B64GzipEncode = function(json)
+				encodedQuery = dkjson.decode(json)
+				return urlEncode(json)
+			end
 			originalCopy = _G.Copy
 			originalOpenURL = _G.OpenURL
 			copiedUrl = nil
@@ -130,6 +182,7 @@ Implicits: 1
 		end)
 
 		after_each(function()
+			tradeHelpers.B64GzipEncode = originalEncode
 			build.itemsTab.tradeQuery.tradeQueryRequests.FetchLeagues = originalFetchLeagues
 			_G.Copy = originalCopy
 			_G.OpenURL = originalOpenURL
@@ -140,7 +193,7 @@ Implicits: 1
 		end)
 
 		local function openPopup(item, slotName)
-			item = item or new("Item", "Rarity: Rare\nTest Ring\nRuby Ring\nImplicits: 0\n+50 to maximum Life")
+			item = item or new("Item"):Item("Rarity: Rare\nTest Ring\nRuby Ring\nImplicits: 0\n+50 to maximum Life")
 			bs.openPopup(item, slotName or "Ring", build)
 			local controls = main.popups[1].controls
 			_G.Copy = function(url) copiedUrl = url end
@@ -150,8 +203,14 @@ Implicits: 1
 
 		local function getQuery(controls)
 			controls.search.onClick()
-			local queryJson = urlDecode(assert(copiedUrl:match("[?&]q=(.+)$")))
-			return dkjson.decode(queryJson)
+			return encodedQuery
+		end
+
+		local function getUniqueQuery(name, baseName)
+			local item = new("Item"):Item("Rarity: UNIQUE\n" .. name .. "\n" .. baseName .. "\nImplicits: 0")
+			local query = getQuery(openPopup(item, "Jewel"))
+			main:ClosePopup()
+			return query
 		end
 
 		it("rebuilds the URL when league and listed status change", function()
@@ -162,13 +221,32 @@ Implicits: 1
 			controls.leagueDrop:SetSel(isValueInArray(controls.leagueDrop.list, "Standard"))
 			getQuery(controls)
 			assert.not_equal(initialUrl, copiedUrl)
-			assert.is_truthy(copiedUrl:find("/Standard?", 1, true))
+			assert.is_truthy(copiedUrl:find("/Standard/", 1, true))
 			local standardUrl = copiedUrl
 
 			controls.listedDrop:SetSel(4)
 			local query = getQuery(controls)
 			assert.not_equal(standardUrl, copiedUrl)
-			assert.equal("any", query.query.status.option)
+			assert.equal("any", query.status.option)
+		end)
+
+		it("preserves apostrophes in unique names", function()
+			local item = new("Item"):Item([[
+Rarity: UNIQUE
+Ralakesh's Impatience
+Riveted Boots
+Implicits: 0]])
+			local controls = openPopup(item, "Boots")
+
+			assert.equal("Ralakesh's Impatience", getQuery(controls).name)
+		end)
+
+		it("removes a trailing unique ID without removing name punctuation", function()
+			assert.equal("Uul-Netol's Embrace", getUniqueQuery("Uul-Netol's Embrace 1234", "Vaal Axe").name)
+		end)
+
+		it("trims whitespace after a unique name", function()
+			assert.equal("The Hateful Accuser", getUniqueQuery("The Hateful Accuser ", "Ghastly Eye Jewel").name)
 		end)
 
 		it("persists league choices by name for each realm", function()
@@ -194,7 +272,7 @@ Implicits: 1
 		end)
 
 		it("encodes option values in the generated query", function()
-			local item = new("Item", [[
+			local item = new("Item"):Item([[
 Rarity: UNIQUE
 Impossible Escape
 Viridian Jewel
@@ -208,13 +286,13 @@ Corrupted]])
 			controls.mod1Check.state = true
 			controls.mod1Check.changeFunc()
 
-			local filter = getQuery(controls).query.stats[1].filters[1]
+			local filter = getQuery(controls).stats[1].filters[1]
 			assert.equal("explicit.stat_2422708892", filter.id)
 			assert.equal(22088, filter.value.option)
 		end)
 
 		it("inverts reduced stat bounds in the generated query", function()
-			local item = new("Item", [[
+			local item = new("Item"):Item([[
 Rarity: Rare
 Test Ring
 Ruby Ring
@@ -224,13 +302,13 @@ Implicits: 0
 			controls.mod1Check.state = true
 			controls.mod1Check.changeFunc()
 
-			local value = getQuery(controls).query.stats[1].filters[1].value
+			local value = getQuery(controls).stats[1].filters[1].value
 			assert.is_nil(value.min)
 			assert.equal(-67, value.max)
 		end)
 
 		it("uses a count group for ambiguous trade stats", function()
-			local item = new("Item", [[
+			local item = new("Item"):Item([[
 Rarity: Rare
 Test Ring
 Ruby Ring
@@ -251,7 +329,7 @@ Adds 5 to 15 Fire Damage]])
 			check.state = true
 			check.changeFunc()
 
-			local countFilter = getQuery(controls).query.stats[2]
+			local countFilter = getQuery(controls).stats[2]
 			assert.equal("count", countFilter.type)
 			assert.equal(1, countFilter.value.min)
 			assert.equal(#modEntries[ambiguousIndex].tradeIds, #countFilter.filters)

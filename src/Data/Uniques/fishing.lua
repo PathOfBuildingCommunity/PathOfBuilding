@@ -7,7 +7,6 @@ Reefbane
 Fishing Rod
 Variant: Pre 2.6.0
 Variant: Current
-Requires 8 Str, 8 Dex
 (30-40)% increased Cast Speed
 Thaumaturgical Lure
 {variant:1}(30-40)% increased Quantity of Fish Caught
@@ -16,7 +15,7 @@ Glows while in an Area containing a Unique Fish
 ]],[[
 Song of the Sirens
 Fishing Rod
-Requires 8 Str, 8 Dex
+Source: Fishing
 Implicits: 0
 Siren Worm Bait
 (50-60)% increased Rarity of Fish Caught

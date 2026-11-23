@@ -3,8 +3,7 @@
 -- Boss Data
 -- Boss data (c) Grinding Gear Games
 --
-local bosses = ...
-
+local bosses = {}
 #boss Venarius SynthesisVenarius {Uber}
 #boss EaterOfWorlds AtlasInvadersConsumeBoss {Uber}
 #boss SearingExarch AtlasInvadersCleansingBoss {Uber}
@@ -32,3 +31,4 @@ local bosses = ...
 #boss Veritania AtlasExiles2
 #boss AlHezmin AtlasExiles3
 #boss Drox AtlasExiles4
+return bosses

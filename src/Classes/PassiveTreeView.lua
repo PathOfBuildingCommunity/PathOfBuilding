@@ -18,8 +18,17 @@ local JEWEL_RADIUS_TINT_NEUTRAL = { 1, 1, 1, 0.7 }
 local JEWEL_RADIUS_TINT_PRIMARY_ONLY = { 1, 0, 0, 0.7 }
 local JEWEL_RADIUS_TINT_COMPARE_ONLY = { 0, 1, 0, 0.7 }
 
-local gemTooltip = LoadModule("Classes/GemTooltip")
-local PassiveTreeViewClass = newClass("PassiveTreeView", function(self)
+local gemTooltip = require("Classes.GemTooltip")
+
+local function isAbyssConquered(node)
+	local conqueror = node and node.conqueredBy and node.conqueredBy.conqueror
+	return conqueror and conqueror.type and conqueror.type:match("^abyss_")
+end
+
+---@class PassiveTreeView
+local PassiveTreeViewClass = newClass("PassiveTreeView")
+
+function PassiveTreeViewClass:PassiveTreeView()
 	self.ring = NewImageHandle()
 	self.ring:Load("Assets/ring.png", "CLAMP")
 	self.highlightRing = NewImageHandle()
@@ -58,8 +67,8 @@ local PassiveTreeViewClass = newClass("PassiveTreeView", function(self)
 	self.kalguur2 = NewImageHandle()
 	self.kalguur2:Load("TreeData/PassiveSkillScreenKalguuranJewelCircle2.png", "CLAMP")
 
-	self.tooltip = new("Tooltip")
-	self.skillTooltip = new("Tooltip")
+	self.tooltip = new("Tooltip"):Tooltip()
+	self.skillTooltip = new("Tooltip"):Tooltip()
 
 	self.zoomLevel = 3
 	self.zoom = 1.2 ^ self.zoomLevel
@@ -72,7 +81,8 @@ local PassiveTreeViewClass = newClass("PassiveTreeView", function(self)
 	self.searchStrResults = {}
 	self.showStatDifferences = true
 	self.hoverNode = nil
-end)
+	return self
+end
 
 function PassiveTreeViewClass:Load(xml, fileName)
 	if xml.attrib.zoomLevel then
@@ -129,6 +139,8 @@ function PassiveTreeViewClass:GetJewelSocketOverlay(jewel, isExpansion)
 		return isExpansion and "JewelSocketActivePrismaticAlt" or "JewelSocketActivePrismatic"
 	elseif jewel.base and jewel.base.subType == "Abyss" then
 		return isExpansion and "JewelSocketActiveAbyssAlt" or "JewelSocketActiveAbyss"
+	elseif jewel.base and jewel.base.subType == "Blightcore" then
+		return "JewelSocketActiveBlightcore"
 	elseif jewel.base and jewel.base.subType == "Charm" then
 		if jewel.baseName == "Ursine Charm" then
 			return "CharmSocketActiveStr"
@@ -157,6 +169,11 @@ end
 
 -- Returns the draw color for a node when compare overlay is active.
 -- Handles diff coloring for allocated/unallocated, mastery changes, and jewel socket differences.
+---@param node Node
+---@param compareNode Node
+---@param spec PassiveSpec
+---@param build Build
+---@param nodeDefaultColor any
 function PassiveTreeViewClass:GetCompareNodeColor(node, compareNode, spec, build, nodeDefaultColor)
 	if not compareNode then
 		return nodeDefaultColor
@@ -165,8 +182,13 @@ function PassiveTreeViewClass:GetCompareNodeColor(node, compareNode, spec, build
 		return 0, 1, 0
 	elseif not compareNode.alloc and node.alloc then
 		return 1, 0, 0
-	elseif node.type == "Mastery" and compareNode.alloc and node.alloc and node.sd ~= compareNode.sd then
-		return 0, 0, 1
+	elseif node.type == "Mastery" and compareNode.alloc and node.alloc then
+		local pOverride = spec.hashOverrides and spec.hashOverrides[node.id]
+		local cOverride = self.compareSpec.hashOverrides and self.compareSpec.hashOverrides[node.id]
+		if spec.masterySelections[node.id] ~= self.compareSpec.masterySelections[node.id]
+			or (pOverride and pOverride.dn) ~= (cOverride and cOverride.dn) then
+			return 0, 0, 1
+		end
 	elseif node.type == "Socket" and compareNode.alloc and node.alloc then
 		local pJewelId = spec.jewels[node.id]
 		local pJewel = pJewelId and build.itemsTab.items[pJewelId]
@@ -178,6 +200,7 @@ function PassiveTreeViewClass:GetCompareNodeColor(node, compareNode, spec, build
 	return nodeDefaultColor
 end
 
+---@param build Build
 function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 	local spec = build.spec
 	local tree = spec.tree
@@ -707,7 +730,24 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 			setConnectorColor(0.75, 0.75, 0.75)
 		end
 		SetDrawColor(unpack(connectorColor))
-		DrawImageQuad(tree.assets[connector.type..state].handle, unpack(connector.c))
+		local assetName = connector.type .. state
+		-- The game uses Abyss connector art only when both connected nodes are conquered.
+		if isAbyssConquered(node1) and isAbyssConquered(node2) then
+			assetName = "Abyss" .. assetName
+		elseif node1.isBlightcore or node2.isBlightcore then
+			assetName = "Blight" .. assetName
+		end
+		local asset = tree.assets[assetName] or tree.assets[connector.type..state]
+		-- Atlas assets provide bounds that map the usual connector coordinates into one sprite.
+		local left, top = asset[1] or 0, asset[2] or 0
+		local width, height = (asset[3] or 1) - left, (asset[4] or 1) - top
+		local c = connector.c
+		DrawImageQuad(asset.handle,
+			c[1], c[2], c[3], c[4], c[5], c[6], c[7], c[8],
+			left + c[9] * width, top + c[10] * height,
+			left + c[11] * width, top + c[12] * height,
+			left + c[13] * width, top + c[14] * height,
+			left + c[15] * width, top + c[16] * height)
 	end
 
 	-- Draw the connecting lines between nodes
@@ -818,10 +858,13 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 			end
 			if node.type == "Socket" then
 				-- Node is a jewel socket, retrieve the socketed jewel (if present) so we can display the correct art
-				base = tree.assets[(node.name == "Charm Socket" and "Azmeri" or "" ) .. node.overlay[state .. (node.expansionJewel and "Alt" or "")]]
 				local socket, jewel = build.itemsTab:GetSocketAndJewelForNodeID(nodeId)
+				-- A socketed Putrid Seed uses the normal jewel socket art, even
+				-- in a Large Jewel Socket
+				local useAltArt = node.expansionJewel and not (isAlloc and jewel and jewel.base.subType == "Blightcore")
+				base = tree.assets[(node.name == "Charm Socket" and "Azmeri" or "" ) .. node.overlay[state .. (useAltArt and "Alt" or "")]]
 				if isAlloc and jewel then
-					overlay = self:GetJewelSocketOverlay(jewel, node.expansionJewel)
+					overlay = self:GetJewelSocketOverlay(jewel, useAltArt)
 				end
 		elseif node.type == "Mastery" then
 			local override = spec.hashOverrides and spec.hashOverrides[node.id]
@@ -856,6 +899,18 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 				base = node.sprites[node.type:lower()..(isAlloc and "Active" or "Inactive")]
 				local overlayKey = state .. (node.ascendancyName and "Ascend" or "") .. (node.isBlighted and "Blighted" or "")
 				local overlayName = node.overlay[overlayKey]
+				local frameState = state == "alloc" and "Allocated" or state == "path" and "CanAllocate" or "Unallocated"
+				if isAbyssConquered(node) and (node.type == "Notable" or node.type == "Keystone") then
+					-- AlternateTreeArt gives Abyss replacements their own notable,
+					-- keystone, and ascendancy-notable frames.
+					local frameType = node.ascendancyName and "Ascendancy" or node.type
+					local abyssOverlay = "Abyss" .. frameType .. "Frame" .. frameState
+					if tree.assets[abyssOverlay] then
+						overlayName = abyssOverlay
+					end
+				elseif node.isBlightcore and node.type == "Notable" and tree.assets["BlightNotableFrame" .. frameState] then
+					overlayName = "BlightNotableFrame" .. frameState
+				end
 				if node.ascendancyName then
 					local prefix = node.bloodlineOverlayPrefix or (tree.bloodlineSpritePrefixes and tree.bloodlineSpritePrefixes[node.ascendancyName])
 					if prefix and overlayName then
@@ -1080,11 +1135,12 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 				local state = "alloc"
 				local base, overlay
 				if compareNode.type == "Socket" then
-					base = tree.assets[compareNode.overlay and compareNode.overlay[state .. (compareNode.expansionJewel and "Alt" or "")] or "JewelSocketActiveBlue"]
 					-- Look up jewel from compare build to show correct colored socket overlay
 					local cJewel = self:GetCompareJewel(nodeId)
+					local useAltArt = compareNode.expansionJewel and not (cJewel and cJewel.base.subType == "Blightcore")
+					base = tree.assets[compareNode.overlay and compareNode.overlay[state .. (useAltArt and "Alt" or "")] or "JewelSocketActiveBlue"]
 					if cJewel then
-						overlay = self:GetJewelSocketOverlay(cJewel, compareNode.expansionJewel)
+						overlay = self:GetJewelSocketOverlay(cJewel, useAltArt)
 					end
 				elseif compareNode.type == "Mastery" then
 					if compareNode.masterySprites and compareNode.masterySprites.activeIcon then
@@ -1125,6 +1181,10 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 
 	-- Draw ring overlays for jewel sockets
 	local function drawJewelRadius(jewel, scrX, scrY, tint)
+		-- Abyss jewels do not show radius art in game.
+		if isAbyssConquered(jewel.jewelData) then
+			return
+		end
 		local radData = build.data.jewelRadius[jewel.jewelRadiusIndex]
 		local outerSize = radData.outer * scale
 		local innerSize = radData.inner * scale * 1.06
@@ -1274,6 +1334,7 @@ function PassiveTreeViewClass:Zoom(level, viewPort)
 	self.zoomY = relY + (self.zoomY - relY) * factor
 end
 
+---@param build Build
 function PassiveTreeViewClass:Focus(x, y, viewPort, build)
 	self.zoomLevel = 12
 	self.zoom = 1.2 ^ self.zoomLevel
@@ -1360,6 +1421,9 @@ function PassiveTreeViewClass:DoesNodeMatchSearchParams(node)
 	end
 end
 
+---@param tooltip Tooltip
+---@param node Node
+---@param build Build
 function PassiveTreeViewClass:AddNodeName(tooltip, node, build)
 	local fontSizeBig = main.showFlavourText and 18 or 16
 	tooltip:SetRecipe(node.recipe)
@@ -1420,7 +1484,11 @@ function PassiveTreeViewClass:AddNodeName(tooltip, node, build)
 	end
 end
 
-function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build)
+---@param tooltip Tooltip
+---@param node Node
+---@param build Build
+---@param returnEarly boolean? Whether the function should stop after writing the mod info, before any allocation-specific info
+function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build, returnEarly)
 	local fontSizeBig = main.showFlavourText and 18 or 16
 	self.skillTooltip:Clear()
 	tooltip.center = true
@@ -1540,7 +1608,8 @@ function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build)
 		end
 	end
 
-	if mNode.sd[1] and mNode.allMasteryOptions then
+	local isRunegraft = mNode.overrideType == "AlternateMastery"
+	if mNode.sd[1] and mNode.allMasteryOptions and not isRunegraft then
 		tooltip:AddSeparator(14)
 		tooltip:AddLine(14, "^7Available Mastery node options are:")
 		tooltip:AddLine(6, "")
@@ -1564,7 +1633,7 @@ function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build)
 	end
 
 	-- This stanza actives for both Mastery and non Mastery tooltips. Proof: add '"Blah "..' to addModInfoToTooltip
-	if mNode.sd[1] and not mNode.allMasteryOptions then
+	if mNode.sd[1] and (not mNode.allMasteryOptions or isRunegraft) then
 		tooltip:AddLine(16, "")
 		for i, line in ipairs(mNode.sd) do
 			addModInfoToTooltip(mNode, i, masteryColor..line)
@@ -1592,6 +1661,7 @@ function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build)
 		end
 	end
 
+
 	-- Reminder text
 	if node.reminderText then
 		tooltip:AddSeparator(14)
@@ -1606,6 +1676,10 @@ function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build)
 		for _, line in ipairs(node.flavourText) do
 			tooltip:AddLine(fontSizeBig, colorCodes.UNIQUE..line, "FONTIN ITALIC")
 		end
+	end
+
+	if returnEarly then
+		return
 	end
 
 	-- Tattoo Editing

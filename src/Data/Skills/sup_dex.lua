@@ -4,8 +4,7 @@
 -- Dexterity support gems
 -- Skill data (c) Grinding Gear Games
 --
-local skills, mod, flag, skill = ...
-
+return function(skills, mod, flag, skill)
 skills["SupportAddedColdDamage"] = {
 	name = "Added Cold Damage",
 	description = "Supports any skill that hits enemies.",
@@ -5051,3 +5050,4 @@ skills["SupportWitheringTouch"] = {
 		[40] = { 44, levelRequirement = 100, manaMultiplier = 30, statInterpolation = { 1, }, },
 	},
 }
+end

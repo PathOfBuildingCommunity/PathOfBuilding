@@ -3,8 +3,10 @@
 -- Spectre Data
 -- Monster data (c) Grinding Gear Games
 --
-local minions, mod, flag = ...
 
+return function(mod, flag)
+	---@class SpectreData
+	local minions = {}
 -- Abyss
 #spectre Metadata/Monsters/ParasiticSquid/ParasiticSquidAbyssSpectre
 #emit
@@ -4021,3 +4023,5 @@ local minions, mod, flag = ...
 #emit
 #spectre Metadata/Monsters/AbyssTwoLeague/PrimordialMonster03
 #emit
+	return minions
+end

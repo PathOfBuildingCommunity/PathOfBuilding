@@ -7,6 +7,74 @@ describe("TestDefence", function()
 		-- newBuild() takes care of resetting everything in setup()
 	end)
 
+	it("converts physical damage over time independently of hit damage", function()
+		build.configTab.input.enemyDamageType = "DamageOverTime"
+		for _, damageType in ipairs({ "Physical", "Lightning", "Cold", "Fire", "Chaos" }) do
+			build.configTab.input["enemy"..damageType.."Damage"] = damageType == "Physical" and 1000 or 0
+		end
+		local common = "+300% to Chaos Resistance\n10% of Physical Damage taken as Chaos Damage\n20% of Physical Damage from Hits taken as Chaos Damage"
+		-- Shared, hit-only and DoT-only conversion must stay separate, including on removal.
+		for _, value in ipairs({ 10, 0 }) do
+			build.configTab.input.customMods = common..(value > 0 and "\n"..value.."% of Physical Damage over Time taken as Chaos Damage" or "")
+			build.configTab:BuildModList()
+			runCallback("OnFrame")
+			local actor = build.calcsTab.mainEnv.player
+			local output = actor.output
+			assert.are.equal(925 - 7.5 * value, output.TotalDegen)
+			assert.are.equal(70, actor.damageShiftTable.Physical.Physical)
+			assert.are.equal(30, actor.damageShiftTable.Physical.Chaos)
+			assert.are.equal(100, actor.damageOverTimeShiftTable.Cold.Cold)
+		end
+	end)
+
+	it("applies the Scales of Justice ailment condition to maximum life and mana", function()
+		-- Exercise the parser rather than the checked-in result for this item.
+		modLib.parseModCache["Unaffected by Ignite or Shock if Maximum Life and Maximum Mana are within 500"] = nil
+		for _, raw in ipairs(dofile("Data/Uniques/shield.lua")) do
+			if raw:match("^The Scales of Justice\n") then
+				build.itemsTab:CreateDisplayItemFromRaw("Rarity: UNIQUE\n" .. raw)
+				break
+			end
+		end
+		local item = build.itemsTab.displayItem
+		assert.is_not_nil(item)
+		build.itemsTab:AddDisplayItem()
+		build.itemsTab.slots["Weapon 2"]:SetSelItemId(item.id)
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+		local baseLife = build.calcsTab.mainOutput.Life
+		local baseMana = build.calcsTab.mainOutput.Mana
+		for _, case in ipairs({
+			{ life = 1000, mana = 1499, effect = 0 },
+			{ life = 1000, mana = 1500, effect = 0 },
+			{ life = 1000, mana = 1501, effect = 100 },
+			{ life = 1501, mana = 1000, effect = 100 },
+			{ life = 1499, mana = 1000, effect = 0 },
+			{ life = 1500, mana = 1000, effect = 0 },
+		}) do
+			build.configTab.input.customMods = "+" .. (case.life - baseLife) .. " to maximum Life\n+" .. (case.mana - baseMana) .. " to maximum Mana"
+			build.configTab:BuildModList()
+			runCallback("OnFrame")
+			local output = build.calcsTab.mainOutput
+			assert.are.equal(case.life, output.Life)
+			assert.are.equal(case.mana, output.Mana)
+			assert.are.equal(case.effect, output.SelfIgniteEffect)
+			assert.are.equal(case.effect, output.SelfShockEffect)
+			assert.are.equal(0, output.ShockAvoidChance)
+		end
+		build.skillsTab:PasteSocketGroup("Clarity 1/0  1")
+		runCallback("OnFrame")
+		local output = build.calcsTab.mainOutput
+		assert.is_true(output.ManaUnreserved < output.Mana)
+		assert.are.equal(0, output.SelfIgniteEffect)
+		assert.are.equal(0, output.SelfShockEffect)
+		build.itemsTab.slots["Weapon 2"]:SetSelItemId(0)
+		build.buildFlag = true
+		runCallback("OnFrame")
+		assert.are.equal(100, build.calcsTab.mainOutput.SelfIgniteEffect)
+		assert.are.equal(100, build.calcsTab.mainOutput.SelfShockEffect)
+	end)
+
 	-- a small helper function to calculate damage taken from limited test parameters
 	local function takenHitFromTypeMaxHit(type, enemyDamageMulti)
 		return build.calcsTab.calcs.takenHitFromDamage(build.calcsTab.calcsOutput[type.."MaximumHitTaken"] * (enemyDamageMulti or 1), type, build.calcsTab.calcsEnv.player)
@@ -16,6 +84,90 @@ describe("TestDefence", function()
 		local _, takenDamages = takenHitFromTypeMaxHit(type, enemyDamageMulti)
 		return build.calcsTab.calcs.reducePoolsByDamage(nil, takenDamages, build.calcsTab.calcsEnv.player)
 	end
+
+	it("attributes resistances inherited by minions to Bonemeld after loading a build", function()
+		build.skillsTab:PasteSocketGroup("Raise Zombie 20/0  1")
+		build.itemsTab:CreateDisplayItemFromRaw("Rarity: UNIQUE\nBonemeld\nMarble Amulet\nImplicits: 0\nMinions gain added Resistances equal to 50% of your Resistances")
+		build.itemsTab:AddDisplayItem()
+		build.configTab.input.customMods = "+135% to Fire Resistance\n+111% to Cold Resistance\n+59% to Lightning Resistance\n+39% to Chaos Resistance"
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+		loadBuildFromXML(build:SaveDB("code"))
+
+		local env = build.calcsTab.calcsEnv
+		local source = env.player.modDB:Tabulate("BASE", nil, "ResistanceAddedToMinions")[1].mod.source
+		local breakdown = build.calcsTab.controls.breakdown
+		build.calcsTab.input.showMinion = true
+		for _, case in ipairs({
+			{ "Fire", 75, 37, 77 },
+			{ "Cold", 51, 25, 65 },
+			{ "Lightning", -1, -1, 39 },
+			{ "Chaos", -21, -11, 9 },
+		}) do
+			local elem, playerResist, addedResist, minionResist = unpack(case)
+			local mods = env.minion.modDB:Tabulate("BASE", { source = "Item" }, elem.."Resist")
+			assert.are.equal(1, #mods)
+			assert.are.equal(source, mods[1].mod.source)
+			assert.are.equal(addedResist, mods[1].value)
+			assert.are.equal(playerResist, env.player.output[elem.."Resist"])
+			assert.are.equal(minionResist, env.minion.output[elem.."ResistTotal"])
+			breakdown.sectionList = { }
+			breakdown:AddModSection({ modName = elem.."Resist", modSource = "Item" })
+			local row = breakdown.sectionList[1].rowList[1]
+			assert.are.equal("Item", row.source)
+			assert.is_truthy(row.sourceName:find("Bonemeld", 1, true))
+			assert.are.equal("function", type(row.sourceNameTooltip))
+		end
+	end)
+
+	it("lists each source of inherited minion resistances and rounds each contribution", function()
+		build.skillsTab:PasteSocketGroup("Raise Zombie 20/0  1")
+		build.itemsTab:CreateDisplayItemFromRaw("Rarity: UNIQUE\nBonemeld\nMarble Amulet\nImplicits: 0\nMinions gain added Resistances equal to 50% of your Resistances")
+		build.itemsTab:AddDisplayItem()
+		build.configTab.input.customMods = "+135% to Fire Resistance\n+59% to Lightning Resistance\nMinions gain added Resistances equal to 50% of your Resistances"
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+		loadBuildFromXML(build:SaveDB("code"))
+
+		local env = build.calcsTab.calcsEnv
+		local sources = env.player.modDB:Tabulate("BASE", nil, "ResistanceAddedToMinions")
+		assert.are.equal(2, #sources)
+		for _, case in ipairs({ { "Fire", 37, 114 }, { "Lightning", -1, 38 } }) do
+			local elem, contribution, total = unpack(case)
+			local mods = env.minion.modDB:Tabulate("BASE", nil, elem.."Resist")
+			for _, source in ipairs(sources) do
+				local matches = 0
+				for _, entry in ipairs(mods) do
+					if entry.mod.source == source.mod.source then
+						matches = matches + 1
+						assert.are.equal(contribution, entry.value)
+					end
+				end
+				assert.are.equal(1, matches)
+			end
+			assert.are.equal(total, env.minion.output[elem.."ResistTotal"])
+			assert.are.equal(0, #env.minion.modDB:Tabulate("BASE", { source = "Player" }, elem.."Resist"))
+		end
+	end)
+
+	it("applies Consecrated Ground curse reduction to the player and minion", function()
+		build.skillsTab:PasteSocketGroup("Raise Zombie 20/0  1")
+		build.configTab.input.conditionOnConsecratedGround = true
+		build.configTab.input.playerCursedWithElementalWeakness = 20
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+
+		assert.are.equals(50, build.calcsTab.mainOutput.CurseEffectOnSelf)
+		assert.are.equals(50, build.calcsTab.mainEnv.minion.output.CurseEffectOnSelf)
+		local fireResistOnConsecratedGround = build.calcsTab.mainOutput.FireResist
+
+		newBuild()
+		build.configTab.input.playerCursedWithElementalWeakness = 20
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+
+		assert.is_true(fireResistOnConsecratedGround > build.calcsTab.mainOutput.FireResist)
+	end)
 
 	-- boring part
 	it("no armour max hits", function()
@@ -121,6 +273,21 @@ describe("TestDefence", function()
 		assert.are.equals(0, floor(poolsRemaining.EnergyShield))
 		assert.are.equals(0, floor(poolsRemaining.Life))
 		assert.are.equals(0, floor(poolsRemaining.OverkillDamage))
+	end)
+
+	it("applies physical damage reduction overrides", function()
+		build.configTab.input.customMods = "\z
+		+10000 to Armour\n\z
+		10% additional Physical Damage Reduction\n\z
+		Physical Damage Reduction is zero\n\z
+		"
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+
+		assert.is_true(build.calcsTab.calcsOutput.Armour > 0)
+		assert.are.equals(0, build.calcsTab.calcsOutput.PhysicalEffectiveAppliedArmour)
+		assert.are.equals(0, build.calcsTab.calcsOutput.BasePhysicalDamageReduction)
+		assert.are.equals(0, build.calcsTab.calcsOutput.PhysicalDamageReduction)
 	end)
 	
 	-- a small helper function to calculate damage taken from limited test parameters
@@ -1623,6 +1790,31 @@ describe("TestDefence", function()
 		assert.are.equals(0, floor(poolsRemaining.OverkillDamage))
 	end)
 
+	it("applies permanent Avatar of Fire to conditional modifiers (issue #3062)", function()
+		build.itemsTab:CreateDisplayItemFromRaw([[
+		Vulconus
+		Demon Dagger
+		Variant: Pre 3.5.0
+		Variant: Current
+		Selected Variant: 2
+		Implicits: 1
+		40% increased Global Critical Strike Chance
+		50% chance to cause Bleeding on Hit
+		Every 8 seconds, gain Avatar of Fire for 4 seconds
+		160% increased Critical Strike Chance while you have Avatar of Fire
+		50% of Physical Damage Converted to Fire while you have Avatar of Fire
+		+2000 Armour while you do not have Avatar of Fire]])
+		build.itemsTab:AddDisplayItem()
+		runCallback("OnFrame")
+
+		local armourWithoutAvatarOfFire = build.calcsTab.mainOutput.Armour
+		build.itemsTab:CreateDisplayItemFromRaw("New Item\nAmber Amulet\nAvatar of Fire")
+		build.itemsTab:AddDisplayItem()
+		runCallback("OnFrame")
+
+		assert.are.equals(armourWithoutAvatarOfFire - 2000, build.calcsTab.mainOutput.Armour)
+	end)
+
 	it("limits EHP speedup when hit damage is delayed", function()
 		local function assertClose(actual, expected)
 			assert.is_true(math.abs(actual - expected) < 0.01,
@@ -1663,5 +1855,33 @@ describe("TestDefence", function()
 		assertClose(block.TotalEHP, 18488.832919738)
 		assertClose(block.EffectiveBlockChance, 10)
 		assert.is_true(block.TotalEHP > base.TotalEHP)
+	end)
+
+	it("does not lower EHP with life gained on block when resistance increases", function()
+		local function calcEHP(coldResist)
+			newBuild()
+			build.configTab.input.enemyDamageType = "Melee"
+			build.configTab.input.enemyPhysicalDamage = "0"
+			build.configTab.input.enemyFireDamage = "0"
+			build.configTab.input.enemyColdDamage = "600"
+			build.configTab.input.enemyLightningDamage = "0"
+			build.configTab.input.enemyChaosDamage = "0"
+			build.configTab.input.customMods = [[
+				+1000 to maximum Life
+				+75% chance to Block Attack Damage
+				+100 Life gained when you Block
+			]] .. "+" .. coldResist .. "% to Cold Resistance\n"
+			build.configTab:BuildModList()
+			runCallback("OnFrame")
+			return build.calcsTab.calcsOutput.TotalEHP
+		end
+
+		local lowerResistEHP = calcEHP(30)
+		local higherResistEHP = calcEHP(33)
+
+		newBuild()
+
+		assert.is_true(higherResistEHP >= lowerResistEHP,
+			string.format("EHP fell from %.1f to %.1f", lowerResistEHP, higherResistEHP))
 	end)
 end)

@@ -4,7 +4,9 @@
 -- Handles mirages that use player skills
 --
 
-local calcs = ...
+---@class Calcs
+local calcs = require("Modules.CalcBase")
+
 local pairs = pairs
 local ipairs = ipairs
 local t_insert = table.insert
@@ -286,6 +288,7 @@ function calcs.mirages(env)
 			preCalcFunc = function(env, newSkill, newEnv)
 				local lessDamage =  newSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "SacredWispsLessDamage")
 				local wispsMaxCount
+				local wispsSummoned
 				local wispsCastChance
 				
 				-- Find Wisps summoning skill for cast chance and wisp count
@@ -293,16 +296,19 @@ function calcs.mirages(env)
 					if skill.activeEffect.grantedEffect.name == "Summon Sacred Wisps" then
 							wispsCastChance = skill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "SacredWispsChance")
 							wispsMaxCount = skill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "SacredWispsMaxCount")
+							wispsSummoned = 2 + skill.skillModList:Sum("BASE", skill.skillCfg, "SacredWispsSummoned")
 						break
 					end
 				end
 
 				env.player.mainSkill.mirage = { }
 				env.player.mainSkill.mirage.name = newSkill.activeEffect.grantedEffect.name
+				-- Sustained damage uses the active cap; summons per trigger only affect ramp-up.
 				env.player.mainSkill.mirage.count = wispsMaxCount
+				env.player.mainSkill.mirage.summoned = wispsSummoned
 
 				if not env.player.mainSkill.infoMessage then
-					env.player.mainSkill.infoMessage = tostring(wispsMaxCount) .. " Sacred Wisps using " .. newSkill.activeEffect.grantedEffect.name
+					env.player.mainSkill.infoMessage = tostring(wispsMaxCount) .. " Sacred Wisps using " .. newSkill.activeEffect.grantedEffect.name .. " (" .. wispsSummoned .. " summoned per trigger)"
 				end
 
 				-- Add new modifiers to new skill (which already has all the old skill's modifiers)

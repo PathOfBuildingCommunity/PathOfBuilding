@@ -13,6 +13,64 @@ describe("TestOffence", function()
 			string.format("%s: expected ~%.2f (within %.1f%%), got %.2f", msg, expected, tolerance * 100, actual))
 	end
 
+	for _, support in ipairs({
+		{ name = "Trap", cooldown = "TrapCooldown", speed = "TrapThrowingSpeed", rate = 119 / 60 },
+		{ name = "Blastchain Mine", cooldown = "Cooldown", speed = "MineLayingSpeed", rate = 10 / 3 },
+		{ name = "High-Impact Mine", cooldown = "Cooldown", speed = "MineLayingSpeed", rate = 10 / 3 },
+	}) do
+		it("limits " .. support.name .. " hit DPS and Full DPS by cooldown without exceeding throwing speed", function()
+			build.skillsTab:PasteSocketGroup("Frost Bomb 20/0  1\n" .. support.name .. " 20/0  1")
+			build.skillsTab.socketGroupList[1].includeInFullDPS = true
+			for _, case in ipairs({
+				{ recovery = 0, cooldown = 2.508 },
+				{ recovery = 100, cooldown = 1.254 },
+				{ recovery = 1000, cooldown = 0.231 },
+			}) do
+				build.configTab.input.customMods = case.recovery .. "% increased Cooldown Recovery Rate"
+				build.configTab:BuildModList()
+				runCallback("OnFrame")
+
+				local output = build.calcsTab.mainOutput
+				local expectedRate = case.recovery == 1000 and support.rate or 1 / case.cooldown
+				assert.near(case.cooldown, output[support.cooldown], 0.000001)
+				assert.near(support.rate, output[support.speed], 0.000001)
+				assert.near(expectedRate, output.Speed, 0.000001)
+				assert.near(output.AverageDamage * expectedRate, output.TotalDPS, 0.000001)
+				assert.near(output.TotalDPS, output.FullDPS, 0.000001)
+			end
+		end)
+
+		it("keeps cooldown-free " .. support.name .. " skills limited by throwing speed", function()
+			build.skillsTab:PasteSocketGroup("Fireball 20/0  1\n" .. support.name .. " 20/0  1")
+			runCallback("OnFrame")
+
+			local output = build.calcsTab.mainOutput
+			assert.is_nil(output[support.cooldown])
+			assert.near(support.rate, output.Speed, 0.000001)
+			assert.near(output.AverageDamage * support.rate, output.TotalDPS, 0.000001)
+		end)
+	end
+
+	it("preserves Lightning Spire Trap's independent hit rate", function()
+		build.skillsTab:PasteSocketGroup("Lightning Spire Trap 20/0  1")
+		runCallback("OnFrame")
+
+		local output = build.calcsTab.mainOutput
+		assert.near(8.019, output.TrapCooldown, 0.000001)
+		assert.near(1 / 0.36, output.HitSpeed, 0.000001)
+		assert.near(output.AverageDamage / 0.36, output.TotalDPS, 0.000001)
+	end)
+
+	it("preserves the cooldown cap for spells used by totems", function()
+		build.skillsTab:PasteSocketGroup("Frost Bomb 20/0  1\nSpell Totem 20/0  1")
+		runCallback("OnFrame")
+
+		local output = build.calcsTab.mainOutput
+		assert.near(2.508, output.Cooldown, 0.000001)
+		assert.near(1 / 2.508, output.Speed, 0.000001)
+		assert.near(output.AverageDamage / 2.508, output.TotalDPS, 0.000001)
+	end)
+
 	it("counts only permanent minions for Communion", function()
 		build.skillsTab:PasteSocketGroup("Fireball 20/0  1\nCommunion 3/0  1")
 		build.skillsTab:PasteSocketGroup("Summon Reaper 20/0  1")
@@ -48,6 +106,79 @@ describe("TestOffence", function()
 		runCallback("OnFrame")
 
 		assert.are.equals(damageWithoutArrowMod, build.calcsTab.mainOutput.AverageDamage)
+	end)
+
+	it("rounds area modifiers before calculating radius", function()
+		build.skillsTab:PasteSocketGroup("Fireball 20/0  1")
+		build.configTab.input.customMods = [[
+		1% increased Area of Effect
+		50% more Area of Effect
+		]]
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+
+		-- The client truncates 101% * 150% to 151% before taking the square root.
+		assert.are.equals(1.51, build.calcsTab.mainOutput.AreaOfEffectMod)
+	end)
+
+	it("applies final skill radius modifiers after area scaling", function()
+		build.skillsTab:PasteSocketGroup("Summon Carrion Golem 20/0  1")
+		runCallback("OnFrame")
+
+		local mainSocketGroup = build.skillsTab.socketGroupList[build.mainSocketGroup]
+		local activeSkill = mainSocketGroup.displaySkillList[mainSocketGroup.mainActiveSkill]
+		local foundLeapSlam
+		for index, minionSkill in ipairs(activeSkill.minion.activeSkillList) do
+			if minionSkill.activeEffect.grantedEffect.id == "BoneGolemLeapSlam" then
+				activeSkill.activeEffect.srcInstance.skillMinionSkill = index
+				activeSkill.activeEffect.srcInstance.skillMinionSkillCalcs = index
+				foundLeapSlam = true
+				break
+			end
+		end
+		assert.is_true(foundLeapSlam)
+		build.modFlag = true
+		build.buildFlag = true
+		runCallback("OnFrame")
+
+		-- Leap Slam has 15 base radius and 30% final radius: floor(15 * 1.30) = 19.
+		assert.are.equals(19, build.calcsTab.mainEnv.minion.output.AreaOfEffectRadius)
+	end)
+
+	it("rounds each scaled damage conversion to a whole percent", function()
+		build.skillsTab:PasteSocketGroup("Fireball 20/0  1")
+		build.configTab.input.customMods = [[
+		40% of Physical Damage Converted to Lightning Damage
+		40% of Physical Damage Converted to Cold Damage
+		40% of Physical Damage Converted to Fire Damage
+		]]
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+
+		local conversion = build.calcsTab.mainEnv.player.mainSkill.conversionTable.Physical
+		assert.are.equals(0.33, conversion.conversion.Lightning)
+		assert.are.equals(0.33, conversion.conversion.Cold)
+		assert.are.equals(0.33, conversion.conversion.Fire)
+		assert.is_true(math.abs(conversion.mult - 0.01) < 0.000001)
+	end)
+
+	it("rounds damage after the final step of a conversion path", function()
+		build.itemsTab:CreateDisplayItemFromRaw([[
+		New Item
+		Imbued Wand
+		Adds 2 to 2 Physical Damage to Spells
+		]])
+		build.itemsTab:AddDisplayItem()
+		build.skillsTab:PasteSocketGroup("Fireball 20/0  1")
+		build.configTab.input.customMods = [[
+		50% of Physical Damage Converted to Lightning Damage
+		50% of Lightning Damage Converted to Cold Damage
+		]]
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+
+		assert.are.equals(9.6, build.calcsTab.calcsOutput.PhysicalMinBase)
+		assert.are.equals(1, build.calcsTab.calcsOutput.ColdMin)
 	end)
 
 	it("parses more/less/increased/reduced minimum and maximum damage of every type", function()
@@ -184,6 +315,11 @@ describe("TestOffence", function()
 
 		-- Arc is pure lightning, so the player can no longer deal damage with it
 		assert.are.equals(0, build.calcsTab.calcsOutput.LightningMax)
+		local lightningBreakdown = build.calcsTab.calcsEnv.player.breakdown.Lightning
+		assert.are.equals("You can't deal Lightning damage", lightningBreakdown[1])
+		assert.are.equals(1, #lightningBreakdown.modList)
+		assert.are.equals("DealNoLightning", lightningBreakdown.modList[1].mod.name)
+		assert.matches("^Item:%d+:New Item", lightningBreakdown.modList[1].mod.source)
 	end)
 
 	it("keeps deal no non-elemental damage as its own literal", function()
@@ -279,4 +415,34 @@ describe("TestOffence", function()
 			assert.are.equals(1, build.calcsTab.mainOutput[outputName])
 		end)
 	end
+	it("uses the final totem limit when scaling area of effect", function()
+		build.skillsTab:PasteSocketGroup("Searing Bond of Detonation 20/0  1")
+		build.configTab.input.customMods = [[
+		+3 to Maximum Power Charges
+		Skills used by Totems have 10% more Area of Effect per maximum number of Summoned Totems
+		]]
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+
+		-- 1 base totem + 6 maximum power charges, so 70% more area of effect.
+		assert.are.equals(7, build.calcsTab.mainOutput.ActiveTotemLimit)
+		assert.are.equals(1.7, build.calcsTab.mainOutput.AreaOfEffectMod)
+	end)
+	it("applies Energy Blade's quality attack speed as increased, not more", function()
+		local function attackSpeed(quality)
+			newBuild()
+			build.itemsTab:CreateDisplayItemFromRaw("Rarity: NORMAL\nCorsair Sword")
+			build.itemsTab:AddDisplayItem()
+			build.skillsTab:PasteSocketGroup("Energy Blade 20/" .. quality .. "  1")
+			build.skillsTab:PasteSocketGroup("Slot: Weapon 1\nCleave 20/0  1")
+			build.mainSocketGroup = 2
+			build.configTab.input.customMods = "100% increased Attack Speed"
+			build.configTab:BuildModList()
+			runCallback("OnFrame")
+			return build.calcsTab.mainOutput.Speed
+		end
+
+		-- "Buff grants 10% increased Attack Speed" at 20% quality: (1 + 1 + 0.1) / (1 + 1)
+		assertNearRelative(1.05, attackSpeed(20) / attackSpeed(0), 0.0001)
+	end)
 end)

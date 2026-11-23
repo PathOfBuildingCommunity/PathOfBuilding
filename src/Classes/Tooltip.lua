@@ -40,12 +40,75 @@ for _, recipeName in pairs(recipeNames) do
 	recipeImages[recipeName]:Load("TreeData/" .. recipeName .. ".png", "CLAMP")
 end
 
-local TooltipClass = newClass("Tooltip", function(self)
+
+-- spell-checker: disable
+local headerConfigs = {
+	RELIC = {left="Assets/itemsheaderfoilleft.png",middle="Assets/itemsheaderfoilmiddle.png",right="Assets/itemsheaderfoilright.png",height=54,sideWidth=47,middleWidth=52,textYOffset=3,allowInfluenceIcon=true},
+	UNIQUE = {left="Assets/itemsheaderuniqueleft.png",middle="Assets/itemsheaderuniquemiddle.png",right="Assets/itemsheaderuniqueright.png",height=54,sideWidth=47,middleWidth=52,textYOffset=3,allowInfluenceIcon=true},
+	RARE = {left="Assets/itemsheaderrareleft.png",middle="Assets/itemsheaderraremiddle.png",right="Assets/itemsheaderrareright.png",height=54,sideWidth=47,middleWidth=52,textYOffset=3,allowInfluenceIcon=true},
+	MAGIC = {left="Assets/itemsheadermagicleft.png",middle="Assets/itemsheadermagicmiddle.png",right="Assets/itemsheadermagicright.png",height=38,sideWidth=32,middleWidth=32,textYOffset=6,allowInfluenceIcon=true},
+	NORMAL = {left="Assets/itemsheaderwhiteleft.png",middle="Assets/itemsheaderwhitemiddle.png",right="Assets/itemsheaderwhiteright.png",height=38,sideWidth=32,middleWidth=32,textYOffset=6,allowInfluenceIcon=true},
+	GEM = {left="Assets/itemsheadergemleft.png",middle="Assets/itemsheadergemmiddle.png",right="Assets/itemsheadergemright.png",height=38,sideWidth=33,middleWidth=38,textYOffset=5},
+	JEWEL = {left="Assets/jewelpassiveheaderleft.png",middle="Assets/jewelpassiveheadermiddle.png",right="Assets/jewelpassiveheaderright.png",height=38,sideWidth=33,middleWidth=38,textYOffset=6},
+	NOTABLE = {left="Assets/notablepassiveheaderleft.png",middle="Assets/notablepassiveheadermiddle.png",right="Assets/notablepassiveheaderright.png",height=38,sideWidth=38,middleWidth=38,textYOffset=6},
+	PASSIVE = {left="Assets/normalpassiveheaderleft.png",middle="Assets/normalpassiveheadermiddle.png",right="Assets/normalpassiveheaderright.png",height=38,sideWidth=33,middleWidth=38,textYOffset=6},
+	KEYSTONE = {left="Assets/keystonepassiveheaderleft.png",middle="Assets/keystonepassiveheadermiddle.png",right="Assets/keystonepassiveheaderright.png",height=38,sideWidth=33,middleWidth=38,textYOffset=6},
+	ASCENDANCY = {left="Assets/ascendancypassiveheaderleft.png",middle="Assets/ascendancypassiveheadermiddle.png",right="Assets/ascendancypassiveheaderright.png",height=38,sideWidth=33,middleWidth=38,textYOffset=6},
+	MASTERY = {left="Assets/masteryheaderunallocatedleft.png",middle="Assets/masteryheaderunallocatedmiddle.png",right="Assets/masteryheaderunallocatedright.png",height=38,sideWidth=33,middleWidth=38,textYOffset=6},
+	MASTERYALLOC = {left="Assets/masteryheaderallocatedleft.png",middle="Assets/masteryheaderallocatedmiddle.png",right="Assets/masteryheaderallocatedright.png",height=38,sideWidth=33,middleWidth=38,textYOffset=6},
+}
+local headerInfluence = {
+	Fractured = "Assets/fracturedicon.png",
+	Veiled = "Assets/veiledicon.png",
+	Shaper = "Assets/shapericon.png",
+	Elder = "Assets/eldericon.png",
+	Redeemer = "Assets/redeemericon.png",
+	Hunter = "Assets/huntericon.png",
+	Crusader = "Assets/crusadericon.png",
+	Warlord = "Assets/warlordicon.png",
+	Eater = "Assets/eatericon.png",
+	Exarch = "Assets/exarchicon.png",
+	Synthesis = "Assets/synthesisicon.png",
+	Experimented = "Assets/experimentedicon.png",
+	Foulborn = "Assets/breachicon.png",
+	Memory = "Assets/memoryicon.png",
+	Vestigial = "Assets/vestigialicon.png",
+}
+local separatorConfigs = {
+	RELIC = "Assets/itemsseparatorfoil.png",
+	UNIQUE = "Assets/itemsseparatorunique.png",
+	RARE = "Assets/itemsseparatorrare.png",
+	MAGIC = "Assets/itemsseparatormagic.png",
+	NORMAL = "Assets/itemsseparatorwhite.png",
+	GEM = "Assets/itemsseparatorgem.png",
+}
+-- spell-checker: enable
+
+-- Cache tooltip assets
+local tooltipAssetCache = {}
+
+local function getCachedImage(path)
+	local image = tooltipAssetCache[path]
+
+	if image == nil then
+		image = NewImageHandle()
+		image:Load(path)
+		tooltipAssetCache[path] = image
+	end
+
+	return image
+end
+
+---@class Tooltip
+local TooltipClass = newClass("Tooltip")
+
+function TooltipClass:Tooltip()
 	self.lines = { }
 	self.blocks = { }
 	self.childTooltips = nil
 	self:Clear()
-end)
+	return self
+end
 
 function TooltipClass:Clear(clearUpdateParams)
 	wipeTable(self.lines)
@@ -84,7 +147,7 @@ function TooltipClass:CheckForUpdate(...)
 	end
 end
 
-function TooltipClass:AddLine(size, text, font)
+function TooltipClass:AddLine(size, text, font, modLine, background)
 	if text then
 		local fontToUse
 		if main.showFlavourText then
@@ -100,10 +163,10 @@ function TooltipClass:AddLine(size, text, font)
 			end
 			if self.maxWidth then
 				for _, wrappedLine in ipairs(main:WrapString(line, size, self.maxWidth - H_PAD)) do
-					t_insert(self.lines, { size = size, text = wrappedLine, block = #self.blocks, font = fontToUse, center = self.center })
+					t_insert(self.lines, { size = size, text = wrappedLine, block = #self.blocks, font = fontToUse, center = self.center, modLine = modLine, background = background })
 				end
 			else
-				t_insert(self.lines, { size = size, text = line, block = #self.blocks, font = fontToUse, center = self.center })
+				t_insert(self.lines, { size = size, text = line, block = #self.blocks, font = fontToUse, center = self.center, modLine = modLine, background = background })
 			end
 		end
 	end
@@ -126,25 +189,7 @@ function TooltipClass:AddSeparator(size)
 
 	if self.tooltipHeader then
 		local rarity = tostring(self.tooltipHeader):upper()
-		-- spell-checker: disable
-		local separatorConfigs = {
-			RELIC = "Assets/itemsseparatorfoil.png",
-			UNIQUE = "Assets/itemsseparatorunique.png",
-			RARE = "Assets/itemsseparatorrare.png",
-			MAGIC = "Assets/itemsseparatormagic.png",
-			NORMAL = "Assets/itemsseparatorwhite.png",
-			GEM = "Assets/itemsseparatorgem.png",
-		}
-		-- spell-checker: enable
-		local separatorPath = separatorConfigs[rarity] or separatorConfigs.NORMAL
-
-		if not self.separatorImage or self.separatorImagePath ~= separatorPath then
-			self.separatorImage = NewImageHandle()
-			self.separatorImage:Load(separatorPath)
-			self.separatorImagePath = separatorPath
-		end
-
-		separatorImage = self.separatorImage
+		separatorImage = getCachedImage(separatorConfigs[rarity] or separatorConfigs.NORMAL)
 	end
 
 	local lastBlock = lastLine and lastLine.block or 1
@@ -294,7 +339,13 @@ function TooltipClass:CalculateColumns(ttY, ttX, ttH, ttW, viewPort)
 			local lineX = lineCentered and (x + ttW / 2) or (x + (H_PAD / 2))
 			local lineAlign = lineCentered and "CENTER_X" or "LEFT"
 
-			t_insert(drawStack, {lineX, y, lineAlign, data.size, font, data.text})
+			local stackEntry = {lineX, y, lineAlign, data.size, font, data.text}
+			if data.modLine and data.modLine.disabled then
+				stackEntry.strikethrough = true
+			end
+			stackEntry.background = data.background
+			t_insert(drawStack, stackEntry)
+			data.bounds = { x = x + (H_PAD / 2), y = y, width = ttW - H_PAD, height = data.size + 2 }
 			y = y + data.size + 2
 
 			-- track max width for extra columns
@@ -380,38 +431,6 @@ function TooltipClass:Draw(x, y, w, h, viewPort)
 			ttW = titleW + 50
 		end
 	end
-	-- spell-checker: disable
-	local headerInfluence = {
-		Fractured = "Assets/fracturedicon.png",
-		Veiled = "Assets/veiledicon.png",
-		Shaper = "Assets/shapericon.png",
-		Elder = "Assets/eldericon.png",
-		Redeemer = "Assets/redeemericon.png",
-		Hunter = "Assets/huntericon.png",
-		Crusader = "Assets/crusadericon.png",
-		Warlord = "Assets/warlordicon.png",
-		Eater = "Assets/eatericon.png",
-		Exarch = "Assets/exarchicon.png",
-		Synthesis = "Assets/synthesisicon.png",
-		Experimented = "Assets/experimentedicon.png",
-		Foulborn = "Assets/breachicon.png",
-	}
-	local headerConfigs = {
-		RELIC = {left="Assets/itemsheaderfoilleft.png",middle="Assets/itemsheaderfoilmiddle.png",right="Assets/itemsheaderfoilright.png",height=54,sideWidth=47,middleWidth=52,textYOffset=1,allowInfluenceIcon=true},
-		UNIQUE = {left="Assets/itemsheaderuniqueleft.png",middle="Assets/itemsheaderuniquemiddle.png",right="Assets/itemsheaderuniqueright.png",height=54,sideWidth=47,middleWidth=52,textYOffset=1,allowInfluenceIcon=true},
-		RARE = {left="Assets/itemsheaderrareleft.png",middle="Assets/itemsheaderraremiddle.png",right="Assets/itemsheaderrareright.png",height=54,sideWidth=47,middleWidth=52,textYOffset=1,allowInfluenceIcon=true},
-		MAGIC = {left="Assets/itemsheadermagicleft.png",middle="Assets/itemsheadermagicmiddle.png",right="Assets/itemsheadermagicright.png",height=38,sideWidth=32,middleWidth=32,textYOffset=4,allowInfluenceIcon=true},
-		NORMAL = {left="Assets/itemsheaderwhiteleft.png",middle="Assets/itemsheaderwhitemiddle.png",right="Assets/itemsheaderwhiteright.png",height=38,sideWidth=32,middleWidth=32,textYOffset=4,allowInfluenceIcon=true},
-		GEM = {left="Assets/itemsheadergemleft.png",middle="Assets/itemsheadergemmiddle.png",right="Assets/itemsheadergemright.png",height=38,sideWidth=33,middleWidth=38,textYOffset=3},
-		JEWEL = {left="Assets/jewelpassiveheaderleft.png",middle="Assets/jewelpassiveheadermiddle.png",right="Assets/jewelpassiveheaderright.png",height=38,sideWidth=33,middleWidth=38,textYOffset=3},
-		NOTABLE = {left="Assets/notablepassiveheaderleft.png",middle="Assets/notablepassiveheadermiddle.png",right="Assets/notablepassiveheaderright.png",height=38,sideWidth=38,middleWidth=38,textYOffset=3},
-		PASSIVE = {left="Assets/normalpassiveheaderleft.png",middle="Assets/normalpassiveheadermiddle.png",right="Assets/normalpassiveheaderright.png",height=38,sideWidth=33,middleWidth=38,textYOffset=3},
-		KEYSTONE = {left="Assets/keystonepassiveheaderleft.png",middle="Assets/keystonepassiveheadermiddle.png",right="Assets/keystonepassiveheaderright.png",height=38,sideWidth=33,middleWidth=38,textYOffset=3},
-		ASCENDANCY = {left="Assets/ascendancypassiveheaderleft.png",middle="Assets/ascendancypassiveheadermiddle.png",right="Assets/ascendancypassiveheaderright.png",height=38,sideWidth=33,middleWidth=38,textYOffset=3},
-		MASTERY = {left="Assets/masteryheaderunallocatedleft.png",middle="Assets/masteryheaderunallocatedmiddle.png",right="Assets/masteryheaderunallocatedright.png",height=38,sideWidth=33,middleWidth=38,textYOffset=3},
-		MASTERYALLOC = {left="Assets/masteryheaderallocatedleft.png",middle="Assets/masteryheaderallocatedmiddle.png",right="Assets/masteryheaderallocatedright.png",height=38,sideWidth=33,middleWidth=38,textYOffset=3},
-	}
-	-- spell-checker: enable
 	local config
 	if self.tooltipHeader and main.showFlavourText and self.lines[1] and self.lines[1].text then
 		local rarity = tostring(self.tooltipHeader):upper()
@@ -471,18 +490,6 @@ function TooltipClass:Draw(x, y, w, h, viewPort)
 
 		self.titleYOffset = config.textYOffset or 0
 
-		if not self.headerLeft or self.headerLeftPath ~= config.left then
-			self.headerLeft = NewImageHandle()
-			self.headerLeft:Load(config.left)
-			self.headerLeftPath = config.left
-			self.headerMiddle = NewImageHandle()
-			self.headerMiddle:Load(config.middle)
-			self.headerMiddlePath = config.middle
-			self.headerRight = NewImageHandle()
-			self.headerRight:Load(config.right)
-			self.headerRightPath = config.right
-		end
-
 		local headerHeight = config.height
 		local headerSideWidth = config.sideWidth
 		local headerMiddleWidth = config.middleWidth
@@ -491,13 +498,6 @@ function TooltipClass:Draw(x, y, w, h, viewPort)
 		local headerY = ttY + BORDER_WIDTH
 		local headerTotalWidth = ttW - 2 * BORDER_WIDTH
 		local headerMiddleAreaWidth = m_max(0, headerTotalWidth - 2 * headerSideWidth)
-
-		if self.influenceHeader1 then
-			self.influenceIcon1 = NewImageHandle()
-			self.influenceIcon1:Load(headerInfluence[self.influenceHeader1])
-			self.influenceIcon2 = NewImageHandle()
-			self.influenceIcon2:Load(headerInfluence[self.influenceHeader2])
-		end
 
 		local foilTypes = {
 			["Rainbow"] = {0.6, 1, 0.5},
@@ -524,10 +524,10 @@ function TooltipClass:Draw(x, y, w, h, viewPort)
 			end
 		end
 		-- Draw left cap first, then influence icon on top
-		DrawImage(self.headerLeft, headerX, headerY, headerSideWidth, headerHeight)
+		DrawImage(getCachedImage(config.left), headerX, headerY, headerSideWidth, headerHeight)
 		if self.influenceHeader1 and config.allowInfluenceIcon then
 			SetDrawColor(1, 1, 1)
-			DrawImage(self.influenceIcon1, headerX + 2, headerY + (headerHeight - (headerHeight/2))/2, headerHeight/2, headerHeight/2)
+			DrawImage(getCachedImage(headerInfluence[self.influenceHeader1]), headerX + 2, headerY + (headerHeight - (headerHeight/2))/2, headerHeight/2, headerHeight/2)
 		end
 
 		if self.tooltipHeader == "RELIC" then
@@ -544,20 +544,20 @@ function TooltipClass:Draw(x, y, w, h, viewPort)
 			local drawX = headerX + headerSideWidth
 			local endX = headerX + headerTotalWidth - headerSideWidth
 			while drawX + headerMiddleWidth <= endX do
-				DrawImage(self.headerMiddle, drawX, headerY, headerMiddleWidth, headerHeight)
+				DrawImage(getCachedImage(config.middle), drawX, headerY, headerMiddleWidth, headerHeight)
 				drawX = drawX + headerMiddleWidth
 			end
 			local remainingWidth = endX - drawX
 			if remainingWidth > 0 then
-				DrawImage(self.headerMiddle, drawX, headerY, remainingWidth, headerHeight)
+				DrawImage(getCachedImage(config.middle), drawX, headerY, remainingWidth, headerHeight)
 			end
 		end
 
 		-- Draw right cap
-		DrawImage(self.headerRight, headerX + headerTotalWidth - headerSideWidth, headerY, headerSideWidth, headerHeight)
+		DrawImage(getCachedImage(config.right), headerX + headerTotalWidth - headerSideWidth, headerY, headerSideWidth, headerHeight)
 		if self.influenceHeader2 and config.allowInfluenceIcon then
 			SetDrawColor(1, 1, 1)
-			DrawImage(self.influenceIcon2, headerX + headerTotalWidth - (headerHeight/2) - 2, headerY + (headerHeight - (headerHeight/2))/2, headerHeight/2, headerHeight/2)
+			DrawImage(getCachedImage(headerInfluence[self.influenceHeader2]), headerX + headerTotalWidth - (headerHeight/2) - 2, headerY + (headerHeight - (headerHeight/2))/2, headerHeight/2, headerHeight/2)
 		end
 	end
 
@@ -594,7 +594,50 @@ function TooltipClass:Draw(x, y, w, h, viewPort)
 				end
 			end
 		else
+			-- Draw background if specified, used for gem mod lines and desecrated mods on items.
+			local bg = line.background
+			if bg and main.showFlavourText then
+				-- Save current draw color BEFORE drawing background image, otherwise wrapped strings print white text for later lines.
+				local prevR, prevG, prevB, prevA = GetDrawColor()
+
+				if type(bg) == "string" then
+					if not self._bgHandles then
+						self._bgHandles = {}
+					end
+					if not self._bgHandles[bg] then
+						local h = NewImageHandle()
+						h:Load(bg)
+						self._bgHandles[bg] = h
+					end
+					bg = self._bgHandles[bg]
+				end
+
+				local x = ttX
+				local y = line[2] - 5
+				local width = ttW - 8
+				local height = line[4] + 10
+				SetDrawColor(1,1,1,1)
+				DrawImage(bg, x + 4, y, width, height)
+
+				-- Restore color BEFORE DrawString
+				SetDrawColor(prevR, prevG, prevB, prevA)
+			end
+
+			-- Draw text line
 			DrawString(unpack(line))
+			if line.strikethrough then
+				local textX = line[1]
+				local textY = line[2]
+				local align = line[3]
+				local size = line[4]
+				local font = line[5]
+				local text = line[6]
+				local textW = DrawStringWidth(size, font, text)
+				local strikeX = align == "CENTER_X" and (textX - textW / 2) or textX
+				local strikeY = textY + size / 2
+				SetDrawColor(0.75, 0.75, 0.75, 0.35)
+				DrawImage(nil, strikeX, strikeY, textW, 1.0)
+			end
 		end
 	end
 

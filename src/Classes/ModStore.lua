@@ -27,12 +27,23 @@ local conditionName = setmetatable({ }, { __index = function(t, var)
 	return t[var]
 end })
 
-local ModStoreClass = newClass("ModStore", function(self, parent)
+-- TODO: very incomplete
+---@class ModCfg
+---@field flags number? bit mask
+---@field keywordFlags number?
+---@field skillName string?
+---@field source string?
+
+---@class ModStore
+local ModStoreClass = newClass("ModStore")
+
+function ModStoreClass:ModStore(parent)
 	self.parent = parent or false
 	self.actor = parent and parent.actor or { }
 	self.multipliers = { }
 	self.conditions = { }
-end)
+	return self
+end
 
 local function getActor(self, actorType)
 	if actorType == "player" then
@@ -147,6 +158,10 @@ function ModStoreClass:Combine(modType, cfg, ...)
 	end
 end
 
+---@param modType string
+---@param cfg? ModCfg
+---@param ... string
+---@return number
 function ModStoreClass:Sum(modType, cfg, ...)
 	local flags, keywordFlags = 0, 0
 	local source
@@ -158,6 +173,9 @@ function ModStoreClass:Sum(modType, cfg, ...)
 	return self:SumInternal(self, modType, cfg, flags, keywordFlags, source, ...)
 end
 
+---@param cfg? ModCfg
+---@param ... string
+---@return number
 function ModStoreClass:More(cfg, ...)
 	local flags, keywordFlags = 0, 0
 	local source
@@ -180,6 +198,9 @@ function ModStoreClass:Flag(cfg, ...)
 	return self:FlagInternal(self, cfg, flags, keywordFlags, source, ...)
 end
 
+---@param cfg? ModCfg
+---@param ... string
+---@return any
 function ModStoreClass:Override(cfg, ...)
 	local flags, keywordFlags = 0, 0
 	local source
@@ -191,6 +212,9 @@ function ModStoreClass:Override(cfg, ...)
 	return self:OverrideInternal(self, cfg, flags, keywordFlags, source, ...)
 end
 
+---@param cfg? ModCfg
+---@param ... string
+---@return any[]
 function ModStoreClass:List(cfg, ...)
 	local flags, keywordFlags = 0, 0
 	local source
@@ -204,6 +228,10 @@ function ModStoreClass:List(cfg, ...)
 	return result
 end
 
+---@param modType string
+---@param cfg? ModCfg
+---@param ... string
+---@return table[]
 function ModStoreClass:Tabulate(modType, cfg, ...)
 	local flags, keywordFlags = 0, 0
 	local source
@@ -258,14 +286,25 @@ function ModStoreClass:HasMod(modType, cfg, ...)
 	return self:HasModInternal(modType, flags, keywordFlags, source, ...)
 end
 
+---@param var string
+---@param cfg? ModCfg
+---@param noMod? boolean
+---@return boolean
 function ModStoreClass:GetCondition(var, cfg, noMod)
 	return self.conditions[var] or (self.parent and self.parent:GetCondition(var, cfg, true)) or (not noMod and self:Flag(cfg, conditionName[var]))
 end
 
+---@param var string
+---@param cfg? ModCfg
+---@param noMod? boolean
+---@return number
 function ModStoreClass:GetMultiplier(var, cfg, noMod)
 	return (not noMod and self:Override(cfg, multiplierName[var])) or (self.multipliers[var] or 0) + (self.parent and self.parent:GetMultiplier(var, cfg, true) or 0) + (not noMod and self:Sum("BASE", cfg, multiplierName[var]) or 0)
 end
 
+---@param stat string
+---@param cfg? ModCfg
+---@return number
 function ModStoreClass:GetStat(stat, cfg)
 	-- Checks if any buff in buffList matches
 	-- Was needed for skills that provide multiple buffs (e.g. Herald of Agony) and can't be accesses with `buffList[1]`
@@ -291,18 +330,15 @@ function ModStoreClass:GetStat(stat, cfg)
 		end
 	end
 	if stat == "LifeReservedPercent" then
-		local reservedPercentLife = 0
 		local totalLife = self.actor.output["Life"]
-		if totalLife == 0 then return 0 else
-			for _, activeSkill in ipairs(self.actor.activeSkillList) do
-				if (activeSkill.skillTypes[SkillType.HasReservation] and not activeSkill.skillFlags.disable and activeSkill.buffList and activeSkill.buffList[1] and cfg and (isNameInBuffList(activeSkill.buffList, cfg.skillName) or isNameInBuffList(activeSkill.buffList, cfg.summonSkillName)) ) then
-					local lifeBase = activeSkill.skillData["LifeReservedBase"] or 0
-					reservedPercentLife = m_floor(lifeBase / totalLife * 100)
-					break
-				end
+		if totalLife == 0 then return 0 end
+		for _, activeSkill in ipairs(self.actor.activeSkillList) do
+			if (activeSkill.skillTypes[SkillType.HasReservation] and not activeSkill.skillFlags.disable and activeSkill.buffList and activeSkill.buffList[1] and cfg and (isNameInBuffList(activeSkill.buffList, cfg.skillName) or isNameInBuffList(activeSkill.buffList, cfg.summonSkillName)) ) then
+				local lifeBase = activeSkill.skillData["LifeReservedBase"] or 0
+				return m_min(m_floor(lifeBase / totalLife * 100), 100) --Don't let people get more than 100% reservation for aura effect.
 			end
-			return m_min(reservedPercentLife, 100) --Don't let people get more than 100% reservation for aura effect.
 		end
+		-- Not asked for a reserving skill (e.g. "for each 5% of Life Reserved"): use the total Life reserved
 	end
 	-- if ReservationEfficiency is -100, ManaUnreserved is nan which breaks everything if Arcane Cloak is enabled
 	if stat == "ManaUnreserved" and self.actor.output[stat] ~= self.actor.output[stat] then
@@ -317,6 +353,10 @@ function ModStoreClass:GetStat(stat, cfg)
 	end
 end
 
+---@param mod Mod
+---@param cfg? ModCfg
+---@param globalLimits? table
+---@return any
 function ModStoreClass:EvalMod(mod, cfg, globalLimits)
 	local value = mod.value
 	local GetStat = self.GetStat

@@ -12,10 +12,21 @@ SetWindowTitle(APP_NAME)
 ConExecute("set vid_mode 8")
 ConExecute("set vid_resizable 3")
 
+---@diagnostic disable-next-line: lowercase-global
 launch = { }
 SetMainObject(launch)
 jit.opt.start('maxtrace=4000','maxmcode=8192')
 collectgarbage("setpause", 400)
+
+function GetVirtualScreenSize()
+	local width, height = GetScreenSize()
+	local scale = GetScreenScale and GetScreenScale() or 1.0
+	if scale ~= 1.0 then
+		width = math.floor(width / scale)
+		height = math.floor(height / scale)
+	end
+	return width, height
+end
 
 function launch:OnInit()
 	self.devMode = false
@@ -321,16 +332,15 @@ function launch:DownloadPage(url, callback, params)
 		}
 	end
 end
-
 function launch:ApplyUpdate(mode)
 	if mode == "basic" then
 		-- Need to revert to the basic environment to fully apply the update
-		LoadModule("UpdateApply", "Update/opFile.txt")
+		LoadModule("UpdateApply")("Update/opFile.txt")
 		SpawnProcess(GetRuntimePath()..'/Update', 'UpdateApply.lua Update/opFileRuntime.txt')
 		Exit()
 	elseif mode == "normal" then
 		-- Update can be applied while normal environment is running
-		LoadModule("UpdateApply", "Update/opFile.txt")
+		LoadModule("UpdateApply")("Update/opFile.txt")
 		Restart()
 		self.doRestart = "Updating..."
 	end

@@ -1,5 +1,5 @@
 describe("Bifurcated critical strikes", function()
-	local function setupBifurcate(socketGroup, bifurcate, lucky, extremeLuck, useDefaultCritMultiplier)
+	local function setupBifurcate(socketGroup, bifurcate, lucky, extremeLuck, useDefaultCritMultiplier, extraMods)
 		newBuild()
 		build.itemsTab:CreateDisplayItemFromRaw([[
 				New Item
@@ -15,6 +15,7 @@ describe("Bifurcated critical strikes", function()
 		runCallback("OnFrame")
 
 		build.configTab.input.customMods = "+44% to critical hit chance\n"
+			.. (extraMods or "")
 			.. (bifurcate and "spell critical strike chance bifurcates\n" or "")
 			.. (lucky and "your critical strike chance is lucky\n" or "")
 			.. (extremeLuck and "your lucky or unlucky effects use the best or worst from three rolls instead of two\n" or "")
@@ -24,6 +25,13 @@ describe("Bifurcated critical strikes", function()
 
 		return build.calcsTab.mainOutput
 	end
+
+	it("uses quantised raw chance for each roll", function()
+		local luckyOutput = setupBifurcate("Spark 1/0  1", false, true, false, false,
+			"+0.01% to critical hit chance\n1% increased critical strike chance\n")
+		assert.are.equals(50.51, luckyOutput.PreEffectiveCritChance)
+		assert.are.near((1 - (1 - 0.5051) ^ 2) * 100, luckyOutput.CritChance, 10 ^ -9)
+	end)
 
 	it("calculates bifurcated critical hit damage", function()
 		local normalOutput = setupBifurcate("Spark 1/0  1")

@@ -7,9 +7,19 @@ local pairs = pairs
 local t_insert = table.insert
 local m_min = math.min
 
-local itemSlotHelper = LoadModule("Modules/ItemSlotHelper")
-local ItemSlotClass = newClass("ItemSlotControl", "DropDownControl", function(self, anchor, x, y, itemsTab, slotName, slotLabel, nodeId)
-	self.DropDownControl(anchor, {x, y, 310, 20}, { }, function(index, value)
+local itemSlotHelper = require("Modules.ItemSlotHelper")
+---@class ItemSlotControl
+local ItemSlotClass = newClass("ItemSlotControl", "DropDownControl")
+
+---@param anchor Anchor?
+---@param x Prop<number>
+---@param y Prop<number>
+---@param itemsTab ItemsTab
+---@param slotName string
+---@param slotLabel string
+---@param nodeId integer?
+function ItemSlotClass:ItemSlotControl(anchor, x, y, itemsTab, slotName, slotLabel, nodeId)
+	self:DropDownControl(anchor, { x, y, 310, 20 }, {}, function(index, value)
 		if self.items[index] ~= self.selItemId then
 			self:SetSelItemId(self.items[index])
 			itemsTab:PopulateSlots()
@@ -30,7 +40,7 @@ local ItemSlotClass = newClass("ItemSlotControl", "DropDownControl", function(se
 	self.slotName = slotName
 	self.slotNum = tonumber(slotName:match("%d+$") or slotName:match("%d+"))
 	if slotName:match("Flask") then
-		self.controls.activate = new("CheckBoxControl", {"RIGHT",self,"LEFT"}, {-2, 0, 20}, nil, function(state)
+		self.controls.activate = new("CheckBoxControl"):CheckBoxControl({"RIGHT",self,"LEFT"}, {-2, 0, 20}, nil, function(state)
 			self.active = state
 			itemsTab.activeItemSet[self.slotName].active = state
 			itemsTab:AddUndoState()
@@ -55,8 +65,10 @@ local ItemSlotClass = newClass("ItemSlotControl", "DropDownControl", function(se
 		end
 	end
 	self.label = slotLabel or slotName
+	self.hideSelDetail = true
 	self.nodeId = nodeId
-end)
+	return self
+end
 
 function ItemSlotClass:SetSelItemId(selItemId)
 	if self.nodeId then
@@ -85,7 +97,7 @@ function ItemSlotClass:Populate()
 	for _, item in pairs(self.itemsTab.items) do
 		if self.itemsTab:IsItemValidForSlot(item, self.slotName) then
 			t_insert(self.items, item.id)
-			t_insert(self.list, colorCodes[item.rarity]..item.name)
+			t_insert(self.list, { label = colorCodes[item.rarity]..item.name })
 			if item.id == self.selItemId then
 				self.selIndex = #self.list
 			end
@@ -111,6 +123,20 @@ function ItemSlotClass:Populate()
 	end
 end
 
+function ItemSlotClass:UpdateEquippedDetails()
+	local equipped = { }
+	for _, slot in ipairs(self.itemsTab.orderedSlots) do
+		if not slot.inactive then
+			equipped[slot.selItemId] = true
+		end
+	end
+	for index, entry in ipairs(self.list) do
+		if type(entry) == "table" then
+			entry.detail = equipped[self.items[index]] and "^8(equipped)" or nil
+		end
+	end
+end
+
 function ItemSlotClass:CanReceiveDrag(type, value)
 	return type == "Item" and self.itemsTab:IsItemValidForSlot(value, self.slotName)
 end
@@ -119,10 +145,11 @@ function ItemSlotClass:ReceiveDrag(type, value, source)
 	if value.id and self.itemsTab.items[value.id] then
 		self:SetSelItemId(value.id)
 	else
-		local newItem = new("Item", value.raw)
+		local newItem = new("Item"):Item(value.raw)
 		newItem:NormaliseQuality()
 		self.itemsTab:AddItem(newItem, true)
 		self:SetSelItemId(newItem.id)
+		self.itemsTab:AddForbiddenJewelCounterpart(newItem)
 	end
 	self.itemsTab:PopulateSlots()
 	self.itemsTab:AddUndoState()
@@ -156,7 +183,11 @@ function ItemSlotClass:OnKeyDown(key)
 	if mOverControl and mOverControl == self.controls.activate then
 		return mOverControl:OnKeyDown(key)
 	end
-	return self.DropDownControl:OnKeyDown(key)
+	local ret = self.DropDownControl:OnKeyDown(key)
+	if self.dropped then
+		self:UpdateEquippedDetails()
+	end
+	return ret
 end
 
 function ItemSlotClass:OnHoverKeyUp(key)

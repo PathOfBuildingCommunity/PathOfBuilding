@@ -99,4 +99,19 @@ end
 
 out:close()
 
+local utils = LoadModule("../Modules/Utils")
+
+local out = {}
+
+for row in dat("IndexableNonActiveSupportGems"):Rows() do
+	local outRow = {
+		baseItemName = row.SupportGem.BaseItemType.Name,
+		-- gem = row.SupportGem,
+		-- none of these seem to have multiple variants
+		grantedEffectName = row.SupportGem.GemVariants[1].GrantedEffect.Id,
+	}
+	table.insert(out, outRow)
+end
+
+utils.saveTableToFile("../Data/PearlSupports.lua", out, "A list of non-active support gems for Pearl of Tsoatha.")
 print("Skill gems exported.")

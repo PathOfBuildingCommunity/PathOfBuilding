@@ -3,8 +3,7 @@
 -- Stat to internal modifier mapping table for skills
 -- Stat data (c) Grinding Gear Games
 --
-local mod, flag, skill = ...
-
+return function(mod, flag, skill)
 return {
 --
 -- Skill data modifiers
@@ -583,7 +582,7 @@ return {
 	mod("AreaOfEffect", "MORE", nil, 0, 0, { type = "Condition", var = "CastOnFrostbolt" }),
 },
 ["active_skill_area_of_effect_radius_+%_final"] = {
-	mod("AreaOfEffect", "MORE", nil),
+	mod("AreaOfEffectRadius", "MORE", nil),
 },
 ["active_skill_area_of_effect_+%_final"] = {
 	mod("AreaOfEffect", "MORE", nil),
@@ -2368,4 +2367,8 @@ return {
 ["is_totem"] = {
 	-- Display only
 },
+["pact_empower_limitation_specifier_for_stat_description"] = {
+	-- Display only
+},
 }
+end

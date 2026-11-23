@@ -2,6 +2,14 @@ describe("TreeTab", function()
 	local originalClusterNodeMap
 	local originalMasteryEffects
 
+	local function findMasteryNode()
+		for _, node in pairs(build.spec.nodes) do
+			if node.type == "Mastery" and node.masteryEffects and #node.masteryEffects > 0 then
+				return node
+			end
+		end
+	end
+
 	before_each(function()
 		newBuild()
 		originalClusterNodeMap = build.spec.tree.clusterNodeMap
@@ -11,6 +19,37 @@ describe("TreeTab", function()
 	after_each(function()
 		build.spec.tree.clusterNodeMap = originalClusterNodeMap
 		build.spec.tree.masteryEffects = originalMasteryEffects
+	end)
+
+	it("restores a Runegraft after rebuilding mastery options", function()
+		local node = assert(findMasteryNode())
+		local override
+		for _, tattooNode in pairs(build.spec.tree.tattoo.nodes) do
+			if tattooNode.overrideType == "AlternateMastery" then
+				override = copyTable(tattooNode, true)
+				break
+			end
+		end
+		assert(override)
+		override.id = node.id
+		build.spec.hashOverrides[node.id] = override
+		build.spec:ReplaceNode(node, override)
+
+		build.spec:DeallocSingleNode(node)
+		build.spec:BuildAllDependsAndPaths()
+
+		assert.is_false(node.allMasteryOptions)
+		assert.are.equal("AlternateMastery", node.overrideType)
+	end)
+
+	it("clears the selected mastery reminder after deallocation", function()
+		local node = assert(findMasteryNode())
+		node.reminderText = { "Tip: Right click to select a different effect" }
+
+		build.spec:DeallocSingleNode(node)
+		build.spec:BuildAllDependsAndPaths()
+
+		assert.is_nil(node.reminderText)
 	end)
 
 	it("adds separate power report entries for mastery effects", function()
@@ -42,13 +81,13 @@ describe("TreeTab", function()
 		treeTab.build.spec.nodes = {
 			[masteryNode.id] = masteryNode,
 		}
-		treeTab.build.spec.masterySelections = { }
-		treeTab.build.spec.tree.clusterNodeMap = { }
+		treeTab.build.spec.masterySelections = {}
+		treeTab.build.spec.tree.clusterNodeMap = {}
 		treeTab.build.spec.tree.masteryEffects = {
 			[101] = { id = 101, sd = { "Gain 10 Damage" }, stats = { "Gain 10 Damage" } },
 			[102] = { id = 102, sd = { "Gain 20 Damage" }, stats = { "Gain 20 Damage" } },
 		}
-		treeTab.build.calcsTab.mainEnv = { grantedPassives = { } }
+		treeTab.build.calcsTab.mainEnv = { grantedPassives = {} }
 
 		local report = treeTab:BuildPowerReportList({ stat = "Damage", label = "Damage" })
 
@@ -59,5 +98,131 @@ describe("TreeTab", function()
 		assert.are.same(2, report[1].pathDist)
 		assert.are.same(10, report[2].power)
 		assert.are.same("Two Hand Mastery: Gain 10 Damage", report[2].name)
+	end)
+
+	describe("CopyTree", function()
+		it("Copies a tree spec with a new name", function()
+			local newTitle = "Copied Tree"
+			local newSpec = build.treeTab:CopyTree(1, newTitle)
+
+			assert.is_not.same(build.treeTab.specList[1], newSpec)
+			assert.are.equals(newTitle, newSpec.title)
+		end)
+
+		it("Copies tree version from source spec", function()
+			local newSpec = build.treeTab:CopyTree(1, "Copy Test")
+
+			assert.are.equals(build.treeTab.specList[1].treeVersion, newSpec.treeVersion)
+		end)
+
+		it("Copies jewels from source spec", function()
+			local newSpec = build.treeTab:CopyTree(1, "Copy Test")
+
+			assert.are.same(build.treeTab.specList[1].jewels, newSpec.jewels)
+		end)
+
+		it("Deep copies jewel allocations", function()
+			local newSpec = build.treeTab:CopyTree(1, "Copy Test")
+
+			-- Modify source jewels
+			build.treeTab.specList[1].jewels["test_node"] = "test_item"
+
+			-- Copy should have been independent
+			assert.is_nil(newSpec.jewels["test_node"])
+		end)
+
+		it("Returns new spec with next ID", function()
+			local newSpec = build.treeTab:CopyTree(1, "Copy Test")
+
+			assert.are.equals(2, newSpec.id)
+		end)
+
+		it("Adds copied spec to specList", function()
+			build.treeTab:CopyTree(1, "Copy Test")
+
+			assert.are.equals(2, #build.treeTab.specList)
+			assert.is_not_nil(build.treeTab.specList[2])
+		end)
+
+		it("Copies the default spec with a suffix", function()
+			local newSpec = build.treeTab:CopyTree(1)
+
+			assert.are.equals("Default (Copy)", newSpec.title)
+		end)
+
+		it("Appends suffix to source title when no name provided", function()
+			build.treeTab.specList[1].title = "My Tree"
+			local newSpec = build.treeTab:CopyTree(1)
+
+			assert.are.equals("My Tree (Copy)", newSpec.title)
+		end)
+
+		it("Copies allocNodes from source spec via undo state", function()
+			-- Allocate a node in the source spec
+			build.treeTab.specList[1].allocNodes = { [1] = true }
+
+			local newSpec = build.treeTab:CopyTree(1, "Copy Test")
+
+			-- allocNodes should be copied via RestoreUndoState
+			assert.is_not_nil(newSpec.allocNodes)
+		end)
+
+		it("Handles copying when source has no jewels", function()
+			build.treeTab.specList[1].jewels = {}
+			local newSpec = build.treeTab:CopyTree(1, "Copy Test")
+
+			assert.are.same({}, newSpec.jewels)
+		end)
+
+		it("Handles copying when source has no allocNodes", function()
+			local oldAlloc = build.treeTab.specList[1].allocNodes
+			build.treeTab.specList[1].allocNodes = nil
+			-- CreateUndoState needs allocNodes to exist, so we set it to empty table
+			-- but the original spec may have had no allocations
+			build.treeTab.specList[1].allocNodes = {}
+			local newSpec = build.treeTab:CopyTree(1, "Copy Test")
+			build.treeTab.specList[1].allocNodes = oldAlloc
+
+			assert.is_not_nil(newSpec)
+		end)
+	end)
+
+	describe("CopyTree integration", function()
+		it("Copies multiple times with unique IDs", function()
+			local copy1 = build.treeTab:CopyTree(1, "Copy 1")
+			local copy2 = build.treeTab:CopyTree(1, "Copy 2")
+
+			assert.are.equals(2, copy1.id)
+			assert.are.equals(3, copy2.id)
+			assert.are.not_same(copy1, copy2)
+		end)
+
+		it("Copies from copied spec", function()
+			local copy1 = build.treeTab:CopyTree(1, "Copy 1")
+			local copy2 = build.treeTab:CopyTree(2, "Copy 2")
+
+			assert.are.equals(copy1.treeVersion, copy2.treeVersion)
+			assert.are.equals("Copy 2", copy2.title)
+		end)
+	end)
+
+
+	describe("SpecStateManagement", function()
+		it("Preserves tree allocations across spec switches", function()
+			build.treeTab:CopyTree(1, "Copy 1")
+
+			-- Allocate a node in original
+			build.treeTab.specList[1].allocNodes = { [1] = true }
+
+			build.treeTab:SetActiveSpec(1)
+			assert.is_not_nil(build.treeTab.specList[1].allocNodes[1])
+
+			build.treeTab:SetActiveSpec(2)
+			build.treeTab.specList[2].allocNodes = { [2] = true }
+
+			build.treeTab:SetActiveSpec(1)
+			assert.is_not_nil(build.treeTab.specList[1].allocNodes[1])
+			assert.is_nil(build.treeTab.specList[1].allocNodes[2])
+		end)
 	end)
 end)

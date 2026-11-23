@@ -11,10 +11,10 @@ Variant: Current
 Implicits: 1
 {variant:2,3}IncreasedLifeImplicitShield1
 LocalIncreasedPhysicalDamageReductionRatingPercentUnique__8
-IncreasedLifeUniqueShieldDex2
+IncreasedLifeUnique__38
 ReducedMaximumEnduranceChargeUnique__1
 MaximumBlockChanceUnique__1
-AdditionalBlockChanceUniqueShieldStrInt4
+AdditionalBlockChanceUnique__4
 {variant:1,2}MaximumResistanceWithNoEnduranceChargesUnique__1__[3,3]
 {variant:3}MaximumResistanceWithNoEnduranceChargesUnique__1__
 OnslaughtWithMaxEnduranceChargesUnique__1
@@ -28,11 +28,11 @@ Variant: Pre 3.0.0
 Variant: Pre 3.21.0
 Variant: Current
 Implicits: 1
-{variant:2,3}IncreasedLifeUniqueShieldDex6[30,40]
+{variant:2,3}IncreasedLifeImplicitShield3[30,40]
 {variant:1,2}LocalIncreasedPhysicalDamageReductionRatingPercentUnique__4[120,160]
 {variant:3}LocalIncreasedPhysicalDamageReductionRatingPercentUnique__4
-IncreasedLifeUniqueShieldDex6
-AdditionalBlockChanceUniqueShieldStrInt4
+IncreasedLifeUnique__28
+AdditionalBlockChanceUnique__2
 {variant:1,2}GainArmourIfBlockedRecentlyUnique__1[1000,1000]
 {variant:3}GainArmourIfBlockedRecentlyUnique__1
 EnemiesBlockedAreIntimidatedUnique__1
@@ -53,7 +53,7 @@ Implicits: 1
 IncreasedLifeUnique__31
 {variant:1,2}GainLifeOnBlockUnique__1[250,250]
 {variant:3,4}GainLifeOnBlockUnique__1
-AdditionalBlockChanceUniqueShieldStrInt4
+AdditionalBlockChanceUnique__2
 {variant:1,2}GainArmourIfBlockedRecentlyUnique__1[1500,1500]
 ]],[[
 Chernobog's Pillar
@@ -68,7 +68,7 @@ Implicits: 1
 {variant:2}AddedFireDamageUniqueShieldStr3[7,10][15,25]
 {variant:3,4}AddedFireDamageUniqueShieldStr3
 LocalIncreasedPhysicalDamageReductionRatingUniqueShieldStr3
-{variant:3,4}IncreasedLifeUniqueShieldDex2
+{variant:3,4}IncreasedLifeUnique__43
 FireResistUniqueShieldStr3
 ConvertPhysicalToFireUniqueShieldStr3
 {variant:1,2}EnfeebleOnHitUniqueShieldStr3[10,10]
@@ -103,7 +103,7 @@ Implicits: 1
 MovementVelocityUniqueShieldStr1
 {variant:1,2,3,4}RangedAttackDamageReducedUniqueShieldStr1[-25,-25]
 {variant:5}RangedAttackDamageReducedUniqueShieldStr1
-AdditionalBlockChanceUniqueShieldDex1
+AdditionalBlockChanceUniqueShieldStr1
 ]],[[
 Lycosidae
 Rawhide Tower Shield
@@ -112,9 +112,9 @@ Variant: Current
 Implicits: 1
 {variant:2}IncreasedLifeImplicitShield1
 LocalIncreasedPhysicalDamageReductionRatingPercentUnique__2
-IncreasedLifeImplicitShield3
+IncreasedLifeUnique__19
 AlwaysHitsUnique__2
-AdditionalBlockChanceUniqueShieldStrDex3__
+AdditionalBlockChanceUnique__1
 CounterAttacksAddedColdDamageUnique__1
 ]],[[
 Magna Eclipsis
@@ -128,39 +128,40 @@ LocalIncreaseSocketedGemLevelUnique__6
 TriggeredElementalAegisSkillUnique__1_
 {variant:1}LocalIncreasedPhysicalDamageReductionRatingPercentUnique__14_[200,250]
 {variant:2}LocalIncreasedPhysicalDamageReductionRatingPercentUnique__14_
-IncreasedLifeUniqueShieldDex2
+IncreasedLifeUnique__59
 LocalFlatIncreasedEvasionAndEnergyShieldUnique__1
 ]],[[
 Redblade Banner
 Painted Tower Shield
 League: Warbands
+Source: Drops from Redblade Mercenary monsters
 Variant: Pre 2.6.0
 Variant: Pre 3.0.0
 Variant: Pre 3.11.0
 Variant: Current
 Implicits: 1
 {variant:3,4}IncreasedLifeImplicitShield2
-{variant:2,3,4}LocalIncreasedPhysicalDamageReductionRatingPercentUnique__12
+{variant:2,3,4}LocalIncreasedPhysicalDamageReductionRatingPercentUnique__9
 {variant:1}LocalIncreaseSocketedWarcryGemLevelUniqueShieldStr4
 {variant:1}IncreasedLifeUniqueShieldStr4[20,60]
 {variant:2,3,4}IncreasedLifeUniqueShieldStr4
 IncreasedTauntDurationUniqueShieldStr4
 {variant:1}LifeGainedOnTauntingEnemyUniqueShieldStr4
 {variant:1}EnduranceChargeDurationUniqueBodyStrInt4[20,20]
-AdditionalBlockChanceUniqueShieldDex1
-{variant:2,3,4}WarcryCooldownSpeedUnique__2
+AdditionalBlockChanceUniqueShieldStr4
+{variant:2,3,4}WarcryCooldownSpeedUnique__1
 {variant:2,3}AttackLeechAgainstTauntedEnemyUnique__1
 {variant:4}WarcryInfiniteEnemyPowerUnique__1__
 ]],[[
 Svalinn
 Girded Tower Shield
 League: Settlers of Kalguur
-Requires Level 51, 123 Str
+Source: Drops from unique{The Black Knight} in a normal{Starfall Crater}
 Implicits: 1
 IncreasedLifeImplicitShield1
-SpellBlockPercentageUniqueShieldInt1
+SpellBlockPercentageUnique__4
 LocalIncreasedWardUnique__1
-MaximumBlockChanceUnique__1
+MaximumBlockChanceUnique__2
 MaximumSpellBlockChanceUnique__1
 BlockIsLuckyUnique__1
 TriggerSocketedElementalSpellOnBlockUnique__1
@@ -202,11 +203,11 @@ Variant: Current
 Implicits: 1
 {variant:2,3}IncreasedLifeImplicitShield2
 TotemDamageUnique__1_
-IncreasedLifeUnique__82
+IncreasedLifeUnique__29
 AdditionalTotemsUnique__1
 {variant:1,2}ArmourPerTotemUnique__1[300,300]
 {variant:3}ArmourPerTotemUnique__1
-KeystoneBloodMagicUnique__1_
+BloodMagic
 ]],[[
 Replica Tukohama's Fortress
 Ebony Tower Shield
@@ -216,7 +217,7 @@ Variant: Pre 3.29.0
 Variant: Current
 Implicits: 1
 IncreasedLifeImplicitShield2
-IncreasedLifeUnique__90
+IncreasedLifeUnique__29
 AdditionalBrandUnique__1
 {variant:1}CriticalStrikeChancePerBrandUnique__1___[20,20]
 {variant:2}CriticalStrikeChancePerBrandUnique__1___
@@ -245,7 +246,6 @@ ReflectCurses
 Atziri's Reflection
 Golden Buckler
 Source: Drops from unique{Atziri, Queen of the Vaal} in normal{The Alluring Abyss}
-LevelReq: 68
 Implicits: 1
 MovementVelocityImplicitShield2
 IntelligenceUniqueShieldDex3
@@ -264,7 +264,7 @@ Variant: Pre 3.17.0
 Variant: Pre 3.19.0
 Variant: Current
 Implicits: 1
-{variant:3,4}MovementVelocityImplicitShield3
+{variant:3,4,5}MovementVelocityImplicitShield3
 {variant:1,2,3,4}IncreaseSocketedCurseGemLevelUniqueShieldDex4[1,1]
 {variant:5}IncreaseSocketedCurseGemLevelUniqueShieldDex4
 LocalIncreasedEvasionRatingPercentUniqueShieldDex4
@@ -307,7 +307,7 @@ LifeRegenerationUniqueShieldDex2
 LightningResistUniqueShieldDex2
 LifeLeechPermyriadUniqueShieldDex2
 {variant:1}AdditionalBlockChanceUniqueShieldStr4[10,10]
-{variant:2,3}AdditionalBlockChanceUniqueShieldStr4
+{variant:2,3}AdditionalBlockChanceUniqueShieldDex2
 ]],[[
 Great Old One's Ward
 Corrugated Buckler
@@ -329,12 +329,12 @@ Variant: Current
 Implicits: 1
 {variant:4}MovementVelocityImplicitShield2
 LocalIncreasedEvasionRatingPercentUniqueShieldDex1
-IncreasedMaximumColdResistUniqueShieldStrInt4
+MaximumColdResistUniqueShieldDex1
 ColdResistUniqueShieldDex1
 {variant:3,4}PhysicalAddedAsColdUnique__2
 {variant:1}MeleeAttackerTakesColdDamageUniqueShieldDex1[5,10]
 {variant:2,3,4}MeleeAttackerTakesColdDamageUniqueShieldDex1
-AdditionalBlockChanceUniqueShieldStr1
+AdditionalBlockChanceUniqueShieldDex1
 ]],[[
 Kaltensoul
 Painted Buckler
@@ -354,10 +354,9 @@ FireDamageTakenAsColdUnique___1
 ]],[[
 Kiloava's Bluster
 Ironwood Buckler
-Requires Level 57, 137 Dex
 Implicits: 1
 MovementVelocityImplicitShield1
-LocalIncreasedEvasionRatingPercentUnique__20
+LocalIncreasedEvasionRatingPercentUnique__21
 AvoidElementalAilmentsUnique__3
 AdditionalBlockChanceUnique__10
 TreatResistancesAsMaxChanceUnique__1
@@ -368,7 +367,7 @@ Lacquered Buckler
 Implicits: 1
 MovementVelocityImplicitShield2
 LocalIncreasedEvasionRatingPercentUnique__17
-MovementVelocityUnique__37
+MovementVelocityUnique__42
 FireAndColdResistUnique__4_
 AvoidElementalDamagePhasingUnique__1
 MaximumBlockChanceIfNotBlockedRecentlyUnique__1
@@ -380,8 +379,8 @@ League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
 Implicits: 1
 MovementVelocityImplicitShield2
-LocalIncreasedEvasionRatingPercentUnique__14
-MovementVelocityUnique__37
+LocalIncreasedEvasionRatingPercentUnique__17
+MovementVelocityUnique__42
 FireAndColdResistUnique__4_
 SpellBlockIfNotBlockedRecentlyUnique__1
 AvoidPhysicalDamageWhilePhasingUnique__1
@@ -390,6 +389,7 @@ PhasingIfBlockedRecentlyUnique__1
 Mutewind Pennant
 Enameled Buckler
 League: Warbands
+Source: Drop from Mutewind Mercenary monsters
 Variant: Pre 2.6.0
 Variant: Pre 3.0.0
 Variant: Pre 3.11.0
@@ -398,13 +398,13 @@ Implicits: 1
 {variant:3,4,5}MovementVelocityImplicitShield2
 {variant:1}LocalIncreaseSocketedWarcryGemLevelUniqueShieldDex7
 {variant:1}IncreasedChaosDamageUniqueShieldDex7
-{variant:2,3,4}LocalIncreasedEvasionRatingPercentUnique__5
+{variant:2,3,4}LocalIncreasedEvasionRatingPercentUnique__8
 ColdResistUniqueShieldDex7
-AreaOfEffectUniqueShieldDexInt2
+AreaOfEffectUniqueShieldDex7
 {variant:1}OnslaughtOnKillingTauntedEnemyUniqueShieldDex7
 {variant:2,3,4}OnslaughtOnUsingWarcryUnique__1
 {variant:2,3,4}WarcryEffectUnique__1
-{variant:4}KeystoneCallToArmsUnique__1
+{variant:4}KeystoneCallToArmsUnique__2_
 ]],[[
 Thousand Teeth Temu
 Vaal Buckler
@@ -425,7 +425,6 @@ LifeLeechPermyriadUniqueShieldDex5
 ]],[[
 Cowards' Wail
 Ezomyte Tower Shield
-Requires Level 64, 159 Str
 Implicits: 1
 IncreasedLifeImplicitShield3
 LocalIncreasedPhysicalDamageReductionRatingPercentUnique__38
@@ -448,7 +447,7 @@ Upgrade: Upgrades to unique{Apep's Supremacy} via currency{Vial of Awakening}
 Implicits: 1
 SpellDamageImplicitShield1
 {variant:1}GlobalAddedChaosDamageUnique__3[20,22][30,37]
-{variant:2}GlobalAddedChaosDamageUnique__3
+{variant:2}GlobalAddedChaosDamageUnique__2
 LocalIncreasedEnergyShieldUnique__21
 ChanceToBePoisonedUnique__1
 MaximumResistancesWhilePoisonedUnique__1
@@ -534,6 +533,7 @@ SpectresGainArcaneSurgeWhenYouDoUnique__1_
 Brinerot Flag
 Tarnished Spirit Shield
 League: Warbands
+Source: Drops from Brinerot Warband monsters
 Variant: Pre 2.6.0
 Variant: Pre 3.0.0
 Variant: Pre 3.11.0
@@ -544,12 +544,23 @@ Implicits: 2
 {variant:1}LocalIncreaseSocketedWarcryGemLevelUniqueShieldInt5[1,1]
 {variant:2,3,4}LocalIncreaseSocketedWarcryGemLevelUniqueShieldInt5
 {variant:1}IncreasedAttackSpeedUniqueShieldInt5
-{variant:2,3,4}IncreasedCastSpeedUnique__5
+{variant:2,3,4}IncreasedCastSpeedUnique__9
 LocalIncreasedEnergyShieldUniqueShieldInt5
 ManaRegenerationUniqueShieldInt5
 {variant:1}ManaGainedOnHitAgainstTauntedEnemyUniqueShieldInt5
 {variant:2,3}GainPowerChargesOnUsingWarcryUnique__1
 {variant:4}WarcryGrantsArcaneSurgeUnique__1
+]],[[
+The Draugur's Lantern
+Ancient Spirit Shield
+League: Allflame
+Source: Drops from unique{Filthscrabble} in normal{The Fathomless Depths}
+Implicits: 1
+SpellDamageImplicitShield1
+SpellBlockPercentageUniqueShieldInt18
+IncreasedLifeUnique__128
+FasterIgniteDamageUnique__2
+GhostFurnaceUnique__1
 ]],[[
 Esh's Mirror
 {variant:1}Thorium Spirit Shield
@@ -561,7 +572,7 @@ Source: Drops in Esh Breach or from unique{Esh, Forked Thought}
 Upgrade: Upgrades to unique{Esh's Visage} using currency{Blessing of Esh}
 Implicits: 1
 {variant:2}SpellDamageImplicitShield1
-IntelligenceUniqueShieldInt4
+IntelligenceUnique__4
 {variant:1}LocalIncreasedEnergyShieldPercentUnique__7[80,100]
 {variant:2}LocalIncreasedEnergyShieldPercentUnique__7
 {variant:1}IncreasedLifeUnique__36_
@@ -583,8 +594,8 @@ Implicits: 2
 LocalIncreasedEnergyShieldPercentUnique__9
 {variant:1,2}IncreasedLifeUnique__36_[40,70]
 {variant:3}IncreasedLifeUnique__36_
-LightningResistUnique__10
-ChaosResistUnique__25
+LightningResistUnique__8
+ChaosResistUnique__4
 ChaosDamageDoesNotBypassESNotLowLifeOrManaUnique__1
 ReflectsShockToEnemiesInRadiusUnique__1
 ]],[[
@@ -593,11 +604,11 @@ Chiming Spirit Shield
 Implicits: 1
 SpellDamageImplicitShield2
 UniqueTriggerSocketedWarcriesOnEnduranceChargeExpireOrUse
-IncreasedLifeUniqueShieldDex2
-ChaosResistUnique__10
+IncreasedLifeUnique__85_
+ChaosResistUnique__11
 LoseEnduranceChargesOnMaxEnduranceChargesUnique__1_
 NeverBlockUnique__1
-WarcryCooldownSpeedUnique__1
+WarcryCooldownSpeedUnique__2
 ]],[[
 Kongming's Stratagem
 {variant:1,2,3,4}Ivory Spirit Shield
@@ -613,7 +624,7 @@ Implicits: 3
 {variant:5}SpellDamageImplicitShield1
 {variant:1,2}SocketedTrapSkillsCreateSmokeCloudWhenDetonated__1
 {variant:3,4,5}CreateSmokeCloudWhenTrapTriggeredUnique__1
-IntelligenceUniqueShieldInt4
+Intelligence__1
 {variant:1,2}LocalIncreasedEnergyShieldPercent__1[80,120]
 {variant:3,4,5}LocalIncreasedEnergyShieldPercent__1
 {variant:1,2,3}FireDamageToBlindEnemies__1[30,30]
@@ -643,22 +654,27 @@ Harmonic Spirit Shield
 Variant: Pre 2.6.0
 Variant: Pre 3.0.0
 Variant: Pre 3.11.0
+Variant: Pre 3.30.0
 Variant: Current
 Implicits: 2
 {variant:1,2}SpellDamageImplicitShield2[10,10]
-{variant:3,4}SpellDamageImplicitShield2
+{variant:3,4,5}SpellDamageImplicitShield2
 {variant:1}LocalIncreasedEnergyShieldPercent__2[160,200]
-{variant:2,3,4}LocalIncreasedEnergyShieldPercent__2
-IncreasedMaximumPowerChargesUnique__3
-PowerChargeOnHitUnique__1
+{variant:2,3,4}LocalIncreasedEnergyShieldPercent__2[210,250]
+{variant:5}LocalIncreasedEnergyShieldPercent__2
+{variant:1,2,3,4}IncreasedMaximumPowerChargesUnique__3[2,2]
+{variant:5}IncreasedMaximumPowerChargesUnique__3
+{variant:1,2,3,4}PowerChargeOnHitUnique__1[20,20]
+{variant:5}PowerChargeOnHitUnique__1
 {variant:1,2,3}IncreasedSpellDamagePerPowerChargeUnique__1[6,6]
-{variant:4}IncreasedSpellDamagePerPowerChargeUnique__1
+{variant:4,5}IncreasedSpellDamagePerPowerChargeUnique__1
 LosePowerChargesOnMaxPowerChargesUnique__1
 ShockOnMaxPowerChargesUnique__1
 ]],[[
 Manastorm
 {variant:1}Fossilised Spirit Shield
 {variant:2,3}Lacewood Spirit Shield
+Source: Drops from unique{Nightmare of Uhtred} in normal{Citadel Map}
 Variant: Pre 3.19.0
 Variant: Pre 3.24.0
 Variant: Current
@@ -696,7 +712,6 @@ IncreasedManaUniqueShieldInt2
 Whakatutuki o Matua
 Tarnished Spirit Shield
 Source: No longer obtainable
-LevelReq: 63
 Implicits: 1
 SpellDamageImplicitShield1
 LocalIncreaseSocketedMinionGemLevelUnique__5____
@@ -718,9 +733,10 @@ Variant: Pre 3.29.0
 Variant: Current
 Implicits: 0
 {variant:1}SpellBlockPercentageUnique__1[12,18]
-{variant:2,3,4,5}SpellBlockPercentageUnique__1[10,15]
+{variant:2,3,4}SpellBlockPercentageUnique__1[10,15]
+{variant:5}SpellBlockPercentageUniqueShieldInt1
 {variant:1,2}SpellDamageUniqueShieldInt1
-LocalIncreasedEnergyShieldPercent___3
+LocalIncreasedEnergyShieldPercentUniqueShieldInt1
 MaximumLifeShieldInt1
 {variant:1,2}LightningResistUniqueShieldInt1
 {variant:3}SacrificeLifeOnSpellSkillUnique__1[4,4]
@@ -734,6 +750,7 @@ MaximumLifeShieldInt1
 ]],[[
 The Scales of Justice
 Chiming Spirit Shield
+Source: Labyrinth
 Implicits: 1
 SpellDamageImplicitShield2
 NoEnergyShieldUnique__1
@@ -752,7 +769,7 @@ Implicits: 0
 {variant:2,3}SpellBlockPercentageUniqueShieldInt4
 IntelligenceUniqueShieldInt4
 {variant:1,2}ItemFoundQuantityIncreaseUniqueShieldInt4
-AdditionalBlockChanceUniqueShieldDex4
+AdditionalBlockChanceUniqueShieldInt4
 PunishmentOnMeleeBlockUniqueShieldInt4
 TemporalChainsOnProjectileBlockUniqueShieldInt4
 ElementalWeaknessOnSpellBlockUniqueShieldInt4
@@ -762,10 +779,10 @@ ElementalWeaknessOnSpellBlockUniqueShieldInt4
 The Flawed Refuge
 Maple Round Shield
 League: Affliction
-Requires Level 39, 52 Str, 52 Dex
+Source: Drops from Viridian Wildwood and Ritual monsters
 Implicits: 1
 BlockRecoveryImplicitShield3
-LocalIncreasedArmourAndEvasionUniqueShieldStrDex4
+LocalIncreasedArmourAndEvasionUnique__26
 AdditionalBlockChanceUnique__11
 ElementalDamageFromBlockedHitsUnique__1
 ElementalDamageTakenAsPhysicalUnique__1
@@ -787,7 +804,7 @@ BlockRecoveryImplicitShield2
 {variant:1}ColdResistUniqueShieldInt3
 {variant:1}LightningResistUniqueShieldInt3
 {variant:2,3}AllResistancesUniqueShieldStrInt1[10,20]
-{variant:4}AllResistancesUniqueShieldStrInt1
+{variant:4}AllResistancesUnique__8
 {variant:1,2,3}AdditionalBlockChanceUniqueShieldStrDex1
 {variant:2,3}AttackBlockIfBlockedSpellRecentlyUnique__1_[20,20]
 {variant:4}AttackBlockIfBlockedSpellRecentlyUnique__1_
@@ -812,13 +829,14 @@ Teak Round Shield
 Variant: Pre 3.16.0
 Variant: Current
 League: Heist
+Source: Reward from Mercenary duel
 Implicits: 1
 BlockRecoveryImplicitShield3
 LocalIncreaseSocketedSupportGemLevelUnique__1
 TriggeredPhysicalAegisSkillUnique__1
-LocalIncreasedArmourAndEvasionRatingUnique__1
+LocalIncreasedArmourAndEvasionUnique__16__
 {variant:1}ChanceToAvoidBleedingUnique__1[30,50]
-{variant:2}BleedingImmunityUnique__1
+{variant:2}ChanceToAvoidBleedingUnique__2_
 AttackAndCastSpeedWithoutPhysicalAegisUnique__1
 CriticalStrikeChanceWithoutPhysicalAegisUnique__1
 NearbyEnemiesAreBlindedPhysicalAegisUnique__1
@@ -829,9 +847,21 @@ Implicits: 1
 BlockRecoveryImplicitShield2
 SpellDamageSuppressedUnique__2
 ChanceToSuppressSpellsUnique__1_
-LocalIncreasedArmourAndEvasionUniqueShieldStrDex1
+LocalIncreasedArmourAndEvasionUnique__20
 AdditionalBlockChanceUnique__8_
 BaseBlockDamageTakenUnique__1___
+]],[[
+Seablister
+Spiny Round Shield
+League: Allflame
+Source: Drops from unique{Velka, the Tide Witch}
+Implicits: 1
+BlockRecoveryImplicitShield1
+GrantsCreateBarnacleSkillUnique
+LocalBaseArmourAndEvasionRatingUnique__1
+LocalIncreasedArmourAndEvasionUnique__29
+MaximumColdResistUnique__3
+ColdResistUnique__44
 ]],[[
 Shattershard
 Crimson Round Shield
@@ -840,7 +870,7 @@ Source: Steal from a unique{Curio Display} during a Grand Heist
 Implicits: 0
 StrUniqueShieldTriggerShieldShatterOnBlock
 LocalIncreasedArmourAndEvasionUnique__15_
-IncreasedLifeUnique__112
+IncreasedLifeUnique__108
 AdditionalBlockChanceUnique__7__
 ]],[[
 The Squire
@@ -858,12 +888,13 @@ AdditionalBlockChanceUniqueShieldStrDex3__
 ]],[[
 Vix Lunaris
 Cardinal Round Shield
+Source: Drops from unique{Selenia, the Endless Night} in normal{The Twilight Temple}
 Implicits: 0
-LocalIncreaseSocketedGemLevelUnique__11_
+LocalIncreaseSocketedGemLevelUnique__6
 TriggeredColdAegisSkillUnique__1
-LocalIncreasedArmourAndEvasionUniqueShieldStrDex1
-IncreasedLifeUniqueShieldDex2
-CannotBeFrozen
+LocalIncreasedArmourAndEvasionUnique__4
+IncreasedLifeUnique__59
+CannotBeFrozenUnique__1
 ]],[[
 Wheel of the Stormsail
 Rotted Round Shield
@@ -885,7 +916,6 @@ IncreasedSelfCurseDurationUniqueShieldStrDex2
 Bitter Instinct
 Spiny Round Shield
 Source: Drops from unique{Uber Incarnation of Neglect} in normal{Moment of Loneliness}
-Requires Level 68, 85 Str, 85 Dex
 Implicits: 1
 BlockRecoveryImplicitShield1
 LocalIncreasedArmourAndEvasionUniqueShieldStrDex5
@@ -914,6 +944,7 @@ WeaponElementalDamageUniqueShieldStrInt4
 Broken Faith
 Archon Kite Shield
 League: Warbands
+Source: Drops from Renegade Warband monsters
 Variant: Pre 2.6.0
 Variant: Pre 3.11.0
 Variant: Current
@@ -946,12 +977,13 @@ KeystoneGlancingBlowsUnique__1___
 ]],[[
 Invictus Solaris
 Archon Kite Shield
+Source: Drops from unique{Helial, the Day Unending}
 Implicits: 1
 AllResistancesImplicitShield3
-LocalIncreaseSocketedGemLevelUnique__1
+LocalIncreaseSocketedGemLevelUnique__6
 TriggeredFireAegisSkillUnique__1_
-LocalIncreasedArmourAndEnergyShieldUnique__18_
-IncreasedLifeUniqueShieldDex2
+LocalIncreasedArmourAndEnergyShieldUnique__8
+IncreasedLifeUnique__59
 AvoidIgniteUnique__1
 ]],[[
 Prism Guardian
@@ -975,12 +1007,12 @@ Steel Kite Shield
 League: Ultimatum
 Source: Drops from unique{The Trialmaster}
 Implicits: 0
-KeystoneCorruptedSoulUnique_1
+KeystoneCorruptedSoulUnique__2_
 KeystoneDivineFleshUnique__1_
-KeystoneEternalYouthUnique__1
+KeystoneEternalYouthUnique__2_
 KeystoneEverlastingSacrificeUnique__1
-NoEnergyShieldRegenerationUnique__1
-KeystoneVaalPactUnique__1
+KeystoneSoulTetherUnique__2
+KeystoneVaalPactUnique__2
 ]],[[
 Rise of the Phoenix
 Mosaic Kite Shield
@@ -992,7 +1024,7 @@ Implicits: 2
 {variant:1}AllResistancesImplicitShield2[16,16]
 {variant:2,3,4}AllResistancesImplicitShield2
 {variant:1,2,3}LocalIncreasedArmourAndEnergyShieldUnique__6[80,100]
-{variant:4}LocalIncreasedArmourAndEnergyShieldUnique__6
+{variant:4}LocalIncreasedArmourAndEnergyShieldUniqueShieldStrInt5
 {variant:3}IncreasedLifeUniqueShieldStrInt6
 {variant:1,2}LifeRegenerationUniqueTwoHandAxe4[360,360]
 {variant:3}LifeRegenerationUniqueShieldStrInt5[900,1200]
@@ -1018,7 +1050,7 @@ Implicits: 2
 {variant:4}SpellBlockPercentageUniqueShieldStrInt1
 SpellDamageUniqueShieldStrInt1
 {variant:1,2,3}AllResistancesUniqueShieldStrInt4
-{variant:4}AllResistancesUniqueShieldDex3
+{variant:4}AllResistancesUniqueShieldStrInt1
 {variant:1}IncreasedMaximumResistsUniqueShieldStrInt1[5,5]
 {variant:2,3,4}IncreasedMaximumResistsUniqueShieldStrInt1
 CannotBlockAttacks
@@ -1033,7 +1065,7 @@ Variant: Current
 Implicits: 2
 {variant:1}AllResistancesImplicitShield1[8,8]
 {variant:2,3,4,5}AllResistancesImplicitShield1
-LocalIncreasedArmourAndEnergyShieldUnique__27
+LocalIncreasedArmourAndEnergyShieldUniqueShieldStrInt3
 {variant:5}LifeRegenerationUnique__3
 {variant:1,2,3,4}ReducedFreezeDurationUniqueShieldStrInt3[50,50]
 {variant:5}ReducedFreezeDurationUniqueShieldStrInt3
@@ -1052,7 +1084,6 @@ Variant: Pre 2.0.0
 Variant: Pre 2.6.0
 Variant: Pre 3.19.0
 Variant: Current
-LevelReq: 40
 Implicits: 2
 {variant:1}AllResistancesImplicitShield1[8,8]
 {variant:2,3,4,5}AllResistancesImplicitShield1
@@ -1087,10 +1118,10 @@ Source: Upgraded from unique{The Unshattered Will} via currency{Specularity Scro
 Implicits: 1
 AllResistancesImplicitShield3
 HarbingerSkillOnEquipUnique2__3
-IncreasedLifeUniqueShieldDex2
-AllResistancesUnique__10
+IncreasedLifeUnique__52
+AllResistancesUnique__9
 GainManaOnBlockUnique__1
-AdditionalBlockChanceUniqueShieldDex1
+AdditionalBlockChanceUnique__5
 ChannelledSkillDamageUnique__1
 ]],[[
 Unyielding Flame
@@ -1100,8 +1131,8 @@ Implicits: 1
 AllResistancesImplicitShield3
 CommandmentOfInfernoOnCritUnique__1
 CriticalStrikeChanceUnique__3
-IncreasedLifeUniqueShieldDex2
-FireResistUnique__1
+IncreasedLifeUnique__78
+FireResistUnique__18
 AttackSpeedIfCriticalStrikeDealtRecentlyUnique__1
 CastSpeedIfCriticalStrikeDealtRecentlyUnique__1
 ]],[[
@@ -1111,8 +1142,8 @@ Variant: Pre 2.6.0
 Variant: Current
 Implicits: 1
 AllResistancesImplicitShield2
-IncreasedLifeUniqueShieldDex6
-LightningResistUnique__15
+IncreasedLifeUnique__12_
+LightningResistUnique__4
 ChaosResistUnique__1
 {variant:1}IncreasedAuraRadiusUnique__1[10,10]
 {variant:2}IncreasedAuraRadiusUnique__1
@@ -1125,8 +1156,8 @@ League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
 Implicits: 1
 AllResistancesImplicitShield2
-IncreasedLifeUniqueShieldStrDex7
-LightningResistImplicitRing1
+IncreasedLifeUnique__12_
+LightningResistUnique__4
 ChaosResistUnique__1
 AuraEffectUnique__2____
 GrantsAlliesEnduranceChargeOnHitUnique__1
@@ -1143,8 +1174,8 @@ Source: Steal from a unique{Curio Display} during a Grand Heist
 Implicits: 1
 ChanceToDodgeImplicitShield2
 {variant:1}LocalIncreasedEvasionAndEnergyShieldUnique__25[500,600]
-{variant:2}LocalIncreasedEvasionAndEnergyShieldUnique__25
-ManaRegenerationUnique__12
+{variant:2}LocalIncreasedEvasionAndEnergyShieldUnique__30_
+ManaRegenerationUnique__13
 ChanceToBeShockedUnique__2
 ColdHitAndDoTDamageTakenAsLightningUnique__1
 FireHitAndDoTDamageTakenAsLightningUnique__1
@@ -1172,7 +1203,7 @@ Variant: Pre 3.8.0
 Variant: Current
 Implicits: 2
 {variant:1,2}AttackerTakesDamageShieldImplicit12
-{variant:3,4}ChanceToDodgeImplicitShield2
+{variant:3,4}ChanceToDodgeSpellsImplicitShield2
 {variant:1,2,3}GrantsBearTrapUniqueShieldDexInt1[20,20]
 {variant:4}GrantsBearTrapUniqueShieldDexInt1
 TrapDamageUniqueShieldDexInt1
@@ -1184,14 +1215,13 @@ PhysicalAttackDamageReducedUniqueShieldDexInt1
 ]],[[
 Leper's Alms
 Mirrored Spiked Shield
-Source: Drops from unique{The Eradicator}
 Variant: Pre 3.5.0
 Variant: Current
 Implicits: 1
 ChanceToDodgeImplicitShield2
 {variant:1}LocalIncreasedEvasionAndEnergyShieldUnique__9[130,150]
 {variant:2}LocalIncreasedEvasionAndEnergyShieldUnique__9
-IncreasedLifeUniqueShieldDex2
+IncreasedLifeUnique__64
 IncreasedAilmentDurationUnique__1
 AdditionalBlockChanceUnique__6
 SharedSufferingUnique__1
@@ -1207,7 +1237,7 @@ Implicits: 2
 IncreasedAttackSpeedUniqueShieldDexInt2
 MaximumLifeUniqueShieldDexInt2
 AllResistancesUniqueShieldDexInt2
-AreaOfEffectUniqueShieldDex7
+AreaOfEffectUniqueShieldDexInt2
 {variant:1,2}HealAlliesOnDeathUniqueShieldDexInt2[200,200]
 {variant:3}HealAlliesOnDeathUniqueShieldDexInt2
 ]],[[
@@ -1243,7 +1273,7 @@ Implicits: 1
 ChanceToDodgeImplicitShield2
 SpellDamageUnique__7
 LocalIncreasedEnergyShieldUnique__23
-IncreasedLifeUniqueShieldDex6
+IncreasedLifeUnique__83
 AreaOfEffectPerEnemyKilledRecentlyUnique__1
 ZealotsOathIfHaventBeenHitRecentlyUnique__1
 ]],[[
@@ -1251,11 +1281,23 @@ Azadi Crest
 Lacquered Buckler
 Source: Drops from unique{Mercenary} after winning a duel
 League: Mercenaries of Trarthus
-Requires Level 60, 154 Dex
 Implicits: 1
 MovementVelocityImplicitShield2
 IncreasedLifeUnique__125
 AdditionalBlockChanceUnique__12
 ProjectileAvoidUnique
 ExtremelyLuckyUnique
-]],}
+]],[[
+Ordered Fate
+Walnut Spirit Shield
+League: Covens
+Source: Drops from a boss empowered by a Fate that rewards this item
+Implicits: 1
+SpellDamageImplicitShield1
+IncreasedCastSpeedUnique__30
+LocalIncreasedEnergyShieldUnique__36
+EverySecondSpellcastUnique__1
+EveryFourthSpellcastUnique__1
+EverySixthSpellcastUnique__1
+]]
+}

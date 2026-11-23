@@ -1,3 +1,4 @@
+---@diagnostic disable: lowercase-global
 -- Path of Building
 --
 -- Module: Common
@@ -68,13 +69,17 @@ end
 local function getClass(className)
 	local class = common.classes[className]
 	if not class then
-		LoadModule("Classes/"..className)
+		LoadModule("Classes/" .. className)
 		class = common.classes[className]
-		assert(class, "Class '"..className.."' not defined in class file")
+		assert(class, "Class '" .. className .. "' not defined in class file")
 	end
 	return class
 end
--- newClass("<className>"[, "<parentClassName>"[, "<parentClassName>" ...]], constructorFunc)
+
+---@generic T
+---@param className `T`
+---@param ... string parent class names
+---@return T
 function newClass(className, ...)
 	local class = { }
 	common.classes[className] = class
@@ -85,74 +90,124 @@ function newClass(className, ...)
 		end
 		return obj
 	end
+	-- a list of metatables. one for each parent
+	class._metaList = {}
 	class._className = className
 	local numVarArg = select("#", ...)
-	class._constructor = select(numVarArg, ...)
-	if numVarArg > 1 then
+	local classMeta = { }
+	if numVarArg > 0 then
 		-- Build list of parent classes
 		class._parents = { }
-		for i = 1, numVarArg - 1 do
+		for i = 1, numVarArg do
 			class._parents[i] = getClass(select(i, ...))
 		end
 		-- Build list of all classes directly or indirectly inherited by this class
 		class._superParents = { }
 		addSuperParents(class, class)
 		-- Set up inheritance
-		setmetatable(class, {
-			__index = function(self, key)
-				for _, parent in ipairs(class._parents) do
-					local val = parent[key]
-					if val ~= nil then
-						self[key] = val
-						return val
-					end
+		classMeta.__index = function(self, key)
+			for _, parent in ipairs(class._parents) do
+				local val = parent[key]
+				if val ~= nil then
+					rawset(self, key, val)
+					return val
 				end
 			end
-		})
+		end
 	end
+	classMeta.__newindex = function(self, k, v)
+		if k == className then
+			local constructor = v
+			-- Check that the constructors for all parent and superparent classes have been called
+			v = function(self, ...)
+				local ret = constructor(self, ...)
+				if class._parents then
+					for parent in pairs(class._superParents) do
+						if parent[parent._className] and not self._parentInit[parent] then
+							error("Parent class '" ..
+								parent._className .. "' of class '" .. className .. "' must be initialised")
+						end
+					end
+				end
+				if not ret then
+					error(string.format("Class %s constructor did not return a value", className))
+				end
+				return ret
+			end
+		end
+		rawset(self, k, v)
+	end
+	setmetatable(class, classMeta)
+	class._unconstructedMeta = {
+		__index = function(obj, key)
+			if key == className then
+				setmetatable(obj, class)
+				return class[className]
+			end
+			error(s_format(
+				"Object of class '%s' was used before it was constructed (accessed '%s'). Did you forget to call new(\"%s\"):%s()?",
+				className, tostring(key), className, className))
+		end,
+	}
 	return class
 end
-function new(className, ...)
+---@generic T
+---@param className `T`
+---@param extraArg nil Never pass extra parameters. Defined purely to guard against old syntax.
+---@return T
+function new(className, extraArg)
+	if extraArg then
+		local line = s_format(
+			"Extra argument passed to new() during creation of class %s. Extra arguments are not allowed.\nAre you perhaps trying to pass constructor arguments here?",
+			className)
+		error(line)
+	end
 	local class = getClass(className)
-	local object = setmetatable({ }, class)
+	-- protect against calling new("Foo") without calling :Foo()
+	local object = setmetatable({}, class._unconstructedMeta or class)
 	object.Object = object
 	if class._parents then
 		-- Add parent and superparent class proxies
 		object._parentInit = { }
+		local metaList = rawget(class, "_metaList")
 		for parent in pairs(class._superParents) do
-			local proxyMeta = {
-				__index = function(self, key)
-					local v = rawget(object, key)
-					if v ~= nil then
-						return v
-					else
-						return parent[key]
-					end
-				end,
-				__newindex = object,
-				__call = function(...)
-					if not parent._constructor then
-						error("Parent class '"..parent._className.."' of class '"..class._className.."' has no constructor")
-					end
-					if object._parentInit[parent] then
-						error("Parent class '"..parent._className.."' of class '"..class._className.."' has already been initialised")
-					end
-					parent._constructor(...)
-					object._parentInit[parent] = true
-				end,
-			}
-			object[parent._className] = setmetatable(proxyMeta, proxyMeta)
-		end
-	end
-	if class._constructor then
-		class._constructor(object, ...)
-	end
-	if class._parents then
-		-- Check that the constructors for all parent and superparent classes have been called
-		for parent in pairs(class._superParents) do
-			if parent._constructor and not object._parentInit[parent] then
-				error("Parent class '"..parent._className.."' of class '"..className.."' must be initialised")
+			local meta = metaList[parent]
+			if not meta then
+				local proxyParent = parent
+				local parentName = parent._className
+				-- Cache one proxy metatable for each class-parent pair instead of rebuilding it for every object
+				meta = {
+					__index = function(proxy, key)
+						local proxyObject = rawget(proxy, "_object")
+						local value = rawget(proxyObject, key)
+						if value ~= nil then
+							return value
+						else
+							return proxyParent[key]
+						end
+					end,
+					__newindex = function(proxy, k, v)
+						local proxyObject = rawget(proxy, "_object")
+						proxyObject[k] = v
+					end,
+					__call = function(proxy, self, ...)
+						local proxyObject = rawget(proxy, "_object")
+						if not proxyParent[parentName] then
+							error("Parent class '" .. parentName .. "' of class '" .. class._className .. "' has no constructor")
+						end
+						if proxyObject._parentInit[proxyParent] then
+							error("Parent class '" .. parentName .. "' of class '" .. class._className .. "' has already been initialised")
+						end
+						if self ~= proxyObject then
+							error(string.format("Parent class %s constructor of class %s was not provided self. Are you perhaps calling it with self.%s instead of self:%s?", parentName, class._className, parentName, parentName))
+						end
+						proxyParent[parentName](self, ...)
+						proxyObject._parentInit[proxyParent] = true
+					end,
+				}
+				metaList[parent] = meta
 			end
+			object[parent._className] = setmetatable({ _object = object }, meta)
 		end
 	end
 	return object
@@ -260,6 +315,7 @@ function sanitiseText(text)
 		:gsub("\226\128\147", "-") -- U+2013 EN DASH
 		:gsub("\226\128\148", "-") -- U+2014 EM DASH
 		:gsub("\226\128\149", "-") -- U+2015 HORIZONTAL BAR
+		:gsub("\226\128\139", "")  -- U+200B ZERO WIDTH SPACE
 		:gsub("\226\136\146", "-") -- U+2212 MINUS SIGN
 		:gsub("\195\164", "a") -- U+00E4 LATIN SMALL LETTER A WITH DIAERESIS
 		:gsub("\195\182", "o") -- U+00F6 LATIN SMALL LETTER O WITH DIAERESIS
@@ -415,6 +471,10 @@ function writeLuaTable(out, t, indent)
 end
 
 -- Make a copy of a table and all subtables
+---@generic T
+---@param tbl T
+---@param noRecurse boolean?
+---@return T copy Note that this type can be misleading if noRecurse is set to true. Type hint explicitly if necessary.
 function copyTable(tbl, noRecurse)
 	local out = {}
 	for k, v in pairs(tbl) do
@@ -463,11 +523,11 @@ function mergeDB(srcDB, modDB)
 end
 
 function specCopy(env)
-	local modDB = new("ModDB")
+	local modDB = new("ModDB"):ModDB()
 	modDB:AddDB(env.modDB)
 	modDB.conditions = copyTable(env.modDB.conditions)
 	modDB.multipliers = copyTable(env.modDB.multipliers)
-	local enemyDB = new("ModDB")
+	local enemyDB = new("ModDB"):ModDB()
 	if env.enemyDB then
 		enemyDB:AddDB(env.enemyDB)
 		enemyDB.conditions = copyTable(env.enemyDB.conditions)
@@ -475,7 +535,7 @@ function specCopy(env)
 	end
 	local minionDB = nil
 	if env.minion then
-		minionDB = new("ModDB")
+		minionDB = new("ModDB"):ModDB()
 		minionDB:AddDB(env.minion.modDB)
 		minionDB.conditions = copyTable(env.minion.modDB.conditions)
 		minionDB.multipliers = copyTable(env.minion.modDB.multipliers)
@@ -483,7 +543,10 @@ function specCopy(env)
 	return modDB, enemyDB, minionDB
 end
 
--- Wipe all keys from the table and return it, or return a new table if no table provided
+-- Wipe all keys from the table and return it, or return a new table if no table
+-- provided. This is useful to avoid allocations in hot paths if a table can be reused. Using LuaJIT's `table.clear()` is another alternative to this, but this performs similarly on small tables, or tables which are often already empty.
+---@param tbl table?
+---@return table tbl
 function wipeTable(tbl)
 	if not tbl then
 		return { }
@@ -748,7 +811,7 @@ function formatNumSep(str)
 		local x, y, minus, integer, fraction = str:find("(-?)(%d+)(%.?%d*)")
 		if main.showThousandsSeparators then
 			rev1kSep = utf8.reverse(main.thousandsSeparator)
-			integer = utf8.reverse(utf8.gsub(utf8.reverse(integer), "(%d%d%d)", "%1"..rev1kSep))
+			integer = utf8.reverse((utf8.gsub(utf8.reverse(integer), "(%d%d%d)", "%1" .. rev1kSep)))
 			-- There will be leading separators if the number of digits are divisible by 3
 			-- This checks for their presence and removes them
 			-- Don't use patterns here because thousandsSeparator can be a pattern control character, and will crash if used
@@ -759,7 +822,7 @@ function formatNumSep(str)
 				end
 			end
 		else
-			integer = utf8.reverse(utf8.gsub(utf8.reverse(integer), "(%d%d%d)", "%1"))
+			integer = utf8.reverse((utf8.gsub(utf8.reverse(integer), "(%d%d%d)", "%1")))
 		end
 		return colour..minus..integer..utf8.gsub(fraction, "%.", main.decimalSeparator)
 	end)
@@ -1052,23 +1115,13 @@ function escapeGGGString(text)
 		:gsub("%[[^|]+|([^|]+)%]", "%1")
 	return line
 end
--- Returns virtual screen size
-function GetVirtualScreenSize()
-	local width, height = GetScreenSize()
-	local scale = GetScreenScale and GetScreenScale() or 1.0
-	if scale ~= 1.0 then
-		width = math.floor(width / scale)
-		height = math.floor(height / scale)
-	end
-	return width, height
-end
 
 -- used for calculating the hash field of a stat
 local GGG_STAT_HASH32_SEED = 0xC58F1A7B
 -- used for calculating the trade hash from stat hash fields
 local GGG_TRADE_SEED = 0x02312233
 ---@param stats string[]
----@param extraStat string extra stat for time-lost jewels
+---@param extraStat string? extra stat for time-lost jewels
 ---@return integer
 function HashStats(stats, extraStat)
 	if extraStat then

@@ -119,7 +119,7 @@ local function mapAffixDropDownFunction(val, modList, enemyModList, build)
 		local affixData = data.mapMods.AffixData[val] or {}
 		if affixData.apply then
 			if affixData.type == "check" then
-				affixData.apply(var, (1 + (build.configTab.input['multiplierMapModEffect'] or 0)/100), modList, enemyModList)
+				affixData.apply(val, (1 + (build.configTab.input['multiplierMapModEffect'] or 0) / 100), modList, enemyModList)
 			elseif affixData.type == "list" then
 				affixData.apply(4 - (build.configTab.varControls['multiplierMapModTier'].selIndex or 1), (1 + (build.configTab.input['multiplierMapModEffect'] or 0)/100), affixData.values, modList, enemyModList)
 			elseif affixData.type == "count" then
@@ -173,6 +173,11 @@ return {
 	end },
 	{ var = "conditionFullLife", type = "check", label = "Are you always on Full ^xE05030Life?", ifCond = "FullLife", tooltip = FullLifeTooltip, apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:FullLife", "FLAG", true, "Config")
+	end },
+	{ var = "missingUnreservedLifePercent", type = "countAllowZero", label = "Missing unreserved Life % (override):", ifStat = "MissingUnreservedLifePercent",
+		tooltip = "For recovery scaling per missing unreserved Life.\nBlank assumes full unreserved Life, or Petrified Blood's non-flask recovery limit:\n50% maximum Life (55% with the Low Life mastery), accounting for reservation.\nAn explicit value, including 0, overrides this assumption.\nDoes not change other Full/Low Life settings.",
+		apply = function(val, modList, enemyModList)
+		modList:NewMod("MissingUnreservedLifePercent", "OVERRIDE", math.max(0, math.min(100, val)), "Config")
 	end },
 	{ var = "conditionLowLife", type = "check", label = "Are you always on Low ^xE05030Life?", ifCond = "LowLife", tooltip = LowLifeTooltip, apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:LowLife", "FLAG", true, "Config")
@@ -237,6 +242,11 @@ return {
 			modList:NewMod("Condition:WarcryMaxHit", "FLAG", true, "Config")
 		end
 	end },
+	{ var = "pactMode", type = "list", label = "Pact calc mode:", ifSkill = { "Pact of Beidat", "Pact of Ghorr", "Pact of K'Tash", "Pact of Lycia" }, tooltip = "Controls how Empowered spells from Pacts are calculated:\nAverage: Averages the effect based on Pact uptime.\nMax Hit: Applies the full effect to one Empowered spell.", list = {{val="AVERAGE",label="Average"},{val="MAX",label="Max Hit"}}, apply = function(val, modList, enemyModList)
+		if val == "MAX" then
+			modList:NewMod("Condition:PactMaxHit", "FLAG", true, "Config")
+		end
+	end },
 	{ var = "EVBypass", type = "check", label = "Disable Emperor's Vigilance Bypass", ifCond = "EVBypass", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:EVBypass", "FLAG", true, "Config")
 	end },
@@ -252,6 +262,17 @@ return {
 	{ label = "Arcane Cloak:", ifSkill = "Arcane Cloak"},
 	{ var = "arcaneCloakUsedRecentlyCheck", type = "check", label = "Include in ^x7070FFMana ^7spent Recently?", ifSkill = "Arcane Cloak", tooltip = "When enabled, the mana spent by Arcane Cloak used at full mana \nwill be added to the value provided in # of ^x7070FFMana ^7spent Recently.", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:ArcaneCloakUsedRecently", "FLAG", true, "Config")
+	end },
+	{ label = "Aspect of Lunaris:", ifSkill = "Aspect of Lunaris" },
+	{ var = "aspectOfLunarisLunarProtection", type = "countAllowZero", label = "# of Lunar Protection:", ifSkill = "Aspect of Lunaris", tooltip = "Gained when you take ^xB97123Physical ^7Damage, up to 8 stacks.", defaultPlaceholderState = 8, apply = function(val, modList, enemyModList)
+		modList:NewMod("Multiplier:LunarProtection", "BASE", val, "Config")
+	end },
+	{ var = "aspectOfLunarisLunarResistance", type = "countAllowZero", label = "# of Lunar Resistance:", ifSkill = "Aspect of Lunaris", tooltip = "Gained when you take Elemental Damage, up to 8 stacks.", defaultPlaceholderState = 8, apply = function(val, modList, enemyModList)
+		modList:NewMod("Multiplier:LunarResistance", "BASE", val, "Config")
+	end },
+	{ label = "Aspect of Solaris:", ifSkill = "Aspect of Solaris" },
+	{ var = "aspectOfSolarisSunscaldStacks", type = "countAllowZero", label = "# of Sunscald Stacks:", ifSkill = "Aspect of Solaris", tooltip = "Each Sunscald increases the effect of ^xB97123Fire Exposure ^7on affected enemies by 15%, up to 5 stacks.", defaultPlaceholderState = 5, apply = function(val, modList, enemyModList)
+		modList:NewMod("Multiplier:SunscaldStack", "BASE", val, "Config", { type = "Condition", var = "Effective" })
 	end },
 	{ label = "Aspect of the Avian:", ifSkill = "Aspect of the Avian" },
 	{ var = "aspectOfTheAvianAviansMight", type = "check", label = "Is Avian's Might active?", ifSkill = "Aspect of the Avian", apply = function(val, modList, enemyModList)
@@ -315,7 +336,7 @@ return {
 	{ var = "ActiveBrands", type = "count", label = "# of active Brands:", ifSkill = { "Armageddon Brand", "Storm Brand", "Arcanist Brand", "Penance Brand", "Wintertide Brand" }, includeTransfigured = true , apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:ConfigActiveBrands", "BASE", val, "Config")
 	end },
-	{ var = "BrandsAttachedToEnemy", type = "count", label = "# of Brands attached to the enemy:", ifEnemyMult = "BrandsAttached", apply = function(val, modList, enemyModList)
+	{ var = "BrandsAttachedToEnemy", type = "count", label = "# of Brands attached to enemy (if not maximum):", ifSkillFlag = "brand", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:ConfigBrandsAttachedToEnemy", "BASE", val, "Config")
 	end },
 	{ var = "targetBrandedEnemy", type = "check", label = "Skill is targeting the Branded enemy", ifCond = "TargetingBrandedEnemy", defaultState = true, apply = function(val, modList, enemyModList)
@@ -454,6 +475,10 @@ return {
 	{ var = "Disgorged", type = "check", label = "Is Disgorge active?", ifSkill = "Gluttony", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:Disgorged", "FLAG", true, "Config")
 	end },
+	{ label = "Goreblossom:", ifSkill = "Goreblossom" },
+	{ var = "goreblossomBlooms", type = "count", label = "# of Blooms nearby (if not maximum):", ifSkill = "Goreblossom", apply = function(val, modList, enemyModList)
+		modList:NewMod("Multiplier:GoreblossomBloom", "OVERRIDE", val, "Config", { type = "Condition", var = "Combat" })
+	end },
 	{ label = "Greater Harbinger of Time:", ifSkill =  "Summon Greater Harbinger of Time" },
 	{ var = "greaterHarbingerOfTimeSlipstream", type = "check", label = "Is Slipstream active?:", ifSkill =  "Summon Greater Harbinger of Time", tooltip = "Greater Harbinger of Time Slipstream buff grants:\n10% increased Action Speed\nBuff affects the player and allies\nBuff has a base duration of 8s with a 10s Cooldown", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:GreaterHarbingerOfTime", "FLAG", true, "Config")
@@ -501,11 +526,11 @@ return {
 	{ var = "OverloadedIntensity", type = "count", label = "# of Overloaded Intensity:", ifSkill = "Overloaded Intensity", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:OverloadedIntensity", "BASE", m_min(val, 3), "Config")
 	end },
-	{ label = "Link Skills:", ifSkill = { "Destructive Link", "Flame Link", "Intuitive Link", "Protective Link", "Soul Link", "Vampiric Link" } },
-	{ var = "multiplierLinkedTargets", type = "count", label = "# of linked Targets:", ifSkill = { "Destructive Link", "Flame Link", "Intuitive Link", "Protective Link", "Soul Link", "Vampiric Link" }, apply = function(val, modList, enemyModList)
+	{ label = "Link Skills:", ifSkill = { "Arcane Link", "Destructive Link", "Flame Link", "Intuitive Link", "Protective Link", "Soul Link", "Vampiric Link" } },
+	{ var = "multiplierLinkedTargets", type = "count", label = "# of linked Targets:", ifSkill = { "Arcane Link", "Destructive Link", "Flame Link", "Intuitive Link", "Protective Link", "Soul Link", "Vampiric Link" }, apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:LinkedTargets", "BASE", val, "Config")
 	end },
-	{ var = "linkedToMinion", type = "check", label = "Linked To Minion?", ifSkill = { "Destructive Link", "Flame Link", "Intuitive Link", "Protective Link", "Soul Link", "Vampiric Link" }, ifFlag = "Condition:CanLinkToMinions", ifFlag = "Condition:HaveDamageableMinion", apply = function(val, modList, enemyModList)
+	{ var = "linkedToMinion", type = "check", label = "Linked To Minion?", ifSkill = { "Arcane Link", "Destructive Link", "Flame Link", "Intuitive Link", "Protective Link", "Soul Link", "Vampiric Link" }, ifFlag = "Condition:CanLinkToMinions", ifFlag = "Condition:HaveDamageableMinion", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:LinkedToMinion", "FLAG", true, "Config")
 	end },
 	{ var = "linkedSourceRate", type = "float", label = "Source rate for Intuitive Link", ifSkill = "Intuitive Link", apply = function(val, modList, enemyModList)
@@ -545,6 +570,10 @@ return {
 		elseif val == "INF" then
 			modList:NewMod("Condition:PlagueBearerInfecting", "FLAG", true, "Config")
 		end
+	end },
+	{ label = "Pact of Ghorr:", ifSkill = "Pact of Ghorr" },
+	{ var = "fleshrendStacks", type = "count", label = "# of Fleshrend stacks on enemy:", ifSkill = "Pact of Ghorr", tooltip = "Hunger of Ghorr periodically triggers Fleshrend, whose debuff stacks up to 3 times.\nEach stack causes the enemy to take 25% increased Damage over Time.\nThe debuff is short, so 3 stacks is a peak rather than a sustained value.", apply = function(val, modList, enemyModList)
+		modList:NewMod("Multiplier:FleshrendCount", "BASE", val, "Config", { type = "Condition", var = "Effective" })
 	end },
 	{ label = "Perforate:", ifSkill = "Perforate", includeTransfigured = true },
 	{ var = "perforateSpikeOverlap", type = "count", label = "# of Overlapping Spikes:", tooltip = "Affects the DPS of Perforate in Blood Stance.\nMaximum is limited by the number of Spikes of Perforate.", ifSkill = "Perforate", includeTransfigured = true, apply = function(val, modList, enemyModList)
@@ -740,6 +769,10 @@ return {
 	{ var = "multiplierWoCExpiredDuration", type = "count", label = "% Wave of Conviction duration expired:", ifMod = "WaveOfConvictionDurationDotMulti", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:WoCDurationExpired", "BASE", m_min(val, 100), "Config", { type = "Condition", var = "Effective" })
 	end },
+	{ label = "Witchhunter's Pyre:", ifSkill = "Witchhunter's Pyre" },
+	{ var = "witchhuntersPyreBurningDebuffs", type = "count", label = "# of burning debuffs on enemy:", ifSkill = "Witchhunter's Pyre", tooltip = "Bonfires fire an additional projectile at a target for each burning debuff on it after the first.", apply = function(val, modList, enemyModList)
+		modList:NewMod("Multiplier:WitchhuntersPyreAdditionalBurningDebuff", "BASE", m_max(val - 1, 0), "Config", { type = "Condition", var = "Effective" })
+	end },
 	{ var = "absolutionSkillDamageCountedOnce", type = "check", label = "Absolution: Count skill damage once", ifSkill = "Absolution", includeTransfigured = true, tooltip = "Your Absolution Skill Damage will not be scaled with Count setting.\nBy default it multiplies both minion count and skill hit count which leads to incorrect\nTotal DPS calculation since Absolution cannot inherently shotgun.\nDo not enable if you use Spell Totem support, Spell Cascade support or similar supports", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:AbsolutionSkillDamageCountedOnce", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
@@ -757,8 +790,8 @@ return {
 	{ var = "VaalMoltenShellDamageMitigated", type = "count", label = "Damage mitigated:", tooltip = "Vaal Molten Shell reflects damage to the enemy,\nbased on the amount of damage it has mitigated in the last second.", ifSkill = "Vaal Molten Shell", apply = function(val, modList, enemyModList)
 		modList:NewMod("SkillData", "LIST", { key = "VaalMoltenShellDamageMitigated", value = val }, "Config", { type = "SkillName", skillName = "Molten Shell" })
 	end },
-	{ label = "Multi-part area skills:", ifSkill = { "Seismic Trap", "Lightning Spire Trap", "Explosive Trap", "Molten Strike" }, includeTransfigured = true },
-	{ var = "enemySizePreset", type = "list", label = "Enemy size preset:", ifSkill = { "Seismic Trap", "Lightning Spire Trap", "Explosive Trap", "Molten Strike" }, includeTransfigured = true, defaultIndex = 2, tooltip = [[
+	{ label = "Multi-part area skills:", ifSkill = { "Seismic Trap", "Lightning Spire Trap", "Explosive Trap", "Molten Strike", "Ball Lightning" }, includeTransfigured = true },
+	{ var = "enemySizePreset", type = "list", label = "Enemy size preset:", ifSkill = { "Seismic Trap", "Lightning Spire Trap", "Explosive Trap", "Molten Strike", "Ball Lightning" }, includeTransfigured = true, defaultIndex = 2, tooltip = [[
 Configure the radius of an enemy hitbox which is used in calculating some area multi-hitting (shotgunning) effects.
 
 Small sets the radius to 2.
@@ -783,7 +816,7 @@ Huge sets the radius to 11.
 			modList:NewMod("EnemyRadius", "BASE", 11, "Config")
 		end
 	end },
-	{ var = "enemyRadius", type = "integer", label = "Enemy radius:", ifSkill = { "Seismic Trap", "Lightning Spire Trap", "Explosive Trap", "Molten Strike" }, includeTransfigured = true, tooltip = "Configure the radius of an enemy hitbox to calculate some area overlapping (shotgunning) effects.", apply = function(val, modList, enemyModList)
+	{ var = "enemyRadius", type = "integer", label = "Enemy radius:", ifSkill = { "Seismic Trap", "Lightning Spire Trap", "Explosive Trap", "Molten Strike", "Ball Lightning" }, includeTransfigured = true, tooltip = "Configure the radius of an enemy hitbox to calculate some area overlapping (shotgunning) effects.", apply = function(val, modList, enemyModList)
 		modList:NewMod("EnemyRadius", "OVERRIDE", m_max(val, 1), "Config")
 	end },
 	{ var = "TotalMinionLife", type = "integer", label = "Minion Life override:", ifMod = "takenFromMinionBeforeYou", tooltip = "Overrides the automatically calculated Life of the minion supported by Companionship.", apply = function(val, modList, enemyModList)
@@ -898,6 +931,12 @@ Huge sets the radius to 11.
 	end },
 	{ var = "overrideEnduranceCharges", type = "count", label = "# of Endurance Charges (if not maximum):", ifOption = "useEnduranceCharges", apply = function(val, modList, enemyModList)
 		modList:NewMod("EnduranceCharges", "OVERRIDE", val, "Config", { type = "Condition", var = "Combat" })
+	end },
+	{ var = "useBrineCharges", type = "check", label = "Do you use Brine Charges?", ifFlag = "CanGainBrineCharges", apply = function(val, modList, enemyModList)
+		modList:NewMod("UseBrineCharges", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
+	end },
+	{ var = "overrideBrineCharges", type = "count", label = "# of Brine Charges (if not maximum):", ifOption = "useBrineCharges", apply = function(val, modList, enemyModList)
+		modList:NewMod("BrineCharges", "OVERRIDE", val, "Config", { type = "Condition", var = "Combat" })
 	end },
 	{ var = "useSiphoningCharges", type = "check", label = "Do you use Siphoning Charges?", ifMult = "SiphoningCharge", apply = function(val, modList, enemyModList)
 		modList:NewMod("UseSiphoningCharges", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
@@ -1372,6 +1411,9 @@ Huge sets the radius to 11.
 	{ var = "conditionConsumed12SteelShardsRecently", type = "check", label = "Consumed 12 Steel Shards Recently?", ifCond = "Consumed12SteelShardsRecently", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:Consumed12SteelShardsRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
+	{ var = "conditionConsumed8SteelShardsRecently", type = "check", label = "Consumed 8 Steel Shards Recently?", ifCond = "Consumed8SteelShardsRecently", apply = function(val, modList, enemyModList)
+		modList:NewMod("Condition:Consumed8SteelShardsRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
+	end },
 	{ var = "conditionGainedPowerChargeRecently", type = "check", label = "Gained a Power Charge Recently?", ifCond = "GainedPowerChargeRecently", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:GainedPowerChargeRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
@@ -1404,6 +1446,10 @@ Huge sets the radius to 11.
 	end },
 	{ var = "conditionBlockedRecently", type = "check", label = "Have you Blocked Recently?", ifCond = "BlockedRecently", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:BlockedRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
+	end },
+	{ var = "conditionUsedRetaliationRecently", type = "check", label = "Have you used a Retaliation Skill Recently?", ifCond = "UsedRetaliationRecently", tooltip = "Recently refers to the past 4 seconds.", apply = function(val, modList, enemyModList)
+		modList:NewMod("Condition:UsedRetaliationRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
+		modList:NewMod("Condition:UsedSkillRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
 	{ var = "conditionBlockedAttackRecently", type = "check", label = "Have you Blocked an Attack Recently?", ifCond = "BlockedAttackRecently", implyCond = "BlockedRecently", tooltip = "This also implies that you have Blocked Recently.", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:BlockedAttackRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
@@ -1743,6 +1789,21 @@ Huge sets the radius to 11.
 	end },
 	{ var = "buffLesserResistanceShrine", type = "check", label = "Have Lesser Resistance Shrine?", ifFlag = "Condition:CanHaveLesserShrines", tooltip = "This will enable the Lesser Resistance Shrine buff.\n\t+25% to all Elemental Resistances\n\t+2% to all maximum Resistances", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:LesserResistanceShrine", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
+	end },
+	{ var = "buffBloodShrineOfRats", type = "check", label = "Have Blood Shrine of Rats?", ifFlag = "Condition:CanHaveBloodShrines", tooltip = "This will enable the Blood Shrine of Rats buff.\n\tGain 30% of Elemental Damage as Extra Chaos Damage", apply = function(val, modList, enemyModList)
+		modList:NewMod("Condition:BloodShrineOfRats", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
+	end },
+	{ var = "buffBloodShrineOfLocusts", type = "check", label = "Have Blood Shrine of Locusts?", ifFlag = "Condition:CanHaveBloodShrines", tooltip = "This will enable the Blood Shrine of Locusts buff.\n\t+30% to Damage over Time Multiplier", apply = function(val, modList, enemyModList)
+		modList:NewMod("Condition:BloodShrineOfLocusts", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
+	end },
+	{ var = "buffBloodShrineOfToads", type = "check", label = "Have Blood Shrine of Toads?", ifFlag = "Condition:CanHaveBloodShrines", tooltip = "This will enable the Blood Shrine of Toads buff.\n\tExplosive Toad has an additional 25% chance to Trigger when you kill an Enemy", apply = function(val, modList, enemyModList)
+		modList:NewMod("Condition:BloodShrineOfToads", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
+	end },
+	{ var = "buffBloodShrineOfCrows", type = "check", label = "Have Blood Shrine of Crows?", ifFlag = "Condition:CanHaveBloodShrines", tooltip = "This will enable the Blood Shrine of Crows buff.\n\t+50% to Chaos Resistance\n\t10% of Elemental Damage taken as Chaos Damage\n\t10% of Physical Damage taken as Chaos Damage", apply = function(val, modList, enemyModList)
+		modList:NewMod("Condition:BloodShrineOfCrows", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
+	end },
+	{ var = "buffBloodShrineOfBats", type = "check", label = "Have Blood Shrine of Bats?", ifFlag = "Condition:CanHaveBloodShrines", tooltip = "This will enable the Blood Shrine of Bats buff.\n\tCurse Enemies with Enfeeble on Hit\n\tYou can apply an additional Curse", apply = function(val, modList, enemyModList)
+		modList:NewMod("Condition:BloodShrineOfBats", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
 	-- Section: Effective DPS options
 	{ section = "For Effective DPS", col = 1 },
@@ -2214,16 +2275,16 @@ Huge sets the radius to 11.
 	{ var = "enemyPhysicalReduction", type = "integer", label = "Enemy Phys. Damage Reduction:", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("PhysicalDamageReduction", "BASE", val, "EnemyConfig")
 	end },
-	{ var = "enemyLightningResist", type = "integer", label = "Enemy ^xADAA47Lightning Resistance:", apply = function(val, modList, enemyModList)
+	{ var = "enemyLightningResist", type = "countAllowZero", label = "Enemy ^xADAA47Lightning Resistance:", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("LightningResist", "BASE", val, "EnemyConfig")
 	end },
-	{ var = "enemyColdResist", type = "integer", label = "Enemy ^x3F6DB3Cold Resistance:", apply = function(val, modList, enemyModList)
+	{ var = "enemyColdResist", type = "countAllowZero", label = "Enemy ^x3F6DB3Cold Resistance:", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("ColdResist", "BASE", val, "EnemyConfig")
 	end },
-	{ var = "enemyFireResist", type = "integer", label = "Enemy ^xB97123Fire Resistance:", apply = function(val, modList, enemyModList)
+	{ var = "enemyFireResist", type = "countAllowZero", label = "Enemy ^xB97123Fire Resistance:", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("FireResist", "BASE", val, "EnemyConfig")
 	end },
-	{ var = "enemyChaosResist", type = "integer", label = "Enemy ^xD02090Chaos Resistance:", apply = function(val, modList, enemyModList)
+	{ var = "enemyChaosResist", type = "countAllowZero", label = "Enemy ^xD02090Chaos Resistance:", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("ChaosResist", "BASE", val, "EnemyConfig")
 	end },
 	{ var = "enemyMaxResist", type = "check", label = "Enemy Max Resistance is always 75%", tooltip = "Enemy Maximum resistance is increased by the resistance configurations \nThis locks it at the default value", apply = function(val, modList, enemyModList)
@@ -2346,45 +2407,4 @@ Huge sets the radius to 11.
 	
 	-- Section: Custom mods
 	{ section = "Custom Modifiers", col = 1 },
-	{ var = "customMods", type = "text", label = "", doNotHighlight = true, resizable = true,
-		apply = function(val, modList, enemyModList, build)
-			for line in val:gmatch("([^\n]*)\n?") do
-				local strippedLine = StripEscapes(line):gsub("^[%s?]+", ""):gsub("[%s?]+$", "")
-				local mods, extra = modLib.parseMod(strippedLine)
-
-				if mods and not extra then
-					local source = "Custom"
-					for i = 1, #mods do
-						local mod = mods[i]
-
-						if mod then
-							mod = modLib.setSource(mod, source)
-							modList:AddMod(mod)
-						end
-					end
-				end
-			end
-		end,
-		inactiveText = function(val)
-			local inactiveText = ""
-			for line in val:gmatch("([^\n]*)\n?") do
-				local strippedLine = StripEscapes(line):gsub("^[%s?]+", ""):gsub("[%s?]+$", "")
-				local mods, extra = modLib.parseMod(strippedLine)
-				inactiveText = inactiveText .. ((mods and not extra) and colorCodes.MAGIC or colorCodes.UNSUPPORTED).. (IsKeyDown("ALT") and strippedLine or line) .. "\n"
-			end
-			return inactiveText
-		end,
-		tooltip = function(modList)
-			if not launch.devModeAlt then
-				return
-			end
-
-			local out
-			for _, mod in ipairs(modList) do
-				if mod.source == "Custom" then
-					out = (out and out.."\n" or "") .. modLib.formatMod(mod) .. "|" .. mod.source
-				end
-			end
-			return out
-		end},
 }

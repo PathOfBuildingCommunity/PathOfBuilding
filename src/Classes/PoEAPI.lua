@@ -11,17 +11,21 @@ local scopesOAuth = {
 
 local filename = "poe_api_response.json"
 
-local PoEAPIClass = newClass("PoEAPI", function(self, authToken, refreshToken, tokenExpiry)
+---@class PoEAPI
+local PoEAPIClass = newClass("PoEAPI")
+
+function PoEAPIClass:PoEAPI(authToken, refreshToken, tokenExpiry)
 	self.retries = 0
 	self.authToken = authToken
 	self.refreshToken = refreshToken
 	self.tokenExpiry = tokenExpiry or 0
 	self.baseUrl = "https://api.pathofexile.com"
-	self.rateLimiter = new("TradeQueryRateLimiter")
+	self.rateLimiter = new("TradeQueryRateLimiter"):TradeQueryRateLimiter()
 	self.tokenHasBeenValidated = false
 
 	self.ERROR_NO_AUTH = "No auth token"
-end)
+	return self
+end
 
 -- performs a basic check on the validity of the current login by refreshing the
 -- token if necessary. if a refresh is attempted and fails, the login details
@@ -105,7 +109,7 @@ function PoEAPIClass:FetchAuthToken(callback)
 	)
 
 	local server = io.open("LaunchServer.lua", "r")
-	local id = LaunchSubScript(server:read("*a"), "", "ConPrintf,OpenURL", authUrl)
+	local id = LaunchSubScript(server:read("*a"), "", "ConPrintf,OpenURL,Copy", authUrl)
 	server:close()
 	if id then
 		launch.subScripts[id] = {

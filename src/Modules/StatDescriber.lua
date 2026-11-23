@@ -50,6 +50,8 @@ local function matchLimit(lang, val, quality)
 	end
 end
 
+local indexableNonActiveSupports = require("Data.PearlSupports")
+local formatterNames = require("Data.StatDescriptionFormatters")
 local function applySpecial(val, spec)
 	if spec.k == "negate" then
 		val[spec.v].max, val[spec.v].min = -val[spec.v].min, -val[spec.v].max
@@ -158,7 +160,7 @@ local function applySpecial(val, spec)
 	elseif spec.k == "deciseconds_to_seconds" then
 		val[spec.v].min = val[spec.v].min / 10
 		val[spec.v].max = val[spec.v].max / 10
-		val[spec.v].fmt = ".2f"
+		val[spec.v].fmt = "g"
 	elseif spec.k == "locations_to_metres" then
 		val[spec.v].min = val[spec.v].min / 10
 		val[spec.v].max = val[spec.v].max / 10
@@ -192,6 +194,17 @@ local function applySpecial(val, spec)
 		val[spec.v].min = val[spec.v].min + 200
 		val[spec.v].max = val[spec.v].max + 200
 	elseif spec.k == "reminderstring" or spec.k == "canonical_line" or spec.k == "canonical_stat" or spec.k == "_stat" then
+	elseif spec.k == "display_indexable_non_active_support" then
+		local gem = indexableNonActiveSupports[val[spec.v].min]
+		local gemText = gem and gem.baseItemName and gem.baseItemName:gsub(" Support", "") or ""
+		val[spec.v].fmt = "s"
+		val[spec.v].min = gemText
+		val[spec.v].max = gemText
+	elseif formatterNames[spec.k] then
+		-- Ranges describe the lowest value, as the per-value descriptions did before 3.30
+		val[spec.v].min = formatterNames[spec.k][val[spec.v].min] or val[spec.v].min
+		val[spec.v].max = val[spec.v].min
+		val[spec.v].fmt = "s"
 	elseif spec.k then
 		ConPrintf("Unknown description function: %s", spec.k)
 	end
