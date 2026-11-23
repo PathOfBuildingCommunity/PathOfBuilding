@@ -129,9 +129,9 @@ function ModListClass:MoreInternal(context, cfg, flags, keywordFlags, source, ..
 			local mod = self[i]
 			if mod.name == modName and mod.type == "MORE" and band(flags, mod.flags) == mod.flags and MatchKeywordFlags(keywordFlags, mod.keywordFlags) and (not source or mod.source:match("[^:]+") == source) then
 				if mod[1] then
-					modResult = modResult * (1 + (context:EvalMod(mod, cfg) or 0) / 100)
+					modResult = modResult * m_max(1 + (context:EvalMod(mod, cfg) or 0) / 100, 0)
 				else
-					modResult = modResult * (1 + mod.value / 100)
+					modResult = modResult * m_max(1 + mod.value / 100, 0)
 				end
 				if modPrecision then
 					modPrecision = m_max(modPrecision, (data.highPrecisionMods[mod.name] and data.highPrecisionMods[mod.name][mod.type]) or modPrecision)

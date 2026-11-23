@@ -71,9 +71,9 @@ return function(modDB, output, actor)
 		local more = modList:More(cfg, ...)
 		if inc ~= 0 or more ~= 1 then
 			return {
-				s_format("%.2f ^8(increased/reduced)", 1 + inc / 100),
+				s_format("%.2f ^8(increased/reduced)", math.max(1 + inc / 100, 0)),
 				s_format("x %.2f ^8(more/less)", more),
-				s_format("= %.2f", (1 + inc / 100) * more),
+				s_format("= %.2f", math.max(1 + inc / 100, 0) * more),
 			}
 		end
 	end

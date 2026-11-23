@@ -109,14 +109,14 @@ local function calcDamage(activeSkill, output, cfg, breakdown, damageType, typeF
 
 	-- Combine modifiers
 	local modNames = damageStatsForTypes[typeFlags]
-	local inc = 1 + skillModList:Sum("INC", cfg, unpack(modNames)) / 100
+	local inc = m_max(1 + skillModList:Sum("INC", cfg, unpack(modNames)) / 100, 0)
 	local more = skillModList:More(cfg, unpack(modNames))
 	local genericMoreMinDamage = skillModList:More(cfg, "MinDamage")
 	local genericMoreMaxDamage = skillModList:More(cfg, "MaxDamage")
 	local moreMinDamage = skillModList:More(cfg, "Min"..damageType.."Damage")
 	local moreMaxDamage = skillModList:More(cfg, "Max"..damageType.."Damage")
-	local incMinDamage = 1 + skillModList:Sum("INC", cfg, "Min"..damageType.."Damage") / 100
-	local incMaxDamage = 1 + skillModList:Sum("INC", cfg, "Max"..damageType.."Damage") / 100
+	local incMinDamage = m_max(1 + skillModList:Sum("INC", cfg, "Min"..damageType.."Damage") / 100, 0)
+	local incMaxDamage = m_max(1 + skillModList:Sum("INC", cfg, "Max"..damageType.."Damage") / 100, 0)
 
 	if breakdown then
 		t_insert(breakdown.damageTypes, {
@@ -5774,7 +5774,7 @@ function calcs.offence(env, actor, activeSkill)
 		local inc = skillModList:Sum("INC", dotCfg, "Damage", "ChaosDamage")
 		local more = skillModList:More(dotCfg, "Damage", "ChaosDamage")
 		local mult = skillModList:Override(dotCfg, "DotMultiplier") or skillModList:Sum("BASE", dotCfg, "DotMultiplier") + skillModList:Sum("BASE", dotCfg, "ChaosDotMultiplier")
-		output.DecayDPS = skillData.decay * (1 + inc/100) * more * (1 + mult/100) * effMult
+		output.DecayDPS = skillData.decay * m_max(1 + inc/100, 0) * more * (1 + mult/100) * effMult
 		output.DecayDuration = 8 * debuffDurationMult
 		if breakdown then
 			breakdown.DecayDPS = { }
@@ -5811,7 +5811,7 @@ function calcs.offence(env, actor, activeSkill)
 			local inc = modDB:Sum("INC", dotTypeCfg, "Damage", "FireDamage", "ElementalDamage")
 			local more = modDB:More(dotTypeCfg, "Damage", "FireDamage", "ElementalDamage")
 			local mult = modDB:Override(dotTypeCfg, "DotMultiplier") or modDB:Sum("BASE", dotTypeCfg, "DotMultiplier") + modDB:Sum("BASE", dotTypeCfg, "FireDotMultiplier")
-			local total = baseDropsBurningGround * (1 + inc/100) * more * (1 + mult/100) * effMult
+			local total = baseDropsBurningGround * m_max(1 + inc/100, 0) * more * (1 + mult/100) * effMult
 			if not output.BurningGroundDPS or output.BurningGroundDPS < total then
 				output.BurningGroundDPS = total
 				output.BurningGroundFromIgnite = false
@@ -5895,7 +5895,7 @@ function calcs.offence(env, actor, activeSkill)
 			local more = skillModList:More(dotTypeCfg, "Damage", damageType.."Damage", isElemental[damageType] and "ElementalDamage" or nil)
 			local mult = skillModList:Override(dotTypeCfg, "DotMultiplier") or skillModList:Sum("BASE", dotTypeCfg, "DotMultiplier") + skillModList:Sum("BASE", dotTypeCfg, damageType.."DotMultiplier")
 			local aura = activeSkill.skillTypes[SkillType.Aura] and not activeSkill.skillTypes[SkillType.RemoteMined] and not activeSkill.skillTypes[SkillType.Banner] and calcLib.mod(skillModList, dotTypeCfg, "AuraEffect")
-			local total = baseVal * (1 + inc/100) * more * (1 + mult/100) * (aura or 1) * effMult
+			local total = baseVal * m_max(1 + inc/100, 0) * more * (1 + mult/100) * (aura or 1) * effMult
 			if output[damageType.."Dot"] == 0 or not output[damageType.."Dot"] then
 				output[damageType.."Dot"] = total
 				output.TotalDotInstance = m_min(output.TotalDotInstance + total, data.misc.DotDpsCap)
