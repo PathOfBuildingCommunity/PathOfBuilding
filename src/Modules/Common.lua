@@ -1115,16 +1115,6 @@ function escapeGGGString(text)
 		:gsub("%[[^|]+|([^|]+)%]", "%1")
 	return line
 end
--- Returns virtual screen size
-function GetVirtualScreenSize()
-	local width, height = GetScreenSize()
-	local scale = GetScreenScale and GetScreenScale() or 1.0
-	if scale ~= 1.0 then
-		width = math.floor(width / scale)
-		height = math.floor(height / scale)
-	end
-	return width, height
-end
 
 -- used for calculating the hash field of a stat
 local GGG_STAT_HASH32_SEED = 0xC58F1A7B
