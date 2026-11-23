@@ -1203,7 +1203,7 @@ local function initMinionModDB(env, activeSkill, output, itemsLoaded)
 	minion.modDB:NewMod("Life", "BASE", m_floor(baseLife), "Base")
 	if minion.minionData.energyShield then
 		local esTable = (env.minion.hostile and env.minion.lifeTable) or (env.player.mainSkill.skillFlags.spectre and env.minion.lifeTable) or env.data.monsterAllyLifeTable
-		local baseES = m_floor(esTable[env.minion.level] * env.minion.minionData.life) * (env.minion.minionData.energyShield * (data.gameConstants["EnergyShieldRatioOfLife"] / 100))
+		local baseES = m_floor(esTable[env.minion.level] * minion.minionData.life) * (minion.minionData.energyShield * (data.gameConstants["EnergyShieldRatioOfLife"] / 100))
 		if minion.hostile then
 			baseES = baseES * (env.data.mapLevelLifeMult[env.enemyLevel] or 1)
 		end
