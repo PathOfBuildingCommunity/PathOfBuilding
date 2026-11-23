@@ -101,6 +101,31 @@ describe("TestGemSocketQuality", function()
 		assert.are.equals(0, build.calcsTab.mainOutput.GemQuality)
 	end)
 
+	it("uses replacement item socket colours in item comparisons", function()
+		equipBody("R-R-R")
+		build.skillsTab:PasteSocketGroup("Slot: Body Armour\nFireball 20/0  1\nControlled Destruction 20/0  1\n")
+		runCallback("OnFrame")
+		assert.are.equals(0, build.calcsTab.mainOutput.GemQuality)
+		local baseDPS = build.calcsTab.mainOutput.CombinedDPS
+
+		build.itemsTab:CreateDisplayItemFromRaw(
+			"Rarity: RARE\nReplacement Robe\nSage's Robe\nQuality: 0\nSockets: B-B-B\nImplicits: 0\n")
+		local replacement = build.itemsTab.displayItem
+		build.itemsTab:AddDisplayItem(true)
+		runCallback("OnFrame")
+
+		local calcFunc = build.calcsTab:GetMiscCalculator()
+		local preview = calcFunc({ repSlotName = "Body Armour", repItem = replacement })
+		assert.are.equals(10, preview.GemQuality)
+		assert.is_true(preview.CombinedDPS > baseDPS)
+
+		build.itemsTab.slots["Body Armour"]:SetSelItemId(replacement.id)
+		build.buildFlag = true
+		runCallback("OnFrame")
+		assert.are.equals(preview.GemQuality, build.calcsTab.mainOutput.GemQuality)
+		assert.are.equals(preview.CombinedDPS, build.calcsTab.mainOutput.CombinedDPS)
+	end)
+
 	it("always grants the bonus with Dialla's 'always matches' mod", function()
 		-- Blue gem in a red socket
 		equipBody("R-R-R", "Gems Socketed always have the Quality bonus from Socket Colour\n")

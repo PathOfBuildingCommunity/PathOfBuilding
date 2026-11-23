@@ -315,6 +315,7 @@ function sanitiseText(text)
 		:gsub("\226\128\147", "-") -- U+2013 EN DASH
 		:gsub("\226\128\148", "-") -- U+2014 EM DASH
 		:gsub("\226\128\149", "-") -- U+2015 HORIZONTAL BAR
+		:gsub("\226\128\139", "")  -- U+200B ZERO WIDTH SPACE
 		:gsub("\226\136\146", "-") -- U+2212 MINUS SIGN
 		:gsub("\195\164", "a") -- U+00E4 LATIN SMALL LETTER A WITH DIAERESIS
 		:gsub("\195\182", "o") -- U+00F6 LATIN SMALL LETTER O WITH DIAERESIS
@@ -543,7 +544,7 @@ function specCopy(env)
 end
 
 -- Wipe all keys from the table and return it, or return a new table if no table
--- provided. This is useful to avoid alllocations in hot paths if a table can be reused. Using LuaJIT's `table.clear()` is another alternative to this, but this performs similarly on small tables, or tables which are often already empty.
+-- provided. This is useful to avoid allocations in hot paths if a table can be reused. Using LuaJIT's `table.clear()` is another alternative to this, but this performs similarly on small tables, or tables which are often already empty.
 ---@param tbl table?
 ---@return table tbl
 function wipeTable(tbl)
@@ -810,7 +811,7 @@ function formatNumSep(str)
 		local x, y, minus, integer, fraction = str:find("(-?)(%d+)(%.?%d*)")
 		if main.showThousandsSeparators then
 			rev1kSep = utf8.reverse(main.thousandsSeparator)
-			integer = utf8.reverse(utf8.gsub(utf8.reverse(integer), "(%d%d%d)", "%1"..rev1kSep))
+			integer = utf8.reverse((utf8.gsub(utf8.reverse(integer), "(%d%d%d)", "%1" .. rev1kSep)))
 			-- There will be leading separators if the number of digits are divisible by 3
 			-- This checks for their presence and removes them
 			-- Don't use patterns here because thousandsSeparator can be a pattern control character, and will crash if used
@@ -821,7 +822,7 @@ function formatNumSep(str)
 				end
 			end
 		else
-			integer = utf8.reverse(utf8.gsub(utf8.reverse(integer), "(%d%d%d)", "%1"))
+			integer = utf8.reverse((utf8.gsub(utf8.reverse(integer), "(%d%d%d)", "%1")))
 		end
 		return colour..minus..integer..utf8.gsub(fraction, "%.", main.decimalSeparator)
 	end)

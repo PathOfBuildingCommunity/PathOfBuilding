@@ -3,6 +3,7 @@
 return function(itemBases)
 
 itemBases["Iron Hat"] = {
+	baseId = "Metadata/Items/Armours/Helmets/HelmetStr1",
 	type = "Helmet",
 	subType = "Armour",
 	socketLimit = 4,
@@ -13,6 +14,7 @@ itemBases["Iron Hat"] = {
 	req = { str = 9, },
 }
 itemBases["Cone Helmet"] = {
+	baseId = "Metadata/Items/Armours/Helmets/HelmetStr2",
 	type = "Helmet",
 	subType = "Armour",
 	socketLimit = 4,
@@ -23,6 +25,7 @@ itemBases["Cone Helmet"] = {
 	req = { level = 7, str = 21, },
 }
 itemBases["Barbute Helmet"] = {
+	baseId = "Metadata/Items/Armours/Helmets/HelmetStr3",
 	type = "Helmet",
 	subType = "Armour",
 	socketLimit = 4,
@@ -33,6 +36,7 @@ itemBases["Barbute Helmet"] = {
 	req = { level = 18, str = 42, },
 }
 itemBases["Close Helmet"] = {
+	baseId = "Metadata/Items/Armours/Helmets/HelmetStr4",
 	type = "Helmet",
 	subType = "Armour",
 	socketLimit = 4,
@@ -43,6 +47,7 @@ itemBases["Close Helmet"] = {
 	req = { level = 26, str = 58, },
 }
 itemBases["Gladiator Helmet"] = {
+	baseId = "Metadata/Items/Armours/Helmets/HelmetStr5",
 	type = "Helmet",
 	subType = "Armour",
 	socketLimit = 4,
@@ -53,6 +58,7 @@ itemBases["Gladiator Helmet"] = {
 	req = { level = 35, str = 75, },
 }
 itemBases["Reaver Helmet"] = {
+	baseId = "Metadata/Items/Armours/Helmets/HelmetStr6",
 	type = "Helmet",
 	subType = "Armour",
 	socketLimit = 4,
@@ -63,6 +69,7 @@ itemBases["Reaver Helmet"] = {
 	req = { level = 40, str = 85, },
 }
 itemBases["Siege Helmet"] = {
+	baseId = "Metadata/Items/Armours/Helmets/HelmetStr7",
 	type = "Helmet",
 	subType = "Armour",
 	socketLimit = 4,
@@ -73,6 +80,7 @@ itemBases["Siege Helmet"] = {
 	req = { level = 48, str = 101, },
 }
 itemBases["Samnite Helmet"] = {
+	baseId = "Metadata/Items/Armours/Helmets/HelmetStr8",
 	type = "Helmet",
 	subType = "Armour",
 	socketLimit = 4,
@@ -83,6 +91,7 @@ itemBases["Samnite Helmet"] = {
 	req = { level = 55, str = 114, },
 }
 itemBases["Ezomyte Burgonet"] = {
+	baseId = "Metadata/Items/Armours/Helmets/HelmetStr9",
 	type = "Helmet",
 	subType = "Armour",
 	socketLimit = 4,
@@ -93,6 +102,7 @@ itemBases["Ezomyte Burgonet"] = {
 	req = { level = 60, str = 138, },
 }
 itemBases["Royal Burgonet"] = {
+	baseId = "Metadata/Items/Armours/Helmets/HelmetStr10",
 	type = "Helmet",
 	subType = "Armour",
 	socketLimit = 4,
@@ -103,6 +113,7 @@ itemBases["Royal Burgonet"] = {
 	req = { level = 65, str = 148, },
 }
 itemBases["Eternal Burgonet"] = {
+	baseId = "Metadata/Items/Armours/Helmets/HelmetStr11",
 	type = "Helmet",
 	subType = "Armour",
 	socketLimit = 4,
@@ -113,6 +124,7 @@ itemBases["Eternal Burgonet"] = {
 	req = { level = 69, str = 138, },
 }
 itemBases["General's Helmet"] = {
+	baseId = "Metadata/Items/Armours/Helmets/HelmetStr12",
 	type = "Helmet",
 	subType = "Armour",
 	socketLimit = 4,
@@ -123,6 +135,7 @@ itemBases["General's Helmet"] = {
 	req = { level = 73, str = 170, },
 }
 itemBases["Conqueror's Helmet"] = {
+	baseId = "Metadata/Items/Armours/Helmets/HelmetStr13",
 	type = "Helmet",
 	subType = "Armour",
 	socketLimit = 4,
@@ -133,6 +146,7 @@ itemBases["Conqueror's Helmet"] = {
 	req = { level = 78, str = 194, },
 }
 itemBases["Giantslayer Helmet"] = {
+	baseId = "Metadata/Items/Armours/Helmets/HelmetStr14",
 	type = "Helmet",
 	subType = "Armour",
 	socketLimit = 4,
@@ -144,6 +158,7 @@ itemBases["Giantslayer Helmet"] = {
 }
 
 itemBases["Leather Cap"] = {
+	baseId = "Metadata/Items/Armours/Helmets/HelmetDex1",
 	type = "Helmet",
 	subType = "Evasion",
 	socketLimit = 4,
@@ -154,6 +169,7 @@ itemBases["Leather Cap"] = {
 	req = { dex = 13, },
 }
 itemBases["Tricorne"] = {
+	baseId = "Metadata/Items/Armours/Helmets/HelmetDex2",
 	type = "Helmet",
 	subType = "Evasion",
 	socketLimit = 4,
@@ -164,6 +180,7 @@ itemBases["Tricorne"] = {
 	req = { level = 10, dex = 27, },
 }
 itemBases["Leather Hood"] = {
+	baseId = "Metadata/Items/Armours/Helmets/HelmetDex3",
 	type = "Helmet",
 	subType = "Evasion",
 	socketLimit = 4,
@@ -174,6 +191,7 @@ itemBases["Leather Hood"] = {
 	req = { level = 20, dex = 46, },
 }
 itemBases["Wolf Pelt"] = {
+	baseId = "Metadata/Items/Armours/Helmets/HelmetDex4",
 	type = "Helmet",
 	subType = "Evasion",
 	socketLimit = 4,
@@ -184,6 +202,7 @@ itemBases["Wolf Pelt"] = {
 	req = { level = 30, dex = 66, },
 }
 itemBases["Hunter Hood"] = {
+	baseId = "Metadata/Items/Armours/Helmets/HelmetDex5",
 	type = "Helmet",
 	subType = "Evasion",
 	socketLimit = 4,
@@ -194,6 +213,7 @@ itemBases["Hunter Hood"] = {
 	req = { level = 41, dex = 87, },
 }
 itemBases["Noble Tricorne"] = {
+	baseId = "Metadata/Items/Armours/Helmets/HelmetDex6",
 	type = "Helmet",
 	subType = "Evasion",
 	socketLimit = 4,
@@ -204,6 +224,7 @@ itemBases["Noble Tricorne"] = {
 	req = { level = 47, dex = 99, },
 }
 itemBases["Ursine Pelt"] = {
+	baseId = "Metadata/Items/Armours/Helmets/HelmetDex7",
 	type = "Helmet",
 	subType = "Evasion",
 	socketLimit = 4,
@@ -214,6 +235,7 @@ itemBases["Ursine Pelt"] = {
 	req = { level = 55, dex = 114, },
 }
 itemBases["Silken Hood"] = {
+	baseId = "Metadata/Items/Armours/Helmets/HelmetDex8",
 	type = "Helmet",
 	subType = "Evasion",
 	socketLimit = 4,
@@ -224,6 +246,7 @@ itemBases["Silken Hood"] = {
 	req = { level = 60, dex = 138, },
 }
 itemBases["Sinner Tricorne"] = {
+	baseId = "Metadata/Items/Armours/Helmets/HelmetDex9",
 	type = "Helmet",
 	subType = "Evasion",
 	socketLimit = 4,
@@ -234,6 +257,7 @@ itemBases["Sinner Tricorne"] = {
 	req = { level = 64, dex = 138, },
 }
 itemBases["Lion Pelt"] = {
+	baseId = "Metadata/Items/Armours/Helmets/HelmetDex10",
 	type = "Helmet",
 	subType = "Evasion",
 	socketLimit = 4,
@@ -244,6 +268,7 @@ itemBases["Lion Pelt"] = {
 	req = { level = 70, dex = 150, },
 }
 itemBases["Dire Pelt"] = {
+	baseId = "Metadata/Items/Armours/Helmets/HelmetDex11",
 	type = "Helmet",
 	subType = "Evasion",
 	socketLimit = 4,
@@ -254,6 +279,7 @@ itemBases["Dire Pelt"] = {
 	req = { level = 73, dex = 170, },
 }
 itemBases["Grizzly Pelt"] = {
+	baseId = "Metadata/Items/Armours/Helmets/HelmetDex12",
 	type = "Helmet",
 	subType = "Evasion",
 	socketLimit = 4,
@@ -264,6 +290,7 @@ itemBases["Grizzly Pelt"] = {
 	req = { level = 78, dex = 194, },
 }
 itemBases["Majestic Pelt"] = {
+	baseId = "Metadata/Items/Armours/Helmets/HelmetDex13",
 	type = "Helmet",
 	subType = "Evasion",
 	socketLimit = 4,
@@ -275,6 +302,7 @@ itemBases["Majestic Pelt"] = {
 }
 
 itemBases["Vine Circlet"] = {
+	baseId = "Metadata/Items/Armours/Helmets/HelmetInt1",
 	type = "Helmet",
 	subType = "Energy Shield",
 	socketLimit = 4,
@@ -285,6 +313,7 @@ itemBases["Vine Circlet"] = {
 	req = { int = 13, },
 }
 itemBases["Iron Circlet"] = {
+	baseId = "Metadata/Items/Armours/Helmets/HelmetInt2",
 	type = "Helmet",
 	subType = "Energy Shield",
 	socketLimit = 4,
@@ -295,6 +324,7 @@ itemBases["Iron Circlet"] = {
 	req = { level = 8, int = 23, },
 }
 itemBases["Torture Cage"] = {
+	baseId = "Metadata/Items/Armours/Helmets/HelmetInt3",
 	type = "Helmet",
 	subType = "Energy Shield",
 	socketLimit = 4,
@@ -305,6 +335,7 @@ itemBases["Torture Cage"] = {
 	req = { level = 17, int = 40, },
 }
 itemBases["Tribal Circlet"] = {
+	baseId = "Metadata/Items/Armours/Helmets/HelmetInt4",
 	type = "Helmet",
 	subType = "Energy Shield",
 	socketLimit = 4,
@@ -315,6 +346,7 @@ itemBases["Tribal Circlet"] = {
 	req = { level = 26, int = 58, },
 }
 itemBases["Bone Circlet"] = {
+	baseId = "Metadata/Items/Armours/Helmets/HelmetInt5",
 	type = "Helmet",
 	subType = "Energy Shield",
 	socketLimit = 4,
@@ -325,6 +357,7 @@ itemBases["Bone Circlet"] = {
 	req = { level = 34, int = 73, },
 }
 itemBases["Lunaris Circlet"] = {
+	baseId = "Metadata/Items/Armours/Helmets/HelmetInt6",
 	type = "Helmet",
 	subType = "Energy Shield",
 	socketLimit = 4,
@@ -335,6 +368,7 @@ itemBases["Lunaris Circlet"] = {
 	req = { level = 39, int = 83, },
 }
 itemBases["Steel Circlet"] = {
+	baseId = "Metadata/Items/Armours/Helmets/HelmetInt7",
 	type = "Helmet",
 	subType = "Energy Shield",
 	socketLimit = 4,
@@ -345,6 +379,7 @@ itemBases["Steel Circlet"] = {
 	req = { level = 48, int = 101, },
 }
 itemBases["Necromancer Circlet"] = {
+	baseId = "Metadata/Items/Armours/Helmets/HelmetInt8",
 	type = "Helmet",
 	subType = "Energy Shield",
 	socketLimit = 4,
@@ -355,6 +390,7 @@ itemBases["Necromancer Circlet"] = {
 	req = { level = 54, int = 112, },
 }
 itemBases["Solaris Circlet"] = {
+	baseId = "Metadata/Items/Armours/Helmets/HelmetInt9",
 	type = "Helmet",
 	subType = "Energy Shield",
 	socketLimit = 4,
@@ -365,6 +401,7 @@ itemBases["Solaris Circlet"] = {
 	req = { level = 59, int = 122, },
 }
 itemBases["Mind Cage"] = {
+	baseId = "Metadata/Items/Armours/Helmets/HelmetInt10",
 	type = "Helmet",
 	subType = "Energy Shield",
 	socketLimit = 4,
@@ -375,6 +412,7 @@ itemBases["Mind Cage"] = {
 	req = { level = 65, int = 138, },
 }
 itemBases["Hubris Circlet"] = {
+	baseId = "Metadata/Items/Armours/Helmets/HelmetInt11",
 	type = "Helmet",
 	subType = "Energy Shield",
 	socketLimit = 4,
@@ -385,6 +423,7 @@ itemBases["Hubris Circlet"] = {
 	req = { level = 69, int = 154, },
 }
 itemBases["Moonlit Circlet"] = {
+	baseId = "Metadata/Items/Armours/Helmets/HelmetInt12",
 	type = "Helmet",
 	subType = "Energy Shield",
 	socketLimit = 4,
@@ -395,6 +434,7 @@ itemBases["Moonlit Circlet"] = {
 	req = { level = 73, int = 170, },
 }
 itemBases["Sunfire Circlet"] = {
+	baseId = "Metadata/Items/Armours/Helmets/HelmetInt13",
 	type = "Helmet",
 	subType = "Energy Shield",
 	socketLimit = 4,
@@ -405,6 +445,7 @@ itemBases["Sunfire Circlet"] = {
 	req = { level = 78, int = 194, },
 }
 itemBases["Lich's Circlet"] = {
+	baseId = "Metadata/Items/Armours/Helmets/HelmetInt14",
 	type = "Helmet",
 	subType = "Energy Shield",
 	socketLimit = 4,
@@ -416,6 +457,7 @@ itemBases["Lich's Circlet"] = {
 }
 
 itemBases["Battered Helm"] = {
+	baseId = "Metadata/Items/Armours/Helmets/HelmetStrDex1",
 	type = "Helmet",
 	subType = "Armour/Evasion",
 	socketLimit = 4,
@@ -426,6 +468,7 @@ itemBases["Battered Helm"] = {
 	req = { str = 8, dex = 8, },
 }
 itemBases["Sallet"] = {
+	baseId = "Metadata/Items/Armours/Helmets/HelmetStrDex2",
 	type = "Helmet",
 	subType = "Armour/Evasion",
 	socketLimit = 4,
@@ -436,6 +479,7 @@ itemBases["Sallet"] = {
 	req = { level = 13, str = 18, dex = 18, },
 }
 itemBases["Visored Sallet"] = {
+	baseId = "Metadata/Items/Armours/Helmets/HelmetStrDex3",
 	type = "Helmet",
 	subType = "Armour/Evasion",
 	socketLimit = 4,
@@ -446,6 +490,7 @@ itemBases["Visored Sallet"] = {
 	req = { level = 23, str = 28, dex = 28, },
 }
 itemBases["Gilded Sallet"] = {
+	baseId = "Metadata/Items/Armours/Helmets/HelmetStrDex4",
 	type = "Helmet",
 	subType = "Armour/Evasion",
 	socketLimit = 4,
@@ -456,6 +501,7 @@ itemBases["Gilded Sallet"] = {
 	req = { level = 33, str = 38, dex = 38, },
 }
 itemBases["Secutor Helm"] = {
+	baseId = "Metadata/Items/Armours/Helmets/HelmetStrDex5",
 	type = "Helmet",
 	subType = "Armour/Evasion",
 	socketLimit = 4,
@@ -466,6 +512,7 @@ itemBases["Secutor Helm"] = {
 	req = { level = 36, str = 42, dex = 42, },
 }
 itemBases["Fencer Helm"] = {
+	baseId = "Metadata/Items/Armours/Helmets/HelmetStrDex6",
 	type = "Helmet",
 	subType = "Armour/Evasion",
 	socketLimit = 4,
@@ -476,6 +523,7 @@ itemBases["Fencer Helm"] = {
 	req = { level = 43, str = 49, dex = 49, },
 }
 itemBases["Lacquered Helmet"] = {
+	baseId = "Metadata/Items/Armours/Helmets/HelmetStrDex7",
 	type = "Helmet",
 	subType = "Armour/Evasion",
 	socketLimit = 4,
@@ -486,6 +534,7 @@ itemBases["Lacquered Helmet"] = {
 	req = { level = 51, str = 57, dex = 57, },
 }
 itemBases["Fluted Bascinet"] = {
+	baseId = "Metadata/Items/Armours/Helmets/HelmetStrDex8",
 	type = "Helmet",
 	subType = "Armour/Evasion",
 	socketLimit = 4,
@@ -496,6 +545,7 @@ itemBases["Fluted Bascinet"] = {
 	req = { level = 58, str = 64, dex = 64, },
 }
 itemBases["Pig-Faced Bascinet"] = {
+	baseId = "Metadata/Items/Armours/Helmets/HelmetStrDex9",
 	type = "Helmet",
 	subType = "Armour/Evasion",
 	socketLimit = 4,
@@ -506,6 +556,7 @@ itemBases["Pig-Faced Bascinet"] = {
 	req = { level = 63, str = 85, dex = 62, },
 }
 itemBases["Nightmare Bascinet"] = {
+	baseId = "Metadata/Items/Armours/Helmets/HelmetStrDex10",
 	type = "Helmet",
 	subType = "Armour/Evasion",
 	socketLimit = 4,
@@ -516,6 +567,7 @@ itemBases["Nightmare Bascinet"] = {
 	req = { level = 67, str = 62, dex = 85, },
 }
 itemBases["Knight Helm"] = {
+	baseId = "Metadata/Items/Armours/Helmets/HelmetStrDex11",
 	type = "Helmet",
 	subType = "Armour/Evasion",
 	socketLimit = 4,
@@ -526,6 +578,7 @@ itemBases["Knight Helm"] = {
 	req = { level = 73, str = 101, dex = 101, },
 }
 itemBases["Conquest Helmet"] = {
+	baseId = "Metadata/Items/Armours/Helmets/HelmetStrDex12",
 	type = "Helmet",
 	subType = "Armour/Evasion",
 	socketLimit = 4,
@@ -536,6 +589,7 @@ itemBases["Conquest Helmet"] = {
 	req = { level = 78, str = 116, dex = 116, },
 }
 itemBases["Haunted Bascinet"] = {
+	baseId = "Metadata/Items/Armours/Helmets/HelmetStrDex13",
 	type = "Helmet",
 	subType = "Armour/Evasion",
 	socketLimit = 4,
@@ -546,6 +600,7 @@ itemBases["Haunted Bascinet"] = {
 	req = { level = 84, str = 132, dex = 132, },
 }
 itemBases["Sorrow Mask"] = {
+	baseId = "Metadata/Items/Armours/Helmets/HelmetStrDexRitual1",
 	type = "Helmet",
 	subType = "Armour/Evasion",
 	socketLimit = 4,
@@ -558,6 +613,7 @@ itemBases["Sorrow Mask"] = {
 	req = { level = 15, str = 20, dex = 20, },
 }
 itemBases["Atonement Mask"] = {
+	baseId = "Metadata/Items/Armours/Helmets/HelmetStrDexRitual2",
 	type = "Helmet",
 	subType = "Armour/Evasion",
 	socketLimit = 4,
@@ -570,6 +626,7 @@ itemBases["Atonement Mask"] = {
 	req = { level = 45, str = 51, dex = 51, },
 }
 itemBases["Penitent Mask"] = {
+	baseId = "Metadata/Items/Armours/Helmets/HelmetStrDexRitual3",
 	type = "Helmet",
 	subType = "Armour/Evasion",
 	socketLimit = 4,
@@ -583,6 +640,7 @@ itemBases["Penitent Mask"] = {
 }
 
 itemBases["Rusted Coif"] = {
+	baseId = "Metadata/Items/Armours/Helmets/HelmetStrInt1",
 	type = "Helmet",
 	subType = "Armour/Energy Shield",
 	socketLimit = 4,
@@ -593,6 +651,7 @@ itemBases["Rusted Coif"] = {
 	req = { level = 5, str = 9, int = 9, },
 }
 itemBases["Soldier Helmet"] = {
+	baseId = "Metadata/Items/Armours/Helmets/HelmetStrInt2",
 	type = "Helmet",
 	subType = "Armour/Energy Shield",
 	socketLimit = 4,
@@ -603,6 +662,7 @@ itemBases["Soldier Helmet"] = {
 	req = { level = 12, str = 16, int = 16, },
 }
 itemBases["Great Helmet"] = {
+	baseId = "Metadata/Items/Armours/Helmets/HelmetStrInt3",
 	type = "Helmet",
 	subType = "Armour/Energy Shield",
 	socketLimit = 4,
@@ -613,6 +673,7 @@ itemBases["Great Helmet"] = {
 	req = { level = 22, str = 27, int = 27, },
 }
 itemBases["Crusader Helmet"] = {
+	baseId = "Metadata/Items/Armours/Helmets/HelmetStrInt4",
 	type = "Helmet",
 	subType = "Armour/Energy Shield",
 	socketLimit = 4,
@@ -623,6 +684,7 @@ itemBases["Crusader Helmet"] = {
 	req = { level = 31, str = 36, int = 36, },
 }
 itemBases["Aventail Helmet"] = {
+	baseId = "Metadata/Items/Armours/Helmets/HelmetStrInt5",
 	type = "Helmet",
 	subType = "Armour/Energy Shield",
 	socketLimit = 4,
@@ -633,6 +695,7 @@ itemBases["Aventail Helmet"] = {
 	req = { level = 37, str = 42, int = 42, },
 }
 itemBases["Zealot Helmet"] = {
+	baseId = "Metadata/Items/Armours/Helmets/HelmetStrInt6",
 	type = "Helmet",
 	subType = "Armour/Energy Shield",
 	socketLimit = 4,
@@ -643,6 +706,7 @@ itemBases["Zealot Helmet"] = {
 	req = { level = 44, str = 50, int = 50, },
 }
 itemBases["Great Crown"] = {
+	baseId = "Metadata/Items/Armours/Helmets/HelmetStrInt7",
 	type = "Helmet",
 	subType = "Armour/Energy Shield",
 	socketLimit = 4,
@@ -653,6 +717,7 @@ itemBases["Great Crown"] = {
 	req = { level = 53, str = 59, int = 59, },
 }
 itemBases["Magistrate Crown"] = {
+	baseId = "Metadata/Items/Armours/Helmets/HelmetStrInt8",
 	type = "Helmet",
 	subType = "Armour/Energy Shield",
 	socketLimit = 4,
@@ -663,6 +728,7 @@ itemBases["Magistrate Crown"] = {
 	req = { level = 58, str = 64, int = 64, },
 }
 itemBases["Prophet Crown"] = {
+	baseId = "Metadata/Items/Armours/Helmets/HelmetStrInt9",
 	type = "Helmet",
 	subType = "Armour/Energy Shield",
 	socketLimit = 4,
@@ -673,6 +739,7 @@ itemBases["Prophet Crown"] = {
 	req = { level = 63, str = 85, int = 62, },
 }
 itemBases["Praetor Crown"] = {
+	baseId = "Metadata/Items/Armours/Helmets/HelmetStrInt10",
 	type = "Helmet",
 	subType = "Armour/Energy Shield",
 	socketLimit = 4,
@@ -683,6 +750,7 @@ itemBases["Praetor Crown"] = {
 	req = { level = 68, str = 62, int = 91, },
 }
 itemBases["Faithful Helmet"] = {
+	baseId = "Metadata/Items/Armours/Helmets/HelmetStrInt11",
 	type = "Helmet",
 	subType = "Armour/Energy Shield",
 	socketLimit = 4,
@@ -693,6 +761,7 @@ itemBases["Faithful Helmet"] = {
 	req = { level = 73, str = 101, int = 101, },
 }
 itemBases["Paladin Crown"] = {
+	baseId = "Metadata/Items/Armours/Helmets/HelmetStrInt12",
 	type = "Helmet",
 	subType = "Armour/Energy Shield",
 	socketLimit = 4,
@@ -703,6 +772,7 @@ itemBases["Paladin Crown"] = {
 	req = { level = 78, str = 116, int = 116, },
 }
 itemBases["Divine Crown"] = {
+	baseId = "Metadata/Items/Armours/Helmets/HelmetStrInt13",
 	type = "Helmet",
 	subType = "Armour/Energy Shield",
 	socketLimit = 4,
@@ -713,6 +783,7 @@ itemBases["Divine Crown"] = {
 	req = { level = 84, str = 132, int = 132, },
 }
 itemBases["Imp Crown"] = {
+	baseId = "Metadata/Items/Armours/Helmets/HelmetStrIntRitual1",
 	type = "Helmet",
 	subType = "Armour/Energy Shield",
 	socketLimit = 4,
@@ -725,6 +796,7 @@ itemBases["Imp Crown"] = {
 	req = { level = 15, str = 20, int = 20, },
 }
 itemBases["Demon Crown"] = {
+	baseId = "Metadata/Items/Armours/Helmets/HelmetStrIntRitual2",
 	type = "Helmet",
 	subType = "Armour/Energy Shield",
 	socketLimit = 4,
@@ -737,6 +809,7 @@ itemBases["Demon Crown"] = {
 	req = { level = 45, str = 51, int = 51, },
 }
 itemBases["Archdemon Crown"] = {
+	baseId = "Metadata/Items/Armours/Helmets/HelmetStrIntRitual3",
 	type = "Helmet",
 	subType = "Armour/Energy Shield",
 	socketLimit = 4,
@@ -749,12 +822,13 @@ itemBases["Archdemon Crown"] = {
 	req = { level = 75, str = 79, int = 79, },
 }
 itemBases["Bone Helmet"] = {
+	baseId = "Metadata/Items/Armours/Helmets/HelmetAtlas1",
 	type = "Helmet",
 	subType = "Armour/Energy Shield",
 	socketLimit = 4,
 	tags = { armour = true, atlas_base_type = true, default = true, helmet = true, helmetatlas1 = true, not_for_sale = true, str_int_armour = true, },
 	influenceTags = { shaper = "helmet_shaper", elder = "helmet_elder", adjudicator = "helmet_adjudicator", basilisk = "helmet_basilisk", crusader = "helmet_crusader", eyrie = "helmet_eyrie", cleansing = "helmet_cleansing", tangle = "helmet_tangle" },
-	implicit = "Minions deal (15-20)% increased Damage",
+	implicit = "Minions deal (20-30)% increased Damage",
 	implicitModTypes = { { "damage", "minion" }, },
 	implicitIds = { "MinionDamageImplicitHelmet1", },
 	armour = { ArmourBaseMin = 197, ArmourBaseMax = 227, EnergyShieldBaseMin = 40, EnergyShieldBaseMax = 46, },
@@ -762,6 +836,7 @@ itemBases["Bone Helmet"] = {
 }
 
 itemBases["Scare Mask"] = {
+	baseId = "Metadata/Items/Armours/Helmets/HelmetDexInt1",
 	type = "Helmet",
 	subType = "Evasion/Energy Shield",
 	socketLimit = 4,
@@ -772,6 +847,7 @@ itemBases["Scare Mask"] = {
 	req = { dex = 8, int = 8, },
 }
 itemBases["Plague Mask"] = {
+	baseId = "Metadata/Items/Armours/Helmets/HelmetDexInt2",
 	type = "Helmet",
 	subType = "Evasion/Energy Shield",
 	socketLimit = 4,
@@ -782,6 +858,7 @@ itemBases["Plague Mask"] = {
 	req = { level = 10, dex = 14, int = 14, },
 }
 itemBases["Iron Mask"] = {
+	baseId = "Metadata/Items/Armours/Helmets/HelmetDexInt3",
 	type = "Helmet",
 	subType = "Evasion/Energy Shield",
 	socketLimit = 4,
@@ -792,6 +869,7 @@ itemBases["Iron Mask"] = {
 	req = { level = 17, dex = 21, int = 21, },
 }
 itemBases["Festival Mask"] = {
+	baseId = "Metadata/Items/Armours/Helmets/HelmetDexInt4",
 	type = "Helmet",
 	subType = "Evasion/Energy Shield",
 	socketLimit = 4,
@@ -802,6 +880,7 @@ itemBases["Festival Mask"] = {
 	req = { level = 28, dex = 33, int = 33, },
 }
 itemBases["Golden Mask"] = {
+	baseId = "Metadata/Items/Armours/Helmets/HelmetDexInt5",
 	type = "Helmet",
 	subType = "Evasion/Energy Shield",
 	socketLimit = 4,
@@ -812,6 +891,7 @@ itemBases["Golden Mask"] = {
 	req = { level = 35, dex = 40, int = 40, },
 }
 itemBases["Raven Mask"] = {
+	baseId = "Metadata/Items/Armours/Helmets/HelmetDexInt6",
 	type = "Helmet",
 	subType = "Evasion/Energy Shield",
 	socketLimit = 4,
@@ -822,6 +902,7 @@ itemBases["Raven Mask"] = {
 	req = { level = 38, dex = 44, int = 44, },
 }
 itemBases["Callous Mask"] = {
+	baseId = "Metadata/Items/Armours/Helmets/HelmetDexInt7",
 	type = "Helmet",
 	subType = "Evasion/Energy Shield",
 	socketLimit = 4,
@@ -832,6 +913,7 @@ itemBases["Callous Mask"] = {
 	req = { level = 45, dex = 51, int = 51, },
 }
 itemBases["Regicide Mask"] = {
+	baseId = "Metadata/Items/Armours/Helmets/HelmetDexInt8",
 	type = "Helmet",
 	subType = "Evasion/Energy Shield",
 	socketLimit = 4,
@@ -842,6 +924,7 @@ itemBases["Regicide Mask"] = {
 	req = { level = 52, dex = 58, int = 58, },
 }
 itemBases["Harlequin Mask"] = {
+	baseId = "Metadata/Items/Armours/Helmets/HelmetDexInt9",
 	type = "Helmet",
 	subType = "Evasion/Energy Shield",
 	socketLimit = 4,
@@ -852,6 +935,7 @@ itemBases["Harlequin Mask"] = {
 	req = { level = 57, dex = 64, int = 64, },
 }
 itemBases["Vaal Mask"] = {
+	baseId = "Metadata/Items/Armours/Helmets/HelmetDexInt10",
 	type = "Helmet",
 	subType = "Evasion/Energy Shield",
 	socketLimit = 4,
@@ -862,6 +946,7 @@ itemBases["Vaal Mask"] = {
 	req = { level = 62, dex = 79, int = 72, },
 }
 itemBases["Deicide Mask"] = {
+	baseId = "Metadata/Items/Armours/Helmets/HelmetDexInt11",
 	type = "Helmet",
 	subType = "Evasion/Energy Shield",
 	socketLimit = 4,
@@ -872,6 +957,7 @@ itemBases["Deicide Mask"] = {
 	req = { level = 67, dex = 73, int = 88, },
 }
 itemBases["Jester Mask"] = {
+	baseId = "Metadata/Items/Armours/Helmets/HelmetDexInt12",
 	type = "Helmet",
 	subType = "Evasion/Energy Shield",
 	socketLimit = 4,
@@ -882,6 +968,7 @@ itemBases["Jester Mask"] = {
 	req = { level = 73, dex = 101, int = 101, },
 }
 itemBases["Ancient Mask"] = {
+	baseId = "Metadata/Items/Armours/Helmets/HelmetDexInt13",
 	type = "Helmet",
 	subType = "Evasion/Energy Shield",
 	socketLimit = 4,
@@ -892,6 +979,7 @@ itemBases["Ancient Mask"] = {
 	req = { level = 78, dex = 116, int = 116, },
 }
 itemBases["Torturer's Mask"] = {
+	baseId = "Metadata/Items/Armours/Helmets/HelmetDexInt14",
 	type = "Helmet",
 	subType = "Evasion/Energy Shield",
 	socketLimit = 4,
@@ -902,6 +990,7 @@ itemBases["Torturer's Mask"] = {
 	req = { level = 84, dex = 132, int = 132, },
 }
 itemBases["Gale Crown"] = {
+	baseId = "Metadata/Items/Armours/Helmets/HelmetDexIntRitual1",
 	type = "Helmet",
 	subType = "Evasion/Energy Shield",
 	socketLimit = 4,
@@ -914,6 +1003,7 @@ itemBases["Gale Crown"] = {
 	req = { level = 15, dex = 20, int = 20, },
 }
 itemBases["Winter Crown"] = {
+	baseId = "Metadata/Items/Armours/Helmets/HelmetDexIntRitual2",
 	type = "Helmet",
 	subType = "Evasion/Energy Shield",
 	socketLimit = 4,
@@ -926,6 +1016,7 @@ itemBases["Winter Crown"] = {
 	req = { level = 45, dex = 51, int = 51, },
 }
 itemBases["Blizzard Crown"] = {
+	baseId = "Metadata/Items/Armours/Helmets/HelmetDexIntRitual3",
 	type = "Helmet",
 	subType = "Evasion/Energy Shield",
 	socketLimit = 4,
@@ -939,6 +1030,7 @@ itemBases["Blizzard Crown"] = {
 }
 
 itemBases["Runic Helm"] = {
+	baseId = "Metadata/Items/Armours/Helmets/HelmetExpedition1",
 	type = "Helmet",
 	subType = "Ward",
 	socketLimit = 4,
@@ -949,6 +1041,7 @@ itemBases["Runic Helm"] = {
 	req = { level = 25, str = 30, dex = 30, int = 30, },
 }
 itemBases["Runic Crest"] = {
+	baseId = "Metadata/Items/Armours/Helmets/HelmetExpedition2",
 	type = "Helmet",
 	subType = "Ward",
 	socketLimit = 4,
@@ -959,6 +1052,7 @@ itemBases["Runic Crest"] = {
 	req = { level = 49, str = 55, dex = 55, int = 55, },
 }
 itemBases["Runic Crown"] = {
+	baseId = "Metadata/Items/Armours/Helmets/HelmetExpedition3",
 	type = "Helmet",
 	subType = "Ward",
 	socketLimit = 4,
@@ -970,6 +1064,7 @@ itemBases["Runic Crown"] = {
 }
 
 itemBases["Golden Wreath"] = {
+	baseId = "Metadata/Items/Armours/Helmets/HelmetWreath1",
 	type = "Helmet",
 	socketLimit = 4,
 	tags = { armour = true, default = true, demigods = true, helmet = true, not_for_sale = true, },

@@ -2535,6 +2535,7 @@ skills["Bladefall"] = {
 	baseFlags = {
 		spell = true,
 		area = true,
+		duration = true,
 	},
 	baseMods = {
 		skill("radius", 44),
@@ -2802,6 +2803,7 @@ skills["BladefallAltZ"] = {
 	baseFlags = {
 		spell = true,
 		area = true,
+		duration = true,
 	},
 	qualityStats = {
 		{ "active_skill_base_area_of_effect_radius", 0.15 },
@@ -14209,7 +14211,7 @@ skills["SmokeMine"] = {
 	name = "Smoke Mine",
 	baseTypeName = "Smoke Mine",
 	color = 2,
-	description = "Throws a mine that will teleport you to it when detonated. It covers both your escape and arrival with a cloud of smoke that blinds enemies, and gives you a temporary buff to movement speed. Shares a cooldown with other Blink skills.",
+	description = "Throws a mine that will teleport you to it when detonated. It covers both your escape and arrival with a cloud of smoke that Blinds enemies, and gives you a temporary buff to movement speed. Shares a cooldown with other Blink skills.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Movement] = true, [SkillType.RemoteMined] = true, [SkillType.AreaSpell] = true, [SkillType.Travel] = true, [SkillType.HasReservation] = true, [SkillType.Blink] = true, [SkillType.Cooldown] = true, },
 	statDescriptionScope = "buff_skill_stat_descriptions",
 	castTime = 0.5,
@@ -14223,6 +14225,7 @@ skills["SmokeMine"] = {
 		mine = true,
 		area = true,
 		buff = true,
+		duration = true,
 	},
 	baseMods = {
 		skill("radius", 18),

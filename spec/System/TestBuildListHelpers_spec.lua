@@ -2,6 +2,7 @@ describe("BuildListHelpers", function()
 	local originalBuildPath
 	local originalCloudErrorPopup
 	local originalFileSearch
+	local originalFilterBuildList
 	local originalOpen
 	local buildListHelpers
 	local fileHeaders
@@ -14,6 +15,7 @@ describe("BuildListHelpers", function()
 		originalBuildPath = main.buildPath
 		originalCloudErrorPopup = main.OpenCloudErrorPopup
 		originalFileSearch = _G.NewFileSearch
+		originalFilterBuildList = main.filterBuildList
 		originalOpen = io.open
 		buildListHelpers = LoadModule("Modules/BuildListHelpers")
 		fileHeaders = { }
@@ -22,6 +24,7 @@ describe("BuildListHelpers", function()
 		searchCount = 0
 		cloudErrorPath = nil
 		main.buildPath = "Builds/"
+		main.filterBuildList = ""
 		main.OpenCloudErrorPopup = function(_, path)
 			cloudErrorPath = path
 		end
@@ -53,6 +56,7 @@ describe("BuildListHelpers", function()
 		main.buildPath = originalBuildPath
 		main.OpenCloudErrorPopup = originalCloudErrorPopup
 		_G.NewFileSearch = originalFileSearch
+		main.filterBuildList = originalFilterBuildList
 		io.open = originalOpen
 	end)
 
@@ -75,6 +79,33 @@ describe("BuildListHelpers", function()
 		assert.are.same("League/", classMatches[1].subPath)
 		assert.are.same(scansAfterIndex, searchCount)
 		assert.are.same(opensAfterIndex, fileOpenCount)
+	end)
+
+	it("refreshes only the reopened build when returning to the build list", function()
+		searches["files:Builds/*.xml"] = { { name = "Root.xml", modified = 1 } }
+		searches["folders:Builds/*"] = { { name = "League", modified = 2 } }
+		searches["files:Builds/League/*.xml"] = { { name = "Nested.xml", modified = 3 } }
+		fileHeaders["Builds/Root.xml"] = '<Build level="80" className="Witch" ascendClassName="Occultist">'
+		fileHeaders["Builds/League/Nested.xml"] = '<Build level="90" className="Shadow" ascendClassName="Assassin">'
+		local listMode = require("Modules.BuildList")
+
+		listMode:Init()
+		local scansAfterIndex = searchCount
+		local opensAfterIndex = fileOpenCount
+		searches["files:Builds/Root.xml"] = { { name = "Root.xml", modified = 4 } }
+		fileHeaders["Builds/Root.xml"] = '<Build level="81" className="Shadow" ascendClassName="Assassin">'
+		listMode:Init("Root", "")
+
+		assert.are.same(scansAfterIndex + 1, searchCount)
+		assert.are.same(opensAfterIndex + 1, fileOpenCount)
+		assert.are.same(81, listMode.controls.buildList.selValue.level)
+		assert.are.same("Assassin", listMode.controls.buildList.selValue.ascendClassName)
+		assert.are.same(4, listMode.controls.buildList.selValue.modified)
+
+		local scansBeforeFolderChange = searchCount
+		listMode:Init("Nested", "League/")
+		assert.are.same(scansBeforeFolderChange + 2, searchCount)
+		assert.are.same("Builds/League/Nested.xml", listMode.controls.buildList.selValue.fullFileName)
 	end)
 
 	it("reports cloud read failures", function()

@@ -24,7 +24,6 @@ Cobalt Jewel
 League: Heist
 Source: Drops from unique{The Unbreakable} in normal{Contract: Breaking the Unbreakable}
 Limited to: 1
-Requires Level 20
 (20-25)% increased Spell Damage
 Spells have 10% reduced Critical Strike Chance per Intensity
 Spells which have gained Intensity Recently gain 1 Intensity every 0.5 Seconds
@@ -124,7 +123,7 @@ Increases and Reductions to Physical Damage in Radius are Transformed to apply t
 Increases and Reductions to Cold Damage in Radius are Transformed to apply to Physical Damage
 ]],[[
 Dissolution of the Flesh
-Prismatic Jewel
+Crimson Jewel
 Source: Drops from unique{The Searing Exarch}
 Limited to: 1
 Removes all Energy Shield
@@ -777,9 +776,9 @@ Radius: Variable
 Implicits: 0
 {variant:1}Only affects Passives in Small Ring
 {variant:5}Only affects Passives in Massive Ring
--(20-10)% to all Elemental Resistances
 Passive Skills in Radius can be Allocated without being connected to your tree
 Passage
+-(20-10)% to all Elemental Resistances
 {variant:2}Only affects Passives in Medium Ring
 {variant:3}Only affects Passives in Large Ring
 {variant:4}Only affects Passives in Very Large Ring
@@ -858,6 +857,7 @@ Radius: Medium
 Amanamu's Gaze
 Ghastly Eye Jewel
 Source: Drops from unique{Abyssal Liches} in normal{Abyssal Depths}
+Requires Level 40
 +(5-10) to all Attributes
 Minions have +6% to Damage over Time Multiplier per
 Ghastly Eye Jewel affecting you, up to a maximum of +30%
@@ -865,6 +865,7 @@ Ghastly Eye Jewel affecting you, up to a maximum of +30%
 Kurgal's Gaze
 Hypnotic Eye Jewel
 Source: Drops from unique{Abyssal Liches} in normal{Abyssal Depths}
+Requires Level 40
 +(10-20) to Intelligence
 8% increased Effect of Arcane Surge on you per
 Hypnotic Eye Jewel affecting you, up to a maximum of 40%
@@ -1082,8 +1083,8 @@ Limited to: 1
 Radius: Medium
 (10-15)% increased Global Physical Damage
 With at least 40 Strength in Radius, Hits with Cleave Fortify
-With at least 40 Strength in Radius, Cleave has +0.1 metres to Radius per Nearby
-Enemy, up to a maximum of +1 metre
+With at least 40 Strength in Radius, Cleave has +0.1 metres to Radius per
+Enemy within 2 metres, up to a maximum of +1 metre
 ]],[[
 Pitch Darkness
 Viridian Jewel
@@ -1152,8 +1153,7 @@ Variant: Current
 Radius: Medium
 {variant:1}(5-15)% increased Cold Damage
 {variant:2}(10-15)% increased Cold Damage
-With at least 40 Strength in Radius, 20% increased
-Rarity of Items dropped by Enemies Shattered by Glacial Hammer
+With at least 40 Strength in Radius, +20% to Rarity of Items dropped by Enemies Shattered by Glacial Hammer
 ]],[[
 Spirit Guards
 Viridian Jewel
@@ -1228,9 +1228,9 @@ Variant: Current
 Limited to: 1
 Radius: Medium
 (8-15)% increased Armour
-{variant:1}With at least 40 Strength in Radius, Hits with Vigilant Strike Fortify you and Nearby Allies for 3 seconds
-{variant:2}With at least 40 Strength in Radius, Hits with Vigilant Strike Fortify you and Nearby Allies for 12 seconds
-{variant:3}With at least 40 Strength in Radius, Hits with Vigilant Strike Fortify you and Nearby Allies for 8 seconds
+{variant:1}With at least 40 Strength in Radius, Hits with Vigilant Strike Fortify you and Allies within a 10 metre base radius for 3 seconds
+{variant:2}With at least 40 Strength in Radius, Hits with Vigilant Strike Fortify you and Allies within a 10 metre base radius for 12 seconds
+{variant:3}With at least 40 Strength in Radius, Hits with Vigilant Strike Fortify you and Allies within a 10 metre base radius for 8 seconds
 ]],[[
 Violent Dead
 Cobalt Jewel
@@ -1463,7 +1463,6 @@ Cobalt Jewel
 Source: Use currency{Vaal Orb} on normal{Cobalt Jewel}
 Variant: Pre 3.20.0
 Variant: Current
-Requires Level: 20
 Limited to: 1
 Radius: Medium
 Minions deal (35-45)% increased Damage
@@ -1561,7 +1560,6 @@ Viridian Jewel
 Source: Use currency{Vaal Orb} on normal{Viridian Jewel}
 Variant: Pre 3.20.0
 Variant: Current
-Requires Level: 20
 Limited to: 1
 Radius: Medium
 Minions have (12-16)% increased Attack Speed
@@ -1610,7 +1608,6 @@ Variant: Pre 3.16.0
 Variant: Pre 3.20.0
 Variant: Current
 League: Legion
-Requires Level: 20
 Limited to: 1
 (10-15)% increased Attack Damage while holding a Shield
 {variant:1}+0.2% to Off Hand Critical Strike Chance per 10 Maximum Energy Shield on Shield
@@ -1869,13 +1866,13 @@ Limited to: 1 Historic
 Variant: Doryani (Corrupted Soul)
 Variant: Xibaqua (Divine Flesh)
 Variant: Zerphi (Eternal Youth) (Pre 3.11.0)
-Variant: Ahuana (Immortal Ambition)
+Variant: Mazcotl (Immortal Ambition)
 Radius: Large
 Implicits: 0
 {variant:1}Bathed in the blood of (100-8000) sacrificed in the name of Doryani
 {variant:2}Bathed in the blood of (100-8000) sacrificed in the name of Xibaqua
 {variant:3}Bathed in the blood of (100-8000) sacrificed in the name of Zerphi
-{variant:4}Bathed in the blood of (100-8000) sacrificed in the name of Ahuana
+{variant:4}Bathed in the blood of (100-8000) sacrificed in the name of Mazcotl
 Passives in radius are Conquered by the Vaal
 Historic
 ]],[[
@@ -2023,7 +2020,14 @@ Crimson Jewel
 Crafted: true
 League: Affliction
 Limited to: 1
-Requires Level 48
 Implicits: 0
+]],[[
+Putrid Seed
+Mycelium Core
+League: Covens
+Source: Drops from unique{Effulgent Blightworm} in a Mycotic Blight encounter
+Limited to: 1
+Grows four random Passive Skills when Anointed
+Passive Skills grown are influenced by Oils used when Anointing
 ]]
 }

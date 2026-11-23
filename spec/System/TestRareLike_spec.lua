@@ -81,8 +81,19 @@ describe("Veiled unique affix pools", function()
 		local item = makeUnique("That Which Was Taken")
 		assert.is_not_nil(item)
 		assert.are.equal(1, item.limit)
-		assert.are.equal(48, item.requirements.level)
 		assert.is_nil(item.affixes.AnimalCharmMaximumRage1)
 		assert.is_not_nil(item.affixes.AnimalCharmMaximumRage2)
+	end)
+
+	it("derives That Which Was Taken's level requirement from its crafted mods", function()
+		local item = makeUnique("That Which Was Taken")
+		assert.is_not_nil(item)
+		local modId = "AnimalCharmMaximumRage2"
+		local mod = item.affixes[modId]
+		assert.is_not_nil(mod)
+		local list = mod.type == "Prefix" and item.prefixes or item.suffixes
+		list[1] = { modId = modId, range = 0.5 }
+		item:Craft()
+		assert.are.equal(math.max(item.base.req.level or 0, math.floor(mod.level * 0.8)), item.requirements.level)
 	end)
 end)

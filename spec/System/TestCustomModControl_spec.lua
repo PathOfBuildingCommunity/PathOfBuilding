@@ -54,10 +54,40 @@ describe("Custom modifier controls", function()
 			end
 		end
 
-		assert.are.same({ "Minions deal 12% increased Damage" }, minionDamageEntries)
+		assert.are.same({ "Minions deal 10% increased Damage" }, minionDamageEntries)
 		popup.controls.listControl.selIndex = minionDamageIndex
 		popup.controls.save.onClick()
-		assert.are.equal("Minions deal 12% increased Damage", blockData.text)
+		assert.are.equal("Minions deal 10% increased Damage", blockData.text)
+	end)
+
+	it("lists the same modifiers regardless of table iteration order", function()
+		local function listModsWithOrderedPairs(reverse)
+			local iteratedTables = { }
+			-- busted runs specs in their own environment; the browser module reads the real global
+			local originalPairs = _G.pairs
+			_G.pairs = function(tbl)
+				iteratedTables[tbl] = true
+				local keys = { }
+				for key in next, tbl do
+					table.insert(keys, key)
+				end
+				table.sort(keys, function(a, b) return type(a) .. tostring(a) < type(b) .. tostring(b) end)
+				local index = reverse and #keys + 1 or 0
+				return function()
+					index = index + (reverse and -1 or 1)
+					return keys[index], tbl[keys[index]]
+				end
+			end
+			local ok, popup = pcall(openModBrowser)
+			_G.pairs = originalPairs
+			assert(ok, popup)
+			main:ClosePopup()
+			local tree = build.treeTab.specList[build.treeTab.activeSpec].tree
+			assert.is_true(iteratedTables[tree.nodes] and iteratedTables[build.data.itemMods], "the browser did not use the ordered pairs")
+			return popup.controls.listControl.list
+		end
+
+		assert.are.same(listModsWithOrderedPairs(false), listModsWithOrderedPairs(true))
 	end)
 
 	it("orders modifiers alphabetically while ignoring numeric values", function()

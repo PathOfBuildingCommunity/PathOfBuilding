@@ -7,7 +7,6 @@ Reefbane
 Fishing Rod
 Variant: Pre 2.6.0
 Variant: Current
-Requires 8 Str, 8 Dex
 IncreasedCastSpeedUnique__3
 FishingLureTypeUnique__1__
 {variant:1}FishingQuantityUnique__1[30,40]
@@ -16,7 +15,6 @@ FishDetectionUnique__1_
 ]],[[
 Song of the Sirens
 Fishing Rod
-Requires 8 Str, 8 Dex
 Source: Fishing
 Implicits: 0
 FishingLureTypeUniqueFishingRod1

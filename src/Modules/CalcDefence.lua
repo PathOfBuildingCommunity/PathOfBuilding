@@ -6,6 +6,8 @@
 ---@class Calcs
 local calcs = require("Modules.CalcBase")
 
+local regenerationConversions = { { "LightRadius", "LifeRegen", "LightRadiusAppliesToLifeRegen" }, { "ManaRegen", "EnergyShieldRecharge", "ManaRegenAppliesToEnergyShieldRecharge" } }
+
 local pairs = pairs
 local ipairs = ipairs
 local t_insert = table.insert
@@ -664,9 +666,11 @@ function calcs.defence(env, actor)
 
 	calcs.resistances(actor)
 	if env.minion and modDB:Sum("BASE", nil, "ResistanceAddedToMinions") > 0 then
-		for _, elem in ipairs(resistTypeList) do
-			local final = output[elem.."Resist"]
-			env.minion.modDB:NewMod(elem.."Resist", "BASE", m_floor(final * modDB:Sum("BASE", nil, "ResistanceAddedToMinions") / 100), "Player")
+		for _, value in ipairs(modDB:Tabulate("BASE", nil, "ResistanceAddedToMinions")) do
+			for _, elem in ipairs(resistTypeList) do
+				local final = output[elem.."Resist"]
+				env.minion.modDB:NewMod(elem.."Resist", "BASE", m_floor(final * value.value / 100), value.mod.source)
+			end
 		end
 	end
 	-- Formless Inferno
@@ -787,6 +791,18 @@ function calcs.defence(env, actor)
 	if output.BlockEffect ~= 0 then
 		output.ShowBlockEffect = true
 		output.DamageTakenOnBlock = 100 - output.BlockEffect
+	end
+
+	-- Apply Light Radius increases to Life Regeneration, and Mana Regeneration increases to ES Recharge, at the stated percentage.
+	for _, conversion in ipairs(regenerationConversions) do
+		local multiplier = (modDB:Max(nil, conversion[3]) or 0) / 100
+		if multiplier ~= 0 then
+			for _, value in ipairs(modDB:Tabulate("INC", nil, conversion[1])) do
+				local mod = value.mod
+				local modifiers = calcLib.getConvertedModTags(mod, multiplier)
+				modDB:NewMod(conversion[2], "INC", m_floor(mod.value * multiplier), mod.source, mod.flags, mod.keywordFlags, unpack(modifiers))
+			end
+		end
 	end
 
 	if modDB:Flag(nil, "ArmourAppliesToEnergyShieldRecharge") then
@@ -1062,7 +1078,7 @@ function calcs.defence(env, actor)
 			end
 		end
 		output.EnergyShield = modDB:Override(nil, "EnergyShield") or m_max(round(energyShield), 0)
-		output.Armour = m_max(round(armour), 0)
+		output.Armour = modDB:Override(nil, "Armour") or m_max(round(armour), 0)
 		output.Evasion = m_max(round(evasion), 0)
 		output.MeleeEvasion = m_max(round(evasion * calcLib.mod(modDB, nil, "MeleeEvasion")), 0)
 		output.ProjectileEvasion = m_max(round(evasion * calcLib.mod(modDB, nil, "ProjectileEvasion")), 0)
@@ -1207,6 +1223,14 @@ function calcs.defence(env, actor)
 			"Total: "..output.SpellDodgeChance+output.SpellDodgeChanceOverCap.."%",
 		}
 	end
+
+	-- Use the non-flask Petrified Blood recovery ceiling only as a default for this modifier.
+	local missingLife = 0
+	if modDB:GetCondition("AffectedByPetrifiedBlood") and output.LifeUnreserved > 0 then
+		local currentLife = m_min(output.LifeUnreserved, output.Life * output.LowLifePercentage / 100)
+		missingLife = 100 * (output.LifeUnreserved - currentLife) / output.LifeUnreserved
+	end
+	output.MissingUnreservedLifePercent = modDB:Override(nil, "MissingUnreservedLifePercent") or missingLife
 
 	-- Recovery modifiers
 	output.LifeRecoveryRateMod = 1
@@ -1420,7 +1444,9 @@ function calcs.defence(env, actor)
 			end
 		end
 		for _, recoupType in ipairs(recoupTypeList) do
-			if recoupType == "Life" and modDB:Flag(nil, "EnergyShieldRecoupInsteadOfLife") then
+			if recoupType == "Life" and modDB:Flag(nil, "CannotRecoupLife") then
+				output.LifeRecoup = 0
+			elseif recoupType == "Life" and modDB:Flag(nil, "EnergyShieldRecoupInsteadOfLife") then
 				output.LifeRecoup = 0
 				local lifeRecoup = modDB:Sum("BASE", nil, "LifeRecoup")
 				modDB:NewMod("EnergyShieldRecoup", "BASE", lifeRecoup, "Life Recoup Conversion")
@@ -1457,7 +1483,9 @@ function calcs.defence(env, actor)
 			for _, damageType in ipairs(dmgTypeList) do
 				local recoup = modDB:Sum("BASE", nil, damageType..recoupType.."Recoup")
 				local recoupName = damageType..recoupType.."Recoup"
-				if recoupType == "Life" and modDB:Flag(nil, "EnergyShieldRecoupInsteadOfLife") then
+				if recoupType == "Life" and modDB:Flag(nil, "CannotRecoupLife") then
+					output[recoupName] = 0
+				elseif recoupType == "Life" and modDB:Flag(nil, "EnergyShieldRecoupInsteadOfLife") then
 					output[recoupName] = 0
 					modDB:NewMod(damageType.."EnergyShieldRecoup", "BASE", recoup, "Life Recoup Conversion")
 				else
@@ -1855,9 +1883,11 @@ function calcs.buildDefenceEstimations(env, actor)
 			local dotDestinationTotal = 0
 			for _, destType in ipairs(dmgTypeList) do
 				if destType ~= damageType then
-					dotShiftTable[destType] = modDB:Sum("BASE", nil, damageType.."DamageTakenAs"..destType, isElemental[damageType] and "ElementalDamageTakenAs"..destType or nil)
+					-- Allow Physical DoT taken as Chaos without also converting damage from hits.
+					local takenAs = modDB:Sum("BASE", nil, damageType.."DamageTakenAs"..destType, isElemental[damageType] and "ElementalDamageTakenAs"..destType or nil)
+					dotShiftTable[destType] = takenAs + modDB:Sum("BASE", nil, damageType.."DamageTakenOverTimeAs"..destType, isElemental[damageType] and "ElementalDamageTakenOverTimeAs"..destType or nil)
 					dotDestinationTotal = dotDestinationTotal + dotShiftTable[destType]
-					shiftTable[destType] = dotShiftTable[destType] + modDB:Sum("BASE", nil, damageType.."DamageFromHitsTakenAs"..destType, isElemental[damageType] and "ElementalDamageFromHitsTakenAs"..destType or nil)
+					shiftTable[destType] = takenAs + modDB:Sum("BASE", nil, damageType.."DamageFromHitsTakenAs"..destType, isElemental[damageType] and "ElementalDamageFromHitsTakenAs"..destType or nil)
 					destTotal = destTotal + shiftTable[destType]
 				end
 			end
@@ -2702,10 +2732,10 @@ function calcs.buildDefenceEstimations(env, actor)
 					poolTable.EnergyShield = m_min(poolTable.EnergyShield + DamageIn.EnergyShieldWhenHit * (gainMult - 1), gainMult * output.EnergyShieldRecoveryCap)
 				end
 			end
-			if DamageIn.MissingLifeBeforeEnemyHit and poolTable.Life > 0 then
+			if (DamageIn.MissingLifeBeforeEnemyHit or 0) ~= 0 and poolTable.Life > 0 then
 				poolTable.Life = m_min(poolTable.Life + DamageIn.MissingLifeBeforeEnemyHit * ((output.LifeUnreserved or 0) - poolTable.Life) / 100, output.LifeRecoverable or 0)
 			end
-			if DamageIn.MissingManaBeforeEnemyHit and poolTable.Mana > 0 then
+			if (DamageIn.MissingManaBeforeEnemyHit or 0) ~= 0 and poolTable.Mana > 0 then
 				poolTable.Mana = m_min(poolTable.Mana + DamageIn.MissingManaBeforeEnemyHit * ((output.ManaUnreserved or 0) - poolTable.Mana) / 100, output.ManaUnreserved or 0)
 			end
 			poolTable = calcs.reducePoolsByDamage(poolTable, Damage, actor)

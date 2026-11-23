@@ -199,9 +199,15 @@ function PassiveSpecClass:Save(xml)
 	for nodeId in pairs(self.allocNodes) do
 		t_insert(allocNodeIdList, nodeId)
 	end
+	table.sort(allocNodeIdList)
+	local masteryNodeIdList = { }
+	for mastery in pairs(self.masterySelections) do
+		t_insert(masteryNodeIdList, mastery)
+	end
+	table.sort(masteryNodeIdList)
 	local masterySelections = { }
-	for mastery, effect in pairs(self.masterySelections) do
-		t_insert(masterySelections, "{"..mastery..","..effect.."}")
+	for _, mastery in ipairs(masteryNodeIdList) do
+		t_insert(masterySelections, "{"..mastery..","..self.masterySelections[mastery].."}")
 	end
 	xml.attrib = {
 		title = self.title,
@@ -223,7 +229,13 @@ function PassiveSpecClass:Save(xml)
 	local sockets = {
 		elem = "Sockets"
 	}
-	for nodeId, itemId in pairs(self.jewels) do
+	local socketNodeIdList = { }
+	for nodeId in pairs(self.jewels) do
+		t_insert(socketNodeIdList, nodeId)
+	end
+	table.sort(socketNodeIdList)
+	for _, nodeId in ipairs(socketNodeIdList) do
+		local itemId = self.jewels[nodeId]
 		-- jewel socket contents should not be saved unless they contain a valid jewel
 		if itemId > 0 then
 			local socket = { elem = "Socket", attrib = { nodeId = tostring(nodeId), itemId = tostring(itemId) }}
@@ -236,7 +248,13 @@ function PassiveSpecClass:Save(xml)
 		elem = "Overrides"
 	}
 	if self.hashOverrides then
-		for nodeId, node in pairs(self.hashOverrides) do
+		local overrideNodeIdList = { }
+		for nodeId in pairs(self.hashOverrides) do
+			t_insert(overrideNodeIdList, nodeId)
+		end
+		table.sort(overrideNodeIdList)
+		for _, nodeId in ipairs(overrideNodeIdList) do
+			local node = self.hashOverrides[nodeId]
 			local override = { elem = "Override", attrib = { nodeId = tostring(nodeId), icon = tostring(node.icon), activeEffectImage = tostring(node.activeEffectImage), dn = tostring(node.dn) } }
 			for _, modLine in ipairs(node.sd) do
 				t_insert(override, modLine)
@@ -534,7 +552,13 @@ function PassiveSpecClass:EncodeURL(prefix)
 	local clusterNodeIds = {}
 	local masteryNodeIds = {}
 
-	for id, node in pairs(self.allocNodes) do
+	local encodeNodeIdList = { }
+	for id in pairs(self.allocNodes) do
+		t_insert(encodeNodeIdList, id)
+	end
+	table.sort(encodeNodeIdList)
+	for _, id in ipairs(encodeNodeIdList) do
+		local node = self.allocNodes[id]
 		if node.type ~= "ClassStart" and node.type ~= "AscendClassStart" and id < 65536 and nodeCount < 255 then
 			t_insert(a, m_floor(id / 256))
 			t_insert(a, id % 256)
@@ -1113,7 +1137,7 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 		local item = self.build.itemsTab.items[itemId]
 		local conqueredBy = item and item.jewelData and item.jewelData.conqueredBy
 		local jewelType = conqueredBy and timelessJewelTypeByConqueror[conqueredBy.conqueror.type]
-		if jewelType and jewelType >= 7 and self.allocNodes[socketId] and not item.jewelData.limitDisabled then
+		if jewelType and jewelType >= 7 and self.allocNodes[socketId] and not (self.nodes[socketId].expansionJewel and self.nodes[socketId].expansionJewel.parent) and not item.jewelData.limitDisabled then
 			local path = jewelType == 11 and self:GetShortestPathToClassStart(socketId)
 			for nodeId, modification in pairs(data.readAbyssJewelLUT(conqueredBy.id, socketId, jewelType, path)) do
 				abyssConquests[nodeId] = {
@@ -1157,11 +1181,12 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 				end
 			end
 		end
-		-- ignore cluster jewel nodes that don't have an id in the tree
+		-- ignore cluster jewel nodes that don't have an id in the tree, and
+		-- Putrid Seed nodes which replace tree proxy nodes
 		local treeNode = self.tree.nodes[id]
 		-- skip updating unallocated masteries which don't have a runegraft
 		local isUnallocatedMastery = node.allMasteryOptions and node.type == "Mastery" and not self.hashOverrides[id]
-		if treeNode and not isUnallocatedMastery then
+		if treeNode and not treeNode.isProxy and not isUnallocatedMastery then
 			self:ReplaceNode(node,self.tree.nodes[id])
 		end
 		node.conqueredBy = abyssConquests[id]
@@ -1822,9 +1847,11 @@ function PassiveSpecClass:BuildClusterJewelGraphs()
 				end
 			end
 		end
-		local index = isValueInArray(subGraph.parentSocket.linked, subGraph.entranceNode)
-		assert(index, "Entrance for subGraph not linked to parent socket???")
-		t_remove(subGraph.parentSocket.linked, index)
+		for _, entranceNode in ipairs(subGraph.entranceNodes or { subGraph.entranceNode }) do
+			local index = isValueInArray(subGraph.parentSocket.linked, entranceNode)
+			assert(index, "Entrance for subGraph not linked to parent socket???")
+			t_remove(subGraph.parentSocket.linked, index)
+		end
 	end
 	wipeTable(self.subGraphs)
 	self.ignoreAllocatingSubgraph = false -- reset after subGraph logic
@@ -1849,6 +1876,8 @@ function PassiveSpecClass:BuildClusterJewelGraphs()
 		if node and self.allocNodes[node.id] and node.expansionJewel and node.expansionJewel.size == 2 and jewel and jewel.jewelData.clusterJewelValid then
 			-- This is a Large Jewel Socket, and it has a cluster jewel in it
 			self:BuildSubgraph(jewel, self.nodes[nodeId], nil, nil, importedNodes, importedGroups)
+		elseif node and self.allocNodes[node.id] and jewel and jewel.jewelData.blightcoreNotables then
+			self:BuildBlightcoreSubgraph(jewel, self.nodes[nodeId])
 		end
 	end
 
@@ -1879,6 +1908,62 @@ function PassiveSpecClass:BuildClusterJewelGraphs()
 	self:EndLegacyClusterHashConversion()
 end
 
+-- Adds the proxy passives a Putrid Seed grows from a Large Jewel Socket Unlike
+-- cluster jewels, these are fixed tree nodes. The notables allocate the jewel's
+-- granted notables
+function PassiveSpecClass:BuildBlightcoreSubgraph(jewel, parentSocket)
+	local layout = self.tree.blightcoreLayouts[parentSocket.id]
+	if not layout then
+		return
+	end
+	local subGraph = {
+		nodes = {},
+		group = { x = parentSocket.x, y = parentSocket.y, oo = {} },
+		connectors = {},
+		parentSocket = parentSocket,
+		entranceNodes = {},
+	}
+	self.subGraphs[parentSocket.id] = subGraph
+
+	-- a map of what "added passive skill is *" enchant index each node uses
+	local notableIndex = self.build.data.clusterJewels.blightcoreNotableIndex
+	for _, treeNode in ipairs(layout) do
+		-- copy the node and replace it so that it allocates the anointed node
+		-- nodes without a matching anoint stay as "mycelial growths"
+		local node = setmetatable({ linked = {}, power = {}, isProxy = false, isBlightcore = true }, treeNode)
+		local index = notableIndex and notableIndex[treeNode.id]
+		local notable = index and jewel.jewelData.blightcoreNotables[index] and self.tree.notableMap[jewel.jewelData.blightcoreNotables[index]]
+		if notable then
+			node.dn = notable.dn
+			node.name = notable.name
+			node.icon = notable.icon
+			node.sprites = notable.sprites
+			node.sd = { "Allocates " .. notable.dn }
+			self.tree:ProcessStats(node)
+		end
+		t_insert(subGraph.nodes, node)
+		self.nodes[node.id] = node
+	end
+
+	-- connect nodes in the same group to each other
+	for _, node in ipairs(subGraph.nodes) do
+		for _, otherId in ipairs(node.linkedId) do
+			local other = self.nodes[otherId]
+			if other and (other == parentSocket or other.proxyKey == node.proxyKey) and not isValueInArray(node.linked, other) then
+				t_insert(node.linked, other)
+				t_insert(other.linked, node)
+				if other == parentSocket then
+					t_insert(subGraph.entranceNodes, node)
+				end
+				local connectors = self.tree:BuildConnector(node, other)
+				t_insert(subGraph.connectors, connectors[1])
+				if connectors[2] then
+					t_insert(subGraph.connectors, connectors[2])
+				end
+			end
+		end
+	end
+end
 -- Finds a specific expansion socket entry within a passive-tree group.
 function PassiveSpecClass:FindClusterSocket(group, index)
 	for _, nodeId in ipairs(group.n) do
@@ -2195,33 +2280,7 @@ function PassiveSpecClass:BuildSubgraph(jewel, parentSocket, id, upSize, importe
 	-- Second pass: notables
 
 	-- Gather notable indicies
-	local notableIndexList = { }
-	for _, nodeIndex in ipairs(clusterJewel.notableIndicies) do
-		if #notableIndexList == notableCount then
-			break
-		end
-		if clusterJewel.size == "Medium" then
-			if socketCount == 0 and notableCount == 2 then
-				-- Special rule for two notables in a Medium cluster
-				if nodeIndex == 6 then
-					nodeIndex = 4
-				elseif nodeIndex == 10 then
-					nodeIndex = 8
-				end
-			elseif nodeCount == 4 then
-				-- Special rule for notables in a 4-node Medium cluster
-				if nodeIndex == 10 then
-					nodeIndex = 9
-				elseif nodeIndex == 2 then
-					nodeIndex = 3
-				end
-			end
-		end
-		if not indicies[nodeIndex] then
-			t_insert(notableIndexList, nodeIndex)
-		end
-	end
-	table.sort(notableIndexList)
+	local notableIndexList = itemLib.getClusterJewelNotableIndices(clusterJewel, jewelData, notableCount)
 
 	-- Create the notables
 	for index, baseNode in ipairs(notableList) do

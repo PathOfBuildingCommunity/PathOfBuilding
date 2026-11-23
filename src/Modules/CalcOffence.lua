@@ -491,9 +491,13 @@ function calcs.offence(env, actor, activeSkill)
 		end
 	end
 
+	local function calcEnemyMaxResist(damageType)
+		return enemyDB:Flag(nil, "DoNotChangeMaxResFromConfig") and data.misc.EnemyMaxResist or m_min(m_max(env.configInput["enemy"..damageType.."Resist"] or data.misc.EnemyMaxResist, data.misc.EnemyMaxResist), data.misc.MaxResistCap)
+	end
+
 	local function calcResistForType(damageType, cfg)
 		local resist = enemyDB:Override(cfg, damageType.."Resist")
-		local maxResist = enemyDB:Flag(nil, "DoNotChangeMaxResFromConfig") and data.misc.EnemyMaxResist or m_min(m_max(env.configInput["enemy"..damageType.."Resist"] or data.misc.EnemyMaxResist, data.misc.EnemyMaxResist), data.misc.MaxResistCap)
+		local maxResist = calcEnemyMaxResist(damageType)
 		if not resist then
 			if env.modDB:Flag(nil, "Enemy"..damageType.."ResistEqualToYours") then
 				resist = env.player.output[damageType.."Resist"]
@@ -1181,6 +1185,9 @@ function calcs.offence(env, actor, activeSkill)
 			output.StrikeTargets = baseStrikeCount + skillModList:Sum("BASE", skillCfg, "AdditionalStrikeTarget")
 		end
 	end
+	if skillFlags.totem then
+		output.ActiveTotemLimit = skillModList:Sum("BASE", skillCfg, "ActiveTotemLimit", "ActiveBallistaLimit")
+	end
 	if skillFlags.area or skillData.radius or (skillFlags.mine and activeSkill.skillTypes[SkillType.Aura]) then
 		calcAreaOfEffect(skillModList, skillCfg, skillData, skillFlags, output, breakdown)
 	end
@@ -1199,7 +1206,7 @@ function calcs.offence(env, actor, activeSkill)
 			if breakdown then
 				local inc = skillModList:Sum("INC", skillCfg, pool .. "Reserved", "Reserved", "SupportManaMultiplier")
 				local more = skillModList:More(skillCfg, pool .. "Reserved", "Reserved", "SupportManaMultiplier")
-				if inc ~= 0 and more ~= 1 then
+				if inc ~= 0 or more ~= 1 then
 					breakdown[pool .. "ReservedMod"] = {
 						s_format("%.2f ^8(increased/reduced)", 1 + inc/100),
 						s_format("x %.2f ^8(more/less)", more),
@@ -1293,7 +1300,7 @@ function calcs.offence(env, actor, activeSkill)
 		local baseCooldown = skillData.trapCooldown or skillData.cooldown
 		if baseCooldown or skillModList:Sum("BASE", skillCfg, "CooldownRecovery") ~= 0 then
 			if baseCooldown then
-				output.TrapCooldown = baseCooldown / calcLib.mod(skillModList, skillCfg, "CooldownRecovery")
+				output.TrapCooldown = skillModList:Override(skillCfg, "CooldownRecovery") or baseCooldown / calcLib.mod(skillModList, skillCfg, "CooldownRecovery")
 				output.TrapCooldown = m_ceil(output.TrapCooldown * data.misc.ServerTickRate) / data.misc.ServerTickRate
 			else -- Assign Trap Cooldown if the trap/skill does not have cooldown but gain cooldown elsewhere
 				local cooldown, _, _ = calcSkillCooldown(skillModList, skillCfg, skillData)
@@ -1430,7 +1437,6 @@ function calcs.offence(env, actor, activeSkill)
 				total = s_format("= %.2f ^8per second", output.TotemPlacementSpeed),
 			})
 		end
-		output.ActiveTotemLimit = skillModList:Sum("BASE", skillCfg, "ActiveTotemLimit", "ActiveBallistaLimit")
 		output.TotemsSummoned = env.modDB:Override(nil, "TotemsSummoned") or output.ActiveTotemLimit
 		if breakdown then
 			breakdown.ActiveTotemLimit = {
@@ -1894,6 +1900,10 @@ function calcs.offence(env, actor, activeSkill)
 			end
 		end
 	end
+	-- A trigger-source probe only needs the cost; skip the damage work for candidates that cannot pay it
+	if env.triggerSourceCost and actor == env.player and (output[env.triggerSourceCost.stat] or 0) < env.triggerSourceCost.minimum then
+		return false
+	end
 	-- Eldritch Battery adds maximum Energy Shield to the Mana available for payable-cost damage.
 	output.ManaCostPayablePool = (output.ManaUnreserved or 0) + (modDB:Flag(nil, "EnergyShieldProtectsMana") and output.EnergyShield or 0)
 
@@ -1903,6 +1913,18 @@ function calcs.offence(env, actor, activeSkill)
 		local multiplier = 0.25
 		skillModList:NewMod("PhysicalMin", "BASE", m_floor(output.ManaCost * multiplier), "Sacrificial Zeal", ModFlag.Spell)
 		skillModList:NewMod("PhysicalMax", "BASE", m_floor(output.ManaCost * multiplier), "Sacrificial Zeal", ModFlag.Spell)
+	end
+
+	if skillData.sacrificeLifePercent then
+		local life
+		if skillFlags.totem then
+			life = output.TotemLife
+		else
+			life = output.LifeUnreserved
+		end
+		local add = m_floor(life * skillData.sacrificeLifePercent / 100 * (skillData.sacrificeLifeAsChaos / 100))
+		skillModList:NewMod("ChaosMin", "BASE", add, "Sacrifice Support")
+		skillModList:NewMod("ChaosMax", "BASE", add, "Sacrifice Support")
 	end
 
 	runSkillFunc("preDamageFunc")
@@ -1930,8 +1952,13 @@ function calcs.offence(env, actor, activeSkill)
 
 	-- Cache global damage disabling flags
 	local canDeal = { }
+	local damageDisableMods = breakdown and { }
 	for _, damageType in ipairs(dmgTypeList) do
-		canDeal[damageType] = not skillModList:Flag(skillCfg, "DealNo"..damageType, "DealNoDamage")
+		local damageDisabled = skillModList:Flag(skillCfg, "DealNo"..damageType, "DealNoDamage")
+		canDeal[damageType] = not damageDisabled
+		if damageDisableMods and damageDisabled then
+			damageDisableMods[damageType] = skillModList:Tabulate("FLAG", skillCfg, "DealNo"..damageType, "DealNoDamage")
+		end
 	end
 
 	-- Calculate damage conversion percentages
@@ -2275,6 +2302,10 @@ function calcs.offence(env, actor, activeSkill)
 			output.Speed = 0
 		elseif skillData.timeOverride then
 			output.Time = skillData.timeOverride
+			local cooldown = globalOutput.TrapCooldown or globalOutput.Cooldown
+			if cooldown then
+				output.Time = m_max(output.Time, cooldown)
+			end
 			output.Speed = 1 / output.Time
 		elseif skillData.fixedCastTime then
 			output.Time = activeSkill.activeEffect.grantedEffect.castTime
@@ -2908,7 +2939,9 @@ function calcs.offence(env, actor, activeSkill)
 							local castTime = 1 / m_min(castRate, data.misc.ServerTickRate)
 							local count = value.skillModList:Sum("BASE", value.skillCfg, pactKey.."EmpoweredSpells")
 							local storedUses = value.skillData.storedUses + value.skillModList:Sum("BASE", value.skillCfg, "AdditionalCooldownUses")
-							local uptime = (globalOutput.Speed or 0) == 0 and 100 or m_min((count / globalOutput.Speed) / (cooldown + castTime), 1) * 100
+							-- Repeated spells retain the empowerment from the initial cast without consuming another use.
+							local empoweredUseRate = globalOutput.Speed / globalOutput.Repeats
+							local uptime = empoweredUseRate == 0 and 100 or m_min((count / empoweredUseRate) / (cooldown + castTime), 1) * 100
 							uptime = m_min(100, uptime * storedUses)
 							local effect = skillModList:Flag(nil, "Condition:PactMaxHit") and 100 or uptime
 							local effectMult = effect / 100
@@ -2921,7 +2954,7 @@ function calcs.offence(env, actor, activeSkill)
 							if globalBreakdown then
 								globalBreakdown[pactKey.."UpTimeRatio"] = {
 									s_format("(%.2f ^8(number of Empowered)", count),
-									s_format("/ %.2f) ^8(casts per second)", globalOutput.Speed or 0),
+									s_format("/ %.2f) ^8(non-repeated casts per second)", empoweredUseRate),
 									s_format("/ (%.2f ^8(pact cooldown)", cooldown),
 									s_format("+ %.2f) ^8(pact cast time)", castTime),
 									s_format("* %.2f ^8(stored uses)", storedUses),
@@ -2942,7 +2975,7 @@ function calcs.offence(env, actor, activeSkill)
 									globalOutput.ProjectileCount = globalOutput.ProjectileCount + globalOutput.BeidatAdditionalProjectiles
 								end
 								if skillFlags.chaining and not skillFlags.projectile and not skillModList:Flag(skillCfg, "CannotChain") and not skillModList:Flag(skillCfg, "NoAdditionalChains") then
-									globalOutput.BeidatAdditionalBeamChains = value.skillModList:Sum("BASE", value.skillCfg, "BeidatAdditionalBeamChains") * effectMult
+									globalOutput.BeidatAdditionalBeamChains = value.skillModList:Sum("BASE", value.skillCfg, "BeidatAdditionalBeamChains") * effectMult * skillModList:More(skillCfg, "ChainCountMax")
 									globalOutput.ChainMax = globalOutput.ChainMax + globalOutput.BeidatAdditionalBeamChains
 									globalOutput.ChainMaxString = globalOutput.ChainMax
 									globalOutput.ChainRemaining = m_max(0, globalOutput.ChainMax - globalOutput.Chain)
@@ -3142,6 +3175,9 @@ function calcs.offence(env, actor, activeSkill)
 					if skillModList:Flag(skillCfg, "Every5UseCrit") then
 						output.CritChance = (4 * output.CritChance + 100) / 5
 					end
+					if skillModList:Flag(skillCfg, "Every6UseCrit") then
+						output.CritChance = (5 * output.CritChance + 100) / 6
+					end
 					preHitCheckCritChance = output.CritChance
 					output.CritChance = output.CritChance * output.AccuracyHitChance / 100
 				end
@@ -3187,7 +3223,10 @@ function calcs.offence(env, actor, activeSkill)
 						if skillModList:Flag(skillCfg, "Every5UseCrit") then
 							t_insert(breakdown.CritChance, s_format("+ %.2f%% ^8(crit every 5th use)", (4 * preSkillUseCritChance + 100) / 5 - preSkillUseCritChance))
 						end
-						if skillModList:Flag(skillCfg, "Every3UseCrit") or skillModList:Flag(skillCfg, "Every5UseCrit") then
+						if skillModList:Flag(skillCfg, "Every6UseCrit") then
+							t_insert(breakdown.CritChance, s_format("+ %.2f%% ^8(crit every 6th use)", (5 * preSkillUseCritChance + 100) / 6 - preSkillUseCritChance))
+						end
+						if skillModList:Flag(skillCfg, "Every3UseCrit") or skillModList:Flag(skillCfg, "Every5UseCrit") or skillModList:Flag(skillCfg, "Every6UseCrit") then
 							t_insert(breakdown.CritChance, s_format("= %.2f%%", preHitCheckCritChance))
 						end
 					end
@@ -3235,6 +3274,9 @@ function calcs.offence(env, actor, activeSkill)
 					end
 					if skillModList:Flag(skillCfg, "Every5UseCrit") then
 						bifurcateUseChance = bifurcateUseChance * 4 / 5
+					end
+					if skillModList:Flag(skillCfg, "Every6UseCrit") then
+						bifurcateUseChance = bifurcateUseChance * 5 / 6
 					end
 					bifurcateMultiChance = bifurcateMultiChance * bifurcateUseChance
 					local conditionalBifurcateChance = effectiveCritChance > 0 and bifurcateMultiChance / effectiveCritChance or 0
@@ -3465,20 +3507,24 @@ function calcs.offence(env, actor, activeSkill)
 						damageTypeLuckyChance = damageTypeLuckyChance - 1
 					end
 					local rolls = damageTypeLuckyChance
+					-- Extra rolls when lucky, separate from the chance as partially lucky hits are averaged
+					local luckRolls = 1
 					if skillModList:Flag(skillCfg, "ExtremeLuck") then
 						rolls = rolls * 2
+						luckRolls = 2
 					end
 					if skillModList:Flag(skillCfg, "Unexciting") then
 						rolls = 0
+						luckRolls = 0
 					end
 					output.DamageRolls = rolls
 					if pass == 1 then
 						output.CritDamageRolls = rolls
 					end
-					rolls = m_abs(rolls) + 2
-					damageTypeHitAvgNotLucky = (damageTypeHitMin / rolls + damageTypeHitMax / rolls)
-					damageTypeHitAvgLucky = (damageTypeHitMin / rolls + (rolls - 1) * damageTypeHitMax / rolls)
-					damageTypeHitAvgUnlucky = ((rolls - 1) * damageTypeHitMin / rolls + damageTypeHitMax / rolls)
+					luckRolls = luckRolls + 2
+					damageTypeHitAvgNotLucky = (damageTypeHitMin + damageTypeHitMax) / 2
+					damageTypeHitAvgLucky = (damageTypeHitMin + (luckRolls - 1) * damageTypeHitMax) / luckRolls
+					damageTypeHitAvgUnlucky = ((luckRolls - 1) * damageTypeHitMin + damageTypeHitMax) / luckRolls
 					if damageTypeLuckyChance >= 0 then
 						damageTypeHitAvg = damageTypeHitAvgNotLucky * (1 - damageTypeLuckyChance) + damageTypeHitAvgLucky * damageTypeLuckyChance
 					else
@@ -3564,9 +3610,12 @@ function calcs.offence(env, actor, activeSkill)
 								pen = skillModList:Sum("BASE", cfg, "ChaosPenetration")
 							end
 						end
-						local invertChanceEle = m_max(m_min(skillModList:Sum("CHANCE", cfg, "HitsInvertEleResChance"), 1), 0)
+						-- Include the matching element-specific resistance inversion chance when calculating hit damage.
+						local invertChanceEle = m_max(m_min(skillModList:Sum("CHANCE", cfg, "HitsInvertEleResChance", "HitsInvert"..damageType.."ResChance"), 1), 0)
 						local invertChanceChaos = m_max(m_min(skillModList:Sum("CHANCE", cfg, "HitsInvertChaosResChance"), 1), 0)
 						local invertChance = (isElemental[damageType] and invertChanceEle) or (damageType == "Chaos" and invertChanceChaos) or 0
+						-- An inverted negative resistance is still capped by the enemy's maximum resistance
+						local invertedResist = invertChance > 0 and m_min(-resist, calcEnemyMaxResist(sourceRes)) or -resist
 						sourceRes = env.modDB:Flag(nil, "Enemy"..sourceRes.."ResistEqualToYours") and "Your "..sourceRes.." Resistance" or (env.partyMembers.modDB:Flag(nil, "Enemy"..sourceRes.."ResistEqualToYours") and "Party Member "..sourceRes.." Resistance" or sourceRes)
 						if skillFlags.projectile then
 							takenInc = takenInc + enemyDB:Sum("INC", nil, "ProjectileDamageTaken")
@@ -3582,11 +3631,11 @@ function calcs.offence(env, actor, activeSkill)
 						local useRes = useResChance > 0
 						local effectiveResist = resist
 						if skillModList:Flag(cfg, isElemental[damageType] and "CannotElePenIgnore" or nil) then
-							effectiveResist = invertChance > 0 and (resist - 2 * invertChance * resist) or resist
+							effectiveResist = invertChance > 0 and (resist * (1 - invertChance) + invertedResist * invertChance) or resist
 							effMult = effMult * (1 - effectiveResist / 100)
 						elseif useRes then
 							if invertChance > 0 then
-								effectiveResist = ((resist - pen) * (1 - invertChance) + (-resist - pen) * invertChance) * useResChance
+								effectiveResist = ((resist - pen) * (1 - invertChance) + (invertedResist - pen) * invertChance) * useResChance
 							else
 								effectiveResist = (resist - pen) * useResChance
 							end
@@ -3600,10 +3649,10 @@ function calcs.offence(env, actor, activeSkill)
 						end
 						if pass == 2 and breakdown and (effMult ~= 1 or sourceRes ~= damageType or invertChance > 0) and skillModList:Flag(cfg, isElemental[damageType] and "CannotElePenIgnore" or nil) then
 							t_insert(breakdown[damageType], s_format("x %.3f ^8(effective DPS modifier)", effMult))
-							breakdown[damageType.."EffMult"] = breakdown.effMult(damageType, resist, 0, takenInc, effMult, takenMore, sourceRes, useRes, invertChance, effectiveResist)
+							breakdown[damageType.."EffMult"] = breakdown.effMult(damageType, resist, 0, takenInc, effMult, takenMore, sourceRes, useRes, invertChance, effectiveResist, invertedResist)
 						elseif pass == 2 and breakdown and (effMult ~= 1 or sourceRes ~= damageType or invertChance > 0) then
 							t_insert(breakdown[damageType], s_format("x %.3f ^8(effective DPS modifier)", effMult))
-							breakdown[damageType.."EffMult"] = breakdown.effMult(damageType, resist, pen, takenInc, effMult, takenMore, sourceRes, useRes, invertChance, effectiveResist)
+							breakdown[damageType.."EffMult"] = breakdown.effMult(damageType, resist, pen, takenInc, effMult, takenMore, sourceRes, useRes, invertChance, effectiveResist, invertedResist)
 						end
 					end
 					if pass == 2 and breakdown then
@@ -3640,7 +3689,8 @@ function calcs.offence(env, actor, activeSkill)
 				else
 					if breakdown then
 						breakdown[damageType] = {
-							"You can't deal "..damageType.." damage"
+							"You can't deal "..damageType.." damage",
+							modList = damageDisableMods[damageType],
 						}
 					end
 				end
@@ -5383,11 +5433,12 @@ function calcs.offence(env, actor, activeSkill)
 			local incChillDuration = skillModList:Sum("INC", cfg, "EnemyChillDuration", "EnemyAilmentDuration", "EnemyElementalAilmentDuration") + enemyDB:Sum("INC", nil, "SelfChillDuration", "SelfAilmentDuration", "SelfElementalAilmentDuration")
 			local moreChillDuration = skillModList:More(cfg, "EnemyChillDuration", "EnemyAilmentDuration", "EnemyElementalAilmentDuration") * enemyDB:More(nil, "SelfChillDuration", "SelfAilmentDuration", "SelfElementalAilmentDuration")
 			output.ChillDurationMod = (1 + incChillDuration / 100) * moreChillDuration
-			output.ChillSourceEffect = m_min(skillModList:Override(nil, "ChillMax") or ailmentData.Chill.max, m_floor(ailmentData.Chill.default * output.ChillEffectMod))
+			-- Let +maximum Chill effect also raise the cap for chilling areas such as Cold Snap.
+			output.ChillSourceEffect = m_min(skillModList:Override(nil, "ChillMax") or (ailmentData.Chill.max + skillModList:Sum("BASE", nil, "ChillMax")), m_floor(ailmentData.Chill.default * output.ChillEffectMod))
 			if breakdown then
 				breakdown.DotChill = { }
 				breakdown.multiChain(breakdown.DotChill, {
-					label = s_format("Effect of Chill: ^8(capped at %d%%)", skillModList:Override(nil, "ChillMax") or ailmentData.Chill.max),
+					label = s_format("Effect of Chill: ^8(capped at %d%%)", skillModList:Override(nil, "ChillMax") or (ailmentData.Chill.max + skillModList:Sum("BASE", nil, "ChillMax"))),
 					base = s_format("%d%% ^8(base)", ailmentData.Chill.default),
 					{ "%.2f ^8(increased/reduced effect of chill)", 1 + incChill / 100 },
 					{ "%.2f ^8(more/less effect of chill)", moreChill },
@@ -5944,13 +5995,21 @@ function calcs.offence(env, actor, activeSkill)
 				timeType = skillData.triggered and "trigger" or (skillFlags.totem and "totem placement" or skillFlags.attack and "attack" or "cast")
 			end
 
+			local refundMult = 1
+			if usedResource == "Mana" and skillModList:Flag(skillCfg, "Every2UseManaCostRefund") then
+				refundMult = 0.5
+			end
+
 			output[usedResource.."PerSecondHasCost"] = true
-			output[usedResource.."PerSecondCost"] = (output[usedResource.."PerSecondCost"] or 0)+ output[resource.."Cost"] * useSpeed
+			output[usedResource.."PerSecondCost"] = (output[usedResource.."PerSecondCost"] or 0)+ output[resource.."Cost"] * useSpeed * refundMult
 
 			if breakdown then
 				breakdown[usedResource.."PerSecondCost"] = copyTable(breakdown[resource.."Cost"])
 				t_remove(breakdown[usedResource.."PerSecondCost"])
 				t_insert(breakdown[usedResource.."PerSecondCost"], s_format("x %.2f ^8("..timeType.." speed)", useSpeed))
+				if refundMult ~= 1 then
+					t_insert(breakdown[usedResource.."PerSecondCost"], s_format("x %g ^8(refunded every second use)", refundMult))
+				end
 				t_insert(breakdown[usedResource.."PerSecondCost"], s_format("= %.2f per second", output[usedResource.."PerSecondCost"]))
 			end
 		end

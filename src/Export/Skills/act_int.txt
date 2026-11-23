@@ -651,7 +651,7 @@ return function(skills, mod, flag, skill)
 #mods
 
 #skill ColdSnap
-#flags spell area
+#flags spell area duration
 #baseMod skill("dotIsArea", true)
 #baseMod skill("radiusLabel", "Initial Burst:")
 #baseMod skill("radiusSecondaryLabel", "Initial Chilled Ground:")
@@ -1013,7 +1013,7 @@ return function(skills, mod, flag, skill)
 			mod("EnergyBladeDamage", "MORE", nil, 0, 0, { type = "Condition", var = "UsingTwoHandedWeapon" }, { type = "GlobalEffect", effectType = "Buff", unscalable = true  }),
 		},
 		["storm_blade_global_attack_speed_+%"] = {
-			mod("EnergyBladeAttackSpeed", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true  }),
+			mod("Speed", "INC", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
 		},
 		["storm_blade_minimum_lightning_damage"] = {
 			mod("EnergyBladeMinLightning", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true  }),
@@ -1128,6 +1128,11 @@ return function(skills, mod, flag, skill)
 			area = true,
 		},
 	},
+#mods
+
+#skill FireballAltX
+#flags spell projectile area duration
+#baseMod skill("debuff", true)
 #mods
 
 #skill VaalFireball
@@ -3198,6 +3203,7 @@ return function(skills, mod, flag, skill)
 
 #skill ManaInfusedStaff
 #flags spell area duration
+#baseMod skill("requiresManaReservation", true)
 	statMap = {
 		["mana_infused_staff_base_trigger_interval_ms"] = {
 			skill("hitTimeOverride", nil),
@@ -4589,6 +4595,22 @@ return function(skills, mod, flag, skill)
 		},
 	},
 #baseMod skill("radius", 16)
+#mods
+
+#skill ArcaneLink
+#flags spell duration
+	statMap = {
+		["arcane_link_minimum_lightning_damage"] = {
+			mod("LightningMin", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Link" }),
+		},
+		["arcane_link_maximum_lightning_damage"] = {
+			mod("LightningMax", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Link" }),
+		},
+		["arcane_link_added_lightning_damage_from_mana_%"] = {
+			mod("LightningMin", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Link" }, { type = "PercentStat", stat = "Mana", percent = 1, actor = "parent" }),
+			mod("LightningMax", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Link" }, { type = "PercentStat", stat = "Mana", percent = 1, actor = "parent" }),
+		},
+	},
 #mods
 
 #skill WintertideBrand

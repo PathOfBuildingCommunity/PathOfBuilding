@@ -382,7 +382,7 @@ function SkillsTabClass:SkillsTab(build)
 	end
 	self.controls.sourceNote = new("LabelControl"):LabelControl({ "TOPLEFT", self.controls.socketsLabel, "TOPLEFT" }, { 0, 30, 0, 16 })
 	self.controls.sourceNote.shown = function()
-		return self.displayGroup.source ~= nil
+		return self.displayGroup.source ~= nil and self.displayGroup.source ~= "Config"
 	end
 	self.controls.sourceNote.label = function()
 		local label
@@ -454,8 +454,9 @@ function SkillsTabClass:LoadSkill(node, skillSetId)
 	socketGroup.mainActiveSkillCalcs = tonumber(node.attrib.mainActiveSkillCalcs) or 1
 	socketGroup.gemList = { }
 	if node.attrib.imbuedSupport and node.attrib.slot then
-		socketGroup.imbuedSupport = node.attrib.imbuedSupport
-		self.controls.imbuedSupport.gemChangeFunc(data.gems[data.gemForBaseName[socketGroup.imbuedSupport:lower().." support"]], nil, nil, socketGroup.slot)
+		local name = escapeGGGString(node.attrib.imbuedSupport)
+		local gem = self:FindImbuedSupport(name)
+		socketGroup.imbuedSupport = gem and gem.name or name
 	end
 
 	for _, child in ipairs(node) do
@@ -1099,6 +1100,15 @@ function SkillsTabClass:UpdateGemSlots()
 	end
 end
 
+-- Resolve both saved gem names and import names, which may include "Support".
+function SkillsTabClass:FindImbuedSupport(name)
+	local gemData = self.build.data
+	local lowerName = name:lower()
+	local gemId = gemData.gemForBaseName[lowerName .. " support"] or gemData.gemForBaseName[lowerName]
+	local gem = gemId and gemData.gems[gemId]
+	return gem and gem.grantedEffect and gem.grantedEffect.support and gem or nil
+end
+
 -- Find the skill gem matching the given specification
 function SkillsTabClass:FindSkillGem(nameSpec)
 	-- Search for gem name using increasingly broad search patterns
@@ -1284,10 +1294,10 @@ function SkillsTabClass:SetDisplayGroup(socketGroup)
 		self.controls.includeInFullDPS.state = socketGroup.includeInFullDPS and socketGroup.enabled
 		self.controls.groupCount:SetText(socketGroup.groupCount or 1)
 		if socketGroup.imbuedSupport then
-			local gemId = data.gems[data.gemForBaseName[socketGroup.imbuedSupport:lower().." support"]]
-			self.controls.imbuedSupport.gemId = gemId
+			local gem = self:FindImbuedSupport(socketGroup.imbuedSupport)
+			self.controls.imbuedSupport.gemId = gem
 			self.controls.imbuedSupport:SetText(socketGroup.imbuedSupport)
-			self.controls.imbuedSupport.inactiveCol = data.skillColorMap[gemId.grantedEffect.color]
+			self.controls.imbuedSupport.inactiveCol = gem and data.skillColorMap[gem.grantedEffect.color] or "^8"
 		else
 			self.controls.imbuedSupport.gemId = nil
 			self.controls.imbuedSupport:SetText("")
@@ -1320,6 +1330,10 @@ function SkillsTabClass:AddSocketGroupTooltip(tooltip, socketGroup)
 	local sourceSingle = socketGroup.sourceItem or socketGroup.sourceNode
 	if sourceSingle then
 		tooltip:AddLine(18, "^7Source: " .. colorCodes[sourceSingle.rarity or "NORMAL"] .. sourceSingle.name)
+		tooltip:AddSeparator(10)
+	-- Identify curses granted by Custom Modifiers in the skill-group tooltip.
+	elseif socketGroup.source == "Config" then
+		tooltip:AddLine(18, "^7Source: " .. colorCodes.NORMAL .. "Custom Modifiers")
 		tooltip:AddSeparator(10)
 	end
 	local gemShown = { }
@@ -1507,9 +1521,8 @@ function SkillsTabClass:RebuildImbuedSupportBySlot()
 	wipeTable(self.imbuedSupportBySlot)
 	for _, socketGroup in ipairs(self.socketGroupList) do
 		if socketGroup.slot and socketGroup.imbuedSupport then
-			local gemId = data.gemForBaseName[socketGroup.imbuedSupport:lower().." support"]
-			local gem = gemId and data.gems[gemId]
-			if gem and gem.grantedEffect then
+			local gem = self:FindImbuedSupport(socketGroup.imbuedSupport)
+			if gem then
 				self.imbuedSupportBySlot[socketGroup.slot] = gem.grantedEffect
 			end
 		end
