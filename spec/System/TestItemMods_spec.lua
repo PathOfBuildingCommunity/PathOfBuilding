@@ -1607,6 +1607,59 @@ describe("TetsItemMods", function()
 		assert.are.equals(1, countSupport(sentinel, "SupportMinionDamage"))
 	end)
 
+	-- #10310
+	it("an item's own ExtraSupport for a support gem does not disable that support elsewhere", function()
+		addItem("Supporting Gloves\nSpiked Gloves\nGrants Level 20 Sunder")
+		build.skillsTab:PasteSocketGroup("Slot: Gloves\nFist of War 20/0  1\n")
+		runCallback("OnFrame")
+
+		local sunder = findActiveSkill("Sunder")
+		assert.is_not_nil(sunder)
+		assert.is_true(hasSupport(sunder, "SupportFistofWar"))
+
+		addItem("Breaking Body Armour\nSimple Robe\nSkills from Equipped Body Armour are Supported by Level 20 Fist of War")
+		build.skillsTab:PasteSocketGroup("Slot: Body Armour\nHeavy Strike 20/0  1\n")
+		runCallback("OnFrame")
+
+		sunder = findActiveSkill("Sunder")
+		assert.is_not_nil(sunder)
+		assert.is_true(hasSupport(sunder, "SupportFistofWar"))
+	end)
+
+	it("a support gem and an ExtraSupport of the same support are applied once", function()
+		addItem("Supporting Armour\nSimple Robe\nSockets: B-B\nSocketed Gems are Supported by Level 10 Added Cold Damage")
+		build.skillsTab:PasteSocketGroup("Slot: Body Armour\nFrostbolt 20/0  1\nAdded Cold Damage 20/0  1\n")
+		runCallback("OnFrame")
+
+		local frostbolt = findActiveSkill("Frostbolt")
+		assert.is_not_nil(frostbolt)
+		assert.are.equals(1, countSupport(frostbolt, "SupportAddedColdDamage"))
+		for _, effect in ipairs(frostbolt.effectList) do
+			if effect.grantedEffect.id == "SupportAddedColdDamage" then
+				assert.are.equals(20, effect.level)
+			end
+		end
+	end)
+
+	-- #10527: item list sorting and tooltips run calculations with other items equipped
+	it("simulating an item with ExtraSupport does not change the build's own support gems", function()
+		addItem("Granting Helmet\nEzomyte Burgonet\nGrants Level 20 Fireball")
+		addItem("Plain Gloves\nSpiked Gloves")
+		build.skillsTab:PasteSocketGroup("Slot: Helmet\nHypothermia 20/0  1\n")
+		build.skillsTab:PasteSocketGroup("Slot: Gloves\nFrostbolt 20/0  1\n")
+		runCallback("OnFrame")
+		assert.is_true(hasSupport(findActiveSkill("Fireball"), "SupportHypothermia"))
+
+		local calcFunc = build.calcsTab:GetMiscCalculator()
+		local gloves = new("Item"):Item("Rarity: RARE\nSupporting Gloves\nSpiked Gloves\nSocketed Gems are Supported by Level 20 Hypothermia")
+		calcFunc({ repSlotName = "Gloves", repItem = gloves })
+		build.buildFlag = true
+		runCallback("OnFrame")
+
+		assert.is_nil(data.skills.SupportHypothermia.fromItem)
+		assert.is_true(hasSupport(findActiveSkill("Fireball"), "SupportHypothermia"))
+	end)
+
 	it("scales shrine buff effect with total life reserved", function()
 		build.configTab.input.buffAccelerationShrine = true
 		local shrineMod = "2% increased Effect of Shrine Buffs on you for each 5% of Life Reserved"
