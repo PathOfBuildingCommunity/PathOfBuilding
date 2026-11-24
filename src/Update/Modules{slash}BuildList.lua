@@ -1,0 +1,230 @@
+-- Path of Building
+--
+-- Module: Build List
+-- Displays the list of builds.
+--
+local pairs = pairs
+local ipairs = ipairs
+local t_insert = table.insert
+
+local buildListHelpers = require("Modules.BuildListHelpers")
+local buildSortDropList = buildListHelpers.buildSortDropList
+
+local listMode = new("ControlHost"):ControlHost()
+
+function listMode:Init(selBuildName, subPath)
+	if self.initialised then
+		local subPathChanged = subPath and subPath ~= self.subPath
+		local reuseBuildIndex = not subPathChanged and self.indexedBuildPath == main.buildPath
+		self.subPath = subPath or self.subPath
+		self.controls.buildList.controls.path:SetSubPath(self.subPath)
+		--if main.showPublicBuilds then
+		if false then
+			self.controls.ExtBuildList = self:getPublicBuilds()
+		else
+			self.controls.ExtBuildList = nil
+		end
+		if reuseBuildIndex then
+			if selBuildName then
+				buildListHelpers.RefreshBuild(self.buildIndex, self.subPath, selBuildName..".xml")
+			end
+			self:FilterBuildList()
+		elseif not subPathChanged then
+			self:BuildList()
+		end
+		self.controls.buildList:SelByFullFileName(selBuildName and main.buildPath..self.subPath..selBuildName..".xml")
+		self:SelectControl(self.controls.buildList)
+		return
+	end
+
+	self.anchor = new("Control"):Control(nil, {0, 4, 0, 0})
+	self.anchor.x = function()
+		return main.screenW / 2
+	end
+
+	self.subPath = subPath or ""
+	self.list = { }
+
+	self.controls.new = new("ButtonControl"):ButtonControl({"TOP",self.anchor,"TOP"}, {-259, 0, 60, 20}, "New", function()
+		main:SetMode("BUILD", false, "Unnamed build")
+	end)
+	self.controls.newFolder = new("ButtonControl"):ButtonControl({"LEFT",self.controls.new,"RIGHT"}, {8, 0, 90, 20}, "New Folder", function()
+		self.controls.buildList:NewFolder()
+	end)
+	self.controls.open = new("ButtonControl"):ButtonControl({"LEFT",self.controls.newFolder,"RIGHT"}, {8, 0, 60, 20}, "Open", function()
+		self.controls.buildList:LoadBuild(self.controls.buildList.selValue)
+	end)
+	self.controls.open.enabled = function() return self.controls.buildList.selValue ~= nil end
+	self.controls.copy = new("ButtonControl"):ButtonControl({"LEFT",self.controls.open,"RIGHT"}, {8, 0, 60, 20}, "Copy", function()
+		self.controls.buildList:RenameBuild(self.controls.buildList.selValue, true)
+	end)
+	self.controls.copy.enabled = function() return self.controls.buildList.selValue ~= nil end
+	self.controls.rename = new("ButtonControl"):ButtonControl({"LEFT",self.controls.copy,"RIGHT"}, {8, 0, 60, 20}, "Rename", function()
+		self.controls.buildList:RenameBuild(self.controls.buildList.selValue)
+	end)
+	self.controls.rename.enabled = function() return self.controls.buildList.selValue ~= nil end
+	self.controls.delete = new("ButtonControl"):ButtonControl({"LEFT",self.controls.rename,"RIGHT"}, {8, 0, 60, 20}, "Delete", function()
+		self.controls.buildList:DeleteBuild(self.controls.buildList.selValue)
+	end)
+	self.controls.delete.enabled = function() return self.controls.buildList.selValue ~= nil end
+	self.controls.sort = new("DropDownControl"):DropDownControl({"LEFT",self.controls.delete,"RIGHT"}, {8, 0, 140, 20}, buildSortDropList, function(index, value)
+		main.buildSortMode = value.sortMode
+		self:SortList()
+	end)
+	self.controls.sort:SelByValue(main.buildSortMode, "sortMode")
+	self.controls.buildList = new("BuildListControl"):BuildListControl({"TOP",self.anchor,"TOP"}, {0, 75, 900, 0}, self)
+	self.controls.buildList.height = function()
+		return main.screenH - 80
+	end
+	local buildListWidth = function ()
+		--if main.showPublicBuilds then
+		if false then
+			return math.min((main.screenW / 2), 900)
+		else
+			return 900
+		end
+	end
+	local buildListOffset = function ()
+		--if main.showPublicBuilds then
+		if false then
+			local offset = math.min(450, main.screenW / 4)
+			return offset - 450
+		else
+			return 0
+		end
+	end
+
+	self.controls.buildList.width = buildListWidth
+	self.controls.buildList.x = buildListOffset
+
+	--if main.showPublicBuilds then
+	if false then
+		self.controls.ExtBuildList = self:getPublicBuilds()
+	end
+
+	self.controls.searchText = new("EditControl"):EditControl({"TOP",self.anchor,"TOP"}, {0, 25, 640, 20}, self.filterBuildList, "Search", "%c%(%)", 100, function(buf)
+		main.filterBuildList = buf
+		self:FilterBuildList()
+	end, nil, nil, true)
+	self.controls.searchText:SetPlaceholder("(e.g. class:assassin myfilename)")
+	self.controls.searchText.width = buildListWidth
+	self.controls.searchText.x = buildListOffset
+
+	self:BuildList()
+	self.controls.buildList:SelByFullFileName(selBuildName and main.buildPath..self.subPath..selBuildName..".xml")
+	self:SelectControl(self.controls.buildList)
+
+	self.initialised = true
+end
+
+function listMode:getPublicBuilds()
+	local buildProviders = {
+		{
+			name = "PoB Archives",
+			impl = new("PoBArchivesProvider"):PoBArchivesProvider("builds")
+		}
+	}
+	local extBuildList = new("ExtBuildListControl"):ExtBuildListControl({"LEFT",self.controls.buildList,"RIGHT"}, {25, 0, main.screenW * 1 / 4 - 50, 0}, buildProviders)
+	extBuildList:Init("PoB Archives")
+	extBuildList.height = function()
+		return main.screenH - 80
+	end
+	extBuildList.width = function ()
+		return math.max((main.screenW / 4 - 50), 400)
+	end
+	return extBuildList
+end
+function listMode:Shutdown()
+end
+
+function listMode:GetArgs()
+	return self.controls.buildList.selValue and self.controls.buildList.selValue.buildName or false, self.subPath
+end
+
+function listMode:OnFrame(inputEvents)
+	for id, event in ipairs(inputEvents) do
+		if event.type == "KeyDown" then
+			if event.key == "v" and IsKeyDown("CTRL") then
+				if self.controls.buildList.copyBuild then
+					local build = self.controls.buildList.copyBuild
+					if build.subPath ~= self.subPath then
+						if not buildListHelpers.CanMoveToSubPath(build, self.subPath) then
+							main:OpenMessagePopup("Error", "A folder cannot be copied into itself.")
+						elseif build.folderName then
+							main:CopyFolder(build.fullFileName, main.buildPath..self.subPath..build.folderName)
+						else
+							copyFile(build.fullFileName, self:GetDestName(self.subPath, build.fileName))
+						end
+						self:BuildList()
+					else
+						self.controls.buildList:RenameBuild(build, true)
+					end
+					self.controls.buildList.copyBuild = nil
+				elseif self.controls.buildList.cutBuild then
+					local build = self.controls.buildList.cutBuild
+					if build.subPath ~= self.subPath then
+						if not buildListHelpers.CanMoveToSubPath(build, self.subPath) then
+							main:OpenMessagePopup("Error", "A folder cannot be moved into itself.")
+						elseif build.folderName then
+							main:MoveFolder(build.folderName, main.buildPath..build.subPath, main.buildPath..self.subPath)
+						else
+							os.rename(build.fullFileName, self:GetDestName(self.subPath, build.fileName))
+						end
+						self:BuildList()
+					end
+					self.controls.buildList.cutBuild = nil
+				end
+			elseif event.key == "n" and IsKeyDown("CTRL") then
+				main:SetMode("BUILD", false, "Unnamed build")
+			elseif event.key == "MOUSE4" then
+				self.controls.buildList.controls.path:Undo()
+			elseif event.key == "MOUSE5" then
+				self.controls.buildList.controls.path:Redo()
+			end
+		end
+	end
+	self:ProcessControlsInput(inputEvents, main.viewPort)
+
+	main:DrawBackground(main.viewPort)
+
+	self:DrawControls(main.viewPort)
+end
+
+function listMode:GetDestName(subPath, fileName)
+	local i = 2
+	local destName = fileName
+	while true do
+		local test = io.open(main.buildPath..subPath..destName, "r")
+		if test then
+			test:close()
+			local baseName = fileName:gsub("%.xml$", "")
+			destName = baseName .. "[" .. i .. "].xml"
+			i = i + 1
+		else
+			break
+		end
+	end
+	return main.buildPath..subPath..destName
+end
+
+function listMode:BuildList()
+	self.indexedBuildPath = main.buildPath
+	self.buildIndex = buildListHelpers.ScanFolder(self.subPath)
+	self:FilterBuildList()
+end
+
+function listMode:FilterBuildList()
+	wipeTable(self.list)
+	for _, entry in ipairs(buildListHelpers.FilterList(self.buildIndex, self.subPath, main.filterBuildList)) do
+		t_insert(self.list, entry)
+	end
+	self:SortList()
+end
+
+function listMode:SortList()
+	local oldSelFullFileName = self.controls.buildList.selValue and self.controls.buildList.selValue.fullFileName
+	buildListHelpers.SortList(self.list, main.buildSortMode)
+	self.controls.buildList:SelByFullFileName(oldSelFullFileName)
+end
+
+return listMode

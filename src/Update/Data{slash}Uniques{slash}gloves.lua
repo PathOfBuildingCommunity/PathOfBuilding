@@ -1,0 +1,1110 @@
+-- Item data (c) Grinding Gear Games
+
+return {
+-- Gloves: Armour
+[[
+Admiral's Arrogance
+Antique Gauntlets
+League: Settlers of Kalguur
+Source: Drops from unique{Admiral Valerius} in normal{Shipping encounters}
+(6-12)% increased Attack Speed
+(100-140)% increased Armour
+(10-20)% chance that if you would gain Rage on Hit, you instead gain up to your maximum Rage
++(1-3) to Level of all Melee Skill Gems
+]],[[
+Atziri's Acuity
+Vaal Gauntlets
+Source: Drops from unique{Atziri, Queen of the Vaal} in normal{The Alluring Abyss}
+Variant: Pre 3.1.0
+Variant: Pre 3.16.0
+Variant: Current
+Requires Level 75
++(60-80) to Intelligence
+{variant:2}(25-35)% increased Global Critical Strike Chance
+{variant:3}(40-60)% increased Global Critical Strike Chance
+(200-220)% increased Armour
++(60-75) to maximum Life
+{variant:1}Life and Mana Leech from Critical Strikes are instant
+{variant:2,3}You have Vaal Pact if you've dealt a Critical Strike Recently
+]],[[
+Replica Atziri's Acuity
+Vaal Gauntlets
+League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
+Version: Pre 3.16.0
+Version: Current
++(60-80) to Intelligence
+{version:1}(25-35)% increased Global Critical Strike Chance
+{version:2}(40-60)% increased Global Critical Strike Chance
+(200-220)% increased Armour
++(60-75) to maximum Life
+You have Perfect Agony if you've dealt a Critical Strike recently
+]],[[
+Ceaseless Feast
+Spiked Gloves
+Source: Drops from unique{The Infinite Hunger}
+Implicits: 1
+(24-30)% increased Melee Damage
+Adds (2-3) to (22-26) Physical Damage to Attacks
+(100-150)% increased Armour
+(20-30)% chance to inflict Corrosion on Hit with Attacks
+(20-30)% chance to gain an Endurance Charge on Hitting an Enemy with no Armour
+(20-30)% chance to gain a Frenzy Charge on Hitting an Enemy with no Evasion Rating
+]],[[
+The Celestial Brace
+Goliath Gauntlets
+Source: Drops from unique{The Searing Exarch} (Uber)
+(100-150)% increased Armour
+1% increased Attack Speed per Fortification
++(1-10) to maximum Fortification
+Melee Hits from Strike Skills Fortify
+]],[[
+Craiceann's Pincers
+Titan Gauntlets
+League: Bestiary
+Source: Drops from unique{Craiceann, First of the Deep}
+(150-200)% increased Armour
+Regenerate (50-70) Life per second
++(30-40)% to Fire Resistance
+3% increased Damage per Crab Barrier
+10% chance that if you would gain a Crab Barrier, you instead gain up to
+your maximum number of Crab Barriers
+]],[[
+Kaom's Spirit
+Titan Gauntlets
+Variant: Pre 3.23.0
+Variant: Pre 3.26.0
+Variant: Current
++(50-70) to maximum Life
++(20-30)% to Fire Resistance
+(0.3-0.5)% of Physical Attack Damage Leeched as Life
+Life Recovery from Regeneration is not applied
+{variant:1}Regenerate 1 Rage per second for every 100 Life Recovery per second from Regeneration
+{variant:1}Does not delay Inherent Loss of Rage
+{variant:2}Regenerate 1 Rage per second for every 300 Life Recovery per second from Regeneration
+{variant:2}Does not delay Inherent Loss of Rage
+{variant:3}Regenerate 1 Rage per second for every 200 Life Recovery per second from Regeneration
+{variant:3}Does not delay Inherent Loss of Rage
+]],[[
+Doryani's Fist
+Vaal Gauntlets
+Variant: Pre 3.0.0
+Variant: Pre 3.5.0
+Variant: Pre 3.10.0
+Variant: Current
+{variant:2,3,4}Grants Level 20 Doryani's Touch
+{variant:1,2,3}+30 to maximum Energy Shield
+{variant:4}+(80-100) to maximum Energy Shield
+{variant:1,2,3}10% chance to Shock
+{variant:4}30% chance to Shock
+{variant:1,2}Adds (225-335) to (785-900) Lightning Damage to Unarmed Melee Hits
+{variant:3,4}Adds (150-225) to (525-600) Lightning Damage to Unarmed Melee Hits
+{variant:1,2}Adds (60-90) to (210-240) Lightning Damage to Spells while Unarmed
+{variant:3,4}Adds (90-135) to (315-360) Lightning Damage to Spells while Unarmed
+{variant:1,2,3}+30 Energy Shield gained on Killing a Shocked Enemy
+{variant:4}+(200-250) Energy Shield gained on Killing a Shocked Enemy
+{variant:4}30% increased Effect of Lightning Ailments
+]],[[
+Hateforge
+Ancient Gauntlets
+League: Ultimatum
+Source: Drops from unique{The Trialmaster}
+Variant: Pre 3.29.0
+Variant: Current
+Requires Level 72
+Socketed Gems are Supported by Level 30 Rage Support
+(120-150)% increased Armour
+{variant:1}(10-25)% reduced Rage Cost of Skills
+Vaal Attack Skills you Use yourself Cost Rage instead of requiring Souls
+{variant:2}(20-40)% increased Rage Cost Efficiency
+You cannot gain Rage during Soul Gain Prevention
+]],[[
+Empire's Grasp
+Goliath Gauntlets
+Socketed Gems are Supported by Level 10 Knockback Support
++(400-600) to Armour
+Knockback direction is reversed
+]],[[
+Giantsbane
+Bronze Gauntlets
+Variant: Pre 3.19.0
+Variant: Current
++(30-40) to Strength
+{variant:1}Adds (3-6) to (10-12) Physical Damage to Attacks
+{variant:2}Adds (5-8) to (12-16) Physical Damage to Attacks
+{variant:2}10% reduced Attack Speed
+(80-100)% increased Armour
+{variant:2}Arrows Pierce 2 additional Targets
+Iron Grip
+]],[[
+Lochtonial Caress
+Iron Gauntlets
+Variant: Pre 2.6.0
+Variant: Pre 3.19.0
+Variant: Current
+(10-15)% increased Attack Speed
+(10-15)% increased Cast Speed
+{variant:1}+(10-20) to Armour
+{variant:2}+(20-30) to maximum Life
+(10-15)% reduced maximum Mana
+{variant:2}10% chance to gain a Power, Frenzy or Endurance Charge on Kill
+{variant:3}(10-15)% chance to gain a Power, Frenzy or Endurance Charge on Kill
+Conduit
+]],[[
+Meginord's Vise
+Steel Gauntlets
+Variant: Pre 1.1.0
+Variant: Pre 2.6.0
+Variant: Pre 3.19.0
+Variant: Current
+{variant:4}Melee Strike Skills deal Splash Damage to surrounding targets
+{variant:1,2,3}+100 to Strength
+{variant:4}+50 to Strength
+{variant:1,2,3}10% increased Global Physical Damage
+{variant:1}(5-15)% reduced Attack Speed
+{variant:1,2,3}(40-60)% increased Armour
+{variant:4}(150-200)% increased Armour
+{variant:4}100% increased Knockback Distance
+{variant:3}Regenerate 2% of Life per second with at least 400 Strength
+{variant:4}Melee Hits with Strike Skills always Knockback
+]],[[
+Veruso's Battering Rams
+Titan Gauntlets
+(8-13)% increased Attack Speed
+(120-180)% increased Armour
+(3-5)% increased Movement Speed
+50% increased Stun Duration on you
+4% increased Melee Damage per Endurance Charge
+You cannot be Shocked while at maximum Endurance Charges
+]],[[
+Vixen's Entrapment
+Embroidered Gloves
+Implicits: 0
+Trigger Socketed Curse Spell when you Cast a Curse Spell, with a 0.25 second Cooldown
++(50-90) to maximum Energy Shield
+0.2% of Spell Damage Leeched as Energy Shield for each Curse on Enemy
+You can apply an additional Curse
+Curse Skills have (10-20)% increased Cast Speed
+]],[[
+Winds of Change
+Ancient Gauntlets
+Source: Drops in The Lord's Labyrinth
+Variant: Pre 2.6.0
+Variant: Current
++(30-60) to maximum Life
+30% increased Projectile Speed
+{variant:1}10% reduced Movement Speed
+{variant:2}(5-10)% reduced Movement Speed
+10% chance to Knock Enemies Back on hit
+(30-50)% increased Projectile Damage
+]],[[
+The Caged Mammoth
+Antique Gauntlets
+Source: Drops from unique{Uber Incarnation of Fear} in normal{Moment of Trauma}
+Requires Level 64
+Adds (6-10) to (16-22) Physical Damage to Attacks
+(8-16)% increased Attack Speed
+(80-120)% increased Armour
+Lose (1-3) Rage per second
+5% less Damage taken per 5 Rage, up to a maximum of 30%
+Maximum Rage is Halved
+]],
+-- Gloves: Evasion
+[[
+Great Old One's Tentacles
+Eelskin Gloves
+Adds (8-12) to (15-20) Physical Damage to Attacks
++(50-70) to maximum Life
+(10-20)% chance to Impale Enemies on Hit with Attacks
+50% chance for Impales on Enemies you Kill to Reflect Damage to Enemies within 2.2 metres
+]],[[
+Hrimsorrow
+Goathide Gloves
+Variant: Pre 2.6.0
+Variant: Pre 3.19.0
+Variant: Current
++(20-30) to Strength
+{variant:2}Adds (5-7) to (13-15) Cold Damage to Spells and Attacks
+{variant:1}+50 to Evasion Rating
+{variant:2,3}+(40-50) to Evasion Rating
+{variant:1}+(10-20)% to Cold Resistance
+{variant:2,3}+(20-30)% to Cold Resistance
+{variant:1}25% of Physical Damage Converted to Cold Damage
+{variant:2}50% of Physical Damage Converted to Cold Damage
+{variant:3}100% of Physical Damage Converted to Cold Damage
+{variant:1,2}Reflects 10 Cold Damage to Melee Attackers
+{variant:3}Reflects 100 Cold Damage to Melee Attackers
+]],[[
+Hrimburn
+Goathide Gloves
+Source: No longer obtainable
+Variant: Pre 2.6.0
+Variant: Current
+Requires Level 24
++(20-30) to Strength
+{variant:2}Adds (5-7) to (13-15) Cold Damage to Spells and Attacks
+{variant:1}+50 to Evasion Rating
+{variant:2}+(40-50) to Evasion Rating
+{variant:1}+(10-20)% to Cold Resistance
+{variant:2}+(20-30)% to Cold Resistance
+{variant:1}25% of Physical Damage Converted to Cold Damage
+{variant:2}50% of Physical Damage Converted to Cold Damage
+Reflects 10 Cold Damage to Melee Attackers
+Your Cold Damage can Ignite
+]],[[
+Maligaro's Virtuosity
+Deerskin Gloves
+League: Legion
+Variant: Pre 1.1.0
+Variant: Pre 3.0.0
+Variant: Pre 3.7.0
+Variant: Current
++(20-30) to Dexterity
+5% increased Attack Speed
+50% increased Global Critical Strike Chance
+{variant:1}+(40-50)% to Global Critical Strike Multiplier
+{variant:2}+(28-36)% to Global Critical Strike Multiplier
+{variant:3}+(20-30)% to Global Critical Strike Multiplier
+(60-80)% increased Evasion Rating
+{variant:4}Your Critical Strike Multiplier is 300%
+]],[[
+Mercenary's Lot
+Slink Gloves
+League: Heist
+Variant: Pre 3.26.0
+Variant: Current
++(80-120) to Evasion Rating
+(5-8)% increased Attack and Cast Speed
+Mark Skills have (10-15)% increased Cast Speed
+(30-50)% increased Damage with Hits and Ailments against Marked Enemy
+{variant:2}8% of Damage from Hits is taken from Marked Target's Life before you
+Your Mark Transfers to another Enemy within 3 metres when Marked Enemy dies
+]],[[
+Oskarm
+Nubuck Gloves
+Variant: Pre 3.16.0
+Variant: Current
+Requires Level 52
+Trigger Level 10 Assassin's Mark when you Hit a Rare or Unique Enemy and have no Mark
+{variant:1}+(7-8)% chance to Suppress Spell Damage
+{variant:2}+(10-12)% chance to Suppress Spell Damage
+(30-40)% increased Global Accuracy Rating
++(40-50) to maximum Life
+-(20-10)% to Chaos Resistance
+2% increased Attack Critical Strike Chance per 200 Accuracy Rating
+]],[[
+Painseeker
+Shagreen Gloves
+Adds (16-19) to (25-29) Fire Damage
+Adds (16-19) to (25-29) Cold Damage
+Adds (6-10) to (33-38) Lightning Damage
+(60-120)% increased Evasion Rating
+Critical Strikes do not inherently inflict non-Damaging Ailments
+Inflict non-Damaging Ailments as though dealing (100-200)% more Damage
+]],[[
+Hand of the Lords
+Carnal Mitts
+Source: Drops from unique{It That Was Esh} and unique{It That Was Tul} in normal{Hive Colony}
+Requires Level 68
+You cannot Cast Socketed Hex Curse Skills
+Inflict Socketed Hexes on Enemies that trigger your Traps
+Grants Level 30 Will of the Lords
+400% increased Attribute Requirements
+(120-160)% increased Evasion and Energy Shield
+(6-12)% increased Trap Throwing Speed
+Can have up to (3-5) additional Traps placed at a time
+]],
+-- Gloves: Energy Shield
+[[
+Allelopathy
+{variant:1}Sorcerer Gloves
+{variant:2,3}Satin Gloves
+Variant: Pre 3.19.0
+Variant: Pre 3.26.0
+Variant: Current
+{variant:1,2}Grants Level 22 Blight
+{variant:3}Grants Level 25 Blight
+{variant:1}(20-30)% increased Damage over Time
+(100-120)% increased Energy Shield
+10% increased Area of Effect
+Blight has (20-30)% increased Hinder Duration
+You cannot be Hindered
+]],[[
+Replica Allelopathy
+{variant:1}Sorcerer Gloves
+{variant:2,3}Satin Gloves
+Variant: Pre 3.19.0
+Variant: Pre 3.26.0
+Variant: Current
+League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
+{variant:1,2}Grants Level 22 Wintertide Brand
+{variant:3}Grants Level 25 Wintertide Brand
+{variant:1}(20-30)% increased Damage over Time
+(100-120)% increased Energy Shield
+10% increased Area of Effect
+Immune to Chill
+Wintertide Brand has (20-30)% increased Chill Effect
+]],[[
+Asenath's Gentle Touch
+Silk Gloves
+League: Legion
+Variant: Pre 2.6.0
+Variant: Pre 3.7.0
+Variant: Current
++(20-30) to Intelligence
+{variant:1,2}+(20-30) to maximum Life
+{variant:3}+(60-80) to maximum Life
+{variant:1,2}+(20-30) to maximum Mana
+{variant:3}+(60-80) to maximum Mana
+{variant:1,2,3}Curse Enemies with Temporal Chains on Hit
+{variant:3}Non-Aura Curses you inflict are not removed from Dying Enemies
+{variant:3}Enemies near corpses affected by your Curses are Blinded
+{variant:3}Enemies Killed near corpses affected by your Curses explode, dealing
+{variant:3}3% of their Life as Physical Damage
+]],[[
+Black Zenith
+Fingerless Silk Gloves
+Source: Drops from unique{The Infinite Hunger}
+Implicits: 1
+(20-26)% increased Spell Damage
+Socketed Projectile Spells deal 150% more Damage with Hits
+Socketed Projectile Spells have +4 seconds to Cooldown
+Socketed Projectile Spells fire 4 additional Projectiles
+Socketed Projectile Spells fire Projectiles in a circle
+Socketed Projectile Spells have 80% less Skill Effect Duration
+(140-180)% increased Energy Shield
+]],[[
+Demon Stitcher
+Satin Gloves
+Variant: Pre 3.19.0
+Variant: Current
+League: Delve
+(15-20)% increased Cast Speed
+{variant:1}+(50-70) to maximum Energy Shield
+{variant:2}+(100-120) to maximum Energy Shield
+{variant:1}+(50-70) to maximum Life
+{variant:2}+(100-120) to maximum Life
+{variant:1}Sacrifice 5% of Life to gain that much Energy Shield when you Cast a Spell
+{variant:2}Sacrifice (5-25)% of Life to gain that much Energy Shield when you Cast a Spell
+]],[[
+Doedre's Tenure
+Velvet Gloves
+Variant: Pre 2.6.0
+Variant: Pre 3.19.0
+Variant: Current
+{variant:1}+10 to Intelligence
+{variant:2}+20 to Intelligence
+{variant:3}+(20-50) to Intelligence
+{variant:1}(40-50)% increased Spell Damage
+{variant:2}(50-60)% increased Spell Damage
+{variant:3}100% increased Spell Damage
+{variant:1}20% reduced Cast Speed
+{variant:2}15% reduced Cast Speed
+{variant:3}(15-25)% reduced Cast Speed
+{variant:1}+16 to maximum Energy Shield
+{variant:2}+32 to maximum Energy Shield
+]],[[
+Doedre's Malevolence
+Velvet Gloves
+Source: No longer obtainable
+Variant: Pre 3.11.0
+Variant: Current
+Requires Level 64
++20 to Intelligence
+(50-60)% increased Spell Damage
+Adds (48-56) to (73-84) Chaos Damage to Spells
+15% reduced Cast Speed
++(64-96) to maximum Energy Shield
+{variant:1}+50 to Total Mana Cost of Skills
+{variant:2}Skills Supported by Unleash have (30-50)% increased Seal gain frequency
+]],[[
+Grip of the Council
+Arcanist Gloves
++30 to Strength
++(30-50) to maximum Life
++(20-40)% to Cold Resistance
+Minions have 10% reduced Movement Speed
+Minions have +40% to Cold Resistance
+Minions gain 20% of Physical Damage as Extra Cold Damage
+]],[[
+Replica Grip of the Council
+Arcanist Gloves
+League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
++30 to Strength
++(30-50) to maximum Life
++(20-40)% to Fire Resistance
+Minions have 10% reduced maximum Life
+Minions have +40% to Fire Resistance
+Minions gain 20% of Physical Damage as Extra Fire Damage
+]],[[
+Kalisa's Grace
+Samite Gloves
+Requires Level 55
+Socketed Gems are Supported by Level 18 Faster Casting Support
++(20-30) to Intelligence
++(50-80) to maximum Energy Shield
++(50-70) to maximum Life
+Gain +2% to Critical Strike Chance for 2 seconds after Spending a total of 800 Mana
+]],[[
+Replica Kalisa's Grace
+Samite Gloves
+League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
+Requires Level 55
+Socketed Gems are Supported by Level 18 Unleash Support
++(20-30) to Intelligence
++(50-80) to maximum Energy Shield
++(50-70) to maximum Life
+Gain 40% increased Area of Effect for 2 seconds after Spending a total of 800 Mana
+]],[[
+Sadima's Touch
+Wool Gloves
+Variant: Pre 1.1.0
+Variant: Pre 3.5.0
+Variant: Pre 3.25.0
+Variant: Current
+Requires Level 11
+Adds 4 to 8 Fire Damage to Attacks
+Adds 1 to 13 Lightning Damage to Attacks
++18 to maximum Energy Shield
+{variant:1}(18-24)% increased Quantity of Items found
+{variant:2}(12-16)% increased Quantity of Items found
+{variant:3}(5-10)% increased Quantity of Items found
+{variant:4}+(5-15)% to Item Rarity
+]],[[
+Voidbringer
+Conjurer Gloves
+Variant: Pre 2.6.0
+Variant: Pre 3.0.0
+Variant: Pre 3.11.0
+Variant: Current
++1 to Level of Socketed Elemental Gems
+(125-150)% increased Spell Critical Strike Chance
+{variant:1,2}(280-350)% increased Energy Shield
+{variant:3,4}(180-250)% increased Energy Shield
+{variant:1}80% increased Mana Cost of Skills
+{variant:2,3}(40-80)% increased Mana Cost of Skills
+Gain (15-20) Energy Shield per Enemy Killed
+{variant:4}Lose (40-80) Mana when you use a Skill
+]],
+-- Gloves: Armour/Evasion
+[[
+Aurseize
+Steelscale Gauntlets
+(40-60)% increased Armour and Evasion
++(40-50)% to Item Rarity
++15% to all Elemental Resistances
+5% reduced Movement Speed
+]],[[
+Breathstealer
+Hydrascale Gauntlets
+League: Blight
+Source: Drops in Blighted Maps
+(100-150)% increased Armour and Evasion
++(30-50) to maximum Mana
++(10-16)% to all Elemental Resistances
+(5-10)% increased Attack and Cast Speed
+Create a Blighted Spore when your Skills or Minions Kill a Rare Monster
+This item can be anointed by Cassia
+]],[[
+Farrul's Pounce
+Hydrascale Gauntlets
+League: Bestiary
+Source: Drops from unique{Farrul, First of the Plains}
++(400-500) to Accuracy Rating
+(100-140)% increased Armour and Evasion
++(50-70) to maximum Life
+Attacks always inflict Bleeding while you have Cat's Stealth
+(40-50)% increased Damage with Hits and Ailments against Bleeding Enemies
+You have Crimson Dance while you have Cat's Stealth
+]],[[
+Flesh and Spirit
+Ironscale Gauntlets
+League: Rampage
+(6-9)% increased Attack Speed
+(80-120)% increased Armour and Evasion
+Regenerate (3-4) Life per second
+Recover 20% of Life on Rampage
+Kills grant an additional Vaal Soul if you have Rampaged Recently
+Rampage
+]],[[
+Gravebind
+Hydrascale Gauntlets
+Implicits: 0
+(100-150)% increased Armour and Evasion
++(19-29)% to Chaos Resistance
+Gain (15-25) Life per Enemy Killed
+Enemies within 4 metres Killed by anyone count as being Killed by you instead
+]],[[
+Haemophilia
+Serpentscale Gauntlets
++(20-30) to Strength
+25% increased Damage over Time
+Attacks have 25% chance to cause Bleeding
+(25-40)% increased Attack Damage against Bleeding Enemies
+Bleeding Enemies you Kill Explode, dealing 5% of
+their Maximum Life as Physical Damage
+25% reduced Bleeding Duration
+]],[[
+Slitherpinch
+Bronzescale Gauntlets
+Variant: Pre 2.6.0
+Variant: Current
++(40-50) to Dexterity
+{variant:1}5% increased Attack Speed
+{variant:2}(5-10)% increased Attack Speed
+(60-100)% increased Evasion Rating
+0.6% of Physical Attack Damage Leeched as Life
+0.4% of Physical Attack Damage Leeched as Mana
+]],[[
+Surgebinders
+Dragonscale Gauntlets
+Variant: Pre 2.6.0
+Variant: Current
+(90-110)% increased Armour and Evasion
+(4-7)% increased Elemental Damage per Frenzy Charge
+(4-7)% increased Physical Damage per Endurance Charge
+(4-7)% increased Spell Damage per Power Charge
+10% chance to Steal Power, Frenzy, and Endurance Charges on Hit
+{variant:1}(10-30)% reduced Endurance, Frenzy and Power Charge Duration
+]],[[
+Tombfist
+Steelscale Gauntlets
+League: Abyss
+Source: Drops from unique{Amanamu, Liege of the Lightless} or unique{Ulaman, Sovereign of the Well}
+Has Alt Variant: true
+Has Alt Variant Two: true
+Has Alt Variant Three: true
+Selected Variant: 3
+Selected Alt Variant: 5
+Selected Alt Variant Two: 6
+Selected Alt Variant Three: 9
+Variant: Pre 3.6.0
+Variant: Pre 3.21.0
+Variant: Current
+Variant: One Abyssal Socket
+Variant: Two Abyssal Socket
+Variant: Murderous: Intimidate
+Variant: Murderous: Fortify
+Variant: Murderous: Rage
+Variant: Searching: Maim
+Variant: Searching: Blind
+Variant: Searching: Onslaught
+{variant:4}Has 1 Abyssal Socket
+{variant:5}Has 2 Abyssal Sockets
+{variant:1,2}(6-10)% increased Attack Speed
+{variant:3}(5-10)% increased Attack Speed
+{variant:1,2}(4-6)% increased maximum Life
+{variant:11}With a Searching Eye Jewel Socketed, Attacks have 25% chance to grant Onslaught On Kill
+{variant:6}With a Murderous Eye Jewel Socketed, Intimidate Enemies for 4 seconds on Hit with Attacks
+{variant:9}With a Searching Eye Jewel Socketed, Maim Enemies for 4 seconds on Hit with Attacks
+{variant:10}With a Searching Eye Jewel Socketed, Blind Enemies for 4 seconds on Hit with Attacks
+{variant:8}With a Murderous Eye Jewel Socketed, Melee Attacks grant 1 Rage on Hit
+{variant:7}With a Murderous Eye Jewel Socketed, Melee Hits have 25% chance to Fortify
+]],[[
+Vaal Caress
+Bronzescale Gauntlets
+League: Ambush, Invasion
+Variant: Pre 2.6.0
+Variant: Pre 3.19.0
+Variant: Current
+{variant:1,2}+2 to Level of Socketed Vaal Gems
+{variant:3}+5 to Level of Socketed Vaal Gems
+{variant:3}-5 to Level of Socketed Non-Vaal Gems
+(120-140)% increased Armour and Evasion
+{variant:1}+(30-40) to maximum Life
+{variant:2,3}+(50-70) to maximum Life
+{variant:1}+30% to Cold Resistance
+{variant:2,3}+40% to Cold Resistance
+{variant:1,2}You gain Onslaught for 5 seconds on using a Vaal Skill
+{variant:3}You gain Onslaught for 20 seconds on using a Vaal Skill
+]],[[
+Worldcarver
+Dragonscale Gauntlets
+Source: No longer obtainable
+Trigger Level 20 Arcane Wake after Spending a total of 200 Mana
++(200-300) to Accuracy Rating
+(120-150)% increased Armour and Evasion
++(60-80) to maximum Life
+6% increased Attack Damage for each Map Item Modifier affecting the Area
+3% increased Attack Speed for each Map Item Modifier affecting the Area
+]],[[
+Wyrmsign
+Wyrmscale Gauntlets
+Variant: Pre 3.29.0
+Variant: Current
+Socketed Gems are Supported by Level 5 Concentrated Effect Support
+(120-160)% increased Armour and Evasion
++(50-70) to maximum Life
+{variant:1}4% reduced Mana Cost per Endurance Charge
+Gain Rampage while at Maximum Endurance Charges
+Lose all Endurance Charges when Rampage ends
+{variant:2}10% increased Mana Cost Efficiency per Endurance Charge
+]],[[
+Tanu Ahi
+Wyrmscale Gauntlets
+(8-12)% increased Attack Speed
+(100-150)% increased Armour and Evasion
+(2-3)% of Physical Attack Damage Leeched as Life
+10% chance to gain Adrenaline for 2 Seconds when Leech is
+removed by Filling Unreserved Life
+10% chance to gain Onslaught for 4 Seconds when Leech is
+removed by Filling Unreserved Life
+]],
+-- Gloves: Armour/Energy Shield
+[[
+Command of the Pit
+Riveted Gloves
+League: Delve
+Source: Drops from unique{Kurgal, the Blackblooded}
+Variant: Pre 3.27.0 One Abyssal Socket
+Variant: Pre 3.27.0 Two Abyssal Sockets
+Variant: One Abyssal Socket
+Variant: Two Abyssal Sockets
+{variant:1,3}Has 1 Abyssal Socket
+{variant:2,4}Has 2 Abyssal Sockets
+(6-10)% increased Cast Speed
+(4-6)% increased maximum Life
+{variant:1,2}With a Ghastly Eye Jewel Socketed, Minions have +1000 to Accuracy Rating
+With a Hypnotic Eye Jewel Socketed, gain Arcane Surge on Hit with Spells
+{variant:3,4}With a Ghastly Eye Jewel Socketed, Minions have 25% chance to gain Unholy Might on Hit with Spells
+]],[[
+The Hand of Phrecia
+Mesh Gloves
+League: Necropolis
+(50-70)% increased Armour and Energy Shield
++(10-15)% to all Elemental Resistances
+(20-40)% increased Effect of Non-Curse Auras from your Skills while you have a Linked Target
+Linked Targets always count as in range of Non-Curse Auras from your Skills
+Non-Curse Auras from your Skills only apply to you and Linked Targets
+]],[[
+Hand of the Fervent
+Zealot Gloves
+Variant: Pre 3.25.0
+Variant: Current
+League: Ritual
+Source: Purchase from Ritual Reward
+(70-130)% increased Armour and Energy Shield
++(50-70) to maximum Life
+Gain Sacrificial Zeal when you use a Skill, dealing you 150% of the Skill's Mana Cost as Physical Damage per Second
+{variant:1}Hits have (10-15)% chance to ignore Enemy Physical Damage Reduction while you have Sacrificial Zeal
+{variant:2}Hits have (35-50)% chance to ignore Enemy Physical Damage Reduction while you have Sacrificial Zeal
+]],[[
+Hands of the High Templar
+Crusader Gloves
+Source: Drops from unique{Sirus, Awakener of Worlds}
+Can be modified while Corrupted
+Can have up to 5 Implicit Modifiers while Item has this Modifier
+(150-200)% increased Armour and Energy Shield
+(7-12)% increased maximum Life
++(20-30)% to Fire and Lightning Resistances
+]],[[
+Null and Void
+Legion Gloves
+League: Rampage
++(20-30) to Strength
+(150-180)% increased Armour and Energy Shield
++(50-70) to maximum Life
+(20-40)% increased Mana Regeneration Rate
+Removes Elemental Ailments on Rampage
+Gain Immunity to Physical Damage for 1.5 seconds on Rampage
+Rampage
+]],[[
+Offering to the Serpent
+Legion Gloves
+League: Synthesis
+Source: Drops from unique{Synthete Nightmare} in normal{The Cortex}
++(15-25) to all Attributes
+(150-200)% increased Armour and Energy Shield
+50% reduced Maximum Recovery per Life Leech
+(6-10)% increased Attack and Cast Speed
+(15-25)% increased Damage while Leeching
+Life Leech effects are not removed when Unreserved Life is Filled
+]],[[
+Repentance
+Crusader Gloves
+Variant: Pre 3.19.0
+Variant: Current
+500% increased Attribute Requirements
+{variant:2}(6-12)% increased Strength
+{variant:1}(120-180)% increased Armour and Energy Shield
+{variant:2}(400-500)% increased Armour and Energy Shield
+{variant:1}+(8-16) to maximum Energy Shield
+Iron Will
+{variant:1}(0-30)% reduced Spell Damage
+]],[[
+Saqawal's Winds
+Soldier Gloves
+League: Bestiary
+Source: Drops from unique{Saqawal, First of the Sky}
+Requires Level 64
+(140-180)% increased Armour and Energy Shield
++(30-60) to maximum Life
++(20-25)% to Cold and Lightning Resistances
++(-2-2) seconds to Avian's Might Duration
+Adds (20-25) to (37-40) Cold Damage while you have Avian's Might
+Adds (1-3) to (55-62) Lightning Damage while you have Avian's Might
+]],[[
+Shackles of the Wretched
+Chain Gloves
+Variant: Pre 1.2.0
+Variant: Current
+Hexes applied by Socketed Curse Skills are Reflected back to you
+(40-60)% increased Stun and Block Recovery
+You cannot be Chilled for 3 seconds after being Chilled
+You cannot be Frozen for 3 seconds after being Frozen
+You cannot be Ignited for 3 seconds after being Ignited
+{variant:1}You cannot be Shocked for 1 second after being Shocked
+{variant:2}You cannot be Shocked for 3 seconds after being Shocked
+You grant (4-6) Frenzy Charges to Allies within 5 metres on Death
+]],[[
+Shaper's Touch
+Crusader Gloves
+Shaper Item
+Source: Drops from unique{The Shaper}
+Variant: Pre 2.6.0
+Variant: Pre 3.10.0
+Variant: Pre 3.28.0
+Variant: Current
+(80-120)% increased Armour and Energy Shield
+{variant:1,4}+2 Accuracy Rating per 2 Intelligence
+{variant:2,3}+4 Accuracy Rating per 2 Intelligence
++1 Life per 4 Dexterity
+{variant:1,3,4}+1 Mana per 4 Strength
+{variant:2}+2 Mana per 4 Strength
+{variant:1,3,4}1% increased Energy Shield per 10 Strength
+{variant:2}2% increased Energy Shield per 10 Strength
+{variant:1}1% increased Evasion Rating per 10 Intelligence
+{variant:2,3,4}2% increased Evasion Rating per 10 Intelligence
+{variant:1}1% increased Melee Physical Damage per 10 Dexterity
+{variant:2,3,4}2% increased Melee Physical Damage per 10 Dexterity
+]],[[
+Southbound
+Soldier Gloves
+Variant: Pre 2.6.0
+Variant: Pre 3.19.0
+Variant: Current
+{variant:1,2}Adds (30-36) to (44-50) Cold Damage to Attacks
+{variant:3}Adds (60-72) to (88-100) Cold Damage to Attacks
+(12-16)% increased maximum Life
++(40-50)% to Cold Resistance
+{variant:1,2}25% increased Freeze Duration on Enemies
+{variant:3}100% increased Freeze Duration on Enemies
+Your Hits can only Kill Frozen Enemies
+{variant:2}50% increased Herald of Ice Damage
+]],[[
+Triad Grip
+Mesh Gloves
+Variant: Pre 3.29.0
+Variant: Current
+(80-120)% increased Armour and Energy Shield
+{variant:2}Minions convert 25% of Physical Damage to Fire Damage per Socketed Red Gem
+{variant:1}Minions convert 25% of Physical Damage to Fire Damage per Red Socket
+{variant:2}Minions convert 25% of Physical Damage to Cold Damage per Socketed Green Gem
+{variant:1}Minions convert 25% of Physical Damage to Cold Damage per Green Socket
+{variant:2}Minions convert 25% of Physical Damage to Lightning Damage per Socketed Blue Gem
+{variant:1}Minions convert 25% of Physical Damage to Lightning Damage per Blue Socket
+{variant:2}Minions convert 25% of Physical Damage to Chaos Damage per Empty Socket
+{variant:1}Minions convert 25% of Physical Damage to Chaos Damage per White Socket
+Minions have (5-10)% chance to Freeze, Shock and Ignite
+]],[[
+Volkuur's Guidance
+Zealot Gloves
+Variant: Fire
+Variant: Cold
+Variant: Lightning
+{variant:1}Adds (16-20) to (25-30) Fire Damage to Spells and Attacks
+{variant:2}Adds (16-20) to (25-30) Cold Damage to Spells and Attacks
+{variant:3}Adds (1-3) to (42-47) Lightning Damage to Spells and Attacks
++(50-70) to maximum Life
+{variant:1}+(30-40)% to Fire Resistance
+{variant:2}+(30-40)% to Cold Resistance
+{variant:3}+(30-40)% to Lightning Resistance
+{variant:2}Your Cold Damage can Poison
+{variant:1}Your Fire Damage can Poison
+{variant:3}Your Lightning Damage can Poison
+50% less Poison Duration
+{variant:2}Cold Skills have 20% chance to Poison on Hit
+{variant:1}Fire Skills have 20% chance to Poison on Hit
+{variant:3}Lightning Skills have 20% chance to Poison on Hit
+]],[[
+Replica Volkuur's Guidance
+Zealot Gloves
+League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
+Adds (17-23) to (29-31) Chaos Damage
++(50-70) to maximum Life
++(29-41)% to Chaos Resistance
+Your Chaos Damage can Ignite
+Chaos Skills have 20% chance to Ignite
+50% less Ignite Duration
+]],[[
+Hand of Heresy
+Martyr Gloves
+League: Mercenaries of Trarthus
+Source: Reward from Mercenary duel
+Variant: Pre 3.28.0
+Variant: Current
+(40-80)% increased Armour and Energy Shield
+(15-25)% increased Life Regeneration rate
+15% increased Area of Effect of Aura Skills
+Excommunicate Enemies on Melee Hit for 3 seconds
+{variant:2}Melee Attacks have +(0.8-1.6)% to Critical Strike Chance against Excommunicated Enemies
+]],
+-- Gloves: Evasion/Energy Shield
+[[
+Abhorrent Interrogation
+Ambush Mitts
+League: Harvest
+Source: Drops from unique{Oshabi, Avatar of the Grove}
+(100-150)% increased Evasion and Energy Shield
+(5-7)% increased Attack and Cast Speed
+(20-25)% chance to inflict Withered for 2 seconds on Hit
+Enemies take 4% increased Elemental Damage from your Hits for
+each Withered you have inflicted on them
+Your Hits cannot Penetrate or ignore Elemental Resistances
+]],[[
+Stormseeker
+Ambush Mitts
++(40-60) to maximum Energy Shield
++(40-60) to maximum Mana
+(60-100)% increased Effect of Chills you inflict while Leeching Mana
+(60-100)% increased Effect of Shocks you inflict while Leeching Energy Shield
+Unaffected by Chill while Leeching Mana
+Unaffected by Shock while Leeching Energy Shield
+]],[[
+Algor Mortis
+Carnal Mitts
+League: Delirium
++(50-70) to maximum Energy Shield
++(15-20)% to Cold and Lightning Resistances
+(20-30)% chance to Sap Enemies in Chilling Areas
+Enemies in your Chilling Areas take (25-35)% increased Lightning Damage
+(15-20)% increased Effect of Non-Damaging Ailments
+]],[[
+Aukuna's Will
+Clasped Mitts
+League: Legion
++(30-40) to Dexterity
+(5-7)% increased Cast Speed
+(100-150)% increased Evasion and Energy Shield
+Raised Zombies have (80-100)% increased maximum Life
+Raise Zombie does not require a corpse
+Your Raised Zombies count as corpses
+]],[[
+Architect's Hand
+{variant:1}Strapped Mitts
+{variant:2}Ambush Mitts
+Variant: Pre 3.14.0
+Variant: Current
+League: Incursion
+Source: Opening normal{Fortified Casket} in normal{Defense Research Lab}
+Upgrade: Upgrades to unique{Slavedriver's Hand} via currency{Vial of Dominance}
++(30-40) to Dexterity
+{variant:1}(100-125)% increased Evasion and Energy Shield
+{variant:2}(200-250)% increased Evasion and Energy Shield
+(20-30)% reduced Trap Throwing Speed
+{variant:1}Skills used by Traps have (10-20)% increased Area of Effect
+Increases and Reductions to Cast Speed also Apply to Trap Throwing Speed
+{variant:2}(4-6)% chance to throw up to 4 additional Traps
+]],[[
+Slavedriver's Hand
+Ambush Mitts
+League: Incursion
+Source: Upgraded from unique{Architect's Hand} via currency{Vial of Dominance}
++(30-40) to Dexterity
+(200-250)% increased Evasion and Energy Shield
+(20-30)% reduced Trap Throwing Speed
+Skills used by Traps have (10-20)% increased Area of Effect
+Increases and Reductions to Cast Speed also Apply to Trap Throwing Speed
+10% chance to gain an Endurance, Frenzy or Power Charge when any
+of your Traps are Triggered by an Enemy
+Skills which throw Traps Cost Life instead of Mana
+]],[[
+Blasphemer's Grasp
+Assassin's Mitts
+Elder Item
+Source: Drops from unique{The Elder}
++(40-50) to Dexterity
+(150-200)% increased Evasion and Energy Shield
++(50-60) to maximum Life
++6 to Maximum Life per Elder Item Equipped
++4% to Damage over Time Multiplier for Ailments per Elder Item Equipped
+8% increased Effect of Non-Damaging Ailments per Elder Item Equipped
+Remove an Ailment when you use a Flask if all Equipped Items are Elder Items
+]],[[
+The Embalmer
+Carnal Mitts
+Socketed Gems are Supported by Level 20 Vile Toxins Support
+Adds (13-17) to (23-29) Chaos Damage
++(50-70) to maximum Life
++(17-29)% to Chaos Resistance
+(20-25)% increased Poison Duration
+]],[[
+Facebreaker
+Strapped Mitts
+Variant: Pre 1.0.0
+Variant: Pre 2.2.0
+Variant: Pre 2.5.0
+Variant: Pre 3.0.0
+Variant: Pre 3.26.0
+Variant: Current
+{variant:1,2}+60% to Global Critical Strike Multiplier
+{variant:3}+90% to Global Critical Strike Multiplier
+{variant:4}+45% to Global Critical Strike Multiplier
+{variant:5,6}+30% to Global Critical Strike Multiplier
+10% reduced Enemy Stun Threshold
+{variant:1}(800-1000)% more Physical Damage with Unarmed Melee Attacks
+{variant:2,3,4,5}(600-800)% more Physical Damage with Unarmed Melee Attacks
+{variant:6}(600-1000)% more Physical Damage with Unarmed Melee Attacks
+Extra gore
+]],[[
+Fenumus' Weave
+Carnal Mitts
+League: Bestiary
+Source: Drops from unique{Fenumus, First of the Night}
+Grants Level 20 Aspect of the Spider
+(120-170)% increased Evasion and Energy Shield
++(40-50) to maximum Life
+(6-9)% increased Attack and Cast Speed
+(40-60)% increased Damage with Hits and Ailments against Enemies affected by 3 Spider's Webs
+Adds (8-10) to (13-15) Chaos Damage for each Spider's Web on the Enemy
+]],[[
+Soul Ascension
+Carnal Mitts
+Variant: Pre 3.24.0
+Variant: Current
+Elder Item
+Source: Drops from unique{The Elder} (Uber Uber)
+(120-150)% increased Evasion and Energy Shield
++(17-29)% to Chaos Resistance
+{variant:1}Eat a Soul when you Hit a Rare or Unique Enemy, no more than once every 0 seconds
+{variant:2}Eat a Soul when you Hit a Rare or Unique Enemy, no more than once every 0.5 seconds
++(-10-10) to maximum number of Eaten Souls
+]],[[
+Machina Mitts
+Murder Mitts
+League: Blight
+(200-250)% increased Evasion and Energy Shield
+1% of Damage dealt by your Mines is Leeched to you as Life
+(20-30)% reduced Recovery rate of Life and Energy Shield
+5% increased Recovery rate of Life and Energy Shield per Power Charge
+Lose a Power Charge each second if you have not Detonated Mines Recently
+]],[[
+Ondar's Clasp
+Wrapped Mitts
+Variant: Pre 1.1.0
+Variant: Pre 3.19.0
+Variant: Current
+{variant:1}20% increased Attack Speed when on Full Life
+{variant:2,3}30% increased Attack Speed when on Full Life
+{variant:1,2}Adds 1 to 13 Lightning Damage to Attacks
+{variant:3}Adds (1-4) to (30-50) Lightning Damage to Attacks
+{variant:1,2}+(50-80) to Accuracy Rating
+{variant:3}+(100-200) to Accuracy Rating
+{variant:1}(10-15)% increased Movement Speed when on Low Life
+{variant:2,3}20% increased Movement Speed when on Low Life
+]],[[
+Malachai's Mark
+Murder Mitts
+Source: Drops from unique{Nightmare of the Depraved Trinity} in normal{Abomination Map}
+(80-100)% increased Evasion and Energy Shield
++(60-80) to maximum Life
+Gain (15-25) Life per Enemy Hit with Attacks
+Gain (15-25) Energy Shield per Enemy Hit with Attacks
+Grants Malachai's Endurance, Frenzy and Power for 6 seconds each, in sequence
+]],[[
+Shadows and Dust
+Clasped Mitts
+League: Rampage
+Variant: Pre 2.2.0
+Variant: Pre 3.0.0
+Variant: Current
+(20-30)% increased Global Critical Strike Chance
+{variant:1}+(15-30)% to Global Critical Strike Multiplier
+{variant:2}+(25-45)% to Global Critical Strike Multiplier
+{variant:3}+(20-30)% to Global Critical Strike Multiplier
+(100-130)% increased Evasion and Energy Shield
+{variant:1,2}0.2% of Physical Attack Damage Leeched as Mana
+{variant:3}0.2% of Attack Damage Leeched as Mana
+Creates a Smoke Cloud on Rampage
+Gain Unholy Might for 3 seconds on Rampage
+Rampage
+]],[[
+Snakebite
+Assassin's Mitts
+Variant: Pre 3.0.0
+Variant: Pre 3.9.0
+Variant: Current
+(150-180)% increased Evasion Rating
++(60-70) to maximum Life
+2% increased Attack Speed per Frenzy Charge
+6% increased Accuracy Rating per Frenzy Charge
+10% reduced Frenzy Charge Duration per Frenzy Charge
+{variant:1}While at maximum Frenzy Charges, Attacks Poison Enemies
+{variant:2,3}Attacks have 60% chance to Poison while at maximum Frenzy Charges
+{variant:3}+5% to Damage over Time Multiplier for Poison per Frenzy Charge
+]],[[
+Storm's Gift
+Assassin's Mitts
+League: Synthesis
+(20-30)% increased Damage over Time
+(250-300)% increased Evasion and Energy Shield
++(20-30)% to Lightning Resistance
+Enemies you kill are Shocked
+Shocks you inflict spread to other Enemies within 1.5 metres
+]],[[
+Thunderfist
+Murder Mitts
+Variant: Pre 1.0.0
+Variant: Pre 2.6.0
+Variant: Pre 3.19.0
+Variant: Current
+{variant:1,2,3}Socketed Gems are Supported by Level 18 Added Lightning Damage Support
+{variant:4}Socketed Gems are Supported by Level 30 Added Lightning Damage Support
+{variant:1,3}Adds 1 to 100 Lightning Damage to Attacks
+{variant:2}Adds 1 to 40 Lightning Damage to Attacks
+10% increased Attack Speed
+{variant:4}(150-200)% increased Evasion and Energy Shield
+{variant:1,2,3}+(25-30) to maximum Energy Shield
+{variant:1,2,3}10% increased Stun Duration on Enemies
+{variant:1,2,3}100% increased Duration of Lightning Ailments
+{variant:4}100% increased Effect of Lightning Ailments
+]],[[
+Entropic Devastation
+Assassin's Mitts
+Source: Drops from unique{The Shaper} (Uber)
+Shaper Item
+Grants Call of Steel
+(100-150)% increased Evasion and Energy Shield
+(30-50)% increased Effect of Impales inflicted with Spells
+Critical Strikes with Spells inflict Impale
+]],
+-- Gloves: Ward
+[[
+Medved's Challenge
+Runic Gauntlets
+League: Expedition
+Source: Drops from Expedition monsters
+800% increased Attribute Requirements
+(30-50)% increased Ward
++(15-25)% to all Elemental Resistances
+80% less Flask Charges gained from Kills
+Flasks gain 1 Charge per second if you've Hit a Unique Enemy Recently
+]],[[
+Nightgrip
+Runic Gages
+Variant: Pre 3.16.0
+Variant: Pre 3.25.0
+Variant: Current
+League: Expedition
+Source: Drops from Expedition monsters
+(33-48)% increased Ward
++(17-23)% to Chaos Resistance
+{variant:1}Gain Added Chaos Damage equal to 25% of Ward
+{variant:2}Gain Added Chaos Damage equal to 20% of Ward
+{variant:3}Gain Added Chaos Damage equal to 10% of Ward
+75% of Damage taken bypasses Ward
+]],}

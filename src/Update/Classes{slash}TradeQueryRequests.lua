@@ -1,0 +1,517 @@
+-- Path of Building
+--
+-- Module: Trade Query Requests
+-- Handling trade api requests while respecting rate limits
+--
+
+local dkjson = require "dkjson"
+local utils = require("Modules.Utils")
+local tradeHelpers = require("Classes.TradeHelpers")
+
+local tradeInfluenceApiKeys = {
+	shaper = "shaper",
+	elder = "elder",
+	adjudicator = "warlord",
+	basilisk = "hunter",
+	crusader = "crusader",
+	eyrie = "redeemer",
+	cleansing = "searing",
+	tangle = "tangled",
+}
+
+---@class TradeQueryRequests
+local TradeQueryRequestsClass = newClass("TradeQueryRequests")
+
+function TradeQueryRequestsClass:TradeQueryRequests(rateLimiter)
+	self.maxFetchPerSearch = 10
+	self.rateLimiter = rateLimiter or new("TradeQueryRateLimiter"):TradeQueryRateLimiter()
+	self.requestQueue = {
+		["search"] = {},
+		["fetch"] = {},
+	}
+	self.hostName = "https://www.pathofexile.com/"
+	self.hostNamePattern = "h?t?t?p?s?:?/?/?w?w?w?%.?pathofexile%.com/"
+	return self
+end
+
+---Main routine for processing request queue
+--- @param onRateLimit fun(integer)?
+function TradeQueryRequestsClass:ProcessQueue(onRateLimit)
+	for key, queue in pairs(self.requestQueue) do
+		if #queue > 0 then
+			local policy = self.rateLimiter:GetPolicyName(key)
+			local now = os.time()
+			local timeNext = self.rateLimiter:NextRequestTime(policy, now)
+			local timeLeft = timeNext - now
+			-- relay wait info to caller when actually waiting, and not just
+			-- getting a magic poe2 release date number
+			if onRateLimit and timeLeft > 1 and timeNext ~= 1956528000 then
+				onRateLimit(timeLeft)
+			end
+			if not (queue[1].retryTime and now < queue[1].retryTime) then
+				if now >= timeNext then
+					local request = table.remove(queue, 1)
+					local requestId = self.rateLimiter:InsertRequest(policy)
+					local onComplete = function(response, errMsg)
+						self.rateLimiter:FinishRequest(policy, requestId)
+						self.rateLimiter:UpdateFromHeader(response.header, policy)
+						if response.header:match("HTTP/[%d%.]+ (%d+)") == "429" then
+							local retryAfter = response.header:match("Retry%-After:%s+(%d+)")
+							retryAfter = retryAfter and tonumber(retryAfter) or 0
+							request.attempts = (request.attempts or 0) + 1
+							
+							local backoff = math.max(math.min(2 ^ request.attempts, 60), retryAfter)
+							request.retryTime = os.time() + backoff
+							table.insert(queue, 1, request)
+							-- optional callback with the backoff time when rate
+							-- limited to inform user
+							if onRateLimit then
+								onRateLimit(backoff)
+							end
+							return
+						end
+						if errMsg == "Response code: 401" and response.body:find("invalid_token") then
+							errMsg = errMsg .. "\nAuthorization is invalid. Please Re-Log and reset"
+							main.api:ResetDetails()
+						end
+						request.callback(response.body, errMsg, unpack(request.callbackParams or {}))
+					end
+					local header = "Content-Type: application/json"
+					if main.api.authToken then
+						header = header .."\nAuthorization: Bearer "..main.api.authToken
+					end
+					launch:DownloadPage(request.url, onComplete, {
+						header = header,
+						body = request.body,
+					})
+				else
+					break
+				end
+			end
+		end
+	end
+end
+
+---Performs search and fetches results
+---@param league string
+---@param query string
+---@param callback fun(items:table, errMsg:string)
+---@param params table @ params = { callbackQueryId = fun(queryId:string) }
+function TradeQueryRequestsClass:SearchWithQuery(realm, league, query, callback, params)
+	params = params or {}
+	--ConPrintf("Query json: %s", query)
+	self:PerformSearch(realm, league, query, function(response, errMsg)
+		if params.callbackQueryId and response and response.id then
+			params.callbackQueryId(response.id)
+		end
+		if errMsg then
+			return callback(nil, errMsg)
+		end
+		self:FetchResults(response.result, response.id, callback)
+	end)
+end
+
+---Performs search and fetches results, adjusting the query weight and repeating
+---the search to fetch more items when the search cap (10k items) is reached
+---@param league string
+---@param query string
+---@param callback fun(items: table, errMsg: string, query: string)
+---@param params table @ params = { callbackQueryId = fun(queryId:string) }
+function TradeQueryRequestsClass:SearchWithQueryWeightAdjusted(realm, league, query, callback, params)
+	params = params or {}
+	local previousSearchId = nil
+	local previousSearchItemIds = nil
+	local previousSearchItems = nil
+	-- Limit recursion to prevent potential loops
+	-- Each repeat is a leap of 10k items, normally we shouldn't need more than 1-2 steps anyways
+	local maxRecursion = 5
+	local currentRecursion = 0
+	-- the query is adjusted as the search repeats, so return the final query
+	local function resultCallback(items, errMsg)
+		return callback(items, errMsg, query)
+	end
+	local function performSearchCallback(response, errMsg)
+		currentRecursion = currentRecursion + 1
+		if params.callbackQueryId and response and response.id then
+			params.callbackQueryId(response.id)
+		end
+		if errMsg and ((errMsg == "No Matching Results Found" and currentRecursion >= maxRecursion) or errMsg ~= "No Matching Results Found") then
+			return resultCallback(nil, errMsg)
+		end
+		if (response.total >= self.maxFetchPerSearch and response.total < 10000) or currentRecursion >= maxRecursion then
+			-- Search not clipped or max recursion reached, fetch results and finalize
+			if previousSearchItems and self.maxFetchPerSearch > response.total then
+				-- Not enough items in the last search, fill results from previous search
+				self:FetchResults(response.result, response.id, function(items, errMsg)
+					if errMsg then
+						return resultCallback(nil, errMsg)
+					end
+					local fetchedItemIds = {}
+					local idSet = {}
+					for _, value in pairs(items) do
+						if not idSet[value.id] then
+							idSet[value.id] = true
+							table.insert(fetchedItemIds, value.id)
+						end
+					end
+					for _, value in pairs(previousSearchItems) do
+						if #items >= self.maxFetchPerSearch then
+							break
+						end
+						if not isValueInTable(fetchedItemIds, value.id) then
+							table.insert(items, value)
+							table.insert(fetchedItemIds, value.id)
+						end
+					end
+					local fillCount = self.maxFetchPerSearch - #items
+					if fillCount > 0 then
+						-- fill with previous search results
+						local unfetchedItemIds = {}
+						for _, value in pairs(previousSearchItemIds) do
+							if #unfetchedItemIds >= fillCount then
+								break
+							end
+							if not isValueInTable(fetchedItemIds, value) then
+								table.insert(unfetchedItemIds, value)
+							end
+						end
+						self:FetchResults(unfetchedItemIds, previousSearchId, function(newItems, errMsg)
+							if errMsg then
+								return resultCallback(nil, errMsg)
+							end
+							items = tableConcat(items, newItems)
+							resultCallback(items, errMsg)
+						end)
+					else
+						resultCallback(items, errMsg)
+					end
+				end)
+			else
+				-- Search not clipped and result count satisfy maxFetchPerSearch, proceed normally
+				self:FetchResults(response.result, response.id, resultCallback)
+			end
+		else
+			if response.total < self.maxFetchPerSearch then -- Less than maximum items retrieved lower weight to try and get more.
+				local queryJson = dkjson.decode(query)
+				if not queryJson.query.stats[1].value then
+					queryJson.query.stats[1].value = { min = 0 }
+				end
+				queryJson.query.stats[1].value.min = (queryJson.query.stats[1].value.min or 0) / 2
+				query = dkjson.encode(queryJson)
+				self:PerformSearch(realm, league, query, performSearchCallback)
+			else -- Search clipped, fetch highest weight item, update query weight and repeat search
+				previousSearchItemIds = response.result
+				previousSearchId = response.id
+				local firstResultBatch = {unpack(response.result, 1, math.min(#response.result, 10))}
+				self:FetchResults(firstResultBatch, response.id, function(items, errMsg)
+					if errMsg then
+						return resultCallback(nil, errMsg)
+					end
+					previousSearchItems = items
+					local highestWeight = items[1].weight
+					local queryJson = dkjson.decode(query)
+					if not queryJson.query.stats[1].value then
+						queryJson.query.stats[1].value = { min = 0 }
+					end
+					queryJson.query.stats[1].value.min = (tonumber(highestWeight) + (queryJson.query.stats[1].value.min or 0)) / 2
+					query = dkjson.encode(queryJson)
+					self:PerformSearch(realm, league, query, performSearchCallback)
+				end)
+			end
+		end
+	end
+	self:PerformSearch(realm, league, query, performSearchCallback)
+end
+
+---Perform search and run callback function on returned item hashes.
+---Item info has to be fetched separately 
+---@param realm string
+---@param league string
+---@param query string
+---@param callback fun(response:table, errMsg:string)
+function TradeQueryRequestsClass:PerformSearch(realm, league, query, callback)
+	table.insert(self.requestQueue["search"], {
+		url = self:buildUrl(self.hostName .. "api/trade/search", realm, league),
+		body = query,
+		callback = function(response, errMsg)
+			if errMsg and not errMsg:find("Response code: 400") then
+				return callback(nil, errMsg)
+			end
+			local response = dkjson.decode(response)
+			if not response then
+				errMsg = "Failed to Get Trade response"
+				return callback(nil, errMsg)
+			end
+			if not response.result or #response.result == 0 then
+				if response.error then
+					if not (response.error.code and response.error.message) then
+						errMsg = "Encountered unknown error, check console for details."
+						ConPrintf("Unknown error: %s", utils.stringify(response.error))
+						callback(response, errMsg)
+					end
+					if response.error.message:find("Logging in will increase this limit") then
+						errMsg = "Authorization is invalid. Please Re-Log and reset"
+					else
+						-- Report unhandled error
+						errMsg = "[ " .. response.error.code .. ": " .. response.error.message .. " ]"
+					end
+				else
+					ConPrintf("Found 0 results for %sapi/trade/search/%s/%s", self.hostName, league, response.id)
+					errMsg = "No Matching Results Found"
+				end
+				return callback(response, errMsg)
+			end
+			callback(response, errMsg)
+		end,
+	})
+end
+
+---Fetch item details for itemHashes
+---@param itemHashes string[]
+---@param queryId string
+---@param callback fun(items:table, errMsg:string)
+function TradeQueryRequestsClass:FetchResults(itemHashes, queryId, callback)
+	local quantity_found = math.min(#itemHashes, self.maxFetchPerSearch)
+	local max_block_size = 10
+	local items = {}
+	for fetch_block_start = 1, quantity_found, max_block_size do
+		local fetch_block_end = math.min(fetch_block_start + max_block_size - 1, quantity_found)
+		local param_item_hashes = table.concat({unpack(itemHashes, fetch_block_start, fetch_block_end)}, ",")
+		local fetch_url = self.hostName .. "api/trade/fetch/"..param_item_hashes.."?query="..queryId
+		self:FetchResultBlock(fetch_url, function(itemBlock, errMsg)
+			if errMsg then
+				return callback(nil, errMsg)
+			end
+			for _, item in pairs(itemBlock) do
+				table.insert(items, item)
+			end
+			-- finished fetching item blocks
+			if #items >= quantity_found then
+				callback(items)
+			end
+		end)
+	end
+end
+
+---Fetch details for paginated items
+---@param url string
+---@param callback fun(items: table, errMsg:string)
+function TradeQueryRequestsClass:FetchResultBlock(url, callback)
+	table.insert(self.requestQueue["fetch"], {
+		url = url,
+		callback = function(response, errMsg)
+			if errMsg then
+				return callback(nil, errMsg)
+			end
+			local response, response_err = dkjson.decode(response)
+			if not response or not response.result then
+				if response_err then
+					errMsg = "JSON Parse Error: " .. (errMsg or "")
+				else
+					errMsg = "Failed to Get Trade Items: " .. (errMsg or "")
+				end
+				return callback(nil, errMsg)
+			end
+			local items = {}
+			for _, trade_entry in pairs(response.result) do
+				local item = trade_entry.item
+				local t_insert = table.insert
+
+				local rawLines = {}
+				t_insert(rawLines, "Rarity: " .. item.rarity)
+				-- item.name is empty when magic and full magic name is in typeLine but typeLine == baseType when rare.
+				if item.name ~= "" then
+					t_insert(rawLines, item.name)
+				end
+				t_insert(rawLines, item.typeLine)
+				-- note that PoB MUST parse these properties, or otherwise item
+				-- parsing will consider anything after a non-matching property
+				-- an explicit mod line
+				if item.properties then
+					for _, property in ipairs(item.properties) do
+						local name = escapeGGGString(property.name)
+						if property.values[1] then
+							t_insert(rawLines, string.format("%s: %s", name, property.values[1][1]))
+						else
+							t_insert(rawLines, name)
+						end
+					end
+				end
+
+				if item.ilvl then
+					t_insert(rawLines, "Item Level: " .. item.ilvl)
+				end
+				if item.sockets then
+					local socketString = ""
+					local colours = {}
+					for _, socket in ipairs(item.sockets) do
+						table.insert(colours, socket.sColour)
+					end
+					socketString = table.concat(colours, "-")
+					t_insert(rawLines, "Sockets: " .. socketString)
+				end
+
+
+				-- TODO: crucible mods
+				for _, field in ipairs({ "enchantMods", "implicitMods", "scourgeMods", "explicitMods" }) do
+					if not item[field] then
+						item[field] = {}
+					end
+				end
+
+				local function processLine(modLine)
+					local s = ""
+					for flagName, flag in pairs(modLine.flags or {}) do
+						if flag then
+							s = s .. string.format("{%s}", flagName)
+						end
+					end
+					return s .. escapeGGGString(modLine.description)
+				end
+				t_insert(rawLines, "Implicits: " .. (#item.enchantMods + #item.scourgeMods + #item.implicitMods))
+				for _, modLine in ipairs(item.enchantMods) do
+					t_insert(rawLines, "{enchant}" .. processLine(modLine))
+				end
+				for _, modLine in ipairs(item.scourgeMods) do
+					t_insert(rawLines, "{scourge}" .. processLine(modLine))
+				end
+				for _, modLine in ipairs(item.implicitMods) do
+					t_insert(rawLines, processLine(modLine))
+				end
+				for _, modLine in ipairs(item.explicitMods) do
+					t_insert(rawLines, processLine(modLine))
+				end
+				for _, influenceInfo in ipairs(itemLib.influenceInfo.all) do
+					local apiKey = tradeInfluenceApiKeys[influenceInfo.key]
+					if apiKey and ((item.influences and item.influences[apiKey]) or item[apiKey]) then
+						t_insert(rawLines, influenceInfo.display .. " Item")
+					end
+				end
+				if item.duplicated then
+					t_insert(rawLines, "Mirrored")
+				end
+				if item.corrupted then
+					t_insert(rawLines, "Corrupted")
+				end
+				local pseudoMod = trade_entry.item.pseudoMods and trade_entry.item.pseudoMods[1]
+				local pseudoModLine = pseudoMod and (pseudoMod.description or pseudoMod)
+				table.insert(items, {
+					amount = trade_entry.listing.price.amount,
+					currency = trade_entry.listing.price.currency,
+					priceType = trade_entry.listing.price.type,
+					item_string = table.concat(rawLines, "\n"),
+					whisper = trade_entry.listing.whisper,
+					trader = trade_entry.listing.account.name,
+					weight = pseudoModLine and pseudoModLine:match("Sum: (.+)") or "0",
+					id = trade_entry.id
+				})
+			end
+			return callback(items)
+		end
+	})
+end
+
+---@param callback fun(items:table, errMsg:string, query: string?)
+function TradeQueryRequestsClass:SearchWithURL(url, callback)
+	local subpath = url:match(self.hostNamePattern .. "trade/search/(.+)$")
+	if not subpath then
+		return callback(nil, "Invalid URL")
+	end
+	local paths = {}
+	for path in subpath:gmatch("[^/]+") do
+		table.insert(paths, path)
+	end
+	if #paths < 2 or #paths > 3 then
+		return callback(nil, "Invalid URL", nil)
+	end
+	local realm, league, queryId
+	if #paths == 3 then
+		realm = paths[1]
+	end
+	league = urlDecode(paths[#paths-1])
+	queryId = paths[#paths]
+	local json = tradeHelpers.B64GzipDecode(queryId)
+	if not json then
+		return callback(nil, "URL is malformed")
+	end
+	local decodedQuery = dkjson.decode(json)
+	if type(decodedQuery) ~= "table" or type(decodedQuery.stats) ~= "table" or type(decodedQuery.stats[1]) ~= "table" then
+		return callback(nil, "URL is malformed")
+	end
+	local weightGroupIndex
+	for i, group in ipairs(decodedQuery.stats) do
+		if type(group) ~= "table" or type(group.type) ~= "string" then
+			return callback(nil, "URL is malformed")
+		end
+		if group.type == "weight" and not weightGroupIndex then
+			weightGroupIndex = i
+		end
+	end
+	local newQuery = {
+		query = decodedQuery,
+		sort = { price = "asc" },
+		engine = "new",
+	}
+	if weightGroupIndex then
+		-- Purchase links expect the weighted group first.
+		decodedQuery.stats[1], decodedQuery.stats[weightGroupIndex] = decodedQuery.stats[weightGroupIndex], decodedQuery.stats[1]
+		newQuery.sort = { ["statgroup.0"] = "desc" }
+	end
+	-- Pasted searches contain user constraints; only generated searches may adjust weights.
+	local query = dkjson.encode(newQuery)
+	self:SearchWithQuery(realm, league, query, function(items, errMsg)
+		callback(items, errMsg, query)
+	end)
+end
+
+--- Fetches the list of all available leagues using trade league API
+---@param realm string
+---@param callback fun(query:table, errMsg:string)
+function TradeQueryRequestsClass:FetchLeagues(realm, callback)
+	local header = "Authorization: Bearer " .. (main.api.authToken or "")
+	launch:DownloadPage(
+			self.hostName .. "api/trade/data/leagues",
+			function(response, errMsg)
+				if errMsg then
+					return callback({"Standard", "Hardcore"}, errMsg)
+				end
+				local json_data = dkjson.decode(response.body)
+				if not json_data or json_data.error then
+					local apiError = json_data and json_data.error
+					errMsg = apiError or "Failed to parse trade leagues JSON"
+					if type(apiError) == "table" then
+						errMsg = apiError.message or (apiError.code and tostring(apiError.code)) or "Failed to parse trade leagues JSON"
+					end
+					return callback({"Standard", "Hardcore"}, errMsg)
+				end
+				local leagues = {}
+				for _, value in pairs(json_data.result) do
+					if value.realm == realm then
+						table.insert(leagues, value.id)
+					end
+				end
+				callback(leagues, errMsg)
+			end,
+			{header = header}
+	)
+end
+
+--- Build search and trade URLs with proper encoding
+---@param root string
+---@param realm string
+---@param league string
+---@param queryId string
+function TradeQueryRequestsClass:buildUrl(root, realm, league, queryId)
+	local result = root
+	if realm and realm ~='pc' then
+		result = result .. "/" .. realm
+	end
+	local encodedLeague = league:gsub("[^%w%-%.%_%~]", function(c)
+		return string.format("%%%02X", string.byte(c))
+	end):gsub(" ", "+")
+	result = result .. "/" .. encodedLeague
+	if queryId then
+		result = result .. "/" .. queryId
+	end
+	return result
+end
