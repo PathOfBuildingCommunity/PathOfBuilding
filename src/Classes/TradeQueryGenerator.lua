@@ -158,7 +158,6 @@ function TradeQueryGeneratorClass:TradeQueryGenerator(queryTab)
 	self.lastMaxPrice = nil
 	self.lastMaxPriceTypeIndex = nil
 	self.lastMaxLevel = nil
-	-- Remembered per slot: a 6-link body armour search must not leave 6 links on a helmet search.
 	self.lastLinksBySlot = { }
 	return self
 end
