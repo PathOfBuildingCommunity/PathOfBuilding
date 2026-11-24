@@ -1411,9 +1411,9 @@ Remove: %s will be removed from the search results.]], term, term, term)
 			options.sockets = tonumber(controls.sockets.buf)
 			self.lastSockets = options.sockets
 		end
-		if controls.links and controls.links.buf then
+		if controls.links then
 			options.links = tonumber(controls.links.buf)
-			self.lastLinksBySlot[slot.slotName] = options.links
+			self.lastLinksBySlot[slot.slotName] = options.links and options.links > 0 and options.links or nil
 		end
 		if controls.includeAllWEMods then
 			options.includeAllWEMods = controls.includeAllWEMods.state

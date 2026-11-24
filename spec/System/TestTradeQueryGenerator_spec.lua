@@ -59,27 +59,34 @@ describe("TradeQueryGenerator", function()
 	end)
 
 	describe("Query options", function()
-		it("remembers the link count for the next search of the same slot", function()
+		it("uses remembered links in the next filter for the same slot", function()
 			local queryGen = new("TradeQueryGenerator"):TradeQueryGenerator({ itemsTab = { items = { } } })
-			queryGen.StartQuery = function() end
-			local slot = { slotName = "Body Armour" }
-			local context = {
-				slotTbl = { slotName = "Body Armour", alreadyCorrupted = false },
-				controls = { tradeTypeSelection = { selIndex = 1 } },
-			}
-			queryGen:RequestQuery(slot, context, { }, function() end)
-			main.popups[1].controls.links:SetText("6")
-			main.popups[1].controls.generateQuery:Click()
 
-			queryGen:RequestQuery(slot, context, { }, function() end)
-			assert.are.equal("6", main.popups[1].controls.links.buf)
-			main:ClosePopup()
+			local function runQuery(slotName, links)
+				local requestedOptions
+				queryGen.StartQuery = function(_, _, options)
+					requestedOptions = options
+				end
+				local context = {
+					slotTbl = { slotName = slotName, alreadyCorrupted = false },
+					controls = { tradeTypeSelection = { selIndex = 1 } },
+				}
+				queryGen:RequestQuery({ slotName = slotName }, context, { }, function() end)
+				if links ~= nil then
+					main.popups[1].controls.links:SetText(links)
+				end
+				main.popups[1].controls.generateQuery:Click()
+				return requestedOptions.links
+			end
 
-			queryGen:RequestQuery({ slotName = "Helmet" }, {
-				slotTbl = { slotName = "Helmet", alreadyCorrupted = false },
-			}, { }, function() end)
-			assert.are.equal("", main.popups[1].controls.links.buf)
-			main:ClosePopup()
+			assert.are.equal(6, runQuery("Body Armour", "6"))
+			assert.are.equal(6, runQuery("Body Armour"))
+			assert.is_nil(runQuery("Helmet"))
+			assert.is_nil(runQuery("Body Armour", ""))
+			assert.is_nil(runQuery("Body Armour"))
+			assert.are.equal(6, runQuery("Body Armour", "6"))
+			assert.are.equal(0, runQuery("Body Armour", "0"))
+			assert.is_nil(runQuery("Body Armour"))
 		end)
 	end)
 
