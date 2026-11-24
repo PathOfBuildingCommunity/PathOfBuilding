@@ -4397,7 +4397,7 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode, maxWidth)
 	tooltip.center = true
 	tooltip.color = rarityCode
 	--Wickerman Items have a different colour for title, we still print the bounding box as rarity color.
-	if item.base.type == "Viscera" and main.showFlavourText then
+	if item.base and item.base.type == "Viscera" and main.showFlavourText then
 		tooltip.tooltipHeader = "VISCERA"
 		rarityCode = colorCodes.VISCERA
 	end
