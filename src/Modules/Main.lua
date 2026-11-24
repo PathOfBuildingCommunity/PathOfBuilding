@@ -202,7 +202,7 @@ function main:Init()
 		ConPrintf("Rares loaded")
 
 		for _, raw in pairsYield(data.viscera) do
-			local newItem = new("Item"):Item(raw, "RARE", true)
+			local newItem = new("Item"):Item(raw, "NORMAL", true)
 			if newItem.base then
 				newItem:BuildAndParseRaw()
 				self.visceraDB.list[newItem.name] = newItem
@@ -354,7 +354,7 @@ function main:SaveModCache()
 				out:write("end)();(function()\n")
 				count = 0
 			else
-				count += 1
+				count = count + 1
 			end
 		end
 	end

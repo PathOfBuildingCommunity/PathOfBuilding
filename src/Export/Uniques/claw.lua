@@ -367,25 +367,23 @@ Eye Gouger
 League: Covens
 Source: Drops from unique{The Coven Queen}
 Has Alt Variant: true
-Has Alt Variant Two: true
 Selected Variant: 2
 Selected Alt Variant: 1
-Selected Alt Variant Two: 1
 Variant: None
 Variant: Two Modifiers remaining
 Variant: One Modifier remaining
-Variant: The Shaper
-Variant: Uber Elder
-Variant: Venarius
-Variant: Sirus Body
-Variant: Sirus Mind
-Variant: Sirus Soul
-Variant: The Maven
-Variant: The Searing Exarch
-Variant: The Eater of Worlds
-Variant: Incarnation of Neglect
-Variant: Incarnation of Fear
-Variant: Incarnation of Dread
+Variant: Shaper: +1 Projectile
+Variant: Uber Elder: Random Extra Damage
+Variant: Venarius: Full Life Leech
+Variant: Sirus: Body Transfiguration
+Variant: Sirus: Mind Transfiguration
+Variant: Sirus: Soul Transfiguration
+Variant: Maven: Lucky Damage
+Variant: Searing Exarch: Triple Damage
+Variant: The Eater of Worlds: Frenzy Charge
+Variant: Incarnation of Neglect: +1 Poison
+Variant: Incarnation of Fear: Moonfall
+Variant: Incarnation of Dread: Random Shrine
 Implicits: 1
 LifeGainPerTargetImplicit2Claw12
 LocalIncreasedPhysicalDamagePercentUnique__60

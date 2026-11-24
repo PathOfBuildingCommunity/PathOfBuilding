@@ -259,24 +259,24 @@ Implicits: 1
 {variant:3}{group:1}{tags:elemental_damage}(15-60)% increased Cold Damage
 {variant:4}{group:1}{tags:elemental_damage}(15-60)% increased Lightning Damage
 {version:1,2}{variant:2,3,4}{group:1}{tags:defences}+(250-1000) to Armour
-{version:1,2}{variant:1,3,4}{group:1}{tags:resistance}+(25-100)% to Fire Resistance
-{version:1,2}{variant:1,2,4}{group:1}{tags:resistance}+(25-100)% to Cold Resistance
-{version:1,2}{variant:1,2,3}{group:1}{tags:resistance}+(25-100)% to Lightning Resistance
 {version:3}{variant:8}{group:2}{tags:defences}+(250-1000) to Armour
+{version:1,2}{variant:1,3,4}{group:1}{tags:resistance}+(25-100)% to Fire Resistance
 {version:3}{variant:5}{group:2}{tags:resistance}+(25-100)% to Fire Resistance
+{version:1,2}{variant:1,2,4}{group:1}{tags:resistance}+(25-100)% to Cold Resistance
 {version:3}{variant:6}{group:2}{tags:resistance}+(25-100)% to Cold Resistance
+{version:1,2}{variant:1,2,3}{group:1}{tags:resistance}+(25-100)% to Lightning Resistance
 {version:3}{variant:7}{group:2}{tags:resistance}+(25-100)% to Lightning Resistance
 {version:1}{variant:1}{group:1}{tags:resource}0.2% of Physical Damage Leeched as Life
-{version:1}{variant:2}{group:1}{tags:resource}0.2% of Fire Damage Leeched as Life
-{version:1}{variant:3}{group:1}{tags:resource}0.2% of Cold Damage Leeched as Life
-{version:1}{variant:4}{group:1}{tags:resource}0.2% of Lightning Damage Leeched as Life
 {version:2}{variant:1}{group:1}{tags:resource}0.6% of Physical Damage Leeched as Life
-{version:2}{variant:2}{group:1}{tags:resource}0.6% of Fire Damage Leeched as Life
-{version:2}{variant:3}{group:1}{tags:resource}0.6% of Cold Damage Leeched as Life
-{version:2}{variant:4}{group:1}{tags:resource}0.6% of Lightning Damage Leeched as Life
 {version:3}{variant:9}{group:3}{tags:resource}0.6% of Physical Damage Leeched as Life
+{version:1}{variant:2}{group:1}{tags:resource}0.2% of Fire Damage Leeched as Life
+{version:2}{variant:2}{group:1}{tags:resource}0.6% of Fire Damage Leeched as Life
 {version:3}{variant:10}{group:3}{tags:resource}0.6% of Fire Damage Leeched as Life
+{version:1}{variant:3}{group:1}{tags:resource}0.2% of Cold Damage Leeched as Life
+{version:2}{variant:3}{group:1}{tags:resource}0.6% of Cold Damage Leeched as Life
 {version:3}{variant:11}{group:3}{tags:resource}0.6% of Cold Damage Leeched as Life
+{version:1}{variant:4}{group:1}{tags:resource}0.2% of Lightning Damage Leeched as Life
+{version:2}{variant:4}{group:1}{tags:resource}0.6% of Lightning Damage Leeched as Life
 {version:3}{variant:12}{group:3}{tags:resource}0.6% of Lightning Damage Leeched as Life
 {version:3}{variant:13}{group:4}{tags:defences}Granite Flasks applied to you have (20-80)% increased Effect
 {version:3}{variant:14}{group:4}{tags:resistance}Ruby Flasks applied to you have (20-80)% increased Effect

@@ -274,6 +274,38 @@ describe("TestSkills", function()
 		assert.is_nil(supports.SupportSacredWisps)
 	end)
 
+	it("applies Bane's support part in Mantle of Dreams while disabling socketed support gems", function()
+		build.itemsTab:CreateDisplayItemFromRaw("Rarity: UNIQUE\nMantle of Dreams\nTwilight Regalia\nSockets: B-B-B\nImplicits: 0\nSocketed Support Gems have no effect")
+		build.itemsTab:AddDisplayItem()
+		build.skillsTab:PasteSocketGroup("Slot: Body Armour\nBane 20/0  1\nDespair 20/0  1\nControlled Destruction 20/0  1\n")
+		runCallback("OnFrame")
+
+		local despair
+		local bane
+		for _, activeSkill in ipairs(build.calcsTab.mainEnv.player.activeSkillList) do
+			if activeSkill.activeEffect.grantedEffect.id == "Despair" then
+				despair = activeSkill
+			end
+			if activeSkill.activeEffect.grantedEffect.id == "Bane" then
+				bane = activeSkill
+			end
+		end
+		assert.is_not_nil(despair)
+		assert.is_not_nil(bane)
+
+		local supports = { }
+		for _, effect in ipairs(despair.effectList) do
+			supports[effect.grantedEffect.id] = true
+		end
+		assert.is_true(supports.SupportDarkRitual)
+		assert.is_nil(supports.SupportControlledDestruction)
+
+		-- Level 20 Bane grants 42% more damage per curse applied.
+		assert.are.near(1.42, bane.skillModList:More(bane.skillCfg, "Damage"), 1e-9)
+		-- Bane's support part applies 25% less curse effect to Despair.
+		assert.are.near(0.75, despair.skillModList:More(despair.skillCfg, "CurseEffect"), 1e-9)
+	end)
+
 	it("keeps Mana-Infused Staff reservation on mana and disables it without mana", function()
 		build.itemsTab:CreateDisplayItemFromRaw("Test Staff\nJudgement Staff")
 		build.itemsTab:AddDisplayItem()
@@ -583,6 +615,36 @@ describe("TestSkills", function()
 		assert.is_truthy(breakdownText:match("inverted hit"))
 		assert.is_truthy(breakdownText:match("weighted average"))
 	end)
+
+	it("caps inverted negative resistance at the enemy's maximum resistance (issue #9375)", function()
+		build.skillsTab:PasteSocketGroup("Fireball 20/0  1")
+		build.configTab.input.enemyIsBoss = "None"
+		build.configTab.input.enemyFireResist = -150
+		local function effMultWith(customMods)
+			build.configTab.input.customMods = customMods
+			build.configTab:BuildModList()
+			runCallback("OnFrame")
+			return build.calcsTab.calcsOutput.FireEffMult
+		end
+		local maxResist = data.misc.EnemyMaxResist
+
+		-- -150% inverted is 150%, but it cannot go above the enemy's maximum resistance,
+		-- so hits deal reduced damage instead of negative damage.
+		assert.are.near(1 - maxResist / 100, effMultWith("Hits have 100% chance to treat Enemy Monster Elemental Resistance values as inverted"), 1e-9)
+		assert.True(build.calcsTab.mainOutput.TotalDPS > 0)
+		local breakdownText = table.concat(build.calcsTab.calcsEnv.player.breakdown.FireEffMult, "\n")
+		assert.is_truthy(breakdownText:match(maxResist.."%% %^8%(inverted hit after penetration, capped at maximum resistance%)"))
+
+		-- Penetration applies after the cap
+		assert.are.near(1 - (maxResist - 20) / 100, effMultWith("Hits have 100% chance to treat Enemy Monster Elemental Resistance values as inverted\nDamage Penetrates 20% of Enemy Fire Resistance"), 1e-9)
+
+		-- Hits that cannot penetrate still use the capped inverted resistance
+		assert.are.near(1 - maxResist / 100, effMultWith("Hits have 100% chance to treat Enemy Monster Elemental Resistance values as inverted\nDamage Penetrates 20% of Enemy Fire Resistance\nYour Hits cannot Penetrate or Ignore Elemental Resistances"), 1e-9)
+
+		-- 50% of hits use -150% resistance and 50% use the capped inverted resistance
+		assert.are.near(1 - (-150 + maxResist) / 2 / 100, effMultWith("Hits have 50% chance to treat Enemy Monster Elemental Resistance values as inverted"), 1e-9)
+	end)
+
 	it("Test cost efficiency modifiers", function()
 		-- Test Mana Cost Efficiency
 		build.skillsTab:PasteSocketGroup("Hydrosphere 1/0  1\n")
@@ -892,6 +954,24 @@ describe("TestSkills", function()
 		end
 	end)
 
+	it("applies Fleshrend stacks from Pact of Ghorr as increased damage over time taken", function()
+		build.skillsTab:PasteSocketGroup("Creeping Frost 20/0  1\nPact of Ghorr 1/0  1")
+		runCallback("OnFrame")
+		local baseDPS = build.calcsTab.mainOutput.TotalDotDPS
+		assert.are.equals(0, build.calcsTab.mainEnv.enemyDB:Sum("INC", nil, "DamageTakenOverTime"))
+
+		build.configTab.input.fleshrendStacks = 3
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+		assert.are.equals(75, build.calcsTab.mainEnv.enemyDB:Sum("INC", nil, "DamageTakenOverTime"))
+		assert.are.near(baseDPS * 1.75, build.calcsTab.mainOutput.TotalDotDPS, baseDPS * 10 ^ -9)
+
+		build.configTab.input.fleshrendStacks = 5
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+		assert.are.equals(75, build.calcsTab.mainEnv.enemyDB:Sum("INC", nil, "DamageTakenOverTime"))
+	end)
+
 	it("ignores invalid extra supports while allowing support name collisions", function()
 		build.skillsTab:PasteSocketGroup("Slot: Gloves\nFireball 20/0  1")
 		runCallback("OnFrame")
@@ -934,5 +1014,44 @@ describe("TestSkills", function()
 			runCallback("OnFrame")
 			assert.is_nil(build.calcsTab.mainEnv.player.modDB.multipliers["Cruelty"])
 		end
+	end)
+
+	local function setupImbuedFireball(imbuedSupport, gems)
+		build.itemsTab:CreateDisplayItemFromRaw([[
+		Test Subject
+		Imbued Wand
+		Sockets: B-B-B
+		]])
+		build.itemsTab:AddDisplayItem()
+		build.skillsTab:PasteSocketGroup(gems or "Fireball 20/0  1")
+		local group = build.skillsTab.socketGroupList[1]
+		group.slot = "Weapon 1"
+		group.imbuedSupport = imbuedSupport
+		build.skillsTab:RebuildImbuedSupportBySlot()
+		build.buildFlag = true
+		runCallback("OnFrame")
+		return build.calcsTab.mainEnv.player.mainSkill
+	end
+
+	it("only lists bricked imbued supports in the imbued dropdown", function()
+		local normal = new("GemSelectControl"):GemSelectControl(nil, { 0, 0, 100, 20 }, build.skillsTab, 1, function() end)
+		local imbued = new("GemSelectControl"):GemSelectControl(nil, { 0, 0, 100, 20 }, build.skillsTab, 1, function() end, nil, true)
+		normal:PopulateGemList()
+		imbued:PopulateGemList()
+		local gemId = build.data.gemForBaseName["poverty support"]
+		assert.is_nil(normal.gems["Default:" .. gemId])
+		assert.is_not_nil(imbued.gems["Default:" .. gemId])
+	end)
+
+	it("prevents other supports from applying with imbued Constriction", function()
+		local skill = setupImbuedFireball("Constriction", "Fireball 20/0  1\nAdded Fire Damage 20/0  1")
+		assert.are.equals(2, #skill.effectList)
+		assert.are.equals("SupportConstriction", skill.effectList[2].grantedEffect.id)
+	end)
+
+	it("doubles the supported gem's attribute requirements with imbued Taxation", function()
+		setupImbuedFireball("Taxation")
+		local gemReq = build.skillsTab.socketGroupList[1].gemList[1].reqInt
+		assert.are.equals(gemReq * 2, build.calcsTab.mainOutput.ReqInt)
 	end)
 end)

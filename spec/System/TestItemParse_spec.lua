@@ -845,6 +845,8 @@ describe("TestAdvancedItemParse #item", function()
 		assert.are.equals("SpellDamageAndManaOnTwoHandWeapon4", item.prefixes[1].modId)
 		assert.are.equals(0.286, item.prefixes[1].range)
 		assert.are.equals(0.8, item.explicitModLines[2].range)
+		item = new("Item"):Item("Rarity: Unique\nThe Covetous Dark\nEye Gouger\nImplicits: 0\nGain a random Shrine Buff for 15 seconds when you Blind a\nnon-Blinded Rare or Unique Enemy")
+		assert.is_true(item.baseModList:Flag(nil, "Condition:CanHaveRegularShrines"))
 	end)
 
 	it("resets linePrefix", function() 

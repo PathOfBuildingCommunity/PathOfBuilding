@@ -348,16 +348,16 @@ Implicits: 3
 {version:1,2}2% increased Minion Duration per Raised Zombie
 {version:1,2}(10-15)% increased Minion Damage per Raised Spectre
 {version:5}{variant:1}{group:1,2,3,4}(10-15)% increased Minion Damage per Raised Spectre
-{version:5}{variant:2}{group:1,2,3,4}(12-18)% increased Spell Damage per Summoned Skeleton
-{version:5}{variant:3}{group:1,2,3,4}(16-24)% increased Attack Damage per Raised Zombie
 {version:3,4}+1% Chance to Block Attack Damage per Summoned Skeleton
 {version:5}{variant:4}{group:1,2,3,4}+(1-2)% Chance to Block Attack Damage per Summoned Skeleton
 {version:3,4}2% increased Attack and Cast Speed per Summoned Raging Spirit
 {version:5}{variant:7}{group:1,2,3,4}(3-5)% increased Attack and Cast Speed per Summoned Raging Spirit
+{version:5}{variant:3}{group:1,2,3,4}(16-24)% increased Attack Damage per Raised Zombie
 {version:3,4}Regenerate 0.6% of Life per second for each Raised Zombie
 {version:5}{variant:5}{group:1,2,3,4}Regenerate (0.8-1)% of Life per second for each Raised Zombie
 {version:3,4}30% increased Mana Regeneration Rate per Raised Spectre
 {version:5}{variant:6}{group:1,2,3,4}(40-60)% increased Mana Regeneration Rate per Raised Spectre
+{version:5}{variant:2}{group:1,2,3,4}(12-18)% increased Spell Damage per Summoned Skeleton
 ]],[[
 Fencoil
 Gnarled Branch
