@@ -1282,9 +1282,8 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 						if replacesNode then
 							self:ReplaceNode(node, changedNode)
 						end
-						-- Each line takes only its own stat's roll: two stats can share a range, such as the
-						-- "(2-3)" of minion Attack Speed and Cast Speed. A line holding several stats, such as
-						-- "(12-14) to (17-19) Added Spell Cold Damage while Dual Wielding", takes all of them.
+						-- Two stats can share a range, so with one line per stat each line takes only its own
+						-- stat's roll. A line holding several stats, like an added damage range, takes all of them.
 						local oneStatPerLine = #changedNode.sd == #changedNode.sortedStats
 						for statIndex, statLine in ipairs(changedNode.sd) do
 							for _, statKey in ipairs(oneStatPerLine and { changedNode.sortedStats[statIndex] } or changedNode.sortedStats) do

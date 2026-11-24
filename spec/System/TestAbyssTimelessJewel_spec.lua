@@ -479,36 +479,9 @@ describe("Abyss timeless jewels", function()
 		local spec = build.spec
 		spec:SelectClass(spec.tree.classNameMap.Templar)
 		assert.is_true(allocatePathToNode(spec, spec.nodes[26196]))
-		spec:BuildAllDependsAndPaths()
-		local targetNodeId
-		for nodeId in pairs(spec:GetShortestPathToClassStart(26196)) do
-			if spec.nodes[nodeId].type == "Normal" then
-				targetNodeId = nodeId
-				break
-			end
-		end
-		-- Minions have (2-3)% increased Attack Speed / Minions have (2-3)% increased Cast Speed
-		local minionSpeedGlobalId
-		for index, node in ipairs(spec.tree.legion.nodes) do
-			if node.id == "abyss_special_small_attribute35" then
-				minionSpeedGlobalId = index - 1 + data.timelessJewelAdditions
-				break
-			end
-		end
-		local minionSpeedLocalId
-		for localId, globalId in pairs(data.nodeIDList.localIdToGlobalId[11]) do
-			if globalId == minionSpeedGlobalId then
-				minionSpeedLocalId = localId
-				break
-			end
-		end
-		data.timelessJewelLUTs[11] = parseAbyssJewel(11, table.concat({
-			abyssHeader("ABYN", 11, 1984),
-			uint16(1),
-			uint16(targetNodeId),
-			abyssModification({ { type = 1, id = minionSpeedLocalId, rolls = { 3, 2 } } }),
-			"ASCS", uint16(0),
-		}))
+		-- Local id 113 is abyss_special_small_attribute35, whose two stats both roll (2-3)
+		data.timelessJewelLUTs[11] = parseAbyssJewel(11, abyssHeader("ABYN", 11, 1984) .. uint16(1) .. uint16(10575)
+			.. abyssModification({ { type = 1, id = 113, rolls = { 3, 2 } } }) .. "ASCS" .. uint16(0))
 		equipJewel(spec, 26196, newAbyssTimelessJewel("Reclaimed Malevolence", "Assembled Eye Jewel",
 			"Binding 1984 souls to phylacteries to sustain Zorath"))
 		spec:BuildAllDependsAndPaths()
@@ -516,7 +489,7 @@ describe("Abyss timeless jewels", function()
 		assert.are.same({
 			"Minions have 3% increased Attack Speed",
 			"Minions have 2% increased Cast Speed",
-		}, spec.nodes[targetNodeId].sd)
+		}, spec.nodes[10575].sd)
 	end)
 
 	it("applies Zorath seed 4050 to the selected Chieftain notable", function()
