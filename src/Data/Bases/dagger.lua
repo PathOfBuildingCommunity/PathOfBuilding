@@ -2,6 +2,7 @@
 -- Item data (c) Grinding Gear Games
 return function(itemBases)
 itemBases["Glass Shank"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/Daggers/Dagger1",
 	type = "Dagger",
 	socketLimit = 3,
 	tags = { attack_dagger = true, dagger = true, default = true, one_hand_weapon = true, onehand = true, weapon = true, },
@@ -13,6 +14,7 @@ itemBases["Glass Shank"] = {
 	req = { dex = 9, int = 6, },
 }
 itemBases["Skinning Knife"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/Daggers/Dagger2",
 	type = "Dagger",
 	socketLimit = 3,
 	tags = { attack_dagger = true, dagger = true, default = true, one_hand_weapon = true, onehand = true, weapon = true, },
@@ -24,6 +26,7 @@ itemBases["Skinning Knife"] = {
 	req = { level = 5, dex = 16, int = 11, },
 }
 itemBases["Stiletto"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/Daggers/Dagger4",
 	type = "Dagger",
 	socketLimit = 3,
 	tags = { attack_dagger = true, dagger = true, default = true, one_hand_weapon = true, onehand = true, weapon = true, },
@@ -35,6 +38,7 @@ itemBases["Stiletto"] = {
 	req = { level = 15, dex = 30, int = 30, },
 }
 itemBases["Prong Dagger"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/Daggers/DaggerM1",
 	type = "Dagger",
 	socketLimit = 3,
 	tags = { attack_dagger = true, dagger = true, default = true, maraketh = true, not_for_sale = true, one_hand_weapon = true, onehand = true, weapon = true, },
@@ -46,6 +50,7 @@ itemBases["Prong Dagger"] = {
 	req = { level = 36, dex = 55, int = 77, },
 }
 itemBases["Flaying Knife"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/Daggers/Dagger9",
 	type = "Dagger",
 	socketLimit = 3,
 	tags = { attack_dagger = true, dagger = true, default = true, one_hand_weapon = true, onehand = true, weapon = true, },
@@ -57,6 +62,7 @@ itemBases["Flaying Knife"] = {
 	req = { level = 30, dex = 64, int = 44, },
 }
 itemBases["Poignard"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/Daggers/Dagger11",
 	type = "Dagger",
 	socketLimit = 3,
 	tags = { attack_dagger = true, dagger = true, default = true, one_hand_weapon = true, onehand = true, weapon = true, },
@@ -68,6 +74,7 @@ itemBases["Poignard"] = {
 	req = { level = 41, dex = 72, int = 72, },
 }
 itemBases["Trisula"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/Daggers/DaggerM2",
 	type = "Dagger",
 	socketLimit = 3,
 	tags = { attack_dagger = true, dagger = true, default = true, maraketh = true, not_for_sale = true, one_hand_weapon = true, onehand = true, weapon = true, },
@@ -79,6 +86,7 @@ itemBases["Trisula"] = {
 	req = { level = 51, dex = 83, int = 99, },
 }
 itemBases["Gutting Knife"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/Daggers/Dagger16",
 	type = "Dagger",
 	socketLimit = 3,
 	tags = { attack_dagger = true, dagger = true, default = true, one_hand_weapon = true, onehand = true, weapon = true, },
@@ -90,6 +98,7 @@ itemBases["Gutting Knife"] = {
 	req = { level = 56, dex = 113, int = 78, },
 }
 itemBases["Ambusher"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/Daggers/Dagger18",
 	type = "Dagger",
 	socketLimit = 3,
 	tags = { attack_dagger = true, dagger = true, default = true, one_hand_weapon = true, onehand = true, weapon = true, },
@@ -101,6 +110,7 @@ itemBases["Ambusher"] = {
 	req = { level = 60, dex = 113, int = 113, },
 }
 itemBases["Sai"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/Daggers/DaggerM3",
 	type = "Dagger",
 	socketLimit = 3,
 	tags = { attack_dagger = true, dagger = true, default = true, maraketh = true, not_for_sale = true, one_hand_weapon = true, onehand = true, weapon = true, },
@@ -112,6 +122,7 @@ itemBases["Sai"] = {
 	req = { level = 70, dex = 121, int = 121, },
 }
 itemBases["Hollowpoint Dagger"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/Daggers/DaggerE1",
 	type = "Dagger",
 	socketLimit = 3,
 	tags = { attack_dagger = true, dagger = true, default = true, experimental_base = true, not_for_sale = true, one_hand_weapon = true, onehand = true, weapon = true, },
@@ -123,6 +134,7 @@ itemBases["Hollowpoint Dagger"] = {
 	req = { level = 30, dex = 54, int = 54, },
 }
 itemBases["Pressurised Dagger"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/Daggers/DaggerE2",
 	type = "Dagger",
 	socketLimit = 3,
 	tags = { attack_dagger = true, dagger = true, default = true, experimental_base = true, not_for_sale = true, one_hand_weapon = true, onehand = true, weapon = true, },
@@ -134,6 +146,7 @@ itemBases["Pressurised Dagger"] = {
 	req = { level = 50, dex = 86, int = 86, },
 }
 itemBases["Pneumatic Dagger"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/Daggers/DaggerE3",
 	type = "Dagger",
 	socketLimit = 3,
 	tags = { attack_dagger = true, dagger = true, default = true, experimental_base = true, not_for_sale = true, one_hand_weapon = true, onehand = true, weapon = true, },
@@ -145,6 +158,7 @@ itemBases["Pneumatic Dagger"] = {
 	req = { level = 70, dex = 121, int = 121, },
 }
 itemBases["Ethereal Blade"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/Daggers/EtherealBlade1",
 	type = "Dagger",
 	socketLimit = 3,
 	tags = { attack_dagger = true, dagger = true, default = true, not_for_sale = true, one_hand_weapon = true, onehand = true, weapon = true, },
@@ -155,6 +169,7 @@ itemBases["Ethereal Blade"] = {
 }
 
 itemBases["Carving Knife"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/Daggers/Dagger3",
 	type = "Dagger",
 	subType = "Rune Dagger",
 	socketLimit = 3,
@@ -167,6 +182,7 @@ itemBases["Carving Knife"] = {
 	req = { level = 10, dex = 18, int = 26, },
 }
 itemBases["Boot Knife"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/Daggers/Dagger5",
 	type = "Dagger",
 	subType = "Rune Dagger",
 	socketLimit = 3,
@@ -179,6 +195,7 @@ itemBases["Boot Knife"] = {
 	req = { level = 20, dex = 31, int = 45, },
 }
 itemBases["Copper Kris"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/Daggers/Dagger6",
 	type = "Dagger",
 	subType = "Rune Dagger",
 	socketLimit = 3,
@@ -191,6 +208,7 @@ itemBases["Copper Kris"] = {
 	req = { level = 24, dex = 28, int = 60, },
 }
 itemBases["Skean"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/Daggers/Dagger7",
 	type = "Dagger",
 	subType = "Rune Dagger",
 	socketLimit = 3,
@@ -203,6 +221,7 @@ itemBases["Skean"] = {
 	req = { level = 28, dex = 42, int = 60, },
 }
 itemBases["Imp Dagger"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/Daggers/Dagger8",
 	type = "Dagger",
 	subType = "Rune Dagger",
 	socketLimit = 3,
@@ -215,6 +234,7 @@ itemBases["Imp Dagger"] = {
 	req = { level = 32, dex = 36, int = 78, },
 }
 itemBases["Butcher Knife"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/Daggers/Dagger10",
 	type = "Dagger",
 	subType = "Rune Dagger",
 	socketLimit = 3,
@@ -227,6 +247,7 @@ itemBases["Butcher Knife"] = {
 	req = { level = 38, dex = 55, int = 79, },
 }
 itemBases["Boot Blade"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/Daggers/Dagger12",
 	type = "Dagger",
 	subType = "Rune Dagger",
 	socketLimit = 3,
@@ -239,6 +260,7 @@ itemBases["Boot Blade"] = {
 	req = { level = 44, dex = 63, int = 90, },
 }
 itemBases["Golden Kris"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/Daggers/Dagger13",
 	type = "Dagger",
 	subType = "Rune Dagger",
 	socketLimit = 3,
@@ -251,6 +273,7 @@ itemBases["Golden Kris"] = {
 	req = { level = 47, dex = 51, int = 110, },
 }
 itemBases["Royal Skean"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/Daggers/Dagger14",
 	type = "Dagger",
 	subType = "Rune Dagger",
 	socketLimit = 3,
@@ -263,6 +286,7 @@ itemBases["Royal Skean"] = {
 	req = { level = 50, dex = 71, int = 102, },
 }
 itemBases["Fiend Dagger"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/Daggers/Dagger15",
 	type = "Dagger",
 	subType = "Rune Dagger",
 	socketLimit = 3,
@@ -275,6 +299,7 @@ itemBases["Fiend Dagger"] = {
 	req = { level = 53, dex = 58, int = 123, },
 }
 itemBases["Slaughter Knife"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/Daggers/Dagger17",
 	type = "Dagger",
 	subType = "Rune Dagger",
 	socketLimit = 3,
@@ -287,6 +312,7 @@ itemBases["Slaughter Knife"] = {
 	req = { level = 58, dex = 81, int = 117, },
 }
 itemBases["Ezomyte Dagger"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/Daggers/Dagger19",
 	type = "Dagger",
 	subType = "Rune Dagger",
 	socketLimit = 3,
@@ -299,6 +325,7 @@ itemBases["Ezomyte Dagger"] = {
 	req = { level = 62, dex = 95, int = 131, },
 }
 itemBases["Platinum Kris"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/Daggers/Dagger20",
 	type = "Dagger",
 	subType = "Rune Dagger",
 	socketLimit = 3,
@@ -311,6 +338,7 @@ itemBases["Platinum Kris"] = {
 	req = { level = 64, dex = 76, int = 149, },
 }
 itemBases["Imperial Skean"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/Daggers/Dagger21",
 	type = "Dagger",
 	subType = "Rune Dagger",
 	socketLimit = 3,
@@ -323,6 +351,7 @@ itemBases["Imperial Skean"] = {
 	req = { level = 66, dex = 95, int = 131, },
 }
 itemBases["Demon Dagger"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/Daggers/Dagger22",
 	type = "Dagger",
 	subType = "Rune Dagger",
 	socketLimit = 3,
@@ -335,6 +364,7 @@ itemBases["Demon Dagger"] = {
 	req = { level = 68, dex = 76, int = 149, },
 }
 itemBases["Flickerflame Blade"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/Daggers/RuneDaggerE1",
 	type = "Dagger",
 	subType = "Rune Dagger",
 	socketLimit = 3,
@@ -347,6 +377,7 @@ itemBases["Flickerflame Blade"] = {
 	req = { level = 30, dex = 54, int = 54, },
 }
 itemBases["Flashfire Blade"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/Daggers/RuneDaggerE2",
 	type = "Dagger",
 	subType = "Rune Dagger",
 	socketLimit = 3,
@@ -359,6 +390,7 @@ itemBases["Flashfire Blade"] = {
 	req = { level = 50, dex = 86, int = 86, },
 }
 itemBases["Infernal Blade"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/Daggers/RuneDaggerE3",
 	type = "Dagger",
 	subType = "Rune Dagger",
 	socketLimit = 3,

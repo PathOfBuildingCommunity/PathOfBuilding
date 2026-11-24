@@ -440,10 +440,14 @@ function ItemClass:ParseRaw(raw, rarity, highQuality, implicitCountUsesRawLines)
 	local itemClass
 	if self.rawLines[l] then
 		if self.rawLines[l]:match("^Item Class:") then
-			itemClass = self.rawLines[l]:gsub("^Item Class: %s+", "%1")
+			itemClass = self.rawLines[l]:match("^Item Class:%s*(.*)")
 			l = l + 1 -- Item class is already determined by the base type
 		end
 		local rarity = self.rawLines[l]:match("^Rarity: (%a+)")
+		if itemClass == "Viscera" and not rarity then
+			self.rarity = "NORMAL"
+			mode = "GAME"
+		end
 		if rarity then
 			mode = "GAME"
 			if colorCodes[rarity:upper()] then
@@ -538,7 +542,10 @@ function ItemClass:ParseRaw(raw, rarity, highQuality, implicitCountUsesRawLines)
 		if line == "Veiled Prefix" or line == "Veiled Suffix" then
 			self.veiled = true
 		end
-		if flaskBuffLines and flaskBuffLines[line] then
+		if itemClass == "Viscera" and (line == "Head" or line == "Torso" or line == "Upper Limb" or line == "Lower Limb"
+			or line == "Take this to the Wickerman in a town or hideout to attach it.") then
+			-- Slot labels and instructions in the game clipboard are not modifiers.
+		elseif flaskBuffLines and flaskBuffLines[line] then
 			flaskBuffLines[line] = nil
 		elseif tinctureBuffLines and tinctureBuffLines[line] then
 			tinctureBuffLines[line] = nil
@@ -1051,7 +1058,7 @@ function ItemClass:ParseRaw(raw, rarity, highQuality, implicitCountUsesRawLines)
 						else
 							self.enchantments = data.enchantments[self.base.type]
 						end
-						self.corruptible = self.base.type ~= "Flask"
+						self.corruptible = self.base.type ~= "Flask" and self.base.type ~= "Viscera"
 						self.canBeInfluenced = self.base.influenceTags ~= nil
 						self.clusterJewel = data.clusterJewels and data.clusterJewels.jewels[self.baseName]
 						self.requirements.str = self.base.req.str or 0
@@ -1654,6 +1661,13 @@ function ItemClass:ParseRaw(raw, rarity, highQuality, implicitCountUsesRawLines)
 			enchantIndex = enchantIndex + 1
 		end
 	end
+	if self.base and self.base.subType == "Blightcore" then
+		-- Anointing a Putrid Seed grows four passives
+		self.canBeAnointed = true
+		self.canHaveTwoEnchants = true
+		self.canHaveThreeEnchants = true
+		self.canHaveFourEnchants = true
+	end
 	self:BuildModList()
 	if deferJewelRadiusIndexAssignment then
 		self.jewelRadiusIndex = self.jewelData.radiusIndex
@@ -2201,6 +2215,12 @@ function ItemClass:GetPrimarySlot()
 		return "Flask 1"
 	elseif self.type == "Graft" then
 		return "Graft 1"
+	elseif self.type == "Viscera" then
+		for tag, _ in pairs(self.base.tags) do
+			if tag:match("^viscera_") then
+				return tag:gsub("^viscera_", ""):gsub("^%l", string.upper)
+			end
+		end
 	else
 		return self.type
 	end
@@ -2502,6 +2522,10 @@ function ItemClass:BuildModListForSlotNum(baseList, slotNum)
 		for _, value in ipairs(modList:List(nil, "JewelData")) do
 			jewelData[value.key] = value.value
 		end
+		if self.base.subType == "Blightcore" then
+			-- In order of the jewel's granted passive stats
+			jewelData.blightcoreNotables = modList:List(nil, "BlightcoreNotable")
+		end
 		if modList:List(nil, "ImpossibleEscapeKeystones") then
 			jewelData.impossibleEscapeKeystones = { }
 			for _, value in ipairs(modList:List(nil, "ImpossibleEscapeKeystones")) do
@@ -2659,6 +2683,8 @@ function ItemClass:BuildModList()
 				source = self.modSource,
 				triggered = skill.triggered,
 				triggerChance = skill.triggerChance,
+				-- Keep the influence requirement so calculation setup can enable or remove the granted curse.
+				itemRequirement = skill.itemRequirement,
 			})
 		end
 	end

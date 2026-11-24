@@ -186,6 +186,8 @@ function CompareTabClass:CompareTab(primaryBuild)
 	self.comparePowerProgress = 0         -- 0-100
 	self.comparePowerDirty = false        -- flag to restart calculation
 	self.comparePowerCompareId = nil      -- track which compare entry was calculated
+	self.comparePowerPrimaryRevision = nil -- primary build outputRevision the report was calculated for
+	self.comparePowerCompareRevision = nil -- compare entry outputRevision the report was calculated for
 
 	-- Pre-load static module data
 	self.configOptions = require("Modules.ConfigOptions")
@@ -1870,12 +1872,10 @@ end
 -- ============================================================
 
 function CompareTabClass:DrawControlList(viewPort, controls)
-	local noTooltip = function(control)
-		return self.selControl and self.selControl.hasFocus and self.selControl ~= control
-	end
+	local blocker = self:GetTooltipBlocker()
 	for _, control in ipairs(controls) do
 		if control:IsShown() and control.Draw then
-			control:Draw(viewPort, noTooltip(control))
+			control:Draw(viewPort, blocker and blocker ~= control)
 		end
 	end
 end
@@ -2754,7 +2754,7 @@ function CompareTabClass:ComparePowerBuilder(compareEntry, powerStat, categories
 								-- copy item
 								local itemCopy = new("Item"):Item(cmpJewel:BuildRaw())
 								table.insert(cmpJewels, itemCopy)
-								self.primaryBuild.itemsTab:AddItem(itemCopy, false)
+								self.primaryBuild.itemsTab:AddItem(itemCopy, true)
 
 								-- equip copied
 								self.primaryBuild.itemsTab.slots[abyssSlotName]:SetSelItemId(itemCopy.id)
@@ -2774,7 +2774,7 @@ function CompareTabClass:ComparePowerBuilder(compareEntry, powerStat, categories
 						self.primaryBuild.itemsTab.slots[k]:SetSelItemId(v)
 					end
 					for _, item in ipairs(cmpJewels) do
-						self.primaryBuild.itemsTab:DeleteItem(item)
+						self.primaryBuild.itemsTab:DeleteItem(item, true)
 					end
 				end
 
@@ -2914,7 +2914,6 @@ function CompareTabClass:ComparePowerBuilder(compareEntry, powerStat, categories
 			if sig ~= "" and not pSignatures[sig] then
 				-- Temporarily add this socket group to primary build and recalculate
 				t_insert(pGroups, cGroup)
-				self.primaryBuild.buildFlag = true
 
 				-- Get a fresh calculator with the added group (pcall to guarantee cleanup)
 				local ok, gemCalcFunc, gemCalcBase = pcall(function()
@@ -2923,7 +2922,6 @@ function CompareTabClass:ComparePowerBuilder(compareEntry, powerStat, categories
 
 				-- Always remove the temporarily added group
 				t_remove(pGroups)
-				self.primaryBuild.buildFlag = true
 
 				if not ok then
 					-- gemCalcFunc contains the error message on failure; skip this group
@@ -2998,7 +2996,6 @@ function CompareTabClass:ComparePowerBuilder(compareEntry, powerStat, categories
 
 						-- Temporarily add to primary build's main socket group
 						t_insert(pMainGroup.gemList, tempGem)
-						self.primaryBuild.buildFlag = true
 
 						local ok, sgCalcFunc, sgCalcBase = pcall(function()
 							return self.calcs.getMiscCalculator(self.primaryBuild)
@@ -3006,7 +3003,6 @@ function CompareTabClass:ComparePowerBuilder(compareEntry, powerStat, categories
 
 						-- Always remove the temporarily added gem
 						t_remove(pMainGroup.gemList)
-						self.primaryBuild.buildFlag = true
 
 						if not ok then
 							ConPrintf("Compare power (support gem): %s", tostring(sgCalcFunc))
@@ -3062,6 +3058,7 @@ function CompareTabClass:ComparePowerBuilder(compareEntry, powerStat, categories
 				if pNorm ~= cNorm then
 					-- Save original value
 					local savedVal = pInput[varData.var]
+					local buildFlag = self.primaryBuild.buildFlag
 
 					-- Apply compare build's config value
 					pInput[varData.var] = cVal
@@ -3069,14 +3066,15 @@ function CompareTabClass:ComparePowerBuilder(compareEntry, powerStat, categories
 					-- Rebuild and calculate (pcall to guarantee restore on error)
 					local ok, cfgCalcFunc, cfgCalcBase = pcall(function()
 						self.primaryBuild.configTab:BuildModList()
-						self.primaryBuild.buildFlag = true
 						return self.calcs.getMiscCalculator(self.primaryBuild)
 					end)
 
 					-- Always restore original value
 					pInput[varData.var] = savedVal
 					self.primaryBuild.configTab:BuildModList()
-					self.primaryBuild.buildFlag = true
+					-- Some config applies (e.g. enemyIsBoss placeholders) flag the build for a rebuild,
+					-- which would restart this report
+					self.primaryBuild.buildFlag = buildFlag
 
 					if not ok then
 						-- cfgCalcFunc contains the error message on failure; skip this config
@@ -3127,9 +3125,13 @@ end
 
 -- Drive the compare power report coroutine
 function CompareTabClass:RunComparePowerReport(compareEntry)
-	-- Invalidate if compare entry changed
-	if self.comparePowerCompareId ~= compareEntry then
+	-- Invalidate if the compare entry changed or either build was recalculated
+	if self.comparePowerCompareId ~= compareEntry
+			or self.comparePowerPrimaryRevision ~= self.primaryBuild.outputRevision
+			or self.comparePowerCompareRevision ~= compareEntry.outputRevision then
 		self.comparePowerCompareId = compareEntry
+		self.comparePowerPrimaryRevision = self.primaryBuild.outputRevision
+		self.comparePowerCompareRevision = compareEntry.outputRevision
 		self.comparePowerDirty = true
 	end
 
@@ -4061,12 +4063,11 @@ function CompareTabClass:DrawSkills(vp, compareEntry)
 	local function getImbuedGem(group, skillsTab)
 		if not group or not group.imbuedSupport then return nil end
 		if imbuedGemCache[group] then return imbuedGemCache[group] end
-		-- Prefer the grantedEffect cached on skillsTab; fall back to a direct data lookup
-		-- (mirrors SkillsTab:RebuildImbuedSupportBySlot) in case the tab hasn't been primed.
+		-- Prefer the grantedEffect cached on skillsTab; resolve the name if the tab hasn't been primed.
 		local grantedEffect = skillsTab and skillsTab.imbuedSupportBySlot and group.slot and skillsTab.imbuedSupportBySlot[group.slot]
-		if not grantedEffect then
-			local gemId = data.gemForBaseName and data.gemForBaseName[group.imbuedSupport:lower() .. " support"]
-			grantedEffect = gemId and data.gems[gemId] and data.gems[gemId].grantedEffect or nil
+		if not grantedEffect and skillsTab then
+			local gem = skillsTab:FindImbuedSupport(group.imbuedSupport)
+			grantedEffect = gem and gem.grantedEffect
 		end
 		local entry = {
 			grantedEffect = grantedEffect,

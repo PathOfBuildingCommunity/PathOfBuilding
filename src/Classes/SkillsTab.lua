@@ -382,7 +382,7 @@ function SkillsTabClass:SkillsTab(build)
 	end
 	self.controls.sourceNote = new("LabelControl"):LabelControl({ "TOPLEFT", self.controls.socketsLabel, "TOPLEFT" }, { 0, 30, 0, 16 })
 	self.controls.sourceNote.shown = function()
-		return self.displayGroup.source ~= nil
+		return self.displayGroup.source ~= nil and self.displayGroup.source ~= "Config"
 	end
 	self.controls.sourceNote.label = function()
 		local label
@@ -422,7 +422,7 @@ will automatically apply to the skill.]]
 	-- Initialise skill sets
 	self.skillSets = { }
 	self.skillSetOrderList = { 1 }
-	self:NewSkillSet(1)
+	self:CreateSkillSet(1)
 	self:SetActiveSkillSet(1)
 
 	-- Skill gem slots
@@ -454,8 +454,9 @@ function SkillsTabClass:LoadSkill(node, skillSetId)
 	socketGroup.mainActiveSkillCalcs = tonumber(node.attrib.mainActiveSkillCalcs) or 1
 	socketGroup.gemList = { }
 	if node.attrib.imbuedSupport and node.attrib.slot then
-		socketGroup.imbuedSupport = node.attrib.imbuedSupport
-		self.controls.imbuedSupport.gemChangeFunc(data.gems[data.gemForBaseName[socketGroup.imbuedSupport:lower().." support"]], nil, nil, socketGroup.slot)
+		local name = escapeGGGString(node.attrib.imbuedSupport)
+		local gem = self:FindImbuedSupport(name)
+		socketGroup.imbuedSupport = gem and gem.name or name
 	end
 
 	for _, child in ipairs(node) do
@@ -552,13 +553,13 @@ function SkillsTabClass:Load(xml, fileName)
 			-- Old format, initialize skill sets if needed
 			if not self.skillSetOrderList[1] then
 				self.skillSetOrderList[1] = 1
-				self:NewSkillSet(1)
+				self:CreateSkillSet(1)
 			end
 			self:LoadSkill(node, 1)
 		end
 
 		if node.elem == "SkillSet" then
-			local skillSet = self:NewSkillSet(tonumber(node.attrib.id))
+			local skillSet = self:CreateSkillSet(tonumber(node.attrib.id))
 			skillSet.title = node.attrib.title
 			t_insert(self.skillSetOrderList, skillSet.id)
 			for _, subNode in ipairs(node) do
@@ -1099,6 +1100,15 @@ function SkillsTabClass:UpdateGemSlots()
 	end
 end
 
+-- Resolve both saved gem names and import names, which may include "Support".
+function SkillsTabClass:FindImbuedSupport(name)
+	local gemData = self.build.data
+	local lowerName = name:lower()
+	local gemId = gemData.gemForBaseName[lowerName .. " support"] or gemData.gemForBaseName[lowerName]
+	local gem = gemId and gemData.gems[gemId]
+	return gem and gem.grantedEffect and gem.grantedEffect.support and gem or nil
+end
+
 -- Find the skill gem matching the given specification
 function SkillsTabClass:FindSkillGem(nameSpec)
 	-- Search for gem name using increasingly broad search patterns
@@ -1284,10 +1294,10 @@ function SkillsTabClass:SetDisplayGroup(socketGroup)
 		self.controls.includeInFullDPS.state = socketGroup.includeInFullDPS and socketGroup.enabled
 		self.controls.groupCount:SetText(socketGroup.groupCount or 1)
 		if socketGroup.imbuedSupport then
-			local gemId = data.gems[data.gemForBaseName[socketGroup.imbuedSupport:lower().." support"]]
-			self.controls.imbuedSupport.gemId = gemId
+			local gem = self:FindImbuedSupport(socketGroup.imbuedSupport)
+			self.controls.imbuedSupport.gemId = gem
 			self.controls.imbuedSupport:SetText(socketGroup.imbuedSupport)
-			self.controls.imbuedSupport.inactiveCol = data.skillColorMap[gemId.grantedEffect.color]
+			self.controls.imbuedSupport.inactiveCol = gem and data.skillColorMap[gem.grantedEffect.color] or "^8"
 		else
 			self.controls.imbuedSupport.gemId = nil
 			self.controls.imbuedSupport:SetText("")
@@ -1320,6 +1330,10 @@ function SkillsTabClass:AddSocketGroupTooltip(tooltip, socketGroup)
 	local sourceSingle = socketGroup.sourceItem or socketGroup.sourceNode
 	if sourceSingle then
 		tooltip:AddLine(18, "^7Source: " .. colorCodes[sourceSingle.rarity or "NORMAL"] .. sourceSingle.name)
+		tooltip:AddSeparator(10)
+	-- Identify curses granted by Custom Modifiers in the skill-group tooltip.
+	elseif socketGroup.source == "Config" then
+		tooltip:AddLine(18, "^7Source: " .. colorCodes.NORMAL .. "Custom Modifiers")
 		tooltip:AddSeparator(10)
 	end
 	local gemShown = { }
@@ -1448,26 +1462,67 @@ function SkillsTabClass:OpenSkillSetManagePopup()
 	})
 end
 
--- Creates a new skill set
-function SkillsTabClass:NewSkillSet(skillSetId)
-	local skillSet = { id = skillSetId, socketGroupList = {} }
+-- Creates a new skill set without adding to order list
+function SkillsTabClass:CreateSkillSet(skillSetId, title)
+	local skillSet = { id = skillSetId, title = title, socketGroupList = {} }
 	if not skillSetId then
-		skillSet.id = 1
-		while self.skillSets[skillSet.id] do
-			skillSet.id = skillSet.id + 1
-		end
+		skillSet.id = #self.skillSets + 1
 	end
 	self.skillSets[skillSet.id] = skillSet
 	return skillSet
+end
+
+-- Creates a new skill set with title, adds to order list and sets modFlag
+function SkillsTabClass:NewSkillSet(skillSetId, title)
+	local skillSet = self:CreateSkillSet(skillSetId, title)
+	t_insert(self.skillSetOrderList, skillSet.id)
+	self.modFlag = true
+	return skillSet
+end
+
+function SkillsTabClass:CopySkillSet(sourceSkillSetId, newSkillSetName)
+	local skillSet = self.skillSets[sourceSkillSetId]
+	local newSkillSet = copyTable(skillSet, true)
+	newSkillSet.title = newSkillSetName or skillSet.title .. " (Copy)"
+	newSkillSet.socketGroupList = {}
+	for socketGroupIndex, socketGroup in pairs(skillSet.socketGroupList) do
+		local newGroup = copyTable(socketGroup, true)
+		newGroup.gemList = {}
+		for gemIndex, gem in pairs(socketGroup.gemList) do
+			newGroup.gemList[gemIndex] = copyTable(gem, true)
+		end
+		t_insert(newSkillSet.socketGroupList, newGroup)
+	end
+	newSkillSet.id = #self.skillSets + 1
+	self.skillSets[newSkillSet.id] = newSkillSet
+	t_insert(self.skillSetOrderList, newSkillSet.id)
+	self.modFlag = true
+	return newSkillSet
+end
+
+function SkillsTabClass:RenameSkillSet(skillSetId, newTitle)
+	local skillSet = self.skillSets[skillSetId]
+	
+	if not skillSet then
+		return
+	end
+
+	skillSet.title = newTitle
+	self.modFlag = true
+end
+
+function SkillsTabClass:DeleteSkillSet(skillSetId, orderListIndex)
+	t_remove(self.skillSetOrderList, orderListIndex)
+	self.skillSets[skillSetId] = nil
+	self.modFlag = true
 end
 
 function SkillsTabClass:RebuildImbuedSupportBySlot()
 	wipeTable(self.imbuedSupportBySlot)
 	for _, socketGroup in ipairs(self.socketGroupList) do
 		if socketGroup.slot and socketGroup.imbuedSupport then
-			local gemId = data.gemForBaseName[socketGroup.imbuedSupport:lower().." support"]
-			local gem = gemId and data.gems[gemId]
-			if gem and gem.grantedEffect then
+			local gem = self:FindImbuedSupport(socketGroup.imbuedSupport)
+			if gem then
 				self.imbuedSupportBySlot[socketGroup.slot] = gem.grantedEffect
 			end
 		end
@@ -1475,11 +1530,11 @@ function SkillsTabClass:RebuildImbuedSupportBySlot()
 end
 
 -- Changes the active skill set
-function SkillsTabClass:SetActiveSkillSet(skillSetId)
+function SkillsTabClass:SetActiveSkillSet(skillSetId, deferSync)
 	-- Initialize skill sets if needed
 	if not self.skillSetOrderList[1] then
 		self.skillSetOrderList[1] = 1
-		self:NewSkillSet(1)
+		self:CreateSkillSet(1)
 	end
 
 	if not skillSetId then
@@ -1498,5 +1553,7 @@ function SkillsTabClass:SetActiveSkillSet(skillSetId)
 
 	-- set the loadout option to the dummy option since it is now dirty
 	self:SetDisplayGroup(self.socketGroupList[1])
-	self.build:SyncLoadouts()
+	if not deferSync then
+		self.build:SyncLoadouts()
+	end
 end

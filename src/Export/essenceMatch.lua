@@ -1,4 +1,4 @@
-loadStatFile("stat_descriptions.txt")
+loadStatFile("stat_descriptions.csd")
 
 local mode
 local ess = { }

@@ -99,6 +99,7 @@ directiveTable.monster = function(state, args, out)
 	state.varietyId = nil
 	state.name = nil
 	state.limit = nil
+	state.extraFlags = state.extraFlags or { }
 	state.hostile = nil
 	state.extraModList = { }
 	state.extraSkillList = { }
@@ -124,6 +125,13 @@ directiveTable.limit = function(state, args, out)
 	state.limit = args
 end
 
+-- #flags
+directiveTable.flags = function(state, args, out)
+	for flag in args:gmatch("%S+") do
+		table.insert(state.extraFlags, flag)
+	end
+end
+
 -- #hostile [true|false]
 directiveTable.hostile = function(state, args, out)
 	state.hostile = args
@@ -142,18 +150,136 @@ end
 -- #emit
 directiveTable.emit = function(state, args, out)
 
-	local monsterVariety = dat("MonsterVarieties"):GetRow("Id", state.varietyId)
+	local baseMonsterVariety = dat("MonsterVarieties"):GetRow("Id", state.varietyId)
+
+	local monsterVariety = baseMonsterVariety
+	local outputId = baseMonsterVariety.Id
+
+	for override in dat("SpectreOverrides"):Rows() do
+		if override.Monster and override.Spectre then
+			if override.Monster.Id == baseMonsterVariety.Id then
+				monsterVariety = override.Spectre
+				outputId = override.Spectre.Id
+				break
+			end
+		end
+	end
 	if not monsterVariety then
 		print("Invalid Variety: "..state.varietyId)
 		return
 	end
+	local matchingEntries = {}
+	local allMonsterPackIds = {}
+
+	-- Step 1: From MonsterPackEntries
+	for entry in dat("MonsterPackEntries"):Rows() do
+		if entry.MonsterPacksKey then
+			local packId = entry.MonsterPacksKey.Id
+			if packId then
+				allMonsterPackIds[packId] = true
+				if entry.MonsterVarietiesKey and entry.MonsterVarietiesKey.Name == monsterVariety.Name then
+					table.insert(matchingEntries, packId)
+				end
+			end
+		end
+	end
+	-- Step 2: Check for boss monster
+	for packId in pairs(allMonsterPackIds) do
+		local pack = dat("MonsterPacks"):GetRow("Id", tostring(packId))
+		if pack.BossMonster_MonsterVarietiesKeys then
+			for _, bossMon in ipairs(pack.BossMonster_MonsterVarietiesKeys) do
+				if bossMon.Name == monsterVariety.Name then
+					table.insert(matchingEntries, pack.Id)
+				end
+			end
+		end
+	end
+	-- Step 3: Get WorldAreas for each matching MonsterPack
+	local worldAreaNames = {}
+	local seenAreas = {}
+
+	for _, packId in ipairs(matchingEntries) do
+		local pack = dat("MonsterPacks"):GetRow("Id", tostring(packId))
+		if pack and pack.WorldAreas then
+			for _, worldAreaRef in ipairs(pack.WorldAreas) do
+				local area = dat("WorldAreas"):GetRow("Id", worldAreaRef.Id)
+				if area and area.Name ~= "NULL" and area.Name ~= "" and not area.Id:find("Descent") and not area.Name:match("Memory Void") and not area.Id:match("Royale") then
+					local isMap = false
+					for _, tag in ipairs(area.Tags or {}) do
+						if tag.Id == "map" then
+							isMap = true
+						end
+					end
+					local displayName = area.Name
+					if isMap then
+						displayName = displayName .. " (Map)"
+					elseif area.Act == 0 then
+						displayName = displayName
+					elseif area.Act <= 10 then
+						displayName = displayName .. " (Act " .. tostring(area.Act) .. ")"
+					end
+					if not seenAreas[displayName] then
+						table.insert(worldAreaNames, displayName)
+						seenAreas[displayName] = true
+					end
+				end
+			end
+		end
+		-- Check every Map for NativePacks containing this packId
+		for mapRow in dat("Maps"):Rows() do
+			if mapRow.MonsterPacksKey then
+				for _, nativePack in ipairs(mapRow.MonsterPacksKey) do
+					if nativePack.Id == packId then
+						-- Check BossVersion and NonBossVersion of Map
+						local areaIds = {}
+						if mapRow.Regular_WorldAreasKey and mapRow.Regular_WorldAreasKey.Id then
+							table.insert(areaIds, mapRow.Regular_WorldAreasKey.Id)
+						end
+						if mapRow.Unique_WorldAreasKey and mapRow.Unique_WorldAreasKey.Id then
+							table.insert(areaIds, mapRow.Unique_WorldAreasKey.Id)
+						end
+						for _, areaId in ipairs(areaIds) do
+							local area = dat("WorldAreas"):GetRow("Id", areaId)
+							if area and area.Name ~= "NULL" then
+								local isMap = false
+								for _, tag in ipairs(area.Tags or {}) do
+									if tag.Id == "map" then
+										isMap = true
+									end
+								end
+								local displayName = area.Name
+								if isMap then
+									displayName = displayName .. " (Map)"
+								elseif area.Act and area.Act <= 10 then
+									displayName = displayName .. " (Act " .. tostring(area.Act) .. ")"
+								end
+								if not seenAreas[displayName] then
+									table.insert(worldAreaNames, displayName)
+									seenAreas[displayName] = true
+								end
+							end
+						end
+					end
+				end
+			end
+		end
+	end
 	out:write('minions["', state.name, '"] = {\n')
 	out:write('\tname = "', monsterVariety.Name, '",\n')
+
 	out:write('\tmonsterTags = { ')
-		for _, tag in ipairs(monsterVariety.Tags) do
-			out:write('"',tag.Id, '", ')
-		end
+	for _, tag in ipairs(monsterVariety.Tags) do
+		out:write('"',tag.Id, '", ')
+	end
 	out:write('},\n')
+
+	if #state.extraFlags > 0 then
+		out:write('\textraFlags = {\n')
+		for _, flag in ipairs(state.extraFlags) do
+			out:write('\t\t', flag, ' = true,\n')
+		end
+		out:write('\t},\n')
+	end
 	if monsterVariety.Type.BaseDamageIgnoresAttackSpeed then
 		out:write('\tbaseDamageIgnoresAttackSpeed = true,\n')
 	end
@@ -165,7 +291,7 @@ directiveTable.emit = function(state, args, out)
 		out:write('\tlifeScaling = "AltLife2",\n')
 	end
 	if monsterVariety.Type.EnergyShield ~= 0 then
-		out:write('\tenergyShield = ', (0.4 * monsterVariety.Type.EnergyShield / 100), ',\n')
+		out:write('\tenergyShield = ', (monsterVariety.Type.EnergyShield / 100), ',\n')
 	end
 	if monsterVariety.Type.Armour ~= 0 then
 		out:write('\tarmour = ', monsterVariety.Type.Armour / 100, ',\n')
@@ -197,9 +323,32 @@ directiveTable.emit = function(state, args, out)
 	if monsterVariety.OffHandItemClass and itemClassMap[monsterVariety.OffHandItemClass.Id] then
 		out:write('\tweaponType2 = "', itemClassMap[monsterVariety.OffHandItemClass.Id], '",\n')
 	end
+	for corpse in dat("ItemisedCorpse"):Rows() do
+		if corpse.Monster == monsterVariety then
+			out:write('\titemisedCorpse = true,\n')
+			break
+		end
+	end
 	if state.limit then
 		out:write('\tlimit = "', state.limit, '",\n')
 	end
+	out:write('\tbaseMovementSpeed = ', monsterVariety.MovementSpeed, ',\n')
+	if monsterVariety.MonsterCategory and monsterVariety.MonsterCategory.Name then
+		out:write('\tmonsterCategory = "', monsterVariety.MonsterCategory.Name, '",\n')
+	end
+	out:write('\tspawnLocation = {\n')
+	table.sort(worldAreaNames)
+	for _, name in ipairs(worldAreaNames) do
+		if not name:find("Wraeclast Pantheon")
+		and not name:find("PvP Arena")
+		and not name:find("Inner Halls")
+		and not name:find("Endless")
+		and not name:find("Eternal Laboratory")
+		and not name:find("Shrine") then
+			out:write('\t\t"', name, '",\n')
+		end
+	end
+	out:write('\t},\n')
 	if state.hostile then
 		out:write('\thostile = ', state.hostile, ',\n')
 	end
@@ -219,7 +368,7 @@ directiveTable.emit = function(state, args, out)
 	for _, mod in ipairs(monsterVariety.SpecialMods) do
 		table.insert(modList, mod)
 	end
-	if monsterVariety.ObjectType and monsterVariety.ObjectType ~= "Metadata/Monsters/Monster"then
+	if monsterVariety.ObjectType and monsterVariety.ObjectType ~= "Metadata/Monsters/Monster" then
 		modList = getOTStats(monsterVariety.ObjectType, modList)
 	end
 	out:write('\tmodList = {\n')
@@ -247,12 +396,13 @@ directiveTable.emit = function(state, args, out)
 	end
 	out:write('\t},\n')
 	out:write('}\n')
+	state.extraFlags = { }
 end
 
 -- #spectre <MonsterId> [<Name>]
 directiveTable.spectre = function(state, args, out)
+	local spectreFile = true
 	directiveTable.monster(state, args, out)
-	directiveTable.emit(state, "", out)
 end
 
 for _, name in pairs({"Spectres","Minions"}) do

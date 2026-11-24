@@ -317,24 +317,45 @@ LocalCriticalStrikeChanceUnique__10
 ]],[[
 Femurs of the Saints
 Primordial Staff
-Variant: Pre 2.6.0
-Variant: Pre 3.8.0
-Variant: Pre 3.25.0
-Variant: Current
+Version: Pre 2.6.0
+Version: Pre 3.8.0
+Version: Pre 3.25.0
+Version: Pre 3.30.0
+Version: Current
+Variant: Minion Damage per Spectre
+Variant: Spell Damage per Skeleton
+Variant: Attack Damage per Zombie
+Variant: Block per Skeleton
+Variant: Life Regen per Zombie
+Variant: Mana Regen per Spectre
+Variant: Speed per Raging Spirit
+Selected Variant Group: 1=1
+Selected Variant Group: 2=2
+Selected Variant Group: 3=3
+Selected Variant Group: 4=4
 Implicits: 3
-{variant:4}StaffSpellBlockPercent3
-{variant:1}StaffBlockPercentImplicitStaff1[12,12]
-{variant:2,3}StaffBlockPercentImplicitStaff1[18,18]
-LocalIncreaseSocketedMinionGemLevelUnique__1
-{variant:3,4}MinionDamageUnique__7
-{variant:1,2}MinionLifeRegenerationPerRagingSpirit__1
-{variant:1,2}MinionAttackAndCastSpeedPerSkeleton__1
-{variant:1,2}MinionDurationPerZombie__1
-{variant:1,2}MinionDamagePerSpectre__1
-{variant:3,4}AttackBlockPerSkeletonUnique__1
-{variant:3,4}AttackAndCastSpeedPerRagingSpiritUnique__1
-{variant:3,4}LifeRegenerationPerZombieUnique__1
-{variant:3,4}ManaRegenerationPerSpectreUnique__1
+{version:4,5}StaffSpellBlockPercent3
+{version:1}StaffBlockPercentImplicitStaff1[12,12]
+{version:2,3}StaffBlockPercentImplicitStaff1[18,18]
+{version:1,2,3,4}LocalIncreaseSocketedMinionGemLevelUnique__1[2,2]
+{version:5}LocalIncreaseSocketedMinionGemLevelUnique__1
+{version:3,4}MinionDamageUnique__7[60,80]
+{version:5}MinionDamageUnique__7
+{version:1,2}MinionLifeRegenerationPerRagingSpirit__1
+{version:1,2}MinionAttackAndCastSpeedPerSkeleton__1
+{version:1,2}MinionDurationPerZombie__1
+{version:1,2}MinionDamagePerSpectre__1
+{version:5}{variant:1}{group:1,2,3,4}MinionDamagePerSpectre__1
+{version:5}{variant:2}{group:1,2,3,4}SpellDamagePerSkeletonUnique__1
+{version:5}{variant:3}{group:1,2,3,4}AttackDamagePerZombieUnique__1
+{version:3,4}AttackBlockPerSkeletonUnique__1[1,1]
+{version:5}{variant:4}{group:1,2,3,4}AttackBlockPerSkeletonUnique__1
+{version:3,4}AttackAndCastSpeedPerRagingSpiritUnique__1[2,2]
+{version:5}{variant:7}{group:1,2,3,4}AttackAndCastSpeedPerRagingSpiritUnique__1
+{version:3,4}LifeRegenerationPerZombieUnique__1[36,36]
+{version:5}{variant:5}{group:1,2,3,4}LifeRegenerationPerZombieUnique__1
+{version:3,4}ManaRegenerationPerSpectreUnique__1[30,30]
+{version:5}{variant:6}{group:1,2,3,4}ManaRegenerationPerSpectreUnique__1
 ]],[[
 Fencoil
 Gnarled Branch
@@ -780,5 +801,16 @@ Crafted: true
 Implicits: 1
 StaffBlockPercentImplicitStaff2
 LocalVeiledModEffectUnique__1
+]],[[
+Bane of the Apostate
+Judgement Staff
+League: Covens
+Source: Drops from unique{The Coven Queen}
+Implicits: 1
+StaffBlockPercentImplicitStaff3
+FireDamagePercentUnique__16
+AreaOfEffectUnique__11
+SkillEffectDurationUnique__4
+GrantsCreateGrimBonfireSkillUnique__1
 ]]
 }

@@ -3,6 +3,7 @@
 return function(itemBases)
 
 itemBases["Iron Ring"] = {
+	baseId = "Metadata/Items/Rings/Ring1",
 	type = "Ring",
 	tags = { default = true, ring = true, },
 	influenceTags = { shaper = "ring_shaper", elder = "ring_elder", adjudicator = "ring_adjudicator", basilisk = "ring_basilisk", crusader = "ring_crusader", eyrie = "ring_eyrie", cleansing = "ring_cleansing", tangle = "ring_tangle" },
@@ -12,6 +13,7 @@ itemBases["Iron Ring"] = {
 	req = { },
 }
 itemBases["Coral Ring"] = {
+	baseId = "Metadata/Items/Rings/Ring2",
 	type = "Ring",
 	tags = { default = true, ring = true, },
 	influenceTags = { shaper = "ring_shaper", elder = "ring_elder", adjudicator = "ring_adjudicator", basilisk = "ring_basilisk", crusader = "ring_crusader", eyrie = "ring_eyrie", cleansing = "ring_cleansing", tangle = "ring_tangle" },
@@ -21,6 +23,7 @@ itemBases["Coral Ring"] = {
 	req = { },
 }
 itemBases["Paua Ring"] = {
+	baseId = "Metadata/Items/Rings/Ring3",
 	type = "Ring",
 	tags = { default = true, ring = true, },
 	influenceTags = { shaper = "ring_shaper", elder = "ring_elder", adjudicator = "ring_adjudicator", basilisk = "ring_basilisk", crusader = "ring_crusader", eyrie = "ring_eyrie", cleansing = "ring_cleansing", tangle = "ring_tangle" },
@@ -30,15 +33,17 @@ itemBases["Paua Ring"] = {
 	req = { },
 }
 itemBases["Gold Ring"] = {
+	baseId = "Metadata/Items/Rings/Ring4",
 	type = "Ring",
 	tags = { default = true, ring = true, },
 	influenceTags = { shaper = "ring_shaper", elder = "ring_elder", adjudicator = "ring_adjudicator", basilisk = "ring_basilisk", crusader = "ring_crusader", eyrie = "ring_eyrie", cleansing = "ring_cleansing", tangle = "ring_tangle" },
-	implicit = "(6-15)% increased Rarity of Items found",
+	implicit = "+(6-15)% to Item Rarity",
 	implicitModTypes = { { "drop" }, },
 	implicitIds = { "ItemFoundRarityIncreaseImplicitRing1", },
 	req = { level = 20, },
 }
 itemBases["Topaz Ring"] = {
+	baseId = "Metadata/Items/Rings/Ring5",
 	type = "Ring",
 	tags = { default = true, ring = true, },
 	influenceTags = { shaper = "ring_shaper", elder = "ring_elder", adjudicator = "ring_adjudicator", basilisk = "ring_basilisk", crusader = "ring_crusader", eyrie = "ring_eyrie", cleansing = "ring_cleansing", tangle = "ring_tangle" },
@@ -48,6 +53,7 @@ itemBases["Topaz Ring"] = {
 	req = { level = 12, },
 }
 itemBases["Sapphire Ring"] = {
+	baseId = "Metadata/Items/Rings/Ring6",
 	type = "Ring",
 	tags = { default = true, ring = true, },
 	influenceTags = { shaper = "ring_shaper", elder = "ring_elder", adjudicator = "ring_adjudicator", basilisk = "ring_basilisk", crusader = "ring_crusader", eyrie = "ring_eyrie", cleansing = "ring_cleansing", tangle = "ring_tangle" },
@@ -57,6 +63,7 @@ itemBases["Sapphire Ring"] = {
 	req = { level = 8, },
 }
 itemBases["Ruby Ring"] = {
+	baseId = "Metadata/Items/Rings/Ring7",
 	type = "Ring",
 	tags = { default = true, ring = true, },
 	influenceTags = { shaper = "ring_shaper", elder = "ring_elder", adjudicator = "ring_adjudicator", basilisk = "ring_basilisk", crusader = "ring_crusader", eyrie = "ring_eyrie", cleansing = "ring_cleansing", tangle = "ring_tangle" },
@@ -66,6 +73,7 @@ itemBases["Ruby Ring"] = {
 	req = { level = 16, },
 }
 itemBases["Prismatic Ring"] = {
+	baseId = "Metadata/Items/Rings/Ring8",
 	type = "Ring",
 	tags = { default = true, ring = true, },
 	influenceTags = { shaper = "ring_shaper", elder = "ring_elder", adjudicator = "ring_adjudicator", basilisk = "ring_basilisk", crusader = "ring_crusader", eyrie = "ring_eyrie", cleansing = "ring_cleansing", tangle = "ring_tangle" },
@@ -75,6 +83,7 @@ itemBases["Prismatic Ring"] = {
 	req = { level = 30, },
 }
 itemBases["Moonstone Ring"] = {
+	baseId = "Metadata/Items/Rings/Ring9",
 	type = "Ring",
 	tags = { default = true, ring = true, },
 	influenceTags = { shaper = "ring_shaper", elder = "ring_elder", adjudicator = "ring_adjudicator", basilisk = "ring_basilisk", crusader = "ring_crusader", eyrie = "ring_eyrie", cleansing = "ring_cleansing", tangle = "ring_tangle" },
@@ -84,15 +93,17 @@ itemBases["Moonstone Ring"] = {
 	req = { level = 20, },
 }
 itemBases["Amethyst Ring"] = {
+	baseId = "Metadata/Items/Rings/Ring10",
 	type = "Ring",
 	tags = { default = true, ring = true, },
 	influenceTags = { shaper = "ring_shaper", elder = "ring_elder", adjudicator = "ring_adjudicator", basilisk = "ring_basilisk", crusader = "ring_crusader", eyrie = "ring_eyrie", cleansing = "ring_cleansing", tangle = "ring_tangle" },
-	implicit = "+(17-23)% to Chaos Resistance",
+	implicit = "+(13-19)% to Chaos Resistance",
 	implicitModTypes = { { "chaos", "resistance" }, },
 	implicitIds = { "ChaosResistImplicitRing1", },
 	req = { level = 30, },
 }
 itemBases["Diamond Ring"] = {
+	baseId = "Metadata/Items/Rings/Ring11",
 	type = "Ring",
 	tags = { default = true, ring = true, },
 	influenceTags = { shaper = "ring_shaper", elder = "ring_elder", adjudicator = "ring_adjudicator", basilisk = "ring_basilisk", crusader = "ring_crusader", eyrie = "ring_eyrie", cleansing = "ring_cleansing", tangle = "ring_tangle" },
@@ -102,6 +113,7 @@ itemBases["Diamond Ring"] = {
 	req = { level = 20, },
 }
 itemBases["Two-Stone Ring"] = {
+	baseId = "Metadata/Items/Rings/Ring12",
 	type = "Ring",
 	tags = { default = true, ring = true, twostonering = true, },
 	influenceTags = { shaper = "ring_shaper", elder = "ring_elder", adjudicator = "ring_adjudicator", basilisk = "ring_basilisk", crusader = "ring_crusader", eyrie = "ring_eyrie", cleansing = "ring_cleansing", tangle = "ring_tangle" },
@@ -111,6 +123,7 @@ itemBases["Two-Stone Ring"] = {
 	req = { level = 20, },
 }
 itemBases["Two-Stone Ring"] = {
+	baseId = "Metadata/Items/Rings/Ring13",
 	type = "Ring",
 	tags = { default = true, ring = true, twostonering = true, },
 	influenceTags = { shaper = "ring_shaper", elder = "ring_elder", adjudicator = "ring_adjudicator", basilisk = "ring_basilisk", crusader = "ring_crusader", eyrie = "ring_eyrie", cleansing = "ring_cleansing", tangle = "ring_tangle" },
@@ -120,6 +133,7 @@ itemBases["Two-Stone Ring"] = {
 	req = { level = 20, },
 }
 itemBases["Two-Stone Ring"] = {
+	baseId = "Metadata/Items/Rings/Ring14",
 	type = "Ring",
 	tags = { default = true, ring = true, twostonering = true, },
 	influenceTags = { shaper = "ring_shaper", elder = "ring_elder", adjudicator = "ring_adjudicator", basilisk = "ring_basilisk", crusader = "ring_crusader", eyrie = "ring_eyrie", cleansing = "ring_cleansing", tangle = "ring_tangle" },
@@ -129,6 +143,7 @@ itemBases["Two-Stone Ring"] = {
 	req = { level = 20, },
 }
 itemBases["Unset Ring"] = {
+	baseId = "Metadata/Items/Rings/Ring15",
 	type = "Ring",
 	tags = { default = true, ring = true, unset_ring = true, },
 	influenceTags = { shaper = "ring_shaper", elder = "ring_elder", adjudicator = "ring_adjudicator", basilisk = "ring_basilisk", crusader = "ring_crusader", eyrie = "ring_eyrie", cleansing = "ring_cleansing", tangle = "ring_tangle" },
@@ -138,6 +153,7 @@ itemBases["Unset Ring"] = {
 	req = { level = 5, },
 }
 itemBases["Bone Ring"] = {
+	baseId = "Metadata/Items/Rings/Ring16",
 	type = "Ring",
 	tags = { default = true, ring = true, ring_can_roll_minion_modifiers = true, },
 	influenceTags = { shaper = "ring_shaper", elder = "ring_elder", adjudicator = "ring_adjudicator", basilisk = "ring_basilisk", crusader = "ring_crusader", eyrie = "ring_eyrie", cleansing = "ring_cleansing", tangle = "ring_tangle" },
@@ -147,6 +163,7 @@ itemBases["Bone Ring"] = {
 	req = { level = 25, },
 }
 itemBases["Steel Ring"] = {
+	baseId = "Metadata/Items/Rings/RingAtlas1",
 	type = "Ring",
 	tags = { atlas_base_type = true, default = true, not_for_sale = true, ring = true, ringatlas1 = true, },
 	influenceTags = { shaper = "ring_shaper", elder = "ring_elder", adjudicator = "ring_adjudicator", basilisk = "ring_basilisk", crusader = "ring_crusader", eyrie = "ring_eyrie", cleansing = "ring_cleansing", tangle = "ring_tangle" },
@@ -156,6 +173,7 @@ itemBases["Steel Ring"] = {
 	req = { level = 80, },
 }
 itemBases["Opal Ring"] = {
+	baseId = "Metadata/Items/Rings/RingAtlas2",
 	type = "Ring",
 	tags = { atlas_base_type = true, default = true, not_for_sale = true, ring = true, ringatlas2 = true, },
 	influenceTags = { shaper = "ring_shaper", elder = "ring_elder", adjudicator = "ring_adjudicator", basilisk = "ring_basilisk", crusader = "ring_crusader", eyrie = "ring_eyrie", cleansing = "ring_cleansing", tangle = "ring_tangle" },
@@ -165,6 +183,7 @@ itemBases["Opal Ring"] = {
 	req = { level = 80, },
 }
 itemBases["Vermillion Ring"] = {
+	baseId = "Metadata/Items/Rings/RingAtlas3",
 	type = "Ring",
 	tags = { atlas_base_type = true, default = true, not_for_sale = true, ring = true, ringatlas3 = true, },
 	influenceTags = { shaper = "ring_shaper", elder = "ring_elder", adjudicator = "ring_adjudicator", basilisk = "ring_basilisk", crusader = "ring_crusader", eyrie = "ring_eyrie", cleansing = "ring_cleansing", tangle = "ring_tangle" },
@@ -174,6 +193,7 @@ itemBases["Vermillion Ring"] = {
 	req = { level = 80, },
 }
 itemBases["Cerulean Ring"] = {
+	baseId = "Metadata/Items/Rings/RingAtlas4",
 	type = "Ring",
 	tags = { atlas_base_type = true, default = true, not_for_sale = true, ring = true, ringatlas4 = true, },
 	influenceTags = { shaper = "ring_shaper", elder = "ring_elder", adjudicator = "ring_adjudicator", basilisk = "ring_basilisk", crusader = "ring_crusader", eyrie = "ring_eyrie", cleansing = "ring_cleansing", tangle = "ring_tangle" },
@@ -183,6 +203,7 @@ itemBases["Cerulean Ring"] = {
 	req = { level = 80, },
 }
 itemBases["Iolite Ring"] = {
+	baseId = "Metadata/Items/Rings/RingAtlas5",
 	type = "Ring",
 	tags = { atlas_base_type = true, default = true, not_for_sale = true, ring = true, ringatlas5 = true, },
 	influenceTags = { shaper = "ring_shaper", elder = "ring_elder", adjudicator = "ring_adjudicator", basilisk = "ring_basilisk", crusader = "ring_crusader", eyrie = "ring_eyrie", cleansing = "ring_cleansing", tangle = "ring_tangle" },
@@ -192,6 +213,7 @@ itemBases["Iolite Ring"] = {
 	req = { level = 80, },
 }
 itemBases["Two-Stone Ring (Fire/Lightning)"] = {
+	baseId = "Metadata/Items/Rings/Ring12",
 	type = "Ring",
 	tags = { default = true, ring = true, twostonering = true, },
 	influenceTags = { shaper = "ring_shaper", elder = "ring_elder", adjudicator = "ring_adjudicator", basilisk = "ring_basilisk", crusader = "ring_crusader", eyrie = "ring_eyrie", cleansing = "ring_cleansing", tangle = "ring_tangle" },
@@ -201,6 +223,7 @@ itemBases["Two-Stone Ring (Fire/Lightning)"] = {
 	req = { level = 20, },
 }
 itemBases["Two-Stone Ring (Cold/Lightning)"] = {
+	baseId = "Metadata/Items/Rings/Ring13",
 	type = "Ring",
 	tags = { default = true, ring = true, twostonering = true, },
 	influenceTags = { shaper = "ring_shaper", elder = "ring_elder", adjudicator = "ring_adjudicator", basilisk = "ring_basilisk", crusader = "ring_crusader", eyrie = "ring_eyrie", cleansing = "ring_cleansing", tangle = "ring_tangle" },
@@ -210,6 +233,7 @@ itemBases["Two-Stone Ring (Cold/Lightning)"] = {
 	req = { level = 20, },
 }
 itemBases["Two-Stone Ring (Fire/Cold)"] = {
+	baseId = "Metadata/Items/Rings/Ring14",
 	type = "Ring",
 	tags = { default = true, ring = true, twostonering = true, },
 	influenceTags = { shaper = "ring_shaper", elder = "ring_elder", adjudicator = "ring_adjudicator", basilisk = "ring_basilisk", crusader = "ring_crusader", eyrie = "ring_eyrie", cleansing = "ring_cleansing", tangle = "ring_tangle" },
@@ -219,6 +243,7 @@ itemBases["Two-Stone Ring (Fire/Cold)"] = {
 	req = { level = 20, },
 }
 itemBases["Cogwork Ring"] = {
+	baseId = "Metadata/Items/Rings/RingE1",
 	type = "Ring",
 	tags = { default = true, experimental_base = true, not_for_sale = true, ring = true, },
 	influenceTags = { shaper = "ring_shaper", elder = "ring_elder", adjudicator = "ring_adjudicator", basilisk = "ring_basilisk", crusader = "ring_crusader", eyrie = "ring_eyrie", cleansing = "ring_cleansing", tangle = "ring_tangle" },
@@ -228,6 +253,7 @@ itemBases["Cogwork Ring"] = {
 	req = { level = 24, },
 }
 itemBases["Geodesic Ring"] = {
+	baseId = "Metadata/Items/Rings/RingE2",
 	type = "Ring",
 	tags = { default = true, experimental_base = true, not_for_sale = true, ring = true, },
 	influenceTags = { shaper = "ring_shaper", elder = "ring_elder", adjudicator = "ring_adjudicator", basilisk = "ring_basilisk", crusader = "ring_crusader", eyrie = "ring_eyrie", cleansing = "ring_cleansing", tangle = "ring_tangle" },
@@ -237,6 +263,7 @@ itemBases["Geodesic Ring"] = {
 	req = { level = 24, },
 }
 itemBases["Composite Ring"] = {
+	baseId = "Metadata/Items/Rings/RingE3",
 	type = "Ring",
 	tags = { default = true, experimental_base = true, not_for_sale = true, ring = true, },
 	influenceTags = { shaper = "ring_shaper", elder = "ring_elder", adjudicator = "ring_adjudicator", basilisk = "ring_basilisk", crusader = "ring_crusader", eyrie = "ring_eyrie", cleansing = "ring_cleansing", tangle = "ring_tangle" },
@@ -246,6 +273,7 @@ itemBases["Composite Ring"] = {
 	req = { level = 24, },
 }
 itemBases["Manifold Ring"] = {
+	baseId = "Metadata/Items/Rings/RingE4",
 	type = "Ring",
 	tags = { default = true, experimental_base = true, not_for_sale = true, ring = true, },
 	influenceTags = { shaper = "ring_shaper", elder = "ring_elder", adjudicator = "ring_adjudicator", basilisk = "ring_basilisk", crusader = "ring_crusader", eyrie = "ring_eyrie", cleansing = "ring_cleansing", tangle = "ring_tangle" },
@@ -255,6 +283,7 @@ itemBases["Manifold Ring"] = {
 	req = { level = 24, },
 }
 itemBases["Ratcheting Ring"] = {
+	baseId = "Metadata/Items/Rings/RingE5",
 	type = "Ring",
 	tags = { default = true, experimental_base = true, not_for_sale = true, ring = true, },
 	influenceTags = { shaper = "ring_shaper", elder = "ring_elder", adjudicator = "ring_adjudicator", basilisk = "ring_basilisk", crusader = "ring_crusader", eyrie = "ring_eyrie", cleansing = "ring_cleansing", tangle = "ring_tangle" },
@@ -264,6 +293,7 @@ itemBases["Ratcheting Ring"] = {
 	req = { level = 24, },
 }
 itemBases["Helical Ring"] = {
+	baseId = "Metadata/Items/Rings/RingE6",
 	type = "Ring",
 	tags = { default = true, experimental_base = true, not_for_sale = true, ring = true, },
 	influenceTags = { shaper = "ring_shaper", elder = "ring_elder", adjudicator = "ring_adjudicator", basilisk = "ring_basilisk", crusader = "ring_crusader", eyrie = "ring_eyrie", cleansing = "ring_cleansing", tangle = "ring_tangle" },
@@ -273,6 +303,7 @@ itemBases["Helical Ring"] = {
 	req = { level = 24, },
 }
 itemBases["Dusk Ring"] = {
+	baseId = "Metadata/Items/Rings/RingK1",
 	type = "Ring",
 	tags = { default = true, not_for_sale = true, ring = true, },
 	influenceTags = { shaper = "ring_shaper", elder = "ring_elder", adjudicator = "ring_adjudicator", basilisk = "ring_basilisk", crusader = "ring_crusader", eyrie = "ring_eyrie", cleansing = "ring_cleansing", tangle = "ring_tangle" },
@@ -282,6 +313,7 @@ itemBases["Dusk Ring"] = {
 	req = { level = 24, },
 }
 itemBases["Penumbra Ring"] = {
+	baseId = "Metadata/Items/Rings/RingK2",
 	type = "Ring",
 	tags = { default = true, not_for_sale = true, ring = true, },
 	influenceTags = { shaper = "ring_shaper", elder = "ring_elder", adjudicator = "ring_adjudicator", basilisk = "ring_basilisk", crusader = "ring_crusader", eyrie = "ring_eyrie", cleansing = "ring_cleansing", tangle = "ring_tangle" },
@@ -291,6 +323,7 @@ itemBases["Penumbra Ring"] = {
 	req = { level = 24, },
 }
 itemBases["Gloam Ring"] = {
+	baseId = "Metadata/Items/Rings/RingK3",
 	type = "Ring",
 	tags = { default = true, not_for_sale = true, ring = true, ring_can_roll_minion_modifiers = true, },
 	influenceTags = { shaper = "ring_shaper", elder = "ring_elder", adjudicator = "ring_adjudicator", basilisk = "ring_basilisk", crusader = "ring_crusader", eyrie = "ring_eyrie", cleansing = "ring_cleansing", tangle = "ring_tangle" },
@@ -300,6 +333,7 @@ itemBases["Gloam Ring"] = {
 	req = { level = 24, },
 }
 itemBases["Tenebrous Ring"] = {
+	baseId = "Metadata/Items/Rings/RingK4",
 	type = "Ring",
 	tags = { default = true, not_for_sale = true, ring = true, },
 	influenceTags = { shaper = "ring_shaper", elder = "ring_elder", adjudicator = "ring_adjudicator", basilisk = "ring_basilisk", crusader = "ring_crusader", eyrie = "ring_eyrie", cleansing = "ring_cleansing", tangle = "ring_tangle" },
@@ -309,6 +343,7 @@ itemBases["Tenebrous Ring"] = {
 	req = { level = 24, },
 }
 itemBases["Shadowed Ring"] = {
+	baseId = "Metadata/Items/Rings/RingK5a",
 	type = "Ring",
 	tags = { default = true, not_for_sale = true, ring = true, },
 	influenceTags = { shaper = "ring_shaper", elder = "ring_elder", adjudicator = "ring_adjudicator", basilisk = "ring_basilisk", crusader = "ring_crusader", eyrie = "ring_eyrie", cleansing = "ring_cleansing", tangle = "ring_tangle" },
@@ -318,6 +353,7 @@ itemBases["Shadowed Ring"] = {
 	req = { level = 24, },
 }
 itemBases["Shadowed Ring"] = {
+	baseId = "Metadata/Items/Rings/RingK5b",
 	type = "Ring",
 	tags = { default = true, not_for_sale = true, ring = true, },
 	influenceTags = { shaper = "ring_shaper", elder = "ring_elder", adjudicator = "ring_adjudicator", basilisk = "ring_basilisk", crusader = "ring_crusader", eyrie = "ring_eyrie", cleansing = "ring_cleansing", tangle = "ring_tangle" },
@@ -327,6 +363,7 @@ itemBases["Shadowed Ring"] = {
 	req = { level = 24, },
 }
 itemBases["Shadowed Ring"] = {
+	baseId = "Metadata/Items/Rings/RingK5c",
 	type = "Ring",
 	tags = { default = true, not_for_sale = true, ring = true, },
 	influenceTags = { shaper = "ring_shaper", elder = "ring_elder", adjudicator = "ring_adjudicator", basilisk = "ring_basilisk", crusader = "ring_crusader", eyrie = "ring_eyrie", cleansing = "ring_cleansing", tangle = "ring_tangle" },
@@ -336,6 +373,7 @@ itemBases["Shadowed Ring"] = {
 	req = { level = 24, },
 }
 itemBases["Nameless Ring"] = {
+	baseId = "Metadata/Items/Rings/RingR1",
 	type = "Ring",
 	tags = { default = true, not_for_sale = true, ring = true, },
 	influenceTags = { shaper = "ring_shaper", elder = "ring_elder", adjudicator = "ring_adjudicator", basilisk = "ring_basilisk", crusader = "ring_crusader", eyrie = "ring_eyrie", cleansing = "ring_cleansing", tangle = "ring_tangle" },
@@ -345,6 +383,7 @@ itemBases["Nameless Ring"] = {
 	req = { level = 24, },
 }
 itemBases["Cryonic Ring"] = {
+	baseId = "Metadata/Items/Rings/RingB1",
 	type = "Ring",
 	tags = { default = true, not_for_sale = true, ring = true, },
 	influenceTags = { shaper = "ring_shaper", elder = "ring_elder", adjudicator = "ring_adjudicator", basilisk = "ring_basilisk", crusader = "ring_crusader", eyrie = "ring_eyrie", cleansing = "ring_cleansing", tangle = "ring_tangle" },
@@ -357,6 +396,7 @@ itemBases["Cryonic Ring"] = {
 	},
 }
 itemBases["Enthalpic Ring"] = {
+	baseId = "Metadata/Items/Rings/RingB2",
 	type = "Ring",
 	tags = { default = true, not_for_sale = true, ring = true, },
 	influenceTags = { shaper = "ring_shaper", elder = "ring_elder", adjudicator = "ring_adjudicator", basilisk = "ring_basilisk", crusader = "ring_crusader", eyrie = "ring_eyrie", cleansing = "ring_cleansing", tangle = "ring_tangle" },
@@ -369,6 +409,7 @@ itemBases["Enthalpic Ring"] = {
 	},
 }
 itemBases["Synaptic Ring"] = {
+	baseId = "Metadata/Items/Rings/RingB3",
 	type = "Ring",
 	tags = { default = true, not_for_sale = true, ring = true, },
 	influenceTags = { shaper = "ring_shaper", elder = "ring_elder", adjudicator = "ring_adjudicator", basilisk = "ring_basilisk", crusader = "ring_crusader", eyrie = "ring_eyrie", cleansing = "ring_cleansing", tangle = "ring_tangle" },
@@ -381,6 +422,7 @@ itemBases["Synaptic Ring"] = {
 	},
 }
 itemBases["Organic Ring"] = {
+	baseId = "Metadata/Items/Rings/RingB4",
 	type = "Ring",
 	tags = { default = true, not_for_sale = true, ring = true, },
 	influenceTags = { shaper = "ring_shaper", elder = "ring_elder", adjudicator = "ring_adjudicator", basilisk = "ring_basilisk", crusader = "ring_crusader", eyrie = "ring_eyrie", cleansing = "ring_cleansing", tangle = "ring_tangle" },
@@ -393,6 +435,7 @@ itemBases["Organic Ring"] = {
 	},
 }
 itemBases["Fugitive Ring"] = {
+	baseId = "Metadata/Items/Rings/RingB5",
 	type = "Ring",
 	tags = { default = true, not_for_sale = true, ring = true, },
 	influenceTags = { shaper = "ring_shaper", elder = "ring_elder", adjudicator = "ring_adjudicator", basilisk = "ring_basilisk", crusader = "ring_crusader", eyrie = "ring_eyrie", cleansing = "ring_cleansing", tangle = "ring_tangle" },
@@ -405,6 +448,7 @@ itemBases["Fugitive Ring"] = {
 	},
 }
 itemBases["Formless Ring"] = {
+	baseId = "Metadata/Items/Rings/RingB6",
 	type = "Ring",
 	tags = { default = true, not_for_sale = true, ring = true, },
 	influenceTags = { shaper = "ring_shaper", elder = "ring_elder", adjudicator = "ring_adjudicator", basilisk = "ring_basilisk", crusader = "ring_crusader", eyrie = "ring_eyrie", cleansing = "ring_cleansing", tangle = "ring_tangle" },
@@ -414,6 +458,7 @@ itemBases["Formless Ring"] = {
 	req = { level = 42, },
 }
 itemBases["Ring"] = {
+	baseId = "Metadata/Items/Rings/MirrorRing",
 	type = "Ring",
 	tags = { default = true, not_for_sale = true, ring = true, },
 	influenceTags = { shaper = "ring_shaper", elder = "ring_elder", adjudicator = "ring_adjudicator", basilisk = "ring_basilisk", crusader = "ring_crusader", eyrie = "ring_eyrie", cleansing = "ring_cleansing", tangle = "ring_tangle" },
@@ -422,6 +467,7 @@ itemBases["Ring"] = {
 }
 
 itemBases["Breach Ring"] = {
+	baseId = "Metadata/Items/Rings/BreachRing",
 	type = "Ring",
 	tags = { default = true, not_for_sale = true, ring = true, },
 	influenceTags = { shaper = "ring_shaper", elder = "ring_elder", adjudicator = "ring_adjudicator", basilisk = "ring_basilisk", crusader = "ring_crusader", eyrie = "ring_eyrie", cleansing = "ring_cleansing", tangle = "ring_tangle" },
@@ -431,6 +477,7 @@ itemBases["Breach Ring"] = {
 	req = { },
 }
 itemBases["Golden Hoop"] = {
+	baseId = "Metadata/Items/Rings/RingDemigods1",
 	type = "Ring",
 	tags = { default = true, demigods = true, not_for_sale = true, ring = true, },
 	influenceTags = { shaper = "ring_shaper", elder = "ring_elder", adjudicator = "ring_adjudicator", basilisk = "ring_basilisk", crusader = "ring_crusader", eyrie = "ring_eyrie", cleansing = "ring_cleansing", tangle = "ring_tangle" },
@@ -440,6 +487,7 @@ itemBases["Golden Hoop"] = {
 	req = { level = 12, },
 }
 itemBases["Jet Ring"] = {
+	baseId = "Metadata/Items/Rings/RingVictor1",
 	type = "Ring",
 	tags = { default = true, demigods = true, not_for_sale = true, ring = true, },
 	influenceTags = { shaper = "ring_shaper", elder = "ring_elder", adjudicator = "ring_adjudicator", basilisk = "ring_basilisk", crusader = "ring_crusader", eyrie = "ring_eyrie", cleansing = "ring_cleansing", tangle = "ring_tangle" },

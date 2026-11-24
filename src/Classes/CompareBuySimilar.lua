@@ -77,8 +77,14 @@ local function buildURL(item, slotName, controls, modEntries, defenceEntries, is
 		-- only strip a trailing numeric identifier to avoid e.g. including
 		-- timeless jewel ids or other numbers appended to the item name.
 		tradeName = tradeName:gsub("%s+$", "")
-		tradeName = tradeName:match("^(.-)%s+%d+$") or tradeName
-		queryTable.name = tradeName
+		tradeName = (tradeName:match("^(.-)%s+%d+$") or tradeName)?.:lower()
+		-- verify the name since the trade site will error on an invalid name
+		for _, dbUnique in pairs(main.uniqueDB.list) do
+			if tradeName:find(dbUnique.title:lower(), 1, true) then
+				queryTable.name = dbUnique.title
+				break
+			end
+		end
 		queryTable.type = item.baseName
 		-- If item is Foulborn, add the foulborn_item filter
 		if item.foulborn then
@@ -254,13 +260,13 @@ function M.addModEntries(item, modTypeSources)
 							value = value,
 						}
 						if not tradeId then
-							local resultHashes, value, invert = tradeHelpers.findTradeHash(resolvedLine)
+							local resultHashes, value, invert, prefix = tradeHelpers.findTradeHash(resolvedLine)
 							-- convert hashes to string ids
 							local resultIds = {}
 							if resultHashes then
 								local existingStats = getStats()
 								for idx = 1, #resultHashes do
-									local id = string.format("%s.stat_%s", source.type, resultHashes[idx])
+									local id = string.format("%s.%s%s", source.type, prefix, resultHashes[idx])
 									if existingStats[id] then
 										t_insert(resultIds, id)
 									end

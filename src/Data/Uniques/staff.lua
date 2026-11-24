@@ -92,7 +92,7 @@ Source: Drops from unique{Atziri, Queen of the Vaal} in normal{The Alluring Abys
 Implicits: 2
 {variant:2,3}+25% Chance to Block Attack Damage
 {variant:1}+20% Chance to Block Spell Damage
-Grants Level 20 Queen's Demand Skill
+Grants Level 20 Queen's Demand
 Queen's Demand can Trigger Level 20 Flames of Judgement
 Queen's Demand can Trigger Level 20 Storm of Judgement
 {variant:3}(100-300)% increased Spell Critical Strike Chance
@@ -157,7 +157,7 @@ Implicits: 1
 Trigger level 25 Ceaseless Flesh once every second
 Minions deal (113-157)% increased Damage
 (17-31)% increased Minion Duration
-When a nearby Minion dies, gain Rotten Bulwark equal to (7-9)% of its maximum Life
+When a Minion within 4 metres dies, gain Rotten Bulwark equal to (7-9)% of its maximum Life
 Minions gain (59-83)% of Physical Damage as Extra Chaos Damage
 ]],[[
 Cane of Unravelling
@@ -272,8 +272,8 @@ Implicits: 2
 18% increased maximum Mana
 18% increased Area of Effect of Aura Skills
 18% increased Area of Effect of Hex Skills
-Nearby Enemies have 18% increased Effect of Curses on them
-Nearby allies gain 18% increased Damage
+Enemies within 7.5 metres have 18% increased Effect of Curses on them
+Allies within 7.5 metres gain 18% increased Damage
 18% increased effect of Non-Curse Auras from your Skills
 ]],[[
 The Enmity Divine
@@ -288,9 +288,9 @@ Variant: Current
 Implicits: 2
 {variant:2}+18% Chance to Block Attack Damage
 {variant:3,4}+25% Chance to Block Spell Damage
-{variant:1}Socketed Gems are supported by Level 10 Life Leech
-{variant:2,3,4}Socketed Gems are supported by Level 1 Chance to Bleed
-Grants Summon Harbinger of Brutality Skill
+{variant:1}Socketed Gems are Supported by Level 10 Life Leech Support
+{variant:2,3,4}Socketed Gems are Supported by Level 1 Chance to Bleed Support
+Grants Summon Harbinger of Brutality
 +5% Chance to Block Attack Damage while wielding a Staff
 {variant:2,3}+(30-40)% to Damage over Time Multiplier for Bleeding from Critical Strikes
 {variant:4}+(60-80)% to Damage over Time Multiplier for Bleeding from Critical Strikes
@@ -308,8 +308,8 @@ Source: Upgraded from unique{The Enmity Divine} via currency{Haemocombustion Scr
 Implicits: 2
 {variant:1}+18% Chance to Block Attack Damage
 {variant:2,3}+25% Chance to Block Spell Damage
-Socketed Gems are supported by Level 1 Chance to Bleed
-Grants Summon Greater Harbinger of Brutality Skill
+Socketed Gems are Supported by Level 1 Chance to Bleed Support
+Grants Summon Greater Harbinger of Brutality
 +5% Chance to Block Attack Damage while wielding a Staff
 {variant:1,2}+(30-40)% to Damage over Time Multiplier for Bleeding from Critical Strikes
 {variant:3}+(60-80)% to Damage over Time Multiplier for Bleeding from Critical Strikes
@@ -319,24 +319,45 @@ Grants Summon Greater Harbinger of Brutality Skill
 ]],[[
 Femurs of the Saints
 Primordial Staff
-Variant: Pre 2.6.0
-Variant: Pre 3.8.0
-Variant: Pre 3.25.0
-Variant: Current
+Version: Pre 2.6.0
+Version: Pre 3.8.0
+Version: Pre 3.25.0
+Version: Pre 3.30.0
+Version: Current
+Variant: Minion Damage per Spectre
+Variant: Spell Damage per Skeleton
+Variant: Attack Damage per Zombie
+Variant: Block per Skeleton
+Variant: Life Regen per Zombie
+Variant: Mana Regen per Spectre
+Variant: Speed per Raging Spirit
+Selected Variant Group: 1=1
+Selected Variant Group: 2=2
+Selected Variant Group: 3=3
+Selected Variant Group: 4=4
 Implicits: 3
-{variant:1}+12% Chance to Block Attack Damage
-{variant:2,3}+18% Chance to Block Attack Damage
-{variant:4}+25% Chance to Block Spell Damage
-+2 to Level of Socketed Minion Gems
-{variant:3,4}Minions deal (60-80)% increased Damage
-{variant:1,2}Minions Regenerate (1.5-2.5)% of Life per second
-{variant:1,2}2% increased Minion Attack and Cast Speed per Skeleton you own
-{variant:1,2}2% increased Minion Duration per Raised Zombie
-{variant:1,2}(8-12)% increased Minion Damage per Raised Spectre
-{variant:3,4}+1% Chance to Block Attack Damage per Summoned Skeleton
-{variant:3,4}2% increased Attack and Cast Speed per Summoned Raging Spirit
-{variant:3,4}Regenerate 0.6% of Life per second for each Raised Zombie
-{variant:3,4}30% increased Mana Regeneration Rate per Raised Spectre
+{version:1}+12% Chance to Block Attack Damage
+{version:2,3}+18% Chance to Block Attack Damage
+{version:4,5}+25% Chance to Block Spell Damage
+{version:1,2,3,4}+2 to Level of Socketed Minion Gems
+{version:5}+(2-3) to Level of Socketed Minion Gems
+{version:3,4}Minions deal (60-80)% increased Damage
+{version:5}Minions deal (80-100)% increased Damage
+{version:1,2}Minions Regenerate (1.5-2.5)% of Life per second
+{version:1,2}2% increased Minion Attack and Cast Speed per Skeleton you own
+{version:1,2}2% increased Minion Duration per Raised Zombie
+{version:1,2}(10-15)% increased Minion Damage per Raised Spectre
+{version:5}{variant:1}{group:1,2,3,4}(10-15)% increased Minion Damage per Raised Spectre
+{version:3,4}+1% Chance to Block Attack Damage per Summoned Skeleton
+{version:5}{variant:4}{group:1,2,3,4}+(1-2)% Chance to Block Attack Damage per Summoned Skeleton
+{version:3,4}2% increased Attack and Cast Speed per Summoned Raging Spirit
+{version:5}{variant:7}{group:1,2,3,4}(3-5)% increased Attack and Cast Speed per Summoned Raging Spirit
+{version:5}{variant:3}{group:1,2,3,4}(16-24)% increased Attack Damage per Raised Zombie
+{version:3,4}Regenerate 0.6% of Life per second for each Raised Zombie
+{version:5}{variant:5}{group:1,2,3,4}Regenerate (0.8-1)% of Life per second for each Raised Zombie
+{version:3,4}30% increased Mana Regeneration Rate per Raised Spectre
+{version:5}{variant:6}{group:1,2,3,4}(40-60)% increased Mana Regeneration Rate per Raised Spectre
+{version:5}{variant:2}{group:1,2,3,4}(12-18)% increased Spell Damage per Summoned Skeleton
 ]],[[
 Fencoil
 Gnarled Branch
@@ -347,7 +368,7 @@ Implicits: 3
 {variant:1}+12% Chance to Block Attack Damage
 {variant:2}+18% Chance to Block Attack Damage
 {variant:3}+20% Chance to Block Spell Damage
-Socketed Gems are Supported by Level 8 Trap
+Socketed Gems are Supported by Level 8 Trap Support
 (40-50)% increased Global Damage
 (10-20)% increased maximum Life
 (10-20)% increased maximum Mana
@@ -361,7 +382,7 @@ Source: Steal from a unique{Curio Display} during a Grand Heist
 Implicits: 2
 {variant:1}+18% Chance to Block Attack Damage
 {variant:2}+20% Chance to Block Spell Damage
-Socketed Gems are Supported by Level 1 Multiple Totems
+Socketed Gems are Supported by Level 1 Multiple Totems Support
 (40-50)% increased Global Damage
 (10-20)% increased maximum Life
 (10-20)% increased maximum Mana
@@ -374,7 +395,7 @@ League: Affliction
 Implicits: 2
 {variant:1}+18% Chance to Block Attack Damage
 {variant:2}+25% Chance to Block Spell Damage
-Socketed Gems are Supported by Level 1 Lifetap
+Socketed Gems are Supported by Level 1 Lifetap Support
 (20-30)% increased Cast Speed
 {variant:2}Lose 500 Life per second
 {variant:1}Lose 500 Life per second
@@ -407,9 +428,9 @@ Requires Level 32
 Implicits: 2
 {variant:1}+18% Chance to Block Attack Damage
 {variant:2}+20% Chance to Block Spell Damage
-Socketed Gems are Supported by Level 16 Trap
-Socketed Gems are Supported by Level 16 Cluster Trap
-Socketed Gems are Supported by Level 16 Trap And Mine Damage
+Socketed Gems are Supported by Level 16 Trap Support
+Socketed Gems are Supported by Level 16 Cluster Traps Support
+Socketed Gems are Supported by Level 16 Trap and Mine Damage Support
 (40-50)% increased Global Damage
 (10-20)% increased maximum Life
 (10-20)% increased maximum Mana
@@ -539,8 +560,8 @@ Implicits: 4
 {variant:2}+18% Chance to Block Attack Damage
 {variant:5,6}+25% Chance to Block Attack Damage
 {variant:3,4}+20% Chance to Block Spell Damage
-{variant:1,2,3,4,5}Socketed Gems are Supported by Level 1 Greater Spell Echo
-{variant:6}Socketed Gems are Supported by Level 1 Greater Spell Echo
+{variant:1,2,3,4,5}Socketed Gems are Supported by Level 30 Greater Spell Echo Support
+{variant:6}Socketed Gems are Supported by Level 1 Greater Spell Echo Support
 (120-160)% increased Spell Damage
 {variant:1,2,3}100% increased maximum Mana
 {variant:4,5}50% increased maximum Mana
@@ -560,7 +581,7 @@ Implicits: 3
 {variant:4}+2 to Level of Socketed Fire Gems
 {variant:1,2,3}+1 to Level of Socketed Cold Gems
 {variant:4}+2 to Level of Socketed Cold Gems
-Socketed Gems are Supported by Level 5 Cold to Fire
+Socketed Gems are Supported by Level 5 Cold to Fire Support
 Adds (10-15) to (20-25) Fire Damage
 Adds (10-15) to (20-25) Cold Damage
 (30-50)% increased Elemental Damage
@@ -579,7 +600,7 @@ Implicits: 3
 +2 to Level of Socketed Fire Gems
 +2 to Level of Socketed Cold Gems
 +2 to Level of Socketed Elemental Gems
-Socketed Gems are Supported by Level 5 Cold to Fire
+Socketed Gems are Supported by Level 5 Cold to Fire Support
 Adds (10-15) to (20-25) Fire Damage
 Adds (10-15) to (20-25) Cold Damage
 (30-50)% increased Elemental Damage
@@ -642,7 +663,7 @@ Implicits: 3
 (80-100)% increased Mana Regeneration Rate
 {variant:1,2,3}Minions deal (45-51) to (66-78) additional Physical Damage
 {variant:4}Minions deal (90-102) to (132-156) additional Physical Damage
-If you Consumed a corpse Recently, you and nearby Allies Regenerate 5% of Life per second
+If you Consumed a corpse Recently, you and Allies within 5 metres Regenerate 5% of Life per second
 ]],[[
 The Stormheart
 Royal Staff
@@ -714,7 +735,7 @@ Implicits: 3
 {variant:2,3}+18% Chance to Block Attack Damage
 {variant:4}+22% Chance to Block Attack Damage
 {variant:3,4}+2 to Level of Socketed Spell Gems
-{variant:1,2,3,4}Socketed Gems are Supported by Level 10 Blastchain Mine
+{variant:1,2,3,4}Socketed Gems are Supported by Level 10 Blastchain Mine Support
 {variant:1,2}35% less Mine Damage
 (40-60)% increased Spell Damage
 (15-20)% reduced Enemy Stun Threshold
@@ -731,7 +752,7 @@ Implicits: 3
 {variant:2}+18% Chance to Block Attack Damage
 {variant:3}+20% Chance to Block Attack Damage
 +1 to Level of Socketed Support Gems
-Grants Level 1 Icestorm Skill
+Grants Level 1 Icestorm
 (14-18)% increased Intelligence
 (8-12)% increased Cast Speed
 1% increased Spell Damage per 10 Intelligence
@@ -746,7 +767,7 @@ Requires Level 68
 Implicits: 2
 {variant:1}+18% Chance to Block Attack Damage
 {variant:2}+22% Chance to Block Spell Damage
-Grants Level 20 Brandsurge Skill
+Grants Level 20 Brandsurge
 Brand Skills have (50-100)% increased Duration
 ]],[[
 The Geomantic Gyre
@@ -793,5 +814,16 @@ Requires Level 68
 Implicits: 1
 +22% Chance to Block Attack Damage
 (60-90)% increased Unveiled Modifier magnitudes
+]],[[
+Bane of the Apostate
+Judgement Staff
+League: Covens
+Source: Drops from unique{The Coven Queen}
+Implicits: 1
++25% Chance to Block Attack Damage
+Grants Level 20 Witchhunter's Pyre
+(150-220)% increased Fire Damage
+(35-50)% increased Area of Effect
+(20-30)% increased Skill Effect Duration
 ]]
 }

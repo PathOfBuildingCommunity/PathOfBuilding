@@ -194,8 +194,8 @@ skills["Barkskin"] = {
 		"chance_to_evade_attacks_+%_final_per_missing_barkskin_stack",
 	},
 	levels = {
-		[20] = { -30, 2, cooldown = 10, levelRequirement = 70, storedUses = 1, statInterpolation = { 1, 1, }, },
-		[30] = { -60, 3, cooldown = 10, levelRequirement = 90, storedUses = 1, statInterpolation = { 1, 1, }, },
+		[20] = { -45, 4, cooldown = 10, levelRequirement = 70, storedUses = 1, statInterpolation = { 1, 1, }, },
+		[30] = { -75, 5, cooldown = 10, levelRequirement = 90, storedUses = 1, statInterpolation = { 1, 1, }, },
 	},
 }
 skills["AilmentBearer"] = {
@@ -211,7 +211,7 @@ skills["AilmentBearer"] = {
 		spell = true,
 	},
 	constantStats = {
-		{ "base_skill_effect_duration", 10000 },
+		{ "base_skill_effect_duration", 15000 },
 		{ "display_max_ailment_bearer_charges", 100 },
 		{ "display_ailment_bearer_charge_interval", 1 },
 	},
@@ -1147,7 +1147,6 @@ skills["SupportCrabTotem"] = {
 		{ "base_totem_duration", 8000 },
 		{ "base_totem_range", 60 },
 		{ "support_crab_totem_cast_speed_+%_final", -40 },
-		{ "totem_art_variation", 12 },
 		{ "totem_placement_range_+%", -75 },
 	},
 	stats = {
@@ -1155,6 +1154,8 @@ skills["SupportCrabTotem"] = {
 		"totem_support_gem_level",
 		"base_skill_is_totemified",
 		"is_totem",
+		"skill_is_spell_totemified",
+		"spell_totems_are_crab_totems",
 	},
 	notMinionStat = {
 		"totem_support_gem_level",
@@ -1718,6 +1719,243 @@ skills["SupportEclipse"] = {
 		[13] = { 3, 34, levelRequirement = 93, manaMultiplier = -17, statInterpolation = { 1, 1, }, },
 		[14] = { 3, 36, levelRequirement = 94, manaMultiplier = -18, statInterpolation = { 1, 1, }, },
 		[15] = { 3, 38, levelRequirement = 95, manaMultiplier = -19, statInterpolation = { 1, 1, }, },
+	},
+}
+-- failed imbued support outcomes
+skills["SupportConstriction"] = {
+	name = "Constriction",
+	description = "Supports any skill gem.\nCannot support skills that don't come from gems.",
+	color = 4,
+	support = true,
+	requireSkillTypes = { },
+	addSkillTypes = { },
+	excludeSkillTypes = { SkillType.SkillGrantedBySupport, },
+	statDescriptionScope = "gem_stat_descriptions",
+	imbuedOnly = true,
+	stats = {
+		"display_constriction_other_supports_do_not_apply",
+	},
+	levels = {
+		[1] = { levelRequirement = 1, },
+	},
+}
+skills["SupportDestitution"] = {
+	name = "Destitution",
+	description = "Supports any skill that can kill enemies.",
+	color = 4,
+	support = true,
+	requireSkillTypes = { SkillType.Damage, SkillType.Attack, SkillType.DamageOverTime, SkillType.KillNoDamageModifiers, },
+	addSkillTypes = { },
+	excludeSkillTypes = { },
+	statDescriptionScope = "gem_stat_descriptions",
+	imbuedOnly = true,
+	constantStats = {
+		{ "base_killed_monster_dropped_item_rarity_+%", -50 },
+	},
+	stats = {
+	},
+	levels = {
+		[1] = { levelRequirement = 1, },
+	},
+}
+skills["SupportDiminishment"] = {
+	name = "Diminishment",
+	description = "Supports any skill gem.\nCannot support skills that don't come from gems.",
+	color = 4,
+	support = true,
+	requireSkillTypes = { },
+	addSkillTypes = { },
+	excludeSkillTypes = { SkillType.SkillGrantedBySupport, },
+	statDescriptionScope = "gem_stat_descriptions",
+	imbuedOnly = true,
+	constantStats = {
+		{ "supported_active_skill_gem_quality_%", -20 },
+	},
+	stats = {
+	},
+	levels = {
+		[1] = { levelRequirement = 1, },
+	},
+}
+skills["SupportDisempower"] = {
+	name = "Disempower",
+	description = "Supports any skill gem.\nCannot support skills that don't come from gems.",
+	color = 4,
+	support = true,
+	requireSkillTypes = { },
+	addSkillTypes = { },
+	excludeSkillTypes = { SkillType.SkillGrantedBySupport, },
+	statDescriptionScope = "gem_stat_descriptions",
+	imbuedOnly = true,
+	constantStats = {
+		{ "supported_active_skill_gem_level_+", -1 },
+	},
+	stats = {
+	},
+	levels = {
+		[1] = { levelRequirement = 1, },
+	},
+}
+skills["SupportEncumbrance"] = {
+	name = "Encumbrance",
+	description = "Supports any skill gem.\nCannot support skills that don't come from gems.",
+	color = 4,
+	support = true,
+	requireSkillTypes = { },
+	addSkillTypes = { },
+	excludeSkillTypes = { SkillType.SkillGrantedBySupport, },
+	statDescriptionScope = "gem_stat_descriptions",
+	imbuedOnly = true,
+	stats = {
+	},
+	levels = {
+		[1] = { levelRequirement = 1, manaMultiplier = 100, },
+	},
+}
+skills["SupportImpotence"] = {
+	name = "Impotence",
+	description = "Supports any skill that can damage enemies.",
+	color = 4,
+	support = true,
+	requireSkillTypes = { SkillType.Damage, SkillType.Attack, SkillType.DamageOverTime, },
+	addSkillTypes = { },
+	excludeSkillTypes = { },
+	statDescriptionScope = "gem_stat_descriptions",
+	imbuedOnly = true,
+	statMap = {
+		["support_impotence_damage_+%_final"] = {
+			mod("Damage", "MORE", nil),
+		},
+	},
+	constantStats = {
+		{ "support_impotence_damage_+%_final", -50 },
+	},
+	stats = {
+	},
+	levels = {
+		[1] = { levelRequirement = 1, },
+	},
+}
+skills["SupportLethargy"] = {
+	name = "Lethargy",
+	description = "Supports any skill.",
+	color = 4,
+	support = true,
+	requireSkillTypes = { },
+	addSkillTypes = { },
+	excludeSkillTypes = { },
+	statDescriptionScope = "gem_stat_descriptions",
+	imbuedOnly = true,
+	statMap = {
+		["gain_malignant_madness_on_skill_use"] = {
+			flag("Condition:MalignantMadness", { type = "GlobalEffect", effectType = "Buff", effectName = "Malignant Madness" }),
+		},
+	},
+	stats = {
+		"gain_malignant_madness_on_skill_use",
+	},
+	levels = {
+		[1] = { levelRequirement = 1, },
+	},
+}
+skills["SupportMediocrity"] = {
+	name = "Mediocrity",
+	description = "Supports any skill that hits enemies.",
+	color = 4,
+	support = true,
+	requireSkillTypes = { SkillType.Damage, SkillType.Attack, },
+	addSkillTypes = { },
+	excludeSkillTypes = { },
+	statDescriptionScope = "gem_stat_descriptions",
+	imbuedOnly = true,
+	statMap = {
+		["global_cannot_crit"] = {
+			flag("NeverCrit"),
+			flag("Condition:NeverCrit"),
+		},
+	},
+	stats = {
+		"global_cannot_crit",
+	},
+	levels = {
+		[1] = { levelRequirement = 1, },
+	},
+}
+skills["SupportNullification"] = {
+	name = "Nullification",
+	description = "Supports any skill that hits enemies or inflicts elemental ailments.",
+	color = 4,
+	support = true,
+	requireSkillTypes = { SkillType.Damage, SkillType.Attack, SkillType.NonHitChill, },
+	addSkillTypes = { },
+	excludeSkillTypes = { },
+	statDescriptionScope = "gem_stat_descriptions",
+	imbuedOnly = true,
+	stats = {
+		"cannot_inflict_status_ailments",
+	},
+	levels = {
+		[1] = { levelRequirement = 1, },
+	},
+}
+skills["SupportPenance"] = {
+	name = "Penance",
+	description = "Supports any skill.",
+	color = 4,
+	support = true,
+	requireSkillTypes = { },
+	addSkillTypes = { },
+	excludeSkillTypes = { },
+	statDescriptionScope = "gem_stat_descriptions",
+	imbuedOnly = true,
+	stats = {
+		"skills_sacrifice_all_but_one_life_and_energy_shield_on_use",
+	},
+	levels = {
+		[1] = { levelRequirement = 1, },
+	},
+}
+skills["SupportPoverty"] = {
+	name = "Poverty",
+	description = "Supports any skill that can kill enemies.",
+	color = 4,
+	support = true,
+	requireSkillTypes = { SkillType.Damage, SkillType.Attack, SkillType.DamageOverTime, SkillType.KillNoDamageModifiers, },
+	addSkillTypes = { },
+	excludeSkillTypes = { },
+	statDescriptionScope = "gem_stat_descriptions",
+	imbuedOnly = true,
+	constantStats = {
+		{ "base_killed_monster_dropped_item_quantity_+%", -50 },
+	},
+	stats = {
+	},
+	levels = {
+		[1] = { levelRequirement = 1, },
+	},
+}
+skills["SupportTaxation"] = {
+	name = "Taxation",
+	description = "Supports any skill gem.\nCannot support skills that don't come from gems.",
+	color = 4,
+	support = true,
+	requireSkillTypes = { },
+	addSkillTypes = { },
+	excludeSkillTypes = { SkillType.SkillGrantedBySupport, },
+	statDescriptionScope = "gem_stat_descriptions",
+	imbuedOnly = true,
+	statMap = {
+		["from_support_skill_gem_attribute_requirements_+%_final"] = {
+			mod("GlobalAttributeRequirements", "MORE", nil),
+		},
+	},
+	constantStats = {
+		{ "from_support_skill_gem_attribute_requirements_+%_final", 100 },
+	},
+	stats = {
+	},
+	levels = {
+		[1] = { levelRequirement = 1, },
 	},
 }
 skills["SupportElementalPenetration"] = {
@@ -2550,6 +2788,37 @@ skills["SupportCastOnLifeSpent"] = {
 		[1] = { PvPDamageMultiplier = -80, cooldown = 0.1, levelRequirement = 1, storedUses = 1, },
 	},
 }
+skills["SupportUniqueSuspendInTimeCanUse"] = {
+	name = "Temporal Mirage",
+	hidden = true,
+	color = 4,
+	support = true,
+	requireSkillTypes = { SkillType.Spell, SkillType.Triggerable, SkillType.AND, },
+	addSkillTypes = { SkillType.Triggered, },
+	excludeSkillTypes = { SkillType.Trapped, SkillType.RemoteMined, SkillType.SummonsTotem, SkillType.Aura, SkillType.InbuiltTrigger, SkillType.Channel, SkillType.CreatesMinion, SkillType.Vaal, SkillType.HasReservation, SkillType.Microtransaction, SkillType.Link, SkillType.Cooldown, },
+	isTrigger = true,
+	statDescriptionScope = "gem_stat_descriptions",
+	fromItem = true,
+	statMap = {
+		["skill_can_be_used_by_temporal_mirage"] = {
+			skill("triggeredByTemporalMirage", true),
+		},
+	},
+	baseMods = {
+		mod("Damage", "MORE", -30),
+	},
+	constantStats = {
+		{ "skill_disabled_unless_cloned", 1 },
+		{ "base_cast_speed_+%", 100 },
+	},
+	stats = {
+		"skill_can_be_used_by_temporal_mirage",
+		"socketed_triggered_skills_use_weapon_attack_time_for_pvp_scaling",
+	},
+	levels = {
+		[1] = { levelRequirement = 70, manaMultiplier = -100, },
+	},
+}
 skills["LightningAegis"] = {
 	name = "Lightning Aegis",
 	hidden = true,
@@ -2809,6 +3078,42 @@ skills["TriggeredMoltenStrike"] = {
 		[20] = { 100, baseMultiplier = 2, cooldown = 0.15, damageEffectiveness = 2, levelRequirement = 70, storedUses = 1, statInterpolation = { 1, }, },
 	},
 }
+skills["TriggeredMoonfall"] = {
+	name = "Moonfall",
+	hidden = true,
+	color = 2,
+	baseEffectiveness = 0,
+	description = "Lunar meteors fall, raining destruction down over an area. Falling meteors deal Attack Damage. Cannot be supported by Trigger Support Gems.",
+	skillTypes = { [SkillType.Attack] = true, [SkillType.RangedAttack] = true, [SkillType.Area] = true, [SkillType.ProjectileSpeed] = true, [SkillType.ProjectileNumber] = true, [SkillType.Triggerable] = true, [SkillType.Rain] = true, [SkillType.Triggered] = true, [SkillType.Cooldown] = true, [SkillType.InbuiltTrigger] = true, [SkillType.DisallowTriggerSupports] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	fromItem = true,
+	statMap = {
+		["attack_trigger_on_melee_critical_hit_%"] = {
+			skill("triggeredByCovetousDark", true),
+			skill("triggerOnCrit", true),
+		},
+	},
+	baseFlags = {
+		attack = true,
+		projectile = true,
+		area = true,
+	},
+	constantStats = {
+		{ "skill_art_variation", 12 },
+		{ "attack_trigger_on_melee_critical_hit_%", 100 },
+		{ "base_physical_damage_%_to_convert_to_cold", 100 },
+	},
+	stats = {
+		"base_number_of_projectiles",
+		"base_is_projectile",
+		"is_area_damage",
+		"cannot_pierce",
+	},
+	levels = {
+		[20] = { 22, baseMultiplier = 0.6, cooldown = 0.15, damageEffectiveness = 0.6, levelRequirement = 0, storedUses = 1, statInterpolation = { 1, }, },
+	},
+}
 skills["PenanceMark"] = {
 	name = "Penance Mark",
 	hidden = true,
@@ -2951,41 +3256,41 @@ skills["PactOfBeidat"] = {
 		[3] = { 4, 4, 5, 18, cooldown = 4, levelRequirement = 30, storedUses = 1, statInterpolation = { 1, 1, 1, 1, }, cost = { Mana = 18, }, },
 		[4] = { 4, 4, 5, 19, cooldown = 4, levelRequirement = 33, storedUses = 1, statInterpolation = { 1, 1, 1, 1, }, cost = { Mana = 19, }, },
 		[5] = { 4, 4, 6, 20, cooldown = 4, levelRequirement = 36, storedUses = 1, statInterpolation = { 1, 1, 1, 1, }, cost = { Mana = 21, }, },
-		[6] = { 5, 4, 6, 21, cooldown = 4, levelRequirement = 39, storedUses = 1, statInterpolation = { 1, 1, 1, 1, }, cost = { Mana = 22, }, },
-		[7] = { 5, 5, 6, 22, cooldown = 4, levelRequirement = 42, storedUses = 1, statInterpolation = { 1, 1, 1, 1, }, cost = { Mana = 23, }, },
-		[8] = { 5, 5, 6, 23, cooldown = 4, levelRequirement = 45, storedUses = 1, statInterpolation = { 1, 1, 1, 1, }, cost = { Mana = 24, }, },
-		[9] = { 5, 5, 6, 24, cooldown = 4, levelRequirement = 48, storedUses = 1, statInterpolation = { 1, 1, 1, 1, }, cost = { Mana = 25, }, },
-		[10] = { 5, 5, 6, 25, cooldown = 4, levelRequirement = 50, storedUses = 1, statInterpolation = { 1, 1, 1, 1, }, cost = { Mana = 26, }, },
-		[11] = { 5, 5, 7, 26, cooldown = 4, levelRequirement = 52, storedUses = 1, statInterpolation = { 1, 1, 1, 1, }, cost = { Mana = 26, }, },
-		[12] = { 5, 5, 7, 27, cooldown = 4, levelRequirement = 54, storedUses = 1, statInterpolation = { 1, 1, 1, 1, }, cost = { Mana = 27, }, },
-		[13] = { 5, 5, 7, 28, cooldown = 4, levelRequirement = 56, storedUses = 1, statInterpolation = { 1, 1, 1, 1, }, cost = { Mana = 28, }, },
-		[14] = { 6, 5, 7, 29, cooldown = 4, levelRequirement = 58, storedUses = 1, statInterpolation = { 1, 1, 1, 1, }, cost = { Mana = 29, }, },
-		[15] = { 6, 6, 7, 30, cooldown = 4, levelRequirement = 60, storedUses = 1, statInterpolation = { 1, 1, 1, 1, }, cost = { Mana = 29, }, },
-		[16] = { 6, 6, 7, 31, cooldown = 4, levelRequirement = 62, storedUses = 1, statInterpolation = { 1, 1, 1, 1, }, cost = { Mana = 30, }, },
-		[17] = { 6, 6, 8, 32, cooldown = 4, levelRequirement = 64, storedUses = 1, statInterpolation = { 1, 1, 1, 1, }, cost = { Mana = 31, }, },
-		[18] = { 6, 6, 8, 33, cooldown = 4, levelRequirement = 66, storedUses = 1, statInterpolation = { 1, 1, 1, 1, }, cost = { Mana = 31, }, },
-		[19] = { 6, 6, 8, 34, cooldown = 4, levelRequirement = 68, storedUses = 1, statInterpolation = { 1, 1, 1, 1, }, cost = { Mana = 32, }, },
-		[20] = { 6, 6, 8, 35, cooldown = 4, levelRequirement = 70, storedUses = 1, statInterpolation = { 1, 1, 1, 1, }, cost = { Mana = 33, }, },
-		[21] = { 6, 6, 8, 36, cooldown = 4, levelRequirement = 72, storedUses = 1, statInterpolation = { 1, 1, 1, 1, }, cost = { Mana = 34, }, },
-		[22] = { 7, 6, 8, 37, cooldown = 4, levelRequirement = 74, storedUses = 1, statInterpolation = { 1, 1, 1, 1, }, cost = { Mana = 34, }, },
-		[23] = { 7, 7, 8, 38, cooldown = 4, levelRequirement = 76, storedUses = 1, statInterpolation = { 1, 1, 1, 1, }, cost = { Mana = 35, }, },
-		[24] = { 7, 7, 9, 39, cooldown = 4, levelRequirement = 78, storedUses = 1, statInterpolation = { 1, 1, 1, 1, }, cost = { Mana = 36, }, },
-		[25] = { 7, 7, 9, 40, cooldown = 4, levelRequirement = 80, storedUses = 1, statInterpolation = { 1, 1, 1, 1, }, cost = { Mana = 36, }, },
-		[26] = { 7, 7, 9, 41, cooldown = 4, levelRequirement = 82, storedUses = 1, statInterpolation = { 1, 1, 1, 1, }, cost = { Mana = 37, }, },
-		[27] = { 7, 7, 9, 42, cooldown = 4, levelRequirement = 84, storedUses = 1, statInterpolation = { 1, 1, 1, 1, }, cost = { Mana = 38, }, },
-		[28] = { 7, 7, 9, 43, cooldown = 4, levelRequirement = 86, storedUses = 1, statInterpolation = { 1, 1, 1, 1, }, cost = { Mana = 39, }, },
-		[29] = { 7, 7, 9, 44, cooldown = 4, levelRequirement = 88, storedUses = 1, statInterpolation = { 1, 1, 1, 1, }, cost = { Mana = 39, }, },
-		[30] = { 8, 7, 10, 44, cooldown = 4, levelRequirement = 90, storedUses = 1, statInterpolation = { 1, 1, 1, 1, }, cost = { Mana = 40, }, },
-		[31] = { 8, 7, 10, 45, cooldown = 4, levelRequirement = 91, storedUses = 1, statInterpolation = { 1, 1, 1, 1, }, cost = { Mana = 40, }, },
-		[32] = { 8, 8, 10, 45, cooldown = 4, levelRequirement = 92, storedUses = 1, statInterpolation = { 1, 1, 1, 1, }, cost = { Mana = 41, }, },
-		[33] = { 8, 8, 10, 46, cooldown = 4, levelRequirement = 93, storedUses = 1, statInterpolation = { 1, 1, 1, 1, }, cost = { Mana = 41, }, },
-		[34] = { 8, 8, 10, 46, cooldown = 4, levelRequirement = 94, storedUses = 1, statInterpolation = { 1, 1, 1, 1, }, cost = { Mana = 42, }, },
-		[35] = { 8, 8, 10, 47, cooldown = 4, levelRequirement = 95, storedUses = 1, statInterpolation = { 1, 1, 1, 1, }, cost = { Mana = 42, }, },
-		[36] = { 8, 8, 10, 47, cooldown = 4, levelRequirement = 96, storedUses = 1, statInterpolation = { 1, 1, 1, 1, }, cost = { Mana = 42, }, },
-		[37] = { 8, 8, 10, 48, cooldown = 4, levelRequirement = 97, storedUses = 1, statInterpolation = { 1, 1, 1, 1, }, cost = { Mana = 43, }, },
-		[38] = { 8, 8, 10, 48, cooldown = 4, levelRequirement = 98, storedUses = 1, statInterpolation = { 1, 1, 1, 1, }, cost = { Mana = 43, }, },
-		[39] = { 8, 8, 10, 49, cooldown = 4, levelRequirement = 99, storedUses = 1, statInterpolation = { 1, 1, 1, 1, }, cost = { Mana = 43, }, },
-		[40] = { 8, 8, 10, 49, cooldown = 4, levelRequirement = 100, storedUses = 1, statInterpolation = { 1, 1, 1, 1, }, cost = { Mana = 44, }, },
+		[6] = { 4, 4, 6, 21, cooldown = 4, levelRequirement = 39, storedUses = 1, statInterpolation = { 1, 1, 1, 1, }, cost = { Mana = 22, }, },
+		[7] = { 4, 4, 6, 22, cooldown = 4, levelRequirement = 42, storedUses = 1, statInterpolation = { 1, 1, 1, 1, }, cost = { Mana = 23, }, },
+		[8] = { 4, 4, 6, 23, cooldown = 4, levelRequirement = 45, storedUses = 1, statInterpolation = { 1, 1, 1, 1, }, cost = { Mana = 24, }, },
+		[9] = { 4, 4, 6, 24, cooldown = 4, levelRequirement = 48, storedUses = 1, statInterpolation = { 1, 1, 1, 1, }, cost = { Mana = 25, }, },
+		[10] = { 4, 4, 6, 25, cooldown = 4, levelRequirement = 50, storedUses = 1, statInterpolation = { 1, 1, 1, 1, }, cost = { Mana = 26, }, },
+		[11] = { 4, 4, 7, 26, cooldown = 4, levelRequirement = 52, storedUses = 1, statInterpolation = { 1, 1, 1, 1, }, cost = { Mana = 26, }, },
+		[12] = { 4, 4, 7, 27, cooldown = 4, levelRequirement = 54, storedUses = 1, statInterpolation = { 1, 1, 1, 1, }, cost = { Mana = 27, }, },
+		[13] = { 4, 4, 7, 28, cooldown = 4, levelRequirement = 56, storedUses = 1, statInterpolation = { 1, 1, 1, 1, }, cost = { Mana = 28, }, },
+		[14] = { 4, 4, 7, 29, cooldown = 4, levelRequirement = 58, storedUses = 1, statInterpolation = { 1, 1, 1, 1, }, cost = { Mana = 29, }, },
+		[15] = { 4, 4, 7, 30, cooldown = 4, levelRequirement = 60, storedUses = 1, statInterpolation = { 1, 1, 1, 1, }, cost = { Mana = 29, }, },
+		[16] = { 4, 4, 7, 31, cooldown = 4, levelRequirement = 62, storedUses = 1, statInterpolation = { 1, 1, 1, 1, }, cost = { Mana = 30, }, },
+		[17] = { 4, 4, 8, 32, cooldown = 4, levelRequirement = 64, storedUses = 1, statInterpolation = { 1, 1, 1, 1, }, cost = { Mana = 31, }, },
+		[18] = { 4, 4, 8, 33, cooldown = 4, levelRequirement = 66, storedUses = 1, statInterpolation = { 1, 1, 1, 1, }, cost = { Mana = 31, }, },
+		[19] = { 4, 4, 8, 34, cooldown = 4, levelRequirement = 68, storedUses = 1, statInterpolation = { 1, 1, 1, 1, }, cost = { Mana = 32, }, },
+		[20] = { 4, 4, 8, 35, cooldown = 4, levelRequirement = 70, storedUses = 1, statInterpolation = { 1, 1, 1, 1, }, cost = { Mana = 33, }, },
+		[21] = { 4, 4, 8, 36, cooldown = 4, levelRequirement = 72, storedUses = 1, statInterpolation = { 1, 1, 1, 1, }, cost = { Mana = 34, }, },
+		[22] = { 4, 4, 8, 37, cooldown = 4, levelRequirement = 74, storedUses = 1, statInterpolation = { 1, 1, 1, 1, }, cost = { Mana = 34, }, },
+		[23] = { 4, 4, 8, 38, cooldown = 4, levelRequirement = 76, storedUses = 1, statInterpolation = { 1, 1, 1, 1, }, cost = { Mana = 35, }, },
+		[24] = { 4, 4, 9, 39, cooldown = 4, levelRequirement = 78, storedUses = 1, statInterpolation = { 1, 1, 1, 1, }, cost = { Mana = 36, }, },
+		[25] = { 4, 4, 9, 40, cooldown = 4, levelRequirement = 80, storedUses = 1, statInterpolation = { 1, 1, 1, 1, }, cost = { Mana = 36, }, },
+		[26] = { 4, 4, 9, 41, cooldown = 4, levelRequirement = 82, storedUses = 1, statInterpolation = { 1, 1, 1, 1, }, cost = { Mana = 37, }, },
+		[27] = { 4, 4, 9, 42, cooldown = 4, levelRequirement = 84, storedUses = 1, statInterpolation = { 1, 1, 1, 1, }, cost = { Mana = 38, }, },
+		[28] = { 4, 4, 9, 43, cooldown = 4, levelRequirement = 86, storedUses = 1, statInterpolation = { 1, 1, 1, 1, }, cost = { Mana = 39, }, },
+		[29] = { 4, 4, 9, 44, cooldown = 4, levelRequirement = 88, storedUses = 1, statInterpolation = { 1, 1, 1, 1, }, cost = { Mana = 39, }, },
+		[30] = { 4, 4, 10, 44, cooldown = 4, levelRequirement = 90, storedUses = 1, statInterpolation = { 1, 1, 1, 1, }, cost = { Mana = 40, }, },
+		[31] = { 4, 4, 10, 45, cooldown = 4, levelRequirement = 91, storedUses = 1, statInterpolation = { 1, 1, 1, 1, }, cost = { Mana = 40, }, },
+		[32] = { 4, 4, 10, 45, cooldown = 4, levelRequirement = 92, storedUses = 1, statInterpolation = { 1, 1, 1, 1, }, cost = { Mana = 41, }, },
+		[33] = { 4, 4, 10, 46, cooldown = 4, levelRequirement = 93, storedUses = 1, statInterpolation = { 1, 1, 1, 1, }, cost = { Mana = 41, }, },
+		[34] = { 4, 4, 10, 46, cooldown = 4, levelRequirement = 94, storedUses = 1, statInterpolation = { 1, 1, 1, 1, }, cost = { Mana = 42, }, },
+		[35] = { 4, 4, 10, 47, cooldown = 4, levelRequirement = 95, storedUses = 1, statInterpolation = { 1, 1, 1, 1, }, cost = { Mana = 42, }, },
+		[36] = { 4, 4, 10, 47, cooldown = 4, levelRequirement = 96, storedUses = 1, statInterpolation = { 1, 1, 1, 1, }, cost = { Mana = 42, }, },
+		[37] = { 4, 4, 10, 48, cooldown = 4, levelRequirement = 97, storedUses = 1, statInterpolation = { 1, 1, 1, 1, }, cost = { Mana = 43, }, },
+		[38] = { 4, 4, 10, 48, cooldown = 4, levelRequirement = 98, storedUses = 1, statInterpolation = { 1, 1, 1, 1, }, cost = { Mana = 43, }, },
+		[39] = { 4, 4, 10, 49, cooldown = 4, levelRequirement = 99, storedUses = 1, statInterpolation = { 1, 1, 1, 1, }, cost = { Mana = 43, }, },
+		[40] = { 4, 4, 10, 49, cooldown = 4, levelRequirement = 100, storedUses = 1, statInterpolation = { 1, 1, 1, 1, }, cost = { Mana = 44, }, },
 	},
 }
 skills["PactOfGhorr"] = {
@@ -3078,6 +3383,11 @@ skills["TriggeredBloodrend"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Projectile] = true, [SkillType.DamageOverTime] = true, [SkillType.DegenOnlySpellDamage] = true, [SkillType.Physical] = true, [SkillType.AreaSpell] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Triggered] = true, [SkillType.InbuiltTrigger] = true, [SkillType.Triggerable] = true, },
 	statDescriptionScope = "debuff_skill_stat_descriptions",
 	castTime = 0,
+	statMap = {
+		["bloodrend_debuff_damage_over_time_taken_+%_per_stack"] = {
+			mod("DamageTakenOverTime", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Fleshrend", effectStackVar = "FleshrendCount", effectStackLimit = 3 }),
+		},
+	},
 	baseFlags = {
 		spell = true,
 		pact = true,
@@ -6159,6 +6469,102 @@ skills["SupportUniqueCastCurseOnCurse"] = {
 	},
 	levels = {
 		[1] = { cooldown = 0.25, levelRequirement = 0, storedUses = 1, },
+	},
+}
+skills["GrimBonfire"] = {
+	name = "Witchhunter's Pyre",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 1.0499999523163,
+	incrementalEffectiveness = 0.049499999731779,
+	description = "Create a burning Bonfire of corpses at the targeted location. This Bonfire will deal fire damage over time to surrounding enemies. Bonfires created this way are considered to be totems.\nBonfires periodically release fiery projectiles which target nearby burning enemies. An additional projectile will be fired at a given target for each additional burning debuff on that target.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Fire] = true, [SkillType.Projectile] = true, [SkillType.DamageOverTime] = true, [SkillType.Area] = true, [SkillType.AreaSpell] = true, [SkillType.SummonsTotem] = true, [SkillType.Damage] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.CausesBurning] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1.5,
+	fromItem = true,
+	statMap = {
+		["grim_bonfire_additional_projectile_chance_per_debuff_on_target"] = {
+			mod("DPS", "MORE", nil, 0, 0, { type = "Multiplier", var = "WitchhuntersPyreAdditionalBurningDebuff" }),
+		},
+	},
+	baseFlags = {
+		spell = true,
+		projectile = true,
+		area = true,
+		totem = true,
+	},
+	constantStats = {
+		{ "base_totem_duration", 8000 },
+		{ "base_totem_range", 80 },
+		{ "active_skill_base_area_of_effect_radius", 80 },
+		{ "active_skill_base_secondary_area_of_effect_radius", 12 },
+		{ "active_skill_base_tertiary_area_of_effect_radius", 27 },
+		{ "grim_bonfire_additional_projectile_chance_per_debuff_on_target", 100 },
+		{ "active_skill_area_of_effect_description_mode", 11 },
+		{ "active_skill_tertiary_area_of_effect_description_mode", 4 },
+		{ "active_skill_secondary_area_of_effect_description_mode", 7 },
+		{ "number_of_additional_totems_allowed", 2 },
+	},
+	stats = {
+		"base_fire_damage_to_deal_per_minute",
+		"spell_minimum_base_fire_damage",
+		"spell_maximum_base_fire_damage",
+		"base_is_projectile",
+		"is_area_damage",
+		"projectile_behaviour_only_explode",
+		"is_totem",
+		"base_skill_is_totemified",
+		"action_do_not_face_target",
+		"spell_damage_modifiers_apply_to_skill_dot",
+	},
+	notMinionStat = {
+		"base_fire_damage_to_deal_per_minute",
+		"spell_minimum_base_fire_damage",
+		"spell_maximum_base_fire_damage",
+	},
+	levels = {
+		[20] = { 175.00000391155, 0.80000001192093, 1.2000000476837, critChance = 5, damageEffectiveness = 1.75, levelRequirement = 70, statInterpolation = { 3, 3, 3, }, cost = { Mana = 39, }, },
+	},
+}
+skills["BloodFlower"] = {
+	name = "Goreblossom",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 2.3499999046326,
+	incrementalEffectiveness = 0.052499998360872,
+	description = "Creates a bloody Bloom of gore and flesh. Allies near this Bloom will gain additional physical damage over time multiplier. Multiple instances of this buff can stack. Enemies near it will take physical damage over time. Only the most damaging instance of this debuff will affect an enemy near multiple Blooms.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Physical] = true, [SkillType.Cooldown] = true, [SkillType.Duration] = true, [SkillType.Area] = true, [SkillType.DamageOverTime] = true, [SkillType.Buff] = true, [SkillType.Triggerable] = true, [SkillType.InbuiltTrigger] = true, [SkillType.Triggered] = true, [SkillType.AreaSpell] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	fromItem = true,
+	statMap = {
+		["blood_flower_physical_dot_multiplier_+_to_grant"] = {
+			mod("PhysicalDotMultiplier", "BASE", nil, 0, 0, { type = "Multiplier", var = "GoreblossomBloom", limitVar = "GoreblossomMaxBlooms" }, { type = "GlobalEffect", effectType = "Buff" }),
+		},
+		["blood_flower_maximum_flowers"] = {
+			mod("Multiplier:GoreblossomBloom", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
+			mod("Multiplier:GoreblossomMaxBlooms", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
+		},
+	},
+	baseFlags = {
+		spell = true,
+		area = true,
+		duration = true,
+	},
+	constantStats = {
+		{ "base_skill_effect_duration", 8000 },
+		{ "active_skill_base_area_of_effect_radius", 30 },
+		{ "blood_flower_physical_dot_multiplier_+_to_grant", 25 },
+		{ "blood_flower_maximum_flowers", 1 },
+	},
+	stats = {
+		"base_physical_damage_to_deal_per_minute",
+		"is_area_damage",
+		"skill_has_trigger_from_unique_item",
+		"spell_damage_modifiers_apply_to_skill_dot",
+	},
+	levels = {
+		[20] = { 76.666666790843, cooldown = 1, levelRequirement = 70, storedUses = 1, statInterpolation = { 3, }, },
 	},
 }
 skills["SupportTriggerFireSpellOnHit"] = {

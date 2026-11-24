@@ -15,6 +15,7 @@ function CheckBoxClass:CheckBoxControl(anchor, rect, label, changeFunc, tooltipT
 	self.labelRight = false
 	self.changeFunc = changeFunc
 	self.state = initialState
+	self.checkImage = nil
 	return self
 end
 
@@ -49,6 +50,8 @@ function CheckBoxClass:Draw(viewPort, noTooltip)
 	elseif self.borderFunc then
 		local r, g, b = self.borderFunc()
 		SetDrawColor(r, g, b)
+	elseif self.checkImage and self.state then
+		SetDrawColor(0.75, 0.75, 0.75)
 	else
 		SetDrawColor(0.5, 0.5, 0.5)
 	end
@@ -63,15 +66,30 @@ function CheckBoxClass:Draw(viewPort, noTooltip)
 		SetDrawColor(0, 0, 0)
 	end
 	DrawImage(nil, x + 1, y + 1, size - 2, size - 2)
-	if self.state then
-		if not enabled then
-			SetDrawColor(0.33, 0.33, 0.33)
-		elseif mOver then
-			SetDrawColor(1, 1, 1)
+	if self.checkImage then
+		if self.state then
+			if not enabled then
+				SetDrawColor(0.33, 0.33, 0.33)
+			elseif mOver then
+				SetDrawColor(2, 2, 2)
+			else
+				SetDrawColor(1, 1, 1)
+			end
 		else
-			SetDrawColor(0.75, 0.75, 0.75)
+			SetDrawColor(0.5, 0.5, 0.5)
 		end
-		main:DrawCheckMark(x + size/2, y + size/2, size * 0.8)
+		DrawImage(self.checkImage.handle, x + 1, y + 1, size - 2, size - 2, self.checkImage[1])
+	else
+		if self.state then
+			if not enabled then
+				SetDrawColor(0.33, 0.33, 0.33)
+			elseif mOver then
+				SetDrawColor(1, 1, 1)
+			else
+				SetDrawColor(0.75, 0.75, 0.75)
+			end
+			main:DrawCheckMark(x + size/2, y + size/2, size * 0.8)
+		end
 	end
 	if enabled then
 		SetDrawColor(1, 1, 1)
@@ -114,4 +132,9 @@ function CheckBoxClass:OnKeyUp(key)
 		end
 	end
 	self.clicked = false
+end
+
+---@param image table @The image to display instead of a check.  Expects a `handle` field with an image handle, and the sprite position at index `1`.  All other fields are ignored.  Set to `nil` to draw a normal check.
+function CheckBoxClass:SetCheckImage(image)
+	self.checkImage = image
 end

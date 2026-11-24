@@ -8,6 +8,12 @@ local m_min = math.min
 local m_max = math.max
 local m_floor = math.floor
 
+local function drawStrikethrough(label, y, lineHeight)
+	local strWidth = DrawStringWidth(lineHeight, "VAR", label or "")
+	SetDrawColor(0.6, 0.6, 0.6)
+	DrawImage(nil, 0, y + lineHeight / 2, strWidth, 1)
+end
+
 ---@class DropDownControl: Control, ControlHost, TooltipHost, SearchHost
 local DropDownClass = newClass("DropDownControl", "Control", "ControlHost", "TooltipHost", "SearchHost")
 
@@ -53,6 +59,8 @@ function DropDownClass:DropDownControl(anchor, rect, list, selFunc, tooltipText,
 	self.enableDroppedWidth = false
 	-- Set by the parent control. Activates the auto width of the box component.
 	self.enableChangeBoxWidth = false
+	-- Set by the parent control. Hides the detail text of the selected entry in the box component.
+	self.hideSelDetail = false
         -- self.tag = "-"
 	return self
 end
@@ -310,19 +318,28 @@ function DropDownClass:Draw(viewPort, noTooltip)
 	-- draw selected label or search term
 	local selLabel = nil
 	local selDetail = nil
+	local selStrikethrough = false
 	if self:IsSearchActive() then
 		selLabel = "Search: " .. self:GetSearchTermPretty()
 	else
 		local selItem = self.list[self.selIndex]
 		if type(selItem) == "table" then
 			selLabel = selItem.label
-			selDetail = selItem.detail
+			selStrikethrough = selItem.strikethrough
+			if not self.hideSelDetail then
+				selDetail = selItem.detail
+			end
 		else
 			selLabel = selItem
 		end
 	end
 	SetViewport(x + 2, y + 2, width - height, lineHeight)
 	DrawString(0, 0, "LEFT", lineHeight, "VAR", selLabel or "")
+	if selStrikethrough then
+		drawStrikethrough(selLabel, 0, lineHeight)
+		local textColor = enabled and 1 or 0.66
+		SetDrawColor(textColor, textColor, textColor)
+	end
 	if selDetail ~= nil then
 		local dx = DrawStringWidth(lineHeight, "VAR", selDetail)
 		if not enabled or self.dropped then
@@ -366,7 +383,8 @@ function DropDownClass:Draw(viewPort, noTooltip)
 		end
 
 		-- draw dropdown items
-		SetViewport(x + 2, dropY + 2, scrollBar.enabled and width - 22 or width - 4, self.dropHeight)
+		local listWidth = scrollBar.enabled and width - 22 or width - 4
+		SetViewport(x + 2, dropY + 2, listWidth, self.dropHeight)
 		local dropIndex = 0
 		for index, listVal in ipairs(self.list) do
 			local searchInfo = self.searchInfos[index]
@@ -395,6 +413,14 @@ function DropDownClass:Draw(viewPort, noTooltip)
 					label = listVal
 				end
 				DrawString(0, y, "LEFT", lineHeight, "VAR", label)
+				if type(listVal) == "table" and listVal.strikethrough then
+					drawStrikethrough(label, y, lineHeight)
+					if index == self.hoverSel or index == self.selIndex then
+						SetDrawColor(1, 1, 1)
+					else
+						SetDrawColor(0.66, 0.66, 0.66)
+					end
+				end
 				if detail ~= nil then
 					local detail = listVal.detail
 					local dx = DrawStringWidth(lineHeight, "VAR", detail)
@@ -403,14 +429,14 @@ function DropDownClass:Draw(viewPort, noTooltip)
 					else
 						SetDrawColor(0, 0, 0)
 					end
-					DrawImage(nil, width - dx - 8 - 22, y, width - 4, lineHeight)
+					DrawImage(nil, listWidth - dx - 6, y, dx + 6, lineHeight)
 					-- highlight font color if hovered or selected
 					if index == self.hoverSel or index == self.selIndex then
 						SetDrawColor(1, 1, 1)
 					else
 						SetDrawColor(0.66, 0.66, 0.66)
 					end
-					DrawString(width - dx - 4 - 22, y, "LEFT", lineHeight, "VAR", detail)
+					DrawString(listWidth - dx - 2, y, "LEFT", lineHeight, "VAR", detail)
 				end
 				self:DrawSearchHighlights(label, searchInfo, 0, y, width - 4, lineHeight)
 			end
@@ -546,11 +572,17 @@ function DropDownClass:CheckDroppedWidth(enable)
 		  -- do not be smaller than the created width
 		local dWidth = self.width
 		for _, line in ipairs(self.list) do
+			local detailWidth = 0
 			if type(line) == "table" then
+				if line.detail then
+					-- Reserve the same right padding used when drawing the detail,
+					-- plus spacing between it and the label.
+					detailWidth = DrawStringWidth(lineHeight, "VAR", line.detail) + 26
+				end
 				line = line.label or ""
 			end
 			  -- +10 to stop clipping
-			dWidth = m_max(dWidth, DrawStringWidth(lineHeight, "VAR", line) + 10)
+			dWidth = m_max(dWidth, DrawStringWidth(lineHeight, "VAR", line or "") + detailWidth + 10)
 		end
 		  -- no greater than self.maxDroppedWidth
 		self.droppedWidth = m_min(dWidth + scrollWidth, self.maxDroppedWidth)

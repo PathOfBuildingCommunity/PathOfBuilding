@@ -273,16 +273,21 @@ Attack skills can have 1 additional Totem Summoned at a time
 Steelworm
 Broadhead Arrow Quiver
 Variant: Pre 3.17.0
+Variant: Pre 3.26.0
+Variant: Pre 3.30.0
 Variant: Current
 Source: Labyrinth
 Implicits: 2
 {variant:1}AddedPhysicalDamageImplicitQuiver11
-{variant:2}IncreasedAttackSpeedImplicitQuiver10New
+{variant:2,3,4}IncreasedAttackSpeedImplicitQuiver10New
 GrantsCallOfSteelSkillUnique__1_
 GlobalEvasionRatingAndArmourPercentUnique__1_
 DealNoNonPhysicalDamageUniqueBelt__1
 RangedAttacksConsumeAmmoUniqueBelt__1
-AdditionalProjectilesAfterAmmoConsumedUniqueBelt__1
+{variant:1,2}Skills Fire 3 additional Projectiles for 4 seconds after
+{variant:1,2}you consume a total of 12 Steel Shards
+{variant:3,4}AdditionalProjectilesAfterAmmoConsumedUniqueBelt__1
+{variant:4}(20-30)% increased Impale Effect
 ]],[[
 Soul Strike
 Spike-Point Arrow Quiver
