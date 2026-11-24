@@ -657,6 +657,7 @@ function TooltipClass:Draw(x, y, w, h, viewPort)
 	-- draw horizontal borders
 	DrawImage(nil, ttX, ttY, totalDrawWidth, BORDER_WIDTH) -- top
 	DrawImage(nil, ttX, ttY + maxColumnHeight - BORDER_WIDTH, totalDrawWidth, BORDER_WIDTH) -- bottom
+	SetDrawColor(1, 1, 1) -- Reset draw color to white as it messes with Spectre Library
 
 	-- draw child tooltips for item skills. these are placed directly to the right of the main
 	-- tooltip, growing downwards, unless they would go outside the viewport, in which case they

@@ -30,6 +30,9 @@ src/Export/ggpk/art/
 src/Export/ggpk/*.exe
 src/Export/ggpk/*.dll
 
+# Update testing
+src/Update/
+
 # PoB Trader
 *_currency_values.json
 

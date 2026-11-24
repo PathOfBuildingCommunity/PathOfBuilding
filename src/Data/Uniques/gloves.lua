@@ -25,10 +25,10 @@ Requires Level 75
 {version:3,4}(40-60)% increased Global Critical Strike Chance
 (200-220)% increased Armour
 +(60-75) to maximum Life
-{version:1}Life and Mana Leech from Critical Strikes are instant
-{version:2,3}You have Vaal Pact if you've dealt a Critical Strike Recently
-{version:4}Life Leech from Critical Strikes is instant
 {version:4}You cannot Regenerate or Recoup Life
+{version:1}Life and Mana Leech from Critical Strikes are instant
+{version:4}Life Leech from Critical Strikes is instant
+{version:2,3}You have Vaal Pact if you've dealt a Critical Strike Recently
 ]],[[
 Replica Atziri's Acuity
 Vaal Gauntlets
