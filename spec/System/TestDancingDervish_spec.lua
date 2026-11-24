@@ -143,7 +143,7 @@ describe("TestDancingDervish", function()
 	it("keeps modifiers to socketed gems while the Dancing Dervishes are manifested", function()
 		build.skillsTab:PasteSocketGroup("Cyclone 20/0 1")
 		runCallback("OnFrame")
-		equip((dancingDervish:gsub("Implicits: 1", "Sockets: G-G\n\t\tImplicits: 2\n\t\t+20% to Quality of Socketed Gems")))
+		equip((dancingDervish:gsub("Implicits: 1", "Sockets: B-B\n\t\tImplicits: 3\n\t\t+20%% to Quality of Socketed Gems\n\t\t+100%% to Lightning Resistance when Socketed with a Blue Gem")))
 		build.skillsTab:PasteSocketGroup("Slot: Weapon 1\nMinion Speed 20/0 1")
 		build.mainSocketGroup = 1
 		rebuild()
@@ -158,9 +158,15 @@ describe("TestDancingDervish", function()
 				end
 			end
 		end
-		assert.are.equals(20, minionSpeed.quality)
-		-- The weapon's other modifiers still don't apply
+		-- On top of the bonus for a gem in a socket of its colour
+		assert.are.equals(20 + minionSpeed.socketQuality, minionSpeed.quality)
+		-- The weapon's other modifiers still don't apply, including player stats that depend on the socketed gems
 		assert.are.equals(0, player().modDB:Sum("INC", nil, "Accuracy"))
+		-- Minion Speed is a blue gem
+		local lightningResist = player().modDB:Sum("BASE", nil, "LightningResist")
+
+		setManifested(findManifestGroup(), false)
+		assert.are.equals(lightningResist + 100, player().modDB:Sum("BASE", nil, "LightningResist"))
 	end)
 
 	it("keeps Rampage while the Dancing Dervishes are manifested", function()

@@ -1160,13 +1160,16 @@ function calcs.initEnv(build, mode, override, specEnv)
 				end
 				-- Rampage is kept as the Dancing Dervishes die when it ends
 				-- Modifiers to socketed gems are kept as the supports socketed in the weapon still support its granted skill
+				-- but not the player stats that depend on the socketed gems (SocketProperty and GroupProperty)
 				local keepRampage = itemGrantsSkill(item, "ManifestDancingDervishes")
 				for _, mod in ipairs(item.modList or (item.slotModList and item.slotModList[slot.slotNum]) or { }) do
 					local keep = keepRampage and mod.name == "Condition:Rampage"
-					for _, tag in ipairs(mod) do
-						if tag.type == "SocketedIn" then
-							keep = true
-							break
+					if mod.name ~= "SocketProperty" and mod.name ~= "GroupProperty" then
+						for _, tag in ipairs(mod) do
+							if tag.type == "SocketedIn" then
+								keep = true
+								break
+							end
 						end
 					end
 					if keep then
