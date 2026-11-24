@@ -58,6 +58,31 @@ describe("TradeQueryGenerator", function()
 		end)
 	end)
 
+	describe("Query options", function()
+		it("remembers the link count for the next search of the same slot", function()
+			local queryGen = new("TradeQueryGenerator"):TradeQueryGenerator({ itemsTab = { items = { } } })
+			queryGen.StartQuery = function() end
+			local slot = { slotName = "Body Armour" }
+			local context = {
+				slotTbl = { slotName = "Body Armour", alreadyCorrupted = false },
+				controls = { tradeTypeSelection = { selIndex = 1 } },
+			}
+			queryGen:RequestQuery(slot, context, { }, function() end)
+			main.popups[1].controls.links:SetText("6")
+			main.popups[1].controls.generateQuery:Click()
+
+			queryGen:RequestQuery(slot, context, { }, function() end)
+			assert.are.equal("6", main.popups[1].controls.links.buf)
+			main:ClosePopup()
+
+			queryGen:RequestQuery({ slotName = "Helmet" }, {
+				slotTbl = { slotName = "Helmet", alreadyCorrupted = false },
+			}, { }, function() end)
+			assert.are.equal("", main.popups[1].controls.links.buf)
+			main:ClosePopup()
+		end)
+	end)
+
 	describe("WeightedRatioOutputs", function()
 		local maxStatIncrease
 
