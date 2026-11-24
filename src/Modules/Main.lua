@@ -61,6 +61,7 @@ function main:Init()
 	self.modes = { }
 	self.modes["LIST"] = LoadModule("Modules/BuildList")
 	self.modes["BUILD"] = LoadModule("Modules/Build")
+	self.mcp = LoadModule("Modules/MCPStatus")
 
 	self.popups = { }
 	self.sharedItemList = { }
@@ -246,6 +247,13 @@ function main:Init()
 	self.controls.about = new("ButtonControl"):ButtonControl({"BOTTOMLEFT",self.anchorMain,"BOTTOMLEFT"}, {72, 0, 68, 20}, "About", function()
 		self:OpenAboutPopup()
 	end)
+	self.controls.mcp = new("ButtonControl"):ButtonControl({"BOTTOMLEFT",self.anchorMain,"BOTTOMLEFT"}, {144, 0, 68, 20}, "MCP", function()
+		self:OpenMCPPopup()
+	end)
+	self.controls.mcp.label = function()
+		return self.mcp:GetButtonLabel()
+	end
+	self.controls.mcp.tooltipText = "Run an MCP server inside this window so AI assistants (Claude Code, Claude Desktop, Cursor, ...)\ncan read and change the open build, and see which clients are connected."
 	self.controls.applyUpdate = new("ButtonControl"):ButtonControl({"BOTTOMLEFT",self.anchorMain,"BOTTOMLEFT"}, {0, -24, 140, 20}, "^x50E050Update Ready", function()
 		self:OpenUpdatePopup()
 	end)
@@ -387,18 +395,15 @@ function main:CanExit()
 end
 
 function main:Shutdown()
+	if self.mcp then
+		self.mcp:Stop()
+	end
 	self:CallMode("Shutdown")
 	self:SaveSettings()
 end
 
-function main:OnFrame()
-	self.screenW, self.screenH = GetVirtualScreenSize()
-
-	if self.screenH > self.screenW then
-		self.portraitMode = true
-	else
-		self.portraitMode = false
-	end
+--- Performs the mode switch scheduled by main:SetMode (normally once per frame; the MCP tools call it directly)
+function main:ProcessModeChange()
 	while self.newMode do
 		if self.mode then
 			self:CallMode("Shutdown")
@@ -411,6 +416,17 @@ function main:OnFrame()
 		end
 		self.newModeChangeToTree = false
 	end
+end
+
+function main:OnFrame()
+	self.screenW, self.screenH = GetVirtualScreenSize()
+
+	if self.screenH > self.screenW then
+		self.portraitMode = true
+	else
+		self.portraitMode = false
+	end
+	self:ProcessModeChange()
 
 	self.viewPort = { x = 0, y = 0, width = self.screenW, height = self.screenH }
 
@@ -690,6 +706,12 @@ function main:LoadSettings(ignoreBuild)
 					self.dpiScaleOverridePercent = tonumber(node.attrib.dpiScaleOverridePercent) or 0
 					SetDPIScaleOverridePercent(self.dpiScaleOverridePercent)
 				end
+				if node.attrib.mcpEnabled then
+					self.mcp.enabled = node.attrib.mcpEnabled == "true"
+				end
+				if node.attrib.mcpPort then
+					self.mcp.port = tonumber(node.attrib.mcpPort) or self.mcp.DEFAULT_PORT
+				end
 			end
 		end
 	end
@@ -823,6 +845,8 @@ function main:SaveSettings()
 		showAllItemAffixes = tostring(self.showAllItemAffixes),
 		disableScrollControlInteraction = tostring(self.disableScrollControlInteraction),
 		dpiScaleOverridePercent = tostring(self.dpiScaleOverridePercent),
+		mcpEnabled = tostring(self.mcp.enabled and true or false),
+		mcpPort = tostring(self.mcp.port or self.mcp.DEFAULT_PORT),
 	} })
 	local res, errMsg = common.xml.SaveXMLFile(setXML, self.userPath.."Settings.xml")
 	if not res then
@@ -874,6 +898,9 @@ function main:ChangeUserPath(newUserPath, ignoreBuild)
 	MakeDir(self.buildPath)
 	self:LoadSettings(ignoreBuild)
 	self:LoadSharedItems()
+	if self.mcp then
+		self.mcp:Init()
+	end
 end
 --- Opens the popup for the "Options" menu
 --- @param savedState table|nil optional passing of saved values, in case of reopening `{nodePowerTheme, colorPositive, ...}`
@@ -1347,6 +1374,68 @@ function main:SetManifestBranch(branchName)
 		end
 	end
 	xml.SaveXMLFile(localManXML[1], manifestLocation)
+end
+
+--- Opens the MCP panel: the switch for the in-app MCP server, its port, and the list of connected clients
+function main:OpenMCPPopup()
+	local mcp = self.mcp
+	mcp:RebuildConnectionList()
+	local popupWidth, popupHeight = 760, 430
+	local controls = { }
+
+	controls.enabled = new("CheckBoxControl"):CheckBoxControl({ "TOPLEFT", nil, "TOPLEFT" }, { 130, 22, 20 }, "^7MCP server:", function(state)
+		mcp:SetEnabled(state)
+	end, "Runs an MCP server on this computer (127.0.0.1 only) that lets AI assistants read and change\nthe build open in this window. The choice is remembered.", mcp.enabled)
+	controls.portLabel = new("LabelControl"):LabelControl({ "LEFT", controls.enabled, "RIGHT" }, { 24, 0, 0, 16 }, "^7Port:")
+	controls.port = new("EditControl"):EditControl({ "LEFT", controls.portLabel, "RIGHT" }, { 6, 0, 70, 18 }, tostring(mcp.port), nil, "%D", 5)
+	controls.applyPort = new("ButtonControl"):ButtonControl({ "LEFT", controls.port, "RIGHT" }, { 6, 0, 60, 18 }, "Apply", function()
+		if not mcp:SetPort(controls.port.buf) then
+			self:OpenMessagePopup("Invalid port", "Enter a port number between 1 and 65535.")
+			controls.port:SetText(tostring(mcp.port))
+		end
+	end)
+	controls.applyPort.enabled = function()
+		return tonumber(controls.port.buf) ~= mcp.port
+	end
+	controls.restart = new("ButtonControl"):ButtonControl({ "TOPRIGHT", nil, "TOPRIGHT" }, { -10, 20, 100, 20 }, "Restart server", function()
+		mcp:Restart()
+	end)
+	controls.restart.enabled = function()
+		return mcp.enabled
+	end
+
+	controls.status = new("LabelControl"):LabelControl({ "TOPLEFT", nil, "TOPLEFT" }, { 10, 52, 0, 16 }, "")
+	controls.status.label = function()
+		return mcp:GetStatusText()
+	end
+
+	controls.listLabel = new("LabelControl"):LabelControl({ "TOPLEFT", nil, "TOPLEFT" }, { 10, 80, 0, 16 }, "^7Connected clients:")
+	controls.list = new("MCPConnectionListControl"):MCPConnectionListControl({ "TOPLEFT", nil, "TOPLEFT" }, { 10, 100, popupWidth - 20, 200 }, mcp)
+
+	controls.setup = new("LabelControl"):LabelControl({ "TOPLEFT", nil, "TOPLEFT" }, { 10, 310, 0, 14 }, "")
+	controls.setup.label = function()
+		return "^8Connect Claude Code: ^7" .. mcp:GetSetupCommand()
+	end
+	controls.copySetup = new("ButtonControl"):ButtonControl({ "TOPLEFT", nil, "TOPLEFT" }, { 10, 332, 200, 20 }, "Copy Claude Code command", function()
+		Copy(mcp:GetSetupCommand())
+		ToastNotification:Add("Copied to clipboard:\n" .. mcp:GetSetupCommand())
+	end)
+	controls.copyURL = new("ButtonControl"):ButtonControl({ "LEFT", controls.copySetup, "RIGHT" }, { 8, 0, 110, 20 }, "Copy server URL", function()
+		Copy(mcp:GetURL())
+		ToastNotification:Add("Copied to clipboard:\n" .. mcp:GetURL())
+	end)
+	controls.copyURL.tooltipText = "For other MCP clients (Claude Desktop, Cursor, ...): add a remote/HTTP MCP server with this URL."
+
+	controls.logLabel = new("LabelControl"):LabelControl({ "TOPLEFT", nil, "TOPLEFT" }, { 10, 362, 0, 14 }, "")
+	controls.logLabel.label = function()
+		return "^8Log: ^7" .. (mcp.log[#mcp.log] or "-")
+	end
+	controls.hint = new("LabelControl"):LabelControl({ "TOPLEFT", nil, "TOPLEFT" }, { 10, 380, 0, 14 }, "^8Tools act on the build open in this window; changes show up immediately and mark the build unsaved.")
+
+	controls.close = new("ButtonControl"):ButtonControl({ "BOTTOM", nil, "BOTTOM" }, { 0, -10, 80, 20 }, "Close", function()
+		self:ClosePopup()
+	end)
+	self:OpenPopup(popupWidth, popupHeight, "MCP", controls, nil, nil, "close")
 end
 
 function main:OpenUpdatePopup()

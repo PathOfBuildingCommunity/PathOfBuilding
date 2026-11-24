@@ -474,6 +474,9 @@ Here is an example table that could be generated
 
 ## MCP server (AI assistant integration)
 
-The `mcp/` directory contains a [Model Context Protocol](https://modelcontextprotocol.io) server that
-runs Path of Building headless and lets AI assistants such as Claude Code load builds, read calculated
-stats, and try item/tree/config changes. See [mcp/README.md](mcp/README.md) for setup and the list of tools.
+Path of Building can run a [Model Context Protocol](https://modelcontextprotocol.io) server inside the
+application (the **MCP** button in the bottom-left bar). AI assistants such as Claude Code then read and
+change the build that is open in the window: items, gems, passives, configuration and what-if modifiers.
+The server is a sub script (`src/MCPServer.lua`) relaying JSON-RPC to `src/Modules/MCPStatus.lua`; the
+tools live in `src/Modules/MCPTools.lua`. See [docs/mcp.md](docs/mcp.md) for setup, the protocol details
+and the list of tools.
