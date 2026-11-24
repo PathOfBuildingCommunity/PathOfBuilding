@@ -225,9 +225,8 @@ local function getWeaponFlags(env, weaponData, weaponTypes)
 	end
 	if weaponTypes then
 		for _, types in ipairs(weaponTypes) do
+			-- Hide of the Vendigo replaces the weapon type when checking which skills can be used
 			if weaponData.asThoughUsing then
-				-- Only the weapon types it attacks as though using determine which skills can be used
-				-- e.g. Hide of the Vendigo allows Claw skills, but not skills that can only be used Unarmed
 				if not checkAsThoughWeaponTypes(weaponData, types) then
 					return nil, info
 				end
@@ -357,8 +356,8 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 		if not skillFlags.forceMainHand then
 			local weapon2Flags, weapon2Info = getWeaponFlags(env, activeSkill.actor.weaponData2, weaponTypes)
 			if not weapon2Flags and weapon1Flags and activeSkill.actor.weaponData1.asThoughUsing and activeSkill.actor.weaponData2.type == "None" and not skillTypes[SkillType.DualWieldOnly] then
-				-- Hide of the Vendigo only affects which skills can be used, which depends on the main hand alone
-				-- Once a skill can be used, the unarmed off hand from Hollow Palm Technique attacks with it as well
+				-- Hide of the Vendigo only decides which skills can be used, based on the main hand
+				-- The unarmed off hand from Hollow Palm Technique still attacks with skills the main hand can use
 				weapon2Flags, weapon2Info = getWeaponFlags(env, activeSkill.actor.weaponData2)
 			end
 			if weapon2Flags then

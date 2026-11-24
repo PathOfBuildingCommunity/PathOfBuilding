@@ -63,14 +63,23 @@ describe("TestAttacks", function()
 			runCallback("OnFrame")
 		end
 
-		-- Frost Blades requires a Claw, Dagger or One Handed Sword, so it can't be used unarmed on its own
-		local function useFrostBlades()
-			build.skillsTab:PasteSocketGroup("Frost Blades 20/0 1")
+		local function useSkill(skill)
+			build.skillsTab:PasteSocketGroup(skill)
 			build.mainSocketGroup = 1
 			runCallback("OnFrame")
 			build.calcsTab:BuildOutput()
 			runCallback("OnFrame")
 			return build.calcsTab.mainEnv.player.mainSkill
+		end
+
+		-- Frost Blades requires a Claw, Dagger or One Handed Sword, so it can't be used unarmed on its own
+		local function useFrostBlades()
+			return useSkill("Frost Blades 20/0 1")
+		end
+
+		local function useHollowPalm()
+			build.configTab.input.customMods = "Hollow Palm Technique"
+			build.configTab:BuildModList()
 		end
 
 		it("lets you attack as though using a Claw while the main hand is empty", function()
@@ -109,23 +118,13 @@ describe("TestAttacks", function()
 
 		it("prevents using unarmed skills that can't be used with a Claw", function()
 			equipHide()
-			build.skillsTab:PasteSocketGroup("Smite 20/0 1")
-			build.mainSocketGroup = 1
-			runCallback("OnFrame")
-			build.calcsTab:BuildOutput()
-			runCallback("OnFrame")
-			assert.is_true(build.calcsTab.mainEnv.player.mainSkill.skillFlags.disable)
+			assert.is_true(useSkill("Smite 20/0 1").skillFlags.disable)
 		end)
 
 		it("does not bypass weapon restrictions of supports", function()
 			equipHide()
 			-- Close Combat only allows Axes and Swords
-			build.skillsTab:PasteSocketGroup("Frost Blades 20/0 1\nClose Combat 20/0 1")
-			build.mainSocketGroup = 1
-			runCallback("OnFrame")
-			build.calcsTab:BuildOutput()
-			runCallback("OnFrame")
-			assert.is_true(build.calcsTab.mainEnv.player.mainSkill.skillFlags.disable)
+			assert.is_true(useSkill("Frost Blades 20/0 1\nClose Combat 20/0 1").skillFlags.disable)
 		end)
 
 		it("applies unarmed modifiers but not claw modifiers to Claw skills", function()
@@ -150,8 +149,7 @@ describe("TestAttacks", function()
 
 		it("works with Hollow Palm Technique", function()
 			equipHide()
-			build.configTab.input.customMods = "Hollow Palm Technique"
-			build.configTab:BuildModList()
+			useHollowPalm()
 			runCallback("OnFrame")
 			local mainSkill = useFrostBlades()
 			local player = build.calcsTab.mainEnv.player
@@ -166,53 +164,15 @@ describe("TestAttacks", function()
 
 		it("does not allow dual wield only skills with Hollow Palm Technique", function()
 			equipHide()
-			build.configTab.input.customMods = "Hollow Palm Technique"
-			build.configTab:BuildModList()
-			build.skillsTab:PasteSocketGroup("Dual Strike 20/0 1")
-			build.mainSocketGroup = 1
-			runCallback("OnFrame")
-			build.calcsTab:BuildOutput()
-			runCallback("OnFrame")
-			assert.is_true(build.calcsTab.mainEnv.player.mainSkill.skillFlags.disable)
-		end)
-
-		local function useSkill(skill, hollowPalm)
-			build.skillsTab:PasteSocketGroup(skill)
-			build.mainSocketGroup = 1
-			if hollowPalm then
-				build.configTab.input.customMods = "Hollow Palm Technique"
-				build.configTab:BuildModList()
-			end
-			runCallback("OnFrame")
-			build.calcsTab:BuildOutput()
-			runCallback("OnFrame")
-			return build.calcsTab.mainEnv.player.mainSkill
-		end
-
-		it("prevents using skills that can be used Unarmed but not with a Claw", function()
-			-- Smite can be used Unarmed, but not with a Claw
-			local mainSkill = useSkill("Smite 20/0 1")
-			assert.is_falsy(mainSkill.skillFlags.disable)
-
-			newBuild()
-			equipHide()
-			mainSkill = useSkill("Smite 20/0 1")
-			assert.is_true(mainSkill.skillFlags.disable)
-		end)
-
-		it("dual wields Claw skills with Hollow Palm Technique", function()
-			equipHide()
-			local mainSkill = useSkill("Cobra Lash 20/0 1", true)
-			assert.is_falsy(mainSkill.skillFlags.disable)
-			assert.is_true(mainSkill.skillFlags.bothWeaponAttack)
-			assert.is_true(bit.band(mainSkill.weapon2Flags, ModFlag.Unarmed) > 0)
-			assert.is_true(build.calcsTab.mainOutput.OffHand.AverageHit > 0)
+			useHollowPalm()
+			assert.is_true(useSkill("Dual Strike 20/0 1").skillFlags.disable)
 		end)
 
 		it("dual wields Spectral Throw with Hollow Palm Technique", function()
 			-- Spectral Throw can be used with a Claw, but not Unarmed (#10516)
 			equipHide()
-			local mainSkill = useSkill("Spectral Throw 20/0 1", true)
+			useHollowPalm()
+			local mainSkill = useSkill("Spectral Throw 20/0 1")
 			assert.is_falsy(mainSkill.skillFlags.disable)
 			assert.is_true(mainSkill.skillFlags.bothWeaponAttack)
 			assert.is_true(build.calcsTab.mainOutput.OffHand.AverageHit > 0)
@@ -220,15 +180,10 @@ describe("TestAttacks", function()
 
 		it("still attacks with both hands using skills that can be used Unarmed with Hollow Palm Technique", function()
 			equipHide()
-			local mainSkill = useSkill("Cyclone 20/0 1", true)
+			useHollowPalm()
+			local mainSkill = useSkill("Cyclone 20/0 1")
 			assert.is_falsy(mainSkill.skillFlags.disable)
 			assert.is_true(mainSkill.skillFlags.bothWeaponAttack)
-		end)
-
-		it("does not allow dual wield only skills with Hollow Palm Technique", function()
-			equipHide()
-			local mainSkill = useSkill("Dual Strike 20/0 1", true)
-			assert.is_true(mainSkill.skillFlags.disable)
 		end)
 
 		it("gains attack speed if you've used a movement skill recently", function()
