@@ -2138,7 +2138,8 @@ Petrification on you expires (150-200)% faster
 [[
 Greater Chimeral Eye
 Chimeral Eye
-Implicits: 0
+Implicits: 1
+Grants Level 20 Petrification Statue
 ]],
 [[
 Lesser Chaos Golem's Core

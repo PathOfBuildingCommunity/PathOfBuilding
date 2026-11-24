@@ -106,6 +106,7 @@ itemBases["Timeless Jewel"] = {
 }
 
 itemBases["Mycelium Core"] = {
+	baseId = "Metadata/Items/Jewels/JewelBlighted",
 	type = "Jewel",
 	subType = "Blightcore",
 	tags = { default = true, jewel = true, not_for_sale = true, },
