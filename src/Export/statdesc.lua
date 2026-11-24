@@ -500,7 +500,7 @@ local function describeGrantedEffects(mod, stats)
 	-- Only handle display stats that GGG zeroed. If a legacy value is given for one that still has a description, describeStats handles it
 	for i = 1, 6 do
 		local stat = mod["Stat" .. i]
-		if stat and stat.Id:match("^local_display_") and mod["Stat" .. i .. "Value"][1] == 0 and mod["Stat" .. i .. "Value"][2] == 0 then
+		if stat and stat.Id:match("^local_display_") then
 			local value = stats[stat.Id]
 			if value and (value.min ~= 0 or value.max ~= 0) then
 				if statDescriptor[stat.Id] then

@@ -202,7 +202,7 @@ function main:Init()
 		ConPrintf("Rares loaded")
 
 		for _, raw in pairsYield(data.viscera) do
-			local newItem = new("Item"):Item(raw, "RARE", true)
+			local newItem = new("Item"):Item(raw, "NORMAL", true)
 			if newItem.base then
 				newItem:BuildAndParseRaw()
 				self.visceraDB.list[newItem.name] = newItem
