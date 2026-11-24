@@ -605,7 +605,7 @@ holding Shift will put it in the second.]])
 	end)
 	self.controls.displayItemAddImplicit.shown = function()
 		return self.displayItem and
-			self.displayItem.type ~= "Tincture" and self.displayItem.type ~= "Graft" and (self.displayItem.corruptible or ((self.displayItem.type ~= "Flask" and self.displayItem.type ~= "Jewel") and
+			self.displayItem.type ~= "Tincture" and self.displayItem.type ~= "Graft" and self.displayItem.type ~= "Viscera" and (self.displayItem.corruptible or ((self.displayItem.type ~= "Flask" and self.displayItem.type ~= "Jewel") and
 			(self.displayItem.rarity == "NORMAL" or self.displayItem.rarity == "MAGIC" or self.displayItem.rarity == "RARE"))) and
 			not self.displayItem.implicitsCannotBeChanged
 	end
@@ -2799,6 +2799,9 @@ function ItemsTabClass:CraftItem()
 				raritySel = 2
 			end
 		end
+		if base.base.type == "Viscera" then
+			raritySel = 1
+		end
 		if raritySel == 2 or raritySel == 3 then
 			item.crafted = true
 		end
@@ -4393,6 +4396,11 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode, maxWidth)
 	tooltip.foilType = item.foilType
 	tooltip.center = true
 	tooltip.color = rarityCode
+	--Wickerman Items have a different colour for title, we still print the bounding box as rarity color.
+	if item.base.type == "Viscera" and main.showFlavourText then
+		tooltip.tooltipHeader = "VISCERA"
+		rarityCode = colorCodes.VISCERA
+	end
 	-- Shared items can use old base names that no longer exist. Add a tooltip so they can be copied or removed without causing a crash.
 	if not item.base or not item.baseName then
 		tooltip:AddLine(fontSizeTitle, rarityCode..(item.title or item.name or "Unknown Item"), "FONTIN SC")
@@ -4583,6 +4591,15 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode, maxWidth)
 			else
 				tooltip:AddLine(fontSizeBig, colorCodes.MAGIC..modLine.line, "FONTIN SC")
 			end
+		end
+	elseif base.type == "Viscera" then
+		local visceraName =
+			base.tags.viscera_arm and "Upper Limb" or
+			base.tags.viscera_leg and "Lower Limb" or
+			base.tags.viscera_head and "Head" or
+			base.tags.viscera_body and "Torso"
+		if visceraName then
+			tooltip:AddLine(fontSizeBig, s_format("^x7F7F7F%s", visceraName), "FONTIN SC")
 		end
 	elseif item.type == "Jewel" then
 		-- Jewel-specific info

@@ -37,3 +37,5 @@ for mod in dat("Mods"):Rows() do
 end
 out:write("}\n")
 out:close()
+
+print("Viscera data exported.")
