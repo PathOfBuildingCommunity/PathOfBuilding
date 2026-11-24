@@ -251,7 +251,7 @@ function CalcBreakdownClass:AddBreakdownSection(sectionData)
 
 			rowList = {}
 			for _, row in pairs(breakdown.slots) do
-				if (row.item and row.item.armourData) then
+				if row.item and row.item.armourData and row.base > 0 then
 					table.insert(rowList, row)
 				end
 			end
@@ -268,24 +268,26 @@ function CalcBreakdownClass:AddBreakdownSection(sectionData)
 			rowList = breakdown.slots
 		end
 
-		table.sort(rowList, function(a, b)
-			return a['base'] > b['base']
-		end)
-		
-		local section = { 
-			type = "TABLE",
-			rowList = rowList,
-			colList = colList,
-		}
-		t_insert(self.sectionList, section)
-		for _, row in pairs(section.rowList) do
-			if row.item then
-				row.sourceLabel = colorCodes[row.item.rarity]..row.item.name
-				row.sourceLabelTooltip = function(tooltip)
-					self.calcsTab.build.itemsTab:AddItemTooltip(tooltip, row.item, row.source)
+		if #rowList > 0 then
+			table.sort(rowList, function(a, b)
+				return a['base'] > b['base']
+			end)
+
+			local section = {
+				type = "TABLE",
+				rowList = rowList,
+				colList = colList,
+			}
+			t_insert(self.sectionList, section)
+			for _, row in pairs(section.rowList) do
+				if row.item then
+					row.sourceLabel = colorCodes[row.item.rarity]..row.item.name
+					row.sourceLabelTooltip = function(tooltip)
+						self.calcsTab.build.itemsTab:AddItemTooltip(tooltip, row.item, row.source)
+					end
+				else
+					row.sourceLabel = row.sourceName
 				end
-			else
-				row.sourceLabel = row.sourceName
 			end
 		end
 	end
