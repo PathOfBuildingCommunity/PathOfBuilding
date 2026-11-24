@@ -1180,7 +1180,7 @@ local function addMinionItems(env, minion)
 				item = env.build.itemsTab.items[minion.itemSet[slotName].selItemId]
 			else
 				-- Minions can still use weapons disabled by Manifested Dancing Dervishes
-        item = env.player.itemList[slotName] or env.player.disabledItemList[slotName]
+				item = env.player.itemList[slotName] or env.player.disabledItemList[slotName]
 			end
 			if item then
 				minion.itemList[slotName] = item

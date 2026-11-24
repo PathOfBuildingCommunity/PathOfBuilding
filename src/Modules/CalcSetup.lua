@@ -1059,7 +1059,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 			for slot in pairs(itemDisablers) do
 				if not visited[slot] then
 					-- find chain start
-					local curChain = { slot = true }
+					local curChain = { [slot] = true }
 					while itemDisabled[slot] do
 						slot = itemDisabled[slot]
 						if curChain[slot] then break end -- detect cycles
