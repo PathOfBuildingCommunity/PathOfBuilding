@@ -225,6 +225,98 @@ describe("TradeQuery Currency Conversion", function()
 			assert.are.equal(0.2, mock_tradeQuery.pbCurrencyConversion.pc.Standard.exalt)
 		end)
 
+		it("prices from the volumes traded, not the hour's lowest ratio", function()
+			mockCX({
+				-- Numbers from the Covens chaos/divine market for the hour from 2026-11-24 22:00 UTC: its
+				-- lowest_ratio was 1 chaos for 1 divine, while the volumes traded average 174.5 chaos per divine.
+				{
+					league = "Standard",
+					market_pair = { CHAOS, DIVINE },
+					lowest_ratio = { [CHAOS] = 1, [DIVINE] = 1 },
+					highest_ratio = { [CHAOS] = 180, [DIVINE] = 1 },
+					volume_traded = { [CHAOS] = 15133913, [DIVINE] = 86724 },
+					highest_stock = { [CHAOS] = 769187, [DIVINE] = 6315 },
+				},
+			})
+
+			mock_tradeQuery:PullCXData()
+
+			assert.are.equal(86724 / 15133913, mock_tradeQuery.pbCurrencyConversion.pc.Standard.chaos)
+		end)
+
+		it("falls back to lowest_ratio when a side has no volume", function()
+			mockCX({
+				{
+					league = "Standard",
+					market_pair = { EXALT, DIVINE },
+					lowest_ratio = { [EXALT] = 10, [DIVINE] = 1 },
+					volume_traded = { [EXALT] = 5, [DIVINE] = 0 },
+					highest_stock = { [EXALT] = 100, [DIVINE] = 100 },
+				},
+				{
+					league = "Standard",
+					market_pair = { ALCH, DIVINE },
+					lowest_ratio = { [ALCH] = 500, [DIVINE] = 1 },
+					highest_stock = { [ALCH] = 100, [DIVINE] = 100 },
+				},
+			})
+
+			mock_tradeQuery:PullCXData()
+
+			local rates = mock_tradeQuery.pbCurrencyConversion.pc.Standard
+			assert.are.equal(0.1, rates.exalt)
+			assert.are.equal(0.002, rates.alch)
+		end)
+
+		it("uses volumes in either pair order and chains them with lowest_ratio prices", function()
+			mockCX({
+				-- Divine listed first: normalised to price chaos in divines.
+				{
+					league = "Standard",
+					market_pair = { DIVINE, CHAOS },
+					lowest_ratio = { [CHAOS] = 1, [DIVINE] = 1 },
+					volume_traded = { [CHAOS] = 2000, [DIVINE] = 10 },
+					highest_stock = { [CHAOS] = 500, [DIVINE] = 500 },
+				},
+				-- No volumes: alch -> chaos by lowest_ratio, then chaos -> divine by volume.
+				{
+					league = "Standard",
+					market_pair = { ALCH, CHAOS },
+					lowest_ratio = { [ALCH] = 5, [CHAOS] = 1 },
+					highest_stock = { [ALCH] = 1000, [CHAOS] = 1000 },
+				},
+			})
+
+			mock_tradeQuery:PullCXData()
+
+			local rates = mock_tradeQuery.pbCurrencyConversion.pc.Standard
+			assert.are.equal(10 / 2000, rates.chaos)
+			assert.are.equal(0.2 * 10 / 2000, rates.alch)
+		end)
+
+		it("skips a market whose ratio lacks a side instead of failing the whole response", function()
+			mockCX({
+				{
+					league = "Standard",
+					market_pair = { EXALT, DIVINE },
+					lowest_ratio = { [EXALT] = 10 },
+					highest_stock = { [EXALT] = 100, [DIVINE] = 100 },
+				},
+				{
+					league = "Standard",
+					market_pair = { CHAOS, DIVINE },
+					lowest_ratio = { [CHAOS] = 200, [DIVINE] = 1 },
+					highest_stock = { [CHAOS] = 500, [DIVINE] = 500 },
+				},
+			})
+
+			mock_tradeQuery:PullCXData()
+
+			local rates = mock_tradeQuery.pbCurrencyConversion.pc.Standard
+			assert.is_nil(rates.exalt)
+			assert.are.equal(0.005, rates.chaos)
+		end)
+
 		it("skips listings with a zero ratio", function()
 			mockCX({
 				{
