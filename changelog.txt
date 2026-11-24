@@ -1,7 +1,7 @@
 VERSION[2.68.1][2026/11/17]
 
 --- User Interface ---
-* Fix visibiliy of Viscera list on larger screens (Wires77)
+* Fix visibility of Viscera list on larger screens (Wires77)
 
 
 VERSION[2.68.0][2026/11/17]

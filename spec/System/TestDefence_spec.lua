@@ -1884,4 +1884,19 @@ describe("TestDefence", function()
 		assert.is_true(higherResistEHP >= lowerResistEHP,
 			string.format("EHP fell from %.1f to %.1f", lowerResistEHP, higherResistEHP))
 	end)
+
+	it("treats negative unreserved mana as 0 for Arcane Cloak", function()
+		newBuild()
+		build.skillsTab:PasteSocketGroup("Arc 20/0  1")
+		build.skillsTab:PasteSocketGroup("Determination 20/0  1\nPride 20/0  1\nMalevolence 20/0  1")
+		build.mainSocketGroup = 1
+		runCallback("OnFrame")
+		local baseDPS = build.calcsTab.mainOutput.TotalDPS
+
+		build.skillsTab:PasteSocketGroup("Arcane Cloak 20/0  1")
+		runCallback("OnFrame")
+		local output = build.calcsTab.mainOutput
+		assert.is_true(output.ManaUnreserved < 0)
+		assert.are.equal(baseDPS, output.TotalDPS)
+	end)
 end)

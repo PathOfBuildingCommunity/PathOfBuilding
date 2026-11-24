@@ -1206,7 +1206,7 @@ function calcs.offence(env, actor, activeSkill)
 			if breakdown then
 				local inc = skillModList:Sum("INC", skillCfg, pool .. "Reserved", "Reserved", "SupportManaMultiplier")
 				local more = skillModList:More(skillCfg, pool .. "Reserved", "Reserved", "SupportManaMultiplier")
-				if inc ~= 0 and more ~= 1 then
+				if inc ~= 0 or more ~= 1 then
 					breakdown[pool .. "ReservedMod"] = {
 						s_format("%.2f ^8(increased/reduced)", 1 + inc/100),
 						s_format("x %.2f ^8(more/less)", more),

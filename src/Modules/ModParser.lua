@@ -1032,6 +1032,7 @@ local modFlagList = {
 	["of hex skills"] = { tag = { type = "SkillType", skillType = SkillType.Hex } },
 	["with hex skills"] = { tag = { type = "SkillType", skillType = SkillType.Hex } },
 	["by retaliation skills"] = { tag = { type = "SkillType", skillType = SkillType.Retaliation } },
+	["of retaliation skills"] = { tag = { type = "SkillType", skillType = SkillType.Retaliation } },
 	["of herald skills"] = { tag = { type = "SkillType", skillType = SkillType.Herald } },
 	["with herald skills"] = { tag = { type = "SkillType", skillType = SkillType.Herald } },
 	["with hits from herald skills"] = { tag = { type = "SkillType", skillType = SkillType.Herald }, keywordFlags = KeywordFlag.Hit },
@@ -7133,9 +7134,7 @@ local nearbyRewrites = {
 	{ "while at least (%d+) enemies within [%d%.]+ metres?", "while at least %1 enemies are nearby" },
 	{ "while you have an ally within [%d%.]+ metres?", "while you have at least 1 nearby ally" },
 	{ "when you or allies within [%d%.]+ metres?", "when you or a nearby ally" },
-	-- spell-checker: disable
 	{ "(rare or unique enem%a+) within [%d%.]+ metres?", "%1 nearby" },
-	-- spell-checker: enable
 	{ "(applies .- to enemies) within [%d%.]+ metres?", "%1 near it" },
 	{ "(%a+) within [%d%.]+ metres?", "nearby %1" },
 }

@@ -771,7 +771,6 @@ data.itemTagSpecialExclusionPattern = {
 			"while you are on Full Life", -- foxshade
 			"when on Full Life",
 			"when on Low Life",
-			"Gain Maximum Life instead of Maximum Energy Shield",
 			"^Socketed Gems are Supported by Level",
 			"^Allocates",
 			"Void Spawns' Life", -- Servant of Decay
@@ -1504,3 +1503,5 @@ local mapFile = io.open("Data/ModFoulbornMap.jsonc", "r")
 data.foulbornMap = dkjson.decode(mapFile:read("*a"))
 mapFile:close()
 data.flavourText = LoadModule("Data/FlavourText")
+data.worldAreas = {}
+LoadModule("Data/WorldAreas", data.worldAreas)

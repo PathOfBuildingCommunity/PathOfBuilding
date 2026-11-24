@@ -110,6 +110,15 @@ function calcs.createActiveSkill(activeEffect, supportList, actor, socketGroup, 
 	activeSkill.effectList = { activeEffect }
 	local rejectedSupportsIndices = {}
 
+	for _, supportEffect in ipairs(supportList) do
+		-- Failed imbue result Constriction prevents all other supports from applying
+		if supportEffect.grantedEffect.id == "SupportConstriction" and calcLib.canGrantedEffectSupportActiveSkill(supportEffect.grantedEffect, activeSkill, nil, supportEffect.appliesToGrantedSkills) then
+			supportList = { supportEffect }
+			activeSkill.supportList = supportList
+			break
+		end
+	end
+
 	for index, supportEffect in ipairs(supportList) do
 		-- Pass 1: Add skill types from compatible supports
 		if supportEffect.grantedEffect.support then

@@ -11,8 +11,10 @@ local prefixMap = {
 	["viscera_low"] = "Lesser ",
 	["viscera_high"] = "Greater ",
 }
+local visceraNum = 0
 for mod in dat("Mods"):Rows() do
 	if mod.Id:match("^VisceraMod") then
+		visceraNum += 1
 		local prefix = ""
 		for _, tag in ipairs(mod.Tags) do
 			if prefixMap[tag.Id] then
@@ -37,3 +39,4 @@ for mod in dat("Mods"):Rows() do
 end
 out:write("}\n")
 out:close()
+print("Wrote " .. visceraNum .. " viscera to ../Data/Viscera.lua")

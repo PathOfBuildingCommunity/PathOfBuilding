@@ -85,7 +85,7 @@ function calcs.initModDB(env, modDB)
 	modDB:NewMod("Damage", "MORE", -10, "Base", { type = "Condition", var = "Debilitated"}, { type = "GlobalEffect", effectName = "Debilitated", effectType = "Debuff"})
 	modDB:NewMod("MovementSpeed", "MORE", -20, "Base", { type = "Condition", var = "Debilitated"}, { type = "GlobalEffect", effectName = "Debilitated", effectType = "Debuff"})
 	modDB:NewMod("Damage", "MORE", -10, "Base", { type = "Condition", var = "MalignantMadness"}, { type = "GlobalEffect", effectName = "Malignant Madness", effectType = "Debuff"})
-	modDB:NewMod("ActionSpeed", "MORE", -10, "Base", { type = "Condition", var = "MalignantMadness"}, { type = "GlobalEffect", effectName = "Malignant Madness", effectType = "Debuff"})
+	modDB:NewMod("ActionSpeed", "INC", -10, "Base", { type = "Condition", var = "MalignantMadness"}, { type = "GlobalEffect", effectName = "Malignant Madness", effectType = "Debuff"})
 	modDB:NewMod("Condition:Burning", "FLAG", true, "Base", { type = "IgnoreCond" }, { type = "Condition", var = "Ignited" })
 	modDB:NewMod("Condition:Poisoned", "FLAG", true, "Base", { type = "IgnoreCond" }, { type = "MultiplierThreshold", var = "PoisonStack", threshold = 1 })
 	modDB:NewMod("Blind", "FLAG", true, "Base", { type = "Condition", var = "Blinded" })
@@ -497,7 +497,7 @@ local function addBestSupport(supportEffect, appliedSupportList, mode)
 	local add = true
 	for index, otherSupport in ipairs(appliedSupportList) do
 		-- Check if there's another better support already present
-		if supportEffect.grantedEffect == otherSupport.grantedEffect then
+		if supportEffect.grantedEffect.id == otherSupport.grantedEffect.id then
 			add = false
 			if supportEffect.level > otherSupport.level or (supportEffect.level == otherSupport.level and supportEffect.quality > otherSupport.quality) then
 				if mode == "MAIN" then
@@ -1741,6 +1741,12 @@ function calcs.initEnv(build, mode, override, specEnv)
 				slotSocketedCounts[group.slot] = socketOffset + #group.gemList
 			end
 		end
+		-- granted effects normally refer to the global tables in data.skills,
+		-- which means that modifying them will do so permanently until the
+		-- client is restarted. this avoids that by mapping from the original
+		-- table to a modified table.
+		---@type table<table, table>
+		local fromItemReplacements = {}
 		-- Process support gems adding them to applicable support lists
 		for index, group in ipairs(build.skillsTab.socketGroupList) do
 			local slot = group.slot and build.itemsTab.slots[group.slot]
@@ -1775,7 +1781,12 @@ function calcs.initEnv(build, mode, override, specEnv)
 						grantedEffect = env.data.skills["Support"..value.skillId]
 					end
 					if value and grantedEffect then -- Only item ExtraSupport gems should be flagged as fromItem. Imbued gems do not pass this check
-						grantedEffect.fromItem = true
+						if not fromItemReplacements[grantedEffect] then
+							local taggedGrantedEffect = copyTable(grantedEffect, true)
+							taggedGrantedEffect.fromItem = true
+							fromItemReplacements[grantedEffect] = taggedGrantedEffect
+						end
+						grantedEffect = fromItemReplacements[grantedEffect]
 					end
 					if grantedEffect then
 						for _, targetList in ipairs(targetListList) do
@@ -1858,7 +1869,10 @@ function calcs.initEnv(build, mode, override, specEnv)
 							-- Validate support gem level in case there is no active skill (and no full calculation)
 							calcLib.validateGemLevel(supportEffect)
 
-							if not socketedSupportsDisabled then
+							if not socketedSupportsDisabled
+							-- support parts of skill gems are still allowed as
+							-- the above only affects support gems.
+							or (gemInstance.gemData and not gemInstance.gemData.grantedEffect.support) then
 								for _, targetList in ipairs(targetListList) do
 									addBestSupport(supportEffect, targetList, env.mode)
 								end
@@ -1896,6 +1910,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 				for gemIndex, gemInstance in ipairs(group.gemList) do
 					if gemInstance.enabled and (gemInstance.gemData or gemInstance.grantedEffect) then
 						local grantedEffectList = gemInstance.gemData and gemInstance.gemData.grantedEffectList or { gemInstance.grantedEffect }
+						local gemSkill
 						for index, grantedEffect in ipairs(grantedEffectList) do
 							if not grantedEffect.support and not grantedEffect.unsupported and (not grantedEffect.hasGlobalEffect or gemInstance["enableGlobal"..index]) then
 								slotHasActiveSkill = true
@@ -1983,6 +1998,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 								if gemInstance.gemData then
 									activeSkill.slotName = groupCfg.slotName
 								end
+								gemSkill = gemSkill or activeSkill
 								t_insert(socketGroupSkillList, activeSkill)
 								t_insert(env.player.activeSkillList, activeSkill)
 							end
@@ -1994,6 +2010,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 								Str = gemInstance.reqOverride or gemInstance.reqStr,
 								Dex = gemInstance.reqOverride or gemInstance.reqDex,
 								Int = gemInstance.reqOverride or gemInstance.reqInt,
+								sourceSkill = gemSkill,
 							})
 						end
 					end

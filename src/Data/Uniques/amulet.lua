@@ -391,9 +391,9 @@ Implicits: 1
 {version:1}(20-25)% chance to Freeze, Shock and Ignite
 {version:2}(25-50)% chance to Freeze, Shock and Ignite
 Cursed Enemies cannot inflict Elemental Ailments on You
+{version:2}{variant:3}{group:1}All Damage can Freeze against Cursed Enemies
 {version:2}{variant:1}{group:1}All Damage can Ignite against Cursed Enemies
 {version:2}{variant:2}{group:1}All Damage can Shock against Cursed Enemies
-{version:2}{variant:3}{group:1}All Damage can Freeze against Cursed Enemies
 ]],[[
 Extractor Mentis
 Agate Amulet
@@ -1236,6 +1236,7 @@ Variant: Pre 3.19.0
 Variant: Current
 Implicits: 1
 {tags:attribute}+(20-30) to Intelligence
+Grants Level 10 Purity of Elements
 {variant:1,2}{tags:attribute}+(5-10) to all Attributes
 {variant:3}{tags:attribute}+(10-20) to all Attributes
 {tags:resource}+(20-40) to maximum Life
