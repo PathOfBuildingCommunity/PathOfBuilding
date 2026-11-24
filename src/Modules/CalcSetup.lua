@@ -433,7 +433,9 @@ local function socketGroupsDisableWeapons(env, build, override)
 		local slot = group.slot and build.itemsTab.slots[group.slot]
 		local slotEnabled = not slot or not slot.weaponSet or slot.weaponSet == (build.itemsTab.activeItemSet.useSecondWeaponSet and 2 or 1)
 		-- Ignore skills granted by an item that's being replaced, e.g. when comparing weapons with The Dancing Dervish equipped
+		-- unless the replacement grants the same skill, e.g. another copy of The Dancing Dervish
 		local sourceReplaced = group.sourceItem and group.slot == override.repSlotName and group.sourceItem ~= override.repItem
+			and not (override.repItem and group.gemList[1] and itemGrantsSkill(override.repItem, group.gemList[1].skillId))
 		if not sourceReplaced and (index == env.mainSocketGroup or (group.enabled and slotEnabled)) then
 			for _, gemInstance in ipairs(group.gemList) do
 				if gemInstance.enabled then
@@ -1156,12 +1158,19 @@ function calcs.initEnv(build, mode, override, specEnv)
 						Int = item.requirements.intMod,
 					})
 				end
-				if itemGrantsSkill(item, "ManifestDancingDervishes") then
-					-- Rampage is kept as the Dancing Dervishes die when it ends
-					for _, mod in ipairs(item.modList or (item.slotModList and item.slotModList[slot.slotNum]) or { }) do
-						if mod.name == "Condition:Rampage" then
-							env.itemModDB:AddMod(mod)
+				-- Rampage is kept as the Dancing Dervishes die when it ends
+				-- Modifiers to socketed gems are kept as the supports socketed in the weapon still support its granted skill
+				local keepRampage = itemGrantsSkill(item, "ManifestDancingDervishes")
+				for _, mod in ipairs(item.modList or (item.slotModList and item.slotModList[slot.slotNum]) or { }) do
+					local keep = keepRampage and mod.name == "Condition:Rampage"
+					for _, tag in ipairs(mod) do
+						if tag.type == "SocketedIn" then
+							keep = true
+							break
 						end
+					end
+					if keep then
+						env.itemModDB:AddMod(mod)
 					end
 				end
 				item = nil

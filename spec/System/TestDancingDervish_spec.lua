@@ -140,6 +140,29 @@ describe("TestDancingDervish", function()
 		assert.is_true(player().modDB.conditions["AffectedByHatred"])
 	end)
 
+	it("keeps modifiers to socketed gems while the Dancing Dervishes are manifested", function()
+		build.skillsTab:PasteSocketGroup("Cyclone 20/0 1")
+		runCallback("OnFrame")
+		equip((dancingDervish:gsub("Implicits: 1", "Sockets: G-G\n\t\tImplicits: 2\n\t\t+20% to Quality of Socketed Gems")))
+		build.skillsTab:PasteSocketGroup("Slot: Weapon 1\nMinion Speed 20/0 1")
+		build.mainSocketGroup = 1
+		rebuild()
+		assert.is_true(player().weaponsDisabled)
+		local minionSpeed
+		for _, activeSkill in ipairs(player().activeSkillList) do
+			if activeSkill.activeEffect.grantedEffect.id == "ManifestDancingDervishes" then
+				for _, effect in ipairs(activeSkill.effectList) do
+					if effect.grantedEffect.name == "Minion Speed" then
+						minionSpeed = effect
+					end
+				end
+			end
+		end
+		assert.are.equals(20, minionSpeed.quality)
+		-- The weapon's other modifiers still don't apply
+		assert.are.equals(0, player().modDB:Sum("INC", nil, "Accuracy"))
+	end)
+
 	it("keeps Rampage while the Dancing Dervishes are manifested", function()
 		setup("Cyclone 20/0 1")
 		assert.is_true(player().weaponsDisabled)
@@ -261,6 +284,21 @@ describe("TestDancingDervish", function()
 		assert.is_false(env.player.weaponsDisabled)
 		assert.are.equals(sword, env.player.itemList["Weapon 1"])
 		assert.are.equals(10, env.modDB:Sum("INC", nil, "FireDamage"))
+	end)
+
+	it("disables another copy of The Dancing Dervish that's compared against the equipped one", function()
+		setup("Cyclone 20/0 1")
+		setCustomMods("Hollow Palm Technique")
+		local otherDervish = new("Item"):Item(dancingDervish)
+		local env = build.calcsTab.calcs.initEnv(build, "CALCULATOR", { repSlotName = "Weapon 1", repItem = otherDervish })
+		assert.is_true(env.player.weaponsDisabled)
+		assert.is_nil(env.player.itemList["Weapon 1"])
+		assert.are.equals(otherDervish, env.player.disabledItemList["Weapon 1"])
+		assert.are.equals("None", env.player.weaponData2.type)
+
+		local calcFunc = build.calcsTab:GetMiscCalculator()
+		local output = calcFunc({ repSlotName = "Weapon 1", repItem = otherDervish })
+		assert.are.equals(build.calcsTab.mainOutput.TotalDPS, output.TotalDPS)
 	end)
 
 	it("keeps the requirements of the disabled weapon", function()
