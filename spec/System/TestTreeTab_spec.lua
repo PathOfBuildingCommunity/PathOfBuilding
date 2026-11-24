@@ -194,7 +194,7 @@ describe("TreeTab", function()
 
 			assert.are.equals(2, copy1.id)
 			assert.are.equals(3, copy2.id)
-			assert.are.not_same(copy1, copy2)
+			assert.is_false(rawequal(copy1, copy2))
 		end)
 
 		it("Copies from copied spec", function()
