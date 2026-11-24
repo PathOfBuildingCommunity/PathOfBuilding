@@ -14,9 +14,6 @@ local prefixMap = {
 local visceraNum = 0
 for mod in dat("Mods"):Rows() do
 	if mod.Id:match("^VisceraMod") then
-		if mod.Id:match("Basilisk") then
-			local l = 1
-		end
 		visceraNum += 1
 		local prefix = ""
 		for _, tag in ipairs(mod.Tags) do
