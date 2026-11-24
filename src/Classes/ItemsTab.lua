@@ -30,7 +30,7 @@ for itemType, file in pairs({
 	["Gloves"] = "icon_gloves",
 	["Boots"] = "icon_boots",
 	["Amulet"] = "icon_amulet",
-	["Ring"] = "icon_ring_left",
+	["Ring"] = "icon_ring",
 	["Belt"] = "icon_belt",
 	["Flask"] = "icon_flask",
 	["Tincture"] = "icon_flask",
