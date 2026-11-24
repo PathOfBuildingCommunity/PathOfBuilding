@@ -143,23 +143,24 @@ describe("TestDancingDervish", function()
 	it("keeps modifiers to socketed gems while the Dancing Dervishes are manifested", function()
 		build.skillsTab:PasteSocketGroup("Cyclone 20/0 1")
 		runCallback("OnFrame")
-		equip((dancingDervish:gsub("Implicits: 1", "Sockets: B-B\n\t\tImplicits: 3\n\t\t+20%% to Quality of Socketed Gems\n\t\t+100%% to Lightning Resistance when Socketed with a Blue Gem")))
-		build.skillsTab:PasteSocketGroup("Slot: Weapon 1\nMinion Speed 20/0 1")
+		equip((dancingDervish:gsub("Implicits: 1", "Sockets: B-R\n\t\tImplicits: 4\n\t\t+20%% to Quality of Socketed Gems\n\t\t+100%% to Lightning Resistance when Socketed with a Blue Gem\n\t\tGems Socketed in Red Sockets have +1 to Level")))
+		build.skillsTab:PasteSocketGroup("Slot: Weapon 1\nMinion Speed 20/0 1\nMinion Damage 20/0 1")
 		build.mainSocketGroup = 1
 		rebuild()
 		assert.is_true(player().weaponsDisabled)
-		local minionSpeed
+		local supports = { }
 		for _, activeSkill in ipairs(player().activeSkillList) do
 			if activeSkill.activeEffect.grantedEffect.id == "ManifestDancingDervishes" then
 				for _, effect in ipairs(activeSkill.effectList) do
-					if effect.grantedEffect.name == "Minion Speed" then
-						minionSpeed = effect
-					end
+					supports[effect.grantedEffect.name] = effect
 				end
 			end
 		end
 		-- On top of the bonus for a gem in a socket of its colour
-		assert.are.equals(20 + minionSpeed.socketQuality, minionSpeed.quality)
+		assert.are.equals(20 + supports["Minion Speed"].socketQuality, supports["Minion Speed"].quality)
+		assert.are.equals(20, supports["Minion Speed"].level)
+		-- Minion Damage is in the red socket
+		assert.are.equals(21, supports["Minion Damage"].level)
 		-- The weapon's other modifiers still don't apply, including player stats that depend on the socketed gems
 		assert.are.equals(0, player().modDB:Sum("INC", nil, "Accuracy"))
 		-- Minion Speed is a blue gem
