@@ -1085,6 +1085,53 @@ describe("TestDefence", function()
 			assert.are.equals(sentinel.life, build.calcsTab.calcsOutput.TotalRadianceSentinelLife)
 		end)
 
+		it("calculates secondary Void Spawn life with a non-minion main skill", function()
+			build.skillsTab:PasteSocketGroup("Fireball 20/0  1")
+			build.mainSocketGroup = 1
+			build.itemsTab:CreateDisplayItemFromRaw("Servant of Decay\nTorturer Garb\nTrigger Level 20 Summon Void Spawn every 4 seconds\n5% of Damage from Hits is taken from Void Spawns' Life before you per Void Spawn")
+			build.itemsTab:AddDisplayItem()
+			build.calcsTab:BuildOutput()
+
+			local env = build.calcsTab.mainEnv
+			assert.is_nil(env.minion)
+			assert.is_true(env.player.output.TotalVoidSpawnLife > 0)
+		end)
+
+		it("uses each minion's energy shield table and level", function()
+			build.spectreList = { "Metadata/Monsters/ParasiticSquid/ParasiticSquidAbyssSpectre" }
+			build.skillsTab:PasteSocketGroup("Fireball 20/0  1")
+			build.skillsTab:PasteSocketGroup("Raise Spectre 20/0  1")
+			build.itemsTab:CreateDisplayItemFromRaw("Servant of Decay\nTorturer Garb\nTrigger Level 20 Summon Void Spawn every 4 seconds\n5% of Damage from Hits is taken from Void Spawns' Life before you per Void Spawn")
+			build.itemsTab:AddDisplayItem()
+			build.configTab:BuildModList()
+			build.configTab.modList:NewMod("takenFromSpectresBeforeYou", "BASE", 15, "Test")
+
+			for _, mainSkill in ipairs({ 1, 2 }) do
+				build.mainSocketGroup = mainSkill
+				build.calcsTab:BuildOutput()
+				local env = build.calcsTab.mainEnv
+				local found = { }
+				for _, skill in ipairs(env.player.activeSkillList) do
+					local minion = skill.minion
+					if minion and (skill.skillFlags.spectre or skill.activeEffect.grantedEffect.name == "Summon Void Spawn") then
+						local lifeTable = skill.skillFlags.spectre and minion.lifeTable or env.data.monsterAllyLifeTable
+						local expected = math.floor(math.floor(lifeTable[minion.level] * minion.minionData.life) * minion.minionData.energyShield * data.gameConstants["EnergyShieldRatioOfLife"] / 100)
+						local mods = minion.modDB:Tabulate("BASE", nil, "EnergyShield")
+						local base
+						for _, entry in ipairs(mods) do
+							if entry.mod.source == "Base" then
+								base = entry.value
+							end
+						end
+						assert.are.equals(expected, base)
+						found[skill.skillFlags.spectre and "spectre" or "voidSpawn"] = true
+					end
+				end
+				assert.is_true(found.spectre)
+				assert.is_true(found.voidSpawn)
+			end
+		end)
+
 		it("calculates total Void Spawn life automatically", function()
 			build.itemsTab:CreateDisplayItemFromRaw("Servant of Decay\nTorturer Garb\nTrigger Level 20 Summon Void Spawn every 4 seconds\n5% of Damage from Hits is taken from Void Spawns' Life before you per Void Spawn")
 			build.itemsTab:AddDisplayItem()
