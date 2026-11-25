@@ -3398,6 +3398,7 @@ function ItemsTabClass:CorruptDisplayItem()
 		local item = new("Item"):Item(self.displayItem:BuildRaw())
 		item.id = self.displayItem.id
 		item.corrupted = true
+		item.corruptedExplicit = true
 		local mod = entry.mod
 		local targetLines = (modType == "ScourgeUpside" or modType == "ScourgeDownside") and item.scourgeModLines or item.implicitModLines
 		wipeTable(targetLines)
@@ -3465,6 +3466,7 @@ function ItemsTabClass:CorruptDisplayItem()
 		local item = new("Item"):Item(self.displayItem:BuildRaw())
 		item.id = self.displayItem.id
 		item.corrupted = true
+		item.corruptedExplicit = true
 		local specialCorruptLine
 		if currentModType ~= "ScourgeUpside" then
 			for i, modLine in ipairs(self.displayItem.implicitModLines) do
@@ -4661,7 +4663,7 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode, maxWidth)
 		if modList[1] then
 			for _, modLine in ipairs(modList) do
 				local variantCount = item:GetModLineVariantCount(modLine)
-				if variantCount > 0 then
+				if variantCount > 0 and not (modLine.line == "Corrupted" and modLine.variantList) then
 					local formattedModLine = itemLib.formatModLine(modLine, dbMode)
 					if formattedModLine then
 						for _ = 1, variantCount do

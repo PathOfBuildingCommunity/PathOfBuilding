@@ -425,7 +425,7 @@ function M.buildModMap(item)
 	if not item then return modMap end
 	for _, modList in ipairs{item.enchantModLines or {}, item.scourgeModLines or {}, item.implicitModLines or {}, item.explicitModLines or {}, item.crucibleModLines or {}} do
 		for _, modLine in ipairs(modList) do
-			if item:CheckModLineVariant(modLine) then
+			if item:CheckModLineVariant(modLine) and not (modLine.line == "Corrupted" and modLine.variantList) then
 				local formatted = itemLib.formatModLine(modLine)
 				if formatted then
 					local template = M.modLineTemplate(modLine.line)

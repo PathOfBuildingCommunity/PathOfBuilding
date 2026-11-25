@@ -31,6 +31,23 @@ Grants Level 20 Summon Bestial Snake Skill]])
 			assert.is_false(entries[1].isOption)
 		end)
 
+		it("omits variant corruption from modifier comparisons and search filters", function()
+			local item = new("Item"):Item([[Rarity: UNIQUE
+Careful Planning
+Viridian Jewel
+Variant: Old
+Variant: Current
+Selected Variant: 2
+Implicits: 0
++20 to Dexterity
+{variant:2}Corrupted]])
+			local entries = bs.addModEntries(item, { { list = item.explicitModLines, type = "explicit" } })
+			assert.equal(1, #entries)
+			assert.matches("Dexterity", entries[1].formattedLines[1])
+			local modMap = LoadModule("Classes/TradeHelpers").buildModMap(item)
+			assert.is_nil(modMap.Corrupted)
+		end)
+
 		it("matches impossible escape mods as options", function()
 			local fromNothing = new("Item"):Item([[
 Impossible Escape
