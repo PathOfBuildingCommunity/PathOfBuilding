@@ -1800,7 +1800,10 @@ function calcs.initEnv(build, mode, override, specEnv)
 							-- Validate support gem level in case there is no active skill (and no full calculation)
 							calcLib.validateGemLevel(supportEffect)
 
-							if not socketedSupportsDisabled then
+							if not socketedSupportsDisabled
+							-- support parts of skill gems are still allowed as
+							-- the above only affects support gems.
+							or (gemInstance.gemData and not gemInstance.gemData.grantedEffect.support) then
 								for _, targetList in ipairs(targetListList) do
 									addBestSupport(supportEffect, targetList, env.mode)
 								end

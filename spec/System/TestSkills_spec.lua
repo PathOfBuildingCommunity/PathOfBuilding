@@ -274,6 +274,38 @@ describe("TestSkills", function()
 		assert.is_nil(supports.SupportSacredWisps)
 	end)
 
+	it("applies Bane's support part in Mantle of Dreams while disabling socketed support gems", function()
+		build.itemsTab:CreateDisplayItemFromRaw("Rarity: UNIQUE\nMantle of Dreams\nTwilight Regalia\nSockets: B-B-B\nImplicits: 0\nSocketed Support Gems have no effect")
+		build.itemsTab:AddDisplayItem()
+		build.skillsTab:PasteSocketGroup("Slot: Body Armour\nBane 20/0  1\nDespair 20/0  1\nControlled Destruction 20/0  1\n")
+		runCallback("OnFrame")
+
+		local despair
+		local bane
+		for _, activeSkill in ipairs(build.calcsTab.mainEnv.player.activeSkillList) do
+			if activeSkill.activeEffect.grantedEffect.id == "Despair" then
+				despair = activeSkill
+			end
+			if activeSkill.activeEffect.grantedEffect.id == "Bane" then
+				bane = activeSkill
+			end
+		end
+		assert.is_not_nil(despair)
+		assert.is_not_nil(bane)
+
+		local supports = { }
+		for _, effect in ipairs(despair.effectList) do
+			supports[effect.grantedEffect.id] = true
+		end
+		assert.is_true(supports.SupportDarkRitual)
+		assert.is_nil(supports.SupportControlledDestruction)
+
+		-- Level 20 Bane grants 42% more damage per curse applied.
+		assert.are.near(1.42, bane.skillModList:More(bane.skillCfg, "Damage"), 1e-9)
+		-- Bane's support part applies 25% less curse effect to Despair.
+		assert.are.near(0.75, despair.skillModList:More(despair.skillCfg, "CurseEffect"), 1e-9)
+	end)
+
 	it("keeps Mana-Infused Staff reservation on mana and disables it without mana", function()
 		build.itemsTab:CreateDisplayItemFromRaw("Test Staff\nJudgement Staff")
 		build.itemsTab:AddDisplayItem()

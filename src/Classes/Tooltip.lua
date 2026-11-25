@@ -40,7 +40,6 @@ for _, recipeName in pairs(recipeNames) do
 	recipeImages[recipeName]:Load("TreeData/" .. recipeName .. ".png", "CLAMP")
 end
 
-
 -- spell-checker: disable
 local headerConfigs = {
 	RELIC = {left="Assets/itemsheaderfoilleft.png",middle="Assets/itemsheaderfoilmiddle.png",right="Assets/itemsheaderfoilright.png",height=54,sideWidth=47,middleWidth=52,textYOffset=3,allowInfluenceIcon=true},
@@ -56,6 +55,7 @@ local headerConfigs = {
 	ASCENDANCY = {left="Assets/ascendancypassiveheaderleft.png",middle="Assets/ascendancypassiveheadermiddle.png",right="Assets/ascendancypassiveheaderright.png",height=38,sideWidth=33,middleWidth=38,textYOffset=6},
 	MASTERY = {left="Assets/masteryheaderunallocatedleft.png",middle="Assets/masteryheaderunallocatedmiddle.png",right="Assets/masteryheaderunallocatedright.png",height=38,sideWidth=33,middleWidth=38,textYOffset=6},
 	MASTERYALLOC = {left="Assets/masteryheaderallocatedleft.png",middle="Assets/masteryheaderallocatedmiddle.png",right="Assets/masteryheaderallocatedright.png",height=38,sideWidth=33,middleWidth=38,textYOffset=6},
+	VISCERA = {left="Assets/itemsheadervisceraleft.png",middle="Assets/itemsheadervisceramiddle.png",right="Assets/itemsheadervisceraright.png",height=38,sideWidth=38,middleWidth=38,textYOffset=6},
 }
 local headerInfluence = {
 	Fractured = "Assets/fracturedicon.png",
@@ -188,8 +188,8 @@ function TooltipClass:AddSeparator(size)
 	local separatorImage = nil
 
 	if self.tooltipHeader then
-		local rarity = tostring(self.tooltipHeader):upper()
-		separatorImage = getCachedImage(separatorConfigs[rarity] or separatorConfigs.NORMAL)
+		local headerType = tostring(self.tooltipHeader):upper()
+		separatorImage = getCachedImage(separatorConfigs[headerType] or separatorConfigs.NORMAL)
 	end
 
 	local lastBlock = lastLine and lastLine.block or 1
@@ -433,8 +433,8 @@ function TooltipClass:Draw(x, y, w, h, viewPort)
 	end
 	local config
 	if self.tooltipHeader and main.showFlavourText and self.lines[1] and self.lines[1].text then
-		local rarity = tostring(self.tooltipHeader):upper()
-		config = headerConfigs[rarity] or headerConfigs.NORMAL
+		local headerType = tostring(self.tooltipHeader):upper()
+		config = headerConfigs[headerType] or headerConfigs.NORMAL
 		self.titleYOffset = config.textYOffset or 0
 	end
 	local ttX = x
@@ -485,8 +485,8 @@ function TooltipClass:Draw(x, y, w, h, viewPort)
 
 	-- Item header (drawn within borders)
 	if self.tooltipHeader and main.showFlavourText and self.lines[1] and self.lines[1].text then
-		local rarity = tostring(self.tooltipHeader):upper()
-		local config = headerConfigs[rarity] or headerConfigs.NORMAL
+		local headerType = tostring(self.tooltipHeader):upper()
+		local config = headerConfigs[headerType] or headerConfigs.NORMAL
 
 		self.titleYOffset = config.textYOffset or 0
 
@@ -570,7 +570,7 @@ function TooltipClass:Draw(x, y, w, h, viewPort)
 				-- Only skip first separator for items and skill gems
 				local tooltipType = self.tooltipHeader and tostring(self.tooltipHeader):upper() or ""
 				if main.showFlavourText and not firstSeparatorSkipped and
-				(tooltipType == "RELIC" or tooltipType == "UNIQUE" or tooltipType == "RARE" or tooltipType == "MAGIC" or tooltipType == "GEM") then
+				(tooltipType == "RELIC" or tooltipType == "UNIQUE" or tooltipType == "RARE" or tooltipType == "MAGIC" or tooltipType == "GEM" or tooltipType == "VISCERA") then
 					firstSeparatorSkipped = true
 					skip = true
 				else
@@ -657,6 +657,7 @@ function TooltipClass:Draw(x, y, w, h, viewPort)
 	-- draw horizontal borders
 	DrawImage(nil, ttX, ttY, totalDrawWidth, BORDER_WIDTH) -- top
 	DrawImage(nil, ttX, ttY + maxColumnHeight - BORDER_WIDTH, totalDrawWidth, BORDER_WIDTH) -- bottom
+	SetDrawColor(1, 1, 1) -- Reset draw color to white as it messes with Spectre Library
 
 	-- draw child tooltips for item skills. these are placed directly to the right of the main
 	-- tooltip, growing downwards, unless they would go outside the viewport, in which case they
