@@ -236,7 +236,7 @@ function M.addModEntries(item, modTypeSources)
 	for _, source in ipairs(modTypeSources) do
 		if source.list then
 			for _, modLine in ipairs(source.list) do
-				if item:CheckModLineVariant(modLine) then
+				if item:CheckModLineVariant(modLine) and not (modLine.line == "Corrupted" and modLine.variantList) then
 					local modLine = copyTable(modLine)
 					-- remove unsupported data. the formatting of unsupported
 					-- mods is confusing here

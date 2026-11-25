@@ -651,6 +651,31 @@ Implicits: 1
 		assert.are.equals(10, item.baseModList[1].value) -- variant 2 has +10 to Strength
 	end)
 
+	it("tracks corruption across variant changes and saved item text", function()
+		local item = new("Item"):Item([[Rarity: UNIQUE
+Careful Planning
+Viridian Jewel
+Variant: Pre 3.20.0
+Variant: Current
+Selected Variant: 2
+Implicits: 0
+{variant:2}Corrupted]])
+		assert.is_true(item.corrupted)
+		local saved = item:BuildRaw()
+		assert.matches("{variant:2}Corrupted", saved, 1, true)
+		item = new("Item"):Item(saved)
+		item.variant = 1
+		item:BuildAndParseRaw()
+		assert.is_falsy(item.corrupted)
+		item.variant = 2
+		item:BuildAndParseRaw()
+		assert.is_true(item.corrupted)
+		item.corruptedExplicit = true
+		item.variant = 1
+		item:BuildAndParseRaw()
+		assert.is_true(item.corrupted)
+	end)
+
 	it("range", function()
 		local item = new("Item"):Item(raw("{range:0.8}+(8-12) to Strength"))
 		assert.are.equals(0.8, item.explicitModLines[1].range)

@@ -3616,7 +3616,7 @@ function CompareTabClass:DrawItemExpanded(item, x, startY, colWidth, otherModMap
 	for _, modListData in ipairs{item.enchantModLines or {}, item.scourgeModLines or {}, item.implicitModLines or {}, item.explicitModLines or {}, item.crucibleModLines or {}} do
 		local drewAny = false
 		for _, modLine in ipairs(modListData) do
-			if item:CheckModLineVariant(modLine) then
+			if item:CheckModLineVariant(modLine) and not (modLine.line == "Corrupted" and modLine.variantList) then
 				local formatted = itemLib.formatModLine(modLine)
 				if formatted then
 					if otherModMap then

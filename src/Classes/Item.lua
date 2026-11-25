@@ -423,6 +423,9 @@ end
 -- Parse raw item data and extract item name, base type, quality, and modifiers
 function ItemClass:ParseRaw(raw, rarity, highQuality)
 	self.raw = raw
+	self.corrupted = nil
+	self.corruptedExplicit = nil
+	self.variantCorrupted = nil
 	self.name = "?"
 	self.namePrefix = ""
 	self.nameSuffix = ""
@@ -559,6 +562,7 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 			self.mirrored = true
 		elseif line == "Corrupted" then
 			self.corrupted = true
+			self.corruptedExplicit = true
 		elseif line == "Fractured Item" then
 			self.fractured = true
 		elseif line == "Synthesised Item" then
@@ -2066,7 +2070,7 @@ function ItemClass:BuildRaw()
 	if self.fractured then
 		t_insert(rawLines, "Fractured Item")
 	end
-	if self.corrupted or self.scourge then
+	if self.scourge or (self.corrupted and (self.corruptedExplicit or not self.variantCorrupted)) then
 		t_insert(rawLines, "Corrupted")
 	end
 	if self.foilType then
@@ -2571,6 +2575,14 @@ local function getRangedModList(item, modLine)
 end
 -- Build lists of modifiers for each slot the item can occupy
 function ItemClass:BuildModList()
+	self.variantCorrupted = nil
+	for _, modLine in ipairs(self.explicitModLines) do
+		if modLine.line == "Corrupted" and modLine.variantList and self:CheckModLineVariant(modLine) then
+			self.variantCorrupted = true
+			break
+		end
+	end
+	self.corrupted = self.corruptedExplicit or self.variantCorrupted
 	if not self.base then
 		return
 	end
