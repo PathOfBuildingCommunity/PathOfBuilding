@@ -1375,6 +1375,41 @@ describe("TetsItemMods", function()
 		end)
 	end)
 
+	describe("veiled jewel modifiers", function()
+		local maul = "Rarity: NORMAL\nDriftwood Maul"
+		local function calc(skills, mods, config, weapon)
+			newBuild()
+			if weapon then
+				build.itemsTab:CreateDisplayItemFromRaw(weapon)
+				build.itemsTab:AddDisplayItem()
+			end
+			for _, skill in ipairs(skills) do
+				build.skillsTab:PasteSocketGroup(skill)
+			end
+			build.configTab.input.customMods = mods
+			for var, value in pairs(config or { }) do
+				build.configTab.input[var] = value
+			end
+			build.configTab:BuildModList()
+			runCallback("OnFrame")
+			runCallback("OnFrame")
+			return build.calcsTab.mainOutput, build.calcsTab.mainEnv
+		end
+
+		it("increases stun duration on Intimidated enemies", function()
+			local stun = "Enemies Intimidated by you have 10% increased duration of stuns against them"
+			assert.near(0.35, calc({ "Heavy Strike 20/0  1" }, stun, nil, maul).MainHand.EnemyStunDuration, 0.0001)
+			assert.near(0.385, calc({ "Heavy Strike 20/0  1" }, stun, { conditionEnemyIntimidated = true }, maul).MainHand.EnemyStunDuration, 0.0001)
+		end)
+
+		it("does not count more ignored Mana Burn than is applied", function()
+			for stacks, expected in pairs({ [5] = 3, [1] = 0 }) do
+				local _, env = calc({ "Heavy Strike 20/0  1" }, "The first 2 Mana Burn applied to you has no effect", { multiplierManaBurnStacks = stacks }, maul)
+				assert.are.equals(expected, env.player.modDB:Sum("BASE", nil, "Multiplier:EffectiveManaBurnStacks"))
+			end
+		end)
+	end)
+
 	it("uses the item base for rare-like modifier eligibility by default", function()
 		local item = new("Item"):Item([[
 			Item Class: Bows

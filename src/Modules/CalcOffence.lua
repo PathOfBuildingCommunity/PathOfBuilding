@@ -5599,7 +5599,7 @@ function calcs.offence(env, actor, activeSkill)
 			output.EnemyStunThresholdMod = 1 - enemyStunThresholdRed / 100
 		end
 		local base = skillData.baseStunDuration or 0.35
-		local incDur = skillModList:Sum("INC", cfg, "EnemyStunDuration")
+		local incDur = skillModList:Sum("INC", cfg, "EnemyStunDuration") + enemyDB:Sum("INC", cfg, "StunDuration")
 		local incDurCrit = skillModList:Sum("INC", cfg, "EnemyStunDurationOnCrit")
 		local moreDur = skillModList:More(cfg, "EnemyStunDuration")
 		local chanceToDouble = m_min(skillModList:Sum("BASE", cfg, "DoubleEnemyStunDurationChance") + enemyDB:Sum("BASE", cfg, "SelfDoubleStunDurationChance"), 100)
