@@ -1367,6 +1367,10 @@ function ItemsTabClass:Load(xml, dbFileName)
 		elseif node.elem == "ItemSet" then
 			local itemSet = self:CreateItemSet(tonumber(node.attrib.id), node.attrib.title or "Default")
 			itemSet.useSecondWeaponSet = node.attrib.useSecondWeaponSet == "true"
+			itemSet.mercenaryType = node.attrib.mercenaryType
+			itemSet.mercenaryName = node.attrib.mercenaryName
+			itemSet.mercenaryBuild = node.attrib.mercenaryBuild
+			itemSet.mercenaryLevel = tonumber(node.attrib.mercenaryLevel)
 			for _, child in ipairs(node) do
 				if child.elem == "Slot" then
 					local slotName = child.attrib.name or ""
@@ -1469,7 +1473,15 @@ function ItemsTabClass:Save(xml)
 	end
 	for _, itemSetId in ipairs(self.itemSetOrderList) do
 		local itemSet = self.itemSets[itemSetId]
-		local child = { elem = "ItemSet", attrib = { id = tostring(itemSetId), title = itemSet.title, useSecondWeaponSet = tostring(itemSet.useSecondWeaponSet) } }
+		local child = { elem = "ItemSet", attrib = {
+			id = tostring(itemSetId),
+			title = itemSet.title,
+			useSecondWeaponSet = tostring(itemSet.useSecondWeaponSet),
+			mercenaryType = itemSet.mercenaryType,
+			mercenaryName = itemSet.mercenaryName,
+			mercenaryBuild = itemSet.mercenaryBuild,
+			mercenaryLevel = itemSet.mercenaryLevel and tostring(itemSet.mercenaryLevel),
+		} }
 		for _, slot in ipairs(self.orderedSlots) do
 			local slotName = slot.slotName
 			if not slot.nodeId then
@@ -1656,9 +1668,41 @@ function ItemsTabClass:Draw(viewPort, inputEvents)
 	self.controls.specSelect:SetList(self.build.treeTab:GetSpecList())
 end
 
+function ItemsTabClass:IsLuminary()
+	return self.build and self.build.spec and self.build.spec.curAscendClassName == "Luminary"
+end
+
+function ItemsTabClass:IsItemEquippedByMercenary(itemId)
+	if not itemId or itemId == 0 then
+		return false
+	end
+	local partyTab = self.build and self.build.partyTab
+	if partyTab and partyTab.mercenaries then
+		for _, merc in ipairs(partyTab.mercenaries) do
+			if merc.items then
+				for _, id in pairs(merc.items) do
+					if id == itemId then
+						return true, self.activeItemSet
+					end
+				end
+			end
+		end
+	end
+	for _, itemSet in pairs(self.itemSets) do
+		if itemSet.mercenaryItems then
+			for _, id in pairs(itemSet.mercenaryItems) do
+				if id == itemId then
+					return true, itemSet
+				end
+			end
+		end
+	end
+	return false
+end
+
 -- Creates a new item set
 function ItemsTabClass:CreateItemSet(itemSetId, name)
-	local itemSet = { id = itemSetId, title = name }
+	local itemSet = { id = itemSetId, title = name, mercenaryItems = {} }
 	if not itemSetId then
 		itemSet.id = 1
 		while self.itemSets[itemSet.id] do
@@ -1722,6 +1766,7 @@ function ItemsTabClass:SetActiveItemSet(itemSetId, deferSync)
 	self.activeItemSetId = itemSetId
 	self.activeItemSet = self.itemSets[itemSetId]
 	local curSet = self.activeItemSet
+	curSet.mercenaryItems = curSet.mercenaryItems or {}
 	for slotName, slot in pairs(self.slots) do
 		if not slot.nodeId then
 			if prevSet then
@@ -1780,6 +1825,10 @@ end
 function ItemsTabClass:PopulateSlots()
 	for _, slot in pairs(self.slots) do
 		slot:Populate()
+	end
+	local partyTab = self.build and self.build.partyTab
+	if partyTab and partyTab.SyncMercenaryItemsList then
+		partyTab:SyncMercenaryItemsList()
 	end
 end
 
@@ -1998,6 +2047,32 @@ function ItemsTabClass:DeleteItem(item, deferUndoState)
 					self.build.buildFlag = true
 				end
 			end
+		end
+	end
+	for _, itemSet in pairs(self.itemSets) do
+		if itemSet.mercenaryItems then
+			for mercSlot, mercItemId in pairs(itemSet.mercenaryItems) do
+				if mercItemId == item.id then
+					itemSet.mercenaryItems[mercSlot] = nil
+				end
+			end
+		end
+	end
+	local partyTab = self.build and self.build.partyTab
+	if partyTab and partyTab.mercenaries then
+		local changed = false
+		for _, merc in ipairs(partyTab.mercenaries) do
+			if merc.items then
+				for mercSlot, mercItemId in pairs(merc.items) do
+					if mercItemId == item.id then
+						merc.items[mercSlot] = nil
+						changed = true
+					end
+				end
+			end
+		end
+		if changed and partyTab.SyncMercenaryItemsList then
+			partyTab:SyncMercenaryItemsList()
 		end
 	end
 	for index, id in pairs(self.itemOrderList) do
@@ -2702,6 +2777,18 @@ function ItemsTabClass:GetComparisonSlotNameForItem(item, activeOnly)
 end
 -- Check if the given item could be equipped in the given slot, taking into account possible conflicts with currently equipped items
 -- For example, a shield is not valid for Weapon 2 if Weapon 1 is a staff, and a wand is not valid for Weapon 2 if Weapon 1 is a dagger
+local function isValidOffhandForWeapon1(itemsTab, item, weapon1Sel)
+	local weapon1Type = itemsTab.items[weapon1Sel] and itemsTab.items[weapon1Sel].base.type or "None"
+	if weapon1Type == "None" then
+		return item.type == "Shield" or (itemsTab.build.data.weaponTypeInfo[item.type] and itemsTab.build.data.weaponTypeInfo[item.type].oneHand)
+	elseif weapon1Type == "Bow" then
+		return item.type == "Quiver"
+	elseif itemsTab.build.data.weaponTypeInfo[weapon1Type].oneHand then
+		return item.type == "Shield" or (itemsTab.build.data.weaponTypeInfo[item.type] and itemsTab.build.data.weaponTypeInfo[item.type].oneHand and ((weapon1Type == "Wand" and item.type == "Wand") or (weapon1Type ~= "Wand" and item.type ~= "Wand")))
+	end
+	return false
+end
+
 function ItemsTabClass:IsItemValidForSlot(item, slotName, itemSet)
 	itemSet = itemSet or self.activeItemSet
 	local slotType, slotId = slotName:match("^([%a ]+) (%d+)$")
@@ -2746,13 +2833,8 @@ function ItemsTabClass:IsItemValidForSlot(item, slotName, itemSet)
 		return item.base.weapon ~= nil
 	elseif slotName == "Weapon 2" or slotName == "Weapon 2 Swap" then
 		local weapon1Sel = itemSet[slotName == "Weapon 2" and "Weapon 1" or "Weapon 1 Swap"].selItemId or 0
-		local weapon1Type = self.items[weapon1Sel] and self.items[weapon1Sel].base.type or "None"
-		if weapon1Type == "None" then
-			return item.type == "Shield" or (self.build.data.weaponTypeInfo[item.type] and self.build.data.weaponTypeInfo[item.type].oneHand)
-		elseif weapon1Type == "Bow" then
-			return item.type == "Quiver"
-		elseif self.build.data.weaponTypeInfo[weapon1Type].oneHand then
-			return item.type == "Shield" or (self.build.data.weaponTypeInfo[item.type] and self.build.data.weaponTypeInfo[item.type].oneHand and ((weapon1Type == "Wand" and item.type == "Wand") or (weapon1Type ~= "Wand" and item.type ~= "Wand")))
+		if isValidOffhandForWeapon1(self, item, weapon1Sel) then
+			return true
 		end
 	end
 end

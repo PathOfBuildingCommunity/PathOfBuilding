@@ -56,7 +56,8 @@ function TradeQueryRateLimiterClass:TradeQueryRateLimiter()
 		["trade-search-request-limit"] = {},
 		["trade-fetch-request-limit"] = {},
 		["character-list-request-limit"] = {},
-		["character-request-limit"] = {}
+		["character-request-limit"] = {},
+		["league-account-request-limit"] = {}
 	}
 	return self
 end
@@ -225,6 +226,7 @@ function TradeQueryRateLimiterClass:InsertRequest(policy, timestamp, time)
 	end
 	local requestId = self.requestId
 	self.requestId = self.requestId + 1
+	self.pendingRequests[policy] = self.pendingRequests[policy] or {}
 	table.insert(self.pendingRequests[policy], requestId)
 	return requestId 
 end

@@ -255,7 +255,14 @@ function ItemListClass:GetRowValue(column, index, itemId)
 		if used == "" then
 			local slot, itemSet = self.itemsTab:GetEquippedSlotForItem(item)
 			if not slot then
-				used = "  ^9(Unused)"
+				local isMerc, mercSet = self.itemsTab:IsItemEquippedByMercenary(itemId)
+				if isMerc and mercSet and mercSet ~= self.itemsTab.activeItemSet then
+					used = "  ^9(Mercenary in '" .. (mercSet.title or "Default") .. "')"
+				elseif isMerc then
+					used = "  ^9(Mercenary)"
+				else
+					used = "  ^9(Unused)"
+				end
 			elseif itemSet then
 				used = "  ^9(Used in '" .. (itemSet.title or "Default") .. "')"
 			end
