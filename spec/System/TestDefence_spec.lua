@@ -7,6 +7,18 @@ describe("TestDefence", function()
 		-- newBuild() takes care of resetting everything in setup()
 	end)
 
+	it("shows totem physical damage reduction without giving it to the player", function()
+		build.skillsTab:PasteSocketGroup("Holy Flame Totem 20/0  1")
+		for _, case in ipairs({ { mods = "Totems have 15% additional Physical Damage Reduction", expected = 15 }, { mods = "Totems have 60% additional Physical Damage Reduction\nTotems have 40% additional Physical Damage Reduction", expected = 75 } }) do
+			build.configTab.input.customMods = case.mods
+			build.configTab:BuildModList()
+			runCallback("OnFrame")
+			local output = build.calcsTab.mainOutput
+			assert.are.equals(case.expected, output.TotemPhysicalDamageReduction)
+			assert.are.equals(0, output.PhysicalDamageReduction)
+		end
+	end)
+
 	it("converts physical damage over time independently of hit damage", function()
 		build.configTab.input.enemyDamageType = "DamageOverTime"
 		for _, damageType in ipairs({ "Physical", "Lightning", "Cold", "Fire", "Chaos" }) do

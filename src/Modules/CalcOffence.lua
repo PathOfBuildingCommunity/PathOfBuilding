@@ -1447,6 +1447,7 @@ function calcs.offence(env, actor, activeSkill)
 		output.TotemEnergyShield = skillModList:Sum("BASE", skillCfg, "TotemEnergyShield")
 		output.TotemBlockChance = skillModList:Sum("BASE", skillCfg, "TotemBlockChance")
 		output.TotemArmour = skillModList:Sum("BASE", skillCfg, "TotemArmour")
+		output.TotemPhysicalDamageReduction = m_min(skillModList:Sum("BASE", skillCfg, "TotemPhysicalDamageReduction"), data.misc.EnemyPhysicalDamageReductionCap)
 		if breakdown then
 			breakdown.TotemLifeMod = breakdown.mod(skillModList, skillCfg, "TotemLife")
 			breakdown.TotemLife = {
