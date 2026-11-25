@@ -914,6 +914,23 @@ function calcs.offence(env, actor, activeSkill)
 			skillModList:NewMod("PhysicalMax", "BASE", m_floor((actor.weaponData1["PhysicalMax"] or 0) * mult), "Runegraft of the Spellbound", ModFlag.Spell)
 		end
 	end
+	-- dagger/wand to spell damage conversion from abyss jewel veiled mod
+	for _, weaponType in ipairs({ "Dagger", "Wand" }) do
+		local percent = skillModList:Sum("BASE", skillCfg, weaponType .. "DamageAppliesToSpells")
+		if percent > 0 then
+			local weapon1Matches = actor.weaponData1.type == weaponType or (weaponType == "Dagger" and actor.weaponData1.countsAsAll1H)
+			local weapon2Matches = actor.weaponData2.type == weaponType or (weaponType == "Dagger" and actor.weaponData2.countsAsAll1H)
+			local dualWieldPercent = skillModList:Max(skillCfg, weaponType .. "DamageAppliesToSpellsDualWieldPercent") or 100
+			local mult = percent / 100 * (weapon1Matches and weapon2Matches and dualWieldPercent / 100 or 1)
+			for _, damageType in ipairs(dmgTypeList) do
+				for _, flatType in ipairs({ "Min", "Max" }) do
+					local stat = damageType .. flatType
+					local base = (weapon1Matches and actor.weaponData1[stat] or 0) + (weapon2Matches and actor.weaponData2[stat] or 0)
+					skillModList:NewMod(stat, "BASE", m_floor(base * mult), "Equipped " .. weaponType, ModFlag.Spell)
+				end
+			end
+		end
+	end
 	if skillData.gainPercentBaseWandDamageToSpells then
 		local mult = skillData.gainPercentBaseWandDamageToSpells / 100
 		if actor.weaponData1.type == "Wand" and actor.weaponData2.type == "Wand" then

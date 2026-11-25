@@ -1355,6 +1355,9 @@ for modId, mod in pairs(data.itemMods.JewelAbyss) do
 		subsumeTheSourceMods[modId] = mod
 	end
 end
+for modId, mod in pairs(data.veiledMods) do
+	subsumeTheSourceMods[modId] = mod
+end
 
 local veiledMasterSpawnTags = {}
 local veiledMods = {}

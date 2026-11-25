@@ -1281,6 +1281,100 @@ describe("TetsItemMods", function()
 		assert.is_truthy(raw:find("Cannot have non-Abyssal sockets", 1, true))
 	end)
 
+	describe("equipped weapon damage added to spells", function()
+		local daggerMod = "Gain Added Spell Damage equal to 20% of Damage of Equipped Dagger\nIf two Daggers are Equipped, each contributes 60% as much Added Damage"
+		local wandMod = "Gain Added Spell Damage equal to 20% of Damage of Equipped Wand\nIf two Wands are Equipped, each contributes half as much Added Damage"
+
+		local function equip(slot, raw)
+			build.itemsTab:CreateDisplayItemFromRaw(raw)
+			local item = build.itemsTab.displayItem
+			build.itemsTab:AddDisplayItem(true)
+			build.itemsTab.slots[slot]:SetSelItemId(item.id)
+			return item
+		end
+
+		local function weapon(base, added)
+			return "Rarity: RARE\nTest Weapon\n" .. base .. "\nImplicits: 0\nAdds " .. added .. " to " .. added .. " Fire Damage"
+		end
+
+		-- Total flat fire damage added to spells
+		local function addedFire(jewelLines, base1, base2)
+			newBuild()
+			equip("Belt", "Rarity: RARE\nTest Belt\nStygian Vise\nImplicits: 1\nHas 1 Abyssal Socket")
+			equip("Belt Abyssal Socket 1", "Rarity: RARE\nTest Jewel\nHypnotic Eye Jewel\nImplicits: 0\n" .. jewelLines)
+			if base1 then
+				equip("Weapon 1", weapon(base1, 1000))
+			end
+			if base2 then
+				equip("Weapon 2", weapon(base2, 500))
+			end
+			build.skillsTab:PasteSocketGroup("Fireball 20/0  1\n")
+			runCallback("OnFrame")
+			local skill = build.calcsTab.mainEnv.player.mainSkill
+			local min = skill.skillModList:Sum("BASE", skill.skillCfg, "FireMin")
+			newBuild()
+			build.skillsTab:PasteSocketGroup("Fireball 20/0  1\n")
+			runCallback("OnFrame")
+			skill = build.calcsTab.mainEnv.player.mainSkill
+			return min - skill.skillModList:Sum("BASE", skill.skillCfg, "FireMin")
+		end
+
+		it("parses as one supported modifier on abyss jewels", function()
+			for _, lines in ipairs({ daggerMod, wandMod }) do
+				local item = new("Item"):Item("Rarity: RARE\nTest Jewel\nHypnotic Eye Jewel\nImplicits: 0\n" .. lines)
+				assert.are.equals(1, #item.explicitModLines)
+				assert.is_nil(item.explicitModLines[1].extra)
+				assert.are.equals(20, item.explicitModLines[1].modList[1].value)
+			end
+		end)
+
+		it("adds damage depending on the equipped weapons", function()
+			assert.are.equals(200, addedFire(daggerMod, "Skinning Knife"))
+			assert.are.equals(200, addedFire(daggerMod, "Carving Knife"))
+			assert.are.equals(180, addedFire(daggerMod, "Skinning Knife", "Skinning Knife"))
+			assert.are.equals(200, addedFire(daggerMod, "Skinning Knife", "Rusted Sword"))
+			assert.are.equals(0, addedFire(daggerMod, "Driftwood Wand"))
+			assert.are.equals(0, addedFire(daggerMod))
+			assert.are.equals(200, addedFire(wandMod, "Driftwood Wand"))
+			assert.are.equals(150, addedFire(wandMod, "Driftwood Wand", "Driftwood Wand"))
+			assert.are.equals(0, addedFire(wandMod, "Skinning Knife"))
+		end)
+
+		it("scales and combines on Subsume the Source", function()
+			for modId, name in pairs({
+				JunMasterVeiledAbyssHypnoticDaggerDamageAsSpellDamage = "DaggerDamageAppliesToSpells",
+				JunMasterVeiledAbyssHypnoticWandDamageAsSpellDamage = "WandDamageAppliesToSpells",
+			}) do
+				for count = 1, 2 do
+					local item = new("Item"):Item("Rarity: UNIQUE\nSubsume the Source\nFaithful Helmet\nCrafted: true\nImplicits: 0\n120% increased Explicit Modifier magnitudes\nCannot have non-Abyssal sockets")
+					assert.is_true(item:CanHaveMod(item.affixes[modId]))
+					for i = 1, count do
+						item.prefixes[i] = { modId = modId, range = 0.5 }
+					end
+					item:Craft()
+					-- Parsing a saved item should give the same result
+					for _, parsed in ipairs({ item, new("Item"):Item(item:BuildRaw()) }) do
+						parsed:BuildModList()
+						local total = 0
+						local lines = 0
+						for _, modLine in ipairs(parsed.explicitModLines) do
+							for _, mod in ipairs(modLine.modList) do
+								if mod.name == name then
+									lines = lines + 1
+									total = total + mod.value
+									assert.is_nil(modLine.extra)
+									assert.is_nil(modLine.line:find("120%", 1, true))
+								end
+							end
+						end
+						assert.are.equals(1, lines)
+						assert.are.equals(44 * count, total)
+					end
+				end
+			end
+		end)
+	end)
+
 	it("uses the item base for rare-like modifier eligibility by default", function()
 		local item = new("Item"):Item([[
 			Item Class: Bows

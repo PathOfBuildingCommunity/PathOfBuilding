@@ -5449,6 +5449,14 @@ local specialModList = {
 		flag("WeaponPhysAppliesToSpells"),
 		mod("WeaponPhysAppliesToSpellsPercent", "BASE", num, { type = "Condition", var = "UsingTwoHandedWeapon" })
 	} end,
+	["gain added spell damage equal to (%d+)%% of damage of equipped dagger if two daggers are equipped, each contributes (%d+)%% as much added damage"] = function(num, _, dualWieldPercent) return {
+		mod("DaggerDamageAppliesToSpells", "BASE", num),
+		mod("DaggerDamageAppliesToSpellsDualWieldPercent", "MAX", tonumber(dualWieldPercent))
+	} end,
+	["gain added spell damage equal to (%d+)%% of damage of equipped wand if two wands are equipped, each contributes half as much added damage"] = function(num) return {
+		mod("WandDamageAppliesToSpells", "BASE", num),
+		mod("WandDamageAppliesToSpellsDualWieldPercent", "MAX", 50)
+	} end,
 	["spells cost %+(%d+)%% of life"] = function(num) return {
 		mod("LifeCostBase", "BASE", 1, { type = "PercentStat", stat = "Life", percent = num, floor = true }, { type = "SkillType", skillType = SkillType.Spell })
 	} end,

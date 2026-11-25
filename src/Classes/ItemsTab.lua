@@ -3930,6 +3930,8 @@ function ItemsTabClass:AddCustomModifierToDisplayItem()
 			t_insert(sourceList, { label = "Essence", sourceId = "ESSENCE" })
 			t_insert(sourceList, { label = "Veiled", sourceId = "VEILED"})
 			t_insert(sourceList, { label = "Beastcraft", sourceId = "BEASTCRAFT" })
+		elseif self.displayItem.base.subType == "Abyss" then
+			t_insert(sourceList, { label = "Veiled", sourceId = "VEILED"})
 		end
 		if self.displayItem.type == "Helmet" or self.displayItem.type == "Body Armour" or self.displayItem.type == "Gloves" or self.displayItem.type == "Boots" then
 			t_insert(sourceList, { label = "Necropolis", sourceId = "NECROPOLIS"})
