@@ -481,8 +481,8 @@ local function defaultTriggerHandler(env, config)
 				end
 			end
 
-			--Account for skills that can hit multiple times per use
-			if source and GlobalCache.cachedData[env.mode][uuid] and source.skillPartName and source.skillPartName:match("(.*)All(.*)Projectiles(.*)") and source.skillFlags.projectile then
+			-- Opted-in skills count all projectiles regardless of their selected DPS part.
+			if source and GlobalCache.cachedData[env.mode][uuid] and source.skillFlags.projectile and (source.skillData.triggerWithAllProjectilesHit or source.skillPartName and source.skillPartName:match("(.*)All(.*)Projectiles(.*)")) then
 				local multiHitDpsMult = GlobalCache.cachedData[env.mode][uuid].Env.player.output.ProjectileCount or 1
 				trigRate = trigRate * multiHitDpsMult
 				if breakdown then

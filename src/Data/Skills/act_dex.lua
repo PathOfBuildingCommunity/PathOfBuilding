@@ -10361,6 +10361,9 @@ skills["LancingSteelAltX"] = {
 		attack = true,
 		projectile = true,
 	},
+	baseMods = {
+		skill("triggerWithAllProjectilesHit", true),
+	},
 	qualityStats = {
 		{ "base_number_of_projectiles", 0.1 },
 	},
