@@ -955,7 +955,7 @@ local function doActorMisc(env, actor)
 			end
 			local manaBurnStacks = m_min((env.configInput.multiplierManaBurnStacks or 0), maxManaBurn)
 			modDB:NewMod("Multiplier:ManaBurnStacks", "BASE", manaBurnStacks, "Config")
-			manaBurnStacks = manaBurnStacks + modDB:Sum("BASE", { actor = "player" }, "EffectiveManaBurnStacks")
+			manaBurnStacks = m_max(manaBurnStacks + modDB:Sum("BASE", { actor = "player" }, "EffectiveManaBurnStacks"), 0)
 			if modDB:Flag(nil, "Condition:WeepingWoundsInsteadOfManaBurn") then
 				modDB:NewMod("Multiplier:WeepingWoundsStacks", "BASE", manaBurnStacks, "Config")
 			else

@@ -1467,7 +1467,7 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 						end
 						if mod.valueScalar and mod.valueScalar ~= 1 then
 							local rangedLine = itemLib.applyRange(mod.line, mod.range or 1, mod.valueScalar, 1)
-							local modList, extra = modLib.parseMod(rangedLine)
+							local modList, extra = modLib.parseMod((rangedLine:gsub("\n", " ")))
 							if modList then
 								mod.displayValueScalar = 1
 								mod.modList = modList
@@ -2110,9 +2110,13 @@ function ItemClass:Craft()
 				end
 				self.requirements.level = m_max(self.requirements.level or 0, m_floor(mod.level * 0.8))
 				for i, line in ipairs(mod) do
+					-- Fractional stat orders are continuations of the previous line, and their numbers are fixed unless they have a range
+					local fixedLine = mod.statOrder[i] % 1 ~= 0 and not line:find("%(%-?%d")
 					line = itemLib.applyRange(line, affix.range or 0.5)
 					local order = mod.statOrder[i]
-					if statOrder[order] then
+					if statOrder[order] and fixedLine then
+						-- Already present
+					elseif statOrder[order] then
 						-- Combine stats
 						local start = 1
 						statOrder[order].line = statOrder[order].line:gsub("%d+", function(num)
