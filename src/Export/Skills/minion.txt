@@ -307,6 +307,7 @@ skills["MinionInstability"] = {
 		skill("FireMax", 1, { type = "PerStat", stat = "Life", div = 1/.33 }),
 		skill("showAverage", true),
 		skill("radius", 22),
+		flag("Condition:LowLife"),
 	},
 	stats = {
 	},
