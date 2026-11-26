@@ -1065,6 +1065,31 @@ describe("TestAdvancedItemParse #item", function()
 		assert.are.same(expectedLines, lines(item.explicitModLines))
 	end)
 
+	it("keeps different granted supports on a crafted item separate", function()
+		local item = new("Item"):Item([[
+Rarity: RARE
+Test Helmet
+Hubris Circlet
+Crafted: true
+Item Level: 85
+Shaper Item
+Elder Item
+Implicits: 0]])
+		item.prefixes[1] = { modId = "AreaDamageSupportedUber1", range = 0.5 }
+		item.suffixes[1] = { modId = "IncreasedChillEffectSupportedUber2", range = 0.5 }
+		item:Craft()
+		item:Craft()
+
+		local expected = {
+			["Socketed Gems are Supported by Level 16 Concentrated Effect Support"] = true,
+			["Socketed Gems are Supported by Level 18 Hypothermia Support"] = true,
+		}
+		for _, mod in ipairs(item.explicitModLines) do
+			expected[mod.line] = nil
+		end
+		assert.are.same({ }, expected)
+	end)
+
 	it("matches same-name affixes using their advanced-copy ranges", function()
 		local item = new("Item"):Item(raw([[
 			Item Level: 85
