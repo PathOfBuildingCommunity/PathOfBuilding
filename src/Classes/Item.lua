@@ -67,6 +67,9 @@ local function normaliseModLine(line)
 		:gsub("\n", " ")
 end
 
+-- Normalised eldritch implicit line -> "exarch"/"eater", built on first use
+local eldritchLineTags
+
 local uniqueModStatOrder
 
 local function sortCraftedModLines(modLines)
@@ -1617,6 +1620,25 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 		self.title = "Foulborn " .. self.title
 	elseif not self.foulborn and hasFoulbornPrefix then
 		self.title = self.title:gsub("[Ff]oulborn ", "")
+	end
+	-- Copied or imported items don't carry {exarch}/{eater} on their eldritch implicits, so recover them from the mod pool
+	if self.cleansing or self.tangle then
+		if not eldritchLineTags then
+			eldritchLineTags = { }
+			for _, mod in pairs(data.itemMods.Eldritch) do
+				for _, line in ipairs(mod) do
+					eldritchLineTags[normaliseModLine(line)] = mod.type == "Exarch" and "exarch" or "eater"
+				end
+			end
+		end
+		for _, modLine in ipairs(self.implicitModLines) do
+			if not modLine.exarch and not modLine.eater then
+				local tag = eldritchLineTags[normaliseModLine(modLine.line)]
+				if (tag == "exarch" and self.cleansing) or (tag == "eater" and self.tangle) then
+					modLine[tag] = true
+				end
+			end
+		end
 	end
 	if self.baseName and self.title then
 		self.name = self.title .. ", " .. self.baseName:gsub(" %(.+%)", "")
