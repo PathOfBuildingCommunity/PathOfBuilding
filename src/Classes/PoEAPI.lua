@@ -22,6 +22,7 @@ function PoEAPIClass:PoEAPI(authToken, refreshToken, tokenExpiry)
 	self.baseUrl = "https://api.pathofexile.com"
 	self.rateLimiter = new("TradeQueryRateLimiter"):TradeQueryRateLimiter()
 	self.tokenHasBeenValidated = false
+	self.accountGeneration = 0
 
 	self.ERROR_NO_AUTH = "No auth token"
 	return self
@@ -75,6 +76,8 @@ end
 
 --- resets current authorization details
 function PoEAPIClass:ResetDetails()
+	self.accountGeneration = self.accountGeneration + 1
+	self.accountName = nil
 	self.authToken = nil
 	self.refreshToken = nil
 	self.tokenExpiry = nil

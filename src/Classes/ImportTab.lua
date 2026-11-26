@@ -257,6 +257,7 @@ local function addOAuthControls(self)
 			local function importHandler(data, errMsg)
 				if data and data.character then
 					self.oauthErrCode = nil
+					self:SetOAuthPredefinedBuildName(selectedName)
 					self:ImportPassiveTreeAndJewels(data.character, deleteJewels)
 				else
 					if errMsg then
@@ -298,6 +299,7 @@ local function addOAuthControls(self)
 				local ignoreWeaponSwap = self.controls.charImportItemsIgnoreWeaponSwap.state
 				if data and data.character then
 					self.oauthErrCode = nil
+					self:SetOAuthPredefinedBuildName(selectedName)
 					self:ImportItemsAndSkills(data.character, clearItems, clearSkills, ignoreWeaponSwap)
 				else
 					if errMsg then
@@ -1937,10 +1939,34 @@ function UrlDecode(url)
 	return url
 end
 
-function ImportTabClass:SetPredefinedBuildName()
-	local accountName = self.controls.siteAccountName.buf:gsub('%s+', ''):gsub("#%d+", "")
-	local charSelect = self.controls.siteCharSelect
-	local charData = charSelect.list[charSelect.selIndex].char
-	local charName = charData.name
+function ImportTabClass:SetOAuthPredefinedBuildName(charName)
+	self.buildNameRequest = (self.buildNameRequest or 0) + 1
+	local request = self.buildNameRequest
+	local api = main.api
+	local generation = api.accountGeneration
+	if api.accountName then
+		self:SetPredefinedBuildName(api.accountName, charName)
+		return
+	end
+	main.predefinedBuildName = charName
+	api:DownloadWithRefresh("/profile", function(response, errMsg)
+		local profile = not errMsg and response and response.body and dkjson.decode(response.body)
+		if main.api == api and api.accountGeneration == generation and type(profile) == "table"
+			and type(profile.name) == "string" and profile.name ~= "" then
+			api.accountName = profile.name
+			if self.buildNameRequest == request and main.predefinedBuildName == charName then
+				self:SetPredefinedBuildName(profile.name, charName)
+			end
+		end
+	end)
+end
+
+function ImportTabClass:SetPredefinedBuildName(accountName, charName)
+	self.buildNameRequest = (self.buildNameRequest or 0) + 1
+	accountName = (accountName or self.controls.siteAccountName.buf):gsub('%s+', ''):gsub("#%d+", "")
+	if not charName then
+		local charSelect = self.controls.siteCharSelect
+		charName = charSelect.list[charSelect.selIndex].char.name
+	end
 	main.predefinedBuildName = accountName .. " - " .. charName
 end
