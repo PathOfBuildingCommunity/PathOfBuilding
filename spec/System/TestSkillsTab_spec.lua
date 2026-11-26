@@ -5,6 +5,20 @@ describe("TestSkillsTab", function()
 	end)
 
 	describe("SkillsTab", function()
+		it("updates the requirements when a gem is selected at the default level", function()
+			local skills = build.skillsTab
+			local group = { label = "", enabled = true, gemList = { } }
+			table.insert(skills.socketGroupList, group)
+			skills:SetDisplayGroup(group)
+			skills.controls.gemSlot1Name.gemChangeFunc("Metadata/Items/Gems/SkillGemArc", true, nil, true)
+			runCallback("OnFrame")
+
+			local gem = group.gemList[1]
+			assert.are.equal(20, gem.level)
+			assert.are.equal(70, gem.reqLevel)
+			assert.are.equal(calcLib.getGemStatRequirement(70, false, gem.gemData.reqInt), gem.reqInt)
+		end)
+
 		describe("NewSkillSet", function()
 			it("Creates a new skill set with specified ID", function()
 				local skillSetName = "New Skill Set"

@@ -827,6 +827,7 @@ function SkillsTabClass:CreateGemSlot(index)
 		-- New gems need to be constrained by ProcessGemLevel
 		gemInstance.level = self:ProcessGemLevel(gemInstance.gemData)
 		gemInstance.naturalMaxLevel = gemInstance.level
+		self:ProcessSocketGroup(self.displayGroup)
 		slot.level:SetText(gemInstance.level)
 		slot.count:SetText(gemInstance.count or 1)
 		if addUndo then
