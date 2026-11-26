@@ -1282,8 +1282,12 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 						if replacesNode then
 							self:ReplaceNode(node, changedNode)
 						end
+						-- Two stats can share a range, so with one line per stat each line takes only its own
+						-- stat's roll. A line holding several stats, like an added damage range, takes all of them.
+						local oneStatPerLine = #changedNode.sd == #changedNode.sortedStats
 						for statIndex, statLine in ipairs(changedNode.sd) do
-							for statKey, statMod in pairs(changedNode.stats) do
+							for _, statKey in ipairs(oneStatPerLine and { changedNode.sortedStats[statIndex] } or changedNode.sortedStats) do
+								local statMod = changedNode.stats[statKey]
 								statLine = replaceHelperFunc(statLine, statKey, statMod, component.rolls[statMod.index])
 							end
 							self:NodeAdditionOrReplacementFromString(node, (replacesNode and "" or " \n") .. statLine, replacesNode and statIndex == 1)

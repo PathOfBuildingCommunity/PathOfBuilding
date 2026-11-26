@@ -475,6 +475,23 @@ describe("Abyss timeless jewels", function()
 		assert.is_true(hasComparison)
 	end)
 
+	it("gives each line of a Zorath node its own roll when both stats share a range", function()
+		local spec = build.spec
+		spec:SelectClass(spec.tree.classNameMap.Templar)
+		assert.is_true(allocatePathToNode(spec, spec.nodes[26196]))
+		-- Local id 113 is abyss_special_small_attribute35, whose two stats both roll (2-3)
+		data.timelessJewelLUTs[11] = parseAbyssJewel(11, abyssHeader("ABYN", 11, 1984) .. uint16(1) .. uint16(10575)
+			.. abyssModification({ { type = 1, id = 113, rolls = { 3, 2 } } }) .. "ASCS" .. uint16(0))
+		equipJewel(spec, 26196, newAbyssTimelessJewel("Reclaimed Malevolence", "Assembled Eye Jewel",
+			"Binding 1984 souls to phylacteries to sustain Zorath"))
+		spec:BuildAllDependsAndPaths()
+
+		assert.are.same({
+			"Minions have 3% increased Attack Speed",
+			"Minions have 2% increased Cast Speed",
+		}, spec.nodes[10575].sd)
+	end)
+
 	it("applies Zorath seed 4050 to the selected Chieftain notable", function()
 		local spec = build.spec
 		spec:SelectClass(spec.tree.classNameMap.Marauder)
