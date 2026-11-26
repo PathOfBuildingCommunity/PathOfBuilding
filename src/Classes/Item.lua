@@ -1050,7 +1050,7 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 							end
 						end
 						if self.base.flask then
-							if self.base.utility_flask then
+							if self.base.subType == "Utility" then
 								self.enchantments = data.enchantments["UtilityFlask"]
 							else
 								self.enchantments = data.enchantments["Flask"]
