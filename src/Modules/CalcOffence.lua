@@ -804,9 +804,14 @@ function calcs.offence(env, actor, activeSkill)
 			skillModList:NewMod("AreaOfEffect", "INC", mod.value, mod.source, mod.flags, mod.keywordFlags, unpack(mod))
 		end
 	end
-	if skillModList:Flag(nil, "SequentialProjectiles") and not skillModList:Flag(nil, "OneShotProj") and not skillModList:Flag(nil,"NoAdditionalProjectiles") and not skillModList:Flag(nil,"SingleProjectile") and not skillModList:Flag(nil, "TriggeredBySnipe") then
+	local splitAdditionalProjectiles = skillModList:Flag(skillCfg, "AdditionalProjectilesAddSplitsInstead")
+	-- The base gem count is stored above the implicit first projectile.
+	local baseProjectileCount = splitAdditionalProjectiles and (1 + skillModList:Sum("BASE", skillCfg, "BaseProjectileCount")) or 1
+	if skillModList:Flag(nil, "SequentialProjectiles") and not skillModList:Flag(nil, "OneShotProj")
+		and (splitAdditionalProjectiles or not skillModList:Flag(nil, "NoAdditionalProjectiles"))
+		and not skillModList:Flag(nil, "SingleProjectile") and not skillModList:Flag(nil, "TriggeredBySnipe") then
 		-- Applies DPS multiplier based on projectile count
-		skillData.dpsMultiplier = skillModList:Sum("BASE", skillCfg, "ProjectileCount")
+		skillData.dpsMultiplier = splitAdditionalProjectiles and baseProjectileCount or skillModList:Sum("BASE", skillCfg, "ProjectileCount")
 	end
 	
 	local function repeatSkillTypesCheck(activeSkillTypes)
@@ -1089,8 +1094,10 @@ function calcs.offence(env, actor, activeSkill)
 		if skillModList:Flag(nil, "FarShot") then
 			skillModList:NewMod("Damage", "MORE", 100, "Far Shot", bor(ModFlag.Attack, ModFlag.Projectile), { type = "DistanceRamp", ramp = {{10, -0.2}, {25, 0}, {70, 0.6}} })
 		end
-		if skillModList:Flag(skillCfg, "NoAdditionalProjectiles") or skillModList:Flag(skillCfg, "SingleProjectile") then
+		if skillModList:Flag(skillCfg, "SingleProjectile") then
 			output.ProjectileCount = 1
+		elseif skillModList:Flag(skillCfg, "NoAdditionalProjectiles") then
+			output.ProjectileCount = baseProjectileCount
 		else
 			local projMin = skillModList:Sum("BASE", skillCfg, "ProjectileCountMinimum")
 			local projMax = skillModList:Override(skillCfg, "ProjectileCountMaximum") or m_huge
@@ -1113,8 +1120,8 @@ function calcs.offence(env, actor, activeSkill)
 			end
 		else
 			output.SplitCount = skillModList:Sum("BASE", skillCfg, "SplitCount") + enemyDB:Sum("BASE", skillCfg, "SelfSplitCount")
-			if skillModList:Flag(skillCfg, "AdditionalProjectilesAddSplitsInstead") then
-				local addedSplits = skillModList:Flag(skillCfg, "SingleProjectile") and 0 or m_floor((skillModList:Sum("BASE", skillCfg, "ProjectileCount") - 1) * skillModList:More(skillCfg, "ProjectileCount"))
+			if splitAdditionalProjectiles then
+				local addedSplits = skillModList:Flag(skillCfg, "SingleProjectile") and 0 or m_floor((skillModList:Sum("BASE", skillCfg, "ProjectileCount") - baseProjectileCount) * skillModList:More(skillCfg, "ProjectileCount"))
 				output.SplitCount = output.SplitCount + addedSplits
 			end
 			if skillModList:Flag(skillCfg, "AdditionalChainsAddSplitsInstead") then

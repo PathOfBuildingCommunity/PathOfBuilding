@@ -49,6 +49,56 @@ describe("TestAttacks", function()
 
 	end)
 
+	describe("Fury Valve", function()
+		local function equipFuryValve()
+			build.itemsTab:CreateDisplayItemFromRaw([[
+Rarity: UNIQUE
+Fury Valve
+Turquoise Amulet
+Implicits: 0
+Skills fire 2 additional Projectiles
+Modifiers to number of Projectiles instead apply to the number of targets Projectiles Split towards
+]])
+			build.itemsTab:AddDisplayItem()
+			runCallback("OnFrame")
+		end
+
+		local function useBowSkill(gems)
+			build.itemsTab:CreateDisplayItemFromRaw("New Item\nSpine Bow")
+			build.itemsTab:AddDisplayItem()
+			build.skillsTab:PasteSocketGroup(gems)
+			build.mainSocketGroup = 1
+			runCallback("OnFrame")
+		end
+
+		it("preserves Split Arrow's base arrows including quality", function()
+			useBowSkill("Split Arrow 20/20 1")
+			assert.are.equal(13, build.calcsTab.mainOutput.ProjectileCount)
+
+			equipFuryValve()
+			assert.are.equal(13, build.calcsTab.mainOutput.ProjectileCount)
+			assert.are.equal(2, build.calcsTab.mainOutput.SplitCount)
+		end)
+
+		it("uses only the arrows fired for Split Arrow's Barrage multiplier", function()
+			useBowSkill("Split Arrow 20/20 1\nBarrage Support 20/20 1")
+			assert.are.equal(17, build.calcsTab.mainOutput.ProjectileCount)
+
+			equipFuryValve()
+			assert.are.equal(13, build.calcsTab.mainOutput.ProjectileCount)
+			assert.are.equal(6, build.calcsTab.mainOutput.SplitCount)
+			assert.are.equal(13, build.calcsTab.mainEnv.player.mainSkill.skillData.dpsMultiplier)
+		end)
+
+		it("still converts extra arrows for a one-arrow skill", function()
+			useBowSkill("Ice Shot 20/0 1")
+			equipFuryValve()
+
+			assert.are.equal(1, build.calcsTab.mainOutput.ProjectileCount)
+			assert.are.equal(2, build.calcsTab.mainOutput.SplitCount)
+		end)
+	end)
+
 	-- Hide of the Vendigo: attacking as though using a Claw while the main hand is empty.
 	-- The attack stays unarmed, so it uses unarmed modifiers rather than claw modifiers.
 	describe("Hide of the Vendigo", function()

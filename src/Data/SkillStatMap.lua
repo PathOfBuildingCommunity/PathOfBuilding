@@ -1396,6 +1396,7 @@ return {
 },
 ["base_number_of_arrows"] = {
 	mod("ProjectileCount", "BASE", nil, 0, KeywordFlag.Arrow),
+	mod("BaseProjectileCount", "BASE", nil, 0, KeywordFlag.Arrow),
 	base = -1,
 },
 ["number_of_additional_arrows"] = {
@@ -1403,6 +1404,7 @@ return {
 },
 ["base_number_of_projectiles"] = {
 	mod("ProjectileCount", "BASE", nil),
+	mod("BaseProjectileCount", "BASE", nil),
 	base = -1,
 },
 ["number_of_additional_projectiles"] = {
