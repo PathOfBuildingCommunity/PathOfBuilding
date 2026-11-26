@@ -460,9 +460,9 @@ function calcs.buildOutput(build, mode)
 		}
 		output["Spec:LifeInc"] = env.modDB:Sum("INC", specCfg, "Life")
 		output["Spec:ManaInc"] = env.modDB:Sum("INC", specCfg, "Mana")
-		output["Spec:ArmourInc"] = env.modDB:Sum("INC", specCfg, "Armour", "ArmourAndEvasion")
-		output["Spec:EvasionInc"] = env.modDB:Sum("INC", specCfg, "Evasion", "ArmourAndEvasion")
-		output["Spec:EnergyShieldInc"] = env.modDB:Sum("INC", specCfg, "EnergyShield")
+		output["Spec:ArmourInc"] = env.modDB:Sum("INC", specCfg, "Armour", "ArmourAndEvasion", "Defences")
+		output["Spec:EvasionInc"] = env.modDB:Sum("INC", specCfg, "Evasion", "ArmourAndEvasion", "Defences")
+		output["Spec:EnergyShieldInc"] = env.modDB:Sum("INC", specCfg, "EnergyShield", "Defences")
 
 		env.skillsUsed = { }
 		for _, activeSkill in ipairs(env.player.activeSkillList) do
