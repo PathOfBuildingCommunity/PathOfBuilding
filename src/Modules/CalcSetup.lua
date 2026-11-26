@@ -862,9 +862,6 @@ function calcs.initEnv(build, mode, override, specEnv)
 				if not env.allocNodes[slot.nodeId] then
 					goto continue
 				elseif item then
-					if item.jewelData then
-						item.jewelData.limitDisabled = nil
-					end
 					if item and item.type == "Jewel" and item.name:match("The Adorned, Crimson Jewel") then
 						if item.jewelData.corruptedMagicJewelIncEffect then
 							env.modDB.multipliers["CorruptedMagicJewelEffect"] = item.jewelData.corruptedMagicJewelIncEffect / 100
@@ -873,18 +870,11 @@ function calcs.initEnv(build, mode, override, specEnv)
 							env.modDB.multipliers["CorruptedRareJewelEffect"] = item.jewelData.corruptedRareJewelIncEffect / 100
 						end
 					end
-					if item.limit and not env.configInput.ignoreJewelLimits then
-						local limitKey = item.base.subType == "Timeless" and "Historic" or item.title
-						if jewelLimits[limitKey] and jewelLimits[limitKey] >= item.limit then
-							if item.jewelData then
-								item.jewelData.limitDisabled = true
-							end
-							env.itemWarnings.jewelLimitWarning = env.itemWarnings.jewelLimitWarning or { }
-							t_insert(env.itemWarnings.jewelLimitWarning, limitKey)
-							goto continue
-						else
-							jewelLimits[limitKey] = (jewelLimits[limitKey] or 0) + 1
-						end
+					local limitKey = not env.configInput.ignoreJewelLimits and calcLib.checkJewelLimit(item, jewelLimits)
+					if limitKey then
+						env.itemWarnings.jewelLimitWarning = env.itemWarnings.jewelLimitWarning or { }
+						t_insert(env.itemWarnings.jewelLimitWarning, limitKey)
+						goto continue
 					end
 					if item and ( item.jewelRadiusIndex or (override and override.extraJewelFuncs and #override.extraJewelFuncs > 0) ) then
 						-- Jewel has a radius, add it to the list

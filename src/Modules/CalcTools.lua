@@ -12,6 +12,18 @@ local m_max = math.max
 
 calcLib = { }
 
+-- Count an allowed jewel, or return the limit it exceeded.
+function calcLib.checkJewelLimit(item, counts)
+	if item.limit then
+		local key = item.base.subType == "Timeless" and "Historic" or item.title
+		local count = counts[key] or 0
+		if count >= item.limit then
+			return key
+		end
+		counts[key] = count + 1
+	end
+end
+
 -- Calculate and combine INC/MORE modifiers for the given modifier names
 function calcLib.mod(modStore, cfg, ...)
 	return (1 + (modStore:Sum("INC", cfg, ...)) / 100) * modStore:More(cfg, ...)

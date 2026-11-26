@@ -440,6 +440,9 @@ end
 -- Build the calculation output tables
 function CalcsTabClass:BuildOutput()
 	self.powerBuildFlag = true
+	if self.build.spec.ignoreJewelLimits ~= (not not self.build.configTab.input.ignoreJewelLimits) then
+		self.build.spec:BuildAllDependsAndPaths()
+	end
 
 	--[[
 	local start = GetTime()

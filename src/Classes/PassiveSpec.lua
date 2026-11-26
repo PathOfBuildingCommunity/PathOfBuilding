@@ -1114,6 +1114,20 @@ end
 
 -- Rebuilds dependencies and paths for all nodes
 function PassiveSpecClass:BuildAllDependsAndPaths()
+	local config = self.build.configTab
+	self.ignoreJewelLimits = not not (config and config.input and config.input.ignoreJewelLimits)
+	local limitedSockets = { }
+	if not self.ignoreJewelLimits and next(self.jewels) then
+		local jewelCounts = { }
+		-- Use the same socket order as the item calculation.
+		for _, slot in ipairs(self.build.itemsTab.orderedSlots) do
+			local socketId = slot.nodeId
+			if socketId and self.allocNodes[socketId] then
+				local item = self:GetSocketedJewel(socketId)
+				limitedSockets[socketId] = item and calcLib.checkJewelLimit(item, jewelCounts)
+			end
+		end
+	end
 	local timelessJewelTypeByConqueror = {
 		vaal = 1,
 		karui = 2,
@@ -1137,7 +1151,7 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 		local item = self.build.itemsTab.items[itemId]
 		local conqueredBy = item and item.jewelData and item.jewelData.conqueredBy
 		local jewelType = conqueredBy and timelessJewelTypeByConqueror[conqueredBy.conqueror.type]
-		if jewelType and jewelType >= 7 and self.allocNodes[socketId] and not (self.nodes[socketId].expansionJewel and self.nodes[socketId].expansionJewel.parent) and not item.jewelData.limitDisabled then
+		if jewelType and jewelType >= 7 and self.allocNodes[socketId] and not (self.nodes[socketId].expansionJewel and self.nodes[socketId].expansionJewel.parent) and not limitedSockets[socketId] then
 			local path = jewelType == 11 and self:GetShortestPathToClassStart(socketId)
 			for nodeId, modification in pairs(data.readAbyssJewelLUT(conqueredBy.id, socketId, jewelType, path)) do
 				abyssConquests[nodeId] = {
@@ -1153,7 +1167,7 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 	local radiusJewels = {}
 	for nodeId, itemId in pairs(self.jewels) do
 		local item = self.build.itemsTab.items[itemId]
-		if item and item.jewelRadiusIndex and self.allocNodes[nodeId] and item.jewelData and not item.jewelData.limitDisabled then
+		if item and item.jewelRadiusIndex and self.allocNodes[nodeId] and item.jewelData and not limitedSockets[nodeId] then
 			local socket = self.nodes[nodeId]
 			t_insert(radiusJewels, {
 				socket = socket,
