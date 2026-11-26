@@ -628,6 +628,13 @@ holding Shift will put it in the second.]])
 				end
 			end
 		end
+		-- Eldritch implicits require their influence, so drop them when it is removed
+		for i = #self.displayItem.implicitModLines, 1, -1 do
+			local modLine = self.displayItem.implicitModLines[i]
+			if (modLine.exarch and not self.displayItem.cleansing) or (modLine.eater and not self.displayItem.tangle) then
+				t_remove(self.displayItem.implicitModLines, i)
+			end
+		end
 
 		if self.displayItem.crafted then
 			for i = 1, self.displayItem.affixLimit do
