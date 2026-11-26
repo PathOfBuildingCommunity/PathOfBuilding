@@ -4506,6 +4506,8 @@ local specialModList = {
 	["([%d%.]+)%% of damage dealt by y?o?u?r? ?mines is leeched to you as life"] = function(num) return { mod("DamageLifeLeechToPlayer", "BASE", num, nil, 0, KeywordFlag.Mine) } end,
 	["you can cast an additional brand"] = { mod("ActiveBrandLimit", "BASE", 1) },
 	["you can cast (%d+) additional brands"] = function(num) return { mod("ActiveBrandLimit", "BASE", num) } end,
+	["unattached brands gain (%d+)%% increased brand attachment range per second, up to a maximum of (%d+)%%"] = function(num, _, limit) return { mod("BrandAttachmentRange", "INC", num, { type = "Multiplier", var = "BrandUnattachedSeconds", limit = tonumber(limit), limitTotal = true }) } end,
+	["unattached brands gain (%d+)%% increased brand attachment range per second, up to (%d+)%%"] = function(num, _, limit) return { mod("BrandAttachmentRange", "INC", num, { type = "Multiplier", var = "BrandUnattachedSeconds", limit = tonumber(limit), limitTotal = true }) } end,
 	["(%d+)%% increased damage while you are wielding a bow and have a totem"] = function(num) return { mod("Damage", "INC", num, { type = "Condition", var = "HaveTotem" }, { type = "Condition", var = "UsingBow" }) } end,
 	["each totem applies (%d+)%% increased damage taken to enemies near it"] = function(num) return { mod("EnemyModifier", "LIST", { mod = mod("DamageTaken", "INC", num, { type = "Multiplier", var = "TotemsSummoned" }) }) } end,
 	["totems gain %+(%d+)%% to (%w+) resistance"] = function(num, _, resistance) return { mod("Totem"..firstToUpper(resistance).."Resist", "BASE", num) } end,

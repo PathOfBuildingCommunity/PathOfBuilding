@@ -339,6 +339,9 @@ return {
 	{ var = "BrandsAttachedToEnemy", type = "count", label = "# of Brands attached to enemy (if not maximum):", ifSkillFlag = "brand", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:ConfigBrandsAttachedToEnemy", "BASE", val, "Config")
 	end },
+	{ var = "brandUnattachedSeconds", type = "count", label = "Seconds Brands have been unattached:", ifMult = "BrandUnattachedSeconds", tooltip = "Applies mods that use `Unattached Brands gain ... per second`, such as Seeker Runes.", apply = function(val, modList, enemyModList)
+		modList:NewMod("Multiplier:BrandUnattachedSeconds", "BASE", m_max(0, val), "Config")
+	end },
 	{ var = "targetBrandedEnemy", type = "check", label = "Skill is targeting the Branded enemy", ifCond = "TargetingBrandedEnemy", defaultState = true, apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:TargetingBrandedEnemy", "FLAG", true, "Config")
 	end },
