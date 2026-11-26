@@ -1066,10 +1066,12 @@ describe("TestAdvancedItemParse #item", function()
 	end)
 
 	it("keeps different granted supports on a crafted item separate", function()
+		newBuild()
 		local item = new("Item"):Item([[
 Rarity: RARE
 Test Helmet
 Hubris Circlet
+Sockets: B
 Crafted: true
 Item Level: 85
 Shaper Item
@@ -1088,6 +1090,17 @@ Implicits: 0]])
 			expected[mod.line] = nil
 		end
 		assert.are.same({ }, expected)
+
+		build.itemsTab:AddItem(item)
+		build.skillsTab:PasteSocketGroup("Slot: Helmet\nIce Nova 20/0  1\n")
+		runCallback("OnFrame")
+		local appliedSupports = { }
+		for _, effect in ipairs(build.calcsTab.mainEnv.player.mainSkill.effectList) do
+			if effect.grantedEffect.support then
+				appliedSupports[effect.grantedEffect.id] = effect.level
+			end
+		end
+		assert.are.same({ SupportConcentratedEffect = 16, SupportHypothermia = 18 }, appliedSupports)
 	end)
 
 	it("matches same-name affixes using their advanced-copy ranges", function()
