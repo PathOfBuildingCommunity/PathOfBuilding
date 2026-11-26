@@ -16,8 +16,46 @@ local m_max = math.max
 local tempTable1 = { }
 local gemSocketColours = { "R", "G", "B" }
 
+-- Check if a mod applies to the gems socketed in its item, or depends on them
+local function isSocketedInMod(mod)
+	for _, tag in ipairs(mod) do
+		if tag.type == "SocketedIn" then
+			return true
+		end
+	end
+	return false
+end
+
+-- Get the item the gems in a slot are socketed in
+-- Supports socketed in weapons disabled by Manifested Dancing Dervishes still support the skill that disables them
+local function getSocketedItem(env, slotName)
+	return slotName and (env.player.itemList[slotName] or env.player.disabledItemList[slotName])
+end
+
+local function isSlotInActiveWeaponSet(build, slot)
+	return not slot or not slot.weaponSet or slot.weaponSet == (build.itemsTab.activeItemSet.useSecondWeaponSet and 2 or 1)
+end
+
+-- Check if a granted effect of a gem creates an active skill
+local function isActiveGrantedEffect(gemInstance, grantedEffect, index)
+	return not grantedEffect.support and not grantedEffect.unsupported and (not grantedEffect.hasGlobalEffect or gemInstance["enableGlobal"..index])
+end
+
+local function addItemRequirements(env, item, slotName)
+	if item.requirements then
+		t_insert(env.requirementsTableItems, {
+			source = "Item",
+			sourceItem = item,
+			sourceSlot = slotName,
+			Str = item.requirements.strMod,
+			Dex = item.requirements.dexMod,
+			Int = item.requirements.intMod,
+		})
+	end
+end
+
 local function getMatchingSocketQuality(env, groupCfg, gemInstance, socketIndex)
-	local item = groupCfg.slotName and env.player.itemList[groupCfg.slotName]
+	local item = getSocketedItem(env, groupCfg.slotName)
 	local sockets = item and item.sockets
 	if not sockets then
 		return 0
@@ -371,9 +409,8 @@ function wipeEnv(env, accelerate)
 		if env.theIronMass then
 			wipeTable(env.theIronMass)
 		end
-		if env.weaponModList1 then
-			wipeTable(env.weaponModList1)
-		end
+		-- Weapons disabled by Manifested Dancing Dervishes
+		wipeTable(env.player.disabledItemList)
 
 		-- Requirements from Items (Str, Dex, Int)
 		wipeTable(env.requirementsTableItems)
@@ -394,6 +431,63 @@ function wipeEnv(env, accelerate)
 	end
 end
 
+local function itemGrantsSkill(item, skillId)
+	for _, grantedSkill in ipairs(item.grantedSkills or { }) do
+		if grantedSkill.skillId == skillId then
+			return true
+		end
+	end
+	return false
+end
+
+-- Check if a skill's buff disables the weapon slots (e.g. Manifest Dancing Dervishes)
+function calcs.grantedEffectDisablesWeapons(grantedEffect)
+	for _, mod in ipairs(grantedEffect.baseMods or { }) do
+		if mod.name == "DisableWeapons" then
+			return true
+		end
+	end
+	return false
+end
+
+local function setMainSocketGroup(env, build)
+	if env.mode == "CALCS" then
+		env.calcsInput.skill_number = m_min(m_max(#build.skillsTab.socketGroupList, 1), env.calcsInput.skill_number or 1)
+		env.mainSocketGroup = env.calcsInput.skill_number
+	else
+		build.mainSocketGroup = m_min(m_max(#build.skillsTab.socketGroupList, 1), build.mainSocketGroup or 1)
+		env.mainSocketGroup = build.mainSocketGroup
+	end
+end
+
+-- Check if an active socket group has a skill whose buff disables the weapon slots
+-- This mirrors the checks used when creating the active skills, as it's needed before the items are processed
+local function socketGroupsDisableWeapons(env, build, override)
+	if not env.mode_buffs then
+		return false
+	end
+	for index, group in ipairs(build.skillsTab.socketGroupList) do
+		local slotEnabled = isSlotInActiveWeaponSet(build, group.slot and build.itemsTab.slots[group.slot])
+		-- Ignore skills granted by an item that's being replaced, e.g. when comparing weapons with The Dancing Dervish equipped
+		-- unless the replacement grants the same skill, e.g. another copy of The Dancing Dervish
+		local sourceReplaced = group.sourceItem and group.slot == override.repSlotName and group.sourceItem ~= override.repItem
+			and not (override.repItem and group.gemList[1] and itemGrantsSkill(override.repItem, group.gemList[1].skillId))
+		if not sourceReplaced and (index == env.mainSocketGroup or (group.enabled and slotEnabled)) then
+			for _, gemInstance in ipairs(group.gemList) do
+				if gemInstance.enabled then
+					local grantedEffectList = gemInstance.gemData and gemInstance.gemData.grantedEffectList or { gemInstance.grantedEffect }
+					for effectIndex, grantedEffect in ipairs(grantedEffectList) do
+						if isActiveGrantedEffect(gemInstance, grantedEffect, effectIndex) and calcs.grantedEffectDisablesWeapons(grantedEffect) then
+							return true
+						end
+					end
+				end
+			end
+		end
+	end
+	return false
+end
+
 local function applyGemMods(effect, modList)
 	for _, mod in ipairs(modList) do
 		local match = true
@@ -409,13 +503,7 @@ local function applyGemMods(effect, modList)
 			match = false
 		end
 		if match then
-			local sourceType = "Global"
-			for _, tag in ipairs(mod.mod) do
-				if tag.type == "SocketedIn" then
-					sourceType = "Item"
-					break
-				end
-			end
+			local sourceType = isSocketedInMod(mod.mod) and "Item" or "Global"
 			-- Keep separate totals for the gem tooltip and source categories for Calcs.
 			if value.key == "level" or value.key == "quality" then
 				local property = sourceType:lower() .. value.key:gsub("^%l", string.upper)
@@ -546,6 +634,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 		env.radiusJewelList = wipeTable(env.radiusJewelList)
 		env.extraRadiusNodeList = wipeTable(env.extraRadiusNodeList)
 		env.player.itemList = { }
+		env.player.disabledItemList = { }
 		env.grantedSkills = { }
 		env.grantedSkillsNodes = { }
 		env.grantedSkillsItems = { }
@@ -810,6 +899,11 @@ function calcs.initEnv(build, mode, override, specEnv)
 
 	-- Build and merge item modifiers, and create list of radius jewels
 	if not accelerate.requirementsItems then
+		-- Manifested Dancing Dervishes disable both weapon slots while their buff is active
+		-- This is checked before the items are processed, so the disabled weapons can be left out
+		setMainSocketGroup(env, build)
+		env.player.weaponsDisabled = socketGroupsDisableWeapons(env, build, override)
+
 		local items = {}
 		local jewelLimits = {}
 		for _, slot in ipairs(build.itemsTab.orderedSlots) do
@@ -851,7 +945,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 			if item and item.baseModList and item.baseModList:Flag(nil, "CanExplode") then
 				t_insert(env.explodeSources, item)
 			end
-			if slot.weaponSet and slot.weaponSet ~= (build.itemsTab.activeItemSet.useSecondWeaponSet and 2 or 1) then
+			if not isSlotInActiveWeaponSet(build, slot) then
 				goto continue
 			end
 			if slot.weaponSet == 2 and build.itemsTab.activeItemSet.useSecondWeaponSet then
@@ -997,7 +1091,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 			for slot in pairs(itemDisablers) do
 				if not visited[slot] then
 					-- find chain start
-					local curChain = { slot = true }
+					local curChain = { [slot] = true }
 					while itemDisabled[slot] do
 						slot = itemDisabled[slot]
 						if curChain[slot] then break end -- detect cycles
@@ -1081,6 +1175,22 @@ function calcs.initEnv(build, mode, override, specEnv)
 				end
 				item = nil
 			end
+			if item and env.player.weaponsDisabled and (slotName == "Weapon 1" or slotName == "Weapon 2") then
+				-- Weapons disabled by Manifested Dancing Dervishes count as unequipped, but their requirements still need to be met
+				env.player.disabledItemList[slotName] = item
+				addItemRequirements(env, item, slotName)
+				-- Rampage is kept as the Dancing Dervishes die when it ends
+				-- Modifiers to socketed gems are kept as the supports socketed in the weapon still support its granted skill
+				-- but not the player stats that depend on the socketed gems (SocketProperty and GroupProperty)
+				local keepRampage = itemGrantsSkill(item, "ManifestDancingDervishes")
+				for _, mod in ipairs(item.modList or (item.slotModList and item.slotModList[slot.slotNum]) or { }) do
+					if (keepRampage and mod.name == "Condition:Rampage")
+						or (isSocketedInMod(mod) and mod.name ~= "SocketProperty" and mod.name ~= "GroupProperty") then
+						env.itemModDB:AddMod(mod)
+					end
+				end
+				item = nil
+			end
 			local scale = 1
 			if item and item.type == "Jewel" and item.base.subType == "Abyss" and slot.parentSlot then
 				-- Check if the item in the parent slot has enough Abyssal Sockets
@@ -1101,15 +1211,8 @@ function calcs.initEnv(build, mode, override, specEnv)
 				env.player.itemList[slotName] = item
 				-- Merge mods for this item
 				local srcList = item.modList or (item.slotModList and item.slotModList[slot.slotNum]) or {}
-				if item.requirements and not accelerate.requirementsItems then
-					t_insert(env.requirementsTableItems, {
-						source = "Item",
-						sourceItem = item,
-						sourceSlot = slotName,
-						Str = item.requirements.strMod,
-						Dex = item.requirements.dexMod,
-						Int = item.requirements.intMod,
-					})
+				if not accelerate.requirementsItems then
+					addItemRequirements(env, item, slotName)
 				end
 				if item.type == "Jewel" and item.base.subType == "Abyss" then
 					-- Update Abyss Jewel conditions/multipliers
@@ -1135,17 +1238,10 @@ function calcs.initEnv(build, mode, override, specEnv)
 					env.aegisModList = new("ModList"):ModList()
 					for _, mod in ipairs(srcList) do
 						-- Filter out mods that apply to socketed gems, or which add supports
-						local add = true
-						for _, tag in ipairs(mod) do
-							if tag.type == "SocketedIn" then
-								add = false
-								break
-							end
-						end
-						if add then
-							env.aegisModList:ScaleAddMod(mod, scale)
-						else
+						if isSocketedInMod(mod) then
 							env.itemModDB:ScaleAddMod(mod, scale)
+						else
+							env.aegisModList:ScaleAddMod(mod, scale)
 						end
 					end
 				elseif (slotName == "Weapon 1" or slotName == "Weapon 2") and modDB.conditions["AffectedByEnergyBlade"] then
@@ -1188,53 +1284,22 @@ function calcs.initEnv(build, mode, override, specEnv)
 					env.theIronMass = new("ModList"):ModList()
 					for _, mod in ipairs(srcList) do
 						-- Filter out mods that apply to socketed gems, or which add supports
-						local add = true
-						for _, tag in ipairs(mod) do
-							if tag.type == "SocketedIn" then
-								add = false
-								break
-							end
-						end
-						if add then
+						if not isSocketedInMod(mod) then
 							env.theIronMass:ScaleAddMod(mod, scale)
 						end
 						-- Add all the stats to player as well
 						env.itemModDB:ScaleAddMod(mod, scale)
-					end
-				elseif slotName == "Weapon 1" and item.grantedSkills[1] and item.grantedSkills[1].skillId == "UniqueAnimateWeapon" then
-					-- Special handling for The Dancing Dervish
-					env.weaponModList1 = new("ModList"):ModList()
-					for _, mod in ipairs(srcList) do
-						-- Filter out mods that apply to socketed gems, or which add supports
-						local add = true
-						for _, tag in ipairs(mod) do
-							if tag.type == "SocketedIn" then
-								add = false
-								break
-							end
-						end
-						if add then
-							env.weaponModList1:ScaleAddMod(mod, scale)
-						else
-							env.itemModDB:ScaleAddMod(mod, scale)
-						end
 					end
 				elseif item.name:match("Kalandra's Touch") then
 					local otherRing = items[(slotName == "Ring 1" and "Ring 2") or (slotName == "Ring 2" and "Ring 1")]
 					if otherRing and not otherRing.name:match("Kalandra's Touch") then
 						for _, mod in ipairs(otherRing.modList or otherRing.slotModList[slot.slotNum] or {}) do
 							-- Filter out SocketedIn type mods
-							for _, tag in ipairs(mod) do
-								if tag.type == "SocketedIn" then
-									goto skip_mod
-								end
+							if not isSocketedInMod(mod) then
+								local modCopy = copyTable(mod)
+								modLib.setSource(modCopy, item.modSource)
+								env.itemModDB:ScaleAddMod(modCopy, scale)
 							end
-
-							local modCopy = copyTable(mod)
-							modLib.setSource(modCopy, item.modSource)
-							env.itemModDB:ScaleAddMod(modCopy, scale)
-
-							::skip_mod::
 						end
 						-- Adjust multipliers based on other ring
 						for mult, property in pairs({["CorruptedItem"] = "corrupted", ["ShaperItem"] = "shaper", ["ElderItem"] = "elder", ["WarlordItem"] = "adjudicator", ["HunterItem"] = "basilisk", ["CrusaderItem"] = "crusader", ["RedeemerItem"] = "eyrie"}) do
@@ -1619,6 +1684,17 @@ function calcs.initEnv(build, mode, override, specEnv)
 			end
 		end
 
+		-- Determine main skill group
+		setMainSocketGroup(env, build)
+
+		-- The weapon slots were handled before the item-granted skill groups above were updated
+		-- Recalculate if that changed whether they're disabled, e.g. when The Dancing Dervish was just equipped
+		if not accelerate.requirementsItems and not override.weaponsDisabledRechecked and socketGroupsDisableWeapons(env, build, override) ~= env.player.weaponsDisabled then
+			override = copyTable(override, true)
+			override.weaponsDisabledRechecked = true
+			return calcs.initEnv(build, mode, override, specEnv)
+		end
+
 		-- Get the weapon data tables for the equipped weapons
 		env.player.weaponData1 = env.player.itemList["Weapon 1"] and env.player.itemList["Weapon 1"].weaponData and env.player.itemList["Weapon 1"].weaponData[1] or copyTable(env.data.unarmedWeaponData[env.classId])
 		-- Hide of the Vendigo: Can Attack as though using a Claw while main hand is empty
@@ -1640,15 +1716,6 @@ function calcs.initEnv(build, mode, override, specEnv)
 			env.player.weaponData2 = env.player.weaponData2 or { }
 		else
 			env.player.weaponData2 = env.player.itemList["Weapon 2"].weaponData and env.player.itemList["Weapon 2"].weaponData[2] or { }
-		end
-
-		-- Determine main skill group
-		if env.mode == "CALCS" then
-			env.calcsInput.skill_number = m_min(m_max(#build.skillsTab.socketGroupList, 1), env.calcsInput.skill_number or 1)
-			env.mainSocketGroup = env.calcsInput.skill_number
-		else
-			build.mainSocketGroup = m_min(m_max(#build.skillsTab.socketGroupList, 1), build.mainSocketGroup or 1)
-			env.mainSocketGroup = build.mainSocketGroup
 		end
 
 		-- Process supports and put them into the correct buckets
@@ -1681,7 +1748,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 		-- Process support gems adding them to applicable support lists
 		for index, group in ipairs(build.skillsTab.socketGroupList) do
 			local slot = group.slot and build.itemsTab.slots[group.slot]
-			group.slotEnabled = not slot or not slot.weaponSet or slot.weaponSet == (build.itemsTab.activeItemSet.useSecondWeaponSet and 2 or 1)
+			group.slotEnabled = isSlotInActiveWeaponSet(build, slot)
 			-- if group is main skill or group is enabled 
 			if index == env.mainSocketGroup or (group.enabled and group.slotEnabled) then
 				local isTreeSkill = not group.slot and group.source and group.source:lower():find("tree")
@@ -1781,8 +1848,8 @@ function calcs.initEnv(build, mode, override, specEnv)
 								gemInstance.supportEffect = supportEffect
 							end
 							if gemInstance.gemData then
-								local playerItems = env.player.itemList
-								local socketedIn = playerItems[groupCfg.slotName] and playerItems[groupCfg.slotName].sockets and playerItems[groupCfg.slotName].sockets[gemIndex]
+								local socketedItem = getSocketedItem(env, groupCfg.slotName)
+								local socketedIn = socketedItem and socketedItem.sockets and socketedItem.sockets[gemIndex]
 								supportEffect.gemCfg = copyTable(groupCfg, true)
 								supportEffect.gemCfg.socketColor = socketedIn and socketedIn.color
 								supportEffect.gemCfg.socketNum = gemIndex
@@ -1790,7 +1857,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 								gemInstance.reqOverride = supportEffect.req
 								if not processedSockets[gemInstance] then
 									processedSockets[gemInstance] = true
-									applySocketMods(env, gemInstance.gemData, groupCfg, gemIndex, playerItems[groupCfg.slotName] and playerItems[groupCfg.slotName].name)
+									applySocketMods(env, gemInstance.gemData, groupCfg, gemIndex, socketedItem and socketedItem.name)
 									-- Keep track of the gem count for each color socketed in this group
 									groupCfg.intelligenceGems = (groupCfg.intelligenceGems or 0) + (gemInstance.gemData.tags.intelligence and 1 or 0)
 									groupCfg.dexterityGems = (groupCfg.dexterityGems or 0) + (gemInstance.gemData.tags.dexterity and 1 or 0)
@@ -1843,7 +1910,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 						local grantedEffectList = gemInstance.gemData and gemInstance.gemData.grantedEffectList or { gemInstance.grantedEffect }
 						local gemSkill
 						for index, grantedEffect in ipairs(grantedEffectList) do
-							if not grantedEffect.support and not grantedEffect.unsupported and (not grantedEffect.hasGlobalEffect or gemInstance["enableGlobal"..index]) then
+							if isActiveGrantedEffect(gemInstance, grantedEffect, index) then
 								slotHasActiveSkill = true
 								local socketQuality = getMatchingSocketQuality(env, groupCfg, gemInstance, socketIndexByGem[gemInstance])
 								local actualQuality = gemInstance.quality + socketQuality
@@ -1859,8 +1926,8 @@ function calcs.initEnv(build, mode, override, specEnv)
 									gemData = gemInstance.gemData,
 								}
 								if gemInstance.gemData then
-									local playerItems = env.player.itemList
-									local socketedIn = playerItems[groupCfg.slotName] and playerItems[groupCfg.slotName].sockets and playerItems[groupCfg.slotName].sockets[gemIndex]
+									local socketedItem = getSocketedItem(env, groupCfg.slotName)
+									local socketedIn = socketedItem and socketedItem.sockets and socketedItem.sockets[gemIndex]
 									activeEffect.gemCfg = copyTable(groupCfg, true)
 									activeEffect.gemCfg.socketColor = socketedIn and socketedIn.color
 									activeEffect.gemCfg.socketNum = gemIndex
@@ -1868,7 +1935,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 									gemInstance.reqOverride = activeEffect.req
 									if not processedSockets[gemInstance] then
 										processedSockets[gemInstance] = true
-										applySocketMods(env, gemInstance.gemData, groupCfg, gemIndex, playerItems[groupCfg.slotName] and playerItems[groupCfg.slotName].name)
+										applySocketMods(env, gemInstance.gemData, groupCfg, gemIndex, socketedItem and socketedItem.name)
 										-- Keep track of the gem count for each color socketed in this group
 										groupCfg.intelligenceGems = (groupCfg.intelligenceGems or 0) + (gemInstance.gemData.tags.intelligence and 1 or 0)
 										groupCfg.dexterityGems = (groupCfg.dexterityGems or 0) + (gemInstance.gemData.tags.dexterity and 1 or 0)

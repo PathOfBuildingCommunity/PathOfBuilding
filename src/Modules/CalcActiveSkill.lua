@@ -383,6 +383,18 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 		end
 	end
 
+	-- Checked after the weapon flags so the reason isn't overwritten by the weapon checks
+	local socketGroup = activeSkill.socketGroup
+	if activeSkill.actor.weaponsDisabled and socketGroup and socketGroup.slot and socketGroup.slotEnabled and not calcs.grantedEffectDisablesWeapons(activeGrantedEffect) then
+		local slotName = socketGroup.slot:gsub(" Swap", "")
+		if slotName == "Weapon 1" or slotName == "Weapon 2" then
+			-- Skills socketed in or granted by weapons disabled by Manifested Dancing Dervishes can't be used
+			-- Supports socketed in them still support the skill that disables them
+			skillFlags.disable = true
+			activeSkill.disableReason = socketGroup.source and "This skill is granted by a disabled weapon" or "This skill is socketed in a disabled weapon"
+		end
+	end
+
 	-- Apply stat-map flagged skill flags.
 	for stat, statValue in pairs(calcLib.buildSkillInstanceStats(activeEffect, activeGrantedEffect)) do
 		local map = activeGrantedEffect.statMap[stat]
@@ -807,6 +819,9 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 						if item and item.weaponData then
 							minion.weaponData1 = item.weaponData[1]
 						end
+					elseif env.player.disabledItemList["Weapon 1"] and env.player.disabledItemList["Weapon 1"].weaponData then
+						-- The player's weapon slots are disabled while the weapon is a minion (e.g. Manifested Dancing Dervishes)
+						minion.weaponData1 = env.player.disabledItemList["Weapon 1"].weaponData[1]
 					else
 						minion.weaponData1 = env.player.weaponData1
 					end
@@ -817,6 +832,8 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 						if item and item.weaponData then
 							minion.weaponData2 = item.weaponData[2]
 						end
+					elseif env.player.disabledItemList["Weapon 2"] and env.player.disabledItemList["Weapon 2"].weaponData then
+						minion.weaponData2 = env.player.disabledItemList["Weapon 2"].weaponData[2]
 					else
 						minion.weaponData2 = env.player.weaponData2
 					end

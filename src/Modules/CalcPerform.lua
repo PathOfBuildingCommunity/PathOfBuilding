@@ -1179,7 +1179,8 @@ local function addMinionItems(env, minion)
 				end
 				item = env.build.itemsTab.items[minion.itemSet[slotName].selItemId]
 			else
-				item = env.player.itemList[slotName]
+				-- Minions can still use weapons disabled by Manifested Dancing Dervishes
+				item = env.player.itemList[slotName] or env.player.disabledItemList[slotName]
 			end
 			if item then
 				minion.itemList[slotName] = item
@@ -1255,7 +1256,7 @@ local function initMinionModDB(env, activeSkill, output, itemsLoaded)
 			minion.modDB:AddList(env.player.itemList["Gloves"].modList)
 		end
 	end
-	if activeSkill.skillData.minionUseMainHandWeapon then
+	if activeSkill.skillData.minionUseMainHandWeapon and env.player.itemList["Weapon 1"] then
 		minion.modDB:AddList(env.player.itemList["Weapon 1"].slotModList[1])
 	end
 	if not itemsLoaded then
@@ -3580,17 +3581,6 @@ function calcs.perform(env, skipEHP)
 
 	-- Merge keystones again to catch any that were added by buffs
 	modLib.mergeKeystones(env, env.modDB)
-
-	-- Special handling for Dancing Dervish
-	if modDB:Flag(nil, "DisableWeapons") then
-		env.player.weaponData1 = copyTable(env.data.unarmedWeaponData[env.classId])
-		modDB.conditions["Unarmed"] = true
-		if not env.player.Gloves or env.player.Gloves == "None" then
-			modDB.conditions["Unencumbered"] = true
-		end
-	elseif env.weaponModList1 then
-		modDB:AddList(env.weaponModList1)
-	end
 
 	-- Process prerequisites for conditionals
 	calcs.defenceForConditionals(env, env.player)
