@@ -498,6 +498,27 @@ function CalcsTabClass:PowerBuilder()
 	local useFullDPS = self.powerStat and self.powerStat.stat == "FullDPS"
 	local calcFunc, calcBase = self:GetMiscCalculator()
 	local cache = { }
+	-- Nodes with identical stats share a modKey, but radius jewels apply their functions
+	-- by node position, so two such nodes can be worth different amounts. The cache key
+	-- also names the radius jewels that reach the node. Radius sets are taken now because
+	-- the main environment can be rebuilt while this coroutine is suspended.
+	local radiusNodeSets = { }
+	for i, rad in ipairs(self.mainEnv.radiusJewelList or { }) do
+		radiusNodeSets[i] = rad.nodes
+	end
+	local function getCacheKey(node, modKey)
+		if node.type == "Mastery" then
+			-- Radius jewel functions skip masteries
+			return modKey
+		end
+		local key = modKey
+		for i = 1, #radiusNodeSets do
+			if radiusNodeSets[i][node.id] then
+				key = key .. "|radius" .. i
+			end
+		end
+		return key
+	end
 	local distanceMap = { }
 	local distanceList = { }
 	local masteryNodeList = { }
@@ -610,10 +631,11 @@ function CalcsTabClass:PowerBuilder()
 		end
 		for nodeId, node in pairs(nodes) do
 			if not node.alloc and node.modKey ~= "" and not self.mainEnv.grantedPassives[nodeId] then
-				if not cache[node.modKey] then
-					cache[node.modKey] = calcFunc({ addNodes = { [node] = true } }, useFullDPS)
+				local cacheKey = getCacheKey(node, node.modKey)
+				if not cache[cacheKey] then
+					cache[cacheKey] = calcFunc({ addNodes = { [node] = true } }, useFullDPS)
 				end
-				local output = cache[node.modKey]
+				local output = cache[cacheKey]
 				calculateAddNodePower(node.power, distance, node, output, function()
 					local pathNodes = { }
 					for _, pathNode in pairs(node.path) do
@@ -622,10 +644,11 @@ function CalcsTabClass:PowerBuilder()
 					return pathNodes
 				end)
 			elseif node.alloc and node.modKey ~= "" and not self.mainEnv.grantedPassives[nodeId] then
-				if not cache[node.modKey.."_remove"] then
-					cache[node.modKey.."_remove"] = calcFunc({ removeNodes = { [node] = true } }, useFullDPS)
+				local cacheKey = getCacheKey(node, node.modKey.."_remove")
+				if not cache[cacheKey] then
+					cache[cacheKey] = calcFunc({ removeNodes = { [node] = true } }, useFullDPS)
 				end
-				local output = cache[node.modKey.."_remove"]
+				local output = cache[cacheKey]
 				if self.powerStat and self.powerStat.stat and not self.powerStat.ignoreForNodes then
 					node.power.singleStat = self:CalculatePowerStat(self.powerStat, output, calcBase)
 					if node.depends and not node.ascendancyName then
@@ -717,10 +740,11 @@ function CalcsTabClass:PowerBuilder()
 		end
 		wipeTable(node.power)
 		if not node.alloc and node.modKey ~= "" and not self.mainEnv.grantedPassives[node.id] then
-			if not cache[node.modKey] then
-				cache[node.modKey] = calcFunc({ addNodes = { [node] = true } }, useFullDPS)
+			local cacheKey = getCacheKey(node, node.modKey)
+			if not cache[cacheKey] then
+				cache[cacheKey] = calcFunc({ addNodes = { [node] = true } }, useFullDPS)
 			end
-			local output = cache[node.modKey]
+			local output = cache[cacheKey]
 			if self.powerStat and self.powerStat.stat and not self.powerStat.ignoreForNodes then
 				node.power.singleStat = self:CalculatePowerStat(self.powerStat, output, calcBase)
 			end
