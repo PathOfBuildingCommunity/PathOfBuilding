@@ -4,6 +4,20 @@ describe("TestItemParse", function()
 		return "Rarity: Rare\nName\n"..base.."\n"..s
 	end
 
+	it("keeps implicit continuations inside a raw line count boundary", function()
+		for _, flag in ipairs({ "", "{crafted}", "{scourge}" }) do
+			local item = new("Item"):Item()
+			item:ParseRaw(raw("Implicits: 2\n" .. flag .. "Adds 1 to 2 Fire Damage to\n" .. flag .. "Spells\n+20 to maximum Life"), nil, nil, true)
+			assert.are.equals(1, #item.enchantModLines + #item.scourgeModLines + #item.implicitModLines)
+			assert.are.equals("+20 to maximum Life", item.explicitModLines[1].line)
+		end
+
+		local item = new("Item"):Item()
+		item:ParseRaw(raw("Implicits: 1\nAdds 1 to 2 Fire Damage to\nSpells"), nil, nil, true)
+		assert.are.equals("Adds 1 to 2 Fire Damage to", item.implicitModLines[1].line)
+		assert.are.equals("Spells", item.explicitModLines[1].line)
+	end)
+
 	it("pastes Viscera names and implicit rolls without adding item descriptions as modifiers", function()
 		newBuild()
 		local cases = {

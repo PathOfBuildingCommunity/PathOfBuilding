@@ -421,7 +421,7 @@ end
 ---@field modId string?
 
 -- Parse raw item data and extract item name, base type, quality, and modifiers
-function ItemClass:ParseRaw(raw, rarity, highQuality)
+function ItemClass:ParseRaw(raw, rarity, highQuality, implicitCountUsesRawLines)
 	self.raw = raw
 	self.name = "?"
 	self.namePrefix = ""
@@ -1199,8 +1199,10 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 				local modList, extra = modLib.parseMod(rangedLine)
 				local nextModGroup = self.rawLines[l + 1]
 					and self.rawLines[l + 1]:match("{modGroup:([^}]+)}")
+				local parsedImplicitLines = #self.enchantModLines + #self.scourgeModLines + #self.implicitModLines
 				-- Only combine generated lines that came from the same modifier.
 				if (not modList or extra) and self.rawLines[l + 1]
+					and (not implicitCountUsesRawLines or parsedImplicitLines + 1 ~= implicitLines)
 					and modLine.modGroup == nextModGroup then
 					-- Try to combine it with the next line
 					local nextLine = self.rawLines[l+1]:gsub("%b{}", ""):gsub(" ?%(%l+%)","")
@@ -1210,6 +1212,10 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 					if modList and not extra then
 						line = line .. "\n" .. nextLine
 						l = l + 1
+						-- API imports count the consumed line separately; saved items count the combined entry.
+						if implicitCountUsesRawLines and parsedImplicitLines + 1 < implicitLines then
+							implicitLines = implicitLines - 1
+						end
 					else
 						modList, extra = modLib.parseMod(rangedLine)
 					end
@@ -1667,6 +1673,10 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 		self.jewelRadiusIndex = self.jewelData.radiusIndex
 	end
 	self.isUnique = self.rarity == "UNIQUE" or self.rarity == "RELIC"
+	if implicitCountUsesRawLines then
+		-- Clones and saved items use the logical count, without the import-only context.
+		self.raw = self:BuildRaw()
+	end
 end
 
 ---@param modId string The id which will be present on the removed mod lines
