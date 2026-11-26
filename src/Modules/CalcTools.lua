@@ -14,7 +14,7 @@ calcLib = { }
 
 -- Calculate and combine INC/MORE modifiers for the given modifier names
 function calcLib.mod(modStore, cfg, ...)
-	return (1 + (modStore:Sum("INC", cfg, ...)) / 100) * modStore:More(cfg, ...)
+	return m_max(1 + (modStore:Sum("INC", cfg, ...)) / 100, 0) * modStore:More(cfg, ...)
 end
 
 ---Calculates additive and multiplicative modifiers for specified modifier names

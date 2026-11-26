@@ -181,7 +181,7 @@ function ModDBClass:MoreInternal(context, cfg, flags, keywordFlags, source, ...)
 					else
 						value = mod.value or 0
 					end
-					modResult = modResult * (1 + value / 100)
+					modResult = modResult * m_max(1 + value / 100, 0)
 					if modPrecision then
 						modPrecision = m_max(modPrecision, (data.highPrecisionMods[mod.name] and data.highPrecisionMods[mod.name][mod.type]) or modPrecision)
 					else
