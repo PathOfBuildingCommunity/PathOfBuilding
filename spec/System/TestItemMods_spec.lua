@@ -1503,6 +1503,63 @@ describe("TetsItemMods", function()
 		build.itemsTab:AddDisplayItem()
 	end
 
+	it("adds and removes item-granted Envy in item previews", function()
+		addItem("Rarity: NORMAL\nCutlass")
+		build.skillsTab:PasteSocketGroup("Ethereal Knives 20/0  1\n")
+		local group = build.skillsTab.socketGroupList[1]
+		group.includeInFullDPS = true
+		local candidate = new("Item"):Item("Rarity: UNIQUE\nUnited in Dream\nCutlass\nImplicits: 0\nGrants Level 25 Envy")
+		build.itemsTab:AddItem(candidate, true)
+		runCallback("OnFrame")
+
+		local slot = build.itemsTab.slots["Weapon 1"]
+		local originalItemId = slot.selItemId
+		local calculate, original = build.calcsTab:GetMiscCalculator()
+		local adding = calculate({ repSlotName = "Weapon 1", repItem = candidate })
+		assert.are.equal(originalItemId, slot.selItemId)
+		assert.are.same({ group }, build.skillsTab.socketGroupList)
+
+		slot:SetSelItemId(candidate.id)
+		build.buildFlag = true
+		runCallback("OnFrame")
+		local equipped = build.calcsTab.mainOutput
+		assert.is_true(equipped.TotalDPS > original.TotalDPS)
+		assert.are.equal(equipped.TotalDPS, adding.TotalDPS)
+		assert.are.equal(equipped.FullDPS, adding.FullDPS)
+
+		calculate = build.calcsTab:GetMiscCalculator()
+		local removing = calculate({ repSlotName = "Weapon 1", repItem = build.itemsTab.items[originalItemId] })
+		assert.are.equal(original.TotalDPS, removing.TotalDPS)
+		assert.are.equal(original.FullDPS, removing.FullDPS)
+		assert.are.equal(candidate.id, slot.selItemId)
+
+		local envy = assert(findActiveSkill("Envy")).socketGroup
+		envy.enabled = false
+		build.buildFlag = true
+		runCallback("OnFrame")
+		calculate = build.calcsTab:GetMiscCalculator()
+		local unchanged = calculate({ repSlotName = "Weapon 1", repItem = candidate })
+		assert.are.equal(original.TotalDPS, unchanged.TotalDPS)
+		assert.is_false(envy.enabled)
+	end)
+
+	it("leaves the triggered skill data unchanged when previewing an item", function()
+		build.skillsTab:PasteSocketGroup("Fireball 20/0  1\n")
+		runCallback("OnFrame")
+		local candidate = new("Item"):Item("Rarity: UNIQUE\nBubonic Trail\nMurder Boots\nImplicits: 0\nTriggers Level 20 Death Walk when Equipped")
+		local grant = candidate.grantedSkills[1]
+		assert.is_true(grant.triggered)
+		local level = data.skills[grant.skillId].levels[grant.level]
+		local cost = level.cost
+
+		local calculate = build.calcsTab:GetMiscCalculator()
+		calculate({ repSlotName = "Boots", repItem = candidate })
+
+		assert.are.equal(cost, level.cost)
+		assert.are.equal(0, build.itemsTab.slots.Boots.selItemId)
+		assert.are.equal(1, #build.skillsTab.socketGroupList)
+	end)
+
 	-- Pearl of Tsoatha: despite the "Socketed in" wording these support skills granted
 	-- by the item in that slot as well, which ExtraSupport normally excludes
 	it("ExtraSupport marked appliesToGrantedSkills supports an item granted skill", function()

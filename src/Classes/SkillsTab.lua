@@ -1168,7 +1168,8 @@ end
 
 -- Processes the given socket group, filling in information that will be used for display or calculations
 ---@param socketGroup table
-function SkillsTabClass:ProcessSocketGroup(socketGroup)
+---@param isolated boolean? Copy shared skill data before overriding the cost.
+function SkillsTabClass:ProcessSocketGroup(socketGroup, isolated)
 	-- Loop through the skill gem list
 	local data = self.build.data
 	for _, gemInstance in ipairs(socketGroup.gemList) do
@@ -1195,9 +1196,17 @@ function SkillsTabClass:ProcessSocketGroup(socketGroup)
 			else
 				gemInstance.grantedEffect = data.skills[gemInstance.skillId]
 			end
-			if gemInstance.triggered then
-				if gemInstance.grantedEffect.levels[gemInstance.level] then
-					gemInstance.grantedEffect.levels[gemInstance.level].cost = {}
+			if gemInstance.triggered and gemInstance.grantedEffect then
+				local effect = gemInstance.grantedEffect
+				local level = gemInstance.level
+				if effect.levels[level] then
+					if isolated then
+						effect = copyTable(effect, true)
+						effect.levels = copyTable(effect.levels, true)
+						effect.levels[level] = copyTable(effect.levels[level], true)
+						gemInstance.grantedEffect = effect
+					end
+					effect.levels[level].cost = {}
 				end
 			end
 		elseif gemInstance.nameSpec:match("%S") then

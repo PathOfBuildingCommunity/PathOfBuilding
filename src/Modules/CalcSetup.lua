@@ -1506,7 +1506,23 @@ function calcs.initEnv(build, mode, override, specEnv)
 	end
 
 	if not accelerate.skills then
-		if env.mode == "MAIN" then
+		local isItemPreview = env.mode == "CALCULATOR" and override.repSlotName ~= nil
+		local socketGroupList = build.skillsTab.socketGroupList
+		if isItemPreview then
+			-- Reconcile grants for the candidate without changing the live groups or gems.
+			socketGroupList = { }
+			for index, liveGroup in ipairs(build.skillsTab.socketGroupList) do
+				local group = copyTable(liveGroup, true)
+				group.gemList = { }
+				for gemIndex, gem in ipairs(liveGroup.gemList) do
+					group.gemList[gemIndex] = copyTable(gem, true)
+				end
+				socketGroupList[index] = group
+			end
+		end
+		env.socketGroupList = socketGroupList
+
+		if env.mode == "MAIN" or isItemPreview then
 			local function getNormalizedSkillLevel(grantedSkill)
 				-- Levels in socketGroup.gemList[1].level are normalized
 				-- grantedSkill.level is not causing group match miss which causes all things that rely on group order to fail
@@ -1523,7 +1539,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 			for _, grantedSkill in ipairs(env.grantedSkills) do
 				-- Check if a matching group already exists
 				local group
-				for index, socketGroup in pairs(build.skillsTab.socketGroupList) do
+				for _, socketGroup in ipairs(socketGroupList) do
 					if socketGroup.source == grantedSkill.source and socketGroup.slot == grantedSkill.slotName then
 						if socketGroup.gemList[1] and socketGroup.gemList[1].skillId == grantedSkill.skillId and (socketGroup.gemList[1].level == grantedSkill.level or socketGroup.gemList[1].level == getNormalizedSkillLevel(grantedSkill)) then
 							group = socketGroup
@@ -1535,7 +1551,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 				if not group then
 					-- Create a new group for this skill
 					group = { label = "", enabled = true, gemList = { }, source = grantedSkill.source, slot = grantedSkill.slotName }
-					t_insert(build.skillsTab.socketGroupList, group)
+					t_insert(socketGroupList, group)
 					markList[group] = true
 				end
 
@@ -1558,13 +1574,13 @@ function calcs.initEnv(build, mode, override, specEnv)
 				activeGemInstance.triggerChance = grantedSkill.triggerChance
 				wipeTable(group.gemList)
 				t_insert(group.gemList, activeGemInstance)
-				build.skillsTab:ProcessSocketGroup(group)
+				build.skillsTab:ProcessSocketGroup(group, isItemPreview)
 			end
 
 			if #env.explodeSources ~= 0 then
 				-- Check if a matching group already exists
 				local group
-				for _, socketGroup in pairs(build.skillsTab.socketGroupList) do
+				for _, socketGroup in ipairs(socketGroupList) do
 					if socketGroup.source == "Explode" then
 						group = socketGroup
 						break
@@ -1573,7 +1589,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 				if not group then
 					-- Create a new group for this skill
 					group = { label = "On Kill Monster Explosion", enabled = true, gemList = { }, source = "Explode", noSupports = true }
-					t_insert(build.skillsTab.socketGroupList, group)
+					t_insert(socketGroupList, group)
 				end
 				-- Update the group
 				group.explodeSources = env.explodeSources
@@ -1601,16 +1617,16 @@ function calcs.initEnv(build, mode, override, specEnv)
 					t_insert(group.gemList, activeGemInstance)
 				end
 				markList[group] = true
-				build.skillsTab:ProcessSocketGroup(group)
+				build.skillsTab:ProcessSocketGroup(group, isItemPreview)
 			end
 
 			-- Remove any socket groups that no longer have a matching item
 			local i = 1
-			while build.skillsTab.socketGroupList[i] do
-				local socketGroup = build.skillsTab.socketGroupList[i]
+			while socketGroupList[i] do
+				local socketGroup = socketGroupList[i]
 				if socketGroup.source and not markList[socketGroup] then
-					t_remove(build.skillsTab.socketGroupList, i)
-					if build.skillsTab.displayGroup == socketGroup then
+					t_remove(socketGroupList, i)
+					if not isItemPreview and build.skillsTab.displayGroup == socketGroup then
 						build.skillsTab.displayGroup = nil
 					end
 				else
@@ -1644,11 +1660,13 @@ function calcs.initEnv(build, mode, override, specEnv)
 
 		-- Determine main skill group
 		if env.mode == "CALCS" then
-			env.calcsInput.skill_number = m_min(m_max(#build.skillsTab.socketGroupList, 1), env.calcsInput.skill_number or 1)
+			env.calcsInput.skill_number = m_min(m_max(#socketGroupList, 1), env.calcsInput.skill_number or 1)
 			env.mainSocketGroup = env.calcsInput.skill_number
 		else
-			build.mainSocketGroup = m_min(m_max(#build.skillsTab.socketGroupList, 1), build.mainSocketGroup or 1)
-			env.mainSocketGroup = build.mainSocketGroup
+			env.mainSocketGroup = m_min(m_max(#socketGroupList, 1), build.mainSocketGroup or 1)
+			if not isItemPreview then
+				build.mainSocketGroup = env.mainSocketGroup
+			end
 		end
 
 		-- Process supports and put them into the correct buckets
@@ -1663,7 +1681,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 		local processedSockets = {}
 		local socketIndexByGem = {}
 		local slotSocketedCounts = {}
-		for _, group in ipairs(build.skillsTab.socketGroupList) do
+		for _, group in ipairs(socketGroupList) do
 			if group.slot then
 				local socketOffset = slotSocketedCounts[group.slot] or 0
 				for gemIndex, gemInstance in ipairs(group.gemList) do
@@ -1679,7 +1697,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 		---@type table<table, table>
 		local fromItemReplacements = {}
 		-- Process support gems adding them to applicable support lists
-		for index, group in ipairs(build.skillsTab.socketGroupList) do
+		for index, group in ipairs(socketGroupList) do
 			local slot = group.slot and build.itemsTab.slots[group.slot]
 			group.slotEnabled = not slot or not slot.weaponSet or slot.weaponSet == (build.itemsTab.activeItemSet.useSecondWeaponSet and 2 or 1)
 			-- if group is main skill or group is enabled 
@@ -1822,7 +1840,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 
 		-- Process active skills adding the applicable supports
 		local socketGroupSkillListList = { }
-		for index, group in ipairs(build.skillsTab.socketGroupList) do
+		for index, group in ipairs(socketGroupList) do
 			if index == env.mainSocketGroup or (group.enabled and group.slotEnabled) then
 				local isTreeSkill = not group.slot and group.source and group.source:lower():find("tree")
 				local slotName = group.slot and group.slot:gsub(" Swap", "") or (isTreeSkill and "Passive Tree") or nil
@@ -1887,7 +1905,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 									if group.source then 
 										if supportLists[slotName] then
 											-- add socketed supports from other socketGroups
-											for _, otherSocketGroup in ipairs(build.skillsTab.socketGroupList) do
+											for _, otherSocketGroup in ipairs(socketGroupList) do
 												if otherSocketGroup.slot and otherSocketGroup.slot == group.slot and not (otherSocketGroup.source and otherSocketGroup.source == group.source) then
 													for _, gem in ipairs(otherSocketGroup.gemList) do
 														if gem.gemData and gem.gemData.grantedEffect and gem.gemData.grantedEffect.support then
@@ -1907,7 +1925,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 									for crossLinkedSupportSlot, crossLinkedSupportGroup in pairs(env.crossLinkedSupportGroups) do
 										for _, crossLinkedSupportedSlot in ipairs(crossLinkedSupportGroup) do
 											if crossLinkedSupportedSlot == slotName and supportLists[crossLinkedSupportSlot] then
-												for _, otherSocketGroup in ipairs(build.skillsTab.socketGroupList) do 
+												for _, otherSocketGroup in ipairs(socketGroupList) do
 													if otherSocketGroup.slot and otherSocketGroup.slot == crossLinkedSupportSlot then 
 														for _, gem in ipairs(otherSocketGroup.gemList) do
 															if gem.gemData and gem.gemData.grantedEffect and gem.gemData.grantedEffect.support then
@@ -1954,7 +1972,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 		end
 
 		-- Process calculated active skill lists
-		for index, group in ipairs(build.skillsTab.socketGroupList) do
+		for index, group in ipairs(socketGroupList) do
 			local isTreeSkill = not group.slot and group.source and group.source:lower():find("tree")
 			local slotName = group.slot and group.slot:gsub(" Swap", "") or (isTreeSkill and "Passive Tree") or nil
 			socketGroupSkillListList[slotName or "noSlot"] = socketGroupSkillListList[slotName or "noSlot"] or {}
