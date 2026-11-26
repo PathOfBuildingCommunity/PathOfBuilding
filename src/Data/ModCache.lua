@@ -22192,11 +22192,11 @@ c["Totems gain +5% to all Elemental Resistances"]={{[1]={flags=0,keywordFlags=0,
 c["Totems gain +8% to all Elemental Resistances"]={{[1]={flags=0,keywordFlags=0,name="TotemElementalResist",type="BASE",value=8}},nil}
 c["Totems gain -10% to all Elemental Resistances per Summoned Totem"]={nil,"Totems gain -10% to all Elemental Resistances per Summoned Totem "}
 c["Totems have 100% increased Movement Speed"]={{[1]={flags=0,keywordFlags=16384,name="MovementSpeed",type="INC",value=100}},nil}
-c["Totems have 13% additional Physical Damage Reduction"]={{[1]={flags=0,keywordFlags=16384,name="PhysicalDamageReduction",type="BASE",value=13}},nil}
-c["Totems have 15% additional Physical Damage Reduction"]={{[1]={flags=0,keywordFlags=16384,name="PhysicalDamageReduction",type="BASE",value=15}},nil}
-c["Totems have 18% additional Physical Damage Reduction"]={{[1]={flags=0,keywordFlags=16384,name="PhysicalDamageReduction",type="BASE",value=18}},nil}
-c["Totems have 23% additional Physical Damage Reduction"]={{[1]={flags=0,keywordFlags=16384,name="PhysicalDamageReduction",type="BASE",value=23}},nil}
-c["Totems have 40% additional Physical Damage Reduction"]={{[1]={flags=0,keywordFlags=16384,name="PhysicalDamageReduction",type="BASE",value=40}},nil}
+c["Totems have 13% additional Physical Damage Reduction"]={{[1]={flags=0,keywordFlags=0,name="TotemPhysicalDamageReduction",type="BASE",value=13}},nil}
+c["Totems have 15% additional Physical Damage Reduction"]={{[1]={flags=0,keywordFlags=0,name="TotemPhysicalDamageReduction",type="BASE",value=15}},nil}
+c["Totems have 18% additional Physical Damage Reduction"]={{[1]={flags=0,keywordFlags=0,name="TotemPhysicalDamageReduction",type="BASE",value=18}},nil}
+c["Totems have 23% additional Physical Damage Reduction"]={{[1]={flags=0,keywordFlags=0,name="TotemPhysicalDamageReduction",type="BASE",value=23}},nil}
+c["Totems have 40% additional Physical Damage Reduction"]={{[1]={flags=0,keywordFlags=0,name="TotemPhysicalDamageReduction",type="BASE",value=40}},nil}
 c["Totems have 5% increased Attack Speed per Summoned Totem"]={{[1]={[1]={stat="TotemsSummoned",type="PerStat"},flags=1,keywordFlags=16384,name="Speed",type="INC",value=5}},nil}
 c["Totems have 5% increased Cast Speed per Summoned Totem"]={{[1]={[1]={stat="TotemsSummoned",type="PerStat"},flags=16,keywordFlags=16384,name="Speed",type="INC",value=5}},nil}
 c["Totems have 5% more Life per maximum number of Summoned Totems"]={{[1]={[1]={stat="ActiveTotemLimit",type="PerStat"},flags=0,keywordFlags=0,name="TotemLife",type="MORE",value=5}},nil}
