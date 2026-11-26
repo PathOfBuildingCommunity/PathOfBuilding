@@ -202,7 +202,7 @@ return function(skills, mod, flag, skill)
 			mod("CorruptingCryStagesFromExerted", nil, 0, KeywordFlag.Attack)
 		},
 		["support_corrupting_cry_area_of_effect_+%_final"] = {
-			mod("AreaOfEffect", "INC", nil, 0, KeywordFlag.Warcry)
+			mod("AreaOfEffect", "MORE", nil, 0, KeywordFlag.Warcry)
 		},
 		["support_corrupting_cry_warcry_and_first_exerted_attack_applies_corrupted_blood_for_X_ms"] = {
 			skill("durationSecondary", nil),
