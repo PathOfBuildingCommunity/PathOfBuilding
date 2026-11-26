@@ -406,6 +406,36 @@ describe("TestRadiusJewelStatDiff", function()
 		assert.is_true(found, "NodesInIntuitiveLeapLikeRadius should include the allocated node")
 	end)
 
+	it("treats a socket whose jewel item is missing as empty", function()
+		local spec, socketNode = setupAllocatedSocket()
+		local orphanNode
+		for _, node in pairs(spec.nodes) do
+			if node.type == "Normal" and not node.ascendancyName and not node.alloc then
+				local linkedToTree = false
+				for _, linked in ipairs(node.linked) do
+					linkedToTree = linkedToTree or linked.alloc
+				end
+				if not linkedToTree then
+					orphanNode = node
+					break
+				end
+			end
+		end
+		assert.is_truthy(orphanNode, "Should find a node away from the allocated path")
+
+		-- A socket can point at a deleted item while the tree rebuilds, as when Redo of Delete All resets the slots one at a time
+		local missingItemId = 1
+		assert.is_nil(build.itemsTab.items[missingItemId])
+		spec.jewels[socketNode.id] = missingItemId
+		orphanNode.alloc = true
+		spec.allocNodes[orphanNode.id] = orphanNode
+
+		assert.has_no.errors(function()
+			spec:BuildAllDependsAndPaths()
+		end)
+		assert.is_nil(spec.allocNodes[orphanNode.id], "Missing jewel should not keep unconnected nodes allocated")
+	end)
+
 	it("Thread of Hope removal comparison removes dependent nodes via override", function()
 		local spec, socketNode = setupAllocatedSocket()
 
