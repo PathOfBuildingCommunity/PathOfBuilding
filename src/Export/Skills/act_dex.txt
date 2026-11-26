@@ -1909,6 +1909,7 @@ return function(skills, mod, flag, skill)
 
 #skill HeraldOfAgony
 #flags cast minion permanentMinion
+	defaultMinionSkill = "HeraldOfAgonyMinionTailSpike",
 	minionList = {
 		"HeraldOfAgonySpiderPlated",
 	},
