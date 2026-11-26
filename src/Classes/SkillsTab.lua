@@ -267,7 +267,7 @@ function SkillsTabClass:SkillsTab(build)
 		item.sockets = {}
 		for _, group in ipairs(self.socketGroupList) do
 			local colours = { "R", "G", "B" }
-			if group.slot == groupSlot.slotName then
+			if group.slot == groupSlot.slotName and not group.source then
 				for _, gem in ipairs(group.gemList) do
 					local grantedEffect = gem.grantedEffect or (gem.gemData and gem.gemData.grantedEffect)
 					if grantedEffect and maxSockets > 0 then
@@ -298,7 +298,7 @@ function SkillsTabClass:SkillsTab(build)
 		end
 		local maxSockets = getSocketCounts(item)
 		for _, group in ipairs(self.socketGroupList) do
-			if group.slot == groupSlot.slotName then
+			if group.slot == groupSlot.slotName and not group.source then
 				for _, gem in ipairs(group.gemList) do
 					if (gem.grantedEffect or (gem.gemData and gem.gemData.grantedEffect)) and maxSockets > 0 then
 						if not gem.matchesSocket then
@@ -1251,7 +1251,7 @@ function SkillsTabClass:UpdateSocketGroups()
 		for _, gemInstance in ipairs(socketGroup.gemList) do
 			gemInstance.matchesSocket = false
 		end
-		if socketGroup.slot then
+		if socketGroup.slot and not socketGroup.source then
 			local gemOffset = (slotSocketedCounts[socketGroup.slot] or 0)
 			for i, gemInstance in ipairs(socketGroup.gemList) do
 				-- add quality for matching sockets by looking up linked item

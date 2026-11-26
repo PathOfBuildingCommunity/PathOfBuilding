@@ -19,14 +19,14 @@ local gemSocketColours = { "R", "G", "B" }
 local function getMatchingSocketQuality(env, groupCfg, gemInstance, socketIndex)
 	local item = groupCfg.slotName and env.player.itemList[groupCfg.slotName]
 	local sockets = item and item.sockets
-	if not sockets then
+	if not sockets or not socketIndex then
 		return 0
 	elseif sockets.colourAlwaysMatches then
 		return data.misc.MatchingSocketQualityBonus
 	end
 	local grantedEffect = gemInstance.grantedEffect or (gemInstance.gemData and gemInstance.gemData.grantedEffect)
 	local gemColour = grantedEffect and grantedEffect.color and gemSocketColours[grantedEffect.color]
-	local socket = socketIndex and sockets[socketIndex]
+	local socket = sockets[socketIndex]
 	return gemColour and socket and socket.color == gemColour and data.misc.MatchingSocketQualityBonus or 0
 end
 
@@ -1664,7 +1664,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 		local socketIndexByGem = {}
 		local slotSocketedCounts = {}
 		for _, group in ipairs(build.skillsTab.socketGroupList) do
-			if group.slot then
+			if group.slot and not group.source then
 				local socketOffset = slotSocketedCounts[group.slot] or 0
 				for gemIndex, gemInstance in ipairs(group.gemList) do
 					socketIndexByGem[gemInstance] = socketOffset + gemIndex
