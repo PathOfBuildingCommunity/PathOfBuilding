@@ -253,6 +253,7 @@ function M.CaptureOverrides(config, set)
 	local state = config.autoSetupCache[set]
 	local baseline = state and state.baseline
 	if baseline then
+		overrides = copyTable(baseline.overrides or { }, true)
 		local vars = { }
 		for var in pairs(set.input) do vars[var] = true end
 		for var in pairs(baseline.input) do vars[var] = true end
@@ -260,9 +261,6 @@ function M.CaptureOverrides(config, set)
 			local value = set.input[var]
 			if value ~= baseline.input[var] then
 				overrides[var] = value == nil and CLEARED or value
-			elseif state.generated then
-				-- Back on the generated value: no longer an override
-				overrides[var] = nil
 			end
 		end
 	end
@@ -280,6 +278,10 @@ local function applyOverrides(input, overrides)
 	end
 end
 
+local function savedBaseline(set)
+	return { input = copyTable(set.input), overrides = copyTable(set.autoOverrides or { }, true) }
+end
+
 -- Config sets read from a file keep their saved values; nothing is regenerated
 -- until the build actually changes.
 function M.Loaded(config)
@@ -293,7 +295,7 @@ function M.Loaded(config)
 					set.input[var] = true
 				end
 			end
-			config.autoSetupCache[set] = { hash = set.autoSourceHash, baseline = { input = copyTable(set.input) } }
+			config.autoSetupCache[set] = { hash = set.autoSourceHash, baseline = savedBaseline(set) }
 		end
 	end
 end
@@ -334,7 +336,7 @@ local function regenerate(config, base, set, activity, stamp, reset)
 		set.input, set.placeholder, set.customModsList = draft.input, draft.placeholder, draft.customModsList
 	end
 	scanner.RecordSettingChecks(config, set, report, applied, settings)
-	cache[set] = { stamp = stamp, summary = summary, baseline = baseline, generated = true }
+	cache[set] = { stamp = stamp, summary = summary, baseline = baseline }
 	return set, changed
 end
 
@@ -402,7 +404,7 @@ local function refreshGenerated(config, rebuilt, settled)
 		local stamp = sourceStamp(config, base)
 		if not state or not state.stamp then
 			-- First sight of this setup (loaded from file): its saved values stand
-			state = state or { baseline = { input = copyTable(set.input) } }
+			state = state or { baseline = savedBaseline(set) }
 			state.stamp = stamp
 			config.autoSetupCache[set] = state
 			pending = nil
@@ -575,7 +577,7 @@ local function inspectSaved(config, set)
 		ConPrintf("Auto-configure could not check this setup: %s", tostring(draft))
 		return state
 	end
-	state = state or { baseline = { input = copyTable(set.input) } }
+	state = state or { baseline = savedBaseline(set) }
 	applyOverrides(draft.input, M.CaptureOverrides(config, set))
 	if textOf(set.customModsList or { }) ~= textOf(base.customModsList or { }) then
 		draft.customModsList = set.customModsList

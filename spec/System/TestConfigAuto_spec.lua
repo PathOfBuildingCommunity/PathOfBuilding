@@ -467,6 +467,12 @@ describe("TestConfigAuto", function()
 			config.controls.setupDetails:Click()
 			assert.is_false(config.autoSetupCache[config.configSets[config.activeConfigSetId]].outdated)
 			main:ClosePopup()
+
+			config.input.raiseSpectreEnableBuffs = true
+			config:AddUndoState()
+			build:SaveDB("code")
+			config:Undo()
+			assert.is_false(config.input.raiseSpectreEnableBuffs)
 			ring(killMods .. "\n+20 to maximum Life")
 			assert.are.equal(edited, config.input.overrideFrenzyCharges)
 			assert.is_nil(config.input.conditionKilledRecently)
