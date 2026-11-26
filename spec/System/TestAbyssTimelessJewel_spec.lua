@@ -108,6 +108,36 @@ local function equipJewel(spec, socketId, item)
 	return slot
 end
 
+local function loadBundledZorathData()
+	local ffi = require("ffi")
+	ffi.cdef[[
+		int uncompress(unsigned char *dest, unsigned long *destLen,
+			const unsigned char *source, unsigned long sourceLen);
+	]]
+	local library = ({ Windows = "../runtime/zlib1.dll", Linux = "libz.so.1" })[ffi.os] or "z"
+	local zlib = ffi.load(library)
+	local originalInflate = _G.Inflate
+	_G.Inflate = function(compressed)
+		-- The headless runtime stubs Inflate. Use zlib to exercise the real archive.
+		local capacity = #compressed * 4
+		while true do
+			local buffer = ffi.new("unsigned char[?]", capacity)
+			local length = ffi.new("unsigned long[1]", capacity)
+			local status = zlib.uncompress(buffer, length, compressed, #compressed)
+			if status == 0 then
+				return ffi.string(buffer, length[0])
+			end
+			assert(status == -5, "Could not inflate bundled Zorath data (zlib status " .. status .. ")")
+			capacity = capacity * 2
+		end
+	end
+	local loadJewelFile = LoadModule("Modules/DataJewelFileLoader")
+	local ok, contents = pcall(loadJewelFile, "AbyssZorath", false)
+	_G.Inflate = originalInflate
+	assert(ok, contents)
+	return parseAbyssJewel(11, assert(contents, "Missing bundled Zorath data"))
+end
+
 describe("Abyss timeless jewels", function()
 	before_each(function()
 		newBuild()
@@ -362,6 +392,43 @@ describe("Abyss timeless jewels", function()
 		assert.are.equal("Spiteful Allies", spec.nodes[53884].dn)
 		assert.are.equal("Minions Impale on Hit", table.concat(spec.nodes[53884].sd, "\n"))
 		assert.are.equal("From Below", spec.nodes[50692].dn)
+	end)
+
+	it("applies the in-game Zorath seed 6696 to the Assassin's Opportunistic notable", function()
+		-- https://github.com/PathOfBuildingCommunity/PathOfBuilding/issues/10584
+		local spec = build.spec
+		spec:SelectClass(spec.tree.classNameMap.Shadow)
+		spec:SelectAscendClass(spec.tree.ascendNameMap.Assassin.ascendClassId)
+		local socketId, opportunistic, toxicDelivery = 41263, 19083, 19598
+		assert.is_true(allocatePathToNode(spec, spec.nodes[socketId]))
+		spec:BuildAllDependsAndPaths()
+		data.timelessJewelLUTs[11] = loadBundledZorathData()
+		equipJewel(spec, socketId, newAbyssTimelessJewel("Reclaimed Malevolence", "Assembled Eye Jewel",
+			"Binding 6696 souls to phylacteries to sustain Zorath"))
+		spec:BuildAllDependsAndPaths()
+
+		assert.are.equal("From Below", spec.nodes[opportunistic].dn)
+		assert.are.equal("Toxic Delivery", spec.nodes[toxicDelivery].dn)
+		local stats = table.concat(spec.nodes[opportunistic].sd, "\n")
+		assert.matches("Insufficient Mana doesn't prevent your Spells", stats, nil, true)
+		assert.matches("Cannot recover Mana", stats, nil, true)
+
+		local timelessData = build.timelessData
+		local fromBelow = "abyss_special_ascendancy_notable_3"
+		timelessData.jewelType = { id = 11 }
+		timelessData.conquerorType = { }
+		timelessData.jewelSocket = { id = socketId }
+		timelessData.searchList = fromBelow .. ", 1, 0, 1"
+		timelessData.searchListFallback = ""
+		build.treeTab:FindTimelessJewel()
+		main.popups[1].controls.searchButton.onClick()
+		for _, result in ipairs(timelessData.searchResults) do
+			if result.seed == 6696 then
+				assert.are.same({ "Opportunistic" }, result[fromBelow].targetNodeNames)
+				return
+			end
+		end
+		error("The seed finder must return seed 6696 for From Below on Assassin")
 	end)
 
 	it("can protect an allocated ascendancy notable from Zorath", function()
