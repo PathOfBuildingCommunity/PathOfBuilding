@@ -1871,6 +1871,22 @@ function buildMode:OpenSpectreLibrary()
 	controls.sortMonsterCheckboxFilterCorpse = new("CheckBoxControl"):CheckBoxControl({"TOPLEFT", controls.source, "BOTTOMLEFT"}, {89, 2, 26, 26}, "", monsterTypeCheckboxChange("corpseList"), "Hide Spectres found in Acts or Maps and only show\nItemised Corpses obtainable through trade or Rituals.", false)
 	controls.showOnlyCorpseLabel =new("LabelControl"):LabelControl({"RIGHT",controls.sortMonsterCheckboxFilterCorpse,"LEFT"}, {-5, 0, 0, 16}, "Corpse Only:")
 	controls.showAllLabel =new("LabelControl"):LabelControl({"RIGHT",controls.sortMonsterCheckboxShowAll,"LEFT"}, {-5, 0, 0, 16}, "Show All:")
+	local function canExpandSearch()
+		return not controls.sortMonsterCheckboxShowAll.state
+			and #controls.source.list == 0
+			and controls.source.controls.searchText.buf:find("%S") ~= nil
+	end
+	local noRecommendedMatches = new("LabelControl"):LabelControl({"TOP", controls.source, "TOP"}, {-8, 16, 0, 14},
+		"No recommended matches")
+	noRecommendedMatches.shown = canExpandSearch
+	controls.source.controls.noRecommendedMatches = noRecommendedMatches
+	local showAllForSearch = new("ButtonControl"):ButtonControl({"TOP", noRecommendedMatches, "BOTTOM"}, {0, 6, 112, 20},
+		"Enable Show All", function()
+			local showAll = controls.sortMonsterCheckboxShowAll
+			showAll.state = true
+			showAll.changeFunc(true)
+		end)
+	controls.source.controls.showAllForSearch = showAllForSearch
 	controls.save = new("ButtonControl"):ButtonControl(nil, {-45, 420, 80, 20}, "Save", function()
 		self.spectreList = destList
 		self.modFlag = true
