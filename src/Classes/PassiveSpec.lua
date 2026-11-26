@@ -1974,6 +1974,24 @@ function PassiveSpecClass:FindClusterSocket(group, index)
 	end
 end
 
+-- Builds saved before cluster sockets matched the game keep the jewel and allocation on the full-size socket.
+function PassiveSpecClass:MoveClusterSocket(fromId, toId)
+	if fromId == toId then
+		return
+	end
+	if (self.jewels[toId] or 0) == 0 and (self.jewels[fromId] or 0) ~= 0 then
+		self.jewels[toId] = self.jewels[fromId]
+		self.jewels[fromId] = nil
+	end
+	local index = isValueInArray(self.allocSubgraphNodes, fromId)
+	if index then
+		t_remove(self.allocSubgraphNodes, index)
+		if not isValueInArray(self.allocSubgraphNodes, toId) then
+			t_insert(self.allocSubgraphNodes, toId)
+		end
+	end
+end
+
 -- Legacy parser behavior downsized the proxy group while descending into nested clusters.
 -- Reproducing that traversal lets us recover legacy socket IDs for migration.
 function PassiveSpecClass:BuildLegacyProxyGroup(proxyGroup, expansionJewelSize, clusterSizeIndex)
@@ -2241,6 +2259,14 @@ function PassiveSpecClass:BuildSubgraph(jewel, parentSocket, id, upSize, importe
 		-- Look for the socket
 		local socket = self:FindClusterSocket(proxyGroup, jewelIndex)
 		assert(socket, "Socket not found (ran out of sockets nani?)")
+		if clusterJewel.sizeIndex < expansionJewel.size then
+			-- A cluster in a larger socket keeps its nodes in that socket's group, but the game takes its socket from the downsized group
+			local downsizedSocket = self:FindClusterSocket(self:BuildLegacyProxyGroup(proxyGroup, expansionJewel.size, clusterJewel.sizeIndex), jewelIndex)
+			if downsizedSocket then
+				self:MoveClusterSocket(socket.id, downsizedSocket.id)
+				socket = downsizedSocket
+			end
+		end
 
 		-- Construct the new node
 		local node = {
