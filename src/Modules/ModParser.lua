@@ -1296,6 +1296,8 @@ local preFlagList = {
 	["^enemies near your totems deal "] = { applyToEnemy = true },
 	-- Other
 	["^players "] = { },
+	-- only match base value forms
+	["^players have %f[%+%d]"] = { },
 	["^your flasks grant "] = { },
 	["^when hit, "] = { },
 	["^you and allies [hgd][ae][via][enl] "] = { },
@@ -1956,6 +1958,7 @@ local modTagList = {
 	["not at close range"] = { tag = { type = "Condition", var = "AtCloseRange", neg = true } },
 	["against rare and unique enemies"] = { tag = { type = "ActorCondition", actor = "enemy", var = "RareOrUnique" } },
 	["by s?l?a?i?n? rare [ao][nr]d? unique enemies"] = { tag = { type = "ActorCondition", actor = "enemy", var = "RareOrUnique" } },
+	["from slain rare or unique enemies"] = { tag = { type = "ActorCondition", actor = "enemy", var = "RareOrUnique" } },
 	["against unique enemies"] = { tag = { type = "ActorCondition", actor = "enemy", var = "RareOrUnique" } },
 	["against enemies on full life"] = { tag = { type = "ActorCondition", actor = "enemy", var = "FullLife" } },
 	["against enemies that are on full life"] = { tag = { type = "ActorCondition", actor = "enemy", var = "FullLife" } },
@@ -5891,6 +5894,7 @@ local specialModList = {
 	-- Conditional Player Quantity / Rarity
 	["(%d+)%% increased quantity of items dropped by slain normal enemies"] = function(num) return { mod("LootQuantityNormalEnemies", "INC", num) } end,
 	["(%d+)%% increased rarity of items dropped by slain magic enemies"] = function(num) return { mod("LootRarityMagicEnemies", "INC", num) } end,
+	["%+(%d+)%% to rarity of items dropped by slain magic enemies"] = function(num) return { mod("LootRarityMagicEnemies", "INC", num) } end,
 	-- Pantheon: Soul of Tukohama support
 	["while stationary, gain ([%d%.]+)%% of life regenerated per second every second, up to a maximum of (%d+)%%"] = function(num, _, limit) return {
 		mod("LifeRegenPercent", "BASE", num, { type = "Multiplier", var = "StationarySeconds", limit = tonumber(limit), limitTotal = true }, { type = "Condition", var = "Stationary" }),
@@ -7130,11 +7134,19 @@ local function parseModOrdered(line)
 end
 
 local nearbyRewrites = {
+	-- Blood Price
+	{ "^enemy monsters within [%d%.]+ metres? have at least ", "nearby enemy monsters have at least " },
 	{ "^enemy monsters within [%d%.]+ metres? have ", "nearby enemy monsters' " },
+	-- Perquil's Toe
+	{ "^allies within [%d%.]+ metres? cannot have their (.+) modified ", "nearby allies' %1 cannot be modified " },
+	-- Original Sin
+	{ "^(.+) of (%a+) within [%d%.]+ metres? is ", "nearby %2' %1 is " },
+	-- Ambu's Charge
+	{ "party members within [%d%.]+ metres?", "nearby party members" },
 	{ "while at least (%d+) enemies within [%d%.]+ metres?", "while at least %1 enemies are nearby" },
 	{ "while you have an ally within [%d%.]+ metres?", "while you have at least 1 nearby ally" },
 	{ "when you or allies within [%d%.]+ metres?", "when you or a nearby ally" },
-	{ "(rare or unique enem%a+) within [%d%.]+ metres?", "%1 nearby" },
+	{ "(rare or unique enem%a+ i?s? ?)within [%d%.]+ metres?", "%1nearby" },
 	{ "(applies .- to enemies) within [%d%.]+ metres?", "%1 near it" },
 	{ "(%a+) within [%d%.]+ metres?", "nearby %1" },
 }
