@@ -1117,6 +1117,29 @@ describe("TestTriggers", function()
 		assert.True(build.calcsTab.mainOutput.Minion.SkillTriggerRate ~= nil)
 	end)
 
+	it("Holy Relic of Conviction counts all Spraying projectiles in either DPS part", function()
+		equipReviewSword()
+		build.skillsTab:PasteSocketGroup("Summon Holy Relic of Conviction 20/0  1\n")
+		build.skillsTab:PasteSocketGroup("Lancing Steel of Spraying 20/20  1\n")
+		runCallback("OnFrame")
+
+		local srcInstance = build.skillsTab.socketGroupList[2].displaySkillList[1].activeEffect.srcInstance
+		for _, part in ipairs({ 1, 2 }) do
+			srcInstance.skillPart = part
+			build.buildFlag = true
+			runCallback("OnFrame")
+
+			local env = build.calcsTab.mainEnv
+			local source = env.player.activeSkillList[2]
+			local cached = GlobalCache.cachedData[env.mode][cacheSkillUUID(source, env)]
+			local output = cached.Env.player.output
+			local rate = cached.HitSpeed or cached.Speed
+			assert.is_true(output.ProjectileCount > 1)
+			assert.are.near(rate * output.ProjectileCount, build.calcsTab.mainOutput.Minion.EffectiveSourceRate, 0.0001)
+			assert.are.near(output.AverageDamage * rate * (part == 1 and 1 or output.ProjectileCount), output.TotalDPS, 0.0001)
+		end
+	end)
+
 	it("Trigger Cast when Damage Taken", function()
 		build.skillsTab:PasteSocketGroup("Cast when Damage Taken 20/0  1\nArc 20/0  1\n")
 		runCallback("OnFrame")

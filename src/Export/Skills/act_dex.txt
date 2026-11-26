@@ -2085,6 +2085,7 @@ return function(skills, mod, flag, skill)
 
 #skill LancingSteelAltX
 #flags attack projectile
+#baseMod skill("triggerWithAllProjectilesHit", true)
 	preDamageFunc = function(activeSkill, output)
 		if activeSkill.skillPart == 2 then
 			local percentReducedProjectiles = (output.ProjectileCount - 1) / output.ProjectileCount
