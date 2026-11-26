@@ -1267,6 +1267,12 @@ describe("TestTriggers", function()
 	end)
 
 	describe("The Monastery Bell", function()
+		before_each(function()
+			-- Isolate player-generated blocks unless the case specifies an attacking enemy.
+			build.configTab.input.enemySpeed = 0
+			build.configTab:BuildModList()
+		end)
+
 		local function equipUnique(category, name, slot)
 			local items = data.uniques[category]
 			local index = isValueInArrayPred(items, function(raw) return raw:sub(1, #name + 1) == name .. "\n" end)
@@ -1288,17 +1294,21 @@ describe("TestTriggers", function()
 			runCallback("OnFrame")
 		end
 
-		local function selectSkill(name)
+		local function selectSkill(name, occurrence)
+			local matches = 0
 			runCallback("OnFrame")
 			for groupIndex, group in ipairs(build.skillsTab.socketGroupList) do
 				for skillIndex, skill in ipairs(group.displaySkillList or {}) do
 					if skill.activeEffect.grantedEffect.name == name then
-						build.mainSocketGroup = groupIndex
-						group.mainActiveSkill = skillIndex
-						build.buildFlag = true
-						runCallback("OnFrame")
-						assert.are.equal(name, build.calcsTab.mainEnv.player.mainSkill.activeEffect.grantedEffect.name)
-						return build.calcsTab.mainOutput, group
+						matches = matches + 1
+						if matches == (occurrence or 1) then
+							build.mainSocketGroup = groupIndex
+							group.mainActiveSkill = skillIndex
+							build.buildFlag = true
+							runCallback("OnFrame")
+							assert.are.equal(name, build.calcsTab.mainEnv.player.mainSkill.activeEffect.grantedEffect.name)
+							return build.calcsTab.mainOutput, group
+						end
 					end
 				end
 			end
@@ -1341,7 +1351,13 @@ describe("TestTriggers", function()
 			build.skillsTab:PasteSocketGroup("Smite 20/0  1\n")
 			local fallback = selectSkill("Shield Shatter")
 			assert.is_nil(fallback.ShieldAttackBlockRate)
-			assert.are.near(1 / fallback.Duration, fallback.SkillTriggerRate, 1e-6)
+			assert.are.equal(0, fallback.SkillTriggerRate)
+			build.configTab.input.enemySpeed = 700
+			build.configTab:BuildModList()
+			build.buildFlag = true
+			local incoming = selectSkill("Shield Shatter")
+			assert.True(incoming.SkillTriggerRate > 0)
+			assert.True(incoming.SkillTriggerRate <= 1 / incoming.Duration)
 		end)
 
 		it("reports recovery from Bell blocks once per use of a repeating shield attack", function()
@@ -1399,16 +1415,81 @@ describe("TestTriggers", function()
 			end)
 		end
 
-		it("uses Bell blocks for Tempest Shield and keeps its cooldown", function()
+		it("counts shield throws independently of the displayed Trarthus skill part", function()
 			equipUnique("mace", "The Monastery Bell", "Weapon 1")
-			equipUnique("shield", "Aegis Aurora", "Weapon 2")
-			setCustomMods("Your Hits can't be Evaded")
+			equipUnique("shield", "Shattershard", "Weapon 2")
+			setCustomMods("Your Hits can't be Evaded\n100% increased Attack Speed")
+			local name = "Spectral Shield Throw of Trarthus"
+			build.skillsTab:PasteSocketGroup(name .. " 20/0  1\n")
+			local shield, group = selectSkill(name)
+			group.gemList[1].skillPart = 2
+			build.buildFlag = true
+			local shards = selectSkill(name)
+			assert.True(shards.HitSpeed ~= shield.Speed)
+			assert.are.near(shield.Speed, shards.ShieldAttackBlockRate, 1e-6)
+			assert.are.near(shield.Speed, selectSkill("Shield Shatter").SkillTriggerRate, 1e-6)
+			-- Repeated Bell hits keep the Shatter buff active and prevent ordinary blocks.
+			build.configTab.input.enemySpeed = 700
+			build.configTab:BuildModList()
+			build.buildFlag = true
+			assert.are.near(shield.Speed, selectSkill("Shield Shatter").SkillTriggerRate, 1e-6)
+		end)
+
+		it("keeps misses on the attack timeline and shares Arc's cooldown across socket groups", function()
+			equipUnique("mace", "The Monastery Bell", "Weapon 1")
+			equipUnique("shield", "Svalinn", "Weapon 2")
+			setCustomMods("Your Hits can't be Evaded\n300% increased Attack Speed")
+			build.skillsTab:PasteSocketGroup("Shield Charge 20/0  1\n")
+			build.skillsTab:PasteSocketGroup("Slot: Weapon 2\nArc 20/0  1\n")
+			local function arcRate(enemyBlock)
+				build.configTab.input.enemyBlockChance = enemyBlock
+				build.configTab:BuildModList()
+				build.buildFlag = true
+				return selectSkill("Arc").SkillTriggerRate
+			end
+			local half = arcRate(50)
+			local fewerHits = arcRate(53)
+			assert.True(half > fewerHits and fewerHits > 0)
+			local single = arcRate(0)
+			build.skillsTab:PasteSocketGroup("Slot: Weapon 2\nArc 20/0  1\n")
+			local first = selectSkill("Arc")
+			local second = selectSkill("Arc", 2)
+			assert.True(first.SkillTriggerRate > 0 and second.SkillTriggerRate > 0)
+			assert.are.near(single, first.SkillTriggerRate + second.SkillTriggerRate, 1e-6)
+			assert.True(single <= first.TriggerRateCap)
+		end)
+
+		it("adds incoming blocks to Tempest Shield discharges independently of its activation cooldown", function()
+			equipUnique("mace", "The Monastery Bell", "Weapon 1")
+			equipUnique("shield", "Svalinn", "Weapon 2")
+			setCustomMods("Your Hits can't be Evaded\n300% increased Attack Speed")
 			build.skillsTab:PasteSocketGroup("Tempest Shield 20/0  1\n")
-			local normal = selectSkill("Tempest Shield")
-			build.skillsTab:PasteSocketGroup("Shield Crush 20/0  1\n")
-			local tempest = selectSkill("Tempest Shield")
-			assert.True(tempest.ShieldAttackBlockRate > normal.SkillTriggerRate)
-			assert.are.near(tempest.ShieldAttackBlockRate / 2, tempest.SkillTriggerRate, 1e-6)
+			build.skillsTab:PasteSocketGroup("Shield Charge 20/0  1\n")
+			build.skillsTab:PasteSocketGroup("Slot: Weapon 2\nArc 20/0  1\n")
+			local bell = selectSkill("Tempest Shield")
+			assert.True(bell.ShieldAttackBlockRate > 5)
+			assert.are.near(bell.ShieldAttackBlockRate, bell.SkillTriggerRate, 1e-6)
+			assert.are.near(bell.SkillTriggerRate, bell.Speed, 1e-6)
+
+			build.configTab.input.enemySpeed = 1000
+			build.configTab.input.enemyDamageType = "Spell"
+			build.configTab:BuildModList()
+			build.buildFlag = true
+			local mixed = selectSkill("Tempest Shield")
+			local incoming = mixed.EffectiveSpellBlockChance / 100
+			assert.True(incoming > 0)
+			assert.are.near(bell.SkillTriggerRate + incoming, mixed.SkillTriggerRate, 1e-6)
+			build.configTab.input.enemyBlockChance = 100
+			build.configTab:BuildModList()
+			build.buildFlag = true
+			local blocked = selectSkill("Tempest Shield")
+			assert.are.equal(0, blocked.ShieldAttackBlockRate)
+			assert.are.near(incoming, blocked.SkillTriggerRate, 1e-6)
+			assert.are.near(incoming, selectSkill("Arc").SkillTriggerRate, 1e-6)
+			build.configTab.input.enemyDamageType = "DamageOverTime"
+			build.configTab:BuildModList()
+			build.buildFlag = true
+			assert.are.equal(0, selectSkill("Tempest Shield").SkillTriggerRate)
 		end)
 	end)
 

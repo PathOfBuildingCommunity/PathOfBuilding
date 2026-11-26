@@ -121,7 +121,7 @@ local function getShieldAttackBlockSource(env, mainOutput)
 			end
 			if attackOutput then
 				-- Overlaps and repeats share a single block per skill use.
-				local useRate = (attackOutput.HitSpeed or attackOutput.Speed or 0) / (attackOutput.Repeats or 1)
+				local useRate = (attackOutput.Speed or 0) / (attackOutput.Repeats or 1)
 				local hitChance = attackOutput.HitChance or 0
 				local rate = useRate * hitChance / 100
 				if not source or rate > source.rate then
@@ -158,16 +158,64 @@ function calcs.shieldAttackBlockRecovery(env)
 	end
 end
 
+local function shatterDuration(env, skill)
+	local uuid = cacheSkillUUID(skill, env)
+	if not GlobalCache.cachedData[env.mode][uuid] or env.mode == "CALCULATOR" then
+		calcs.buildActiveSkill(env, env.mode, skill, uuid, {uuid})
+	end
+	return GlobalCache.cachedData[env.mode][uuid].Env.player.output.Duration
+end
+
+local function incomingBlockRate(env, source)
+	local player = env.player
+	local category = env.configInput.enemyDamageType or "Average"
+	local interval = calcs.enemySkillTime(env, player)
+	if not (interval > 0 and interval < m_huge) or category == "DamageOverTime" or player.enemy.modDB:Flag(nil, "CannotBeBlocked") then
+		return 0
+	end
+	local output = player.output
+	local attack = 1 - output.EffectiveAttackDodgeChance / 100
+	local spell = 1 - output.EffectiveSpellDodgeChance / 100
+	local chances = {
+		Melee = attack * (1 - output.MeleeEvadeChance / 100) * output.EffectiveBlockChance,
+		Projectile = attack * (1 - output.ProjectileEvadeChance / 100) * output.EffectiveProjectileBlockChance,
+		Spell = spell * output.EffectiveSpellBlockChance,
+		SpellProjectile = spell * output.EffectiveSpellProjectileBlockChance,
+		Untyped = output.EffectiveBlockChance,
+	}
+	local chance = chances[category] or (chances.Melee + chances.Projectile + chances.Spell + chances.SpellProjectile) / 4
+	local rate = chance / 100 / interval
+	if rate > 0 then
+		for _, skill in ipairs(player.activeSkillList) do
+			if skill.activeEffect.grantedEffect.id == "ShieldShatter" and not skill.skillFlags.disable then
+				local duration = shatterDuration(env, skill)
+				-- An ordinary block starts a block lockout. A Bell hit can refresh it at any time.
+				-- Estimate the fraction of time with no Bell hit in the preceding buff duration.
+				local uses = duration * source.useRate
+				local whole = m_floor(uses)
+				local hit = source.hitChance / 100
+				local available = (1 - hit) ^ whole * (1 - (uses - whole) * hit)
+				return available / (1 / rate + duration)
+			end
+		end
+	end
+	return rate
+end
+
 local function onBlockTrigger(env, config)
-	local source = getShieldAttackBlockSource(env)
-	env.player.mainSkill.skillFlags.globalTrigger = not source
-	if source then
-		recordShieldAttackBlocks(env, source)
-		config.source = source.skill
-		config.trigRate = source.rate
-		config.shieldAttackBlock = source
-	else
-		config.source = env.player.mainSkill
+	local player = env.player
+	config.source = player.mainSkill
+	player.mainSkill.skillFlags.globalTrigger = true
+	if player.modDB:Flag(nil, "ShieldAttacksCountAsBlocks") then
+		local source = getShieldAttackBlockSource(env)
+		if source then
+			recordShieldAttackBlocks(env, source)
+			config.source = source.skill
+		end
+		config.shieldAttackBlock = source or { useRate = 0, hitChance = 0, rate = 0 }
+		config.incomingBlockRate = incomingBlockRate(env, config.shieldAttackBlock)
+		config.trigRate = config.shieldAttackBlock.rate + config.incomingBlockRate
+		player.mainSkill.skillFlags.globalTrigger = false
 	end
 	return config
 end
@@ -177,6 +225,7 @@ local function socketedSpellOnBlock(env)
 	local slot = mainSkill.socketGroup.slot
 	local support = mainSkill.triggeredBy and mainSkill.triggeredBy.grantedEffect
 	return onBlockTrigger(env, {
+		shareSpellCooldowns = true,
 		triggeredSkillCond = function(_, skill)
 			return slot and skill.socketGroup and skill.socketGroup.slot == slot
 				and skill.triggeredBy and skill.triggeredBy.grantedEffect == support
@@ -184,49 +233,118 @@ local function socketedSpellOnBlock(env)
 	})
 end
 
+-- Reuse the same hit rolls at the same attack times for every build comparison.
+-- Shuffled ranks give an exact hit count for whole percentages across 4000 uses.
+local blockSamples = 4000
+local hitRanks = {}
+do
+	local seed = 1
+	for i = 1, blockSamples do
+		seed = seed * 48271 % 2147483647
+		local j = 1 + seed % i
+		hitRanks[i] = hitRanks[j]
+		hitRanks[j] = i
+	end
+end
+
+local function blockEvents(source, incomingRate)
+	local useRate = source.rate > 0 and source.useRate or 0
+	local duration = blockSamples / m_max(useRate, incomingRate)
+	local hitThreshold = m_floor(blockSamples * source.hitChance / 100 + 0.5)
+	local attackIndex = 0
+	local function nextHit()
+		while attackIndex < blockSamples and useRate > 0 and hitThreshold > 0 do
+			attackIndex = attackIndex + 1
+			if hitRanks[attackIndex] <= hitThreshold then
+				return (attackIndex - 1) / useRate
+			end
+		end
+		return m_huge
+	end
+	local nextAttack = nextHit()
+	local interval = incomingRate > 0 and 1 / incomingRate or m_huge
+	local nextIncoming = interval / 2
+	return function()
+		local time = m_min(nextAttack, nextIncoming)
+		if time >= duration then
+			return
+		elseif nextIncoming < nextAttack then
+			nextIncoming = nextIncoming + interval
+		else
+			nextAttack = nextHit()
+		end
+		return time
+	end, duration
+end
+
 -- Calculate the impact other skills and source rate to trigger cooldown alignment have on the trigger rate
 -- for more details regarding the implementation see comments of #4599 and #5428
-function calcMultiSpellRotationImpact(env, skillRotation, sourceRate, triggerCD, chance, actor)
+function calcMultiSpellRotationImpact(env, skillRotation, sourceRate, triggerCD, chance, actor, blockSource, incomingRate)
 	if sourceRate <= 0 then
 		return 0, { simTime = 0, rates = {} }
 	end
 	local rotationIndex = 1
-	local next_trigger = 0
 	local triggerIncrement = 1 / sourceRate
 	local simAttacks = 1000
-	local SIM_TIME = triggerIncrement * simAttacks
+	local simTime = triggerIncrement * simAttacks
+	local nextBlock
+	if blockSource then
+		nextBlock, simTime = blockEvents(blockSource, incomingRate)
+		-- Both streams have at most blockSamples events within the window.
+		simAttacks = 2 * blockSamples
+	end
+	local next_trigger = 0
 	local chance = chance or 100
 	local skillCount = #skillRotation
 	local actor = actor or env.player
+	local cooldowns = {}
 
 	for _, skill in ipairs(skillRotation) do
 		skill.cd = m_max(skill.cdOverride or ( ((skill.cd or 0) + (skill.addedCooldown or 0)) / (skill.icdr or 1)), ( (triggerCD or 0) + (skill.addsCastTime or 0) ) / (skill.icdr or 1))
-		skill.next_trig = 0
+		cooldowns[skill.cooldownGroup or skill] = 0
 		skill.count = 0
 	end
 
+	if blockSource and skillCount == 1 and skillRotation[1].cd == 0 then
+		local rate = sourceRate * chance / 100
+		return rate, { simTime = 0, rates = { { name = skillRotation[1].uuid, rate = rate } } }
+	end
+
 	for _ = 1, simAttacks do
+		if nextBlock then
+			next_trigger = nextBlock()
+			if not next_trigger then
+				break
+			end
+		end
 		local currentIndex = rotationIndex
 		repeat
-			if skillRotation[currentIndex].next_trig <= next_trigger then -- Skill at current index off cooldown, Trigger it.
-				skillRotation[currentIndex].count = skillRotation[currentIndex].count + 1
+			local skill = skillRotation[currentIndex]
+			local cooldownGroup = skill.cooldownGroup or skill
+			if cooldowns[cooldownGroup] <= next_trigger then -- Skill at current index off cooldown, Trigger it.
+				skill.count = skill.count + 1
 				-- Cooldown starts at the beginning of current tick and ends at the next tick after cooldown expiration
-				skillRotation[currentIndex].next_trig = ceil_b(floor_b(next_trigger, data.misc.ServerTickTime) + skillRotation[currentIndex].cd, data.misc.ServerTickTime)
+				cooldowns[cooldownGroup] = ceil_b(floor_b(next_trigger, data.misc.ServerTickTime) + skill.cd, data.misc.ServerTickTime)
+				if nextBlock then
+					rotationIndex = currentIndex % skillCount + 1
+				end
 				break
 			end
 			currentIndex = (currentIndex % skillCount) + 1 -- Current skill on cooldown, try the next one.
 		until(currentIndex == rotationIndex) -- All skills checked, trigger wasted
-		rotationIndex = (rotationIndex % skillCount) + 1 -- Move on to the next skill in rotation
-		next_trigger = next_trigger + triggerIncrement
+		if not nextBlock then
+			rotationIndex = rotationIndex % skillCount + 1
+			next_trigger = next_trigger + triggerIncrement
+		end
 	end
 
-	local trigRateTable = { simTime = SIM_TIME, rates = {}, }
+	local trigRateTable = { simTime = simTime, rates = {}, }
 	local mainRate = 0
 	for _, sd in ipairs(skillRotation) do
 		-- Account for trigger chance. Adds the expected value of a geometric distribution where p = chance multiplied by triggerIncrement
 		-- This allows for O(1) estimation of trigger chance impact on trigger rate as number of triggers approaches infinity
 		-- Credit to Logik and Quickstick. More info in prs linked here: https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7244 and on discord.
-		t_insert(trigRateTable.rates, { name = sd.uuid, rate = 1 / (SIM_TIME / sd.count + (triggerIncrement / chance * 100) - triggerIncrement) })
+		t_insert(trigRateTable.rates, { name = sd.uuid, rate = 1 / (simTime / sd.count + (triggerIncrement / chance * 100) - triggerIncrement) })
 		if cacheSkillUUID(actor.mainSkill, env) == sd.uuid then
 			mainRate = trigRateTable.rates[#trigRateTable.rates].rate
 		end
@@ -515,7 +633,12 @@ local function defaultTriggerHandler(env, config)
 				source, trigRate, uuid = findTriggerSkill(env, skill, source, trigRate, config.comparer, config.minimumCostPerUse, sourceCache)
 			end
 			if config.triggeredSkillCond and config.triggeredSkillCond(env,skill) then
-				t_insert(triggeredSkills, packageSkillDataForSimulation(skill, env))
+				local spell = packageSkillDataForSimulation(skill, env)
+				if config.shareSpellCooldowns then
+					local gem = skill.activeEffect.gemData
+					spell.cooldownGroup = gem and gem.grantedEffect == skill.activeEffect.grantedEffect and gem.gameId or skill.activeEffect.grantedEffect.id
+				end
+				t_insert(triggeredSkills, spell)
 			end
 		end
 	end
@@ -540,8 +663,11 @@ local function defaultTriggerHandler(env, config)
 			elseif breakdown then
 				breakdown.EffectiveSourceRate = {}
 				if shieldAttackBlock then
-					t_insert(breakdown.EffectiveSourceRate, s_format("%.2f ^8(%s uses per second for The Monastery Bell)", shieldAttackBlock.useRate, source.activeEffect.grantedEffect.name))
-					t_insert(breakdown.EffectiveSourceRate, s_format("x %.2f%% ^8(chance to hit)", shieldAttackBlock.hitChance))
+					if shieldAttackBlock.skill then
+						t_insert(breakdown.EffectiveSourceRate, s_format("%.2f ^8(%s uses per second)", shieldAttackBlock.useRate, source.activeEffect.grantedEffect.name))
+						t_insert(breakdown.EffectiveSourceRate, s_format("x %.2f%% ^8(chance to hit)", shieldAttackBlock.hitChance))
+					end
+					t_insert(breakdown.EffectiveSourceRate, s_format("+ %.2f ^8(estimated blocks per second from the configured enemy)", config.incomingBlockRate))
 				elseif trigRate and source then
 					if config.assumingEveryHitKills then
 						t_insert(breakdown.EffectiveSourceRate, "Assuming every attack kills")
@@ -673,6 +799,10 @@ local function defaultTriggerHandler(env, config)
 			local triggerCD = actor.mainSkill.triggeredBy and env.player.mainSkill.triggeredBy.grantedEffect.levels[env.player.mainSkill.triggeredBy.level].cooldown
 			triggerCD = triggerCD or source.triggeredBy and source.triggeredBy.grantedEffect.levels[source.triggeredBy.level].cooldown
 			local triggeredCD = actor.mainSkill.skillData.cooldown
+			if config.blockDischarge then
+				-- The reservation skill's cooldown applies when activating the buff.
+				triggeredCD = nil
+			end
 
 			if actor.mainSkill.skillData.triggeredByBrand then
 				triggerCD = actor.mainSkill.triggeredBy.mainSkill.skillData.repeatFrequency / actor.mainSkill.triggeredBy.activationFreqMore / actor.mainSkill.triggeredBy.activationFreqInc
@@ -900,7 +1030,12 @@ local function defaultTriggerHandler(env, config)
 				end
 
 				-- If the current triggered skill ignores tick rate and is the only triggered skill by this trigger use charge based calcs
-				if actor.mainSkill.skillData.ignoresTickRate and ( not config.triggeredSkillCond or (triggeredSkills and #triggeredSkills == 1 and triggeredSkills[1] == packageSkillDataForSimulation(actor.mainSkill, env)) ) then
+				if config.blockDischarge then
+					output.SkillTriggerRate = output.EffectiveSourceRate
+					if breakdown then
+						breakdown.SkillTriggerRate = { s_format("%.2f ^8(discharges per second, one per block)", output.SkillTriggerRate) }
+					end
+				elseif actor.mainSkill.skillData.ignoresTickRate and ( not config.triggeredSkillCond or (triggeredSkills and #triggeredSkills == 1 and triggeredSkills[1] == packageSkillDataForSimulation(actor.mainSkill, env)) ) then
 					local overlaps = config.stagesAreOverlaps and env.player.mainSkill.skillPart == config.stagesAreOverlaps and env.player.mainSkill.activeEffect.srcInstance.skillStageCount or config.overlaps
 					output.SkillTriggerRate = m_min(output.TriggerRateCap, output.EffectiveSourceRate * (overlaps or 1))
 					if breakdown then
@@ -917,7 +1052,10 @@ local function defaultTriggerHandler(env, config)
 				elseif actor.mainSkill.skillFlags.globalTrigger and not config.triggeredSkillCond then -- Trigger does not use source rate breakpoints for one reason or another
 					output.SkillTriggerRate = output.EffectiveSourceRate
 				else -- Triggers like Cast on Crit go through simulation to calculate the trigger rate of each skill in the trigger group
-					output.SkillTriggerRate, simBreakdown = calcMultiSpellRotationImpact(env, config.triggeredSkillCond and triggeredSkills or {packageSkillDataForSimulation(actor.mainSkill, env)}, output.EffectiveSourceRate, (not actor.mainSkill.skillData.triggeredByBrand and ( triggerCD or triggeredCD ) or 0), triggerChance, actor)
+					local simBreakdown
+					local rotation = config.triggeredSkillCond and triggeredSkills or { packageSkillDataForSimulation(actor.mainSkill, env) }
+					local cooldown = not actor.mainSkill.skillData.triggeredByBrand and (triggerCD or triggeredCD) or 0
+					output.SkillTriggerRate, simBreakdown = calcMultiSpellRotationImpact(env, rotation, output.EffectiveSourceRate, cooldown, triggerChance, actor, shieldAttackBlock, config.incomingBlockRate)
 					if shieldAttackBlock then
 						output.SkillTriggerRate = m_min(output.SkillTriggerRate, output.TriggerRateCap)
 					end
@@ -976,7 +1114,9 @@ local function defaultTriggerHandler(env, config)
 							}
 							t_insert(breakdown.SimData.rowList, row)
 						end
-						t_insert(breakdown.SimData, s_format("Simulation duration: %.2f ^8(In game source skill usage duration in seconds)", simBreakdown.simTime, simBreakdown.simTime))
+						if simBreakdown.simTime > 0 then
+							t_insert(breakdown.SimData, s_format("Simulation duration: %.2f ^8(In game source skill usage duration in seconds)", simBreakdown.simTime))
+						end
 					end
 				end
 			else
@@ -1411,22 +1551,21 @@ local configTable = {
 				end}
 	end,
 	["tempest shield"] = function(env)
-		return onBlockTrigger(env, {})
+		local config = onBlockTrigger(env, {})
+		config.blockDischarge = config.shieldAttackBlock ~= nil
+		return config
 	end,
 	["shattershard"] = function(env)
 		local config = onBlockTrigger(env, {})
 		if config.shieldAttackBlock then
 			return config
 		end
-		local uuid = cacheSkillUUID(env.player.mainSkill, env)
-		if not GlobalCache.cachedData[env.mode][uuid] or env.mode == "CALCULATOR" then
-			calcs.buildActiveSkill(env, env.mode, env.player.mainSkill, uuid, {uuid})
-		end
-		env.player.mainSkill.skillData.triggerRateCapOverride = 1 / GlobalCache.cachedData[env.mode][uuid].Env.player.output.Duration
+		local duration = shatterDuration(env, env.player.mainSkill)
+		env.player.mainSkill.skillData.triggerRateCapOverride = 1 / duration
 		if env.player.breakdown then
 			env.player.breakdown.SkillTriggerRate = {
 				s_format("Shattershard uses duration as pseudo cooldown"),
-				s_format("1 / %.2f ^8(Shattershard duration)", GlobalCache.cachedData[env.mode][uuid].Env.player.output.Duration),
+				s_format("1 / %.2f ^8(Shattershard duration)", duration),
 				s_format("= %.2f ^8per second", env.player.mainSkill.skillData.triggerRateCapOverride),
 			}
 		end
