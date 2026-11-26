@@ -1760,8 +1760,26 @@ function calcs.buildDefenceEstimations(env, actor)
 				},
 			}
 		end
-		local enemyCritChance = enemyDB:Flag(nil, "NeverCrit") and 0 or enemyDB:Flag(nil, "AlwaysCrit") and 100 or (m_max(m_min((modDB:Override(nil, "enemyCritChance") or env.configInput["enemyCritChance"] or env.configPlaceholder["enemyCritChance"] or 0) * (1 + modDB:Sum("INC", nil, "EnemyCritChance") / 100 + enemyDB:Sum("INC", nil, "CritChance") / 100) * (1 - output["ConfiguredEvadeChance"] / 100), 100), 0))
+		local enemyCritBase = modDB:Override(nil, "enemyCritChance") or env.configInput["enemyCritChance"] or env.configPlaceholder["enemyCritChance"] or 0
+		local enemyCritInc = modDB:Sum("INC", nil, "EnemyCritChance") + enemyDB:Sum("INC", nil, "CritChance")
+		local enemyCritChance = enemyDB:Flag(nil, "NeverCrit") and 0 or enemyDB:Flag(nil, "AlwaysCrit") and 100 or (m_max(m_min(enemyCritBase * (1 + enemyCritInc / 100) * (1 - output["ConfiguredEvadeChance"] / 100), 100), 0))
 		output["EnemyCritChance"] = enemyCritChance
+		if breakdown then
+			if enemyDB:Flag(nil, "NeverCrit") then
+				breakdown.EnemyCritChance = { "Enemy can never Critically Strike" }
+			elseif enemyDB:Flag(nil, "AlwaysCrit") then
+				breakdown.EnemyCritChance = { "Enemy always Critically Strikes" }
+			else
+				breakdown.EnemyCritChance = {
+					s_format("%.2f%% ^8(base, from Configuration)", enemyCritBase),
+					s_format("x %.2f ^8(increased/reduced)", 1 + enemyCritInc / 100),
+				}
+				if output["ConfiguredEvadeChance"] > 0 then
+					t_insert(breakdown.EnemyCritChance, s_format("x %.2f ^8(chance to evade)", 1 - output["ConfiguredEvadeChance"] / 100))
+				end
+				t_insert(breakdown.EnemyCritChance, s_format("= %.2f%%", enemyCritChance))
+			end
+		end
 		local enemyCritDamage = m_max((env.configInput["enemyCritDamage"] or env.configPlaceholder["enemyCritDamage"] or 0) + enemyDB:Sum("BASE", nil, "CritMultiplier"), 0)
 		output["EnemyCritEffect"] = 1 + enemyCritChance / 100 * (enemyCritDamage / 100) * (1 - output.CritExtraDamageReduction / 100)
 		local enemyCfg = {keywordFlags = bit.bnot(KeywordFlag.MatchAll)} -- Match all keywordFlags parameter for enemy min-max damage mods
