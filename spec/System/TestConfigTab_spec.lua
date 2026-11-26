@@ -357,6 +357,32 @@ describe("TestConfig", function()
 		end)
 
 		describe("Default values", function()
+			it("defaults Augyre to Resolute Technique and preserves the Elemental Overload selection", function()
+				build.skillsTab:PasteSocketGroup("Arc 20/0  1\n")
+				local item = new("Item"):Item([[
+Rarity: UNIQUE
+Augyre
+Void Sceptre
+Implicits: 0
+Every 16 seconds you gain Elemental Overload for 8 seconds
+You have Resolute Technique while you do not have Elemental Overload]])
+				build.itemsTab:AddItem(item, true)
+				build.itemsTab.slots["Weapon 1"]:SetSelItemId(item.id)
+				runCallback("OnFrame")
+
+				local control = build.configTab.varControls.conditionHaveAugyre
+				assert.are.equal("ResTechnique", control:GetSelValueByKey("val"))
+				assert.are.equal(0, build.calcsTab.mainOutput.CritChance)
+
+				control:SetSel(2)
+				runCallback("OnFrame")
+				assert.is_true(build.calcsTab.mainOutput.CritChance > 0)
+
+				loadBuildFromXML(build:SaveDB("code"))
+				assert.are.equal("EleOverload", build.configTab.input.conditionHaveAugyre)
+				assert.is_true(build.calcsTab.mainOutput.CritChance > 0)
+			end)
+
 			it("Initializes new config sets with default placeholder states", function()
 				assert.is_not_nil(build.configTab.configSets[1])
 				assert.is_not_nil(build.configTab.configSets[1].input)
