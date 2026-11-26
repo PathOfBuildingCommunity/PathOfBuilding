@@ -946,10 +946,9 @@ end
 
 -- Determine this node's distance from the class' start
 -- Only allocated nodes can be traversed
-function PassiveSpecClass:SetNodeDistanceToClassStart(root)
-	root.distanceToClassStart = 0
-	if not root.alloc or not root.connectedToStart then
-		return
+function PassiveSpecClass:GetNodeDistanceToClassStart(root, allocNodes)
+	if not allocNodes[root.id] then
+		return 0
 	end
 
 	-- Stop once the current class' starting node is reached
@@ -971,13 +970,12 @@ function PassiveSpecClass:SetNodeDistanceToClassStart(root)
 		for _, other in ipairs(node.linked) do
 			-- If this connected node is the correct class start node, then record the distance to the node and return
 			if other.id == targetNodeId then
-				root.distanceToClassStart = curDist - 1
-				return
+				return curDist - 1
 			end
 
 			-- Otherwise, record the distance to this node if it hasn't already been visited
-			if other.alloc and node.type ~= "Mastery" and other.type ~= "ClassStart" and other.type ~= "AscendClassStart" and not nodeDistanceToRoot[other.id] then
-				nodeDistanceToRoot[other.id] = curDist;
+			if allocNodes[other.id] and node.type ~= "Mastery" and other.type ~= "ClassStart" and other.type ~= "AscendClassStart" and not nodeDistanceToRoot[other.id] then
+				nodeDistanceToRoot[other.id] = curDist
 
 				-- Add the other node to the end of the queue
 				queue[i] = other
@@ -985,6 +983,11 @@ function PassiveSpecClass:SetNodeDistanceToClassStart(root)
 			end
 		end
 	end
+	return 0
+end
+
+function PassiveSpecClass:SetNodeDistanceToClassStart(root)
+	root.distanceToClassStart = root.connectedToStart and self:GetNodeDistanceToClassStart(root, self.allocNodes) or 0
 end
 
 -- Determine the shortest path from the given node to the class' start

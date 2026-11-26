@@ -1093,8 +1093,12 @@ function calcs.initEnv(build, mode, override, specEnv)
 			end
 			if slot.nodeId and item and item.type == "Jewel" and item.jewelData and item.jewelData.jewelIncEffectFromClassStart then
 				local node = env.spec.nodes[slot.nodeId]
-				if node and node.distanceToClassStart then
-					scale = scale + node.distanceToClassStart * (item.jewelData.jewelIncEffectFromClassStart / 100)
+				if node then
+					local distance = node.distanceToClassStart or 0
+					if override.addNodes or override.removeNodes then
+						distance = env.spec:GetNodeDistanceToClassStart(node, env.allocNodes)
+					end
+					scale = scale + distance * (item.jewelData.jewelIncEffectFromClassStart / 100)
 				end
 			end
 			if item then
