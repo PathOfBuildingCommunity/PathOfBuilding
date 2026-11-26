@@ -1536,6 +1536,9 @@ minions["GuardianRelicAll"] = {
 		"Anger",
 		"Hatred",
 		"Wrath",
+		"GuardianRelicExplosionFire",
+		"GuardianRelicExplosionCold",
+		"GuardianRelicExplosionLightning",
 	},
 	modList = {
 		-- EmergeSpeedHigh [emerge_speed_+% = 0]
