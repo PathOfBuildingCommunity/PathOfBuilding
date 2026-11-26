@@ -1698,11 +1698,8 @@ Huge sets the radius to 11.
 	-- The item's own modifier grants Resolute Technique when no buff is selected.
 	{ var = "conditionHaveAugyre", type = "list", label = "Augyre rotating buff:", ifFlag = "Condition:HaveAugyre", list = {{val="ResTechnique",label="Resolute Technique"},{val="EleOverload",label="Elemental Overload"}}, tooltip = "This option is specific to Augyre.", apply = function(val, modList, enemyModList)
 		if val == "EleOverload" then
-			modList:NewMod("Condition:HaveElementalOverload", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
-			modList:NewMod("Keystone", "LIST", "Elemental Overload", "Config")
-		elseif val == "ResTechnique" then
-			modList:NewMod("Condition:HaveResoluteTechnique", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
-			modList:NewMod("Keystone", "LIST", "Resolute Technique", "Config")
+			modList:NewMod("Condition:HaveElementalOverload", "FLAG", true, "Config", { type = "Condition", var = "Combat" }, { type = "Condition", var = "HaveAugyre" })
+			modList:NewMod("Keystone", "LIST", "Elemental Overload", "Config", { type = "Condition", var = "HaveAugyre" })
 		end
 	end },	
 	{ var = "conditionHaveVulconus", type = "check", label = "Do you have Avatar Of Fire?", ifFlag = "Condition:HaveVulconus", tooltip = "This option is specific to Vulconus.", apply = function(val, modList, enemyModList)

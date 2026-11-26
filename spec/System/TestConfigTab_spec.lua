@@ -381,6 +381,15 @@ You have Resolute Technique while you do not have Elemental Overload]])
 				loadBuildFromXML(build:SaveDB("code"))
 				assert.are.equal("EleOverload", build.configTab.input.conditionHaveAugyre)
 				assert.is_true(build.calcsTab.mainOutput.CritChance > 0)
+				assert.is_truthy(isValueInArray(build.calcsTab.mainEnv.modDB:List(nil, "Keystone"), "Elemental Overload") ~= nil)
+
+				build.itemsTab.slots["Weapon 1"]:SetSelItemId(0)
+				build.buildFlag = true
+				runCallback("OnFrame")
+				assert.is_true(isValueInArray(build.calcsTab.mainEnv.modDB:List(nil, "Keystone"), "Elemental Overload") == nil)
+				loadBuildFromXML(build:SaveDB("code"))
+				assert.are.equal("EleOverload", build.configTab.input.conditionHaveAugyre)
+				assert.is_true(isValueInArray(build.calcsTab.mainEnv.modDB:List(nil, "Keystone"), "Elemental Overload") == nil)
 			end)
 
 			it("Initializes new config sets with default placeholder states", function()
