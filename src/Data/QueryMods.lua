@@ -15267,8 +15267,8 @@ return {
 			["specialCaseData"] = {
 			},
 			["tradeMod"] = {
-				["id"] = "explicit.stat_2818518881",
-				["text"] = "#% increased Spell Damage per 10 Intelligence",
+				["id"] = "explicit.stat_3961014595",
+				["text"] = "#% increased Spell Damage per 16 Intelligence",
 				["type"] = "explicit",
 			},
 		},
@@ -15285,8 +15285,8 @@ return {
 			["specialCaseData"] = {
 			},
 			["tradeMod"] = {
-				["id"] = "explicit.stat_1073314277",
-				["text"] = "#% increased Spell Damage per 10 Strength",
+				["id"] = "explicit.stat_4249521944",
+				["text"] = "#% increased Spell Damage per 16 Strength",
 				["type"] = "explicit",
 			},
 		},
@@ -37711,22 +37711,22 @@ return {
 				["max"] = 20,
 				["min"] = 8,
 			},
-			["sign"] = "+",
+			["sign"] = "",
 			["specialCaseData"] = {
 			},
 			["tradeMod"] = {
-				["id"] = "explicit.stat_2530372417",
-				["text"] = "#% Chance to Block Attack Damage",
+				["id"] = "explicit.stat_1702195217",
+				["text"] = "+#% Chance to Block Attack Damage",
 				["type"] = "explicit",
 			},
 		},
 		["2137_BlockingBlocksSpellsUber"] = {
-			["sign"] = "+",
+			["sign"] = "",
 			["specialCaseData"] = {
 			},
 			["tradeMod"] = {
-				["id"] = "explicit.stat_2530372417",
-				["text"] = "#% Chance to Block Attack Damage",
+				["id"] = "explicit.stat_1702195217",
+				["text"] = "+#% Chance to Block Attack Damage",
 				["type"] = "explicit",
 			},
 		},
@@ -37739,12 +37739,12 @@ return {
 				["max"] = 5,
 				["min"] = 5,
 			},
-			["sign"] = "+",
+			["sign"] = "",
 			["specialCaseData"] = {
 			},
 			["tradeMod"] = {
-				["id"] = "explicit.stat_2530372417",
-				["text"] = "#% Chance to Block Attack Damage",
+				["id"] = "explicit.stat_1702195217",
+				["text"] = "+#% Chance to Block Attack Damage",
 				["type"] = "explicit",
 			},
 		},
@@ -37757,22 +37757,22 @@ return {
 				["max"] = 5,
 				["min"] = 5,
 			},
-			["sign"] = "+",
+			["sign"] = "",
 			["specialCaseData"] = {
 			},
 			["tradeMod"] = {
-				["id"] = "explicit.stat_2530372417",
-				["text"] = "#% Chance to Block Attack Damage",
+				["id"] = "explicit.stat_1702195217",
+				["text"] = "+#% Chance to Block Attack Damage",
 				["type"] = "explicit",
 			},
 		},
 		["2137_SpellBlockAndBlockUber"] = {
-			["sign"] = "+",
+			["sign"] = "",
 			["specialCaseData"] = {
 			},
 			["tradeMod"] = {
-				["id"] = "explicit.stat_2530372417",
-				["text"] = "#% Chance to Block Attack Damage",
+				["id"] = "explicit.stat_1702195217",
+				["text"] = "+#% Chance to Block Attack Damage",
 				["type"] = "explicit",
 			},
 		},
@@ -37797,12 +37797,12 @@ return {
 				["max"] = 20,
 				["min"] = 8,
 			},
-			["sign"] = "+",
+			["sign"] = "",
 			["specialCaseData"] = {
 			},
 			["tradeMod"] = {
-				["id"] = "explicit.stat_561307714",
-				["text"] = "#% Chance to Block Spell Damage",
+				["id"] = "explicit.stat_19803471",
+				["text"] = "+#% Chance to Block Spell Damage",
 				["type"] = "explicit",
 			},
 		},
@@ -42547,8 +42547,8 @@ return {
 			["specialCaseData"] = {
 			},
 			["tradeMod"] = {
-				["id"] = "explicit.stat_2453026567",
-				["text"] = "#% chance to gain Onslaught for 10 seconds on Kill",
+				["id"] = "explicit.stat_3023957681",
+				["text"] = "#% chance to gain Onslaught for 4 seconds on Kill",
 				["type"] = "explicit",
 			},
 		},
@@ -42565,8 +42565,8 @@ return {
 			["specialCaseData"] = {
 			},
 			["tradeMod"] = {
-				["id"] = "explicit.stat_2453026567",
-				["text"] = "#% chance to gain Onslaught for 10 seconds on Kill",
+				["id"] = "explicit.stat_3023957681",
+				["text"] = "#% chance to gain Onslaught for 4 seconds on Kill",
 				["type"] = "explicit",
 			},
 		},
@@ -42579,8 +42579,8 @@ return {
 			["specialCaseData"] = {
 			},
 			["tradeMod"] = {
-				["id"] = "explicit.stat_2453026567",
-				["text"] = "#% chance to gain Onslaught for 10 seconds on Kill",
+				["id"] = "explicit.stat_3023957681",
+				["text"] = "#% chance to gain Onslaught for 4 seconds on Kill",
 				["type"] = "explicit",
 			},
 		},
@@ -42593,8 +42593,8 @@ return {
 			["specialCaseData"] = {
 			},
 			["tradeMod"] = {
-				["id"] = "explicit.stat_2453026567",
-				["text"] = "#% chance to gain Onslaught for 10 seconds on Kill",
+				["id"] = "explicit.stat_3023957681",
+				["text"] = "#% chance to gain Onslaught for 4 seconds on Kill",
 				["type"] = "explicit",
 			},
 		},
@@ -44706,8 +44706,8 @@ return {
 			["specialCaseData"] = {
 			},
 			["tradeMod"] = {
-				["id"] = "explicit.stat_2453026567",
-				["text"] = "#% chance to gain Onslaught for 10 seconds on Kill",
+				["id"] = "explicit.stat_3023957681",
+				["text"] = "#% chance to gain Onslaught for 4 seconds on Kill",
 				["type"] = "explicit",
 			},
 		},
@@ -47716,8 +47716,8 @@ return {
 			["specialCaseData"] = {
 			},
 			["tradeMod"] = {
-				["id"] = "explicit.stat_889691035",
-				["text"] = "#% increased Attack Speed per 10 Dexterity",
+				["id"] = "explicit.stat_2241560081",
+				["text"] = "#% increased Attack Speed per 25 Dexterity",
 				["type"] = "explicit",
 			},
 		},
@@ -54784,12 +54784,12 @@ return {
 				["max"] = 15,
 				["min"] = 15,
 			},
-			["sign"] = "+",
+			["sign"] = "",
 			["specialCaseData"] = {
 			},
 			["tradeMod"] = {
-				["id"] = "explicit.stat_4070519133",
-				["text"] = "#% Chance to Block Spell Damage while on Low Life",
+				["id"] = "explicit.stat_2253286128",
+				["text"] = "+#% Chance to Block Spell Damage while on Low Life",
 				["type"] = "explicit",
 			},
 		},
@@ -62387,12 +62387,12 @@ return {
 				["max"] = 25,
 				["min"] = 20,
 			},
-			["sign"] = "+",
+			["sign"] = "",
 			["specialCaseData"] = {
 			},
 			["tradeMod"] = {
-				["id"] = "implicit.stat_2530372417",
-				["text"] = "#% Chance to Block Attack Damage",
+				["id"] = "implicit.stat_1702195217",
+				["text"] = "+#% Chance to Block Attack Damage",
 				["type"] = "implicit",
 			},
 		},
@@ -62401,12 +62401,12 @@ return {
 				["max"] = 6,
 				["min"] = 3,
 			},
-			["sign"] = "+",
+			["sign"] = "",
 			["specialCaseData"] = {
 			},
 			["tradeMod"] = {
-				["id"] = "implicit.stat_2530372417",
-				["text"] = "#% Chance to Block Attack Damage",
+				["id"] = "implicit.stat_1702195217",
+				["text"] = "+#% Chance to Block Attack Damage",
 				["type"] = "implicit",
 			},
 		},
@@ -62419,12 +62419,12 @@ return {
 				["max"] = 25,
 				["min"] = 20,
 			},
-			["sign"] = "+",
+			["sign"] = "",
 			["specialCaseData"] = {
 			},
 			["tradeMod"] = {
-				["id"] = "implicit.stat_561307714",
-				["text"] = "#% Chance to Block Spell Damage",
+				["id"] = "implicit.stat_19803471",
+				["text"] = "+#% Chance to Block Spell Damage",
 				["type"] = "implicit",
 			},
 		},

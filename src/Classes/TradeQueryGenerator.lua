@@ -132,6 +132,63 @@ local function getStatEntries(modType)
 	end
 end
 
+-- Number tokens of a trade label or mod line, in order: "#" for a value position, the number otherwise.
+-- A range such as "(10-15)" is a value position too, so a rolled value never stands in for a fixed number.
+local function getNumberTokens(text)
+	local tokens = { }
+	for token in text:gsub("%(%-?[%d%.]+%-%-?[%d%.]+%)", "#"):gmatch("[#%d][%d%.]*") do
+		tokens[#tokens + 1] = token
+	end
+	return tokens
+end
+
+-- True when every fixed number of the trade label equals the mod line's number at the same position.
+local function fixedNumbersMatch(tradeText, modLine)
+	local tradeTokens, modTokens = getNumberTokens(tradeText), getNumberTokens(modLine)
+	if #tradeTokens ~= #modTokens then
+		return false
+	end
+	for index, token in ipairs(tradeTokens) do
+		if token ~= "#" and tonumber(token) ~= tonumber(modTokens[index]) then
+			return false
+		end
+	end
+	return true
+end
+
+-- Find the trade stat whose label, without signs and numbers, equals strippedText.
+-- "#% increased Spell Damage per 10 Intelligence" and "... per 16 Intelligence" are distinct trade stats with the
+-- same stripped label, so labels whose fixed numbers disagree with modLine are skipped unless none agree.
+-- "#% Chance to Block Attack Damage" and "+#% Chance to Block Attack Damage" are distinct trade stats, and the
+-- first one in label order is not the one items carry, so when labels differ only by sign, prefer the stat the
+-- mod exports in tradeHashes. Identical labels keep label order: legacy mods export hashes Trade no longer lists.
+local function findTradeStatByStrippedText(entries, strippedText, tradeHashes, modLine)
+	local matches, numberMatches = { }, { }
+	for _, entry in ipairs(entries or { }) do
+		if entry.text:gsub("[#()0-9%-%+%.]","") == strippedText then
+			matches[#matches + 1] = entry
+			if fixedNumbersMatch(entry.text, modLine) then
+				numberMatches[#numberMatches + 1] = entry
+			end
+		end
+	end
+	if #numberMatches > 0 then
+		matches = numberMatches
+	end
+	local firstMatch, exportedMatch = matches[1], nil
+	for _, entry in ipairs(matches) do
+		local tradeHash = tonumber(entry.id:match("%.stat_(%d+)$"))
+		if tradeHash and tradeHashes and tradeHashes[tradeHash] then
+			exportedMatch = entry
+			break
+		end
+	end
+	if exportedMatch and exportedMatch.text ~= firstMatch.text and exportedMatch.text:gsub("[%+%-]","") == firstMatch.text:gsub("[%+%-]","") then
+		return exportedMatch
+	end
+	return firstMatch
+end
+
 -- slots that allow eldritch mods (non-unique only)
 local eldritchModSlots = {
 	["Body Armour"] = true,
@@ -252,22 +309,14 @@ function TradeQueryGeneratorClass:ProcessMod(modId, mod, tradeQueryStatsParsed, 
 			-- Try to match to a local mod fallback to global if no match
 			if mod.group:match("Local") then
 				local matchLocalStr = (modLine .. " (Local)"):gsub("[#()0-9%-%+%.]","")
-				for _, entry in pairs(getStatEntries(modType) or {}) do
-					if entry.text:gsub("[#()0-9%-%+%.]","") == matchLocalStr then
-						tradeMod = entry
-						specialCaseData.overrideModLine = entry.text:sub(1,-9)
-						break
-					end
+				tradeMod = findTradeStatByStrippedText(getStatEntries(modType), matchLocalStr, mod.tradeHashes, modLine)
+				if tradeMod then
+					specialCaseData.overrideModLine = tradeMod.text:sub(1,-9)
 				end
 			end
 			if tradeMod == nil then
 				local matchStr = modLine:gsub("[#()0-9%-%+%.]","")
-				for _, entry in ipairs(getStatEntries(modType) or {}) do
-					if entry.text:gsub("[#()0-9%-%+%.]","") == matchStr then
-						tradeMod = entry
-						break
-					end
-				end
+				tradeMod = findTradeStatByStrippedText(getStatEntries(modType), matchStr, mod.tradeHashes, modLine)
 			end
 			if tradeMod == nil then
 				if inverse then
