@@ -4889,7 +4889,7 @@ function ItemsTabClass:AddItemStatDifferences(tooltip, item, base, slot)
 				local base = flaskData.lifeBase * (1 - instantPerc / 100) * (1 + lifeInc / 100) * lifeMore * (1 + effectInc / 100) * (1 + durInc / 100) * lowLifeMulti
 				local grad = base * output.LifeRecoveryRateMod
 				local esGrad = base * output.EnergyShieldRecoveryRateMod
-				lifeDur = flaskData.duration * (1 + durInc / 100) / (1 + rateInc / 100) / (1 + lifeRateInc / 100) / lifeRateMore
+				lifeDur = flaskData.duration * (1 + durInc / 100) / (1 + (rateInc + lifeRateInc) / 100) / lifeRateMore
 
 				-- LocalLifeFlaskAdditionalLifeRecovery flask mods
 				if flaskData.lifeAdditional > 0 and not self.build.configTab.input.conditionFullLife then
@@ -4942,7 +4942,7 @@ function ItemsTabClass:AddItemStatDifferences(tooltip, item, base, slot)
 				local base = flaskData.manaBase * (1 - instantPerc / 100) * (1 + manaInc / 100) * (1 + effectInc / 100) * (1 + durInc / 100)
 				local grad = base * output.ManaRecoveryRateMod
 				local lifeGrad = base * output.LifeRecoveryRateMod
-				manaDur = flaskData.duration * (1 + durInc / 100) / (1 + rateInc / 100) / (1 + manaRateInc / 100)
+				manaDur = flaskData.duration * (1 + durInc / 100) / (1 + (rateInc + manaRateInc) / 100)
 
 				if inst > 0 and grad > 0 then
 					t_insert(stats, s_format("^8Mana recovered: ^7%d ^8(^7%d^8 instantly, plus ^7%d ^8over^7 %.2fs^8)", inst + grad, inst, grad, manaDur))
