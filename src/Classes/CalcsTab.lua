@@ -406,6 +406,18 @@ function CalcsTabClass:CheckFlag(obj, actor, player)
 			end
 		end
 	end
+	if obj.anyFlagList then
+		local found = false
+		for _, flag in ipairs(obj.anyFlagList) do
+			if skillFlags[flag] then
+				found = true
+				break
+			end
+		end
+		if not found then
+			return
+		end
+	end
 	if obj.playerFlag and not (player or self.calcsEnv.player).mainSkill.skillFlags[obj.playerFlag] then
 		return
 	end
