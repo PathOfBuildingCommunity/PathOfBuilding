@@ -3910,6 +3910,9 @@ function calcs.perform(env, skipEHP)
 	if not calcs.mirages(env) and calcs.offence(env, env.player, env.player.mainSkill) == false then
 		return false -- Rejected trigger-source probes are never cached
 	end
+	if not skipEHP then
+		calcs.shieldAttackBlockRecovery(env)
+	end
 
 	if env.minion then
 		if modDB:Flag(nil, "MinionsGainYourSpellSuppressionChance") then

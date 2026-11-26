@@ -100,13 +100,101 @@ local function findTriggerSkill(env, skill, source, triggerRate, comparer, minim
 	return source, triggerRate, source and cacheSkillUUID(source, env)
 end
 
+local function getShieldAttackBlockSource(env, mainOutput)
+	if not env.player.modDB:Flag(nil, "ShieldAttacksCountAsBlocks") then
+		return
+	end
+
+	local source
+	for _, skill in ipairs(env.player.activeSkillList) do
+		local flags = skill.skillFlags
+		-- A retaliation attack already needs a block, so it cannot sustain its own block source.
+		if flags.shieldAttack and not (flags.disable or flags.totem or flags.mine or flags.trap or flags.minion)
+			and not skill.skillTypes[SkillType.Retaliation] and not skill.skillTypes[SkillType.OtherThingUsesSkill]
+			and not skill.skillCfg.skillCond["usedByMirage"] and not isTriggered(skill) then
+			local attackOutput
+			if skill == env.player.mainSkill then
+				attackOutput = mainOutput
+			else
+				local candidate, _, uuid = findTriggerSkill(env, skill, nil, nil, nil, nil, env.triggerSourceCache)
+				attackOutput = candidate and GlobalCache.cachedData[env.mode][uuid]
+			end
+			if attackOutput then
+				-- Overlaps and repeats share a single block per skill use.
+				local useRate = (attackOutput.HitSpeed or attackOutput.Speed or 0) / (attackOutput.Repeats or 1)
+				local hitChance = attackOutput.HitChance or 0
+				local rate = useRate * hitChance / 100
+				if not source or rate > source.rate then
+					source = { skill = skill, useRate = useRate, hitChance = hitChance, rate = rate }
+				end
+			end
+		end
+	end
+	return source
+end
+
+local function recordShieldAttackBlocks(env, source)
+	local player = env.player
+	local output = player.output
+	output.ShieldAttackBlockRate = source.rate
+	output.ShieldAttackLifeOnBlockRate = not player.modDB:Flag(nil, "CannotGainLife") and output.LifeOnBlock * source.rate or 0
+	output.ShieldAttackManaOnBlockRate = not player.modDB:Flag(nil, "CannotGainMana") and output.ManaOnBlock * source.rate or 0
+	output.ShieldAttackESOnBlockRate = not player.modDB:Flag(nil, "CannotGainEnergyShield") and output.EnergyShieldOnBlock * source.rate or 0
+	if player.breakdown then
+		player.breakdown.ShieldAttackBlockRate = {
+			s_format("%.2f ^8(%s uses per second)", source.useRate, source.skill.activeEffect.grantedEffect.name),
+			s_format("x %.2f%% ^8(chance to hit)", source.hitChance),
+			s_format("= %.2f ^8(attack blocks per second from shield attacks)", source.rate),
+		}
+	end
+end
+
+function calcs.shieldAttackBlockRecovery(env)
+	if env.player.output.ShieldAttackBlockRate == nil then
+		local source = getShieldAttackBlockSource(env, env.player.output)
+		if source then
+			recordShieldAttackBlocks(env, source)
+		end
+	end
+end
+
+local function onBlockTrigger(env, config)
+	local source = getShieldAttackBlockSource(env)
+	env.player.mainSkill.skillFlags.globalTrigger = not source
+	if source then
+		recordShieldAttackBlocks(env, source)
+		config.source = source.skill
+		config.trigRate = source.rate
+		config.shieldAttackBlock = source
+	else
+		config.source = env.player.mainSkill
+	end
+	return config
+end
+
+local function socketedSpellOnBlock(env)
+	local mainSkill = env.player.mainSkill
+	local slot = mainSkill.socketGroup.slot
+	local support = mainSkill.triggeredBy and mainSkill.triggeredBy.grantedEffect
+	return onBlockTrigger(env, {
+		triggeredSkillCond = function(_, skill)
+			return slot and skill.socketGroup and skill.socketGroup.slot == slot
+				and skill.triggeredBy and skill.triggeredBy.grantedEffect == support
+		end,
+	})
+end
+
 -- Calculate the impact other skills and source rate to trigger cooldown alignment have on the trigger rate
 -- for more details regarding the implementation see comments of #4599 and #5428
 function calcMultiSpellRotationImpact(env, skillRotation, sourceRate, triggerCD, chance, actor)
+	if sourceRate <= 0 then
+		return 0, { simTime = 0, rates = {} }
+	end
 	local rotationIndex = 1
 	local next_trigger = 0
 	local triggerIncrement = 1 / sourceRate
-	local SIM_TIME = triggerIncrement * 1000 -- Simulate 1000 attacks
+	local simAttacks = 1000
+	local SIM_TIME = triggerIncrement * simAttacks
 	local chance = chance or 100
 	local skillCount = #skillRotation
 	local actor = actor or env.player
@@ -117,7 +205,7 @@ function calcMultiSpellRotationImpact(env, skillRotation, sourceRate, triggerCD,
 		skill.count = 0
 	end
 
-	while next_trigger < SIM_TIME do
+	for _ = 1, simAttacks do
 		local currentIndex = rotationIndex
 		repeat
 			if skillRotation[currentIndex].next_trig <= next_trigger then -- Skill at current index off cooldown, Trigger it.
@@ -413,6 +501,7 @@ local function defaultTriggerHandler(env, config)
 	local source = config.source
 	local triggeredSkills = config.triggeredSkills or {}
 	local trigRate = config.trigRate
+	local shieldAttackBlock = config.shieldAttackBlock
 	local uuid
 	local sourceWeapon = config.sourceWeapon
 	-- Only attacks using the granting weapon can activate source-weapon triggers
@@ -450,7 +539,10 @@ local function defaultTriggerHandler(env, config)
 				}
 			elseif breakdown then
 				breakdown.EffectiveSourceRate = {}
-				if trigRate and source then
+				if shieldAttackBlock then
+					t_insert(breakdown.EffectiveSourceRate, s_format("%.2f ^8(%s uses per second for The Monastery Bell)", shieldAttackBlock.useRate, source.activeEffect.grantedEffect.name))
+					t_insert(breakdown.EffectiveSourceRate, s_format("x %.2f%% ^8(chance to hit)", shieldAttackBlock.hitChance))
+				elseif trigRate and source then
 					if config.assumingEveryHitKills then
 						t_insert(breakdown.EffectiveSourceRate, "Assuming every attack kills")
 					end
@@ -461,7 +553,7 @@ local function defaultTriggerHandler(env, config)
 			-- Dual wield triggers
 			local sourceWeaponTrigger = sourceWeapon and source and source.skillFlags.bothWeaponAttack
 			local itemSupportTrigger = actor.mainSkill.triggeredBy and actor.mainSkill.triggeredBy.grantedEffect.support and actor.mainSkill.triggeredBy.grantedEffect.fromItem
-			if trigRate and source and env.player.weaponData1.type and env.player.weaponData2.type and not source.skillData.doubleHitsWhenDualWielding and (source.skillTypes[SkillType.Melee] or source.skillTypes[SkillType.Attack]) and (sourceWeaponTrigger or itemSupportTrigger) then
+			if not shieldAttackBlock and trigRate and source and env.player.weaponData1.type and env.player.weaponData2.type and not source.skillData.doubleHitsWhenDualWielding and (source.skillTypes[SkillType.Melee] or source.skillTypes[SkillType.Attack]) and (sourceWeaponTrigger or itemSupportTrigger) then
 				trigRate = trigRate / 2
 				if breakdown then
 					t_insert(breakdown.EffectiveSourceRate, 2, s_format("/ 2 ^8(due to dual wielding)"))
@@ -708,7 +800,7 @@ local function defaultTriggerHandler(env, config)
 				t_insert(breakdown.TriggerRateCap, "")
 
 				if not (triggeredCD or triggerCD or cooldownOverride) then
-					t_insert(breakdown.TriggerRateCap, "Assuming cast on every kill/attack/hit")
+					t_insert(breakdown.TriggerRateCap, shieldAttackBlock and "One block per shield skill use that hits" or "Assuming cast on every kill/attack/hit")
 				else
 					t_insert(breakdown.TriggerRateCap, "Trigger rate:")
 					t_insert(breakdown.TriggerRateCap, s_format("1 / %.3f", actionCooldownTickRounded))
@@ -748,7 +840,7 @@ local function defaultTriggerHandler(env, config)
 				local triggerChanceBreakdown = {}
 
 				--Accuracy and crit chance
-				if source and (source.skillTypes[SkillType.Melee] or source.skillTypes[SkillType.Attack]) and GlobalCache.cachedData[env.mode][uuid] and not config.triggerOnUse then
+				if not shieldAttackBlock and source and (source.skillTypes[SkillType.Melee] or source.skillTypes[SkillType.Attack]) and GlobalCache.cachedData[env.mode][uuid] and not config.triggerOnUse then
 
 					local sourceHitChance = GlobalCache.cachedData[env.mode][uuid].HitChance or 0
 					if sourceHitChance ~= 100 then
@@ -826,6 +918,9 @@ local function defaultTriggerHandler(env, config)
 					output.SkillTriggerRate = output.EffectiveSourceRate
 				else -- Triggers like Cast on Crit go through simulation to calculate the trigger rate of each skill in the trigger group
 					output.SkillTriggerRate, simBreakdown = calcMultiSpellRotationImpact(env, config.triggeredSkillCond and triggeredSkills or {packageSkillDataForSimulation(actor.mainSkill, env)}, output.EffectiveSourceRate, (not actor.mainSkill.skillData.triggeredByBrand and ( triggerCD or triggeredCD ) or 0), triggerChance, actor)
+					if shieldAttackBlock then
+						output.SkillTriggerRate = m_min(output.SkillTriggerRate, output.TriggerRateCap)
+					end
 					local triggerBotsEffective = actor.modDB:Flag(nil, "HaveTriggerBots") and actor.mainSkill.skillTypes[SkillType.Spell]
 					if triggerBotsEffective then
 						output.SkillTriggerRate = 2 * output.SkillTriggerRate
@@ -1316,11 +1411,13 @@ local configTable = {
 				end}
 	end,
 	["tempest shield"] = function(env)
-        env.player.mainSkill.skillFlags.globalTrigger = true
-		return {source = env.player.mainSkill}
+		return onBlockTrigger(env, {})
 	end,
 	["shattershard"] = function(env)
-        env.player.mainSkill.skillFlags.globalTrigger = true
+		local config = onBlockTrigger(env, {})
+		if config.shieldAttackBlock then
+			return config
+		end
 		local uuid = cacheSkillUUID(env.player.mainSkill, env)
 		if not GlobalCache.cachedData[env.mode][uuid] or env.mode == "CALCULATOR" then
 			calcs.buildActiveSkill(env, env.mode, env.player.mainSkill, uuid, {uuid})
@@ -1333,7 +1430,7 @@ local configTable = {
 				s_format("= %.2f ^8per second", env.player.mainSkill.skillData.triggerRateCapOverride),
 			}
 		end
-		return {source = env.player.mainSkill}
+		return config
 	end,
 	["battlemage's cry"] = function(env)
 		if env.player.mainSkill.activeEffect.grantedEffect.name ~= "Battlemage's Cry" then
@@ -1523,20 +1620,8 @@ local configTable = {
 					useCastRate = true}
 		end
 	end,
-	["svalinn cast on block"] = function(env) -- Svalinn Girded Tower Shield
-		env.player.mainSkill.skillFlags.globalTrigger = true
-		return {source = env.player.mainSkill,
-				triggeredSkillCond = function(env, skill)
-					return slotMatch(env, skill) and skill.triggeredBy and calcLib.canGrantedEffectSupportActiveSkill(skill.triggeredBy.grantedEffect, skill)
-				end}
-	end,
-	["festering resentment cast on block"] = function(env) -- Festering Resentment Demon Dagger
-		env.player.mainSkill.skillFlags.globalTrigger = true
-		return {source = env.player.mainSkill,
-				triggeredSkillCond = function(env, skill)
-					return slotMatch(env, skill) and skill.triggeredBy and calcLib.canGrantedEffectSupportActiveSkill(skill.triggeredBy.grantedEffect, skill)
-				end}
-	end,
+	["svalinn cast on block"] = socketedSpellOnBlock,
+	["festering resentment cast on block"] = socketedSpellOnBlock,
 	["hex on trap"] = function(env) -- Hand of the Lords Carnal Mitts
 		return {triggerSkillCond = function(env, skill)
 					-- Hex is triggered only when a trap is triggered

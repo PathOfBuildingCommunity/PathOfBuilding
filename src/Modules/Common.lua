@@ -927,6 +927,7 @@ function cacheData(uuid, env)
 		Name = env.player.mainSkill.activeEffect.grantedEffect.name,
 		Speed = env.player.output.Speed,
 		HitSpeed = env.player.output.HitSpeed,
+		Repeats = env.player.output.Repeats,
 		ManaCost = env.player.output.ManaCost,
 		LifeCost = env.player.output.LifeCost,
 		ESCost = env.player.output.ESCost,

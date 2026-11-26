@@ -1762,6 +1762,10 @@ return {
 	{ label = "Mana on Block", haveOutput = "ManaOnBlock", { format = "{0:output:ManaOnBlock}", { modName = "ManaOnBlock" }, }, },
 	{ label = "ES on Block", haveOutput = "EnergyShieldOnBlock", { format = "{0:output:EnergyShieldOnBlock}", { modName = "EnergyShieldOnBlock" }, }, },
 	{ label = "ES on Spell Block", haveOutput = "EnergyShieldOnSpellBlock", { format = "{0:output:EnergyShieldOnSpellBlock}", { modName = "EnergyShieldOnSpellBlock" }, }, },
+	{ label = "Monastery Bell Blocks", haveOutput = "ShieldAttackBlockRate", { format = "{2:output:ShieldAttackBlockRate}/s", { breakdown = "ShieldAttackBlockRate" }, }, },
+	{ label = "Life from Bell Blocks", haveOutput = "ShieldAttackLifeOnBlockRate", { format = "{1:output:ShieldAttackLifeOnBlockRate}/s", { modName = "LifeOnBlock" }, }, },
+	{ label = "Mana from Bell Blocks", haveOutput = "ShieldAttackManaOnBlockRate", { format = "{1:output:ShieldAttackManaOnBlockRate}/s", { modName = "ManaOnBlock" }, }, },
+	{ label = "ES from Bell Blocks", haveOutput = "ShieldAttackESOnBlockRate", { format = "{1:output:ShieldAttackESOnBlockRate}/s", { modName = "EnergyShieldOnBlock" }, }, },
 } }, { defaultCollapsed = false, label = "Dodge", data = {
 	extra = "{0:output:AttackDodgeChance}%/{0:output:SpellDodgeChance}%",
 	{ label = "Dodge Chance", { format = "{0:output:AttackDodgeChance}% (+{0:output:AttackDodgeChanceOverCap}%)",

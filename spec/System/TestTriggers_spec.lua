@@ -1266,6 +1266,152 @@ describe("TestTriggers", function()
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
 	end)
 
+	describe("The Monastery Bell", function()
+		local function equipUnique(category, name, slot)
+			local items = data.uniques[category]
+			local index = isValueInArrayPred(items, function(raw) return raw:sub(1, #name + 1) == name .. "\n" end)
+			assert.is_not_nil(index)
+			local item = new("Item"):Item(items[index])
+			build.itemsTab:AddItem(item, true)
+			build.itemsTab.slots[slot]:SetSelItemId(item.id)
+			build.buildFlag = true
+			runCallback("OnFrame")
+		end
+
+		local function allocateReliquarianBell()
+			local spec = build.spec
+			spec:SelectClass(spec.tree.classNameMap.Scion)
+			spec:SelectAscendClass(spec.tree.ascendNameMap.Reliquarian.ascendClassId)
+			spec:AllocNode(spec.nodes[26055])
+			assert.is_not_nil(spec.allocNodes[26055])
+			build.buildFlag = true
+			runCallback("OnFrame")
+		end
+
+		local function selectSkill(name)
+			runCallback("OnFrame")
+			for groupIndex, group in ipairs(build.skillsTab.socketGroupList) do
+				for skillIndex, skill in ipairs(group.displaySkillList or {}) do
+					if skill.activeEffect.grantedEffect.name == name then
+						build.mainSocketGroup = groupIndex
+						group.mainActiveSkill = skillIndex
+						build.buildFlag = true
+						runCallback("OnFrame")
+						assert.are.equal(name, build.calcsTab.mainEnv.player.mainSkill.activeEffect.grantedEffect.name)
+						return build.calcsTab.mainOutput, group
+					end
+				end
+			end
+			error("Missing active skill: " .. name)
+		end
+
+		local function setCustomMods(text)
+			build.configTab.input.customMods = text
+			build.configTab:BuildModList()
+			build.buildFlag = true
+		end
+
+		it("triggers Shield Shatter from the item and the passive while respecting hit chance", function()
+			equipUnique("shield", "Shattershard", "Weapon 2")
+			setCustomMods("Your Hits can't be Evaded")
+			build.skillsTab:PasteSocketGroup("Shield Charge 20/0  1\nFaster Attacks 20/0  1\n")
+			local normal = selectSkill("Shield Shatter")
+			assert.are.near(1 / normal.Duration, normal.SkillTriggerRate, 1e-6)
+
+			equipUnique("mace", "The Monastery Bell", "Weapon 1")
+			local charge, chargeGroup = selectSkill("Shield Charge")
+			local shatter = selectSkill("Shield Shatter")
+			assert.are.near(charge.Speed, shatter.SkillTriggerRate, 1e-6)
+			assert.are.near(normal.Duration, shatter.Duration, 1e-6)
+
+			allocateReliquarianBell()
+			assert.are.near(charge.Speed, selectSkill("Shield Shatter").SkillTriggerRate, 1e-6)
+			build.itemsTab.slots["Weapon 1"]:SetSelItemId(0)
+			build.configTab.input.enemyBlockChance = 50
+			build.configTab:BuildModList()
+			build.buildFlag = true
+			assert.are.near(charge.Speed / 2, selectSkill("Shield Shatter").SkillTriggerRate, 1e-6)
+
+			build.configTab.input.enemyBlockChance = 100
+			build.configTab:BuildModList()
+			build.buildFlag = true
+			assert.are.equal(0, selectSkill("Shield Shatter").SkillTriggerRate)
+
+			chargeGroup.enabled = false
+			build.skillsTab:PasteSocketGroup("Smite 20/0  1\n")
+			local fallback = selectSkill("Shield Shatter")
+			assert.is_nil(fallback.ShieldAttackBlockRate)
+			assert.are.near(1 / fallback.Duration, fallback.SkillTriggerRate, 1e-6)
+		end)
+
+		it("reports recovery from Bell blocks once per use of a repeating shield attack", function()
+			equipUnique("mace", "The Monastery Bell", "Weapon 1")
+			equipUnique("shield", "Aegis Aurora", "Weapon 2")
+			setCustomMods("Your Hits can't be Evaded\nRecover 100 Life when you Block\nRecover 5% of your maximum Mana when you Block\nRecover 100 Energy Shield when you Block Spell Damage")
+			build.skillsTab:PasteSocketGroup("Smite 20/0  1\n")
+			local normal = selectSkill("Smite")
+			assert.is_nil(normal.ShieldAttackBlockRate)
+
+			build.skillsTab:PasteSocketGroup("Shield Crush 20/0  1\nMultistrike 20/0  1\n")
+			local crush = selectSkill("Shield Crush")
+			assert.are.equal(3, crush.Repeats)
+			assert.are.near(crush.Speed / crush.Repeats, crush.ShieldAttackBlockRate, 1e-6)
+			assert.are.equal(100, crush.LifeOnBlock)
+			assert.True(crush.ManaOnBlock > 0)
+			assert.True(crush.EnergyShieldOnBlock > 0)
+			assert.are.equal(100, crush.EnergyShieldOnSpellBlock)
+			assert.are.near(crush.LifeOnBlock * crush.ShieldAttackBlockRate, crush.ShieldAttackLifeOnBlockRate, 1e-6)
+			assert.are.near(crush.ManaOnBlock * crush.ShieldAttackBlockRate, crush.ShieldAttackManaOnBlockRate, 1e-6)
+			assert.are.near(crush.EnergyShieldOnBlock * crush.ShieldAttackBlockRate, crush.ShieldAttackESOnBlockRate, 1e-6)
+			assert.are.equal(0, crush.LifeOnHit)
+			assert.are.equal(normal.EffectiveBlockChance, crush.EffectiveBlockChance)
+			assert.are.near(normal.TotalEHP, crush.TotalEHP, 1e-6)
+		end)
+
+		for _, name in ipairs({ "Festering Resentment", "Svalinn" }) do
+			it("respects the cooldown and spell rotation of " .. name, function()
+				local slot
+				if name == "Festering Resentment" then
+					equipUnique("dagger", name, "Weapon 1")
+					equipUnique("shield", "Shattershard", "Weapon 2")
+					allocateReliquarianBell()
+					slot = "Weapon 1"
+				else
+					equipUnique("mace", "The Monastery Bell", "Weapon 1")
+					equipUnique("shield", name, "Weapon 2")
+					slot = "Weapon 2"
+				end
+				setCustomMods("Your Hits can't be Evaded\n100% increased Attack Speed")
+				build.skillsTab:PasteSocketGroup("Shield Charge 20/0  1\nFaster Attacks 20/0  1\n")
+				build.skillsTab:PasteSocketGroup("Slot: " .. slot .. "\nArc 20/0  1\n")
+				local oneSpell = selectSkill("Arc")
+				assert.True(oneSpell.ShieldAttackBlockRate > oneSpell.TriggerRateCap)
+				assert.are.near(oneSpell.ShieldAttackBlockRate / 2, oneSpell.SkillTriggerRate, 1e-6)
+
+				build.skillsTab:PasteSocketGroup("Slot: " .. slot .. "\nFireball 20/0  1\n")
+				build.configTab.input.enemyBlockChance = 50
+				build.configTab:BuildModList()
+				local arc = selectSkill("Arc")
+				local fireball = selectSkill("Fireball")
+				assert.are.near(oneSpell.ShieldAttackBlockRate / 2, arc.ShieldAttackBlockRate, 1e-6)
+				assert.are.near(arc.ShieldAttackBlockRate / 2, arc.SkillTriggerRate, 1e-6)
+				assert.are.near(arc.ShieldAttackBlockRate, arc.SkillTriggerRate + fireball.SkillTriggerRate, 1e-6)
+			end)
+		end
+
+		it("uses Bell blocks for Tempest Shield and keeps its cooldown", function()
+			equipUnique("mace", "The Monastery Bell", "Weapon 1")
+			equipUnique("shield", "Aegis Aurora", "Weapon 2")
+			setCustomMods("Your Hits can't be Evaded")
+			build.skillsTab:PasteSocketGroup("Tempest Shield 20/0  1\n")
+			local normal = selectSkill("Tempest Shield")
+			build.skillsTab:PasteSocketGroup("Shield Crush 20/0  1\n")
+			local tempest = selectSkill("Tempest Shield")
+			assert.True(tempest.ShieldAttackBlockRate > normal.SkillTriggerRate)
+			assert.are.near(tempest.ShieldAttackBlockRate / 2, tempest.SkillTriggerRate, 1e-6)
+		end)
+	end)
+
 	it("Trigger Combust", function()
 		build.skillsTab:PasteSocketGroup("Infernal Cry 20/0  1\n")
 		runCallback("OnFrame")
