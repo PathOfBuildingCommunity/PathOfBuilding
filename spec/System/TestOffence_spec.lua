@@ -459,4 +459,49 @@ describe("TestOffence", function()
 		assert.are.equals(0, build.calcsTab.mainOutput.CorruptingBloodDPS or 0)
 		assert.are.equals(0, build.calcsTab.mainEnv.modDB:Sum("BASE", nil, "Multiplier:CorruptingCryStageAfterFirst"))
 	end)
+
+	it("distinguishes zero Bloodsoaked Banner stacks from the default and a positive override", function()
+		build.skillsTab:PasteSocketGroup("War Banner 20/0  1\nBloodsoaked Banner 20/0  1\n")
+		build.configTab.input.bannerPlanted = true
+		build.configTab.input.bannerValour = 50
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+		local oneStack = build.calcsTab.mainOutput.CorruptingBloodDPS
+		assert.is_true(oneStack > 0)
+
+		build.configTab.input.bloodsoakedBannerStages = 5
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+		assertNearRelative(5 * oneStack, build.calcsTab.mainOutput.CorruptingBloodDPS, 0.0001)
+
+		build.configTab.input.bloodsoakedBannerStages = 0
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+		assert.are.equal(0, build.calcsTab.mainOutput.CorruptingBloodDPS)
+	end)
+
+	it("treats zero Cruelty effect as an explicit override", function()
+		build.skillsTab:PasteSocketGroup("Exsanguinate 20/0  1\nCruelty 20/0  1\n")
+		runCallback("OnFrame")
+		local maxCrueltyDot = build.calcsTab.mainOutput.TotalDot
+		assert.is_true(maxCrueltyDot > 0)
+
+		build.configTab.input.overrideCruelty = 0
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+		assertNearRelative(maxCrueltyDot / 1.4, build.calcsTab.mainOutput.TotalDot, 0.0001)
+	end)
+
+	it("recalculates Herald of Ash when overkill damage is reset to zero", function()
+		build.skillsTab:PasteSocketGroup("Herald of Ash 20/0  1\n")
+		build.configTab.input.hoaOverkill = 1000
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+		assert.is_true(build.calcsTab.mainOutput.TotalDot > 0)
+
+		build.configTab.input.hoaOverkill = 0
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+		assert.are.equal(0, build.calcsTab.mainOutput.TotalDot)
+	end)
 end)

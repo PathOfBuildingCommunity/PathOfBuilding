@@ -270,6 +270,16 @@ function M.CaptureOverrides(config, set)
 	return overrides
 end
 
+local function applyOverrides(input, overrides)
+	for var, value in pairs(overrides) do
+		if value == CLEARED then
+			input[var] = nil
+		else
+			input[var] = value
+		end
+	end
+end
+
 -- Config sets read from a file keep their saved values; nothing is regenerated
 -- until the build actually changes.
 function M.Loaded(config)
@@ -314,9 +324,7 @@ local function regenerate(config, base, set, activity, stamp, reset)
 	local baseline = { input = copyTable(draft.input) }
 	local overrides = reset and { } or M.CaptureOverrides(config, set)
 	if reset then set.autoOverrides = nil end
-	for var, value in pairs(overrides) do
-		draft.input[var] = value ~= CLEARED and value or nil
-	end
+	applyOverrides(draft.input, overrides)
 	-- Custom modifiers edited in the generated set are kept
 	if not reset and not created and textOf(set.customModsList or { }) ~= textOf(base.customModsList or { }) then
 		draft.customModsList = set.customModsList
@@ -568,9 +576,7 @@ local function inspectSaved(config, set)
 		return state
 	end
 	state = state or { baseline = { input = copyTable(set.input) } }
-	for var, value in pairs(M.CaptureOverrides(config, set)) do
-		draft.input[var] = value ~= CLEARED and value or nil
-	end
+	applyOverrides(draft.input, M.CaptureOverrides(config, set))
 	if textOf(set.customModsList or { }) ~= textOf(base.customModsList or { }) then
 		draft.customModsList = set.customModsList
 	end

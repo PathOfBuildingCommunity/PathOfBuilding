@@ -112,14 +112,15 @@ local function pause(nested)
 	if isolation.cache then isolation.cache.CALCULATOR = isolation.own end
 	isolationDepth = 1
 end
-local function silentControls(configTab)
+local function silentControls(configTab, placeholders)
 	local stubs = { }
 	return setmetatable({ }, { __index = function(_, var)
 		if not stubs[var] then
 			local control = configTab.varControls and configTab.varControls[var]
-			-- Reads (placeholder, list, selIndex) see the real control; writes
-			-- and placeholder/selection changes are absorbed.
-			stubs[var] = setmetatable({ SetPlaceholder = function() end, SelByValue = function() end, SetSel = function() end },
+			-- Keep numeric preset updates in the scan's copy of the config.
+			stubs[var] = setmetatable({ SetPlaceholder = function(_, value, notify)
+				if notify then placeholders[var] = tonumber(value) end
+			end, SelByValue = function() end, SetSel = function() end },
 				{ __index = control, __newindex = function() end })
 		end
 		return stubs[var]
@@ -178,7 +179,7 @@ local function detectionEnv(build, planned)
 	config.build = snapshot
 	-- Boss presets write placeholders through the tab's controls; keep that
 	-- side effect away from the real configuration set.
-	config.varControls = silentControls(build.configTab)
+	config.varControls = silentControls(build.configTab, config.placeholder)
 	config:BuildModList()
 	local calcs = build.calcsTab.calcs
 	local env = calcs.initEnv(snapshot, "CALCULATOR")
@@ -1626,6 +1627,7 @@ function M.BuildSetup(build, base, mapping, settings)
 		configSets = { [draft.id] = draft } }, { __index = build.configTab })
 	local isolated = setmetatable({ configTab = config }, { __index = build })
 	config.build = isolated
+	config.varControls = silentControls(build.configTab, draft.placeholder)
 	local seconds = policy.recentWindow
 	local entries, report = M.Detect(isolated, mapping, seconds, nil, settings)
 	approveSetup(entries, base)
@@ -1642,6 +1644,7 @@ function M.BuildSetup(build, base, mapping, settings)
 	end
 	local applied = { }
 	applySelected(config, entries, applied)
+	config:BuildModList()
 	local summary = { }
 	for _, entry in ipairs(report) do
 		local var = entry.var

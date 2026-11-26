@@ -2314,8 +2314,9 @@ Huge sets the radius to 11.
 	{ var = "presetBossSkills", type = "list", defaultIndex = 1, label = "Boss Skill Preset", tooltipFunc = bossSkillsTooltip, list = data.bossSkillsList, apply = function(val, modList, enemyModList, build)
 		if not (val == "None") then
 			local bossData = data.bossSkills[val]
-			local isUber = build.configTab.varControls['enemyIsBoss'].list[build.configTab.varControls['enemyIsBoss'].selIndex].val == "Uber"
-			if bossData.earlierUber and build.configTab.varControls['enemyIsBoss'].list[build.configTab.varControls['enemyIsBoss'].selIndex].val == "Pinnacle" then
+			local bossType = build.configTab.input.enemyIsBoss
+			local isUber = bossType == "Uber"
+			if bossData.earlierUber and bossType == "Pinnacle" then
 				isUber = true
 			end
 			local defaultDamage = ""

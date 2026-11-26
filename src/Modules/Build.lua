@@ -1200,8 +1200,13 @@ function buildMode:Save(xml)
 		mainSocketGroup = tostring(self.mainSocketGroup),
 		characterLevelAutoMode = tostring(self.characterLevelAutoMode)
 	}
-	local questRecords = require("Modules.ConfigAutoRulesBuild").Quests.Save(self.autoConfigureQuestEvidence)
-	if questRecords then t_insert(xml, questRecords) end
+	for _, set in pairs(self.configTab.configSets) do
+		if set.autoActivity then
+			local questRecords = require("Modules.ConfigAutoRulesBuild").Quests.Save(self.autoConfigureQuestEvidence)
+			if questRecords then t_insert(xml, questRecords) end
+			break
+		end
+	end
 	for _, id in ipairs(self.spectreList) do
 		t_insert(xml, { elem = "Spectre", attrib = { id = id } })
 	end

@@ -362,9 +362,17 @@ describe("TestConfigAuto", function()
 		end)
 
 		it("switches to the activity's own setup, and clearing maps fights regular monsters", function()
+			local manual = build.configTab.configSets[build.configTab.activeConfigSetId]
+			local original = copyTable(manual.placeholder)
+			assert.are.equal(50, original.enemyFireResist)
+			local draft = auto.BuildSetup(build, manual, true, main.autoConfigureSettings)
+			assert.is_nil(draft.placeholder.enemyFireResist)
+			assert.are.same(original, manual.placeholder)
+
 			local config = setup(2)
 			local maps = config.configSets[config.activeConfigSetId]
 			assert.are.equal("None", maps.input.enemyIsBoss)
+			assert.are.same(draft.placeholder, maps.placeholder)
 			-- Native default-on checkboxes keep their default without evidence
 			for _, option in ipairs(require("Modules.ConfigOptions")) do
 				if option.type == "check" and option.defaultState == true then assert.are_not.equal(false, maps.input[option.var], option.var) end
@@ -447,15 +455,35 @@ describe("TestConfigAuto", function()
 			local edited = 2
 			config.input.useFrenzyCharges, config.input.overrideFrenzyCharges = true, edited
 			config.input.conditionKilledRecently = nil
+			config.input.raiseSpectreEnableBuffs = false
 			config:AddUndoState()
 			ring(killMods .. "\n+10 to maximum Life")
 			assert.are.equal(edited, config.input.overrideFrenzyCharges)
 			assert.is_nil(config.input.conditionKilledRecently)
+			assert.is_false(config.input.raiseSpectreEnableBuffs)
 			loadBuildFromXML(build:SaveDB("code"), "Override round trip")
 			config = build.configTab
+			draw()
+			config.controls.setupDetails:Click()
+			assert.is_false(config.autoSetupCache[config.configSets[config.activeConfigSetId]].outdated)
+			main:ClosePopup()
 			ring(killMods .. "\n+20 to maximum Life")
 			assert.are.equal(edited, config.input.overrideFrenzyCharges)
 			assert.is_nil(config.input.conditionKilledRecently)
+			assert.is_false(config.input.raiseSpectreEnableBuffs)
+		end)
+
+		it("persists imported quest evidence only when the build includes a generated set", function()
+			rules.Quests.Capture(build, { bandit_choice = "Alira" }, "Imported Character")
+			assert.is_nil(build:SaveDB("code"):find("AutoConfigureQuests", 1, true))
+
+			local config = setup(1)
+			local generated = config.configSets[config.activeConfigSetId]
+			config:SetActiveConfigSet(generated.autoBaseId)
+			local xml = build:SaveDB("code")
+			assert.is_truthy(xml:find("AutoConfigureQuests", 1, true))
+			loadBuildFromXML(xml, "Imported quest evidence")
+			assert.are.equal("Alira", build.autoConfigureQuestEvidence.bandit)
 		end)
 
 		it("saves and loads a manual config set, including explicit zeros, unchanged", function()
