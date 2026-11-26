@@ -571,6 +571,10 @@ return {
 			modList:NewMod("Condition:PlagueBearerInfecting", "FLAG", true, "Config")
 		end
 	end },
+	{ label = "Pact of Ghorr:", ifSkill = "Pact of Ghorr" },
+	{ var = "fleshrendStacks", type = "count", label = "# of Fleshrend stacks on enemy:", ifSkill = "Pact of Ghorr", tooltip = "Hunger of Ghorr periodically triggers Fleshrend, whose debuff stacks up to 3 times.\nEach stack causes the enemy to take 25% increased Damage over Time.\nThe debuff is short, so 3 stacks is a peak rather than a sustained value.", apply = function(val, modList, enemyModList)
+		modList:NewMod("Multiplier:FleshrendCount", "BASE", val, "Config", { type = "Condition", var = "Effective" })
+	end },
 	{ label = "Perforate:", ifSkill = "Perforate", includeTransfigured = true },
 	{ var = "perforateSpikeOverlap", type = "count", label = "# of Overlapping Spikes:", tooltip = "Affects the DPS of Perforate in Blood Stance.\nMaximum is limited by the number of Spikes of Perforate.", ifSkill = "Perforate", includeTransfigured = true, apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:PerforateSpikeOverlap", "BASE", val, "Config", { type = "SkillName", skillName = "Perforate", includeTransfigured = true })
@@ -927,6 +931,12 @@ Huge sets the radius to 11.
 	end },
 	{ var = "overrideEnduranceCharges", type = "count", label = "# of Endurance Charges (if not maximum):", ifOption = "useEnduranceCharges", apply = function(val, modList, enemyModList)
 		modList:NewMod("EnduranceCharges", "OVERRIDE", val, "Config", { type = "Condition", var = "Combat" })
+	end },
+	{ var = "useBrineCharges", type = "check", label = "Do you use Brine Charges?", ifFlag = "CanGainBrineCharges", apply = function(val, modList, enemyModList)
+		modList:NewMod("UseBrineCharges", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
+	end },
+	{ var = "overrideBrineCharges", type = "count", label = "# of Brine Charges (if not maximum):", ifOption = "useBrineCharges", apply = function(val, modList, enemyModList)
+		modList:NewMod("BrineCharges", "OVERRIDE", val, "Config", { type = "Condition", var = "Combat" })
 	end },
 	{ var = "useSiphoningCharges", type = "check", label = "Do you use Siphoning Charges?", ifMult = "SiphoningCharge", apply = function(val, modList, enemyModList)
 		modList:NewMod("UseSiphoningCharges", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
@@ -1436,6 +1446,10 @@ Huge sets the radius to 11.
 	end },
 	{ var = "conditionBlockedRecently", type = "check", label = "Have you Blocked Recently?", ifCond = "BlockedRecently", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:BlockedRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
+	end },
+	{ var = "conditionUsedRetaliationRecently", type = "check", label = "Have you used a Retaliation Skill Recently?", ifCond = "UsedRetaliationRecently", tooltip = "Recently refers to the past 4 seconds.", apply = function(val, modList, enemyModList)
+		modList:NewMod("Condition:UsedRetaliationRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
+		modList:NewMod("Condition:UsedSkillRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
 	{ var = "conditionBlockedAttackRecently", type = "check", label = "Have you Blocked an Attack Recently?", ifCond = "BlockedAttackRecently", implyCond = "BlockedRecently", tooltip = "This also implies that you have Blocked Recently.", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:BlockedAttackRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })

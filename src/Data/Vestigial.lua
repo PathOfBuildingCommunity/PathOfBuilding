@@ -754,6 +754,9 @@ return {
 	["DivergentIronWillUniqueGlovesStrInt4__"] = {
 		"Repentance",
 	},
+	["DivergentItemActsAsConcentratedAOESupportUnique__1"] = {
+		"Wyrmsign",
+	},
 	["DivergentItemFoundRarityIncreaseUniqueBodyStr5"] = {
 		"Greed's Embrace",
 	},
@@ -1258,6 +1261,12 @@ return {
 	},
 	["DivergentSocketedGemQualityUnique__1"] = {
 		"Crest of Desire",
+	},
+	["DivergentSocketedGemsGetElementalProliferationUniqueBodyInt5"] = {
+		"Thousand Ribbons",
+	},
+	["DivergentSocketedGemsHaveAddedChaosDamageUnique__3"] = {
+		"The Covenant",
 	},
 	["DivergentSocketedGemsHaveReducedManaCostUniqueHelmetDexInt5"] = {
 		"The Vertex",

@@ -1721,6 +1721,243 @@ skills["SupportEclipse"] = {
 		[15] = { 3, 38, levelRequirement = 95, manaMultiplier = -19, statInterpolation = { 1, 1, }, },
 	},
 }
+-- failed imbued support outcomes
+skills["SupportConstriction"] = {
+	name = "Constriction",
+	description = "Supports any skill gem.\nCannot support skills that don't come from gems.",
+	color = 4,
+	support = true,
+	requireSkillTypes = { },
+	addSkillTypes = { },
+	excludeSkillTypes = { SkillType.SkillGrantedBySupport, },
+	statDescriptionScope = "gem_stat_descriptions",
+	imbuedOnly = true,
+	stats = {
+		"display_constriction_other_supports_do_not_apply",
+	},
+	levels = {
+		[1] = { levelRequirement = 1, },
+	},
+}
+skills["SupportDestitution"] = {
+	name = "Destitution",
+	description = "Supports any skill that can kill enemies.",
+	color = 4,
+	support = true,
+	requireSkillTypes = { SkillType.Damage, SkillType.Attack, SkillType.DamageOverTime, SkillType.KillNoDamageModifiers, },
+	addSkillTypes = { },
+	excludeSkillTypes = { },
+	statDescriptionScope = "gem_stat_descriptions",
+	imbuedOnly = true,
+	constantStats = {
+		{ "base_killed_monster_dropped_item_rarity_+%", -50 },
+	},
+	stats = {
+	},
+	levels = {
+		[1] = { levelRequirement = 1, },
+	},
+}
+skills["SupportDiminishment"] = {
+	name = "Diminishment",
+	description = "Supports any skill gem.\nCannot support skills that don't come from gems.",
+	color = 4,
+	support = true,
+	requireSkillTypes = { },
+	addSkillTypes = { },
+	excludeSkillTypes = { SkillType.SkillGrantedBySupport, },
+	statDescriptionScope = "gem_stat_descriptions",
+	imbuedOnly = true,
+	constantStats = {
+		{ "supported_active_skill_gem_quality_%", -20 },
+	},
+	stats = {
+	},
+	levels = {
+		[1] = { levelRequirement = 1, },
+	},
+}
+skills["SupportDisempower"] = {
+	name = "Disempower",
+	description = "Supports any skill gem.\nCannot support skills that don't come from gems.",
+	color = 4,
+	support = true,
+	requireSkillTypes = { },
+	addSkillTypes = { },
+	excludeSkillTypes = { SkillType.SkillGrantedBySupport, },
+	statDescriptionScope = "gem_stat_descriptions",
+	imbuedOnly = true,
+	constantStats = {
+		{ "supported_active_skill_gem_level_+", -1 },
+	},
+	stats = {
+	},
+	levels = {
+		[1] = { levelRequirement = 1, },
+	},
+}
+skills["SupportEncumbrance"] = {
+	name = "Encumbrance",
+	description = "Supports any skill gem.\nCannot support skills that don't come from gems.",
+	color = 4,
+	support = true,
+	requireSkillTypes = { },
+	addSkillTypes = { },
+	excludeSkillTypes = { SkillType.SkillGrantedBySupport, },
+	statDescriptionScope = "gem_stat_descriptions",
+	imbuedOnly = true,
+	stats = {
+	},
+	levels = {
+		[1] = { levelRequirement = 1, manaMultiplier = 100, },
+	},
+}
+skills["SupportImpotence"] = {
+	name = "Impotence",
+	description = "Supports any skill that can damage enemies.",
+	color = 4,
+	support = true,
+	requireSkillTypes = { SkillType.Damage, SkillType.Attack, SkillType.DamageOverTime, },
+	addSkillTypes = { },
+	excludeSkillTypes = { },
+	statDescriptionScope = "gem_stat_descriptions",
+	imbuedOnly = true,
+	statMap = {
+		["support_impotence_damage_+%_final"] = {
+			mod("Damage", "MORE", nil),
+		},
+	},
+	constantStats = {
+		{ "support_impotence_damage_+%_final", -50 },
+	},
+	stats = {
+	},
+	levels = {
+		[1] = { levelRequirement = 1, },
+	},
+}
+skills["SupportLethargy"] = {
+	name = "Lethargy",
+	description = "Supports any skill.",
+	color = 4,
+	support = true,
+	requireSkillTypes = { },
+	addSkillTypes = { },
+	excludeSkillTypes = { },
+	statDescriptionScope = "gem_stat_descriptions",
+	imbuedOnly = true,
+	statMap = {
+		["gain_malignant_madness_on_skill_use"] = {
+			flag("Condition:MalignantMadness", { type = "GlobalEffect", effectType = "Buff", effectName = "Malignant Madness" }),
+		},
+	},
+	stats = {
+		"gain_malignant_madness_on_skill_use",
+	},
+	levels = {
+		[1] = { levelRequirement = 1, },
+	},
+}
+skills["SupportMediocrity"] = {
+	name = "Mediocrity",
+	description = "Supports any skill that hits enemies.",
+	color = 4,
+	support = true,
+	requireSkillTypes = { SkillType.Damage, SkillType.Attack, },
+	addSkillTypes = { },
+	excludeSkillTypes = { },
+	statDescriptionScope = "gem_stat_descriptions",
+	imbuedOnly = true,
+	statMap = {
+		["global_cannot_crit"] = {
+			flag("NeverCrit"),
+			flag("Condition:NeverCrit"),
+		},
+	},
+	stats = {
+		"global_cannot_crit",
+	},
+	levels = {
+		[1] = { levelRequirement = 1, },
+	},
+}
+skills["SupportNullification"] = {
+	name = "Nullification",
+	description = "Supports any skill that hits enemies or inflicts elemental ailments.",
+	color = 4,
+	support = true,
+	requireSkillTypes = { SkillType.Damage, SkillType.Attack, SkillType.NonHitChill, },
+	addSkillTypes = { },
+	excludeSkillTypes = { },
+	statDescriptionScope = "gem_stat_descriptions",
+	imbuedOnly = true,
+	stats = {
+		"cannot_inflict_status_ailments",
+	},
+	levels = {
+		[1] = { levelRequirement = 1, },
+	},
+}
+skills["SupportPenance"] = {
+	name = "Penance",
+	description = "Supports any skill.",
+	color = 4,
+	support = true,
+	requireSkillTypes = { },
+	addSkillTypes = { },
+	excludeSkillTypes = { },
+	statDescriptionScope = "gem_stat_descriptions",
+	imbuedOnly = true,
+	stats = {
+		"skills_sacrifice_all_but_one_life_and_energy_shield_on_use",
+	},
+	levels = {
+		[1] = { levelRequirement = 1, },
+	},
+}
+skills["SupportPoverty"] = {
+	name = "Poverty",
+	description = "Supports any skill that can kill enemies.",
+	color = 4,
+	support = true,
+	requireSkillTypes = { SkillType.Damage, SkillType.Attack, SkillType.DamageOverTime, SkillType.KillNoDamageModifiers, },
+	addSkillTypes = { },
+	excludeSkillTypes = { },
+	statDescriptionScope = "gem_stat_descriptions",
+	imbuedOnly = true,
+	constantStats = {
+		{ "base_killed_monster_dropped_item_quantity_+%", -50 },
+	},
+	stats = {
+	},
+	levels = {
+		[1] = { levelRequirement = 1, },
+	},
+}
+skills["SupportTaxation"] = {
+	name = "Taxation",
+	description = "Supports any skill gem.\nCannot support skills that don't come from gems.",
+	color = 4,
+	support = true,
+	requireSkillTypes = { },
+	addSkillTypes = { },
+	excludeSkillTypes = { SkillType.SkillGrantedBySupport, },
+	statDescriptionScope = "gem_stat_descriptions",
+	imbuedOnly = true,
+	statMap = {
+		["from_support_skill_gem_attribute_requirements_+%_final"] = {
+			mod("GlobalAttributeRequirements", "MORE", nil),
+		},
+	},
+	constantStats = {
+		{ "from_support_skill_gem_attribute_requirements_+%_final", 100 },
+	},
+	stats = {
+	},
+	levels = {
+		[1] = { levelRequirement = 1, },
+	},
+}
 skills["SupportElementalPenetration"] = {
 	name = "Elemental Penetration",
 	description = "Supports any skill that hits enemies, making those hits penetrate enemy elemental resistances.",
@@ -3146,6 +3383,11 @@ skills["TriggeredBloodrend"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Projectile] = true, [SkillType.DamageOverTime] = true, [SkillType.DegenOnlySpellDamage] = true, [SkillType.Physical] = true, [SkillType.AreaSpell] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Triggered] = true, [SkillType.InbuiltTrigger] = true, [SkillType.Triggerable] = true, },
 	statDescriptionScope = "debuff_skill_stat_descriptions",
 	castTime = 0,
+	statMap = {
+		["bloodrend_debuff_damage_over_time_taken_+%_per_stack"] = {
+			mod("DamageTakenOverTime", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Fleshrend", effectStackVar = "FleshrendCount", effectStackLimit = 3 }),
+		},
+	},
 	baseFlags = {
 		spell = true,
 		pact = true,
@@ -6249,6 +6491,7 @@ skills["GrimBonfire"] = {
 		spell = true,
 		projectile = true,
 		area = true,
+		totem = true,
 	},
 	constantStats = {
 		{ "base_totem_duration", 8000 },

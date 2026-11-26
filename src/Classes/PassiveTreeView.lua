@@ -182,8 +182,13 @@ function PassiveTreeViewClass:GetCompareNodeColor(node, compareNode, spec, build
 		return 0, 1, 0
 	elseif not compareNode.alloc and node.alloc then
 		return 1, 0, 0
-	elseif node.type == "Mastery" and compareNode.alloc and node.alloc and node.sd ~= compareNode.sd then
-		return 0, 0, 1
+	elseif node.type == "Mastery" and compareNode.alloc and node.alloc then
+		local pOverride = spec.hashOverrides and spec.hashOverrides[node.id]
+		local cOverride = self.compareSpec.hashOverrides and self.compareSpec.hashOverrides[node.id]
+		if spec.masterySelections[node.id] ~= self.compareSpec.masterySelections[node.id]
+			or (pOverride and pOverride.dn) ~= (cOverride and cOverride.dn) then
+			return 0, 0, 1
+		end
 	elseif node.type == "Socket" and compareNode.alloc and node.alloc then
 		local pJewelId = spec.jewels[node.id]
 		local pJewel = pJewelId and build.itemsTab.items[pJewelId]

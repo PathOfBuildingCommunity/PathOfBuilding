@@ -1,5 +1,48 @@
 # Changelog
 
+## [v2.69.0](https://github.com/PathOfBuildingCommunity/PathOfBuilding-PoE2/tree/v2.69.0) (2026/11/24)
+
+[Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.68.1...v2.69.0)
+
+
+## What's Changed
+### New to Path of Building
+- Add config for Careful Counterattack [\#10497](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/10497) ([AdamZ-8113](https://github.com/AdamZ-8113))
+- Show shrine options for The Covetous Dark [\#10500](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/10500) ([AdamZ-8113](https://github.com/AdamZ-8113))
+- Add support for animate guardian gear buffs [\#10545](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/10545) ([fabianmaurer](https://github.com/fabianmaurer))
+- Add config for Fleshrend stacks from Pact of Ghorr [\#10531](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/10531) ([lucaskarsten](https://github.com/lucaskarsten))
+- Add support for Cost Efficiency of Retaliation skills mastery [\#10549](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/10549) ([TPlant](https://github.com/PJacek))
+- Add support for bricked imbued support gems [\#10488](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/10488) ([vaisest](https://github.com/vaisest))
+- Upgrade Loadout Management UI [\#9647](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9647) ([FenikSRT4](https://github.com/FenikSRT4))
+- Update Spectre Library UI [\#9816](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9816) ([Blitz54](https://github.com/Blitz54))
+### User Interface
+- Fix ugly Covetous Dark variants [\#10499](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/10499) ([vaisest](https://github.com/vaisest))
+- Fix tooltips not working when another UI element has focus [\#10537](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/10537) ([vaisest](https://github.com/vaisest))
+- Fix tree comparison highlighting same mastery selections [\#10536](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/10536) ([vaisest](https://github.com/vaisest))
+- Add a breakdown for mana/life reservation efficiency [\#10534](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/10534) ([vaisest](https://github.com/vaisest))
+- Add config for brine charges [\#10532](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/10532) ([cupkax](https://github.com/cupkax))
+- Add item type icons and (equipped) text to items tab [\#10530](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/10530) ([vaisest](https://github.com/vaisest))
+- Fix hover on Calcs tab for ES/Ward when there is a global source but 0 from gear [\#10550](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/10550) ([Blitz54](https://github.com/Blitz54))
+- Add header images for Viscera items [\#10557](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/10557) ([Blitz54](https://github.com/Blitz54))
+### Fixed Calculations
+- Fix Wickerman tree check and Viscera glove/boot bonuses [\#10484](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/10484) ([juddisjudd](https://github.com/juddisjudd))
+- Add totem flag to Witchhunter's Pyre [\#10487](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/10487) ([vaisest](https://github.com/vaisest))
+- Fix inverted negative resistance exceeding the enemy's maximum resistance [\#10492](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/10492) ([lucaskarsten](https://github.com/lucaskarsten))
+- Fix Waxen Soul shrine buff effect per Life Reserved not applying [\#10486](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/10486) ([lucaskarsten](https://github.com/lucaskarsten))
+- Fix Arcane Cloak using negative unreserved mana [\#10517](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/10517) ([eduardomdalmaso](https://github.com/eduardomdalmaso))
+### Fixed Behaviours
+- Fix repeated attacks triggering triggers incorrectly [\#10498](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/10498) ([vaisest](https://github.com/vaisest))
+- Fix Life Mastery working with The Apostate [\#10543](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/10543) ([TPlant](https://github.com/PJacek))
+- Fix editing build not triggering compare tab rebuilds [\#10535](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/10535) ([vaisest](https://github.com/vaisest))
+- Fix some Hide of the Vendigo interactions [\#10520](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/10520) ([vaisest](https://github.com/vaisest))
+- Fix Mantle of Dreams blocking support parts of skill gems [\#10548](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/10548) ([vaisest](https://github.com/vaisest))
+### Accuracy Improvements
+- Fix missing skill on Greater Chimeral Eye [\#10558](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/10558) ([Wires77](https://github.com/Wires77))
+### Fixed Bugs
+- Fix invalid trade site query on modified unique title [\#10544](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/10544) ([vaisest](https://github.com/vaisest))
+- Fix item granted skills permanently modifying skill data [\#10528](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/10528) ([vaisest](https://github.com/vaisest))
+
+
 ## [v2.68.1](https://github.com/PathOfBuildingCommunity/PathOfBuilding-PoE2/tree/v2.68.1) (2026/11/17)
 
 [Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.68.0...v2.68.1)
@@ -7,7 +50,7 @@
 
 ## What's Changed
 ### User Interface
-- Fix visibiliy of Viscera list on larger screens [\#10476](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/10476) ([Wires77](https://github.com/Wires77))
+- Fix visibility of Viscera list on larger screens [\#10476](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/10476) ([Wires77](https://github.com/Wires77))
 
 
 

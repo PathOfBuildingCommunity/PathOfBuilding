@@ -4239,7 +4239,7 @@ c["100% increased Charges per use"]={{[1]={flags=0,keywordFlags=0,name="FlaskCha
 c["100% increased Chill Duration on Enemies when in Off Hand"]={{[1]={[1]={num=2,type="SlotNumber"},flags=0,keywordFlags=0,name="EnemyChillDuration",type="INC",value=100}},nil}
 c["100% increased Claw Physical Damage when on Low Life"]={{[1]={[1]={type="Condition",var="LowLife"},flags=262148,keywordFlags=0,name="PhysicalDamage",type="INC",value=100}},nil}
 c["100% increased Cold Damage while your Off Hand is empty"]={{[1]={[1]={type="Condition",var="OffHandIsEmpty"},flags=0,keywordFlags=0,name="ColdDamage",type="INC",value=100}},nil}
-c["100% increased Cost Efficiency of Retaliation Skills"]={{[1]={flags=0,keywordFlags=0,name="CostEfficiency",type="INC",value=100}},"  of Retaliation Skills "}
+c["100% increased Cost Efficiency of Retaliation Skills"]={{[1]={[1]={skillType=121,type="SkillType"},flags=0,keywordFlags=0,name="CostEfficiency",type="INC",value=100}},nil}
 c["100% increased Critical Strike Chance"]={{[1]={flags=0,keywordFlags=0,name="CritChance",type="INC",value=100}},nil}
 c["100% increased Critical Strike Chance against Enemies that are on Full Life"]={{[1]={[1]={actor="enemy",type="ActorCondition",var="FullLife"},flags=0,keywordFlags=0,name="CritChance",type="INC",value=100}},nil}
 c["100% increased Critical Strike Chance against Shocked Enemies"]={{[1]={[1]={actor="enemy",type="ActorCondition",var="Shocked"},flags=0,keywordFlags=0,name="CritChance",type="INC",value=100}},nil}
@@ -16731,7 +16731,7 @@ c["Gain a Void Charge every second"]={nil,"a Void Charge every second "}
 c["Gain a Void Charge every second 5 Maximum Void Charges"]={nil,"a Void Charge every second 5 Maximum Void Charges "}
 c["Gain a random Blood Shrine buff every 10 seconds"]={{[1]={flags=0,keywordFlags=0,name="Condition:CanHaveBloodShrines",type="FLAG",value=true}},nil}
 c["Gain a random Shrine Buff for 15 seconds when you Blind a"]={nil,"a random Shrine Buff  when you Blind a "}
-c["Gain a random Shrine Buff for 15 seconds when you Blind a non-Blinded Rare or Unique Enemy"]={{[1]={flags=0,keywordFlags=0,name="Condition:Blinded",type="FLAG",value=true}},"a random Shrine Buff  when you Blind a non- Rare or Unique Enemy "}
+c["Gain a random Shrine Buff for 15 seconds when you Blind a non-Blinded Rare or Unique Enemy"]={{[1]={flags=0,keywordFlags=0,name="Condition:CanHaveRegularShrines",type="FLAG",value=true}},nil}
 c["Gain a random Shrine Buff for 2.5 seconds when you Kill a Rare or Unique Enemy"]={nil,"a random Shrine Buff for 2.5 seconds when you Kill a Rare or Unique Enemy "}
 c["Gain a random Shrine Buff for 30 seconds when you Kill a Rare or Unique Enemy"]={{[1]={flags=0,keywordFlags=0,name="Condition:CanHaveRegularShrines",type="FLAG",value=true}},nil}
 c["Gain a random Shrine Buff for 4 seconds when you Kill a Rare or Unique Enemy"]={{[1]={flags=0,keywordFlags=0,name="Condition:CanHaveRegularShrines",type="FLAG",value=true}},nil}
@@ -17725,7 +17725,9 @@ c["Kill Undead Enemies that have 15% or lower Life when Hit by your Skills"]={ni
 c["Killing Blows Consume corpses to Recover 100 Life"]={nil,"Killing Blows Consume corpses to Recover 100 Life "}
 c["Killing Blows Consume corpses to Recover 120 Life and 60 Mana"]={nil,"Killing Blows Consume corpses to Recover 120 Life and 60 Mana "}
 c["Killing Blows Consume corpses to Recover 25 Mana"]={nil,"Killing Blows Consume corpses to Recover 25 Mana "}
+c["Killing Blows Consume corpses to Recover 4% of Life"]={nil,"Killing Blows Consume corpses to Recover 4% of Life "}
 c["Killing Blows Consume corpses to Recover 4% of Mana"]={nil,"Killing Blows Consume corpses to Recover 4% of Mana "}
+c["Killing Blows Consume corpses to Recover 4% of Mana Killing Blows Consume corpses to Recover 4% of Life"]={nil,"Killing Blows Consume corpses to Recover 4% of Mana Killing Blows Consume corpses to Recover 4% of Life "}
 c["Killing Blows Consume corpses to Recover 50 Life"]={nil,"Killing Blows Consume corpses to Recover 50 Life "}
 c["Killing Blows Consume corpses to Recover 50 Mana"]={nil,"Killing Blows Consume corpses to Recover 50 Mana "}
 c["Killing Blows Consume corpses to Recover 60 Life and 30 Mana"]={nil,"Killing Blows Consume corpses to Recover 60 Life and 30 Mana "}
@@ -20005,9 +20007,9 @@ c["Requires Class Scion Allocates Hierophant if you have the matching modifier o
 c["Requires Class Scion Allocates Inquisitor if you have the matching modifier on Forbidden Flame"]={nil,"Requires Class Scion Allocates Inquisitor if you have the matching modifier on Forbidden Flame "}
 c["Requires Class Scion Allocates Inquisitor if you have the matching modifier on Forbidden Flesh"]={nil,"Requires Class Scion Allocates Inquisitor if you have the matching modifier on Forbidden Flesh "}
 c["Requires Class Scion Allocates Juggernaut if you have the matching modifier on Forbidden Flame"]={nil,"Requires Class Scion Allocates Juggernaut if you have the matching modifier on Forbidden Flame "}
+end)();(function()
 c["Requires Class Scion Allocates Juggernaut if you have the matching modifier on Forbidden Flesh"]={nil,"Requires Class Scion Allocates Juggernaut if you have the matching modifier on Forbidden Flesh "}
 c["Requires Class Scion Allocates Necromancer if you have the matching modifier on Forbidden Flame"]={nil,"Requires Class Scion Allocates Necromancer if you have the matching modifier on Forbidden Flame "}
-end)();(function()
 c["Requires Class Scion Allocates Necromancer if you have the matching modifier on Forbidden Flesh"]={nil,"Requires Class Scion Allocates Necromancer if you have the matching modifier on Forbidden Flesh "}
 c["Requires Class Scion Allocates Occultist if you have the matching modifier on Forbidden Flame"]={nil,"Requires Class Scion Allocates Occultist if you have the matching modifier on Forbidden Flame "}
 c["Requires Class Scion Allocates Occultist if you have the matching modifier on Forbidden Flesh"]={nil,"Requires Class Scion Allocates Occultist if you have the matching modifier on Forbidden Flesh "}
@@ -23247,8 +23249,6 @@ c["have fewer than 5 Poisons on you"]={nil,"fewer than 5 Poisons on you "}
 c["more than once every 0.3 seconds"]={nil,"more than once every 0.3 seconds "}
 c["more than once every 0.3 seconds Lose all Defiance when you reach 10 Defiance"]={nil,"more than once every 0.3 seconds Lose all Defiance when you reach 10 Defiance "}
 c["more than once every 0.3 seconds Lose all Defiance when you reach 10 Defiance Gain 3% of Missing Unreserved Life before being Hit by an Enemy Per Defiance"]={nil,"more than once every 0.3 seconds Lose all Defiance when you reach 10 Defiance Gain 3% of Missing Unreserved Life before being Hit by an Enemy Per Defiance "}
-c["non-Blinded Rare or Unique Enemy"]={nil,"non-Blinded Rare or Unique Enemy "}
-c["non-Blinded Rare or Unique Enemy Damage with Hits is Lucky while your Offhand is Magic"]={nil,"non-Blinded Rare or Unique Enemy Damage with Hits is Lucky while your Offhand is Magic "}
 c["of your Traps are Triggered by an Enemy"]={nil,"of your Traps are Triggered by an Enemy "}
 c["of your Traps are Triggered by an Enemy Skills which throw Traps Cost Life instead of Mana"]={nil,"of your Traps are Triggered by an Enemy Skills which throw Traps Cost Life instead of Mana "}
 c["on any Equipped Item"]={nil,"on any Equipped Item "}

@@ -62,6 +62,7 @@ colorCodes = {
 	VESTIGIAL = "^xCBA5F1",
 	INTANGIBILITY = "^x9BF4BD",
 	MEMORY = "^xBFE2FA",
+	VISCERA = "^x8FA0C2",
 }
 colorCodes.STRENGTH = colorCodes.MARAUDER
 colorCodes.DEXTERITY = colorCodes.RANGER

@@ -939,8 +939,9 @@ Killing Blows Consume corpses to Recover (80-120) Life and (40-60) Mana
 [[
 Greater Vulture's Gut
 Vulture's Gut
-Implicits: 1
+Implicits: 2
 Killing Blows Consume corpses to Recover (3-4)% of Mana
+Killing Blows Consume corpses to Recover (3-4)% of Life
 ]],
 [[
 Lesser Templar Banner
@@ -2137,7 +2138,8 @@ Petrification on you expires (150-200)% faster
 [[
 Greater Chimeral Eye
 Chimeral Eye
-Implicits: 0
+Implicits: 1
+Grants Level 20 Petrification Statue
 ]],
 [[
 Lesser Chaos Golem's Core
@@ -2601,7 +2603,7 @@ Implicits: 1
 (1-2)% of Attack Damage Leeched as Life
 ]],
 [[
-Lion's Claws 2
+Greater Lion's Claws 2
 Lion's Claws
 Implicits: 1
 (10-15)% increased Maximum Recovery per Life Leech
@@ -2613,7 +2615,7 @@ Implicits: 1
 (10-15)% chance to Avoid Elemental Ailments
 ]],
 [[
-Bat's Wings 2
+Greater Bat's Wings 2
 Bat's Wings
 Implicits: 1
 (20-30)% chance to Avoid Elemental Ailments

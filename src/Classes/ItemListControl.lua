@@ -19,6 +19,7 @@ function ItemListClass:ItemListControl(anchor, rect, itemsTab, forceTooltip)
 	self.itemsTab = itemsTab
 	self.defaultText = "^x7F7F7FThis is the list of items that have been added to this build.\nYou can add items to this list by dragging them from\none of the other lists, or by clicking 'Add to build' when\nviewing an item."
 	self.dragTargetList = { }
+	self.reserveIconSpace = true
 	self.controls.loadoutFilter = new("DropDownControl"):DropDownControl({"BOTTOMLEFT",self,"TOPLEFT"}, {0, -2, 110, 18}, nil, function()
 		self:UpdateList()
 	end)
@@ -263,6 +264,10 @@ function ItemListClass:GetRowValue(column, index, itemId)
 		end
 		return colorCodes[item.rarity] .. item.name .. used
 	end
+end
+
+function ItemListClass:GetRowIcon(column, index, itemId)
+	return self.itemsTab:GetItemIcon(self.itemsTab.items[itemId])
 end
 
 function ItemListClass:AddValueTooltip(tooltip, index, itemId)

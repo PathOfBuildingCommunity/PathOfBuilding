@@ -47,7 +47,7 @@ function GGPKClass:GGPKData(path, datPath, reExport)
 	self.dat = { }
 	self.txt = { }
 	self.ot = { }
-	
+
 	self:AddDat64Files()
 	return self
 end
@@ -296,6 +296,13 @@ function GGPKClass:GetNeededFiles()
 		"Data/BrequelGraftSkillStats.dat",
 		"Data/BrequelGraftGrantedSkillLevels.dat",
 		"Data/VillageBalancePerLevelShared.dat",
+		"Data/SpectreOverrides.dat",
+		"Data/WorldAreas.dat",
+		"Data/MonsterPackEntries.dat",
+		"Data/MonsterPacks.dat",
+		"Data/MonsterCategories.dat",
+		"Data/Maps.dat",
+		"Data/AtlasNode.dat",
 		"Data/CurrencyExchange.dat",
 		"Data/FishingLureTypes.dat",
 		"Data/FishingHookTypes.dat",
