@@ -1047,6 +1047,38 @@ describe("TestTriggers", function()
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
 	end)
 
+	it("Shares Temporal Mirage's cooldown across socketed spells", function()
+		build.itemsTab:CreateDisplayItemFromRaw([[Rarity: UNIQUE
+		The Sword of Ages
+		Exquisite Blade
+		Implicits: 0
+		Trigger level 20 Temporal Mirage on using a Movement Attack
+		24% increased Attack Speed]])
+		build.itemsTab:AddDisplayItem()
+		build.skillsTab:PasteSocketGroup("Slot: Weapon 1\nFrostbolt 20/0  1\n")
+		build.skillsTab:PasteSocketGroup("Leap Slam 20/0  1\n")
+		build.configTab.input.customMods = "150% increased Attack Speed"
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+
+		local output = build.calcsTab.mainOutput
+		local cooldown = ceil_b(0.5, data.misc.ServerTickTime)
+		assert.equals(1 / cooldown, output.TriggerRateCap)
+		assert.True(output.EffectiveSourceRate > output.TriggerRateCap)
+		local singleSpellRate = output.SkillTriggerRate
+		assert.True(singleSpellRate > 0 and singleSpellRate <= output.TriggerRateCap)
+
+		build.skillsTab:PasteSocketGroup("Slot: Weapon 1\nFireball 20/0  1\n")
+		runCallback("OnFrame")
+		assert.equals(round(singleSpellRate / 2, 2), round(build.calcsTab.mainOutput.SkillTriggerRate, 2))
+
+		build.skillsTab:PasteSocketGroup("Slot: Weapon 1\nFrostblink of Wintry Blast 20/0  1\n")
+		build.mainSocketGroup = #build.skillsTab.socketGroupList
+		runCallback("OnFrame")
+		assert.equals(1 / cooldown, build.calcsTab.mainOutput.TriggerRateCap)
+		assert.equals(round(singleSpellRate / 3, 2), round(build.calcsTab.mainOutput.SkillTriggerRate, 2))
+	end)
+
 	it("Trigger Cast On Critical", function()
 		build.itemsTab:CreateDisplayItemFromRaw([[Elemental 1H Sword
 		Eternal Sword
