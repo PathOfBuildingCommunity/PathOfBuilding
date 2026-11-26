@@ -158,6 +158,7 @@ function TradeQueryGeneratorClass:TradeQueryGenerator(queryTab)
 	self.lastMaxPrice = nil
 	self.lastMaxPriceTypeIndex = nil
 	self.lastMaxLevel = nil
+	self.lastLinksBySlot = { }
 	return self
 end
 
@@ -1329,6 +1330,8 @@ Remove: %s will be removed from the search results.]], term, term, term)
 
 		if not slot.slotName:find("Belt") and not slot.slotName:find("Ring") and not slot.slotName:find("Amulet") then
 			controls.links = new("EditControl"):EditControl({"TOPLEFT",lastItemAnchor,"BOTTOMLEFT"}, {0, 5, 70, 18}, nil, nil, "%D")
+			local lastLinks = self.lastLinksBySlot[slot.slotName]
+			controls.links.buf = lastLinks and tostring(lastLinks) or ""
 			controls.linksLabel = new("LabelControl"):LabelControl({"RIGHT",controls.links,"LEFT"}, {-5, 0, 0, 16}, "^7# of Links:")
 			updateLastAnchor(controls.links)
 		end
@@ -1407,8 +1410,9 @@ Remove: %s will be removed from the search results.]], term, term, term)
 			options.sockets = tonumber(controls.sockets.buf)
 			self.lastSockets = options.sockets
 		end
-		if controls.links and controls.links.buf then
+		if controls.links then
 			options.links = tonumber(controls.links.buf)
+			self.lastLinksBySlot[slot.slotName] = options.links and options.links > 0 and options.links or nil
 		end
 		if controls.includeAllWEMods then
 			options.includeAllWEMods = controls.includeAllWEMods.state
