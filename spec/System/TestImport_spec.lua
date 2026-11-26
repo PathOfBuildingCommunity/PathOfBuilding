@@ -26,20 +26,34 @@ describe("TestImport", function()
 		assert.equals(build.spec.curClassName, "Templar")
 		assert.equals(build.spec.curSecondaryAscendClassName, "Farrul Bloodline")
 
-		-- note: currently only one large cluster and medium is imported on the
-		-- tree. build actually has a small cluster on the medium cluster
 		local subGraphLen = 0
 		for _ in pairs(build.spec.subGraphs) do
 			subGraphLen = subGraphLen + 1
 		end
-		
-		assert.equals(subGraphLen, 2)
+
+		assert.equals(subGraphLen, 3)
 		assert.equals(build.spec.allocatedMasteryCount, 7)
 		assert.equals(build.spec.masterySelections[4492], 5356)
 
 		assert.equals(build.spec.allocatedTattooTypes.NgamahuTattoo, 6)
 
-		assert.equals(build.spec.allocatedNotableCount, 29)
+		assert.equals(build.spec.allocatedNotableCount, 30)
+	end)
+
+	it("moves a jewel saved on a medium cluster's full-size socket to the game's socket", function()
+		build.importTab:ImportPassiveTreeAndJewels(sampleData, true)
+		runCallback("OnFrame")
+		local smallCluster = build.spec.jewels[16218]
+		assert.truthy(build.spec.nodes[16218])
+
+		-- Builds saved before this fix put the socket of the medium cluster in 7960 on 29712
+		loadBuildFromXML((build:SaveDB("code"):gsub("%f[%d]16218%f[%D]", "29712")))
+		runCallback("OnFrame")
+
+		assert.equals(smallCluster, build.spec.jewels[16218])
+		assert.equals(build.spec.jewels[29712] or 0, 0)
+		assert.truthy(build.spec.allocNodes[16218])
+		assert.equals(build.spec.allocatedNotableCount, 30)
 	end)
 
 	it("preserves quest choices only for account-name imports", function()
