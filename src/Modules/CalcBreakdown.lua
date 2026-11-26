@@ -127,7 +127,7 @@ return function(modDB, output, actor)
 			local invertedHitResist = invertedResist - pen
 			t_insert(out, "Effective resistance:")
 			t_insert(out, s_format("%g%% ^8(non-inverted hit after penetration)", normalResist))
-			t_insert(out, s_format("%g%% ^8(inverted hit after penetration%s)", invertedHitResist, invertedResist ~= -resist and ", capped at maximum resistance" or ""))
+			t_insert(out, s_format("%g%% ^8(inverted hit after penetration%s)", invertedHitResist, invertedResist ~= -resist and ", capped at 100% resistance" or ""))
 			t_insert(out, s_format("= %g%% ^8(weighted average from %.0f%% inversion chance)", effectiveResist, invertChance * 100))
 		elseif pen ~= 0 or not useRes then
 			t_insert(out, "Effective resistance:")

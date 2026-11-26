@@ -626,14 +626,13 @@ describe("TestSkills", function()
 			runCallback("OnFrame")
 			return build.calcsTab.calcsOutput.FireEffMult
 		end
-		local maxResist = data.misc.EnemyMaxResist
-
-		-- -150% inverted is 150%, but it cannot go above the enemy's maximum resistance,
-		-- so hits deal reduced damage instead of negative damage.
+		local maxResist = 100
+		-- -150% inverted is 150%, but it cannot go above 100% resistance,
+		-- so hits deal no damage instead of negative damage.
 		assert.are.near(1 - maxResist / 100, effMultWith("Hits have 100% chance to treat Enemy Monster Elemental Resistance values as inverted"), 1e-9)
-		assert.True(build.calcsTab.mainOutput.TotalDPS > 0)
+		assert.are.near(build.calcsTab.mainOutput.TotalDPS, 0, 1e-9)
 		local breakdownText = table.concat(build.calcsTab.calcsEnv.player.breakdown.FireEffMult, "\n")
-		assert.is_truthy(breakdownText:match(maxResist.."%% %^8%(inverted hit after penetration, capped at maximum resistance%)"))
+		assert.is_truthy(breakdownText:match(maxResist.."%% %^8%(inverted hit after penetration, capped at 100%% resistance%)"))
 
 		-- Penetration applies after the cap
 		assert.are.near(1 - (maxResist - 20) / 100, effMultWith("Hits have 100% chance to treat Enemy Monster Elemental Resistance values as inverted\nDamage Penetrates 20% of Enemy Fire Resistance"), 1e-9)
