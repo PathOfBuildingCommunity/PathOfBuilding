@@ -21,6 +21,29 @@ local realmList = {
 	{ label = "Sony",    id = "SONY", realmCode = "sony", hostName = "https://www.pathofexile.com/", profileURL = "account/view-profile/" },
 }
 
+local function treeSupportsClass(tree, className)
+	return tree.classNameMap[className] or tree.ascendNameMap[className] or tree.internalAscendNameMap[className]
+end
+
+local function getCharacterTreeVersion(build, charData)
+	local ruthlessSuffix = charData.league:match("Ruthless") and "_ruthless" or ""
+	local alternateSuffix = treeSupportsClass(build.latestTree, charData.class) and "" or "_alternate"
+	local treeVersion = latestTreeVersion .. ruthlessSuffix .. alternateSuffix
+	if treeVersion == latestTreeVersion then
+		return treeVersion
+	end
+
+	local tree = main:LoadTree(treeVersion)
+	if tree then
+		-- Looking up a different tree changes the global jewel radii.
+		data.setJewelRadiiGlobally(build.spec.treeVersion)
+		if treeSupportsClass(tree, charData.class) then
+			return treeVersion
+		end
+	end
+	return nil, string.format("PoB does not support the passive tree for %s.", charData.class or "this character")
+end
+
 local function addOAuthControls(self)
 	self.usingOauth = true
 	self.isAuthorized = function() return main.api.authToken ~= nil end
@@ -256,8 +279,8 @@ local function addOAuthControls(self)
 			local deleteJewels = self.controls.charImportTreeClearJewels.state
 			local function importHandler(data, errMsg)
 				if data and data.character then
-					self.oauthErrCode = nil
-					self:ImportPassiveTreeAndJewels(data.character, deleteJewels)
+					local _, importError = self:ImportPassiveTreeAndJewels(data.character, deleteJewels)
+					self.oauthErrCode = importError
 				else
 					if errMsg then
 						self.oauthErrCode = "Could not import: " .. errMsg
@@ -700,8 +723,13 @@ function ImportTabClass:ImportTab(build)
 		end
 
 		if self.importCodeJson then
+			local treeVersion, importError = getCharacterTreeVersion(self.build, self.importCodeJson)
+			if not treeVersion then
+				self.importCodeDetail = colorCodes.NEGATIVE .. importError
+				return
+			end
 			self:ImportItemsAndSkills(self.importCodeJson, true, true, false)
-			self:ImportPassiveTreeAndJewels(self.importCodeJson, true)
+			self:ImportPassiveTreeAndJewels(self.importCodeJson, true, treeVersion)
 			return
 		end
 
@@ -845,7 +873,8 @@ function ImportTabClass:DownloadPassiveTree(realm)
 			charData.passives = responseLua
 			charData.jewels = responseLua.items
 			local deleteJewels = self.controls.siteCharImportTreeClearJewels.state
-			self:ImportPassiveTreeAndJewels(charData, deleteJewels)
+			local status, importError = self:ImportPassiveTreeAndJewels(charData, deleteJewels)
+			self.charImportStatus = status or colorCodes.NEGATIVE .. importError
 		end)
 end
 
@@ -1127,8 +1156,17 @@ end
 --- @field passives CharacterPassives
 --- @param charData CharacterPassivesData
 --- @param deleteJewels boolean
---- @return string
-function ImportTabClass:ImportPassiveTreeAndJewels(charData, deleteJewels)
+--- @param treeVersion? string A tree version already checked for this character.
+--- @return string? status, string? importError
+function ImportTabClass:ImportPassiveTreeAndJewels(charData, deleteJewels, treeVersion)
+	if not treeVersion then
+		local importError
+		treeVersion, importError = getCharacterTreeVersion(self.build, charData)
+		if not treeVersion then
+			return nil, importError
+		end
+	end
+
 	local charPassives = copyTable(charData.passives)
 
 	-- fix table keys being strings
@@ -1164,23 +1202,6 @@ function ImportTabClass:ImportPassiveTreeAndJewels(charData, deleteJewels)
 	self.build.itemsTab:PopulateSlots()
 	self.build.itemsTab:AddUndoState()
 
-	-- Alternate trees don't have an identifier, so we're forced to look up something that is unique to that tree
-	-- Hopefully this changes, because it's totally unmaintainable
-	local function isAscendancyInTree(className, treeVersion)
-		local classes = main.tree[treeVersion].classes
-		for _, class in pairs(classes) do
-			if class.name == className then
-				return true
-			end
-			for i = 0, #class.classes do
-				local ascendClass = class.classes[i]
-				if ascendClass.name == className then
-					return true
-				end
-			end
-		end
-	end
-
 	local alternateAscendancyId
 	if charPassives.alternate_ascendancy then
 		-- oauth responses have bloodline names
@@ -1196,8 +1217,6 @@ function ImportTabClass:ImportPassiveTreeAndJewels(charData, deleteJewels)
 	end
 	-- Character import uses current GGG cluster hashes.
 	self.build.spec.clusterHashFormatVersion = 2
-	local ruthlessSuffix = charData.league:match("Ruthless") and "_ruthless" or ""
-	local phreciaSuffix = isAscendancyInTree(charData.class, latestTreeVersion) and "" or "_alternate"
 	self.build.spec:ImportFromNodeList(charData.class,
 		nil,
 		nil,
@@ -1205,7 +1224,7 @@ function ImportTabClass:ImportPassiveTreeAndJewels(charData, deleteJewels)
 		charPassives.hashes,
 		skillOverrides,
 		masteries,
-		latestTreeVersion .. ruthlessSuffix .. phreciaSuffix
+		treeVersion
 		)
 	self.build.treeTab:SetActiveSpec(self.build.treeTab.activeSpec)
 	self.build.spec:BuildClusterJewelGraphs()

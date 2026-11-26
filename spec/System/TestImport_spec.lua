@@ -76,6 +76,36 @@ describe("TestImport", function()
 		assert.equals(build.configTab.input.pantheonMinorGod, "None")
 	end)
 
+	it("rejects an unsupported character tree before changing the build", function()
+		build.importTab:ImportPassiveTreeAndJewels(sampleData, true)
+		runCallback("OnFrame")
+		local originalTree = build.spec:CreateUndoState()
+		local originalJewels = copyTable(build.spec.jewels)
+		local originalItems = copyTable(build.itemsTab.itemOrderList)
+		local importTab = build.importTab
+		importTab.controls.siteAccountName.buf = "Test#0000"
+		importTab.controls.siteCharSelect.list = {
+			{ char = { name = "LegacyCharacter", class = "Retired Ascendancy", league = "Ancestors", level = 96 } },
+		}
+		importTab.controls.siteCharSelect.selIndex = 1
+		importTab.lastLeague = "Ancestors"
+
+		local downloadPage = launch.DownloadPage
+		launch.DownloadPage = function(_, _, callback)
+			callback({ body = dkjson.encode({ hashes = {}, hashes_ex = {}, items = {} }) })
+		end
+		local ok, err = pcall(importTab.DownloadPassiveTree, importTab, { hostName = "", realmCode = "pc" })
+		launch.DownloadPage = downloadPage
+
+		assert.is_true(ok, err)
+		assert.equals("SELECTCHAR", importTab.charImportMode)
+		assert.matches("PoB does not support the passive tree for Retired Ascendancy.", importTab.charImportStatus, 1, true)
+		runCallback("OnFrame")
+		assert.same(originalTree, build.spec:CreateUndoState())
+		assert.same(originalJewels, build.spec.jewels)
+		assert.same(originalItems, build.itemsTab.itemOrderList)
+	end)
+
 	it("imports with correct jewels", function()
 		build.importTab:ImportPassiveTreeAndJewels(sampleData, true)
 		runCallback("OnFrame")
