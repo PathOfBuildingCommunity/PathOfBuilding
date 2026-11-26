@@ -3803,6 +3803,7 @@ function CompareTabClass:DrawItems(vp, compareEntry, inputEvents)
 	local hoverX, hoverY = 0, 0
 	local hoverW, hoverH = 0, 0
 	local hoverItemsTab = nil
+	local hoverSlotName = nil
 
 	-- Track item copy button clicks
 	local clickedCopySlot = nil
@@ -3904,6 +3905,7 @@ function CompareTabClass:DrawItems(vp, compareEntry, inputEvents)
 			if rowHoverItem then
 				hoverItem = rowHoverItem
 				hoverItemsTab = rowHoverItemsTab
+				hoverSlotName = pHover and equipSlotName or cHover and copySlotName or nil
 				hoverX, hoverY = rowHoverX, rowHoverY
 				hoverW, hoverH = rowHoverW, rowHoverH
 			end
@@ -3986,8 +3988,10 @@ function CompareTabClass:DrawItems(vp, compareEntry, inputEvents)
 	SetViewport()
 	local maxTooltipWidth = m_min(600, m_max(260, vp.width - 24))
 	if not main.popups[1] and hoverItem and hoverItemsTab then
-		self.itemTooltip:Clear()
-		hoverItemsTab:AddItemTooltip(self.itemTooltip, hoverItem, nil, nil, maxTooltipWidth)
+		local hoverBuild = hoverItemsTab.build
+		if self.itemTooltip:CheckForUpdate(hoverItemsTab, hoverItem, hoverSlotName, maxTooltipWidth, main.slotOnlyTooltips, launch.devModeAlt, IsKeyDown("SHIFT"), hoverBuild and hoverBuild.outputRevision) then
+			hoverItemsTab:AddItemTooltip(self.itemTooltip, hoverItem, hoverSlotName, nil, maxTooltipWidth)
+		end
 		SetDrawLayer(nil, 100)
 		self.itemTooltip:Draw(vp.x + hoverX, vp.y + checkboxOffset + hoverY, hoverW, hoverH, vp)
 		SetDrawLayer(nil, 0)
@@ -3995,7 +3999,7 @@ function CompareTabClass:DrawItems(vp, compareEntry, inputEvents)
 
 	-- Draw stat comparison tooltip when hovering Equip button
 	if not main.popups[1] and hoverEquipItem and hoverEquipSlotName and not hoverItem then
-		self.itemTooltip:Clear()
+		self.itemTooltip:Clear(true)
 		self.itemTooltip.maxWidth = maxTooltipWidth
 		local calcFunc, calcBase = self.calcs.getMiscCalculator(self.primaryBuild)
 		if calcFunc then
