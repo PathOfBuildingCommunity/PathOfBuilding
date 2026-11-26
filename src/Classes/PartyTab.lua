@@ -739,6 +739,17 @@ function PartyTabClass:ParseBuffs(list, buf, buffType, label)
 				local mod = modLib.parseFormattedSourceMod(line)
 				if mod then
 					mod.source = "Party"..mod.source
+					local witherStacks = mod.source:match("^PartyWithered:(%d+)$")
+					if mod.name == "ChaosDamageTaken" and mod.type == "INC" and (mod.source == "PartyWithered" or witherStacks) then
+						mod.name = "WitheredEffect"
+						mod.type = "MAX"
+						mod.witherStackCount = tonumber(witherStacks)
+						t_insert(mod, { type = "Condition", var = "Effective" })
+					end
+					local exposureElement = mod.name:match("^(%a+)Resist$")
+					if exposureElement and mod.type == "BASE" and mod.source:match("^PartyExposure:") then
+						mod.name = exposureElement.."ExposureFromParty"
+					end
 					list:AddMod(mod)
 					if label then
 						t_insert(enemyModList[currentName], {mod.value, mod.type})
