@@ -1,9 +1,10 @@
 -- Path of Building
 --
 -- Module: Compare Trade Helpers
--- Stateless trade mod lookup/matching and item display helper functions
+-- Stateless trade matching, attribute requirement, and item display helpers
 --
 local m_floor = math.floor
+local m_max = math.max
 
 -- The stat description data is big and is only needed once a trade lookup actually runs,
 -- so it and its precalculated patterns are built lazily
@@ -65,6 +66,30 @@ local function getStatDescData()
 end
 
 local M = {}
+
+local attributeOutputKeys = { "Str", "Dex", "Int" }
+
+-- Shared by pre-fetch query constraints and post-fetch candidate validation.
+-- Omniscience replaces the individual attribute requirements when it is active.
+function M.getAttributeRequirementShortfall(output)
+	if (output.ReqOmni or 0) > 0 then
+		return { Omni = m_max(0, output.ReqOmni - (output.Omni or 0)) }
+	end
+	local shortfall = {}
+	for _, attributeKey in ipairs(attributeOutputKeys) do
+		shortfall[attributeKey] = m_max(0, (output["Req" .. attributeKey] or 0) - (output[attributeKey] or 0))
+	end
+	return shortfall
+end
+
+function M.meetsAttributeRequirements(output)
+	for _, missingAmount in pairs(M.getAttributeRequirementShortfall(output)) do
+		if missingAmount > 0 then
+			return false
+		end
+	end
+	return true
+end
 
 -- Helper: get rarity color code for an item
 --- @param item table
