@@ -1750,18 +1750,19 @@ function calcs.initEnv(build, mode, override, specEnv)
 				end
 
 				local socketedSupportsDisabled = env.modDB:Flag(groupCfg, "SocketedSupportGemsHaveNoEffect")
-				for gemIndex, gemInstance in ipairs(group.gemList) do
+				for _, gemInstance in ipairs(group.gemList) do
 					-- Add support gems from this group
 					if env.mode == "MAIN" then
 						gemInstance.displayEffect = nil
 						gemInstance.supportEffect = nil
 					end
 					if gemInstance.enabled then
+						local socketIndex = socketIndexByGem[gemInstance]
 						local function processGrantedEffect(grantedEffect)
 							if not grantedEffect or not grantedEffect.support then
 								return
 							end
-							local socketQuality = getMatchingSocketQuality(env, groupCfg, gemInstance, socketIndexByGem[gemInstance])
+							local socketQuality = getMatchingSocketQuality(env, groupCfg, gemInstance, socketIndex)
 							local actualQuality = gemInstance.quality + socketQuality
 							local supportEffect = {
 								grantedEffect = grantedEffect,
@@ -1782,15 +1783,16 @@ function calcs.initEnv(build, mode, override, specEnv)
 							end
 							if gemInstance.gemData then
 								local playerItems = env.player.itemList
-								local socketedIn = playerItems[groupCfg.slotName] and playerItems[groupCfg.slotName].sockets and playerItems[groupCfg.slotName].sockets[gemIndex]
+								local item = playerItems[groupCfg.slotName]
+								local socketedIn = socketIndex and item and item.sockets and item.sockets[socketIndex]
 								supportEffect.gemCfg = copyTable(groupCfg, true)
 								supportEffect.gemCfg.socketColor = socketedIn and socketedIn.color
-								supportEffect.gemCfg.socketNum = gemIndex
+								supportEffect.gemCfg.socketNum = socketIndex
 								applyGemMods(supportEffect, socketedIn and env.modDB:Tabulate("LIST", supportEffect.gemCfg, "GemProperty") or propertyModList)
 								gemInstance.reqOverride = supportEffect.req
 								if not processedSockets[gemInstance] then
 									processedSockets[gemInstance] = true
-									applySocketMods(env, gemInstance.gemData, groupCfg, gemIndex, playerItems[groupCfg.slotName] and playerItems[groupCfg.slotName].name)
+									applySocketMods(env, gemInstance.gemData, groupCfg, socketIndex, item and item.name)
 									-- Keep track of the gem count for each color socketed in this group
 									groupCfg.intelligenceGems = (groupCfg.intelligenceGems or 0) + (gemInstance.gemData.tags.intelligence and 1 or 0)
 									groupCfg.dexterityGems = (groupCfg.dexterityGems or 0) + (gemInstance.gemData.tags.dexterity and 1 or 0)
@@ -1838,14 +1840,15 @@ function calcs.initEnv(build, mode, override, specEnv)
 				local slotHasActiveSkill = false
 
 				-- Create active skills
-				for gemIndex, gemInstance in ipairs(group.gemList) do
+			for _, gemInstance in ipairs(group.gemList) do
 					if gemInstance.enabled and (gemInstance.gemData or gemInstance.grantedEffect) then
+					local socketIndex = socketIndexByGem[gemInstance]
 						local grantedEffectList = gemInstance.gemData and gemInstance.gemData.grantedEffectList or { gemInstance.grantedEffect }
 						local gemSkill
 						for index, grantedEffect in ipairs(grantedEffectList) do
 							if not grantedEffect.support and not grantedEffect.unsupported and (not grantedEffect.hasGlobalEffect or gemInstance["enableGlobal"..index]) then
 								slotHasActiveSkill = true
-								local socketQuality = getMatchingSocketQuality(env, groupCfg, gemInstance, socketIndexByGem[gemInstance])
+							local socketQuality = getMatchingSocketQuality(env, groupCfg, gemInstance, socketIndex)
 								local actualQuality = gemInstance.quality + socketQuality
 								local activeEffect = {
 									grantedEffect = grantedEffect,
@@ -1860,15 +1863,16 @@ function calcs.initEnv(build, mode, override, specEnv)
 								}
 								if gemInstance.gemData then
 									local playerItems = env.player.itemList
-									local socketedIn = playerItems[groupCfg.slotName] and playerItems[groupCfg.slotName].sockets and playerItems[groupCfg.slotName].sockets[gemIndex]
+									local item = playerItems[groupCfg.slotName]
+									local socketedIn = socketIndex and item and item.sockets and item.sockets[socketIndex]
 									activeEffect.gemCfg = copyTable(groupCfg, true)
 									activeEffect.gemCfg.socketColor = socketedIn and socketedIn.color
-									activeEffect.gemCfg.socketNum = gemIndex
+									activeEffect.gemCfg.socketNum = socketIndex
 									applyGemMods(activeEffect, socketedIn and env.modDB:Tabulate("LIST", activeEffect.gemCfg, "GemProperty") or propertyModList)
 									gemInstance.reqOverride = activeEffect.req
 									if not processedSockets[gemInstance] then
 										processedSockets[gemInstance] = true
-										applySocketMods(env, gemInstance.gemData, groupCfg, gemIndex, playerItems[groupCfg.slotName] and playerItems[groupCfg.slotName].name)
+										applySocketMods(env, gemInstance.gemData, groupCfg, socketIndex, item and item.name)
 										-- Keep track of the gem count for each color socketed in this group
 										groupCfg.intelligenceGems = (groupCfg.intelligenceGems or 0) + (gemInstance.gemData.tags.intelligence and 1 or 0)
 										groupCfg.dexterityGems = (groupCfg.dexterityGems or 0) + (gemInstance.gemData.tags.dexterity and 1 or 0)
