@@ -93,4 +93,22 @@ describe("Common", function()
 			common.classes.StupidClass = nil
 		end)
 	end)
+	it("WrapString wraps before the word that overflows the width", function()
+		-- Count visible characters so widths are character counts
+		local drawStringWidth = _G.DrawStringWidth
+		_G.DrawStringWidth = function(height, font, text)
+			return #StripEscapes(text)
+		end
+		finally(function()
+			_G.DrawStringWidth = drawStringWidth
+		end)
+		local function wrap(str, width)
+			return copyTable(main:WrapString(str, 16, width))
+		end
+
+		assert.are.same({ "aa bb", "cc dd" }, wrap("aa bb cc dd", 5))
+		assert.are.same({ "abc", "de" }, wrap("abc de", 3))
+		assert.are.same({ "^7abcd", "^xFF0000efgh", "ij" }, wrap("^7abcd ^xFF0000efgh ij", 4))
+		assert.are.same({ "abcdefgh", "xy" }, wrap("abcdefgh xy", 3))
+	end)
 end)

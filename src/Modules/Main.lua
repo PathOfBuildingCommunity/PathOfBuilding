@@ -1811,24 +1811,20 @@ do
 	local wrapTable = { }
 	function main:WrapString(str, height, width)
 		wipeTable(wrapTable)
-		local lineStart = 1
-		local lastSpace, lastBreak
+		local lineStart, searchFrom = 1, 1
+		local previousWordEnd
 		while true do
-			local s, e = str:find("%s+", lastSpace)
-			if not s then
-				s = #str + 1
-				e = #str + 1
+			local spaceStart, spaceEnd = str:find("%s+", searchFrom)
+			local wordEnd = spaceStart and spaceStart - 1 or #str
+			if previousWordEnd and previousWordEnd >= lineStart and DrawStringWidth(height, "VAR", str:sub(lineStart, wordEnd)) > width then
+				t_insert(wrapTable, str:sub(lineStart, previousWordEnd))
+				lineStart = searchFrom
 			end
-			if s > #str then
-				t_insert(wrapTable, str:sub(lineStart, -1))
+			if not spaceStart or spaceEnd == #str then
+				t_insert(wrapTable, str:sub(lineStart, wordEnd))
 				break
 			end
-			lastBreak = s - 1
-			lastSpace = e + 1
-			if DrawStringWidth(height, "VAR", str:sub(lineStart, s - 1)) > width then
-				t_insert(wrapTable, str:sub(lineStart, lastBreak))
-				lineStart = lastSpace
-			end
+			previousWordEnd, searchFrom = wordEnd, spaceEnd + 1
 		end
 		return wrapTable
 	end
