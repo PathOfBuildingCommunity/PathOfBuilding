@@ -13983,7 +13983,7 @@ c["All other Summoned Totems die when you Summon a Totem 15% less Damage taken w
 c["All other Summoned Totems die when you Summon a Totem 15% less Damage taken while you have a Totem Skills used by Totems have 10% more Area of Effect per maximum number of Summoned Totems"]={nil,"All other Summoned Totems die when you Summon a Totem 15% less Damage taken while you have a Totem Skills used by Totems have 10% more Area of Effect per maximum number of Summoned Totems "}
 c["All other Summoned Totems die when you Summon a Totem 15% less Damage taken while you have a Totem Skills used by Totems have 10% more Area of Effect per maximum number of Summoned Totems Skills used by Totems deal 10% more Damage per maximum number of Summoned Totems"]={nil,"All other Summoned Totems die when you Summon a Totem 15% less Damage taken while you have a Totem Skills used by Totems have 10% more Area of Effect per maximum number of Summoned Totems Skills used by Totems deal 10% more Damage per maximum number of Summoned Totems "}
 c["All other Summoned Totems die when you Summon a Totem 15% less Damage taken while you have a Totem Skills used by Totems have 10% more Area of Effect per maximum number of Summoned Totems Skills used by Totems deal 10% more Damage per maximum number of Summoned Totems Totems have 5% more Life per maximum number of Summoned Totems"]={nil,"All other Summoned Totems die when you Summon a Totem 15% less Damage taken while you have a Totem Skills used by Totems have 10% more Area of Effect per maximum number of Summoned Totems Skills used by Totems deal 10% more Damage per maximum number of Summoned Totems Totems have 5% more Life per maximum number of Summoned Totems "}
-c["Allies Regenerate 400 Life per second for the Poison's duration if within 3 metres"]={nil,"Allies Regenerate 400 Life per second for the Poison's duration if within 3 metres "}
+c["Allies Regenerate 400 Life per second for the Poison's duration if within 3 metres"]={{[1]={[1]={type="Condition",var="KilledPoisonedLast2Seconds"},flags=0,keywordFlags=0,name="ExtraAura",type="LIST",value={mod={flags=0,keywordFlags=0,name="LifeRegen",type="BASE",value=400}}}},nil}
 c["Allies within 3 metres have +1 Fortification"]={{[1]={flags=0,keywordFlags=0,name="ExtraAura",type="LIST",value={mod={flags=0,keywordFlags=0,name="MinimumFortification",type="BASE",value=1},onlyAllies=true}}},nil}
 c["Allies within 3 metres have +10 Fortification"]={{[1]={flags=0,keywordFlags=0,name="ExtraAura",type="LIST",value={mod={flags=0,keywordFlags=0,name="MinimumFortification",type="BASE",value=10},onlyAllies=true}}},nil}
 c["Allies within 3 metres have +50% to Critical Strike Multiplier"]={{[1]={flags=0,keywordFlags=0,name="ExtraAura",type="LIST",value={mod={flags=0,keywordFlags=0,name="CritMultiplier",type="BASE",value=50},onlyAllies=true}}},nil}
@@ -13992,7 +13992,7 @@ c["Allies within 3 metres have Culling Strike"]={{[1]={flags=0,keywordFlags=0,na
 c["Allies within 3.5 metres Recover 1% of your Maximum Life when you Die"]={nil,"Allies within 3.5 metres Recover 1% of your Maximum Life when you Die "}
 c["Allies within 3.5 metres Recover 2% of your Maximum Life when you Die"]={nil,"Allies within 3.5 metres Recover 2% of your Maximum Life when you Die "}
 c["Allies within 3.5 metres Recover 2% of your Maximum Life when you Die Allies within 3.5 metres Recover 1% of your Maximum Life when you Die"]={nil,"Allies within 3.5 metres Recover 2% of your Maximum Life when you Die Allies within 3.5 metres Recover 1% of your Maximum Life when you Die "}
-c["Allies within 5 metres cannot have their Action Speed modified to below Base Value"]={nil,"Allies within 5 metres cannot have their Action Speed modified to below Base Value "}
+c["Allies within 5 metres cannot have their Action Speed modified to below Base Value"]={{[1]={flags=0,keywordFlags=0,name="ExtraAura",type="LIST",value={mod={[1]={effectType="Global",type="GlobalEffect",unscalable=true},flags=0,keywordFlags=0,name="MinimumActionSpeed",type="MAX",value=100},onlyAllies=true}}},nil}
 c["Allies within 5 metres cannot have their Action Speed modified to below Base Value Enemies within 6 metres cannot deal Critical Strikes"]={nil,"Allies within 5 metres cannot have their Action Speed modified to below Base Value Enemies within 6 metres cannot deal Critical Strikes "}
 c["Allies within 5 metres gain 1% of Life Regenerated per second"]={{[1]={flags=0,keywordFlags=0,name="ExtraAura",type="LIST",value={mod={flags=0,keywordFlags=0,name="LifeRegenPercent",type="BASE",value=1},onlyAllies=true}}},nil}
 c["Allies within 5 metres gain 2% of Life Regenerated per second"]={{[1]={flags=0,keywordFlags=0,name="ExtraAura",type="LIST",value={mod={flags=0,keywordFlags=0,name="LifeRegenPercent",type="BASE",value=2},onlyAllies=true}}},nil}
@@ -15061,7 +15061,7 @@ c["Chaos Damage taken does not bypass Minions' Energy Shield"]={{[1]={flags=0,ke
 c["Chaos Damage with Hits is Lucky"]={{[1]={flags=0,keywordFlags=0,name="ChaosLuckyHits",type="FLAG",value=true}},nil}
 c["Chaos Resistance is Zero"]={{[1]={flags=0,keywordFlags=0,name="ChaosResist",type="OVERRIDE",value=0}},nil}
 c["Chaos Resistance is doubled"]={{[1]={[1]={globalLimit=100,globalLimitKey="ChaosResistDoubledLimit",type="Multiplier",var="ChaosResistDoubled"},flags=0,keywordFlags=0,name="ChaosResist",type="MORE",value=100},[2]={flags=0,keywordFlags=0,name="Multiplier:ChaosResistDoubled",type="OVERRIDE",value=1}},nil}
-c["Chaos Resistance of Enemies within 6 metres is 0"]={{[1]={flags=0,keywordFlags=0,name="ChaosResist",type="OVERRIDE",value=0}}," of Enemies within 6 metres "}
+c["Chaos Resistance of Enemies within 6 metres is 0"]={{[1]={flags=0,keywordFlags=0,name="EnemyModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="ChaosResist",type="OVERRIDE",value=0}}}},nil}
 c["Chaos Skills have 20% chance to Ignite"]={{[1]={flags=0,keywordFlags=256,name="EnemyIgniteChance",type="BASE",value=20}},nil}
 c["Chaos Skills have 40% increased Skill Effect Duration"]={{[1]={flags=0,keywordFlags=256,name="Duration",type="INC",value=40}},nil}
 c["Chaos Skills have 60% increased Skill Effect Duration"]={{[1]={flags=0,keywordFlags=256,name="Duration",type="INC",value=60}},nil}
@@ -15395,7 +15395,7 @@ c["Damage to surrounding targets Animated and Manifested Minions' Melee Strikes 
 c["Damage with Hits from Socketed Vaal Skills is Lucky"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},[2]={skillType=38,type="SkillType"},flags=0,keywordFlags=0,name="ExtraSkillMod",type="LIST",value={mod={flags=0,keywordFlags=0,name="LuckyHits",type="FLAG",value=true}}}},nil}
 c["Damage with Hits is Lucky while your Offhand is Magic"]={{[1]={[1]={type="Condition",var="MagicItemInWeapon 2"},flags=0,keywordFlags=0,name="LuckyHits",type="FLAG",value=true}},nil}
 c["Damage with Hits is Unlucky"]={{[1]={flags=0,keywordFlags=0,name="UnluckyHits",type="FLAG",value=true}},nil}
-c["Damage with Hits of Allies within 5 metres is Lucky"]={nil,"Damage with Hits of Allies within 5 metres is Lucky "}
+c["Damage with Hits of Allies within 5 metres is Lucky"]={{[1]={flags=0,keywordFlags=0,name="ExtraAura",type="LIST",value={mod={flags=0,keywordFlags=0,name="LuckyHits",type="FLAG",value=true},onlyAllies=true}}},nil}
 c["Damage with Weapons Penetrates 2% Elemental Resistances"]={{[1]={flags=8192,keywordFlags=0,name="ElementalPenetration",type="BASE",value=2}},nil}
 c["Damage with Weapons Penetrates 5% Cold Resistance"]={{[1]={flags=8192,keywordFlags=0,name="ColdPenetration",type="BASE",value=5}},nil}
 c["Damage with Weapons Penetrates 5% Elemental Resistances"]={{[1]={flags=8192,keywordFlags=0,name="ElementalPenetration",type="BASE",value=5}},nil}
@@ -15884,7 +15884,7 @@ c["Enemies you've Hit Recently have 99% reduced Life Regeneration rate"]={{[1]={
 c["Enemies' Damage with Critical Strikes against you is Lucky"]={nil,"Enemies' Damage with Critical Strikes  is Lucky "}
 c["Enemy Hits inflict Temporal Chains on you"]={nil,"Enemy Hits inflict Temporal Chains on you "}
 c["Enemy Hits inflict Temporal Chains on you When you lose Temporal Chains you gain maximum Rage"]={nil,"Enemy Hits inflict Temporal Chains on you When you lose Temporal Chains you gain maximum Rage "}
-c["Enemy Monsters within 3 metres have at least 8% of Life Reserved"]={nil,"Enemy Monsters within 3 metres have at least 8% of Life Reserved "}
+c["Enemy Monsters within 3 metres have at least 8% of Life Reserved"]={{[1]={flags=0,keywordFlags=0,name="EnemyModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="LifeReservationPercent",type="BASE",value=8}}}},nil}
 c["Enemy Monsters within 6 metres have Fire Resistance against"]={nil,"Enemy Monsters within 6 metres have Fire Resistance against "}
 c["Enemy Monsters within 6 metres have Fire Resistance against Damage over Time is -20% while you are Stationary"]={{[1]={flags=0,keywordFlags=0,name="EnemyModifier",type="LIST",value={mod={[1]={actor="player",type="ActorCondition",var="Stationary"},flags=8,keywordFlags=0,name="FireResist",type="OVERRIDE",value=-20}}}},nil}
 c["Enemy Projectiles Pierce you"]={nil,"Enemy Projectiles Pierce you "}
@@ -19639,7 +19639,7 @@ c["Regenerate 12 Mana per second"]={{[1]={flags=0,keywordFlags=0,name="ManaRegen
 c["Regenerate 12.1 Life per second"]={{[1]={flags=0,keywordFlags=0,name="LifeRegen",type="BASE",value=12.1}},nil}
 c["Regenerate 12.5 Life per second"]={{[1]={flags=0,keywordFlags=0,name="LifeRegen",type="BASE",value=12.5}},nil}
 c["Regenerate 12.9 Life per second"]={{[1]={flags=0,keywordFlags=0,name="LifeRegen",type="BASE",value=12.9}},nil}
-c["Regenerate 120 Energy Shield per second while a Rare or Unique Enemy is within 6 metres"]={{[1]={flags=0,keywordFlags=0,name="EnergyShieldRegen",type="BASE",value=120}}," while a Rare or Unique Enemy is within 6 metres "}
+c["Regenerate 120 Energy Shield per second while a Rare or Unique Enemy is within 6 metres"]={{[1]={[1]={actor="enemy",type="ActorCondition",varList={[1]="NearbyRareOrUniqueEnemy",[2]="RareOrUnique"}},flags=0,keywordFlags=0,name="EnergyShieldRegen",type="BASE",value=120}},nil}
 c["Regenerate 120 Energy Shield per second while a Rare or Unique Enemy is within 6 metres Your Critical Strike Chance is Lucky while Focused"]={{[1]={[1]={type="Condition",var="Focused"},flags=0,keywordFlags=0,name="EnergyShieldRegen",type="BASE",value=120}}," while a Rare or Unique Enemy is within 6 metres Your  is Lucky  "}
 c["Regenerate 120 Life per Second while affected by Vitality"]={{[1]={[1]={type="Condition",var="AffectedByVitality"},flags=0,keywordFlags=0,name="LifeRegen",type="BASE",value=120}},nil}
 c["Regenerate 120 Life per second per Endurance Charge"]={{[1]={[1]={type="Multiplier",var="EnduranceCharge"},flags=0,keywordFlags=0,name="LifeRegen",type="BASE",value=120}},nil}
@@ -19702,7 +19702,7 @@ c["Regenerate 20 Life per second per Endurance Charge"]={{[1]={[1]={type="Multip
 c["Regenerate 20% of Energy Shield per second if you've dealt a Critical Strike with this weapon Recently"]={{[1]={[1]={type="Condition",var="CritRecently"},flags=0,keywordFlags=0,name="EnergyShieldRegenPercent",type="BASE",value=20}},nil}
 c["Regenerate 20% of Life per second while Frozen"]={{[1]={[1]={type="Condition",var="Frozen"},flags=0,keywordFlags=0,name="LifeRegenPercent",type="BASE",value=20}},nil}
 c["Regenerate 20.1 Life per second"]={{[1]={flags=0,keywordFlags=0,name="LifeRegen",type="BASE",value=20.1}},nil}
-c["Regenerate 200 Energy Shield per second while a Rare or Unique Enemy is within 6 metres"]={{[1]={flags=0,keywordFlags=0,name="EnergyShieldRegen",type="BASE",value=200}}," while a Rare or Unique Enemy is within 6 metres "}
+c["Regenerate 200 Energy Shield per second while a Rare or Unique Enemy is within 6 metres"]={{[1]={[1]={actor="enemy",type="ActorCondition",varList={[1]="NearbyRareOrUniqueEnemy",[2]="RareOrUnique"}},flags=0,keywordFlags=0,name="EnergyShieldRegen",type="BASE",value=200}},nil}
 c["Regenerate 200 Energy Shield per second while a Rare or Unique Enemy is within 6 metres Your Critical Strike Chance is Lucky while Focused"]={{[1]={[1]={type="Condition",var="Focused"},flags=0,keywordFlags=0,name="EnergyShieldRegen",type="BASE",value=200}}," while a Rare or Unique Enemy is within 6 metres Your  is Lucky  "}
 c["Regenerate 200 Life per Second while in Blood Stance"]={{[1]={[1]={type="Condition",var="BloodStance"},flags=0,keywordFlags=0,name="LifeRegen",type="BASE",value=200}},nil}
 c["Regenerate 200 Life per second"]={{[1]={flags=0,keywordFlags=0,name="LifeRegen",type="BASE",value=200}},nil}
@@ -23196,7 +23196,7 @@ c["Your Warcries do not grant Buffs or Charges to You"]={{[1]={flags=0,keywordFl
 c["Your Warcries inflict Hallowing Flame"]={{[1]={[1]={type="Condition",var="UsedWarcryRecently"},flags=0,keywordFlags=0,name="Condition:CanInflictHallowingFlame",type="FLAG",value=true}},nil}
 c["Your chance to cause monsters to Flee on Hit is also chance to Terrify Monsters on Hit"]={nil,"Your chance to cause monsters to Flee on Hit is also chance to Terrify Monsters on Hit "}
 c["Your hits can't be Evaded"]={{[1]={flags=0,keywordFlags=0,name="CannotBeEvaded",type="FLAG",value=true}},nil}
-c["Your party members within 6 metres maximum Endurance Charges is equal to yours"]={nil,"Your party members within 6 metres maximum Endurance Charges is equal to yours "}
+c["Your party members within 6 metres maximum Endurance Charges is equal to yours"]={{[1]={flags=0,keywordFlags=0,name="PartyMemberMaximumEnduranceChargesEqualToYours",type="FLAG",value=true}},nil}
 c["Your spells have 100% chance to Shock against Frozen Enemies"]={nil,"Your spells have 100% chance to Shock against Frozen Enemies "}
 c["Zealot's Oath"]={{[1]={flags=0,keywordFlags=0,name="Keystone",type="LIST",value="Zealot's Oath"},[2]={flags=0,keywordFlags=0,name="Condition:HaveZealot'sOath",type="FLAG",value=true}},nil}
 c["Zealot's Oath during Effect"]={{[1]={[1]={type="Condition",var="UsingFlask"},flags=0,keywordFlags=0,name="ZealotsOath",type="FLAG",value=true}},nil}

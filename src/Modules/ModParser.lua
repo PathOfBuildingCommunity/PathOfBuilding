@@ -7130,6 +7130,13 @@ local function parseModOrdered(line)
 end
 
 local nearbyRewrites = {
+	{ "^enemy monsters within [%d%.]+ metres? have at least ", "nearby enemy monsters have at least " },
+	{ "^allies within [%d%.]+ metres? cannot have their action speed modified ", "nearby allies' action speed cannot be modified " },
+	{ "^damage with hits of allies within [%d%.]+ metres? is lucky", "nearby allies' damage with hits is lucky" },
+	{ "^chaos resistance of enemies within [%d%.]+ metres? is ", "nearby enemies' chaos resistance is " },
+	{ "^your party members within [%d%.]+ metres? ", "your nearby party members " },
+	{ "^allies regenerate (%d+) life per second for the poison's duration if within [%d%.]+ metres?", "and nearby allies regenerate %1 life per second" },
+	{ "(rare or unique enemy) is within [%d%.]+ metres?", "%1 is nearby" },
 	{ "^enemy monsters within [%d%.]+ metres? have ", "nearby enemy monsters' " },
 	{ "while at least (%d+) enemies within [%d%.]+ metres?", "while at least %1 enemies are nearby" },
 	{ "while you have an ally within [%d%.]+ metres?", "while you have at least 1 nearby ally" },
