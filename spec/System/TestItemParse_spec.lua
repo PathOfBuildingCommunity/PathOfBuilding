@@ -312,6 +312,17 @@ Implicits: 1
 			return lines, table.concat(lines, "\n")
 		end
 
+		it("has no Incursion Vial sources or upgrade paths left", function()
+			for _, typeList in pairs(data.uniques) do
+				for _, itemRaw in pairs(typeList) do
+					assert.is_nil(itemRaw:match("Vial of"), itemRaw:match("^%s*([^\r\n]+)"))
+				end
+			end
+			local item = unique("Zerphi's Heart")
+			assert.are.equals("Drops in a normal{Temple of Atzoatl} containing the normal{Cradle of Creation}", item.source)
+			assert.is_nil(unique("Sacrificial Heart").upgradePaths)
+		end)
+
 		it("keeps Doryani's four current mod pools independent and restores legacy bundles", function()
 			local item = unique("Doryani's Invitation")
 			assert.are.equal(3, item.selectedVersion)

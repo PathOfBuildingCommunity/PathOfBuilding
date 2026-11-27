@@ -880,7 +880,6 @@ Variant: Pre 3.14.0
 Variant: Current
 League: Incursion
 Source: Opening normal{Fortified Casket} in normal{Defense Research Lab}
-Upgrade: Upgrades to unique{Slavedriver's Hand} via currency{Vial of Dominance}
 DexterityUnique__10_
 {variant:1}LocalIncreasedEvasionAndEnergyShieldUnique__23[100,125]
 {variant:2}LocalIncreasedEvasionAndEnergyShieldUnique__16
@@ -892,7 +891,7 @@ CastSpeedAppliesToTrapSpeedUnique__1
 Slavedriver's Hand
 Ambush Mitts
 League: Incursion
-Source: Upgraded from unique{Architect's Hand} via currency{Vial of Dominance}
+Source: Drops in a normal{Temple of Atzoatl} containing the normal{Cradle of Creation}
 DexterityUnique__10_
 LocalIncreasedEvasionAndEnergyShieldUnique__17
 TrapThrowSpeedUnique__1_

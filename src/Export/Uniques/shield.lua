@@ -443,7 +443,6 @@ Variant: Pre 3.14.0
 Variant: Current
 League: Incursion
 Source: Opening normal{Grove Vessel} in normal{Toxic Grove}
-Upgrade: Upgrades to unique{Apep's Supremacy} via currency{Vial of Awakening}
 Implicits: 1
 SpellDamageImplicitShield1
 {variant:1}GlobalAddedChaosDamageUnique__3[20,22][30,37]
@@ -458,7 +457,7 @@ PoisonExpiresSlowerUnique__1
 Apep's Supremacy
 Vaal Spirit Shield
 League: Incursion
-Source: Upgraded from unique{Apep's Slumber} via currency{Vial of Awakening}
+Source: Drops in a normal{Temple of Atzoatl} containing the normal{Cradle of Creation}
 Implicits: 1
 SpellDamageImplicitShield1
 GlobalAddedChaosDamageUnique__3

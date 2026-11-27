@@ -649,8 +649,7 @@ AddedLightningDamagePerDexInRadiusUniqueJewel53
 Tempered Flesh
 Crimson Jewel
 League: Incursion
-Source: Drops from unique{The Vaal Omnitect}
-Upgrade: Upgrades to unique{Transcendent Flesh} via currency{Vial of Transcendence}
+Source: Opening chests in normal{Glittering Halls}
 Variant: Pre 3.8.0
 Variant: Pre 3.10.0
 Variant: Current
@@ -663,7 +662,7 @@ AdditionalStrengthPerAllocatedStrengthJewelUnique__1_
 Transcendent Flesh
 Crimson Jewel
 League: Incursion
-Source: Upgraded from unique{Tempered Flesh} via currency{Vial of Transcendence}
+Source: Drops in a normal{Temple of Atzoatl} containing the normal{Cradle of Creation}
 Variant: Pre 3.8.0
 Variant: Pre 3.10.0
 Variant: Current
@@ -678,8 +677,7 @@ AdditionalStrengthPerAllocatedStrengthJewelUnique__1_
 Tempered Mind
 Cobalt Jewel
 League: Incursion
-Source: Drops from unique{The Vaal Omnitect}
-Upgrade: Upgrades to unique{Transcendent Mind} via currency{Vial of Transcendence}
+Source: Opening chests in normal{Glittering Halls}
 Variant: Pre 3.8.0
 Variant: Pre 3.10.0
 Variant: Current
@@ -692,7 +690,7 @@ AdditionalIntelligencePerAllocatedIntelligenceJewelUnique__1__
 Transcendent Mind
 Cobalt Jewel
 League: Incursion
-Source: Upgraded from unique{Tempered Mind} via currency{Vial of Transcendence}
+Source: Drops in a normal{Temple of Atzoatl} containing the normal{Cradle of Creation}
 Variant: Pre 3.8.0
 Variant: Pre 3.10.0
 Variant: Current
@@ -708,8 +706,7 @@ AdditionalIntelligencePerAllocatedIntelligenceJewelUnique__1__
 Tempered Spirit
 Viridian Jewel
 League: Incursion
-Source: Drops from unique{The Vaal Omnitect}
-Upgrade: Upgrades to unique{Transcendent Spirit} via currency{Vial of Transcendence}
+Source: Opening chests in normal{Glittering Halls}
 Variant: Pre 3.10.0
 Variant: Current
 Radius: Medium
@@ -720,7 +717,7 @@ AdditionalDexterityPerAllocatedDexterityJewelUnique__1
 Transcendent Spirit
 Viridian Jewel
 League: Incursion
-Source: Upgraded from unique{Tempered Spirit} via currency{Vial of Transcendence}
+Source: Drops in a normal{Temple of Atzoatl} containing the normal{Cradle of Creation}
 Variant: Pre 3.10.0
 Variant: Current
 Radius: Medium
