@@ -875,7 +875,7 @@ function ConfigTabClass:Load(xml, fileName)
 			if node.attrib.number then
 				self.configSets[configSetId].placeholder[node.attrib.name] = tonumber(node.attrib.number)
 			elseif node.attrib.string then
-				self.configSets[configSetId].input[node.attrib.name] = node.attrib.string
+				self.configSets[configSetId].placeholder[node.attrib.name] = node.attrib.string
 			else
 				launch:ShowErrMsg("^1Error parsing '%s': 'Placeholder' element missing number", fileName)
 				return true
@@ -940,9 +940,10 @@ function ConfigTabClass:Load(xml, fileName)
 	self:ResetUndo()
 end
 
-function ConfigTabClass:GetDefaultState(var, varType)
-	if self.configSets[self.activeConfigSetId].placeholder[var] ~= nil then
-		return self.configSets[self.activeConfigSetId].placeholder[var]
+function ConfigTabClass:GetDefaultState(var, varType, configSetId)
+	local placeholder = self.configSets[configSetId or self.activeConfigSetId].placeholder[var]
+	if placeholder ~= nil then
+		return placeholder
 	end
 
 	if self.defaultState[var] ~= nil then
@@ -970,7 +971,7 @@ function ConfigTabClass:Save(xml)
 		t_insert(xml, child)
 
 		for k, v in pairsSortByKey(configSet.input) do
-			if v ~= self:GetDefaultState(k, type(v)) then
+			if v ~= self:GetDefaultState(k, type(v), configSetId) then
 				local node = { elem = "Input", attrib = { name = k } }
 				if type(v) == "number" then
 					node.attrib.number = tostring(v)
