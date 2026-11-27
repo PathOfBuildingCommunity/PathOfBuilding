@@ -871,6 +871,7 @@ return {
 	}, },
 	{ label = "Mine Throw Time", flag = "mine", { format = "{2:output:MineLayingTime}s", { breakdown = "MineThrowingTime" }, }, },
 	{ label = "Avg. Mines per Throw", flag = "mine", { format = "{2:output:MineThrowCount}", { modName = "MineThrowCount", cfg = "skill"}, }, },
+	{ label = "Avg. Detonations", flag = "mine", haveOutput = "MineDetonations", { format = "{2:output:MineDetonations}", { modName = "MineAdditionalDetonations", cfg = "skill"}, }, },
 	{ label = "Mine Deton. Radius", flag = "mine", { format = "{1:output:MineDetonationRadiusMetre}m",
 		{ breakdown = "MineDetonationRadius" },
 		{ label = "Area of Effect modifiers", modName = "MineDetonationAreaOfEffect", cfg = "skill" },
