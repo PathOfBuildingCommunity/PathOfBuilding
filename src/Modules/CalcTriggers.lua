@@ -102,9 +102,11 @@ end
 
 -- Calculate the impact other skills and source rate to trigger cooldown alignment have on the trigger rate
 -- for more details regarding the implementation see comments of #4599 and #5428
-function calcMultiSpellRotationImpact(env, skillRotation, sourceRate, triggerCD, chance, actor)
+-- sharedCD is a final cooldown that belongs to the trigger itself, such as Temporal Mirage's. While it runs none of the skills can be triggered
+function calcMultiSpellRotationImpact(env, skillRotation, sourceRate, triggerCD, chance, actor, sharedCD)
 	local rotationIndex = 1
 	local next_trigger = 0
+	local sharedNextTrig = 0
 	local triggerIncrement = 1 / sourceRate
 	local SIM_TIME = triggerIncrement * 1000 -- Simulate 1000 attacks
 	local chance = chance or 100
@@ -118,17 +120,23 @@ function calcMultiSpellRotationImpact(env, skillRotation, sourceRate, triggerCD,
 	end
 
 	while next_trigger < SIM_TIME do
-		local currentIndex = rotationIndex
-		repeat
-			if skillRotation[currentIndex].next_trig <= next_trigger then -- Skill at current index off cooldown, Trigger it.
-				skillRotation[currentIndex].count = skillRotation[currentIndex].count + 1
-				-- Cooldown starts at the beginning of current tick and ends at the next tick after cooldown expiration
-				skillRotation[currentIndex].next_trig = ceil_b(floor_b(next_trigger, data.misc.ServerTickTime) + skillRotation[currentIndex].cd, data.misc.ServerTickTime)
-				break
-			end
-			currentIndex = (currentIndex % skillCount) + 1 -- Current skill on cooldown, try the next one.
-		until(currentIndex == rotationIndex) -- All skills checked, trigger wasted
-		rotationIndex = (rotationIndex % skillCount) + 1 -- Move on to the next skill in rotation
+		if sharedNextTrig <= next_trigger then -- Attacks made during the shared cooldown trigger nothing and leave the rotation where it is
+			local currentIndex = rotationIndex
+			repeat
+				if skillRotation[currentIndex].next_trig <= next_trigger then -- Skill at current index off cooldown, Trigger it.
+					skillRotation[currentIndex].count = skillRotation[currentIndex].count + 1
+					-- Cooldown starts at the beginning of current tick and ends at the next tick after cooldown expiration
+					skillRotation[currentIndex].next_trig = ceil_b(floor_b(next_trigger, data.misc.ServerTickTime) + skillRotation[currentIndex].cd, data.misc.ServerTickTime)
+					if sharedCD then
+						sharedNextTrig = ceil_b(floor_b(next_trigger, data.misc.ServerTickTime) + sharedCD, data.misc.ServerTickTime)
+						rotationIndex = currentIndex -- The next trigger goes to the skill after the one just used
+					end
+					break
+				end
+				currentIndex = (currentIndex % skillCount) + 1 -- Current skill on cooldown, try the next one.
+			until(currentIndex == rotationIndex) -- All skills checked, trigger wasted
+			rotationIndex = (rotationIndex % skillCount) + 1 -- Move on to the next skill in rotation
+		end
 		next_trigger = next_trigger + triggerIncrement
 	end
 
@@ -603,6 +611,32 @@ local function defaultTriggerHandler(env, config)
 			if actionCooldownTickRounded ~= 0 then
 				output.TriggerRateCap = 1 / actionCooldownTickRounded
 			end
+
+			-- The trigger has a cooldown of its own, which every skill it can trigger shares
+			-- It belongs to the trigger rather than the triggered skill, so only the actor's global cooldown recovery applies to it
+			local sharedCD
+			if config.sharedCooldown then
+				local sharedIcdr = calcLib.mod(actor.modDB, nil, "CooldownRecovery")
+				sharedCD = config.sharedCooldown / sharedIcdr
+				local sharedCDTickRounded = ceil_b(sharedCD, data.misc.ServerTickTime)
+				output.TriggerRateCap = m_min(output.TriggerRateCap, 1 / sharedCDTickRounded)
+				if breakdown then
+					breakdown.TriggerRateCap = {
+						s_format("%.2f ^8(base cooldown of %s)", config.sharedCooldown, config.triggerName),
+						s_format("/ %.2f ^8(increased/reduced cooldown recovery)", sharedIcdr),
+						s_format("= %.4f ^8(final cooldown of %s, shared by the skills it triggers)", sharedCD, config.triggerName),
+						s_format("%.3f ^8(adjusted for server tick rate)", sharedCDTickRounded),
+					}
+					if actionCooldownTickRounded > sharedCDTickRounded then
+						t_insert(breakdown.TriggerRateCap, s_format("%.3f ^8(%s's own cooldown is longer)", actionCooldownTickRounded, triggeredName))
+					end
+					t_insert(breakdown.TriggerRateCap, "")
+					t_insert(breakdown.TriggerRateCap, "Trigger rate:")
+					t_insert(breakdown.TriggerRateCap, s_format("1 / %.3f", 1 / output.TriggerRateCap))
+					t_insert(breakdown.TriggerRateCap, s_format("= %.2f ^8per second", output.TriggerRateCap))
+				end
+			end
+
 			if config.triggerName == "Doom Blast" and env.build.configTab.input["doomBlastSource"] == "expiration" then
 				local expirationRate = 1 / GlobalCache.cachedData[env.mode][uuid].Env.player.output.Duration
 				if breakdown and breakdown.EffectiveSourceRate then
@@ -825,7 +859,7 @@ local function defaultTriggerHandler(env, config)
 				elseif actor.mainSkill.skillFlags.globalTrigger and not config.triggeredSkillCond then -- Trigger does not use source rate breakpoints for one reason or another
 					output.SkillTriggerRate = output.EffectiveSourceRate
 				else -- Triggers like Cast on Crit go through simulation to calculate the trigger rate of each skill in the trigger group
-					output.SkillTriggerRate, simBreakdown = calcMultiSpellRotationImpact(env, config.triggeredSkillCond and triggeredSkills or {packageSkillDataForSimulation(actor.mainSkill, env)}, output.EffectiveSourceRate, (not actor.mainSkill.skillData.triggeredByBrand and ( triggerCD or triggeredCD ) or 0), triggerChance, actor)
+					output.SkillTriggerRate, simBreakdown = calcMultiSpellRotationImpact(env, config.triggeredSkillCond and triggeredSkills or {packageSkillDataForSimulation(actor.mainSkill, env)}, output.EffectiveSourceRate, (not actor.mainSkill.skillData.triggeredByBrand and ( triggerCD or triggeredCD ) or 0), triggerChance, actor, sharedCD)
 					local triggerBotsEffective = actor.modDB:Flag(nil, "HaveTriggerBots") and actor.mainSkill.skillTypes[SkillType.Spell]
 					if triggerBotsEffective then
 						output.SkillTriggerRate = 2 * output.SkillTriggerRate
@@ -912,6 +946,10 @@ local function defaultTriggerHandler(env, config)
 		end
 	end
 end
+
+-- The Sword of Ages' Temporal Mirage skill is not part of the exported skill data, only the support that marks the spells a mirage can use
+-- Its in-game tooltip lists a 0.50 second cooldown, see #10555
+local temporalMirageCooldown = 0.5
 
 local configTable = {
 	["law of the wilds"] = function()
@@ -1143,6 +1181,8 @@ local configTable = {
 	end,
 	["temporal mirage"] = function()
 		return {triggerOnUse = true,
+				-- Each mirage uses one random spell from the sword, which averages out to an even rotation between them
+				sharedCooldown = temporalMirageCooldown,
 				triggerSkillCond = function(env, skill) return skill.skillTypes[SkillType.Movement] and skill.skillTypes[SkillType.Attack] end,
 				triggeredSkillCond = function(env, skill) return skill.skillData.triggeredByTemporalMirage end}
 	end,
