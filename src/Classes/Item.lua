@@ -72,7 +72,7 @@ local rangedRollPattern = "(%-?%d+%.?%d*)%((%-?%d+%.?%d*)%-(%-?%d+%.?%d*)%)"
 
 local function parseAdvancedModRolls(line)
 	-- Advanced copy only provides the endpoints for enum ranges; keep the selected value.
-	line = line:gsub("(%s*)(%b())", function(space, range)
+	line = line:gsub("([ \t]*)(%b())", function(space, range)
 		if range:find("-", 1, true) and not range:find("%d") then
 			return ""
 		end
