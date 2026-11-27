@@ -1698,11 +1698,6 @@ function calcs.defence(env, actor)
 	end
 end
 
-function calcs.enemySkillTime(env, actor)
-	local baseTime = (env.configInput.enemySpeed or env.configPlaceholder.enemySpeed or 700) / 1000
-	return baseTime / (1 + actor.enemy.modDB:Sum("INC", nil, "Speed") / 100) / calcs.actionSpeedMod(actor.enemy)
-end
-
 -- Performs all extra defensive calculations ( eg EHP, maxHit )
 function calcs.buildDefenceEstimations(env, actor)
 	local modDB = actor.modDB
@@ -2995,7 +2990,9 @@ function calcs.buildDefenceEstimations(env, actor)
 		
 		-- survival time
 		do
-			output.enemySkillTime = calcs.enemySkillTime(env, actor)
+			output.enemySkillTime = (env.configInput.enemySpeed or env.configPlaceholder.enemySpeed or 700) / (1 + enemyDB:Sum("INC", nil, "Speed") / 100)
+			local enemyActionSpeed = calcs.actionSpeedMod(actor.enemy)
+			output.enemySkillTime = output.enemySkillTime / 1000 / enemyActionSpeed
 			output["EHPSurvivalTime"] = output["TotalNumberOfHits"] * output.enemySkillTime
 			if breakdown then
 				breakdown["EHPSurvivalTime"] = {
