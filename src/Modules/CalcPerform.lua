@@ -862,8 +862,8 @@ local function doActorMisc(env, actor)
 			modDB:NewMod("Condition:CanWither", "FLAG", true, "Config")
 			local effect = modDB:Max(nil, "WitherEffectStack")
 			enemyDB:NewMod("ChaosDamageTaken", "INC", effect, "Withered", { type = "Multiplier", var = "WitheredStack", limit = 15 } )
-			-- Withered never expires on Ignited enemies, so the stacks build up to the maximum
-			if modDB:Flag(nil, "WitheredDoesNotExpireOnIgnited") and enemyDB:Flag(nil, "Condition:Ignited") then
+			-- Withered never expires on enemies you keep Ignited, so the stacks can be held at the maximum
+			if modDB:Flag(nil, "WitheredDoesNotExpireOnIgnited") and modDB:Flag(nil, "Condition:WitheredKeptByIgnite") then
 				enemyDB:NewMod("Multiplier:WitheredStack", "OVERRIDE", 15, "Withered does not expire")
 			end
 		end
