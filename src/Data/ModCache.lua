@@ -15087,9 +15087,9 @@ c["Chill Enemy for 1 second when Hit, reducing their Action Speed by 30%"]={nil,
 c["Chill Enemy for 1 second when Hit, reducing their Action Speed by 30% Blind Chilled Enemies on Hit"]={nil,"Chill Enemy for 1 second when Hit, reducing their Action Speed by 30% Blind Chilled Enemies on Hit "}
 c["Chill Enemy for 4 seconds when Hit, reducing their Action Speed by 30%"]={nil,"Chill Enemy for 4 seconds when Hit, reducing their Action Speed by 30% "}
 c["Chill Enemy for 5 seconds when Hit, reducing their Action Speed by 30%"]={nil,"Chill Enemy for 5 seconds when Hit, reducing their Action Speed by 30% "}
-c["Chills from your Hits always reduce Action Speed by at least 10%"]={{[1]={flags=0,keywordFlags=0,name="ChillBase",type="BASE",value=10}},nil}
-c["Chills from your Hits always reduce Action Speed by at least 4%"]={{[1]={flags=0,keywordFlags=0,name="ChillBase",type="BASE",value=4}},nil}
-c["Chills from your Hits always reduce Action Speed by at least 6%"]={{[1]={flags=0,keywordFlags=0,name="ChillBase",type="BASE",value=6}},nil}
+c["Chills from your Hits always reduce Action Speed by at least 10%"]={{[1]={flags=0,keywordFlags=0,name="ChillMinimum",type="BASE",value=10}},nil}
+c["Chills from your Hits always reduce Action Speed by at least 4%"]={{[1]={flags=0,keywordFlags=0,name="ChillMinimum",type="BASE",value=4}},nil}
+c["Chills from your Hits always reduce Action Speed by at least 6%"]={{[1]={flags=0,keywordFlags=0,name="ChillMinimum",type="BASE",value=6}},nil}
 c["Clarity has no Reservation"]={{[1]={[1]={skillId="Clarity",type="SkillId"},[2]={neg=true,skillType=108,type="SkillType"},flags=0,keywordFlags=0,name="SkillData",type="LIST",value={key="manaReservationFlat",value=0}},[2]={[1]={skillId="Clarity",type="SkillId"},[2]={neg=true,skillType=108,type="SkillType"},flags=0,keywordFlags=0,name="SkillData",type="LIST",value={key="lifeReservationFlat",value=0}},[3]={[1]={skillId="Clarity",type="SkillId"},[2]={neg=true,skillType=108,type="SkillType"},flags=0,keywordFlags=0,name="SkillData",type="LIST",value={key="manaReservationPercent",value=0}},[4]={[1]={skillId="Clarity",type="SkillId"},[2]={neg=true,skillType=108,type="SkillType"},flags=0,keywordFlags=0,name="SkillData",type="LIST",value={key="lifeReservationPercent",value=0}}},nil}
 c["Claw Attacks deal 12% increased Damage with Hits and Ailments"]={{[1]={flags=262144,keywordFlags=786432,name="Damage",type="INC",value=12}},nil}
 c["Claw Attacks deal 15% increased Damage with Ailments"]={{[1]={flags=264192,keywordFlags=0,name="Damage",type="INC",value=15}},nil}

@@ -116,4 +116,23 @@ describe("TestAilments", function()
 
 		assert.are.equals(19, build.calcsTab.mainOutput.CurrentShock)
 	end)
+
+	it("parses the hit chill floor as ChillMinimum, like the shock floor", function()
+		local line = "Chills from your Hits always reduce Action Speed by at least 10%"
+		local mods = modLib.parseMod(line)
+		assert.are.equals("ChillMinimum", mods[1].name)
+		assert.are.equals(10, mods[1].value)
+
+		build.skillsTab:PasteSocketGroup("Slot: Weapon 1\nFreezing Pulse 20/0  1\n")
+		build.configTab.input.customMods = line
+		rebuild()
+
+		assert.are.equals(10, build.calcsTab.mainOutput.CurrentChill)
+
+		-- Floors from several sources add up, as they do for Shock
+		build.configTab.input.customMods = line .. "\nChills from your Hits always reduce Action Speed by at least 6%"
+		rebuild()
+
+		assert.are.equals(16, build.calcsTab.mainOutput.CurrentChill)
+	end)
 end)
