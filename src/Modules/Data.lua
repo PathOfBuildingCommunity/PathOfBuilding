@@ -859,6 +859,7 @@ data.vestigialUniqueBaseTypes = {
 	Gloves = true,
 	Boots = true,
 	Shield = true,
+	Quiver = true,
 }
 -- map from mod ID to what item it *should* come from
 ---@type table<string, string>

@@ -6,6 +6,7 @@ local vestigialUniqueBaseTypes = {
 	Gloves = LoadModule("Uniques/gloves"),
 	Boots = LoadModule("Uniques/boots"),
 	Shield = LoadModule("Uniques/shield"),
+	Quiver = LoadModule("Uniques/quiver"),
 }
 local output = {}
 
@@ -103,6 +104,13 @@ local manualFixes = {
 	["DivergentMovementVelocityPerEvasionLesserUnique__1"] = { "Queen of the Forest" },
 	["DivergentMovementVelocityOverrideUnique__2"] = { "Replica Stampede" },
 	["DivergentModifyableWhileCorruptedUnique__2"] = { "Hands of the High Templar" },
+	-- Hyrri's Demise is no longer obtainable and shares these mods with The Poised Prism
+	["DivergentColdDamageToAttacksPerDexterityUnique__1"] = { "The Poised Prism" },
+	["DivergentFireDamageToAttacksPerStrengthUnique__1"] = { "The Poised Prism" },
+	["DivergentLightningDamageToAttacksPerIntelligenceUnique__1"] = { "The Poised Prism" },
+	-- the unique export file has these lines as text instead of mod ids
+	["DivergentAdditionalAttackTotemsUnique__1"] = { "Skirmish" },
+	["DivergentImpaleEffectUnique__3"] = { "Steelworm" },
 	-- No clue, but looks like a dupe anyyway
 	["DivergentCannotBeFrozenOrChilledUnique__2"] = false,
 }
