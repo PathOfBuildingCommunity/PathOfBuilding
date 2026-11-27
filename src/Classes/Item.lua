@@ -1015,7 +1015,8 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 					self.name = self.name:gsub(" %(.+%)","")
 				end
 				if not baseName then
-					baseName = line:gsub("^Superior ", ""):gsub("^Synthesised ", ""):gsub("^Vestigial ", "")
+					-- "Fated" is the 3.30 label on unidentified rares dropped by Fate-empowered bosses
+					baseName = line:gsub("^Fated ", ""):gsub("^Superior ", ""):gsub("^Fated ", ""):gsub("^Synthesised ", ""):gsub("^Vestigial ", "")
 				end
 				if baseName == "Two-Toned Boots" then
 					baseName = "Two-Toned Boots (Armour/Energy Shield)"
