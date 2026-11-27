@@ -1521,6 +1521,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 			end
 		end
 		env.socketGroupList = socketGroupList
+		local mainSocketGroup = build.mainSocketGroup
 
 		if env.mode == "MAIN" or isItemPreview then
 			local function getNormalizedSkillLevel(grantedSkill)
@@ -1621,6 +1622,8 @@ function calcs.initEnv(build, mode, override, specEnv)
 			end
 
 			-- Remove any socket groups that no longer have a matching item
+			-- Keep the selected main group selected when a group before it is removed
+			local mainGroup = socketGroupList[mainSocketGroup or 1]
 			local i = 1
 			while socketGroupList[i] do
 				local socketGroup = socketGroupList[i]
@@ -1633,6 +1636,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 					i = i + 1
 				end
 			end
+			mainSocketGroup = isValueInArray(socketGroupList, mainGroup) or mainSocketGroup
 		end
 
 		-- Get the weapon data tables for the equipped weapons
@@ -1663,7 +1667,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 			env.calcsInput.skill_number = m_min(m_max(#socketGroupList, 1), env.calcsInput.skill_number or 1)
 			env.mainSocketGroup = env.calcsInput.skill_number
 		else
-			env.mainSocketGroup = m_min(m_max(#socketGroupList, 1), build.mainSocketGroup or 1)
+			env.mainSocketGroup = m_min(m_max(#socketGroupList, 1), mainSocketGroup or 1)
 			if not isItemPreview then
 				build.mainSocketGroup = env.mainSocketGroup
 			end

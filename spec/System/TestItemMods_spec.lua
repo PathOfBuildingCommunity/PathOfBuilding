@@ -1543,6 +1543,35 @@ describe("TetsItemMods", function()
 		assert.is_false(envy.enabled)
 	end)
 
+	it("keeps the main skill selected when a granted skill group before it is removed", function()
+		local envySword = new("Item"):Item("Rarity: UNIQUE\nUnited in Dream\nCutlass\nImplicits: 0\nGrants Level 25 Envy")
+		build.itemsTab:AddItem(envySword, true)
+		build.itemsTab.slots["Weapon 1"]:SetSelItemId(envySword.id)
+		build.buildFlag = true
+		runCallback("OnFrame")
+		build.skillsTab:PasteSocketGroup("Ethereal Knives 20/0  1\n")
+		build.skillsTab:PasteSocketGroup("Fireball 20/0  1\n")
+		runCallback("OnFrame")
+		-- Envy's group comes first, so removing it shifts the other groups down
+		assert.are.equal("Envy", build.skillsTab.socketGroupList[1].gemList[1].nameSpec)
+		build.mainSocketGroup = 2
+		build.buildFlag = true
+		runCallback("OnFrame")
+		assert.are.equal("Ethereal Knives", build.calcsTab.mainEnv.player.mainSkill.activeEffect.grantedEffect.name)
+
+		local plainSword = new("Item"):Item("Rarity: NORMAL\nCutlass")
+		local calculate = build.calcsTab:GetMiscCalculator()
+		local preview = calculate({ repSlotName = "Weapon 1", repItem = plainSword })
+		assert.are.equal(2, build.mainSocketGroup)
+
+		build.itemsTab:AddItem(plainSword, true)
+		build.itemsTab.slots["Weapon 1"]:SetSelItemId(plainSword.id)
+		build.buildFlag = true
+		runCallback("OnFrame")
+		assert.are.equal("Ethereal Knives", build.calcsTab.mainEnv.player.mainSkill.activeEffect.grantedEffect.name)
+		assert.are.equal(build.calcsTab.mainOutput.TotalDPS, preview.TotalDPS)
+	end)
+
 	it("leaves the triggered skill data unchanged when previewing an item", function()
 		build.skillsTab:PasteSocketGroup("Fireball 20/0  1\n")
 		runCallback("OnFrame")
