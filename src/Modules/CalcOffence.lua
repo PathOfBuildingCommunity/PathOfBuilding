@@ -5296,14 +5296,18 @@ function calcs.offence(env, actor, activeSkill)
 					local takenMore = enemyDB:More(dotCfg, "DamageTaken", "DamageTakenOverTime", "FireDamageTaken", "FireDamageTakenOverTime", "ElementalDamageTaken")
 					local fireEffMult = env.mode_effective and (1 - resist / 100) * (1 + takenInc / 100) * takenMore or 1
 					local percent = data.misc.DraugurflamesIgnitePercent
-					globalOutput.DraugurflamesDPS = m_min(baseVal * effectMod * rateMod * fireEffMult * percent / 100, data.misc.DotDpsCap)
-					if globalBreakdown then
-						globalBreakdown.DraugurflamesDPS = {
-							s_format("%.1f ^8(damage per second of one ignite)", baseVal * effectMod * rateMod),
-							s_format("* %d%% ^8(dealt by Draugurflames)", percent),
-							s_format("* %.3f ^8(effective DPS modifier)", fireEffMult),
-							s_format("= %.1f ^8per second", globalOutput.DraugurflamesDPS)
-						}
+					local draugurflamesDPS = m_min(baseVal * effectMod * rateMod * fireEffMult * percent / 100, data.misc.DotDpsCap)
+					-- With two weapons each hand has its own Ignite, only the strongest one counts
+					if draugurflamesDPS > (globalOutput.DraugurflamesDPS or 0) then
+						globalOutput.DraugurflamesDPS = draugurflamesDPS
+						if globalBreakdown then
+							globalBreakdown.DraugurflamesDPS = {
+								s_format("%.1f ^8(damage per second of one ignite)", baseVal * effectMod * rateMod),
+								s_format("* %d%% ^8(dealt by Draugurflames)", percent),
+								s_format("* %.3f ^8(effective DPS modifier)", fireEffMult),
+								s_format("= %.1f ^8per second", globalOutput.DraugurflamesDPS)
+							}
+						end
 					end
 				end
 				globalOutput.IgniteDamage = output.IgniteDPS * globalOutput.IgniteDuration

@@ -48,6 +48,26 @@ describe("TestAilments", function()
 		assert.near(baseTotalDot + output.DraugurflamesDPS, output.TotalDotDPS, 0.0001)
 	end)
 
+	it("uses the stronger weapon's Ignite for Draugurflames whichever hand it is in", function()
+		local function draugurflames(mainHand, offHand)
+			newBuild()
+			for index, fireDamage in ipairs({ mainHand, offHand }) do
+				local item = new("Item"):Item("Rarity: RARE\nTest Axe\nSiege Axe\nAdds " .. fireDamage .. " Fire Damage")
+				build.itemsTab:AddItem(item, true)
+				build.itemsTab.slots["Weapon " .. index]:SetSelItemId(item.id)
+			end
+			build.skillsTab:PasteSocketGroup("Dual Strike 20/0  1\n")
+			build.configTab.input.customMods = "100% chance to Ignite\nDraugurflames burn enemies around you for 8 seconds after you Ignite a target"
+			build.buildFlag = true
+			rebuild()
+			return build.calcsTab.mainOutput.DraugurflamesDPS
+		end
+		local strongMain = draugurflames("400 to 600", "10 to 20")
+		local weakMain = draugurflames("10 to 20", "400 to 600")
+		assert.near(strongMain, weakMain, 0.0001)
+		assert.is_true(strongMain > draugurflames("10 to 20", "10 to 20") * 10)
+	end)
+
 	it("maximum shock value", function()
 		-- Shock Nova
 		build.skillsTab:PasteSocketGroup("Slot: Weapon 1\nShock Nova 4/0  1\n")
