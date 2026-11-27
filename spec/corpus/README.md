@@ -1,6 +1,8 @@
-# Manual build corpus comparison
+# Build corpus comparison
 
-Select **Actions → Compare build corpus → Run workflow**. Choose a baseline commit and a candidate commit from this repository. The candidate defaults to the selected workflow revision. Running a control with the same commit on both sides measures repeatability. The workflow runs only on manual dispatch.
+**Release candidates.** Preparing a release with **Release next version** starts a comparison on the prepared release branch. Later maintainer pushes to that branch start a new comparison on the updated commit. Open **Compare build corpus** in the release PR's **Checks** tab to read the result before publishing. Each run compares its candidate commit against the latest published stable community release at the start of the run. The report records both commit hashes. Stat changes are advisory. Crashes and incomplete runs fail the check. The workflow does not enforce a merge or publication policy.
+
+**Manual runs.** Select **Actions → Compare build corpus → Run workflow**. Leave the baseline blank to use the latest stable release or enter a baseline from this repository. The candidate defaults to the selected workflow revision. To measure repeatability, enter the same commit for both revisions.
 
 Each run fetches one [PoB Codes corpus](https://api.pob.codes/test-builds/corpus), records its snapshot ID and response SHA-256, verifies the SHA-256 of each encoded build, and decodes the inputs once. Supply the optional response digest to require the same snapshot across runs. A snapshot change then stops the run before calculations. Both PoB revisions load every corpus entry and the same checked-in XML fixtures.
 

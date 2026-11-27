@@ -1,11 +1,12 @@
 name: Compare build corpus
 run-name: Corpus comparison (${{ inputs.candidate_ref || github.sha }})
 on:
+  push:
+    branches: ['release-[0-9]*']
   workflow_dispatch:
     inputs:
       base_ref:
-        description: Baseline commit or branch
-        required: true
+        description: Baseline commit or branch (defaults to the latest stable PoB release)
         type: string
       candidate_ref:
         description: Candidate commit or branch (defaults to the selected workflow revision)
@@ -23,6 +24,8 @@ permissions:
 
 jobs:
   compare:
+    name: Compare build corpus
+    if: ${{ !github.event.deleted }}
     runs-on: ubuntu-latest
     timeout-minutes: 60
     steps:
@@ -35,11 +38,22 @@ jobs:
             spec/corpus
             spec/TestBuilds
             runtime/lua
+      - name: Find latest stable PoB release
+        id: stable
+        if: ${{ !inputs.base_ref }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          tag=$(gh api repos/PathOfBuildingCommunity/PathOfBuilding/releases/latest --jq .tag_name)
+          test -n "$tag"
+          echo "ref=refs/tags/$tag" >> "$GITHUB_OUTPUT"
+          echo "Stable baseline: \`$tag\`" >> "$GITHUB_STEP_SUMMARY"
       - name: Check out baseline
         uses: actions/checkout@v4
         with:
           path: base
-          ref: ${{ inputs.base_ref }}
+          repository: ${{ inputs.base_ref && github.repository || 'PathOfBuildingCommunity/PathOfBuilding' }}
+          ref: ${{ inputs.base_ref || steps.stable.outputs.ref }}
           persist-credentials: false
       - name: Check out candidate
         uses: actions/checkout@v4

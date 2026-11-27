@@ -13,6 +13,8 @@ on:
 jobs:
   release:
     runs-on: ubuntu-latest
+    outputs:
+      release_pr: ${{ steps.prepare.outputs.pull-request-number }}
     steps:
             - name: Checkout
               uses: actions/checkout@v3
@@ -35,6 +37,7 @@ jobs:
                 chmod +x .github/tweak_changelogs.sh
                 .github/tweak_changelogs.sh "v${{ github.event.inputs.releaseVersion }}"
             - name: Create Pull Request
+              id: prepare
               uses: peter-evans/create-pull-request@v5
               with:
                   draft: true
@@ -44,4 +47,20 @@ jobs:
                       Draft release of ${{ github.event.inputs.releaseVersion }}.
 
                       Edits will be made as necessary to prepare the codebase for release.
+
+                      See the Checks tab for the build corpus comparison against the latest stable release.
                   commit-message: 'Prepare release ${{ github.event.inputs.releaseVersion }}'
+  start-corpus-check:
+    needs: release
+    if: ${{ needs.release.outputs.release_pr }}
+    runs-on: ubuntu-latest
+    permissions:
+      actions: write
+    steps:
+      # A branch push made by the release job's GITHUB_TOKEN does not start push workflows.
+      - name: Start comparison on the prepared release branch
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          RELEASE_BRANCH: release-${{ inputs.releaseVersion }}
+        run: gh workflow run buildtest.yml --repo "$GH_REPO" --ref "$RELEASE_BRANCH"
