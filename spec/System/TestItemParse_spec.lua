@@ -1065,6 +1065,68 @@ describe("TestAdvancedItemParse #item", function()
 		assert.are.same(expectedLines, lines(item.explicitModLines))
 	end)
 
+	it("keeps different granted supports on a crafted item separate", function()
+		newBuild()
+		local item = new("Item"):Item([[
+Rarity: RARE
+Test Helmet
+Hubris Circlet
+Sockets: B
+Crafted: true
+Item Level: 85
+Shaper Item
+Elder Item
+Implicits: 0]])
+		item.prefixes[1] = { modId = "AreaDamageSupportedUber1", range = 0.5 }
+		item.suffixes[1] = { modId = "IncreasedChillEffectSupportedUber2", range = 0.5 }
+		item:Craft()
+		item:Craft()
+
+		local expected = {
+			["Socketed Gems are Supported by Level 16 Concentrated Effect Support"] = true,
+			["Socketed Gems are Supported by Level 18 Hypothermia Support"] = true,
+		}
+		for _, mod in ipairs(item.explicitModLines) do
+			expected[mod.line] = nil
+		end
+		assert.are.same({ }, expected)
+
+		build.itemsTab:AddItem(item)
+		build.skillsTab:PasteSocketGroup("Slot: Helmet\nIce Nova 20/0  1\n")
+		runCallback("OnFrame")
+		local appliedSupports = { }
+		for _, effect in ipairs(build.calcsTab.mainEnv.player.mainSkill.effectList) do
+			if effect.grantedEffect.support then
+				appliedSupports[effect.grantedEffect.id] = effect.level
+			end
+		end
+		assert.are.same({ SupportConcentratedEffect = 16, SupportHypothermia = 18 }, appliedSupports)
+	end)
+
+	it("still combines crafted affixes that grant the same stat", function()
+		local item = new("Item"):Item([[
+Rarity: RARE
+Test Helmet
+Eternal Burgonet
+Crafted: true
+Item Level: 85
+Implicits: 0]])
+		item.prefixes[1] = { modId = "IncreasedLife7", range = 0.5 }
+		item.prefixes[2] = { modId = "LocalBaseArmourAndLife4", range = 0.5 }
+		item:Craft()
+		item:Craft()
+
+		local lifeLines = { }
+		for _, mod in ipairs(item.explicitModLines) do
+			if mod.line:match("to maximum Life$") then
+				table.insert(lifeLines, mod.line)
+			end
+		end
+		-- +(100-114) and +(34-38) to maximum Life at the middle of their ranges
+		assert.are.same({ "+143 to maximum Life" }, lifeLines)
+		assert.are.equals(143, item.baseModList:Sum("BASE", nil, "Life"))
+	end)
+
 	it("matches same-name affixes using their advanced-copy ranges", function()
 		local item = new("Item"):Item(raw([[
 			Item Level: 85

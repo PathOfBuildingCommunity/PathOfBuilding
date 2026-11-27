@@ -2094,7 +2094,7 @@ function ItemClass:Craft()
 	self.namePrefix = ""
 	self.nameSuffix = ""
 	self.requirements.level = self.base.req.level
-	local statOrder = { }
+	local combinedLines = { }
 	for _, list in ipairs({ self.prefixes, self.suffixes }) do
 		for i = 1, (list.limit or (self.affixLimit / 2)) do
 			local affix = list[i]
@@ -2112,10 +2112,13 @@ function ItemClass:Craft()
 				for i, line in ipairs(mod) do
 					line = itemLib.applyRange(line, affix.range or 0.5)
 					local order = mod.statOrder[i]
-					if statOrder[order] then
+					-- Different stats can share a display order, such as granted supports.
+					local key = order .. ":" .. normaliseModLine(line)
+					local combined = combinedLines[key]
+					if combined then
 						-- Combine stats
 						local start = 1
-						statOrder[order].line = statOrder[order].line:gsub("%d+", function(num)
+						combined.line = combined.line:gsub("%d+", function(num)
 							local s, e, other = line:find("(%d+)", start)
 							start = e + 1
 							return tonumber(num) + tonumber(other)
@@ -2128,7 +2131,7 @@ function ItemClass:Craft()
 							modLine.suffix = true
 						end
 						t_insert(self.explicitModLines, modLine)
-						statOrder[order] = modLine
+						combinedLines[key] = modLine
 					end
 				end
 			end
