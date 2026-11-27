@@ -455,7 +455,7 @@ Socketed Gems are Supported by Level 30 Iron Will Support
 ]],[[
 Doryani's Catalyst
 Vaal Sceptre
-Source: Drops from unique{Atziri, Queen of the Vaal} in normal{The Apex of Sacrifice}
+Source: Drops from unique{Atziri, Queen of the Vaal} in a normal{Temple of Atzoatl}
 Variant: Pre 2.3.0
 Variant: Current
 Requires Level 75

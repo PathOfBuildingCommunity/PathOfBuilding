@@ -88,7 +88,7 @@ Judgement Staff
 Variant: Pre 3.25.0
 Variant: Pre 3.29.0
 Variant: Current
-Source: Drops from unique{Atziri, Queen of the Vaal} in normal{The Alluring Abyss}
+Source: Drops from unique{Atziri, Queen of the Vaal} in a normal{Temple of Atzoatl} containing the normal{Cradle of Creation}
 Implicits: 2
 {variant:2,3}+25% Chance to Block Attack Damage
 {variant:1}+20% Chance to Block Spell Damage
@@ -548,7 +548,7 @@ Implicits: 3
 Pledge of Hands
 Judgement Staff
 League: Legion
-Source: Drops from unique{Atziri, Queen of the Vaal} in normal{The Apex of Sacrifice}
+Source: Drops from unique{Atziri, Queen of the Vaal} in a normal{Temple of Atzoatl}
 Variant: Pre 2.6.0
 Variant: Pre 3.11.0
 Variant: Pre 3.15.0

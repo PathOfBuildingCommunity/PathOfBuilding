@@ -1443,7 +1443,7 @@ Elemental Damage you Deal with Hits is Resisted by lowest Elemental Resistance i
 ]],[[
 Atziri's Splendour
 Sacrificial Garb
-Source: Drops from unique{Atziri, Queen of the Vaal} in normal{The Alluring Abyss}
+Source: Drops from unique{Atziri, Queen of the Vaal} in a normal{Temple of Atzoatl} containing the normal{Cradle of Creation}
 Variant: Pre 3.0.0 (Armour)
 Variant: Pre 3.0.0 (Armour/Evasion)
 Variant: Pre 3.0.0 (Evasion)

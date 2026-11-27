@@ -106,7 +106,7 @@ SummonsWormsOnUse
 [[
 Atziri's Promise
 Amethyst Flask
-Source: Drops from unique{Atziri, Queen of the Vaal} in normal{The Apex of Sacrifice}
+Source: Drops from unique{Atziri, Queen of the Vaal} in a normal{Temple of Atzoatl}
 Variant: Pre 3.0.0
 Variant: Pre 3.15.0
 Variant: Current

@@ -245,7 +245,7 @@ ReflectCurses
 ]],[[
 Atziri's Reflection
 Golden Buckler
-Source: Drops from unique{Atziri, Queen of the Vaal} in normal{The Alluring Abyss}
+Source: Drops from unique{Atziri, Queen of the Vaal} in a normal{Temple of Atzoatl} containing the normal{Cradle of Creation}
 Implicits: 1
 MovementVelocityImplicitShield2
 IntelligenceUniqueShieldDex3
