@@ -842,7 +842,7 @@ BeltSoulsRemovedOnFlaskUse__1
 String of Servitude
 Heavy Belt
 League: Incursion
-Source: Drops from unique{The Vaal Omnitect}
+Source: Drops from unique{Ipaatiki, Vaal Priestess} in normal{Forgotten Shrine}
 Version: Pre 3.30.0
 Version: Current
 Variant: Area of Effect
