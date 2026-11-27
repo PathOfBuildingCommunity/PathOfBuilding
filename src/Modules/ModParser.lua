@@ -4502,6 +4502,8 @@ local specialModList = {
 	["attack skills can have (%d+) additional totems? summoned at a time"] = function(num) return { mod("ActiveTotemLimit", "BASE", num, nil, 0, KeywordFlag.Attack) } end,
 	["can [hs][au][vm][em]o?n? 1 additional siege ballista totem per (%d+) dexterity"] = function(num) return { mod("ActiveBallistaLimit", "BASE", 1, { type = "SkillName", skillName = "Siege Ballista", includeTransfigured = true }, { type = "PerStat", stat = "Dex", div = num }) } end,
 	["totems fire (%d+) additional projectiles"] = function(num) return { mod("ProjectileCount", "BASE", num, nil, 0, KeywordFlag.Totem) } end,
+	-- Crab Totems have the same damage and cast speed penalties as a level 20+ Spell Totem, the differences are movement and targeting
+	["skills supported by spell totem are crab totems"] = { },
 	["([%d%.]+)%% of damage dealt by y?o?u?r? ?totems is leeched to you as life"] = function(num) return { mod("DamageLifeLeechToPlayer", "BASE", num, nil, 0, KeywordFlag.Totem) } end,
 	["([%d%.]+)%% of damage dealt by y?o?u?r? ?mines is leeched to you as life"] = function(num) return { mod("DamageLifeLeechToPlayer", "BASE", num, nil, 0, KeywordFlag.Mine) } end,
 	["you can cast an additional brand"] = { mod("ActiveBrandLimit", "BASE", 1) },
