@@ -42,8 +42,9 @@ local function getCachedOutputValue(env, activeSkill, ...)
 	return unpack(tempValues)
 end
 
--- Merge an instance of a buff, taking the highest value of each modifier
-local function mergeBuff(src, destTable, destKey)
+-- Merge an instance of a buff, taking the highest value of each modifier.
+-- An unscaled fallback skips LIST modifiers already added by its scaled copy.
+local function mergeBuff(src, destTable, destKey, skipListMods)
 	if not destTable[destKey] then
 		destTable[destKey] = new("ModList"):ModList()
 	end
@@ -61,7 +62,7 @@ local function mergeBuff(src, destTable, destKey)
 				end
 			end
 		end
-		if not match then
+		if not match and (not skipListMods or mod.type ~= "LIST") then
 			t_insert(dest, mod)
 		end
 	end
@@ -2903,7 +2904,7 @@ function calcs.perform(env, skipEHP)
 								local more = modStore:More(skillCfg, "BuffEffect", "BuffEffectOnPlayer") * modDB:More(nil, "BuffEffectOnSelf")
 								srcList:ScaleAddList(buff.modList, (1 + inc / 100) * more)
 								mergeBuff(srcList, buffs, buff.name)
-								mergeBuff(buff.modList, buffs, buff.name)
+								mergeBuff(buff.modList, buffs, buff.name, true)
 								if activeMinionSkill.skillData.thisIsNotABuff then
 									buffs[buff.name].notBuff = true
 								end
@@ -2927,7 +2928,7 @@ function calcs.perform(env, skipEHP)
 								local more = modStore:More(skillCfg, "BuffEffect", (env.minion == castingMinion) and "BuffEffectOnSelf" or nil)
 								srcList:ScaleAddList(buff.modList, (1 + inc / 100) * more)
 								mergeBuff(srcList, minionBuffs, buff.name)
-								mergeBuff(buff.modList, minionBuffs, buff.name)
+								mergeBuff(buff.modList, minionBuffs, buff.name, true)
 								if activeMinionSkill.skillData.thisIsNotABuff then
 									buffs[buff.name].notBuff = true
 								end
