@@ -62,15 +62,8 @@ local function processAddedCastTime(skill, breakdown)
 	end
 end
 
-local function packageSkillDataForSimulation(skill, env, proxyCooldown)
-	return {
-		uuid = cacheSkillUUID(skill, env),
-		cd = skill.skillData.cooldown,
-		cdOverride = skill.skillModList:Override(skill.skillCfg, "CooldownRecovery"),
-		addsCastTime = not proxyCooldown and processAddedCastTime(skill),
-		icdr = calcLib.mod(skill.skillModList, skill.skillCfg, "CooldownRecovery"),
-		addedCooldown = skill.skillModList:Sum("BASE", skill.skillCfg, "CooldownRecovery"),
-	}
+local function packageSkillDataForSimulation(skill, env)
+	return { uuid = cacheSkillUUID(skill, env), cd = skill.skillData.cooldown, cdOverride = skill.skillModList:Override(skill.skillCfg, "CooldownRecovery"), addsCastTime = processAddedCastTime(skill), icdr = calcLib.mod(skill.skillModList, skill.skillCfg, "CooldownRecovery"), addedCooldown = skill.skillModList:Sum("BASE", skill.skillCfg, "CooldownRecovery")}
 end
 
 local function defaultComparer(env, uuid, source, triggerRate)
@@ -109,10 +102,11 @@ end
 
 -- Calculate the impact other skills and source rate to trigger cooldown alignment have on the trigger rate
 -- for more details regarding the implementation see comments of #4599 and #5428
-function calcMultiSpellRotationImpact(env, skillRotation, sourceRate, triggerCD, chance, actor, sharedTriggerCD)
+-- sharedCD is a final cooldown that belongs to the trigger itself, such as Temporal Mirage's. While it runs none of the skills can be triggered
+function calcMultiSpellRotationImpact(env, skillRotation, sourceRate, triggerCD, chance, actor, sharedCD)
 	local rotationIndex = 1
 	local next_trigger = 0
-	local nextSharedTrigger = 0
+	local sharedNextTrig = 0
 	local triggerIncrement = 1 / sourceRate
 	local SIM_TIME = triggerIncrement * 1000 -- Simulate 1000 attacks
 	local chance = chance or 100
@@ -126,18 +120,16 @@ function calcMultiSpellRotationImpact(env, skillRotation, sourceRate, triggerCD,
 	end
 
 	while next_trigger < SIM_TIME do
-		if next_trigger >= nextSharedTrigger then
+		if sharedNextTrig <= next_trigger then -- Attacks made during the shared cooldown trigger nothing and leave the rotation where it is
 			local currentIndex = rotationIndex
 			repeat
-				local skill = skillRotation[currentIndex]
-				if skill.next_trig <= next_trigger then -- Skill at current index off cooldown, Trigger it.
-					skill.count = skill.count + 1
-					-- Cooldowns start at the beginning of this tick and end at the next tick after expiration.
-					local triggerTick = floor_b(next_trigger, data.misc.ServerTickTime)
-					skill.next_trig = ceil_b(triggerTick + skill.cd, data.misc.ServerTickTime)
-					if sharedTriggerCD then
-						nextSharedTrigger = ceil_b(triggerTick + sharedTriggerCD / (skill.icdr or 1), data.misc.ServerTickTime)
-						rotationIndex = currentIndex
+				if skillRotation[currentIndex].next_trig <= next_trigger then -- Skill at current index off cooldown, Trigger it.
+					skillRotation[currentIndex].count = skillRotation[currentIndex].count + 1
+					-- Cooldown starts at the beginning of current tick and ends at the next tick after cooldown expiration
+					skillRotation[currentIndex].next_trig = ceil_b(floor_b(next_trigger, data.misc.ServerTickTime) + skillRotation[currentIndex].cd, data.misc.ServerTickTime)
+					if sharedCD then
+						sharedNextTrig = ceil_b(floor_b(next_trigger, data.misc.ServerTickTime) + sharedCD, data.misc.ServerTickTime)
+						rotationIndex = currentIndex -- The next trigger goes to the skill after the one just used
 					end
 					break
 				end
@@ -431,7 +423,6 @@ local function defaultTriggerHandler(env, config)
 	local trigRate = config.trigRate
 	local uuid
 	local sourceWeapon = config.sourceWeapon
-	local proxyCooldown = config.proxyCooldown
 	-- Only attacks using the granting weapon can activate source-weapon triggers
 	local sourceWeaponFlag = sourceWeapon and actor.mainSkill.socketGroup.slot and (actor.mainSkill.socketGroup.slot:match("^Weapon 2") and "weapon2Attack" or "weapon1Attack")
 	local sourceCache = actor == env.player and not actor.mainSkill.skillFlags.globalTrigger and env.triggerSourceCache or nil
@@ -443,7 +434,7 @@ local function defaultTriggerHandler(env, config)
 				source, trigRate, uuid = findTriggerSkill(env, skill, source, trigRate, config.comparer, config.minimumCostPerUse, sourceCache)
 			end
 			if config.triggeredSkillCond and config.triggeredSkillCond(env,skill) then
-				t_insert(triggeredSkills, packageSkillDataForSimulation(skill, env, proxyCooldown))
+				t_insert(triggeredSkills, packageSkillDataForSimulation(skill, env))
 			end
 		end
 	end
@@ -595,7 +586,7 @@ local function defaultTriggerHandler(env, config)
 			local addedCooldown = actor.mainSkill.skillModList:Sum("BASE", actor.mainSkill.skillCfg, "CooldownRecovery")
 			addedCooldown = addedCooldown ~= 0 and addedCooldown or nil
 			local cooldownOverride = actor.mainSkill.skillModList:Override(actor.mainSkill.skillCfg, "CooldownRecovery")
-			local triggerCD = proxyCooldown or actor.mainSkill.triggeredBy and env.player.mainSkill.triggeredBy.grantedEffect.levels[env.player.mainSkill.triggeredBy.level].cooldown
+			local triggerCD = actor.mainSkill.triggeredBy and env.player.mainSkill.triggeredBy.grantedEffect.levels[env.player.mainSkill.triggeredBy.level].cooldown
 			triggerCD = triggerCD or source.triggeredBy and source.triggeredBy.grantedEffect.levels[source.triggeredBy.level].cooldown
 			local triggeredCD = actor.mainSkill.skillData.cooldown
 
@@ -605,10 +596,8 @@ local function defaultTriggerHandler(env, config)
 			end
 
 			local triggeredName = (actor.mainSkill.activeEffect.grantedEffect and actor ~= env.minion and actor.mainSkill.activeEffect.grantedEffect.name) or "Triggered skill"
-			-- A proxy casts the spell after it is created, so the spell's cast time cannot extend the proxy cooldown.
-			if not proxyCooldown then
-				output.addsCastTime = processAddedCastTime(env.player.mainSkill, breakdown)
-			end
+			local csi
+			output.addsCastTime, csi = processAddedCastTime(env.player.mainSkill, breakdown)
 
 			local triggeredCDAdjusted = ( (triggeredCD or 0) + (addedCooldown or 0) ) / icdr
 			local triggerCDAdjusted = ( (triggerCD or 0) + (output.addsCastTime or 0) ) / icdr
@@ -622,6 +611,32 @@ local function defaultTriggerHandler(env, config)
 			if actionCooldownTickRounded ~= 0 then
 				output.TriggerRateCap = 1 / actionCooldownTickRounded
 			end
+
+			-- The trigger has a cooldown of its own, which every skill it can trigger shares
+			-- It belongs to the trigger rather than the triggered skill, so only the actor's global cooldown recovery applies to it
+			local sharedCD
+			if config.sharedCooldown then
+				local sharedIcdr = calcLib.mod(actor.modDB, nil, "CooldownRecovery")
+				sharedCD = config.sharedCooldown / sharedIcdr
+				local sharedCDTickRounded = ceil_b(sharedCD, data.misc.ServerTickTime)
+				output.TriggerRateCap = m_min(output.TriggerRateCap, 1 / sharedCDTickRounded)
+				if breakdown then
+					breakdown.TriggerRateCap = {
+						s_format("%.2f ^8(base cooldown of %s)", config.sharedCooldown, config.triggerName),
+						s_format("/ %.2f ^8(increased/reduced cooldown recovery)", sharedIcdr),
+						s_format("= %.4f ^8(final cooldown of %s, shared by the skills it triggers)", sharedCD, config.triggerName),
+						s_format("%.3f ^8(adjusted for server tick rate)", sharedCDTickRounded),
+					}
+					if actionCooldownTickRounded > sharedCDTickRounded then
+						t_insert(breakdown.TriggerRateCap, s_format("%.3f ^8(%s's own cooldown is longer)", actionCooldownTickRounded, triggeredName))
+					end
+					t_insert(breakdown.TriggerRateCap, "")
+					t_insert(breakdown.TriggerRateCap, "Trigger rate:")
+					t_insert(breakdown.TriggerRateCap, s_format("1 / %.3f", 1 / output.TriggerRateCap))
+					t_insert(breakdown.TriggerRateCap, s_format("= %.2f ^8per second", output.TriggerRateCap))
+				end
+			end
+
 			if config.triggerName == "Doom Blast" and env.build.configTab.input["doomBlastSource"] == "expiration" then
 				local expirationRate = 1 / GlobalCache.cachedData[env.mode][uuid].Env.player.output.Duration
 				if breakdown and breakdown.EffectiveSourceRate then
@@ -844,10 +859,7 @@ local function defaultTriggerHandler(env, config)
 				elseif actor.mainSkill.skillFlags.globalTrigger and not config.triggeredSkillCond then -- Trigger does not use source rate breakpoints for one reason or another
 					output.SkillTriggerRate = output.EffectiveSourceRate
 				else -- Triggers like Cast on Crit go through simulation to calculate the trigger rate of each skill in the trigger group
-					output.SkillTriggerRate, simBreakdown = calcMultiSpellRotationImpact(env,
-						config.triggeredSkillCond and triggeredSkills or {packageSkillDataForSimulation(actor.mainSkill, env)},
-						output.EffectiveSourceRate, not actor.mainSkill.skillData.triggeredByBrand and (triggerCD or triggeredCD) or 0,
-						triggerChance, actor, proxyCooldown)
+					output.SkillTriggerRate, simBreakdown = calcMultiSpellRotationImpact(env, config.triggeredSkillCond and triggeredSkills or {packageSkillDataForSimulation(actor.mainSkill, env)}, output.EffectiveSourceRate, (not actor.mainSkill.skillData.triggeredByBrand and ( triggerCD or triggeredCD ) or 0), triggerChance, actor, sharedCD)
 					local triggerBotsEffective = actor.modDB:Flag(nil, "HaveTriggerBots") and actor.mainSkill.skillTypes[SkillType.Spell]
 					if triggerBotsEffective then
 						output.SkillTriggerRate = 2 * output.SkillTriggerRate
@@ -934,6 +946,10 @@ local function defaultTriggerHandler(env, config)
 		end
 	end
 end
+
+-- The Sword of Ages' Temporal Mirage skill is not part of the exported skill data, only the support that marks the spells a mirage can use
+-- Its in-game tooltip lists a 0.50 second cooldown, see #10555
+local temporalMirageCooldown = 0.5
 
 local configTable = {
 	["law of the wilds"] = function()
@@ -1165,7 +1181,8 @@ local configTable = {
 	end,
 	["temporal mirage"] = function()
 		return {triggerOnUse = true,
-				proxyCooldown = 0.5,
+				-- Each mirage uses one random spell from the sword, which averages out to an even rotation between them
+				sharedCooldown = temporalMirageCooldown,
 				triggerSkillCond = function(env, skill) return skill.skillTypes[SkillType.Movement] and skill.skillTypes[SkillType.Attack] end,
 				triggeredSkillCond = function(env, skill) return skill.skillData.triggeredByTemporalMirage end}
 	end,

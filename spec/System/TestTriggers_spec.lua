@@ -1047,36 +1047,114 @@ describe("TestTriggers", function()
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
 	end)
 
-	it("Shares Temporal Mirage's cooldown across socketed spells", function()
-		build.itemsTab:CreateDisplayItemFromRaw([[Rarity: UNIQUE
-		The Sword of Ages
-		Exquisite Blade
-		Implicits: 0
-		Trigger level 20 Temporal Mirage on using a Movement Attack
-		24% increased Attack Speed]])
-		build.itemsTab:AddDisplayItem()
-		build.skillsTab:PasteSocketGroup("Slot: Weapon 1\nFrostbolt 20/0  1\n")
-		build.skillsTab:PasteSocketGroup("Leap Slam 20/0  1\n")
-		build.configTab.input.customMods = "150% increased Attack Speed"
-		build.configTab:BuildModList()
-		runCallback("OnFrame")
+	describe("Temporal Mirage", function()
+		local tolerance = 0.01
+		local mirageRateCap
 
-		local output = build.calcsTab.mainOutput
-		local cooldown = ceil_b(0.5, data.misc.ServerTickTime)
-		assert.equals(1 / cooldown, output.TriggerRateCap)
-		assert.True(output.EffectiveSourceRate > output.TriggerRateCap)
-		local singleSpellRate = output.SkillTriggerRate
-		assert.True(singleSpellRate > 0 and singleSpellRate <= output.TriggerRateCap)
+		local function equipSwordOfAges(spell)
+			build.itemsTab:CreateDisplayItemFromRaw([[Rarity: UNIQUE
+			The Sword of Ages
+			Exquisite Blade
+			Implicits: 0
+			Trigger level 20 Temporal Mirage on using a Movement Attack
+			24% increased Attack Speed]])
+			build.itemsTab:AddDisplayItem()
+			build.skillsTab:PasteSocketGroup("Slot: Weapon 1\n" .. spell .. " 20/0  1\n")
+			build.skillsTab:PasteSocketGroup("Leap Slam 20/0  1\n")
+			mirageRateCap = 1 / ceil_b(0.5, data.misc.ServerTickTime)
+		end
 
-		build.skillsTab:PasteSocketGroup("Slot: Weapon 1\nFireball 20/0  1\n")
-		runCallback("OnFrame")
-		assert.equals(round(singleSpellRate / 2, 2), round(build.calcsTab.mainOutput.SkillTriggerRate, 2))
+		local function calcWith(customMods)
+			build.configTab.input.customMods = customMods
+			build.configTab:BuildModList()
+			build.buildFlag = true
+			runCallback("OnFrame")
+			return build.calcsTab.mainOutput
+		end
 
-		build.skillsTab:PasteSocketGroup("Slot: Weapon 1\nFrostblink of Wintry Blast 20/0  1\n")
-		build.mainSocketGroup = #build.skillsTab.socketGroupList
-		runCallback("OnFrame")
-		assert.equals(1 / cooldown, build.calcsTab.mainOutput.TriggerRateCap)
-		assert.equals(round(singleSpellRate / 3, 2), round(build.calcsTab.mainOutput.SkillTriggerRate, 2))
+		it("creates a mirage with every movement attack that is slower than its cooldown", function()
+			equipSwordOfAges("Frostbolt")
+			local output = calcWith("")
+			assert.are.near(mirageRateCap, output.TriggerRateCap, 1e-9)
+			assert.True(output.EffectiveSourceRate < mirageRateCap)
+			assert.are.near(output.EffectiveSourceRate, output.SkillTriggerRate, tolerance)
+		end)
+
+		it("wastes movement attacks made during its cooldown", function()
+			equipSwordOfAges("Frostbolt")
+			-- Leap Slam is faster than the cooldown, but two of them take longer than it
+			local output = calcWith("150% increased Attack Speed")
+			assert.are.near(mirageRateCap, output.TriggerRateCap, 1e-9)
+			assert.True(output.EffectiveSourceRate > mirageRateCap)
+			assert.True(output.EffectiveSourceRate / 2 < mirageRateCap)
+			assert.are.near(output.EffectiveSourceRate / 2, output.SkillTriggerRate, tolerance)
+
+			-- However fast the attack gets, the spell is never cast more often than the cooldown allows
+			for _, attackSpeed in ipairs({ 300, 600, 1200 }) do
+				output = calcWith(attackSpeed .. "% increased Attack Speed")
+				assert.True(output.EffectiveSourceRate > mirageRateCap)
+				assert.True(output.SkillTriggerRate > 0)
+				assert.True(output.SkillTriggerRate <= mirageRateCap + tolerance)
+			end
+		end)
+
+		it("recovers its cooldown faster with cooldown recovery rate", function()
+			equipSwordOfAges("Frostbolt")
+			local capped = calcWith("150% increased Attack Speed")
+			local recovered = calcWith("150% increased Attack Speed\n50% increased Cooldown Recovery Rate")
+			assert.are.near(1 / ceil_b(0.5 / 1.5, data.misc.ServerTickTime), recovered.TriggerRateCap, 1e-9)
+			-- The shorter cooldown ends before the next Leap Slam, so none of them are wasted
+			assert.True(recovered.EffectiveSourceRate < recovered.TriggerRateCap)
+			assert.are.near(recovered.EffectiveSourceRate, recovered.SkillTriggerRate, tolerance)
+			assert.True(recovered.SkillTriggerRate > capped.SkillTriggerRate + tolerance)
+		end)
+
+		it("shares its cooldown between the socketed spells", function()
+			equipSwordOfAges("Frostbolt")
+			local singleSpellRate = calcWith("150% increased Attack Speed").SkillTriggerRate
+
+			build.skillsTab:PasteSocketGroup("Slot: Weapon 1\nFireball 20/0  1\n")
+			runCallback("OnFrame")
+			assert.are.near(mirageRateCap, build.calcsTab.mainOutput.TriggerRateCap, 1e-9)
+			assert.are.near(singleSpellRate / 2, build.calcsTab.mainOutput.SkillTriggerRate, tolerance)
+
+			build.skillsTab:PasteSocketGroup("Slot: Weapon 1\nFrostblink of Wintry Blast 20/0  1\n")
+			runCallback("OnFrame")
+			assert.are.near(singleSpellRate / 3, build.calcsTab.mainOutput.SkillTriggerRate, tolerance)
+
+			-- Every spell the mirage can use gets the same share
+			build.mainSocketGroup = #build.skillsTab.socketGroupList
+			build.buildFlag = true
+			runCallback("OnFrame")
+			assert.are.equals("Frostblink of Wintry Blast", build.calcsTab.mainEnv.player.mainSkill.activeEffect.grantedEffect.name)
+			assert.are.near(mirageRateCap, build.calcsTab.mainOutput.TriggerRateCap, 1e-9)
+			assert.are.near(singleSpellRate / 3, build.calcsTab.mainOutput.SkillTriggerRate, tolerance)
+		end)
+
+		it("keeps the socketed spell's own cooldown apart from the mirage's", function()
+			-- Frostblink of Wintry Blast adds its cast time to its own cooldown when triggered
+			equipSwordOfAges("Frostblink of Wintry Blast")
+			local base = calcWith("150% increased Attack Speed")
+			assert.True(base.addsCastTime > 0)
+			assert.True(base.addsCastTime < 0.5)
+			assert.are.near(mirageRateCap, base.TriggerRateCap, 1e-9)
+			assert.are.near(base.EffectiveSourceRate / 2, base.SkillTriggerRate, tolerance)
+
+			-- Cooldown recovery that only applies to the spell does not shorten the mirage's cooldown
+			local travel = calcWith("150% increased Attack Speed\nTravel Skills have 100% increased Cooldown Recovery Rate")
+			local mainSkill = build.calcsTab.mainEnv.player.mainSkill
+			assert.are.equals(2, calcLib.mod(mainSkill.skillModList, mainSkill.skillCfg, "CooldownRecovery"))
+			assert.are.near(mirageRateCap, travel.TriggerRateCap, 1e-9)
+			assert.are.near(base.SkillTriggerRate, travel.SkillTriggerRate, 1e-9)
+
+			-- A spell cooldown longer than the mirage's still limits that spell
+			local slowCast = calcWith("150% increased Attack Speed\n60% less Cast Speed")
+			assert.True(slowCast.addsCastTime > 0.5)
+			assert.are.near(1 / ceil_b(slowCast.addsCastTime, data.misc.ServerTickTime), slowCast.TriggerRateCap, 1e-9)
+			assert.True(slowCast.SkillTriggerRate > 0)
+			assert.True(slowCast.SkillTriggerRate <= slowCast.TriggerRateCap + tolerance)
+			assert.True(slowCast.SkillTriggerRate < base.SkillTriggerRate - tolerance)
+		end)
 	end)
 
 	it("Trigger Cast On Critical", function()
