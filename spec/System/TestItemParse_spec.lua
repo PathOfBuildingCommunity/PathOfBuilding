@@ -1103,6 +1103,30 @@ Implicits: 0]])
 		assert.are.same({ SupportConcentratedEffect = 16, SupportHypothermia = 18 }, appliedSupports)
 	end)
 
+	it("still combines crafted affixes that grant the same stat", function()
+		local item = new("Item"):Item([[
+Rarity: RARE
+Test Helmet
+Eternal Burgonet
+Crafted: true
+Item Level: 85
+Implicits: 0]])
+		item.prefixes[1] = { modId = "IncreasedLife7", range = 0.5 }
+		item.prefixes[2] = { modId = "LocalBaseArmourAndLife4", range = 0.5 }
+		item:Craft()
+		item:Craft()
+
+		local lifeLines = { }
+		for _, mod in ipairs(item.explicitModLines) do
+			if mod.line:match("to maximum Life$") then
+				table.insert(lifeLines, mod.line)
+			end
+		end
+		-- +(100-114) and +(34-38) to maximum Life at the middle of their ranges
+		assert.are.same({ "+143 to maximum Life" }, lifeLines)
+		assert.are.equals(143, item.baseModList:Sum("BASE", nil, "Life"))
+	end)
+
 	it("matches same-name affixes using their advanced-copy ranges", function()
 		local item = new("Item"):Item(raw([[
 			Item Level: 85
