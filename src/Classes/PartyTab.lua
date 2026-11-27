@@ -8,6 +8,11 @@ local ipairs = ipairs
 local s_format = string.format
 local t_insert = table.insert
 local m_max = math.max
+local mercenaryWarrant = require("Modules.MercenaryWarrantParser")
+
+local mercenarySlotOrder = {
+	"Weapon 1", "Weapon 2", "Helmet", "Body Armour", "Gloves", "Boots", "Amulet", "Ring 1", "Ring 2", "Belt",
+}
 
 ---@class PartyTab: ControlHost, Control
 local PartyTabClass = newClass("PartyTab", "ControlHost", "Control")
@@ -24,6 +29,9 @@ function PartyTabClass:PartyTab(build)
 	self.enemyModList = new("ModList"):ModList()
 	self.buffExports = { }
 	self.enableExportBuffs = false
+	self.mercenaries = { }
+	self.activeMercenaryIndex = 1
+	self.mercenaryItemRows = { }
 
 	self.lastContent = {
 		Aura = "",
@@ -270,6 +278,10 @@ function PartyTabClass:PartyTab(build)
 								self.controls.enemyMods:SetText(node[1] or "")
 							end
 						end
+					elseif node.elem == "Mercenary" or node.elem == "Mercenaries" then
+						if partyDestinations[self.controls.importCodeDestination.selIndex] == "All" then
+							self:ApplyMercenariesXML(node, dbXML, self.controls.appendNotReplace.state ~= true)
+						end
 					end
 				end
 				if partyDestinations[self.controls.importCodeDestination.selIndex] == "All" or partyDestinations[self.controls.importCodeDestination.selIndex] == "EnemyConditions" or partyDestinations[self.controls.importCodeDestination.selIndex] == "EnemyMods" then
@@ -441,6 +453,165 @@ function PartyTabClass:PartyTab(build)
 		return not self.controls.ShowAdvanceTools.state
 	end
 
+	-- Mercenary Overview (Luminary / imported Mercenary)
+	self.controls.mercenaryHeader = new("LabelControl"):LabelControl({"TOPLEFT",self.controls.editLinksLabel,"BOTTOMLEFT"}, {0, 12, 0, theme.stringHeight}, function()
+		local merc = self:GetActiveMercenary()
+		local itemsTab = self.build and self.build.itemsTab
+		local itemSet = itemsTab and itemsTab.activeItemSet
+		local name = (merc and merc.name and merc.name ~= "" and merc.name)
+			or (itemSet and itemSet.mercenaryName and itemSet.mercenaryName ~= "" and itemSet.mercenaryName)
+			or "Unnamed"
+		local buildName = (merc and merc.build) or (itemSet and itemSet.mercenaryBuild)
+		local mercType = (merc and merc.type) or (itemSet and itemSet.mercenaryType)
+		local mercLevel = (merc and merc.level) or (itemSet and itemSet.mercenaryLevel)
+		local meta = {}
+		if buildName and buildName ~= "" then
+			t_insert(meta, buildName)
+		end
+		if mercType and mercType ~= "" then
+			t_insert(meta, mercType)
+		end
+		if mercLevel and mercLevel > 0 then
+			t_insert(meta, "Level " .. tostring(mercLevel))
+		end
+		local suffix = #meta > 0 and (" (" .. table.concat(meta, ", ") .. ")") or ""
+		return "^7Mercenary: " .. colorCodes.RELIC .. name .. "^7" .. suffix
+	end)
+	self.controls.mercenaryHeader.y = function()
+		return self.controls.ShowAdvanceTools.state and (self.controls.editLinks.height() + 12) or (theme.lineCounter(self.controls.simpleLinks.label) + 12)
+	end
+	self.controls.mercenaryHeader.shown = function()
+		return self:IsMercenaryShown()
+	end
+	self.controls.mercenarySelect = new("DropDownControl"):DropDownControl({"TOPLEFT",self.controls.mercenaryHeader,"BOTTOMLEFT"}, {0, 4, 220, 18}, {}, function(index)
+		self:SetActiveMercenary(index)
+	end)
+	self.controls.mercenarySelect.shown = self.controls.mercenaryHeader.shown
+	self.controls.mercenarySelect.enabled = function()
+		return #self.mercenaries > 1
+	end
+	self.controls.mercenaryPasteWarrant = new("ButtonControl"):ButtonControl({"LEFT",self.controls.mercenarySelect,"RIGHT"}, {4, 0, 100, 18}, "Paste Warrant", function()
+		self:OpenPasteWarrantPopup()
+	end)
+	self.controls.mercenaryPasteWarrant.shown = self.controls.mercenaryHeader.shown
+	self.controls.mercenaryRemove = new("ButtonControl"):ButtonControl({"LEFT",self.controls.mercenaryPasteWarrant,"RIGHT"}, {4, 0, 65, 18}, "Remove", function()
+		self:RemoveActiveMercenary()
+	end)
+	self.controls.mercenaryRemove.shown = self.controls.mercenaryHeader.shown
+	self.controls.mercenaryRemove.enabled = function()
+		return #self.mercenaries > 0
+	end
+	self.controls.mercenarySummary = new("LabelControl"):LabelControl({"TOPLEFT",self.controls.mercenarySelect,"BOTTOMLEFT"}, {0, 6, 0, theme.stringHeight}, function()
+		return self:BuildMercenarySkillsText()
+	end)
+	self.controls.mercenarySummary.shown = self.controls.mercenaryHeader.shown
+
+	self.controls.mercenaryItemsList = new("ListControl"):ListControl({"TOPLEFT",self.controls.mercenarySummary,"BOTTOMLEFT"}, {0, 22, 380, 180}, 16, "VERTICAL", false, self.mercenaryItemRows, true)
+	self.controls.mercenaryItemsList.label = "^7Mercenary Items:"
+	self.controls.mercenaryItemsList.defaultText = "^x7F7F7FNo items equipped"
+	self.controls.mercenaryItemsList.reserveIconSpace = true
+	self.controls.mercenaryItemsList.width = function()
+		return m_max(380, self.width / 2 - 24)
+	end
+	self.controls.mercenaryItemsList.y = function()
+		return theme.lineCounter(self.controls.mercenarySummary:GetProperty("label")) + 24
+	end
+	self.controls.mercenaryItemsList.shown = self.controls.mercenaryHeader.shown
+	self.controls.mercenaryItemsList.GetRowValue = function(_, column, index, entry)
+		if column == 1 and entry then
+			local itemsTab = self.build and self.build.itemsTab
+			local item = entry.itemId and itemsTab and itemsTab.items[entry.itemId]
+			if item then
+				return "^7" .. entry.slotName .. ": " .. colorCodes[item.rarity] .. item.name
+			end
+			return "^7" .. entry.slotName .. ": ^x7F7F7FNone"
+		end
+		return ""
+	end
+	self.controls.mercenaryItemsList.GetRowIcon = function(_, column, index, entry)
+		if column == 1 and entry and entry.itemId then
+			local itemsTab = self.build and self.build.itemsTab
+			local item = itemsTab and itemsTab.items[entry.itemId]
+			if item then
+				return itemsTab:GetItemIcon(item)
+			end
+		end
+	end
+	self.controls.mercenaryItemsList.AddValueTooltip = function(_, tooltip, index, entry)
+		if main.popups[1] or not entry or not entry.itemId then
+			tooltip:Clear()
+			return
+		end
+		local itemsTab = self.build and self.build.itemsTab
+		local item = itemsTab and itemsTab.items[entry.itemId]
+		if item then
+			if tooltip:CheckForUpdate(item, launch.devModeAlt, self.build.outputRevision) then
+				itemsTab:AddItemTooltip(tooltip, item, nil, true)
+			end
+		else
+			tooltip:Clear()
+		end
+	end
+	self.controls.mercenaryItemsList.OnSelect = function(_, index, entry)
+		self:SyncMercenaryItemPicker(entry and entry.slotName or nil)
+	end
+
+	self.controls.mercenaryItemSelectLabel = new("LabelControl"):LabelControl({"TOPLEFT",self.controls.mercenaryItemsList,"BOTTOMLEFT"}, {0, 6, 0, theme.stringHeight}, function()
+		local sel = self.controls.mercenaryItemsList.selValue
+		return sel and ("^7" .. sel.slotName .. ":") or ""
+	end)
+	self.controls.mercenaryItemSelectLabel.shown = function()
+		return self:IsMercenaryShown() and self:GetActiveMercenary() ~= nil and self.controls.mercenaryItemsList.selValue ~= nil
+	end
+	self.controls.mercenaryItemSelect = new("DropDownControl"):DropDownControl({"TOPLEFT",self.controls.mercenaryItemsList,"BOTTOMLEFT"}, {85, 4, 295, 20}, {}, function(index, value)
+		local sel = self.controls.mercenaryItemsList.selValue
+		local merc = self:GetActiveMercenary()
+		if not sel or not merc or not value then
+			return
+		end
+		merc.items = merc.items or {}
+		local newId = value.itemId or 0
+		if newId == 0 then
+			merc.items[sel.slotName] = nil
+		else
+			merc.items[sel.slotName] = newId
+		end
+		if sel.slotName == "Weapon 1" and merc.items["Weapon 2"] then
+			local itemsTab = self.build and self.build.itemsTab
+			local offhand = itemsTab and itemsTab.items[merc.items["Weapon 2"]]
+			if offhand and not self:IsItemValidForMercenarySlot(offhand, "Weapon 2", merc.items) then
+				merc.items["Weapon 2"] = nil
+			end
+		end
+		local itemsTab = self.build and self.build.itemsTab
+		if itemsTab and itemsTab.activeItemSet then
+			itemsTab.activeItemSet.mercenaryItems = merc.items
+		end
+		self:SyncMercenaryItemsList()
+		self:SyncMercenaryItemPicker(sel.slotName)
+		if self.build then
+			self.build.buildFlag = true
+		end
+	end)
+	self.controls.mercenaryItemSelect.width = function()
+		return m_max(295, self.controls.mercenaryItemsList.width() - 85)
+	end
+	self.controls.mercenaryItemSelect.shown = self.controls.mercenaryItemSelectLabel.shown
+	self.controls.mercenaryItemSelect.enabled = function()
+		return #self.controls.mercenaryItemSelect.list > 1
+	end
+	self.controls.mercenaryItemSelect.tooltipFunc = function(tooltip, mode, index, value)
+		if main.popups[1] or mode == "OUT" or not value or not value.itemId or value.itemId == 0 then
+			tooltip:Clear()
+			return
+		end
+		local itemsTab = self.build and self.build.itemsTab
+		local item = itemsTab and itemsTab.items[value.itemId]
+		if item and tooltip:CheckForUpdate(item, launch.devModeAlt, self.build.outputRevision) then
+			itemsTab:AddItemTooltip(tooltip, item, nil, true)
+		end
+	end
+
 	self.controls.editPartyMemberStatsLabel = new("LabelControl"):LabelControl({"TOPLEFT",self.controls.notesDesc,"TOPRIGHT"}, {8, 0, 0, theme.stringHeight}, "^7Party Member Stats")
 	self.controls.editPartyMemberStats = new("EditControl"):EditControl({"TOPLEFT",self.controls.editPartyMemberStatsLabel,"BOTTOMLEFT"}, {0, 2, 0, 0}, "", nil, "^%C\t\n", nil, nil, 14, true)
 	self.controls.editPartyMemberStats.width = function()
@@ -513,7 +684,432 @@ function PartyTabClass:PartyTab(build)
 	return self
 end
 
+function PartyTabClass:OpenPasteWarrantPopup()
+	local controls = {}
+	local clipboard = Paste()
+	local initialText = (clipboard and mercenaryWarrant.IsWarrantText(clipboard)) and clipboard or ""
+	local errText = ""
+	controls.label = new("LabelControl"):LabelControl(nil, {0, 16, 0, 16}, "^7Paste Mercenary Warrant text (from in-game or PoE Trade):")
+	controls.edit = new("EditControl"):EditControl(nil, {0, 38, 460, 240}, initialText, nil, "^%C\t\n", nil, function(buf)
+		errText = ""
+		controls.add.enabled = buf:match("%S") ~= nil
+	end, 14, true)
+	controls.err = new("LabelControl"):LabelControl(nil, {0, 284, 0, 14}, function()
+		return errText ~= "" and (colorCodes.NEGATIVE .. errText) or ""
+	end)
+	controls.add = new("ButtonControl"):ButtonControl(nil, {-50, 304, 90, 20}, "Add", function()
+		local ok, res = mercenaryWarrant.ApplyWarrant(self.build, controls.edit.buf)
+		if ok then
+			main:ClosePopup()
+		else
+			errText = res or "Invalid Mercenary Warrant text"
+		end
+	end)
+	controls.add.enabled = initialText ~= ""
+	controls.cancel = new("ButtonControl"):ButtonControl(nil, {50, 304, 90, 20}, "Cancel", function()
+		main:ClosePopup()
+	end)
+	main:OpenPopup(500, 336, "Paste Mercenary Warrant", controls, "add", "edit", "cancel")
+end
+
+function PartyTabClass:GetActiveMercenary()
+	return self.mercenaries and self.mercenaries[self.activeMercenaryIndex] or nil
+end
+
+function PartyTabClass:IsItemValidForMercenarySlot(item, slotName, mercItems)
+	if not item or not item.base then
+		return false
+	end
+	if item.type == "Jewel" or item.type == "Flask" or item.type == "Tincture" or item.type == "Graft" or item.type == "Viscera" then
+		return false
+	end
+	if slotName == "Weapon 1" then
+		return item.base.weapon ~= nil
+	elseif slotName == "Weapon 2" then
+		local itemsTab = self.build and self.build.itemsTab
+		local weapon1Id = mercItems and mercItems["Weapon 1"] or 0
+		local weapon1 = itemsTab and itemsTab.items[weapon1Id]
+		local weapon1Type = weapon1 and weapon1.base and weapon1.base.type or "None"
+		local weaponInfo = self.build and self.build.data and self.build.data.weaponTypeInfo or {}
+		if weapon1Type == "None" then
+			return item.type == "Shield" or (weaponInfo[item.type] and weaponInfo[item.type].oneHand)
+		elseif weapon1Type == "Bow" then
+			return item.type == "Quiver"
+		elseif weaponInfo[weapon1Type] and weaponInfo[weapon1Type].oneHand then
+			return item.type == "Shield" or (weaponInfo[item.type] and weaponInfo[item.type].oneHand and ((weapon1Type == "Wand" and item.type == "Wand") or (weapon1Type ~= "Wand" and item.type ~= "Wand")))
+		end
+		return false
+	end
+	local slotType = slotName:match("^([%a ]+) %d+$") or slotName
+	return item.type == slotType
+end
+
+function PartyTabClass:SyncMercenaryItemPicker(slotName)
+	local control = self.controls.mercenaryItemSelect
+	if not control then
+		return
+	end
+	wipeTable(control.list)
+	control.selIndex = 1
+	local merc = self:GetActiveMercenary()
+	local itemsTab = self.build and self.build.itemsTab
+	if not slotName or not merc or not itemsTab then
+		return
+	end
+	t_insert(control.list, { label = "None", itemId = 0 })
+	local equippedId = merc.items and merc.items[slotName] or 0
+	for _, itemId in ipairs(itemsTab.itemOrderList) do
+		local item = itemsTab.items[itemId]
+		if item and self:IsItemValidForMercenarySlot(item, slotName, merc.items) then
+			t_insert(control.list, {
+				label = colorCodes[item.rarity] .. item.name,
+				itemId = item.id,
+			})
+			if item.id == equippedId then
+				control.selIndex = #control.list
+			end
+		end
+	end
+end
+
+function PartyTabClass:SyncMercenaryItemsList()
+	local prevSlotName = self.controls.mercenaryItemsList and self.controls.mercenaryItemsList.selValue and self.controls.mercenaryItemsList.selValue.slotName
+	wipeTable(self.mercenaryItemRows)
+	local merc = self:GetActiveMercenary()
+	local itemsTab = self.build and self.build.itemsTab
+	local mercItems = (merc and merc.items) or (itemsTab and itemsTab.activeItemSet and itemsTab.activeItemSet.mercenaryItems)
+	if merc or (mercItems and next(mercItems) ~= nil) then
+		for _, slotName in ipairs(mercenarySlotOrder) do
+			local itemId = mercItems and mercItems[slotName]
+			if itemId and itemsTab and not itemsTab.items[itemId] then
+				itemId = nil
+			end
+			t_insert(self.mercenaryItemRows, { slotName = slotName, itemId = itemId })
+		end
+	end
+	if self.controls.mercenaryItemsList then
+		local restoredIdx
+		if prevSlotName then
+			for i, row in ipairs(self.mercenaryItemRows) do
+				if row.slotName == prevSlotName then
+					restoredIdx = i
+					break
+				end
+			end
+		end
+		self.controls.mercenaryItemsList.selIndex = restoredIdx
+		self.controls.mercenaryItemsList.selValue = restoredIdx and self.mercenaryItemRows[restoredIdx] or nil
+		self:SyncMercenaryItemPicker(restoredIdx and prevSlotName or nil)
+	end
+end
+
+function PartyTabClass:SyncMercenaryDropdown()
+	local control = self.controls.mercenarySelect
+	if control then
+		wipeTable(control.list)
+		for i, merc in ipairs(self.mercenaries) do
+			local name = (merc.name and merc.name ~= "") and merc.name or ("Mercenary #" .. tostring(i))
+			local lvl = tonumber(merc.level) or 0
+			local label = lvl > 0 and string.format("%s (lvl %d)", name, lvl) or name
+			t_insert(control.list, { label = label, index = i })
+		end
+		control.selIndex = (#self.mercenaries > 0) and math.min(math.max(self.activeMercenaryIndex, 1), #self.mercenaries) or 1
+	end
+	self:SyncMercenaryItemsList()
+end
+
+function PartyTabClass:SetActiveMercenary(index)
+	if #self.mercenaries == 0 then
+		self.activeMercenaryIndex = 1
+		self:SyncMercenaryDropdown()
+		return
+	end
+	self.activeMercenaryIndex = math.min(math.max(tonumber(index) or 1, 1), #self.mercenaries)
+	local merc = self.mercenaries[self.activeMercenaryIndex]
+	local itemsTab = self.build and self.build.itemsTab
+	if itemsTab and itemsTab.activeItemSet and merc then
+		itemsTab.activeItemSet.mercenaryName = merc.name
+		itemsTab.activeItemSet.mercenaryBuild = merc.build
+		itemsTab.activeItemSet.mercenaryType = merc.type
+		itemsTab.activeItemSet.mercenaryLevel = merc.level
+		itemsTab.activeItemSet.mercenaryItems = merc.items or {}
+	end
+	local skillsTab = self.build and self.build.skillsTab
+	if skillsTab and skillsTab.mercenarySocketGroupList and merc then
+		wipeTable(skillsTab.mercenarySocketGroupList)
+		for _, group in ipairs(merc.skills or {}) do
+			t_insert(skillsTab.mercenarySocketGroupList, group)
+		end
+	end
+	self:SyncMercenaryDropdown()
+	if self.build then
+		self.build.buildFlag = true
+	end
+end
+
+function PartyTabClass:UpsertMercenary(entry)
+	if not entry then
+		return
+	end
+	entry.skills = entry.skills or {}
+	entry.items = entry.items or {}
+	local matchIdx
+	for i, existing in ipairs(self.mercenaries) do
+		if entry.index ~= nil and existing.index ~= nil and existing.index == entry.index then
+			matchIdx = i
+			break
+		elseif entry.name and entry.name ~= "" and existing.name == entry.name then
+			matchIdx = i
+			break
+		end
+	end
+	if matchIdx then
+		if next(entry.items) == nil and self.mercenaries[matchIdx].items and next(self.mercenaries[matchIdx].items) ~= nil and not entry.replaceItems then
+			entry.items = self.mercenaries[matchIdx].items
+		end
+		entry.replaceItems = nil
+		self.mercenaries[matchIdx] = entry
+		self:SetActiveMercenary(matchIdx)
+	else
+		entry.replaceItems = nil
+		t_insert(self.mercenaries, entry)
+		self:SetActiveMercenary(#self.mercenaries)
+	end
+end
+
+function PartyTabClass:RemoveActiveMercenary()
+	if #self.mercenaries == 0 then
+		return
+	end
+	table.remove(self.mercenaries, self.activeMercenaryIndex)
+	if #self.mercenaries == 0 then
+		local itemsTab = self.build and self.build.itemsTab
+		if itemsTab and itemsTab.activeItemSet then
+			itemsTab.activeItemSet.mercenaryName = nil
+			itemsTab.activeItemSet.mercenaryBuild = nil
+			itemsTab.activeItemSet.mercenaryType = nil
+			itemsTab.activeItemSet.mercenaryLevel = nil
+			itemsTab.activeItemSet.mercenaryItems = {}
+		end
+		local skillsTab = self.build and self.build.skillsTab
+		if skillsTab and skillsTab.mercenarySocketGroupList then
+			wipeTable(skillsTab.mercenarySocketGroupList)
+		end
+		self.activeMercenaryIndex = 1
+		self:SyncMercenaryDropdown()
+		if self.build then
+			self.build.buildFlag = true
+		end
+	else
+		self:SetActiveMercenary(math.min(self.activeMercenaryIndex, #self.mercenaries))
+	end
+end
+
+function PartyTabClass:IsMercenaryShown()
+	if self.build and self.build.spec and self.build.spec.curAscendClassName == "Luminary" then
+		return true
+	end
+	if self.mercenaries and #self.mercenaries > 0 then
+		return true
+	end
+	local skillsTab = self.build and self.build.skillsTab
+	if skillsTab and skillsTab.mercenarySocketGroupList and #skillsTab.mercenarySocketGroupList > 0 then
+		return true
+	end
+	local itemsTab = self.build and self.build.itemsTab
+	if itemsTab and itemsTab.activeItemSet and itemsTab.activeItemSet.mercenaryItems then
+		for _, itemId in pairs(itemsTab.activeItemSet.mercenaryItems) do
+			if itemId and itemId ~= 0 then
+				return true
+			end
+		end
+	end
+	return false
+end
+
+function PartyTabClass:BuildMercenarySkillsText()
+	local lines = {}
+	local merc = self:GetActiveMercenary()
+	local skillsTab = self.build and self.build.skillsTab
+	local skillGroups = (merc and merc.skills) or (skillsTab and skillsTab.mercenarySocketGroupList)
+	if skillGroups and #skillGroups > 0 then
+		t_insert(lines, "^7Skills:")
+		for _, group in ipairs(skillGroups) do
+			local parts = {}
+			for _, gem in ipairs(group.gemList or {}) do
+				local name = (gem.gemData and gem.gemData.name) or (gem.grantedEffect and gem.grantedEffect.name) or gem.nameSpec
+				if name and name ~= "" then
+					local info = {}
+					if gem.level then
+						t_insert(info, "Lv " .. tostring(gem.level))
+					end
+					if gem.mercTier then
+						t_insert(info, "Tier " .. tostring(gem.mercTier))
+					end
+					t_insert(parts, #info > 0 and (name .. " (" .. table.concat(info, ", ") .. ")") or name)
+				end
+			end
+			if #parts > 0 then
+				t_insert(lines, "  " .. (group.enabled == false and "^x7F7F7F" or "^7") .. table.concat(parts, " + "))
+			end
+		end
+	else
+		t_insert(lines, "^x7F7F7FSkills: None")
+	end
+	return table.concat(lines, "\n")
+end
+
+function PartyTabClass:BuildMercenarySummaryText()
+	local lines = { self:BuildMercenarySkillsText() }
+	local merc = self:GetActiveMercenary()
+
+	local itemsTab = self.build and self.build.itemsTab
+	local itemLines = {}
+	local mercItems = (merc and merc.items) or (itemsTab and itemsTab.activeItemSet and itemsTab.activeItemSet.mercenaryItems)
+	if mercItems and itemsTab then
+		for slotName, itemId in pairsSortByKey(mercItems) do
+			if itemId and itemId ~= 0 then
+				local item = itemsTab.items[itemId]
+				if item then
+					t_insert(itemLines, "  ^7" .. slotName .. ": " .. colorCodes[item.rarity] .. item.name)
+				end
+			end
+		end
+	end
+	if #itemLines > 0 then
+		t_insert(lines, "^7Items:")
+		for _, l in ipairs(itemLines) do
+			t_insert(lines, l)
+		end
+	else
+		t_insert(lines, "^x7F7F7FItems: None")
+	end
+	return table.concat(lines, "\n")
+end
+
+function PartyTabClass:ParseMercenaryNode(mercNode, itemLookup)
+	local itemsTab = self.build and self.build.itemsTab
+	local skillsTab = self.build and self.build.skillsTab
+	local entry = {
+		index = tonumber(mercNode.attrib.index),
+		name = mercNode.attrib.name,
+		build = mercNode.attrib.build,
+		type = mercNode.attrib.type,
+		level = tonumber(mercNode.attrib.level),
+		skills = {},
+		items = {},
+		replaceItems = true,
+	}
+	for _, child in ipairs(mercNode) do
+		if child.elem == "Skills" and skillsTab then
+			for _, skillNode in ipairs(child) do
+				if skillNode.elem == "Skill" then
+					skillsTab:LoadSkill(skillNode, skillsTab.activeSkillSetId, entry.skills)
+					if entry.skills[#entry.skills] then
+						entry.skills[#entry.skills].isMercenary = true
+					end
+				end
+			end
+		elseif child.elem == "Items" and itemsTab then
+			for _, slotNode in ipairs(child) do
+				if slotNode.elem == "Slot" and slotNode.attrib.name and slotNode.attrib.itemId then
+					local slotName = slotNode.attrib.name:gsub("^Mercenary ", "")
+					local srcId = tonumber(slotNode.attrib.itemId)
+					if srcId and srcId ~= 0 then
+						if itemLookup and itemLookup[srcId] then
+							local rawText
+							for _, itemChild in ipairs(itemLookup[srcId]) do
+								if type(itemChild) == "string" then
+									rawText = itemChild
+									break
+								end
+							end
+							if rawText then
+								local newItem = new("Item"):Item(rawText)
+								if newItem.base then
+									itemsTab:AddItem(newItem, true)
+									entry.items[slotName] = newItem.id
+								end
+							end
+						elseif itemsTab.items[srcId] then
+							entry.items[slotName] = srcId
+						end
+					end
+				end
+			end
+		end
+	end
+	return entry
+end
+
+function PartyTabClass:ApplyMercenariesXML(node, dbXML, replaceExisting)
+	if not node then
+		return
+	end
+	local itemLookup
+	if dbXML then
+		itemLookup = {}
+		for _, tabNode in ipairs(dbXML[1]) do
+			if type(tabNode) == "table" and tabNode.elem == "Items" then
+				for _, itemNode in ipairs(tabNode) do
+					if itemNode.elem == "Item" and itemNode.attrib.id then
+						itemLookup[tonumber(itemNode.attrib.id)] = itemNode
+					end
+				end
+			end
+		end
+	end
+
+	local hadExisting = #self.mercenaries > 0
+	local prevActive = self.activeMercenaryIndex
+	if replaceExisting then
+		wipeTable(self.mercenaries)
+	end
+
+	local activeIdx = 1
+	if node.elem == "Mercenaries" then
+		activeIdx = tonumber(node.attrib.active) or 1
+		for _, child in ipairs(node) do
+			if child.elem == "Mercenary" then
+				local entry = self:ParseMercenaryNode(child, itemLookup)
+				if replaceExisting then
+					t_insert(self.mercenaries, entry)
+				else
+					self:UpsertMercenary(entry)
+				end
+			end
+		end
+		if not replaceExisting and hadExisting then
+			activeIdx = prevActive
+		end
+	elseif node.elem == "Mercenary" then
+		local entry = self:ParseMercenaryNode(node, itemLookup)
+		self:UpsertMercenary(entry)
+		activeIdx = (not replaceExisting and hadExisting) and prevActive or self.activeMercenaryIndex
+	end
+
+	if #self.mercenaries > 0 then
+		self:SetActiveMercenary(activeIdx)
+	else
+		self:SyncMercenaryDropdown()
+	end
+	if self.build and self.build.itemsTab then
+		self.build.itemsTab:PopulateSlots()
+	end
+end
+
+function PartyTabClass:PostLoad()
+	if self.pendingMercenaryXML then
+		self:ApplyMercenariesXML(self.pendingMercenaryXML, nil, true)
+		self.pendingMercenaryXML = nil
+	end
+end
+
 function PartyTabClass:Load(xml, fileName)
+	self.pendingMercenaryXML = nil
+	wipeTable(self.mercenaries)
+	self.activeMercenaryIndex = 1
+	self:SyncMercenaryDropdown()
 	for _, node in ipairs(xml) do
 		if node.elem == "ImportedBuffs" then
 			if not node.attrib.name then
@@ -554,6 +1150,8 @@ function PartyTabClass:Load(xml, fileName)
 			--self:ParseBuffs(self.buffExports, node[1] or "", "Link")
 			--self:ParseBuffs(self.buffExports, node[1] or "", "EnemyConditions")
 			--self:ParseBuffs(self.buffExports, node[1] or "", "EnemyMods")
+		elseif node.elem == "Mercenary" or node.elem == "Mercenaries" then
+			self.pendingMercenaryXML = node
 		end
 	end
 	self.lastContent.PartyMemberStats = self.controls.editPartyMemberStats.buf
@@ -650,6 +1248,83 @@ function PartyTabClass:Save(xml)
 		child = { elem = "ExportedBuffs", attrib = { name = "EnemyMods" } }
 		t_insert(child, exportString)
 		t_insert(xml, child)
+	end
+	local function serializeMercenaryNode(merc)
+		local mercNode = {
+			elem = "Mercenary",
+			attrib = {
+				index = merc.index ~= nil and tostring(merc.index) or nil,
+				name = merc.name,
+				build = merc.build,
+				type = merc.type,
+				level = merc.level and tostring(merc.level) or nil,
+			}
+		}
+		if merc.skills and #merc.skills > 0 then
+			local skillsNode = { elem = "Skills" }
+			for _, socketGroup in ipairs(merc.skills) do
+				local skillNode = { elem = "Skill", attrib = {
+					enabled = tostring(socketGroup.enabled),
+					label = socketGroup.label,
+				} }
+				for _, gemInstance in ipairs(socketGroup.gemList) do
+					t_insert(skillNode, { elem = "Gem", attrib = {
+						nameSpec = gemInstance.nameSpec,
+						skillId = gemInstance.skillId,
+						gemId = gemInstance.gemData and gemInstance.gemData.gameId,
+						variantId = gemInstance.gemData and gemInstance.gemData.variantId,
+						level = tostring(gemInstance.level),
+						quality = tostring(gemInstance.quality),
+						mercTier = gemInstance.mercTier and tostring(gemInstance.mercTier),
+						enabled = tostring(gemInstance.enabled),
+						enableGlobal1 = tostring(gemInstance.enableGlobal1),
+						enableGlobal2 = tostring(gemInstance.enableGlobal2),
+						count = tostring(gemInstance.count),
+					} })
+				end
+				t_insert(skillsNode, skillNode)
+			end
+			t_insert(mercNode, skillsNode)
+		end
+		if merc.items and next(merc.items) ~= nil then
+			local itemsNode = { elem = "Items" }
+			for slotName, itemId in pairsSortByKey(merc.items) do
+				if itemId and itemId ~= 0 then
+					t_insert(itemsNode, { elem = "Slot", attrib = { name = slotName, itemId = tostring(itemId) } })
+				end
+			end
+			if #itemsNode > 0 then
+				t_insert(mercNode, itemsNode)
+			end
+		end
+		return mercNode
+	end
+
+	local mercList = self.mercenaries
+	if #mercList == 0 then
+		local skillsTab = self.build and self.build.skillsTab
+		local itemsTab = self.build and self.build.itemsTab
+		local itemSet = itemsTab and itemsTab.activeItemSet
+		local hasMercMeta = itemSet and ((itemSet.mercenaryName and itemSet.mercenaryName ~= "") or (itemSet.mercenaryBuild and itemSet.mercenaryBuild ~= "") or (itemSet.mercenaryLevel and itemSet.mercenaryLevel > 0))
+		local hasMercSkills = skillsTab and skillsTab.mercenarySocketGroupList and #skillsTab.mercenarySocketGroupList > 0
+		local hasMercItems = itemSet and itemSet.mercenaryItems and next(itemSet.mercenaryItems) ~= nil
+		if hasMercMeta or hasMercSkills or hasMercItems then
+			mercList = { {
+				name = itemSet and itemSet.mercenaryName,
+				build = itemSet and itemSet.mercenaryBuild,
+				type = itemSet and itemSet.mercenaryType,
+				level = itemSet and itemSet.mercenaryLevel,
+				skills = skillsTab and skillsTab.mercenarySocketGroupList or {},
+				items = itemSet and itemSet.mercenaryItems or {},
+			} }
+		end
+	end
+	if #mercList > 0 then
+		local mercsNode = { elem = "Mercenaries", attrib = { active = tostring(self.activeMercenaryIndex or 1) } }
+		for _, merc in ipairs(mercList) do
+			t_insert(mercsNode, serializeMercenaryNode(merc))
+		end
+		t_insert(xml, mercsNode)
 	end
 	xml.attrib = {
 		destination = self.controls.importCodeDestination.list[self.controls.importCodeDestination.selIndex],

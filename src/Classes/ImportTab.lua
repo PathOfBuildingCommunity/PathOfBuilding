@@ -10,6 +10,7 @@ local b_rshift = bit.rshift
 local band = bit.band
 local m_max = math.max
 local dkjson = require "dkjson"
+local mercenaryWarrant = require("Modules.MercenaryWarrantParser")
 
 
 
@@ -88,10 +89,43 @@ local function addOAuthControls(self)
 		end)
 	self.controls.logoutApiButton.shown = function() return self.usingOauth and self.isAuthorized() end
 
+	self.mercenaryList = {}
+
+	local function isSelectedCharLuminary()
+		local sel = self.controls.charSelect and self.controls.charSelect:GetSelValue()
+		return sel ~= nil and sel.char ~= nil and sel.char.class == "Luminary"
+	end
+
+	local function getSelectedMercenaryKey()
+		local realm = self.controls.accountRealm and self.controls.accountRealm:GetSelValue()
+		local sel = self.controls.charSelect and self.controls.charSelect:GetSelValue()
+		local league = (sel and sel.char and sel.char.league) or (self.controls.charSelectLeague and self.controls.charSelectLeague:GetSelValue())
+		if realm and league and league ~= "Any" then
+			return realm.realmCode .. ":" .. league, realm.realmCode, league
+		end
+		return nil
+	end
+
+	local function syncMercenarySelect()
+		if not self.controls.mercenarySelect then
+			return
+		end
+		local key, realmCode, league = getSelectedMercenaryKey()
+		if key and self.mercenaryList[key] then
+			self:PopulateMercenaryList(realmCode, league, self.mercenaryList[key])
+		else
+			wipeTable(self.controls.mercenarySelect.list)
+			self.controls.mercenarySelect.selIndex = 1
+		end
+	end
+
 	self.controls.characterImportAnchor = new("Control"):Control({ "TOPLEFT", self.controls.sectionOauthCharImport, "TOPLEFT" },
 		{ labelSpacing, 40, 200, 16 })
 	self.controls.sectionOauthCharImport.height = function()
-		return self.isAuthorized() and 200 or 60
+		if not self.isAuthorized() then
+			return 60
+		end
+		return isSelectedCharLuminary() and 230 or 200
 	end
 
 	-- realm select
@@ -222,6 +256,7 @@ local function addOAuthControls(self)
 		else
 			self:BuildCharacterList(realm, newLeague, self.characterList[realm], self.controls.charSelect)
 		end
+		syncMercenarySelect()
 	end
 
 	self.controls.charSelectLeagueLabel = new("LabelControl"):LabelControl({ "TOPLEFT", self.controls.accountRealm, "BOTTOMLEFT" },
@@ -230,7 +265,9 @@ local function addOAuthControls(self)
 		{ labelSpacing, 0, 150, 18 }, nil, onLeagueChange)
 	-- character select
 	self.controls.charSelect = new("DropDownControl"):DropDownControl({ "TOPLEFT", self.controls.charSelectLeagueLabel, "BOTTOMLEFT" },
-		{ 0, rowSpacing, 400, 18 }, nil)
+		{ 0, rowSpacing, 400, 18 }, nil, function()
+			syncMercenarySelect()
+		end)
 	self.controls.charSelect.enabled = function()
 		return self.usingOauth and self.isAuthorized()
 	end
@@ -318,6 +355,62 @@ local function addOAuthControls(self)
 		{ 220, 0, 18 }, "Delete equipment:", nil, "Delete all equipped items when importing.", true)
 	self.controls.charImportItemsIgnoreWeaponSwap = new("CheckBoxControl"):CheckBoxControl({ "LEFT", self.controls.charImportItems,
 		"RIGHT" }, { 380, 0, 18 }, "Ignore weapon swap:", nil, "Ignore items and skills in weapon swap.", false)
+
+	-- Mercenary roster fetch & import row (Luminary only)
+	self.controls.charImportMercenary = new("ButtonControl"):ButtonControl({ "TOPLEFT", self.controls.charImportItems, "BOTTOMLEFT" },
+		{ 0, rowSpacing, 110, 20 }, "Mercenary", function()
+			local key, realmCode, league = getSelectedMercenaryKey()
+			if not key then
+				self.oauthErrCode = "Could not determine league for mercenary fetch"
+				return
+			end
+			self.oauthLoading = true
+			self.oauthErrCode = nil
+			main.api:DownloadLeagueAccount(realmCode, league, function(leagueData, leagueErrMsg)
+				local mercenaries = leagueData and ((leagueData.league_account and leagueData.league_account.mercenaries) or leagueData.mercenaries)
+				if mercenaries then
+					self:PopulateMercenaryList(realmCode, league, mercenaries)
+					if #mercenaries == 0 then
+						self.oauthErrCode = "No mercenaries found in " .. league
+					end
+				elseif leagueErrMsg then
+					ConPrintf("Mercenary league-account fetch failed: %s", leagueErrMsg)
+					if leagueErrMsg:match("403") or leagueErrMsg:match("401") then
+						self.oauthErrCode = "Mercenary fetch failed (" .. leagueErrMsg .. "): Logout and re-authorize for account:league_accounts scope"
+					else
+						self.oauthErrCode = "Mercenary fetch failed: " .. leagueErrMsg
+					end
+				else
+					self.oauthErrCode = "No mercenary data returned for " .. league
+				end
+				self.oauthLoading = false
+			end)
+		end)
+	self.controls.charImportMercenary.shown = function()
+		return self.usingOauth and self.isAuthorized() and isSelectedCharLuminary()
+	end
+	self.controls.charImportMercenary.enabled = function()
+		return self.usingOauth and self.isAuthorized() and not self.oauthLoading and isSelectedCharLuminary()
+	end
+	self.controls.mercenarySelect = new("DropDownControl"):DropDownControl({ "LEFT", self.controls.charImportMercenary, "RIGHT" },
+		{ labelSpacing, 0, 260, 20 }, {})
+	self.controls.mercenarySelect.shown = self.controls.charImportMercenary.shown
+	self.controls.mercenarySelect.enabled = function()
+		return #self.controls.mercenarySelect.list > 0
+	end
+	self.controls.charImportMercenaryGo = new("ButtonControl"):ButtonControl({ "LEFT", self.controls.mercenarySelect, "RIGHT" },
+		{ labelSpacing, 0, 70, 20 }, "Import", function()
+			local sel = self.controls.mercenarySelect:GetSelValue()
+			if sel and sel.merc then
+				local clearItems = self.controls.charImportItemsClearItems.state
+				local clearSkills = self.controls.charImportItemsClearSkills.state
+				self:ImportMercenary(sel.merc, clearItems, clearSkills)
+			end
+		end)
+	self.controls.charImportMercenaryGo.shown = self.controls.charImportMercenary.shown
+	self.controls.charImportMercenaryGo.enabled = function()
+		return self.controls.mercenarySelect:GetSelValue() ~= nil
+	end
 end
 local function addAccountNameControls(self)
 	self.charImportMode = "GETACCOUNTNAME"
@@ -1499,6 +1592,136 @@ local slotMap = { ["Weapon"] = "Weapon 1", ["Offhand"] = "Weapon 2", ["Weapon2"]
 				  ["Amulet"] = "Amulet", ["Ring"] = "Ring 1", ["Ring2"] = "Ring 2", ["Ring3"] = "Ring 3", ["Belt"] = "Belt",  ["BrequelGrafts"] = "Graft 1", ["BrequelGrafts2"] = "Graft 2",
 				  ["VisceraHead"] = "Head", ["VisceraBody"] = "Body", ["VisceraArm"] = "Arm", ["VisceraLeg"] = "Leg", }
 
+function ImportTabClass:PopulateMercenaryList(realmCode, league, mercenaries)
+	self.mercenaryList = self.mercenaryList or {}
+	self.mercenaryList[realmCode .. ":" .. league] = mercenaries or {}
+	local control = self.controls.mercenarySelect
+	if not control then
+		return
+	end
+	wipeTable(control.list)
+	for _, merc in ipairs(mercenaries or {}) do
+		local name = merc.name or ("Mercenary #" .. tostring(merc.index or 0))
+		local lvl = tonumber(merc.level) or 0
+		local buildName = merc.build or ""
+		local detail = buildName ~= "" and string.format("%s ^x808080lvl %d", buildName, lvl) or string.format("^x808080lvl %d", lvl)
+		t_insert(control.list, {
+			label = name,
+			detail = detail,
+			merc = merc,
+		})
+	end
+	control.selIndex = 1
+end
+
+---Imports an active mercenary entry from /league-account/<league>
+---@param mercData table
+---@param clearItems boolean?
+---@param clearSkills boolean?
+function ImportTabClass:ImportMercenary(mercData, clearItems, clearSkills)
+	if not mercData then
+		return
+	end
+	local itemsTab = self.build.itemsTab
+	local skillsTab = self.build.skillsTab
+	local partyTab = self.build.partyTab
+
+	local buildName = mercData.build or mercData.archetype
+	local mercLevel = tonumber(mercData.level)
+	local mappedType = mercData.type or mercenaryWarrant.BuildToType(buildName)
+	local mercEntry = {
+		index = mercData.index,
+		name = mercData.name,
+		build = buildName,
+		type = mappedType,
+		level = mercLevel,
+		items = {},
+		skills = {},
+		replaceItems = true,
+	}
+
+	if itemsTab and itemsTab.activeItemSet then
+		local prevMercItems = itemsTab.activeItemSet.mercenaryItems
+		itemsTab.activeItemSet.mercenaryItems = mercEntry.items
+		for _, itemData in ipairs(mercData.items or mercData.equipment or {}) do
+			local baseSlot = slotMap[itemData.inventoryId]
+			if baseSlot and not baseSlot:match("Swap") and not baseSlot:match("Graft") and not baseSlot:match("Ring 3")
+				and baseSlot ~= "Head" and baseSlot ~= "Body" and baseSlot ~= "Arm" and baseSlot ~= "Leg" then
+				self:ImportItem(itemData, "Mercenary " .. baseSlot, true)
+			end
+		end
+		if not partyTab then
+			itemsTab.activeItemSet.mercenaryName = mercEntry.name or itemsTab.activeItemSet.mercenaryName
+			itemsTab.activeItemSet.mercenaryBuild = mercEntry.build or itemsTab.activeItemSet.mercenaryBuild
+			itemsTab.activeItemSet.mercenaryLevel = mercEntry.level or itemsTab.activeItemSet.mercenaryLevel
+			itemsTab.activeItemSet.mercenaryType = mercEntry.type or itemsTab.activeItemSet.mercenaryType
+		else
+			itemsTab.activeItemSet.mercenaryItems = prevMercItems
+		end
+		itemsTab:PopulateSlots()
+		itemsTab:AddUndoState()
+	end
+
+	if skillsTab then
+		local defaultGemLevel = mercLevel and math.min(20, math.max(1, math.floor(mercLevel / 3.5))) or 20
+		for _, skillEntry in ipairs(mercData.skills or {}) do
+			local activeName = skillEntry.name or skillEntry.skill or skillEntry.id or ""
+			if activeName ~= "" then
+				local activeSpec, activeGemId = mercenaryWarrant.ResolveGemName(activeName, false, skillsTab)
+				local group = {
+					label = activeName,
+					enabled = true,
+					isMercenary = true,
+					gemList = {
+						{
+							nameSpec = activeSpec,
+							gemId = activeGemId,
+							level = tonumber(skillEntry.level) or defaultGemLevel,
+							quality = tonumber(skillEntry.quality) or 0,
+							enabled = true,
+							enableGlobal1 = true,
+							enableGlobal2 = true,
+							count = 1,
+						}
+					},
+				}
+				for _, sup in ipairs(skillEntry.supports or {}) do
+					local supName = type(sup) == "table" and (sup.name or sup.skill or sup.id) or tostring(sup)
+					local supSpec, supGemId = mercenaryWarrant.ResolveGemName(supName, true, skillsTab)
+					t_insert(group.gemList, {
+						nameSpec = supSpec,
+						gemId = supGemId,
+						level = (type(sup) == "table" and tonumber(sup.level)) or defaultGemLevel,
+						quality = (type(sup) == "table" and tonumber(sup.quality)) or 0,
+						mercTier = type(sup) == "table" and tonumber(sup.tier) or nil,
+						enabled = true,
+						enableGlobal1 = true,
+						enableGlobal2 = true,
+						count = 1,
+					})
+				end
+				skillsTab:ProcessSocketGroup(group)
+				t_insert(mercEntry.skills, group)
+			end
+		end
+		if not partyTab and skillsTab.mercenarySocketGroupList then
+			if clearSkills then
+				wipeTable(skillsTab.mercenarySocketGroupList)
+			end
+			for _, group in ipairs(mercEntry.skills) do
+				t_insert(skillsTab.mercenarySocketGroupList, group)
+			end
+		end
+		skillsTab:AddUndoState()
+	end
+
+	if partyTab and partyTab.UpsertMercenary then
+		partyTab:UpsertMercenary(mercEntry)
+	end
+
+	self.build.buildFlag = true
+end
+
 function ImportTabClass:ImportItem(itemData, slotName, ignoreWeaponSwap, itemSetId)
 	if not slotName then
 		if itemData.inventoryId == "PassiveJewels" then
@@ -1820,7 +2043,11 @@ function ImportTabClass:ImportItem(itemData, slotName, ignoreWeaponSwap, itemSet
 		else
 			self.build.itemsTab:AddItem(item, true)
 		end
-		if itemSetId and itemSetId ~= self.build.itemsTab.activeItemSetId then
+		if slotName:match("^Mercenary ") then
+			local targetSet = itemSetId and self.build.itemsTab.itemSets[itemSetId] or self.build.itemsTab.activeItemSet
+			targetSet.mercenaryItems = targetSet.mercenaryItems or {}
+			targetSet.mercenaryItems[slotName:gsub("^Mercenary ", "")] = item.id
+		elseif itemSetId and itemSetId ~= self.build.itemsTab.activeItemSetId then
 			self.build.itemsTab.itemSets[itemSetId][slotName].selItemId = item.id
 		else
 			self.build.itemsTab.slots[slotName]:SetSelItemId(item.id)
