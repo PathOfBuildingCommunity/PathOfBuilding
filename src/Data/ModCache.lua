@@ -15164,7 +15164,7 @@ c["Corrupted Blood cannot be inflicted on you"]={{[1]={flags=0,keywordFlags=0,na
 c["Corrupted Blood cannot be inflicted on you if you have at least 5 Corrupted Blood Debuffs on you"]={nil,"Corrupted Blood cannot be inflicted on you if you have at least 5 Corrupted Blood Debuffs on you "}
 c["Corrupted Soul"]={{[1]={flags=0,keywordFlags=0,name="Keystone",type="LIST",value="Corrupted Soul"},[2]={flags=0,keywordFlags=0,name="Condition:HaveCorruptedSoul",type="FLAG",value=true}},nil}
 c["Cost every third time you Pay it"]={nil,"Cost every third time you Pay it "}
-c["Count as Blocking Attack Damage from the first target Hit with each Shield Attack"]={nil,"Count as Blocking Attack Damage from the first target Hit with each Shield Attack "}
+c["Count as Blocking Attack Damage from the first target Hit with each Shield Attack"]={{[1]={flags=0,keywordFlags=0,name="ShieldAttacksCountAsBlocks",type="FLAG",value=true}},nil}
 c["Count as having maximum number of Endurance Charges"]={{[1]={flags=0,keywordFlags=0,name="HaveMaximumEnduranceCharges",type="FLAG",value=true}},nil}
 c["Count as having maximum number of Endurance Charges Count as having maximum number of Frenzy Charges Count as having maximum number of Power Charges"]={nil,"Count as having maximum number of Endurance Charges Count as having maximum number of Frenzy Charges Count as having maximum number of Power Charges "}
 c["Count as having maximum number of Frenzy Charges"]={{[1]={flags=0,keywordFlags=0,name="HaveMaximumFrenzyCharges",type="FLAG",value=true}},nil}

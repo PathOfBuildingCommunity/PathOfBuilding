@@ -4237,6 +4237,7 @@ local specialModList = {
 	["y?o?u?r? ?chance to block attack damage is lucky"] = { flag("BlockChanceIsLucky"), flag("ProjectileBlockChanceIsLucky") },
 	["y?o?u?r? ?chance to block attack damage is unlucky"] = { flag("BlockChanceIsUnlucky"), flag("ProjectileBlockChanceIsUnlucky") },
 	["y?o?u?r? ?chance to block is unlucky"] = { flag("BlockChanceIsUnlucky"), flag("ProjectileBlockChanceIsUnlucky"), flag("SpellBlockChanceIsUnlucky"), flag("SpellProjectileBlockChanceIsUnlucky") },
+	["count as blocking attack damage from the first target hit with each shield attack"] = { flag("ShieldAttacksCountAsBlocks") },
 	["y?o?u?r? ?chance to block spell damage is lucky"] = { flag("SpellBlockChanceIsLucky"), flag("SpellProjectileBlockChanceIsLucky") },
 	["y?o?u?r? ?chance to block spell damage is unlucky"] = { flag("SpellBlockChanceIsUnlucky"), flag("SpellProjectileBlockChanceIsUnlucky") },
 	["your lucky or unlucky effects use the best or worst from three rolls instead of two"] = { flag("ExtremeLuck")},
