@@ -911,7 +911,7 @@ function cacheSkillUUID(skill, env)
 		end
 	end
 
-	for i, group in ipairs(env.build.skillsTab.socketGroupList) do
+	for i, group in ipairs(env.socketGroupList or env.build.skillsTab.socketGroupList) do
 		if skill.socketGroup == group then
 			groupIdx = i
 			break
