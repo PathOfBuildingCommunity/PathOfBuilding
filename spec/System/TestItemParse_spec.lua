@@ -437,6 +437,52 @@ Implicits: 1
 			assert.matches("+1% to Chaos Resistance per 1% Cold Resistance", text, 1, true)
 			assert.are.equal(2, item.variantGroupSelections[1])
 		end)
+
+		it("gives String of Servitude two different implicits and keeps one on the legacy version", function()
+			local function activeImplicits(item)
+				local lines = { }
+				for _, modLine in ipairs(item.implicitModLines) do
+					if item:CheckModLineVariant(modLine) then
+						table.insert(lines, modLine.line)
+					end
+				end
+				return lines, table.concat(lines, "\n")
+			end
+
+			local item = unique("String of Servitude")
+			assert.are.equal(2, item.selectedVersion)
+			assert.are.equal(22, #item:GetVariantGroupOptions(1, false))
+			assert.are.equal(22, #item:GetVariantGroupOptions(2, false))
+			assert.are.equal(2, #activeImplicits(item))
+
+			item.variantGroupSelections = { 8, 7 }
+			item:BuildAndParseRaw()
+			local lines, text = activeImplicits(item)
+			assert.are.equal(2, #lines)
+			assert.matches("increased maximum Life", text, 1, true)
+			assert.matches("increased maximum Energy Shield", text, 1, true)
+			assert.is_true(item.baseModList:Sum("INC", nil, "Life") > 0)
+			assert.is_true(item.baseModList:Sum("INC", nil, "EnergyShield") > 0)
+
+			item.variantGroupSelections = { 8, 8 }
+			item:NormaliseVariantSelections()
+			assert.are_not.equal(item.variantGroupSelections[1], item.variantGroupSelections[2])
+
+			item.variantGroupSelections = { 19, 22 }
+			item:BuildAndParseRaw()
+			lines, text = activeImplicits(item)
+			assert.are.equal(3, #lines)
+			assert.matches("increased Dexterity", text, 1, true)
+			assert.matches("increased Intelligence", text, 1, true)
+			assert.matches("to all Elemental Resistances", text, 1, true)
+
+			item.selectedVersion = 1
+			item:BuildAndParseRaw()
+			assert.are.same({ }, item:GetVariantGroupOptions(2, false))
+			lines, text = activeImplicits(item)
+			assert.are.equal(2, #lines)
+			assert.is_nil(text:find("Elemental Resistances", 1, true))
+		end)
 	end)
 
 	it("Talisman Tier", function()

@@ -903,6 +903,8 @@ String of Servitude
 Heavy Belt
 League: Incursion
 Source: Drops from unique{The Vaal Omnitect}
+Version: Pre 3.30.0
+Version: Current
 Variant: Area of Effect
 Variant: Crit Multi during Flask Effect
 Variant: Attack Speed during Flask Effect
@@ -925,33 +927,60 @@ Variant: Intelligence/Dexterity
 Variant: Dexterity/Strength
 Variant: Strength/Intelligence
 Variant: Elemental Resistances
+Selected Variant Group: 1=1
+Selected Variant Group: 2=2
 Requires Level 68
-Implicits: 25
-{variant:19}{tags:attribute}(12-18)% increased Dexterity
-{variant:20}{tags:attribute}(12-18)% increased Dexterity
-{variant:7}{tags:defences}(24-30)% increased maximum Energy Shield
-{variant:8}{tags:resource}(18-24)% increased maximum Life
-{variant:11}(9-15)% increased Quantity of Items found
-{variant:10}+(60-90)% to Item Rarity
-{variant:22}{tags:resistance}+(42-48)% to all Elemental Resistances
-{variant:1}(24-30)% increased Area of Effect
-{variant:6}(36-45)% increased Skill Effect Duration
-{variant:2}{tags:critical}+(60-75)% to Critical Strike Multiplier during any Flask Effect
-{variant:3}{tags:speed}(24-36)% increased Attack Speed during any Flask Effect
-{variant:4}{tags:speed}(24-36)% increased Cast Speed during any Flask Effect
-{variant:5}{tags:critical}(105-120)% increased Critical Strike Chance during any Flask Effect
-{variant:9}{tags:speed}(24-36)% increased Movement Speed during any Flask Effect
-{variant:12}Wrath has (45-60)% increased Aura Effect
-{variant:13}Anger has (45-60)% increased Aura Effect
-{variant:14}Hatred has (45-60)% increased Aura Effect
-{variant:15}Determination has (45-60)% increased Aura Effect
-{variant:16}Discipline has (45-60)% increased Aura Effect
-{variant:17}Grace has (45-60)% increased Aura Effect
-{variant:18}Malevolence has (45-60)% increased Aura Effect
-{variant:19}(12-18)% increased Intelligence
-{variant:20}(12-18)% increased Strength
-{variant:21}(12-18)% increased Strength
-{variant:21}(12-18)% increased Intelligence
+Implicits: 50
+{version:1}{variant:19}{group:1}{tags:attribute}(12-18)% increased Dexterity
+{version:2}{variant:19}{group:1,2}{tags:attribute}(12-18)% increased Dexterity
+{version:1}{variant:20}{group:1}{tags:attribute}(12-18)% increased Dexterity
+{version:2}{variant:20}{group:1,2}{tags:attribute}(12-18)% increased Dexterity
+{version:1}{variant:7}{group:1}{tags:defences}(24-30)% increased maximum Energy Shield
+{version:2}{variant:7}{group:1,2}{tags:defences}(24-30)% increased maximum Energy Shield
+{version:1}{variant:8}{group:1}{tags:resource}(18-24)% increased maximum Life
+{version:2}{variant:8}{group:1,2}{tags:resource}(18-24)% increased maximum Life
+{version:1}{variant:11}{group:1}(9-15)% increased Quantity of Items found
+{version:2}{variant:11}{group:1,2}(9-15)% increased Quantity of Items found
+{version:1}{variant:10}{group:1}+(60-90)% to Item Rarity
+{version:2}{variant:10}{group:1,2}+(60-90)% to Item Rarity
+{version:1}{variant:22}{group:1}{tags:resistance}+(42-48)% to all Elemental Resistances
+{version:2}{variant:22}{group:1,2}{tags:resistance}+(42-48)% to all Elemental Resistances
+{version:1}{variant:1}{group:1}(24-30)% increased Area of Effect
+{version:2}{variant:1}{group:1,2}(24-30)% increased Area of Effect
+{version:1}{variant:6}{group:1}(36-45)% increased Skill Effect Duration
+{version:2}{variant:6}{group:1,2}(36-45)% increased Skill Effect Duration
+{version:1}{variant:2}{group:1}{tags:critical}+(60-75)% to Critical Strike Multiplier during any Flask Effect
+{version:2}{variant:2}{group:1,2}{tags:critical}+(60-75)% to Critical Strike Multiplier during any Flask Effect
+{version:1}{variant:3}{group:1}{tags:speed}(24-36)% increased Attack Speed during any Flask Effect
+{version:2}{variant:3}{group:1,2}{tags:speed}(24-36)% increased Attack Speed during any Flask Effect
+{version:1}{variant:4}{group:1}{tags:speed}(24-36)% increased Cast Speed during any Flask Effect
+{version:2}{variant:4}{group:1,2}{tags:speed}(24-36)% increased Cast Speed during any Flask Effect
+{version:1}{variant:5}{group:1}{tags:critical}(105-120)% increased Critical Strike Chance during any Flask Effect
+{version:2}{variant:5}{group:1,2}{tags:critical}(105-120)% increased Critical Strike Chance during any Flask Effect
+{version:1}{variant:9}{group:1}{tags:speed}(24-36)% increased Movement Speed during any Flask Effect
+{version:2}{variant:9}{group:1,2}{tags:speed}(24-36)% increased Movement Speed during any Flask Effect
+{version:1}{variant:12}{group:1}Wrath has (45-60)% increased Aura Effect
+{version:2}{variant:12}{group:1,2}Wrath has (45-60)% increased Aura Effect
+{version:1}{variant:13}{group:1}Anger has (45-60)% increased Aura Effect
+{version:2}{variant:13}{group:1,2}Anger has (45-60)% increased Aura Effect
+{version:1}{variant:14}{group:1}Hatred has (45-60)% increased Aura Effect
+{version:2}{variant:14}{group:1,2}Hatred has (45-60)% increased Aura Effect
+{version:1}{variant:15}{group:1}Determination has (45-60)% increased Aura Effect
+{version:2}{variant:15}{group:1,2}Determination has (45-60)% increased Aura Effect
+{version:1}{variant:16}{group:1}Discipline has (45-60)% increased Aura Effect
+{version:2}{variant:16}{group:1,2}Discipline has (45-60)% increased Aura Effect
+{version:1}{variant:17}{group:1}Grace has (45-60)% increased Aura Effect
+{version:2}{variant:17}{group:1,2}Grace has (45-60)% increased Aura Effect
+{version:1}{variant:18}{group:1}Malevolence has (45-60)% increased Aura Effect
+{version:2}{variant:18}{group:1,2}Malevolence has (45-60)% increased Aura Effect
+{version:1}{variant:19}{group:1}(12-18)% increased Intelligence
+{version:2}{variant:19}{group:1,2}(12-18)% increased Intelligence
+{version:1}{variant:20}{group:1}(12-18)% increased Strength
+{version:2}{variant:20}{group:1,2}(12-18)% increased Strength
+{version:1}{variant:21}{group:1}(12-18)% increased Strength
+{version:2}{variant:21}{group:1,2}(12-18)% increased Strength
+{version:1}{variant:21}{group:1}(12-18)% increased Intelligence
+{version:2}{variant:21}{group:1,2}(12-18)% increased Intelligence
 Implicit Modifier magnitudes are tripled
 Corrupted
 ]],[[

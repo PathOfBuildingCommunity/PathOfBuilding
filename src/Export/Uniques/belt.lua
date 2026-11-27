@@ -843,6 +843,8 @@ String of Servitude
 Heavy Belt
 League: Incursion
 Source: Drops from unique{The Vaal Omnitect}
+Version: Pre 3.30.0
+Version: Current
 Variant: Area of Effect
 Variant: Crit Multi during Flask Effect
 Variant: Attack Speed during Flask Effect
@@ -865,32 +867,59 @@ Variant: Intelligence/Dexterity
 Variant: Dexterity/Strength
 Variant: Strength/Intelligence
 Variant: Elemental Resistances
-Implicits: 25
-{variant:1}AreaOfEffectUnique_9[24,30]
-{variant:2}{tags:critical}+(60-75)% to Critical Strike Multiplier during any Flask Effect
-{variant:3}{tags:speed}(24-36)% increased Attack Speed during any Flask Effect
-{variant:4}{tags:speed}(24-36)% increased Cast Speed during any Flask Effect
-{variant:5}{tags:critical}(105-120)% increased Critical Strike Chance during any Flask Effect
-{variant:6}SkillEffectDurationUnique__1[36,45]
-{variant:7}GlobalEnergyShieldPercentUnique__1[24,30]
-{variant:8}MaximumLifeUnique__10_[18,24]
-{variant:9}{tags:speed}(24-36)% increased Movement Speed during any Flask Effect
-{variant:10}ItemFoundRarityIncreaseImplicitDemigodsBelt1[60,90]
-{variant:11}ItemFoundQuantityIncreaseUniqueBelt3[9,15]
-{variant:12}Wrath has (45-60)% increased Aura Effect
-{variant:13}Anger has (45-60)% increased Aura Effect
-{variant:14}Hatred has (45-60)% increased Aura Effect
-{variant:15}Determination has (45-60)% increased Aura Effect
-{variant:16}Discipline has (45-60)% increased Aura Effect
-{variant:17}Grace has (45-60)% increased Aura Effect
-{variant:18}Malevolence has (45-60)% increased Aura Effect
-{variant:19}MutatedUniqueGlovesStrInt4PercentageIntelligence[12,18]
-{variant:19}PercentageDexterityUnique__2[12,18]
-{variant:20}PercentageDexterityUnique__2[12,18]
-{variant:20}MutatedUniqueBelt4PercentageStrength[12,18]
-{variant:21}MutatedUniqueBelt4PercentageStrength[12,18]
-{variant:21}MutatedUniqueGlovesStrInt4PercentageIntelligence[12,18]
-{variant:22}AllResistancesUniqueBelt10[42,48]
+Selected Variant Group: 1=1
+Selected Variant Group: 2=2
+Implicits: 50
+{version:1}{variant:1}{group:1}AreaOfEffectUnique_9[24,30]
+{version:2}{variant:1}{group:1,2}AreaOfEffectUnique_9[24,30]
+{version:1}{variant:2}{group:1}{tags:critical}+(60-75)% to Critical Strike Multiplier during any Flask Effect
+{version:2}{variant:2}{group:1,2}{tags:critical}+(60-75)% to Critical Strike Multiplier during any Flask Effect
+{version:1}{variant:3}{group:1}{tags:speed}(24-36)% increased Attack Speed during any Flask Effect
+{version:2}{variant:3}{group:1,2}{tags:speed}(24-36)% increased Attack Speed during any Flask Effect
+{version:1}{variant:4}{group:1}{tags:speed}(24-36)% increased Cast Speed during any Flask Effect
+{version:2}{variant:4}{group:1,2}{tags:speed}(24-36)% increased Cast Speed during any Flask Effect
+{version:1}{variant:5}{group:1}{tags:critical}(105-120)% increased Critical Strike Chance during any Flask Effect
+{version:2}{variant:5}{group:1,2}{tags:critical}(105-120)% increased Critical Strike Chance during any Flask Effect
+{version:1}{variant:6}{group:1}SkillEffectDurationUnique__1[36,45]
+{version:2}{variant:6}{group:1,2}SkillEffectDurationUnique__1[36,45]
+{version:1}{variant:7}{group:1}GlobalEnergyShieldPercentUnique__1[24,30]
+{version:2}{variant:7}{group:1,2}GlobalEnergyShieldPercentUnique__1[24,30]
+{version:1}{variant:8}{group:1}MaximumLifeUnique__10_[18,24]
+{version:2}{variant:8}{group:1,2}MaximumLifeUnique__10_[18,24]
+{version:1}{variant:9}{group:1}{tags:speed}(24-36)% increased Movement Speed during any Flask Effect
+{version:2}{variant:9}{group:1,2}{tags:speed}(24-36)% increased Movement Speed during any Flask Effect
+{version:1}{variant:10}{group:1}ItemFoundRarityIncreaseImplicitDemigodsBelt1[60,90]
+{version:2}{variant:10}{group:1,2}ItemFoundRarityIncreaseImplicitDemigodsBelt1[60,90]
+{version:1}{variant:11}{group:1}ItemFoundQuantityIncreaseUniqueBelt3[9,15]
+{version:2}{variant:11}{group:1,2}ItemFoundQuantityIncreaseUniqueBelt3[9,15]
+{version:1}{variant:12}{group:1}Wrath has (45-60)% increased Aura Effect
+{version:2}{variant:12}{group:1,2}Wrath has (45-60)% increased Aura Effect
+{version:1}{variant:13}{group:1}Anger has (45-60)% increased Aura Effect
+{version:2}{variant:13}{group:1,2}Anger has (45-60)% increased Aura Effect
+{version:1}{variant:14}{group:1}Hatred has (45-60)% increased Aura Effect
+{version:2}{variant:14}{group:1,2}Hatred has (45-60)% increased Aura Effect
+{version:1}{variant:15}{group:1}Determination has (45-60)% increased Aura Effect
+{version:2}{variant:15}{group:1,2}Determination has (45-60)% increased Aura Effect
+{version:1}{variant:16}{group:1}Discipline has (45-60)% increased Aura Effect
+{version:2}{variant:16}{group:1,2}Discipline has (45-60)% increased Aura Effect
+{version:1}{variant:17}{group:1}Grace has (45-60)% increased Aura Effect
+{version:2}{variant:17}{group:1,2}Grace has (45-60)% increased Aura Effect
+{version:1}{variant:18}{group:1}Malevolence has (45-60)% increased Aura Effect
+{version:2}{variant:18}{group:1,2}Malevolence has (45-60)% increased Aura Effect
+{version:1}{variant:19}{group:1}MutatedUniqueGlovesStrInt4PercentageIntelligence[12,18]
+{version:2}{variant:19}{group:1,2}MutatedUniqueGlovesStrInt4PercentageIntelligence[12,18]
+{version:1}{variant:19}{group:1}PercentageDexterityUnique__2[12,18]
+{version:2}{variant:19}{group:1,2}PercentageDexterityUnique__2[12,18]
+{version:1}{variant:20}{group:1}PercentageDexterityUnique__2[12,18]
+{version:2}{variant:20}{group:1,2}PercentageDexterityUnique__2[12,18]
+{version:1}{variant:20}{group:1}MutatedUniqueBelt4PercentageStrength[12,18]
+{version:2}{variant:20}{group:1,2}MutatedUniqueBelt4PercentageStrength[12,18]
+{version:1}{variant:21}{group:1}MutatedUniqueBelt4PercentageStrength[12,18]
+{version:2}{variant:21}{group:1,2}MutatedUniqueBelt4PercentageStrength[12,18]
+{version:1}{variant:21}{group:1}MutatedUniqueGlovesStrInt4PercentageIntelligence[12,18]
+{version:2}{variant:21}{group:1,2}MutatedUniqueGlovesStrInt4PercentageIntelligence[12,18]
+{version:1}{variant:22}{group:1}AllResistancesUniqueBelt10[42,48]
+{version:2}{variant:22}{group:1,2}AllResistancesUniqueBelt10[42,48]
 LocalTripleImplicitModsUnique__1__
 Corrupted
 ]],[[
