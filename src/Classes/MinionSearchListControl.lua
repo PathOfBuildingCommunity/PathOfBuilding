@@ -122,15 +122,24 @@ function MinionSearchListClass:DoesEntryMatchFilters(searchStr, minionId, filter
 	return false
 end
 
-function MinionSearchListClass:ListFilterChanged(buf, filterMode)
+-- Returns the entries of the given list that match the search, or nil if the search is blank
+function MinionSearchListClass:FilterList(list, buf, filterMode)
 	local searchStr = buf:lower():gsub("[%-%.%+%[%]%$%^%%%?%*]", "%%%0")
-	if searchStr:match("%S") then
-		local filteredList = { }
-		for _, minionId in pairs(self.unfilteredList) do
-			if self:DoesEntryMatchFilters(searchStr, minionId, filterMode) then
-				t_insert(filteredList, minionId)
-			end
+	if not searchStr:match("%S") then
+		return
+	end
+	local filteredList = { }
+	for _, minionId in pairs(list) do
+		if self:DoesEntryMatchFilters(searchStr, minionId, filterMode) then
+			t_insert(filteredList, minionId)
 		end
+	end
+	return filteredList
+end
+
+function MinionSearchListClass:ListFilterChanged(buf, filterMode)
+	local filteredList = self:FilterList(self.unfilteredList, buf, filterMode)
+	if filteredList then
 		self.list = filteredList
 		self:SelectIndex(1)
 	else

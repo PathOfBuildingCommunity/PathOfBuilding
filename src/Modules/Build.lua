@@ -1735,7 +1735,7 @@ function buildMode:OpenSpectreLibrary()
 		Corpse = true,
 	}
 
-	local function buildSourceList(sourceList)
+	local function buildSourceList(sourceList, showAll)
 		wipeTable(sourceList)
 			local monsterCategories = {
 				{ key = "Beast", list = beastList },
@@ -1753,7 +1753,7 @@ function buildMode:OpenSpectreLibrary()
 				end
 			end
 		-- Apply 'recommended' filter if checkbox is off
-		if not monsterTypeSort.recommendedList then
+		if not monsterTypeSort.recommendedList and not showAll then
 			local allowed = {}
 			for _, id in ipairs(recommendedSpectreList) do
 				allowed[id] = true
@@ -1842,9 +1842,11 @@ function buildMode:OpenSpectreLibrary()
 	controls.source.OnSelect = function()
 			UpdateMinionDisplay(controls.source.selValue)
 	end
+	local filterRevision = 0
 	local function monsterTypeCheckboxChange(name)
 		return function(state)
 			monsterTypeSort[name] = state
+			filterRevision = filterRevision + 1
 			buildSourceList(sourceList)
 			controls.source.unfilteredList = copyTable(sourceList)
 			controls.source:ListFilterChanged(controls.source.controls.searchText.buf, controls.source.controls.searchModeDropDown.selIndex)
@@ -1871,6 +1873,34 @@ function buildMode:OpenSpectreLibrary()
 	controls.sortMonsterCheckboxFilterCorpse = new("CheckBoxControl"):CheckBoxControl({"TOPLEFT", controls.source, "BOTTOMLEFT"}, {89, 2, 26, 26}, "", monsterTypeCheckboxChange("corpseList"), "Hide Spectres found in Acts or Maps and only show\nItemised Corpses obtainable through trade or Rituals.", false)
 	controls.showOnlyCorpseLabel =new("LabelControl"):LabelControl({"RIGHT",controls.sortMonsterCheckboxFilterCorpse,"LEFT"}, {-5, 0, 0, 16}, "Corpse Only:")
 	controls.showAllLabel =new("LabelControl"):LabelControl({"RIGHT",controls.sortMonsterCheckboxShowAll,"LEFT"}, {-5, 0, 0, 16}, "Show All:")
+	-- Whether the search would find Spectres that only the recommended filter is hiding
+	local hiddenMatches = { }
+	local function canExpandSearch()
+		local source = controls.source
+		if controls.sortMonsterCheckboxShowAll.state or #source.list > 0 then
+			return false
+		end
+		local buf = source.controls.searchText.buf
+		local filterMode = source.controls.searchModeDropDown.selIndex
+		if hiddenMatches.buf ~= buf or hiddenMatches.filterMode ~= filterMode or hiddenMatches.revision ~= filterRevision then
+			local showAllList = { }
+			buildSourceList(showAllList, true)
+			local matches = source:FilterList(showAllList, buf, filterMode)
+			hiddenMatches = { buf = buf, filterMode = filterMode, revision = filterRevision, found = matches ~= nil and #matches > 0 }
+		end
+		return hiddenMatches.found
+	end
+	local noRecommendedMatches = new("LabelControl"):LabelControl({"TOP", controls.source, "TOP"}, {-8, 16, 0, 14},
+		"No recommended matches")
+	noRecommendedMatches.shown = canExpandSearch
+	controls.source.controls.noRecommendedMatches = noRecommendedMatches
+	local showAllForSearch = new("ButtonControl"):ButtonControl({"TOP", noRecommendedMatches, "BOTTOM"}, {0, 6, 112, 20},
+		"Enable Show All", function()
+			local showAll = controls.sortMonsterCheckboxShowAll
+			showAll.state = true
+			showAll.changeFunc(true)
+		end)
+	controls.source.controls.showAllForSearch = showAllForSearch
 	controls.save = new("ButtonControl"):ButtonControl(nil, {-45, 420, 80, 20}, "Save", function()
 		self.spectreList = destList
 		self.modFlag = true
