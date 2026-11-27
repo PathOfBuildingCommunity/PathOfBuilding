@@ -317,6 +317,30 @@ describe("TestRadiusJewelStatDiff", function()
 
 	teardown(function() end)
 
+	it("scales Split Personality using the allocation preview", function()
+		local spec, socket = setupAllocatedSocket()
+		local item = new("Item"):Item([[Rarity: UNIQUE
+Split Personality
+Crimson Jewel
+Implicits: 0
+This Jewel's Socket has 25% increased effect per Allocated Passive Skill between
+it and your Class' starting location
++5 to Strength
++5 to maximum Life]])
+		equipJewelInSocket(item, socket)
+		spec:DeallocNode(socket)
+		rebuildBuild()
+		local calculate, baseline = build.calcsTab:GetMiscCalculator()
+		local preview = calculate({ addNodes = { [socket] = true } })
+		assert.is_false(socket.alloc)
+
+		spec:AllocNode(socket)
+		rebuildBuild()
+		local equipped = build.calcsTab.mainOutput.Str
+		assert.is_true(equipped - baseline.Str > 5)
+		assert.are.equal(equipped, preview.Str)
+	end)
+
 	it("Lethal Pride item parses conqueredBy correctly", function()
 		local item = newLethalPride()
 		build.itemsTab:AddItem(item, true)
