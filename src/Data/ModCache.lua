@@ -22699,7 +22699,7 @@ c["With at least 40 Strength in Radius, Molten Strike Projectiles Chain on impac
 c["With at least one corpse within 6 metres, Enemies within 6 metres deal 10% reduced Damage"]={{[1]={[1]={threshold=1,type="MultiplierThreshold",var="NearbyCorpse"},flags=0,keywordFlags=0,name="EnemyModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="Damage",type="INC",value=-10}}}},nil}
 c["With at least one corpse within 6 metres, you and Allies within 6 metres deal 10% more Damage"]={{[1]={[1]={threshold=1,type="MultiplierThreshold",var="NearbyCorpse"},flags=0,keywordFlags=0,name="ExtraAura",type="LIST",value={mod={flags=0,keywordFlags=0,name="Damage",type="MORE",value=10}}}},nil}
 c["Wither on Hit with this weapon against Enemies with at least 12 Poisons on them"]={{[1]={flags=0,keywordFlags=0,name="Condition:CanWither",type="FLAG",value=true}},nil}
-c["Withered does not expire on Enemies Ignited by you"]={nil,"Withered does not expire on Enemies Ignited by you "}
+c["Withered does not expire on Enemies Ignited by you"]={{[1]={flags=0,keywordFlags=0,name="WitheredDoesNotExpireOnIgnited",type="FLAG",value=true}},nil}
 c["Withered does not expire on Enemies Ignited by you +25% to Fire and Chaos Resistances"]={nil,"Withered does not expire on Enemies Ignited by you +25% to Fire and Chaos Resistances "}
 c["Withered you Inflict expires 10% slower"]={nil,"Withered you Inflict expires 10% slower "}
 c["Withered you Inflict expires 11% slower"]={nil,"Withered you Inflict expires 11% slower "}

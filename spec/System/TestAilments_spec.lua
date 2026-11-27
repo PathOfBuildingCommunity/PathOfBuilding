@@ -116,4 +116,28 @@ describe("TestAilments", function()
 
 		assert.are.equals(19, build.calcsTab.mainOutput.CurrentShock)
 	end)
+
+	it("Withered does not expire on Ignited enemies", function()
+		local function witheredStacks()
+			return build.calcsTab.mainEnv.enemyDB:GetMultiplier("WitheredStack")
+		end
+		build.skillsTab:PasteSocketGroup("Slot: Weapon 1\nFireball 20/0  1\n")
+		build.configTab.input.customMods = "Chaos Skills inflict up to 15 Withered Debuffs on Hit for 2 seconds"
+		build.configTab.input.multiplierWitheredStackCount = 5
+		rebuild()
+
+		assert.are.equals(5, witheredStacks())
+
+		build.configTab.input.customMods = "Chaos Skills inflict up to 15 Withered Debuffs on Hit for 2 seconds\nWithered does not expire on Enemies Ignited by you"
+		rebuild()
+
+		-- enemy is not Ignited, so the configured stacks are still used
+		assert.are.equals(5, witheredStacks())
+
+		build.configTab.input.conditionEnemyIgnited = true
+		rebuild()
+
+		assert.are.equals(15, witheredStacks())
+		assert.are.equals(6 * 15, build.calcsTab.mainEnv.enemyDB:Sum("INC", nil, "ChaosDamageTaken"))
+	end)
 end)
