@@ -51,6 +51,34 @@ describe("TestOffence", function()
 		end)
 	end
 
+	it("counts additional mine detonations without changing the throwing rate", function()
+		for _, case in ipairs({
+			{ group = "Fireball 20/0  1\nBlastchain Mine 20/0  1", mod = "Mines can be Detonated an additional time", mult = 2 },
+			{ group = "Fireball 20/0  1\nBlastchain Mine 20/0  1", mod = "Mines have a 15% chance to be Detonated an Additional Time", mult = 1.15 },
+			-- A cooldown only limits throwing, so the extra detonation still counts
+			{ group = "Frost Bomb 20/0  1\nBlastchain Mine 20/0  1", mod = "Mines can be Detonated an additional time", mult = 2 },
+			{ group = "Fireball 20/0  1", mod = "Mines can be Detonated an additional time", mult = 1 },
+		}) do
+			newBuild()
+			build.skillsTab:PasteSocketGroup(case.group)
+			runCallback("OnFrame")
+			local base = build.calcsTab.mainOutput
+			local baseSpeed, baseDPS = base.Speed, base.TotalDPS
+
+			build.configTab.input.customMods = case.mod
+			build.configTab:BuildModList()
+			runCallback("OnFrame")
+			local output = build.calcsTab.mainOutput
+			assert.near(baseSpeed, output.Speed, 0.000001)
+			assertNearRelative(baseDPS * case.mult, output.TotalDPS, 0.000001, case.group .. " with " .. case.mod)
+			if case.mult == 1 then
+				assert.is_nil(output.MineDetonations)
+			else
+				assert.near(case.mult, output.MineDetonations, 0.000001)
+			end
+		end
+	end)
+
 	it("preserves Lightning Spire Trap's independent hit rate", function()
 		build.skillsTab:PasteSocketGroup("Lightning Spire Trap 20/0  1")
 		runCallback("OnFrame")

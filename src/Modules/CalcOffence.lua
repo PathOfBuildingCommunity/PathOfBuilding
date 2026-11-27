@@ -1376,6 +1376,13 @@ function calcs.offence(env, actor, activeSkill)
 		else
 			skillData.timeOverride = output.MineLayingTime / output.MineThrowCount
 		end
+
+		-- Each detonation of a mine uses the skill again, a cooldown only limits throwing
+		local mineDetonations = 1 + skillModList:Sum("BASE", skillCfg, "MineAdditionalDetonations")
+		if mineDetonations ~= 1 then
+			output.MineDetonations = mineDetonations
+			skillData.dpsMultiplier = (skillData.dpsMultiplier or 1) * mineDetonations
+		end
 		
 		if breakdown then
 			breakdown.MineLayingTime = { }

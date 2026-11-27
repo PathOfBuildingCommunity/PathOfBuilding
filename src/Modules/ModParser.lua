@@ -4497,6 +4497,9 @@ local specialModList = {
 		mod("MineThrowCount", "BASE", tonumber(num) * tonumber(chance) / 100.0),
 	} end,
 	["skills which throw traps throw up to (%d+) additional traps?"] = function(num) return { mod("TrapThrowCount", "BASE", tonumber(num)) } end,
+	-- Additional mine detonation
+	["mines can be detonated an additional time"] = { mod("MineAdditionalDetonations", "BASE", 1) },
+	["mines have a (%d+)%% chance to be detonated an additional time"] = function(num) return { mod("MineAdditionalDetonations", "BASE", num / 100) } end,
 	-- Totems
 	["can have up to (%d+) additional totems? summoned at a time"] = function(num) return { mod("ActiveTotemLimit", "BASE", num) } end,
 	["attack skills can have (%d+) additional totems? summoned at a time"] = function(num) return { mod("ActiveTotemLimit", "BASE", num, nil, 0, KeywordFlag.Attack) } end,
