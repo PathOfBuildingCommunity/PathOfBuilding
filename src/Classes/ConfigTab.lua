@@ -1047,10 +1047,12 @@ function ConfigTabClass:Save(xml)
 		t_insert(xml, child)
 
 		for k, v in pairsSortByKey(configSet.input) do
-			-- An entered zero is kept (for example no Cruelty bonus, or a distance of
-			-- zero) unless zero is the option's own default, which reloads by itself.
+			-- An entered zero is a value of its own where the option applies zero (for example
+			-- no Cruelty bonus), and it is part of what a generated set was made with. It is
+			-- saved unless zero is the option's own default, which reloads by itself.
 			local varData = varByName[k]
 			local explicitZero = v == 0 and varData ~= nil and varData.defaultState ~= 0
+				and (varData.type == "countAllowZero" or configSet.autoActivity ~= nil)
 			if explicitZero or v ~= self:GetDefaultState(k, type(v), configSetId) then
 				local node = { elem = "Input", attrib = { name = k } }
 				if type(v) == "number" then
@@ -1235,9 +1237,9 @@ function ConfigTabClass:BuildModList()
 					varData.apply(true, modList, enemyModList, self.build)
 				end
 			elseif varData.type == "count" or varData.type == "integer" or varData.type == "countAllowZero" or varData.type == "float" then
-				if input[varData.var] and (input[varData.var] ~= 0 or varData.type == "countAllowZero" or varData.allowZero) then
+				if input[varData.var] and (input[varData.var] ~= 0 or varData.type == "countAllowZero") then
 					varData.apply(input[varData.var], modList, enemyModList, self.build)
-				elseif placeholder[varData.var] and (placeholder[varData.var] ~= 0 or varData.type == "countAllowZero" or varData.allowZero) then
+				elseif placeholder[varData.var] and (placeholder[varData.var] ~= 0 or varData.type == "countAllowZero") then
 					varData.apply(placeholder[varData.var], modList, enemyModList, self.build)
 				end
 			elseif varData.type == "list" then

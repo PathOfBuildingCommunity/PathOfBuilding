@@ -476,6 +476,29 @@ describe("TestConfigAuto", function()
 			assert.is_true(auto.SettingChecksState(config, ui.Active(config)))
 		end)
 
+		it("saves an entered zero only where zero is a value of its own", function()
+			local function savedInput(xml, var)
+				return xml:find('<Input[^>]-name="' .. var .. '"') ~= nil
+			end
+			local config = build.configTab
+			-- Zero Cruelty is applied; zero Ensnare stacks is the same as leaving the field empty
+			config.input.overrideCruelty = 0
+			config.input.multiplierEnsnaredStackCount = 0
+			recalc()
+			local xml = build:SaveDB("code")
+			assert.is_true(savedInput(xml, "overrideCruelty"))
+			assert.is_false(savedInput(xml, "multiplierEnsnaredStackCount"))
+			-- A generated set keeps every value it was made with, so a reload compares equal to a fresh setup
+			config = setup(1)
+			config.input.multiplierEnsnaredStackCount = 0
+			config:AddUndoState()
+			xml = build:SaveDB("code")
+			local generated = xml:match('<ConfigSet[^>]-autoActivity="boss".-</ConfigSet>')
+			assert.is_true(savedInput(generated, "multiplierEnsnaredStackCount"))
+			loadBuildFromXML(xml, "Generated zero")
+			assert.are.equal(0, build.configTab.input.multiplierEnsnaredStackCount)
+		end)
+
 		it("applies from the setup button and Undo/Redo switches back to the untouched manual set", function()
 			local config = build.configTab
 			local manual = config.activeConfigSetId

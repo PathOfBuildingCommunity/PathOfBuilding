@@ -519,7 +519,7 @@ local labels = {
 function Guided.Question(var) return questions[var] end
 function Guided.Bounds(entry, build)
 	local option, scale, minimum, maximum = byName[entry.var], 1, 1, nil
-	if option.type == "countAllowZero" or option.allowZero then minimum = 0 end
+	if option.type == "countAllowZero" then minimum = 0 end
 	if entry.var == "overrideCruelty" then minimum, maximum = 0, 40 end
 	if entry.var == "meleeDistance" or entry.var == "projectileDistance" then scale, minimum = 10, 0 end
 	local env = build.calcsTab.mainEnv

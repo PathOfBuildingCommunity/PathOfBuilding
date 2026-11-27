@@ -907,7 +907,7 @@ function M.OpenPopup(configTab)
 		local option = optionsByName[value.var]
 		if column == 2 then
 			local current = configTab.input[value.var]
-			if current == nil or current == 0 and option.type == "count" and not option.allowZero then
+			if current == nil or current == 0 and option.type == "count" then
 				current = configTab.placeholder[value.var]
 				if current == nil then current = configTab.defaultState[value.var] end
 			end
