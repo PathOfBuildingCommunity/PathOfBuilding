@@ -39,6 +39,7 @@ return {
 		"Great Old One's Ward",
 	},
 	["DivergentAdditionalAttackTotemsUnique__1"] = {
+		"Skirmish",
 	},
 	["DivergentAdditionalBaseCritUnique__1"] = {
 		"Veil of Flesh",
@@ -130,6 +131,7 @@ return {
 		"Tukohama's Fortress",
 	},
 	["DivergentArrowDamageAgainstPiercedTargetsUnique__1"] = {
+		"Drillneck",
 	},
 	["DivergentAttackCorrosionOnHitChanceUnique__1"] = {
 		"Ceaseless Feast",
@@ -138,6 +140,7 @@ return {
 		"Mind of the Council",
 	},
 	["DivergentAttackSpeedChangedStanceUnique__1"] = {
+		"Scorpion's Call",
 	},
 	["DivergentAttackSpeedIfUsedAttackMovementSkillRecentlyUnique__1"] = {
 		"Hide of the Vendigo",
@@ -209,6 +212,7 @@ return {
 		"Chalice of Horrors",
 	},
 	["DivergentBlockPercentUniqueQuiver4"] = {
+		"Rearguard",
 	},
 	["DivergentBlockVsProjectilesUniqueShieldStr2"] = {
 		"Titucius' Span",
@@ -307,6 +311,7 @@ return {
 		"Rime Gaze",
 	},
 	["DivergentColdDamageToAttacksPerDexterityUnique__1"] = {
+		"The Poised Prism",
 	},
 	["DivergentColdExposureOnHitUnique__1"] = {
 		"Eye of Malice",
@@ -330,6 +335,7 @@ return {
 		"Hrimsorrow",
 	},
 	["DivergentConvertPhysicalToFireUniqueQuiver1_"] = {
+		"Blackgleam",
 	},
 	["DivergentConvertPhysicalToFireUniqueShieldStr3"] = {
 		"Chernobog's Pillar",
@@ -368,6 +374,7 @@ return {
 		"Waxen Soul",
 	},
 	["DivergentCurseTransferOnKillUniqueQuiver5"] = {
+		"Asphyxia's Wrath",
 	},
 	["DivergentDamageOverTimeMultiplierIfCrit8SecondsUnique__1_"] = {
 		"Qotra's Regulator",
@@ -451,6 +458,7 @@ return {
 		"Sin Trek",
 	},
 	["DivergentEnemiesChilledIncreasedDamageTakenUnique__1"] = {
+		"Ahuana's Bite",
 	},
 	["DivergentEnemiesCountAsMovingElementalAilmentsUnique__1"] = {
 		"The Tempest Rising",
@@ -519,6 +527,7 @@ return {
 		"The Rat Cage",
 	},
 	["DivergentFireDamageToAttacksPerStrengthUnique__1"] = {
+		"The Poised Prism",
 	},
 	["DivergentFireExposureOnHitUnique__1"] = {
 		"Eye of Malice",
@@ -638,6 +647,7 @@ return {
 		"Hand of the Lords",
 	},
 	["DivergentHarbingerSkillOnEquipUnique2_4"] = {
+		"The Shattered Divinity",
 	},
 	["DivergentHarbingerSkillOnEquipUnique2_5"] = {
 		"The Tempest's Liberation",
@@ -649,6 +659,7 @@ return {
 		"The Unshattered Will",
 	},
 	["DivergentHarbingerSkillOnEquipUnique__4_"] = {
+		"The Fracturing Spinner",
 	},
 	["DivergentHarbingerSkillOnEquipUnique__5"] = {
 		"The Tempest's Binding",
@@ -680,8 +691,10 @@ return {
 		"The Scales of Justice",
 	},
 	["DivergentImpaleEffectUnique__3"] = {
+		"Steelworm",
 	},
 	["DivergentIncreaseDamageOnBlindedEnemiesUniqueQuiver9_"] = {
+		"Maloney's Nightfall",
 	},
 	["DivergentIncreaseProjectileAttackDamagePerAccuracyUnique__1"] = {
 		"Obscurantis",
@@ -732,6 +745,7 @@ return {
 		"Voll's Vision",
 	},
 	["DivergentIncreasedLightningDamagePer10IntelligenceUnique__1"] = {
+		"Saemus' Gift",
 	},
 	["DivergentIncreasedManaUnique__19"] = {
 		"Replica Kaom's Heart",
@@ -842,6 +856,7 @@ return {
 		"Volkuur's Guidance",
 	},
 	["DivergentLightningDamageToAttacksPerIntelligenceUnique__1"] = {
+		"The Poised Prism",
 	},
 	["DivergentLightningFreezesUniqueHelmetDexInt4"] = {
 		"The Three Dragons",
@@ -901,6 +916,7 @@ return {
 		"Ghostwrithe",
 	},
 	["DivergentMaximumLifeLeechRateUnique__1"] = {
+		"Replica Soul Strike",
 	},
 	["DivergentMaximumLifePer10DexterityUnique__1"] = {
 		"Garukhan's Flight",
@@ -1137,6 +1153,7 @@ return {
 		"Replica Voidwalker",
 	},
 	["DivergentProjectilesForkUnique____1"] = {
+		"Rigwald's Quills",
 	},
 	["DivergentPunishmentOnMeleeBlockUniqueShieldInt4"] = {
 		"Sentari's Answer",
@@ -1175,6 +1192,7 @@ return {
 		"Elevore",
 	},
 	["DivergentReducedEnergyShieldDelayUniqueQuiver7"] = {
+		"Soul Strike",
 	},
 	["DivergentReducedReservationForSocketedCurseGemsUnique__1"] = {
 		"Heretic's Veil",
@@ -1201,6 +1219,7 @@ return {
 		"Demon Stitcher",
 	},
 	["DivergentSacrificeMinionToFireAdditionalArrowsUnique__1"] = {
+		"Spinehail",
 	},
 	["DivergentSacrificialZealOnSkillUseUnique__1_"] = {
 		"Hand of the Fervent",
@@ -1347,6 +1366,7 @@ return {
 		"The Coming Calamity",
 	},
 	["DivergentStunDurationUniqueQuiver8"] = {
+		"Craghead",
 	},
 	["DivergentSupportedByFasterCastUnique__1"] = {
 		"Kalisa's Grace",
@@ -1448,6 +1468,7 @@ return {
 		"Atziri's Acuity",
 	},
 	["DivergentVoidShotOnSkillUseUnique__1_"] = {
+		"Voidfletcher",
 	},
 	["DivergentVulnerabilityOnBlockUniqueShieldStrDex3"] = {
 		"The Deep One's Hide",
