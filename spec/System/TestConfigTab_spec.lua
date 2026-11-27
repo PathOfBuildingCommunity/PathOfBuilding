@@ -171,6 +171,46 @@ describe("TestConfig", function()
 				assert.is_false(build.modFlag)
 			end)
 		end)
+
+		describe("Undo", function()
+			it("Returns to the previous config set without changing the other set", function()
+				local configTab = build.configTab
+				configTab.input.buffOnslaught = true
+				configTab:ResetUndo()
+				local other = configTab:NewConfigSet(nil, "Other")
+				local otherInput = copyTable(other.input)
+				configTab:SetActiveConfigSet(other.id)
+				configTab:AddUndoState()
+
+				configTab:Undo()
+
+				assert.are.equals(1, configTab.activeConfigSetId)
+				assert.is_true(configTab.configSets[1].input.buffOnslaught)
+				assert.are.same(otherInput, other.input)
+
+				configTab:Redo()
+
+				assert.are.equals(other.id, configTab.activeConfigSetId)
+				assert.is_true(configTab.configSets[1].input.buffOnslaught)
+				assert.are.same(otherInput, other.input)
+			end)
+
+			it("Does not restore a deleted config set's values into the active set", function()
+				local configTab = build.configTab
+				local configSetService = new("ConfigSetService"):ConfigSetService(configTab)
+				configTab:ResetUndo()
+				configSetService:NewConfigSet("To Delete")
+				configTab.input.buffOnslaught = true
+				configTab:AddUndoState()
+				local firstInput = copyTable(configTab.configSets[1].input)
+				configSetService:DeleteConfigSet(2, 2)
+
+				configTab:Undo()
+
+				assert.are.equals(1, configTab.activeConfigSetId)
+				assert.are.same(firstInput, configTab.configSets[1].input)
+			end)
+		end)
 	end)
 
 	describe("ConfigSetService", function()
@@ -298,6 +338,24 @@ describe("TestConfig", function()
 				configSetService:DeleteConfigSet(2, 2)
 
 				assert.are.equals(#build.configTab.undo, undoCountBefore + 2)
+			end)
+
+			it("Does not undo a deleted set's values into a new set that reuses its id", function()
+				local configTab = build.configTab
+				configTab:ResetUndo()
+				configSetService:NewConfigSet("Old Set")
+				local oldId = configTab.activeConfigSetId
+				configTab.configSets[oldId].input.enemyLevel = 77
+				configTab:AddUndoState()
+				configSetService:DeleteConfigSet(oldId, 2)
+
+				configSetService:NewConfigSet("New Set")
+				assert.are.equals(oldId, configTab.activeConfigSetId)
+				for _ = 1, #configTab.undo do
+					configTab:Undo()
+					assert.are.equals("New Set", configTab.configSets[oldId].title)
+					assert.is_nil(configTab.configSets[oldId].input.enemyLevel)
+				end
 			end)
 		end)
 
