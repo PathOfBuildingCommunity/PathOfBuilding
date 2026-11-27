@@ -497,6 +497,9 @@ function CalcsTabClass:PowerBuilder()
 	-- local timer_start = GetTime()
 	local useFullDPS = self.powerStat and self.powerStat.stat == "FullDPS"
 	local calcFunc, calcBase = self:GetMiscCalculator()
+	if useFullDPS and calcBase.FullDPS ~= nil then
+		calcFunc = self.calcs.getFullDPSPowerCalculator(self.build, calcFunc)
+	end
 	local cache = { }
 	local distanceMap = { }
 	local distanceList = { }

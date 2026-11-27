@@ -146,6 +146,46 @@ local function getActiveSkillCount(activeSkill)
 	return 1, true
 end
 
+-- The first Full DPS pass must calculate the selected skill before any other
+-- skill can read its output. Keep the ordinary pass for source-dependent skills.
+local function canSkipPowerReportMainSkill(env)
+	local foundMain = false
+	for _, skill in ipairs(env.player.activeSkillList) do
+		if skill.socketGroup and skill.socketGroup.includeInFullDPS then
+			local _, enabled = getActiveSkillCount(skill)
+			if enabled then
+				if not foundMain then
+					if skill ~= env.player.mainSkill then
+						return false
+					end
+					foundMain = true
+				end
+				if skill.minion or skill.triggeredBy or isTriggered(skill) or skill.activeEffect.grantedEffect.fromItem then
+					return false
+				end
+			end
+		end
+	end
+	return foundMain
+end
+
+function calcs.getFullDPSPowerCalculator(build, calculate)
+	if not canSkipPowerReportMainSkill(calcs.initEnv(build, "CALCULATOR")) then
+		return calculate
+	end
+	return function(override)
+		local env, cachedPlayerDB, cachedEnemyDB, cachedMinionDB = calcs.initEnv(build, "CALCULATOR", override)
+		-- A passive change may alter which skills contribute.
+		if not canSkipPowerReportMainSkill(env) then
+			return calculate(override, true)
+		end
+		local fullDPS = calcs.calcFullDPS(build, "CALCULATOR", override, {
+			cachedPlayerDB = cachedPlayerDB, cachedEnemyDB = cachedEnemyDB, cachedMinionDB = cachedMinionDB,
+		})
+		return { FullDPS = fullDPS.combinedDPS }
+	end
+end
+
 function calcs.calcFullDPS(build, mode, override, specEnv)
 	local fullEnv, cachedPlayerDB, cachedEnemyDB, cachedMinionDB = calcs.initEnv(build, mode, override, specEnv)
 	fullEnv.triggerSourceCache = mode == "CALCULATOR" and (specEnv and specEnv.triggerSourceCache or { }) or nil
