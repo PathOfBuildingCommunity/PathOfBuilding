@@ -1551,7 +1551,7 @@ NoPhysicalDamageReductionUnique__1
 ]],[[
 The Vertex
 Vaal Mask
-Source: Drops from unique{Atziri, Queen of the Vaal} in normal{The Alluring Abyss}
+Source: Drops from unique{Atziri, Queen of the Vaal} in a normal{Temple of Atzoatl} containing the normal{Cradle of Creation}
 LocalIncreaseSocketedGemLevelUniqueHelmetDexInt5
 SocketedGemsHaveReducedManaCostUniqueHelmetDexInt5
 LocalIncreasedEvasionAndEnergyShieldUniqueHelmetDexInt5

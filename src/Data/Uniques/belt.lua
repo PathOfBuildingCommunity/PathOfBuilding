@@ -227,7 +227,7 @@ Has 1 Abyssal Socket
 ]],[[
 Doryani's Invitation
 Heavy Belt
-Source: Drops from unique{Atziri, Queen of the Vaal} in normal{The Apex of Sacrifice}
+Source: Drops from unique{Atziri, Queen of the Vaal} in a normal{Temple of Atzoatl}
 Version: Pre 3.11.0
 Version: Pre 3.30.0
 Version: Current

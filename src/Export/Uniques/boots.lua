@@ -224,7 +224,7 @@ GoatHoofFootprintsUnique__1
 ]],[[
 Atziri's Step
 Slink Boots
-Source: Drops from unique{Atziri, Queen of the Vaal} in normal{The Apex of Sacrifice}
+Source: Drops from unique{Atziri, Queen of the Vaal} in a normal{Temple of Atzoatl}
 Variant: Pre 3.16.0
 Variant: Current
 LocalIncreasedEvasionRatingPercentUniqueBootsDex7

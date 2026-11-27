@@ -1602,7 +1602,7 @@ Physical Damage Reduction is zero
 ]],[[
 The Vertex
 Vaal Mask
-Source: Drops from unique{Atziri, Queen of the Vaal} in normal{The Alluring Abyss}
+Source: Drops from unique{Atziri, Queen of the Vaal} in a normal{Temple of Atzoatl} containing the normal{Cradle of Creation}
 +1 to Level of Socketed Gems
 Socketed Gems have 50% less Mana Cost
 (245-280)% increased Evasion and Energy Shield

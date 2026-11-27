@@ -201,7 +201,7 @@ Enemies within 3 metres have Fire Exposure while at maximum Rage
 [[
 Atziri's Disfavour
 Vaal Axe
-Source: Drops from unique{Atziri, Queen of the Vaal} in normal{The Alluring Abyss}
+Source: Drops from unique{Atziri, Queen of the Vaal} in a normal{Temple of Atzoatl} containing the normal{Cradle of Creation}
 Variant: Pre 3.11.0
 Variant: Pre 3.20.0
 Variant: Current

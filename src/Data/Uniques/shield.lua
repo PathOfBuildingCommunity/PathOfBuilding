@@ -247,7 +247,7 @@ Hex Reflection
 ]],[[
 Atziri's Reflection
 Golden Buckler
-Source: Drops from unique{Atziri, Queen of the Vaal} in normal{The Alluring Abyss}
+Source: Drops from unique{Atziri, Queen of the Vaal} in a normal{Temple of Atzoatl} containing the normal{Cradle of Creation}
 Requires Level 68
 Implicits: 1
 6% increased Movement Speed

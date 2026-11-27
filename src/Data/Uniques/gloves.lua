@@ -14,7 +14,7 @@ Source: Drops from unique{Admiral Valerius} in normal{Shipping encounters}
 ]],[[
 Atziri's Acuity
 Vaal Gauntlets
-Source: Drops from unique{Atziri, Queen of the Vaal} in normal{The Alluring Abyss}
+Source: Drops from unique{Atziri, Queen of the Vaal} in a normal{Temple of Atzoatl} containing the normal{Cradle of Creation}
 Version: Pre 3.1.0
 Version: Pre 3.16.0
 Version: Pre 3.30.0

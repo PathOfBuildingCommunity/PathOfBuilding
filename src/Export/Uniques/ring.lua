@@ -1307,7 +1307,7 @@ TemporalChainsEffectivenessOnSelfUnique__1
 ]],[[
 Triumvirate Authority
 Unset Ring
-Source: Drops from unique{Atziri, Queen of the Vaal} in normal{The Apex of Sacrifice} (3 stats) or in normal{The Alluring Abyss} (4 stats)
+Source: Drops from unique{Atziri, Queen of the Vaal} in a normal{Temple of Atzoatl} (3 stats) or in a normal{Temple of Atzoatl} containing the normal{Cradle of Creation} (4 stats)
 Has Alt Variant: true
 Has Alt Variant Two: true
 Has Alt Variant Three: true
