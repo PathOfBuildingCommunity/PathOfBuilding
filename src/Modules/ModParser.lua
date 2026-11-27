@@ -5605,7 +5605,10 @@ local specialModList = {
 		flag("OmniscienceRequirements")
 	} end,
 	["you have far shot while you do not have iron reflexes"] = { flag("FarShot", { neg = true, type = "Condition", var = "HaveIronReflexes" }) },
-	["you have resolute technique while you do not have elemental overload"] = { mod("Keystone", "LIST", "Resolute Technique", { neg = true, type = "Condition", var = "HaveElementalOverload" }) },
+	["you have resolute technique while you do not have elemental overload"] = {
+		mod("Keystone", "LIST", "Resolute Technique", { neg = true, type = "Condition", var = "HaveElementalOverload" }),
+		flag("Condition:HaveResoluteTechnique", { neg = true, type = "Condition", var = "HaveElementalOverload" }),
+	},
 	["hits ignore enemy monster fire resistance while you are ignited"] = { flag("IgnoreFireResistance", { type = "Condition", var = "Ignited" }) },
 	["your hits can't be evaded by blinded enemies"] = { flag("CannotBeEvaded", { type = "ActorCondition", actor = "enemy", var = "Blinded" }) },
 	["blind does not affect your chance to hit"] = { flag("UnaffectedByBlind") },

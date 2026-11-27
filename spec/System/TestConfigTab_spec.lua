@@ -357,6 +357,53 @@ describe("TestConfig", function()
 		end)
 
 		describe("Default values", function()
+			it("defaults Augyre to Resolute Technique and preserves the Elemental Overload selection", function()
+				build.skillsTab:PasteSocketGroup("Arc 20/0  1\n")
+				local augyreIndex = isValueInArrayPred(data.uniques.mace, function(raw)
+					return raw:match("^Augyre\n")
+				end)
+				local item = new("Item"):Item(data.uniques.mace[augyreIndex])
+				assert.are.equal("Current", item.variantList[item.variant])
+				build.itemsTab:AddItem(item, true)
+				build.itemsTab.slots["Weapon 1"]:SetSelItemId(item.id)
+				runCallback("OnFrame")
+
+				local control = build.configTab.varControls.conditionHaveAugyre
+				assert.are.equal("ResTechnique", control:GetSelValueByKey("val"))
+				assert.are.equal(0, build.calcsTab.mainOutput.CritChance)
+				assert.are.equal(100, build.calcsTab.mainEnv.modDB:Sum("INC", nil, "PhysicalDamage"))
+
+				-- Builds saved before Resolute Technique became the default can store it explicitly.
+				local xml = common.xml.ParseXML(build:SaveDB("code"))
+				for _, section in ipairs(xml[1]) do
+					if section.elem == "Config" then
+						table.insert(section[1], { elem = "Input", attrib = { name = "conditionHaveAugyre", string = "ResTechnique" } })
+						break
+					end
+				end
+				loadBuildFromXML(common.xml.ComposeXML(xml[1]))
+				assert.are.equal("ResTechnique", build.configTab.input.conditionHaveAugyre)
+				assert.are.equal(100, build.calcsTab.mainEnv.modDB:Sum("INC", nil, "PhysicalDamage"))
+
+				build.configTab.varControls.conditionHaveAugyre:SetSel(2)
+				runCallback("OnFrame")
+				assert.is_true(build.calcsTab.mainOutput.CritChance > 0)
+
+				loadBuildFromXML(build:SaveDB("code"))
+				assert.are.equal("EleOverload", build.configTab.input.conditionHaveAugyre)
+				assert.is_true(build.calcsTab.mainOutput.CritChance > 0)
+				assert.are.equal(0, build.calcsTab.mainEnv.modDB:Sum("INC", nil, "PhysicalDamage"))
+				assert.is_truthy(isValueInArray(build.calcsTab.mainEnv.modDB:List(nil, "Keystone"), "Elemental Overload") ~= nil)
+
+				build.itemsTab.slots["Weapon 1"]:SetSelItemId(0)
+				build.buildFlag = true
+				runCallback("OnFrame")
+				assert.is_true(isValueInArray(build.calcsTab.mainEnv.modDB:List(nil, "Keystone"), "Elemental Overload") == nil)
+				loadBuildFromXML(build:SaveDB("code"))
+				assert.are.equal("EleOverload", build.configTab.input.conditionHaveAugyre)
+				assert.is_true(isValueInArray(build.calcsTab.mainEnv.modDB:List(nil, "Keystone"), "Elemental Overload") == nil)
+			end)
+
 			it("Initializes new config sets with default placeholder states", function()
 				assert.is_not_nil(build.configTab.configSets[1])
 				assert.is_not_nil(build.configTab.configSets[1].input)
