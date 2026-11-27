@@ -44,6 +44,32 @@ describe("TestGemSocketQuality", function()
 		assert.are.equals(15, build.calcsTab.mainOutput.GemQuality)
 	end)
 
+	it("leaves sockets available for actual gems when equipment grants a skill", function()
+		build.itemsTab:CreateDisplayItemFromRaw(
+			"Rarity: UNIQUE\nBubonic Trail\nMurder Boots\nSockets: B-R-G\nImplicits: 0\nTriggers Level 20 Death Walk when Equipped")
+		build.itemsTab:AddDisplayItem()
+		runCallback("OnFrame")
+		local granted = groupForSlot("Boots", 1)
+		assert.are.equal("Death Walk", granted.gemList[1].nameSpec)
+
+		build.skillsTab:PasteSocketGroup("Slot: Boots\nFireball 20/0  1\nMolten Shell 20/0  1\nGrace 20/0  1\n")
+		build.mainSocketGroup = 2
+		runCallback("OnFrame")
+		local socketed = groupForSlot("Boots", 2)
+		assert.are.equal(10, build.calcsTab.mainOutput.GemQuality)
+		assert.is_false(granted.gemList[1].matchesSocket)
+		for _, gem in ipairs(socketed.gemList) do
+			assert.is_true(gem.matchesSocket)
+		end
+
+		build.skillsTab.controls.optimiseSockets.onClick()
+		local boots = build.itemsTab.items[build.itemsTab.slots.Boots.selItemId]
+		assert.are.equal(3, #boots.sockets)
+		assert.are.equal("B", boots.sockets[1].color)
+		assert.are.equal("R", boots.sockets[2].color)
+		assert.are.equal("G", boots.sockets[3].color)
+	end)
+
 	it("grants no bonus to a gem in a mismatched colour socket", function()
 		equipBody("R-W-R")
 		build.skillsTab:PasteSocketGroup("Slot: Body Armour\nFireball 20/0  1\nFireball 20/0  1\n")
@@ -166,6 +192,20 @@ describe("TestGemSocketQuality", function()
 
 		assert.is_false(groupForSlot("Body Armour", 1).gemList[1].matchesSocket)
 		assert.is_false(groupForSlot("Body Armour", 2).gemList[1].matchesSocket)
+	end)
+
+	it("applies socket colour modifiers to active and support gems in a later group", function()
+		equipBody("B G-R", [[Gems Socketed in Red Sockets have +2 to Level
+Gems Socketed in Green Sockets have +20% to Quality
+Gems Socketed always have the Quality bonus from Socket Colour]])
+		build.skillsTab:PasteSocketGroup("Slot: Body Armour\nFireball 20/0  1\n")
+		build.skillsTab:PasteSocketGroup("Slot: Body Armour\nFreezing Pulse 20/0  1\nControlled Destruction 20/0  1\n")
+		runCallback("OnFrame")
+
+		local gems = groupForSlot("Body Armour", 2).gemList
+		assert.are.equal(20 + data.misc.MatchingSocketQualityBonus, gems[1].displayEffect.quality)
+		assert.are.equal(22, gems[2].displayEffect.level)
+		assert.are.equal(data.misc.MatchingSocketQualityBonus, gems[2].displayEffect.quality)
 	end)
 
 	it("Optimise Sockets recolours an item to match its assigned gems", function()
