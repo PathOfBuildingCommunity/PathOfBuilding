@@ -340,6 +340,38 @@ describe("TestConfigAuto", function()
 			assert.is_falsy(short:find("\n^7No", 1, true))
 		end)
 
+		it("lists a generated set once, through save, reload and deletion", function()
+			local config = setup(1)
+			local boss = config.activeConfigSetId
+			assert.are.same({ 1, boss }, config.configSetOrderList)
+			-- A second activity adds its own set once; going back to the first adds nothing
+			config.controls.setupActivity:SetSel(2)
+			draw()
+			local maps = config.activeConfigSetId
+			config.controls.setupActivity:SetSel(1)
+			draw()
+			assert.are.equal(boss, config.activeConfigSetId)
+			assert.are.same({ 1, boss, maps }, config.configSetOrderList)
+			local xml = build:SaveDB("code")
+			local _, savedSets = xml:gsub("<ConfigSet[ >]", "")
+			assert.are.equal(3, savedSets)
+			-- A file from the preview that listed a generated set twice loads with it listed once
+			local duplicated, copies = xml:gsub('<ConfigSet[^>]-autoActivity="boss".-</ConfigSet>', "%0%0", 1)
+			assert.are.equal(1, copies)
+			loadBuildFromXML(duplicated, "Generated set order")
+			config = build.configTab
+			assert.are.same({ 1, boss, maps }, config.configSetOrderList)
+			-- Deleting the active generated set leaves no entry behind for the tab to draw
+			new("ConfigSetService"):ConfigSetService(config):DeleteConfigSet(boss, 2)
+			draw()
+			assert.are.same({ 1, maps }, config.configSetOrderList)
+			assert.are.equal(1, config.activeConfigSetId)
+			config:Draw({ x = 0, y = 0, width = 1200, height = 800 }, { })
+			config:Undo()
+			draw()
+			assert.is_table(config.configSets[config.activeConfigSetId])
+		end)
+
 		it("applies from the setup button and Undo/Redo switches back to the untouched manual set", function()
 			local config = build.configTab
 			local manual = config.activeConfigSetId

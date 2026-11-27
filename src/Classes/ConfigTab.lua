@@ -969,6 +969,16 @@ function ConfigTabClass:Load(xml, fileName)
 		end
 	end
 
+	-- Each set is listed once: a second entry would be left behind when the set is deleted
+	local order, listed = { }, { }
+	for _, configSetId in ipairs(self.configSetOrderList) do
+		if not listed[configSetId] then
+			listed[configSetId] = true
+			t_insert(order, configSetId)
+		end
+	end
+	self.configSetOrderList = order
+
 	-- Migration check for legacy builds
 	for _, configSetId in ipairs(self.configSetOrderList) do
 		local configSet = self.configSets[configSetId]

@@ -319,9 +319,9 @@ local function regenerate(config, base, set, activity, stamp, reset)
 		local name = activity == "maps" and activities[2].name or activities[1].name
 		local baseName = (base.title or ""):gsub("%{[%w,]+%}", ""):match("^%s*(.-)%s*$")
 		if baseName ~= "" and baseName ~= "Default" then name = name .. " (" .. baseName .. ")" end
+		-- NewConfigSet also adds the set to the order list
 		set = config:NewConfigSet(nil, name)
 		set.autoActivity, set.autoBaseId = activity, base.id
-		t_insert(config.configSetOrderList, set.id)
 	end
 	local baseline = { input = copyTable(draft.input) }
 	local overrides = reset and { } or M.CaptureOverrides(config, set)
