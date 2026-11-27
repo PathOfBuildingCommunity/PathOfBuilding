@@ -76,6 +76,34 @@ describe("TestAilments", function()
 		assert.are.near(1.3, build.calcsTab.mainOutput.ShockEffectMod, 10 ^ -9)
 	end)
 
+	it("Withered does not expire on Ignited enemies", function()
+		local function witheredStacks()
+			return build.calcsTab.mainEnv.enemyDB:GetMultiplier("WitheredStack")
+		end
+		build.skillsTab:PasteSocketGroup("Slot: Weapon 1\nFireball 20/0  1\n")
+		build.configTab.input.customMods = "Chaos Skills inflict up to 15 Withered Debuffs on Hit for 2 seconds"
+		build.configTab.input.multiplierWitheredStackCount = 5
+		rebuild()
+
+		assert.are.equals(5, witheredStacks())
+
+		build.configTab.input.customMods = "Chaos Skills inflict up to 15 Withered Debuffs on Hit for 2 seconds\nWithered does not expire on Enemies Ignited by you"
+		rebuild()
+
+		assert.are.equals(5, witheredStacks())
+
+		-- an Ignited enemy alone keeps the configured stacks, the Ignite could be someone else's
+		build.configTab.input.conditionEnemyIgnited = true
+		rebuild()
+		assert.are.equals(5, witheredStacks())
+
+		build.configTab.input.conditionWitheredKeptByIgnite = true
+		rebuild()
+
+		assert.are.equals(15, witheredStacks())
+		assert.are.equals(6 * 15, build.calcsTab.mainEnv.enemyDB:Sum("INC", nil, "ChaosDamageTaken"))
+	end)
+
 	it("scales minion ailment duration with Barnacles", function()
 		build.skillsTab:PasteSocketGroup("Slot: Weapon 1\nSummon Ice Golem 20/0  1\n")
 		build.configTab.input.customMods = "Inflict Barnacles on nearby Enemies every second\nMinions gain 100% of Physical Damage as Extra Cold Damage"
