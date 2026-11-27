@@ -42,6 +42,43 @@ local function getCachedOutputValue(env, activeSkill, ...)
 	return unpack(tempValues)
 end
 
+-- Whether a Condition flag on the actor comes from the Configuration tab
+local function isConfigCondition(db, var)
+	while db do
+		for _, flag in ipairs(db.mods and db.mods["Condition:"..var] or { }) do
+			if flag.source == "Config" then
+				return true
+			end
+		end
+		db = db.parent
+	end
+	return false
+end
+
+-- Whether a non-damaging ailment source holds without the player's own hits and without a condition that is merely
+-- asserted in the Configuration tab. Auto-configure scans use this so that neither the user's own config nor a
+-- hit-scaled floor counts as proof that the ailment is applied (a minimum magnitude does not establish the
+-- ability to inflict it):
+--  * "*Minimum" mods (left out by the caller) and mods carrying the Hit flag/keyword depend on hitting;
+--  * mods added by the config, or gated on a Condition/ActorCondition whose flag comes from the config
+--    (e.g. SpawnedCorpseRecently, BlockedRecently, Focused), are config-driven.
+local function isIndependentAilmentSource(mod, modDB, enemyDB)
+	if mod.source == "Config" or band(mod.flags or 0, ModFlag.Hit) ~= 0 or band(mod.keywordFlags or 0, KeywordFlag.Hit) ~= 0 then
+		return false
+	end
+	for _, tag in ipairs(mod) do
+		if tag.type == "Condition" or tag.type == "ActorCondition" then
+			local db = (tag.type == "ActorCondition" and tag.actor == "enemy") and enemyDB or modDB
+			for _, var in ipairs(tag.varList or { tag.var }) do
+				if isConfigCondition(db, var) then
+					return false
+				end
+			end
+		end
+	end
+	return true
+end
+
 -- Merge an instance of a buff, taking the highest value of each modifier.
 -- An unscaled fallback skips LIST modifiers already added by its scaled copy.
 local function mergeBuff(src, destTable, destKey, skipListMods)
@@ -3681,43 +3718,9 @@ function calcs.perform(env, skipEHP)
 		and not (enemyDB:Flag(nil, "Condition:Already"..val.condition) or enemyDB:Flag(nil, ailment.."Immune", "ElementalAilmentImmune") or enemyDB:Sum("BASE", nil, "Avoid"..ailment, "AvoidAilments", "AvoidElementalAilments") >= 100) then
 			local override = 0
 			local minimum = 0
-			-- Export actual independent sources separately from on-hit minimums:
-			-- a minimum magnitude does not establish the ability to inflict it.
-			-- A source only counts as independent when it holds without the player's own hits and without a
-			-- condition that is merely asserted in the Configuration tab, so auto-configure cannot use the user's
-			-- own config (or a hit-scaled floor) as proof that the ailment is applied:
-			--  * "*Minimum" mods and mods carrying the Hit flag/keyword depend on hitting;
-			--  * mods added by the config, or gated on a Condition/ActorCondition whose flag comes from the config
-			--    (e.g. SpawnedCorpseRecently, BlockedRecently, Focused), are config-driven.
-			-- The outputs used by the native calculation ("Current"/"Maximum") are unchanged.
-			local independentSourceEffect = 0
-			local function isConfigCondition(db, var)
-				while db do
-					for _, flag in ipairs(db.mods and db.mods["Condition:"..var] or { }) do
-						if flag.source == "Config" then
-							return true
-						end
-					end
-					db = db.parent
-				end
-				return false
-			end
-			local function isIndependentSource(mod)
-				if mod.source == "Config" or band(mod.flags or 0, ModFlag.Hit) ~= 0 or band(mod.keywordFlags or 0, KeywordFlag.Hit) ~= 0 then
-					return false
-				end
-				for _, tag in ipairs(mod) do
-					if tag.type == "Condition" or tag.type == "ActorCondition" then
-						local db = (tag.type == "ActorCondition" and tag.actor == "enemy") and enemyDB or modDB
-						for _, var in ipairs(tag.varList or { tag.var }) do
-							if isConfigCondition(db, var) then
-								return false
-							end
-						end
-					end
-				end
-				return true
-			end
+			-- Auto-configure scans (env.ailmentEstimates) also read the strongest independent source, see
+			-- isIndependentAilmentSource. The outputs used by the native calculation ("Current"/"Maximum") are unchanged.
+			local independentSourceEffect = env.ailmentEstimates and 0 or nil
 			for _, value in ipairs(modDB:Tabulate("BASE", nil, ailment.."Base", ailment.."Override", ailment.."Minimum")) do
 				local mod = value.mod
 				local effect = mod.value
@@ -3737,7 +3740,7 @@ function calcs.perform(env, skipEHP)
 					end
 				end
 				effect = effect * calcLib.mod(enemyDB, nil, "Self"..ailment.."Effect")
-				if mod.name ~= ailment.."Minimum" and isIndependentSource(mod) then
+				if independentSourceEffect and mod.name ~= ailment.."Minimum" and isIndependentAilmentSource(mod, modDB, enemyDB) then
 					independentSourceEffect = m_max(independentSourceEffect, effect)
 				end
 				if scalesWithSource then
@@ -3756,7 +3759,9 @@ function calcs.perform(env, skipEHP)
 				end
 			end
 			output["Maximum"..ailment] = maxAilment
-			output[ailment.."IndependentSourceEffect"] = m_floor(m_min(independentSourceEffect, maxAilment) * (10 ^ ailmentData[ailment].precision)) / (10 ^ ailmentData[ailment].precision)
+			if independentSourceEffect then
+				output[ailment.."IndependentSourceEffect"] = m_floor(m_min(independentSourceEffect, maxAilment) * (10 ^ ailmentData[ailment].precision)) / (10 ^ ailmentData[ailment].precision)
+			end
 			output["Current"..ailment] = m_floor(m_min(m_max(override, enemyDB:Sum("BASE", nil, ailment.."Val")), output["Maximum"..ailment]) * (10 ^ ailmentData[ailment].precision)) / (10 ^ ailmentData[ailment].precision)
 			for _, mod in ipairs(val.mods(output["Current"..ailment])) do
 				enemyDB:AddMod(mod)

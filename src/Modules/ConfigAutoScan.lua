@@ -183,6 +183,7 @@ local function detectionEnv(build, planned)
 	config:BuildModList()
 	local calcs = build.calcsTab.calcs
 	local env = calcs.initEnv(snapshot, "CALCULATOR")
+	env.ailmentEstimates = true
 	calcs.perform(env)
 	-- Usage tables are collected by buildOutput for MAIN, not by perform for
 	-- CALCULATOR. Reuse that structural metadata with the neutral actors.
@@ -231,6 +232,7 @@ local function probeSkill(ctx, skill)
 	end
 	local calcs = ctx.originalBuild.calcsTab.calcs
 	local probe = calcs.initEnv(probeBuild, "CALCULATOR")
+	probe.ailmentEstimates = true
 	for _, candidate in ipairs(probe.player.activeSkillList) do
 		if candidate.activeEffect.srcInstance == skill.activeEffect.srcInstance
 			and candidate.activeEffect.grantedEffect.id == skill.activeEffect.grantedEffect.id then

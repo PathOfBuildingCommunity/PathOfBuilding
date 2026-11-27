@@ -274,6 +274,26 @@ describe("TestConfigAuto", function()
 		assert.is_nil(auto.GetInvalidSettingReason(config, option("overrideCruelty")):find("Cruelty", 1, true))
 	end)
 
+	it("keeps scan-only ailment estimates out of the build's own outputs", function()
+		gems("Freezing Pulse 20/0  1\n")
+		local scanOnly = { "FreezeCanApply", "FreezeHitThresholdRatio", "ChillHitEffectEstimate", "ChillEstimateUsesCrit" }
+		for _, mode in ipairs({ "mainOutput", "calcsOutput" }) do
+			assert.is_true(build.calcsTab[mode].FreezeChance > 0)
+			for _, stat in ipairs(scanOnly) do assert.is_nil(build.calcsTab[mode][stat], mode .. "." .. stat) end
+			for stat in pairs(build.calcsTab[mode]) do assert.is_nil(stat:find("IndependentSourceEffect", 1, true), stat) end
+		end
+		local calcs, scanned = build.calcsTab.calcs
+		local perform = calcs.perform
+		calcs.perform = function(env, ...)
+			local result = perform(env, ...)
+			if env.ailmentEstimates and not scanned then scanned = env.player.output end
+			return result
+		end
+		finally(function() calcs.perform = perform end)
+		auto.Detect(build)
+		for _, stat in ipairs(scanOnly) do assert.is_number(scanned[stat], stat) end
+	end)
+
 	it("gives up a stepped scan that is suspended outside its own steps, with the real cache back in place", function()
 		local cache = GlobalCache.cachedData.CALCULATOR
 		local calcs = build.calcsTab.calcs

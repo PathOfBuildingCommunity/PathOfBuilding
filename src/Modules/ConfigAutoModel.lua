@@ -574,6 +574,7 @@ function M.Facts(context)
 		local shadow = setmetatable({ }, { __index = context.env.build })
 		for index, group in ipairs(context.build.skillsTab.socketGroupList) do if group == skill.socketGroup then shadow.mainSocketGroup = index break end end
 		local probe = calcs.initEnv(shadow, "CALCULATOR")
+		probe.ailmentEstimates = true
 		local candidate
 		for i = #probe.player.activeSkillList, 1, -1 do
 			local other = probe.player.activeSkillList[i]
