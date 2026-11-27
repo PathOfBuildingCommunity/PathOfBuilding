@@ -1126,6 +1126,22 @@ describe("TestAdvancedItemParse #item", function()
 		assert.are.equals("Commissioned 150720 coins to commemorate Chitus", seedLine)
 	end)
 
+	it("preserves the advanced-copy roll in a modifier continuation", function()
+		local item = new("Item"):Item([[
+			Rarity: Unique
+			Khatal's Geyser
+			Lapis Amulet
+			{ Unique Modifier }
+			Increases and Reductions to Effect of Flasks applied to you
+			also applies to Effect of Arcane Surge on you at 230(200-250)% of their value
+		]])
+
+		assert.are.equals(230, item.baseModList:Sum("BASE", nil, "FlaskEffectToArcaneSurgeEffect"))
+		assert.are.equals(0.6, item.explicitModLines[1].range)
+		item:BuildAndParseRaw()
+		assert.are.equals(230, item.baseModList:Sum("BASE", nil, "FlaskEffectToArcaneSurgeEffect"))
+	end)
+
 	it("keeps the roll written in a saved value(min-max) line over its ModRange", function()
 		loadBuildFromXML([[
 <PathOfBuilding>
@@ -1144,6 +1160,29 @@ Implicits: 0
 </PathOfBuilding>]])
 
 		assert.are.equals(0.416667, build.itemsTab.items[1].explicitModLines[1].range)
+	end)
+
+	it("recovers a saved modifier continuation roll over its default ModRange", function()
+		loadBuildFromXML([[
+<PathOfBuilding>
+	<Build level="1" targetVersion="3_0" className="Scion" ascendClassName="None" mainSocketGroup="1"/>
+	<Items activeItemSet="1">
+		<Item id="1">
+Rarity: UNIQUE
+Khatal's Geyser
+Lapis Amulet
+Implicits: 0
+{range:0.5}Increases and Reductions to Effect of Flasks applied to you
+also applies to Effect of Arcane Surge on you at 230(200-250)% of their value
+			<ModRange id="1" range="0.5"/>
+		</Item>
+		<ItemSet id="1"/>
+	</Items>
+</PathOfBuilding>]])
+
+		local item = build.itemsTab.items[1]
+		assert.are.equals(0.6, item.explicitModLines[1].range)
+		assert.are.equals(230, item.baseModList:Sum("BASE", nil, "FlaskEffectToArcaneSurgeEffect"))
 	end)
 
 	it("preserves independently rolled values on the same modifier line", function()

@@ -67,6 +67,41 @@ local function normaliseModLine(line)
 		:gsub("\n", " ")
 end
 
+local fixedRollPattern = "(%-?%d+%.?%d*)%((%-?%d+%.?%d*)%)"
+local rangedRollPattern = "(%-?%d+%.?%d*)%((%-?%d+%.?%d*)%-(%-?%d+%.?%d*)%)"
+
+local function parseAdvancedModRolls(line)
+	-- Advanced copy only provides the endpoints for enum ranges; keep the selected value.
+	line = line:gsub("([ \t]*)(%b())", function(space, range)
+		if range:find("-", 1, true) and not range:find("%d") then
+			return ""
+		end
+		return space .. range
+	end)
+
+	local firstRollRange
+	local hasIndependentRolls
+	local parsedLine = line:gsub(rangedRollPattern, function(value, min, max)
+		local minimum, maximum = tonumber(min), tonumber(max)
+		if minimum > maximum then
+			minimum, maximum = maximum, minimum
+			min, max = max, min
+		end
+		local delta = maximum - minimum
+		local rollRange = delta > 0 and round((tonumber(value) - minimum) / delta, 6) or 0.5
+		hasIndependentRolls = hasIndependentRolls or (firstRollRange and firstRollRange ~= rollRange)
+		firstRollRange = firstRollRange or rollRange
+		if rollRange < 0 or rollRange > 1 then
+			return value
+		end
+		return (tonumber(value) < 0 and "+" or "") .. "(" .. min .. "-" .. max .. ")"
+	end)
+	if hasIndependentRolls then
+		return (line:gsub(rangedRollPattern, "%1"))
+	end
+	return parsedLine, firstRollRange and firstRollRange >= 0 and firstRollRange <= 1 and firstRollRange or nil
+end
+
 local uniqueModStatOrder
 
 local function sortCraftedModLines(modLines)
@@ -1099,7 +1134,8 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 				end
 				-- Advanced copy uses current(base) for fixed-value modifiers,
 				-- in addition to the current(min-max) form handled below.
-				line = line:gsub("(%-?%d+%.?%d*)%((%-?%d+%.?%d*)%)", "%1")
+				line = line:gsub(fixedRollPattern, "%1")
+				local advancedCopyLine, parsedRange
 				if self.pendingAffixList and #self.pendingAffixList > 0 then
 					if #self.pendingAffixList > 1 then
 						-- Probably a conqueror or essence mod since the mod name is the same for all of them
@@ -1153,47 +1189,8 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 					})
 					self.pendingAffixList = {}
 				else
-					local bestPrecisionDelta = -1
-					local bestPrecisionRange = -1
-					local firstRollRange
-					local hasIndependentRolls
-
-					-- Advanced copy only provides the endpoints for enum ranges; keep the selected value.
-					line = line:gsub("(%s*)(%b())", function(space, range)
-						if range:find("-", 1, true) and not range:find("%d") then
-							return ""
-						end
-						return space .. range
-					end)
-					local advancedCopyLine = line
-
-					for value, range in line:gmatch("(%-?%d+%.?%d*)%((%-?%d+%.?%d*%-%-?%d+%.?%d*)%)") do
-						local min, max = range:match("(%-?%d+%.?%d*)%-(%-?%d+%.?%d*)")
-						if tonumber(min) > tonumber(max) then
-							min, max = max, min
-						end
-						local delta = tonumber(max) - min
-						local rollRange = delta > 0 and round((value - min) / delta, 6) or 0.5
-						if firstRollRange and firstRollRange ~= rollRange then
-							hasIndependentRolls = true
-						end
-						firstRollRange = firstRollRange or rollRange
-						if delta > bestPrecisionDelta then
-							bestPrecisionRange = rollRange
-							bestPrecisionDelta = delta
-						end
-						if bestPrecisionRange > 1 or bestPrecisionRange < 0 then
-							line = line:gsub(value .. "%(" .. range:gsub("%-", "%%-") .. "%)", value)
-						else
-							line = line:gsub(value .. "%(" .. range:gsub("%-", "%%-") .. "%)", (tonumber(value) < 0 and "+" or "") .. "(" .. min .. "-" .. max .. ")")
-						end
-					end
-					if hasIndependentRolls then
-						line = advancedCopyLine:gsub("(%-?%d+%.?%d*)%(%-?%d+%.?%d*%-%-?%d+%.?%d*%)", "%1")
-					elseif bestPrecisionRange <= 1 and bestPrecisionRange >= 0 then
-						modLine.range = bestPrecisionRange
-						modLine.rangeFromValue = true
-					end
+					advancedCopyLine = line
+					line, parsedRange = parseAdvancedModRolls(line)
 				end
 				local rangedLine = itemLib.applyRange(line, 1, catalystScalar, modLine.corruptedRange)
 				local modList, extra = modLib.parseMod(rangedLine)
@@ -1203,16 +1200,21 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 				if (not modList or extra) and self.rawLines[l + 1]
 					and modLine.modGroup == nextModGroup then
 					-- Try to combine it with the next line
-					local nextLine = self.rawLines[l+1]:gsub("%b{}", ""):gsub(" ?%(%l+%)","")
-					local combLine = line.." "..nextLine
-					rangedLine = itemLib.applyRange(combLine, 1, catalystScalar, modLine.corruptedRange)
+					local nextLine = self.rawLines[l + 1]:gsub("%b{}", ""):gsub(" ?%(%l+%)", ""):gsub(fixedRollPattern, "%1")
+					local combinedLine, combinedRange = parseAdvancedModRolls((advancedCopyLine or line) .. "\n" .. nextLine)
+					rangedLine = itemLib.applyRange(combinedLine:gsub("\n", " "), 1, catalystScalar, modLine.corruptedRange)
 					modList, extra = modLib.parseMod(rangedLine, true)
 					if modList and not extra then
-						line = line .. "\n" .. nextLine
+						line, parsedRange = combinedLine, combinedRange
 						l = l + 1
 					else
 						modList, extra = modLib.parseMod(rangedLine)
 					end
+				end
+				if parsedRange then
+					self.advancedCopy = true
+					modLine.range = parsedRange
+					modLine.rangeFromValue = true
 				end
 				local lineLower = modLine.disabled and "" or line:lower()
 				-- \d+% increased/reduced explicit/implicit/ *tags* modifier magnitudes
