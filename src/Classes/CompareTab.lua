@@ -3651,7 +3651,7 @@ function CompareTabClass:DrawItemExpanded(item, x, startY, colWidth, otherModMap
 
 	-- Corrupted/Split/Mirrored
 	if item.corrupted then
-		emit(x, drawY, "LEFT", fontSize, "VAR", colorCodes.NEGATIVE .. "Corrupted")
+		emit(x, drawY, "LEFT", fontSize, "VAR", colorCodes.NEGATIVE .. (item.twiceCorrupted and "Twice Corrupted" or "Corrupted"))
 		drawY = drawY + lineHeight
 	end
 	if item.split then

@@ -420,6 +420,11 @@ end
 ---@field variantGroupList table<number, boolean>?
 ---@field modId string?
 
+-- Game text for unidentified items. Since 3.30 a tiered item shows its tier, e.g. "Unidentified (Tier 5)"
+local function isUnidentifiedLine(line)
+	return line == "Unidentified" or line:match("^Unidentified %(Tier %d+%)$") ~= nil
+end
+
 -- Parse raw item data and extract item name, base type, quality, and modifiers
 function ItemClass:ParseRaw(raw, rarity, highQuality)
 	self.raw = raw
@@ -475,7 +480,7 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 		-- Determine if "Unidentified" item
 		local unidentified = false
 		for _, line in ipairs(self.rawLines) do
-			if line == "Unidentified" then
+			if isUnidentifiedLine(line) then
 				unidentified = true
 				break
 			end
@@ -559,6 +564,11 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 			self.mirrored = true
 		elseif line == "Corrupted" then
 			self.corrupted = true
+		elseif line == "Twice Corrupted" then
+			self.corrupted = true
+			self.twiceCorrupted = true
+		elseif isUnidentifiedLine(line) then
+			-- Unidentified items have no modifiers to parse
 		elseif line == "Fractured Item" then
 			self.fractured = true
 		elseif line == "Synthesised Item" then
@@ -2066,7 +2076,9 @@ function ItemClass:BuildRaw()
 	if self.fractured then
 		t_insert(rawLines, "Fractured Item")
 	end
-	if self.corrupted or self.scourge then
+	if self.twiceCorrupted then
+		t_insert(rawLines, "Twice Corrupted")
+	elseif self.corrupted or self.scourge then
 		t_insert(rawLines, "Corrupted")
 	end
 	if self.foilType then

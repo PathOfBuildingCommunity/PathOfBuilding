@@ -4711,7 +4711,7 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode, maxWidth)
 			tooltip:AddLine(fontSizeBig, colorCodes.NEGATIVE.."Mirrored", "FONTIN SC")
 		end
 		if item.corrupted then
-			tooltip:AddLine(fontSizeBig, colorCodes.NEGATIVE.."Corrupted", "FONTIN SC")
+			tooltip:AddLine(fontSizeBig, colorCodes.NEGATIVE..(item.twiceCorrupted and "Twice Corrupted" or "Corrupted"), "FONTIN SC")
 		end
 		tooltip:AddSeparator(14)
 	end
