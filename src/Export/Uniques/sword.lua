@@ -550,7 +550,6 @@ Variant: Pre 3.14.0
 Variant: Current
 League: Incursion
 Source: Opening normal{Fireproof Chest} in normal{Crucible of Flame}
-Upgrade: Upgrades to unique{Fate of the Vaal} via currency{Vial of Fate}
 Implicits: 2
 {variant:1}IncreasedAccuracySwordImplicit7[240,240]
 {variant:2}IncreasedAccuracySwordImplicit7
@@ -567,7 +566,7 @@ LocalAlwaysInflictElementalAilmentsUnique__1
 Fate of the Vaal
 Gemstone Sword
 League: Incursion
-Source: Upgraded from unique{Story of the Vaal} via currency{Vial of Fate}
+Source: Drops in a normal{Temple of Atzoatl} containing the normal{Cradle of Creation}
 Variant: Pre 3.10.0
 Variant: Current
 Implicits: 1

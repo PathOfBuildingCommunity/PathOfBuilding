@@ -957,7 +957,6 @@ Variant: Pre 3.14.0
 Variant: Current
 League: Incursion
 Source: Opening normal{Thunder Coffer} in normal{Conduit of Lightning}
-Upgrade: Upgrades to unique{Omeyocan} via currency{Vial of the Ritual}
 IncreasedManaUnique__13
 {variant:1}LightningResistUnique__18[15,20]
 {variant:2}LightningResistUnique__17_
@@ -972,7 +971,7 @@ Variant: Pre 3.16.0
 Variant: Pre 3.26.0
 Variant: Current
 League: Incursion
-Source: Upgraded from unique{Dance of the Offered} via currency{Vial of the Ritual}
+Source: Drops in a normal{Temple of Atzoatl} containing the normal{Cradle of Creation}
 MaximumManaUnique__7
 LightningResistUnique__18
 MovementVelocityUnique__35

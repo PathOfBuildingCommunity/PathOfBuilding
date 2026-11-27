@@ -1154,7 +1154,6 @@ Variant: Pre 3.14.0
 Variant: Current
 League: Incursion
 Source: Opening normal{Pools Coffer} in normal{Sanctum of Immortality}
-Upgrade: Upgrades to unique{Mask of the Stitched Demon} via currency{Vial of Summoning}
 {variant:1}LocalIncreasedArmourAndEnergyShieldUnique__12[60,80]
 {variant:2}LocalIncreasedArmourAndEnergyShieldUnique__12
 {variant:2}LocalIncreasedEnergyShieldUnique__31
@@ -1169,7 +1168,7 @@ EnergyShieldStartsAtZero
 Mask of the Stitched Demon
 Magistrate Crown
 League: Incursion
-Source: Upgraded from unique{Mask of the Spirit Drinker} via currency{Vial of Summoning}
+Source: Drops in a normal{Temple of Atzoatl} containing the normal{Cradle of Creation}
 IntelligenceUnique__11
 LocalIncreasedEnergyShieldUnique__24_
 NoMaximumLifePerStrengthUnique__1

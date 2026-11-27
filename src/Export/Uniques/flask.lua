@@ -344,8 +344,7 @@ FlaskEffectDurationUnique__1
 Soul Catcher
 Quartz Flask
 League: Incursion
-Source: Drops from unique{The Vaal Omnitect}
-Upgrade: Upgrades to unique{Soul Ripper} via currency{Vial of the Ghost}
+Source: Opening chests in normal{Museum of Artefacts}
 Variant: Pre 3.10.0
 Variant: Pre 3.15.0
 Variant: Current
@@ -362,7 +361,7 @@ NoManaRecoveryDuringFlaskEffectUnique__1_
 Soul Ripper
 Quartz Flask
 League: Incursion
-Source: Upgraded from unique{Soul Catcher} via currency{Vial of the Ghost}
+Source: Drops in a normal{Temple of Atzoatl} containing the normal{Cradle of Creation}
 Variant: Pre 3.10.0
 Variant: Current
 {variant:1}FlaskChargesUsedUnique__7

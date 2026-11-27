@@ -158,7 +158,6 @@ Variant: Pre 3.14.0
 Variant: Current
 League: Incursion
 Source: Opening normal{Experimental Chest} in normal{Hybridisation Chamber}
-Upgrade: Upgrades to unique{Coward's Legacy} via currency{Vial of Consequence}
 Implicits: 1
 IncreasedEnergyShieldImplicitBelt1
 {variant:1}AllDamageUnique__2
@@ -172,7 +171,7 @@ UniqueSelfCurseVulnerabilityLevel10
 Coward's Legacy
 Chain Belt
 League: Incursion
-Source: Upgraded from unique{Coward's Chains} via currency{Vial of Consequence}
+Source: Drops in a normal{Temple of Atzoatl} containing the normal{Cradle of Creation}
 Implicits: 1
 IncreasedEnergyShieldImplicitBelt1
 AllAttributesUnique__10_

@@ -1199,7 +1199,6 @@ Variant: Pre 3.14.0
 Variant: Current
 League: Incursion
 Source: Opening normal{Pools Coffer} in normal{Sanctum of Immortality}
-Upgrade: Upgrades to unique{Mask of the Stitched Demon} via currency{Vial of Summoning}
 {variant:1}(60-80)% increased Armour and Energy Shield
 {variant:2}(140-220)% increased Armour and Energy Shield
 {variant:2}+(30-60) to maximum Energy Shield
@@ -1214,7 +1213,7 @@ Your Energy Shield starts at zero
 Mask of the Stitched Demon
 Magistrate Crown
 League: Incursion
-Source: Upgraded from unique{Mask of the Spirit Drinker} via currency{Vial of Summoning}
+Source: Drops in a normal{Temple of Atzoatl} containing the normal{Cradle of Creation}
 +(40-50) to Intelligence
 +(160-180) to maximum Energy Shield
 Strength provides no bonus to Maximum Life

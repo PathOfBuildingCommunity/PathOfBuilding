@@ -1025,8 +1025,7 @@ Paua Amulet
 Variant: Pre 3.14.0
 Variant: Current
 League: Incursion
-Source: Drops from unique{The Vaal Omnitect}
-Upgrade: Upgrades to unique{Zerphi's Heart} via currency{Vial of Sacrifice}
+Source: Opening chests in normal{Glittering Halls}
 Implicits: 1
 ManaRegenerationImplicitAmulet1
 GlobalAddedFireDamageUnique__2
@@ -1040,7 +1039,7 @@ MovementVelocityIfVaalSkillUsedRecentlyUnique__1_
 Zerphi's Heart
 Paua Amulet
 League: Incursion
-Source: Upgraded from unique{Sacrificial Heart} via currency{Vial of Sacrifice}
+Source: Drops in a normal{Temple of Atzoatl} containing the normal{Cradle of Creation}
 Variant: Pre 3.10.0
 Variant: Current
 Implicits: 1
