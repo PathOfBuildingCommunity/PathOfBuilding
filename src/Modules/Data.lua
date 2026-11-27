@@ -285,6 +285,7 @@ data.misc = { -- magic numbers
 	pinnacleBossPen = 15 / 5,
 	uberBossDPSMult = 10 / 4.25,
 	uberBossPen = 40 / 5,
+	GrimFateArkhonPhysicalGainAsRandom = 80, -- The Arkhon Grim Fate, poedb Grim_Fates
 	-- ehp helper function magic numbers
 	ehpCalcSpeedUp = 8,
 	-- max damage can be increased for more accuracy
