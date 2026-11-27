@@ -607,6 +607,207 @@ Implicits: 1
 		assert.truthy(item.unreleased)
 	end)
 
+	it("Twice Corrupted", function()
+		local item = new("Item"):Item([[
+			Item Class: Body Armours
+			Rarity: Unique
+			Tabula Rasa
+			Simple Robe
+			--------
+			Sockets: W-W-W-W-W-W
+			--------
+			Item Level: 68
+			--------
+			Twice Corrupted
+		]])
+		assert.truthy(item.corrupted)
+		assert.truthy(item.twiceCorrupted)
+		assert.are.equals(0, #item.explicitModLines)
+
+		item = new("Item"):Item([[
+			Item Class: Rings
+			Rarity: Rare
+			Doom Loop
+			Two-Stone Ring
+			--------
+			Item Level: 84
+			--------
+			+12% to Fire and Cold Resistances (implicit)
+			--------
+			+40 to maximum Life
+			+30% to Fire Resistance
+			--------
+			Twice Corrupted
+		]])
+		assert.truthy(item.corrupted)
+		assert.truthy(item.twiceCorrupted)
+		assert.are.equals(2, #item.explicitModLines)
+
+		item = new("Item"):Item(item:BuildRaw())
+		assert.truthy(item.corrupted)
+		assert.truthy(item.twiceCorrupted)
+		assert.are.equals(2, #item.explicitModLines)
+
+		item = new("Item"):Item(raw("Corrupted"))
+		assert.truthy(item.corrupted)
+		assert.falsy(item.twiceCorrupted)
+	end)
+
+	it("unidentified tiered items", function()
+		local item = new("Item"):Item([[
+			Item Class: Rings
+			Rarity: Rare
+			Geodesic Ring
+			--------
+			Item Level: 86
+			--------
+			{ Implicit Modifier }
+			+1 Prefix Modifier allowed
+			-1 Suffix Modifier allowed
+			--------
+			Unidentified (Tier 5)
+		]])
+		assert.are.equals("Geodesic Ring", item.baseName)
+		assert.are.equals(86, item.itemLevel)
+		assert.are.equals(2, #item.implicitModLines)
+		assert.are.equals(0, #item.explicitModLines)
+		item = new("Item"):Item(item:BuildRaw())
+		assert.are.equals("Geodesic Ring", item.baseName)
+		assert.are.equals(0, #item.explicitModLines)
+
+		item = new("Item"):Item([[
+			Item Class: Boots
+			Rarity: Magic
+			Shagreen Boots
+			--------
+			Evasion Rating: 186
+			--------
+			Requirements:
+			Level: 62
+			Dex: 117
+			--------
+			Sockets: G-G
+			--------
+			Item Level: 75
+			--------
+			Unidentified (Tier 4)
+		]])
+		assert.are.equals("Shagreen Boots", item.baseName)
+		assert.are.equals(0, #item.explicitModLines)
+
+		-- Once identified the tier is no longer shown
+		item = new("Item"):Item([[
+			Item Class: Boots
+			Rarity: Magic
+			Shagreen Boots of the Tempest
+			--------
+			Evasion Rating: 186
+			--------
+			Requirements:
+			Level: 62
+			Dex: 117
+			--------
+			Sockets: G-G
+			--------
+			Item Level: 75
+			--------
+			+42% to Lightning Resistance
+		]])
+		assert.are.equals("Shagreen Boots", item.baseName)
+		assert.are.equals(1, #item.explicitModLines)
+	end)
+
+	it("Fated items", function()
+		-- Copied in 3.30.0.4: unidentified rares from Fate-empowered bosses show "Fated " before the base name
+		local item = new("Item"):Item([[
+			Item Class: Rings
+			Rarity: Rare
+			Fated Geodesic Ring
+			--------
+			Item Level: 86
+			--------
+			{ Implicit Modifier }
+			+1 Prefix Modifier allowed
+			-1 Suffix Modifier allowed
+			Implicit Modifiers Cannot Be Changed — Unscalable Value
+			25% increased Prefix Modifier magnitudes — Unscalable Value
+			--------
+			Unidentified (Tier 5)
+		]])
+		assert.are.equals("Geodesic Ring", item.baseName)
+		assert.are.equals("Ring", item.type)
+		assert.are.equals("Fated Geodesic Ring", item.title)
+		assert.are.equals(86, item.itemLevel)
+		assert.are.equals(4, #item.implicitModLines)
+		assert.are.equals(0, #item.explicitModLines)
+		item = new("Item"):Item(item:BuildRaw())
+		assert.are.equals("Geodesic Ring", item.baseName)
+		assert.are.equals("Fated Geodesic Ring", item.title)
+		assert.are.equals(4, #item.implicitModLines)
+		assert.are.equals(0, #item.explicitModLines)
+
+		-- With quality
+		for _, name in ipairs({ "Superior Fated Astral Plate", "Fated Superior Astral Plate" }) do
+			item = new("Item"):Item(([[
+				Item Class: Body Armours
+				Rarity: Rare
+				%s
+				--------
+				Quality: +12% (augmented)
+				Armour: 797 (augmented)
+				--------
+				Item Level: 84
+				--------
+				Unidentified (Tier 3)
+			]]):gsub("%%s", name))
+			assert.are.equals("Astral Plate", item.baseName)
+			assert.are.equals(12, item.quality)
+			item = new("Item"):Item(item:BuildRaw())
+			assert.are.equals("Astral Plate", item.baseName)
+			assert.are.equals(12, item.quality)
+		end
+
+		-- Base name on its own line below a rare name
+		item = new("Item"):Item([[
+			Item Class: Rings
+			Rarity: Rare
+			Vengeance Band
+			Fated Geodesic Ring
+			--------
+			Item Level: 80
+			--------
+			+40 to maximum Life
+		]])
+		assert.are.equals("Geodesic Ring", item.baseName)
+		assert.are.equals("Vengeance Band", item.title)
+		assert.are.equals(1, #item.explicitModLines)
+
+		-- Magic and normal items keep the label as a name prefix
+		item = new("Item"):Item([[
+			Item Class: Rings
+			Rarity: Magic
+			Fated Geodesic Ring
+			--------
+			Item Level: 86
+			--------
+			Unidentified (Tier 2)
+		]])
+		assert.are.equals("Geodesic Ring", item.baseName)
+		assert.are.equals("Fated ", item.namePrefix)
+		item = new("Item"):Item(item:BuildRaw())
+		assert.are.equals("Geodesic Ring", item.baseName)
+		assert.are.equals("Fated ", item.namePrefix)
+
+		-- A unique whose name starts with the same word is left alone
+		item = new("Item"):Item([[
+			Rarity: Unique
+			Fated End
+			Paua Ring
+		]])
+		assert.are.equals("Fated End", item.title)
+		assert.are.equals("Paua Ring", item.baseName)
+	end)
+
 	it("long flags", function()
 		local item = new("Item"):Item(raw("This item can be anointed by Cassia"))
 		assert.truthy(item.canBeAnointed)
