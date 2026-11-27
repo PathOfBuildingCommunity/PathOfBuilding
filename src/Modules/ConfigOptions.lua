@@ -2354,6 +2354,9 @@ Huge sets the radius to 11.
 			end
 			
 			modList:NewMod("BossSkillActive", "FLAG", true, "Config")
+			if val:match("^Shaper ") then
+				modList:NewMod("ShaperBossSkillActive", "FLAG", true, "Config")
+			end
 
 			-- boss specific mods
 			if val == "Atziri Flameblast" and isUber then
@@ -2377,6 +2380,20 @@ Huge sets the radius to 11.
 				build.configTab.varControls['enemyDamageType']:SelByValue("Average", "val")
 			end
 			build.configTab.varControls['enemyDamageType'].enabled = true
+		end
+	end },
+	{ var = "grimFateArkhon", type = "list", label = "Grim Fate: The Arkhon", ifFlag = "ShaperBossSkillActive", tooltip = "The Arkhon Grim Fate makes The Shaper gain 80% of Physical Damage as extra Damage of a random Element.\n\tAverage: one third of the value as ^xB97123Fire^7, ^x3F6DB3Cold^7 and ^xADAA47Lightning ^7each, the expected damage over many hits\n\t^xB97123Fire ^7/ ^x3F6DB3Cold ^7/ ^xADAA47Lightning^7: the full value as that element, for a single hit of that element", list = {{val="NONE",label="None"},{val="AVERAGE",label="Average"},{val="FIRE",label="^xB97123Fire"},{val="COLD",label="^x3F6DB3Cold"},{val="LIGHTNING",label="^xADAA47Lightning"}}, apply = function(val, modList, enemyModList, build)
+		local preset = build.configTab.input.presetBossSkills
+		if val == "NONE" or not (preset and preset:match("^Shaper ")) then
+			return
+		end
+		local gain = data.misc.GrimFateArkhonPhysicalGainAsRandom
+		if val == "AVERAGE" then
+			for _, element in ipairs({ "Fire", "Cold", "Lightning" }) do
+				enemyModList:NewMod("PhysicalDamageGainAs"..element, "BASE", gain / 3, "Grim Fate: The Arkhon")
+			end
+		else
+			enemyModList:NewMod("PhysicalDamageGainAs"..val:sub(1, 1)..val:sub(2):lower(), "BASE", gain, "Grim Fate: The Arkhon")
 		end
 	end },
 	{ var = "enemyDamageRollRange", type = "integer", label = "Enemy Skill Roll Range %:", ifFlag = "BossSkillActive", tooltip = "The percentage of the roll range the enemy hits for \n eg at 100% the enemy deals its maximum damage", defaultPlaceholderState = 70, hideIfInvalid = true },
