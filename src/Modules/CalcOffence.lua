@@ -4181,8 +4181,9 @@ function calcs.offence(env, actor, activeSkill)
 	skillFlags.leechES = output.EnergyShieldLeechRate > 0
 	skillFlags.leechMana = output.ManaLeechRate > 0
 	-- Only the first target hit by each shield attack use counts as a Bell block.
+	-- Skills used by General's Cry mirages aren't your own uses, the same as for the Bell trigger source
 	if actor == env.player and skillFlags.shieldAttack and skillModList:Flag(nil, "ShieldAttacksCountAsBlocks")
-		and not (skillFlags.mine or skillFlags.trap or skillFlags.totem) then
+		and not (skillFlags.mine or skillFlags.trap or skillFlags.totem) and not skillCfg.skillCond["usedByMirage"] then
 		local usesPerSecond = output.Speed / output.Repeats
 		local blockRate = usesPerSecond * output.HitChance / 100
 		for _, resource in ipairs({ "Life", "Mana", "EnergyShield" }) do
