@@ -1840,15 +1840,15 @@ function calcs.initEnv(build, mode, override, specEnv)
 				local slotHasActiveSkill = false
 
 				-- Create active skills
-			for _, gemInstance in ipairs(group.gemList) do
+				for _, gemInstance in ipairs(group.gemList) do
 					if gemInstance.enabled and (gemInstance.gemData or gemInstance.grantedEffect) then
-					local socketIndex = socketIndexByGem[gemInstance]
+						local socketIndex = socketIndexByGem[gemInstance]
 						local grantedEffectList = gemInstance.gemData and gemInstance.gemData.grantedEffectList or { gemInstance.grantedEffect }
 						local gemSkill
 						for index, grantedEffect in ipairs(grantedEffectList) do
 							if not grantedEffect.support and not grantedEffect.unsupported and (not grantedEffect.hasGlobalEffect or gemInstance["enableGlobal"..index]) then
 								slotHasActiveSkill = true
-							local socketQuality = getMatchingSocketQuality(env, groupCfg, gemInstance, socketIndex)
+								local socketQuality = getMatchingSocketQuality(env, groupCfg, gemInstance, socketIndex)
 								local actualQuality = gemInstance.quality + socketQuality
 								local activeEffect = {
 									grantedEffect = grantedEffect,
