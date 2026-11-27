@@ -265,6 +265,7 @@ data.misc = { -- magic numbers
 	PoisonDurationBase = 2,
 	IgnitePercentBase = 0.9,
 	IgniteDurationBase = 4,
+	DraugurflamesIgnitePercent = 15, -- from the game's Draugurflame keyword text, the buff stat has no fixed value
 	ImpaleStoredDamageBase = 0.1,
 	TrapTriggerRadiusBase = 10,
 	MineDetonationRadiusBase = 60,

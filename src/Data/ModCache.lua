@@ -15541,7 +15541,7 @@ c["Does not delay Inherent Loss of Rage Regenerate 1 Rage per second for every 3
 c["Does not delay Inherent Loss of Rage Skills Cost +3 Rage"]={{[1]={flags=0,keywordFlags=0,name="RageCostNoMult",type="BASE",value=3}},"Does not delay Inherent Loss of   Rage "}
 c["Does not inflict Mana Burn over time"]={nil,"Does not inflict Mana Burn over time "}
 c["Does not inflict Mana Burn over time Inflicts Mana Burn on you when you Hit an Enemy with a Melee Weapon"]={nil,"Does not inflict Mana Burn over time Inflicts Mana Burn on you when you Hit an Enemy with a Melee Weapon "}
-c["Draugurflames burn enemies around you for 8 seconds after you Ignite a target"]={nil,"Draugurflames burn enemies around you for 8 seconds after you Ignite a target "}
+c["Draugurflames burn enemies around you for 8 seconds after you Ignite a target"]={{[1]={flags=0,keywordFlags=0,name="Draugurflames",type="FLAG",value=true}},nil}
 c["Drop Brine Ground while moving, lasting 4 seconds"]={{[1]={flags=0,keywordFlags=0,name="CanCreateBrineGround",type="FLAG",value=true}},nil}
 c["Drops Brittle Ground while moving, lasting 10 seconds"]={{[1]={[1]={actor="enemy",type="ActorCondition",var="OnBrittleGround"},flags=0,keywordFlags=0,name="BrittleBase",type="BASE",value=2}},nil}
 c["Drops Brittle Ground while moving, lasting 11 seconds"]={{[1]={[1]={actor="enemy",type="ActorCondition",var="OnBrittleGround"},flags=0,keywordFlags=0,name="BrittleBase",type="BASE",value=2}},nil}
