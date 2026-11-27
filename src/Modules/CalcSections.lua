@@ -1123,6 +1123,7 @@ return {
 		{ modName = { "IgniteBurnRate" }, cfg = "skill" }, 
 	}, },
 	{ label = "Burning Ground", haveOutput = "BurningGroundFromIgnite", { format = "{0:output:BurningGroundDPS}", { breakdown = "BurningGroundDPS" } } },
+	{ label = "Draugurflames", haveOutput = "DraugurflamesDPS", { format = "{0:output:DraugurflamesDPS}", { breakdown = "DraugurflamesDPS" } } },
 	{ label = "Ignite Duration", { format = "{2:output:IgniteDuration}s", 
 		{ breakdown = "IgniteDuration" },
 		{ label = "Player modifiers", modName = { "EnemyIgniteDuration", "EnemyAilmentDuration", "EnemyElementalAilmentDuration", "DamagingAilmentDuration", "IgniteBurnFaster", "IgniteBurnSlower" }, cfg = "skill" },

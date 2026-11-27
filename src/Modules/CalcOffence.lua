@@ -5289,6 +5289,23 @@ function calcs.offence(env, actor, activeSkill)
 						}
 					end
 				end
+				-- Draugurflames deal a share of the strongest single Ignite as Fire damage over time, and can't be modified directly
+				if skillModList:Flag(nil, "Draugurflames") then
+					local resist = calcResistForType("Fire", dotCfg)
+					local takenInc = enemyDB:Sum("INC", dotCfg, "DamageTaken", "DamageTakenOverTime", "FireDamageTaken", "FireDamageTakenOverTime", "ElementalDamageTaken")
+					local takenMore = enemyDB:More(dotCfg, "DamageTaken", "DamageTakenOverTime", "FireDamageTaken", "FireDamageTakenOverTime", "ElementalDamageTaken")
+					local fireEffMult = env.mode_effective and (1 - resist / 100) * (1 + takenInc / 100) * takenMore or 1
+					local percent = data.misc.DraugurflamesIgnitePercent
+					globalOutput.DraugurflamesDPS = m_min(baseVal * effectMod * rateMod * fireEffMult * percent / 100, data.misc.DotDpsCap)
+					if globalBreakdown then
+						globalBreakdown.DraugurflamesDPS = {
+							s_format("%.1f ^8(damage per second of one ignite)", baseVal * effectMod * rateMod),
+							s_format("* %d%% ^8(dealt by Draugurflames)", percent),
+							s_format("* %.3f ^8(effective DPS modifier)", fireEffMult),
+							s_format("= %.1f ^8per second", globalOutput.DraugurflamesDPS)
+						}
+					end
+				end
 				globalOutput.IgniteDamage = output.IgniteDPS * globalOutput.IgniteDuration
 				if skillFlags.igniteCanStack then
 					output.IgniteDamage = output.IgniteDPS * globalOutput.IgniteDuration
@@ -6306,7 +6323,7 @@ function calcs.offence(env, actor, activeSkill)
 		end
 	end
 
-	local TotalDotDPS = (output.TotalDot or 0) + (output.TotalPoisonDPS or 0) + (m_max(output.CausticGroundDPS or 0, output.MirageCausticGroundDPS or 0 )) + (output.TotalIgniteDPS or output.IgniteDPS or 0) + (m_max(output.BurningGroundDPS or 0, output.MirageBurningGroundDPS or 0)) + (output.BleedDPS or 0) + (output.CorruptingBloodDPS or 0) + (output.DecayDPS or 0)
+	local TotalDotDPS = (output.TotalDot or 0) + (output.TotalPoisonDPS or 0) + (m_max(output.CausticGroundDPS or 0, output.MirageCausticGroundDPS or 0 )) + (output.TotalIgniteDPS or output.IgniteDPS or 0) + (m_max(output.BurningGroundDPS or 0, output.MirageBurningGroundDPS or 0)) + (output.DraugurflamesDPS or 0) + (output.BleedDPS or 0) + (output.CorruptingBloodDPS or 0) + (output.DecayDPS or 0)
 	output.TotalDotDPS = m_min(TotalDotDPS, data.misc.DotDpsCap)
 	if output.TotalDotDPS ~= TotalDotDPS then
 		output.showTotalDotDPS = true

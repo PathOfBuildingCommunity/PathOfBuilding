@@ -32,6 +32,22 @@ describe("TestAilments", function()
 		end)
 	end
 
+	it("deals 15% of one Ignite's DPS as Draugurflames", function()
+		build.skillsTab:PasteSocketGroup("Fireball 20/0  1\n")
+		build.configTab.input.customMods = "100% chance to Ignite"
+		rebuild()
+		local output = build.calcsTab.mainOutput
+		assert.is_true(output.IgniteDPS > 0)
+		assert.is_nil(output.DraugurflamesDPS)
+		local baseTotalDot = output.TotalDotDPS
+
+		build.configTab.input.customMods = "100% chance to Ignite\nDraugurflames burn enemies around you for 8 seconds after you Ignite a target"
+		rebuild()
+		output = build.calcsTab.mainOutput
+		assert.near(output.IgniteDPS * 0.15, output.DraugurflamesDPS, 0.0001)
+		assert.near(baseTotalDot + output.DraugurflamesDPS, output.TotalDotDPS, 0.0001)
+	end)
+
 	it("maximum shock value", function()
 		-- Shock Nova
 		build.skillsTab:PasteSocketGroup("Slot: Weapon 1\nShock Nova 4/0  1\n")

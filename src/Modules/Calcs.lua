@@ -160,6 +160,7 @@ function calcs.calcFullDPS(build, mode, override, specEnv)
 		impaleDPS = 0,
 		igniteDPS = 0,
 		burningGroundDPS = 0,
+		draugurflamesDPS = 0,
 		bleedDPS = 0,
 		corruptingBloodDPS = 0,
 		decayDPS = 0,
@@ -171,6 +172,7 @@ function calcs.calcFullDPS(build, mode, override, specEnv)
 	local corruptingBloodSource = ""
 	local igniteSource = ""
 	local burningGroundSource = ""
+	local draugurflamesSource = ""
 	local causticGroundSource = ""
 	
 	for _, activeSkill in ipairs(fullEnv.player.activeSkillList) do
@@ -278,6 +280,10 @@ function calcs.calcFullDPS(build, mode, override, specEnv)
 					fullDPS.burningGroundDPS = usedEnv.player.output.BurningGroundDPS
 					burningGroundSource = activeSkill.activeEffect.grantedEffect.name
 				end
+				if usedEnv.player.output.DraugurflamesDPS and usedEnv.player.output.DraugurflamesDPS > fullDPS.draugurflamesDPS then
+					fullDPS.draugurflamesDPS = usedEnv.player.output.DraugurflamesDPS
+					draugurflamesSource = activeSkill.activeEffect.grantedEffect.name
+				end
 				if usedEnv.player.output.PoisonDPS and usedEnv.player.output.PoisonDPS > 0 then
 					fullDPS.TotalPoisonDPS = fullDPS.TotalPoisonDPS + usedEnv.player.output.TotalPoisonDPS * activeSkillCount
 				end
@@ -328,6 +334,10 @@ function calcs.calcFullDPS(build, mode, override, specEnv)
 	if fullDPS.burningGroundDPS > 0 then
 		t_insert(fullDPS.skills, { name = "Best Burning Ground DPS", dps = fullDPS.burningGroundDPS, count = 1, source = burningGroundSource })
 		fullDPS.TotalDotDPS = fullDPS.TotalDotDPS + fullDPS.burningGroundDPS
+	end
+	if fullDPS.draugurflamesDPS > 0 then
+		t_insert(fullDPS.skills, { name = "Best Draugurflames DPS", dps = fullDPS.draugurflamesDPS, count = 1, source = draugurflamesSource })
+		fullDPS.TotalDotDPS = fullDPS.TotalDotDPS + fullDPS.draugurflamesDPS
 	end
 	if fullDPS.TotalPoisonDPS > 0 then
 		fullDPS.TotalPoisonDPS = m_min(fullDPS.TotalPoisonDPS, data.misc.DotDpsCap)
