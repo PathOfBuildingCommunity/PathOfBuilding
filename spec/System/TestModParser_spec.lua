@@ -15,4 +15,17 @@ describe("TestModParser", function()
 		assert.are.equal(0, getMasterDistillerCritMultiplier(100, { [SkillType.Triggered] = true }, true))
 		assert.are.equal(0, getMasterDistillerCritMultiplier(100, { [SkillType.Channel] = true }, true))
 	end)
+
+	it("recognises lines with no calculable effect", function()
+		for _, line in ipairs({
+			"Blind you inflict is permanent",
+			"Taunts nearby Enemies on use",
+			"Taunts Enemies within 3 metres on use",
+			"Taunts Enemies within 3.0 metres on use",
+		}) do
+			local mods, extra = modLib.parseMod(line)
+			assert.is_not_nil(mods, line)
+			assert.is_nil(extra, line)
+		end
+	end)
 end)
