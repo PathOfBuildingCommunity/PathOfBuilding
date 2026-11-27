@@ -354,6 +354,26 @@ describe("TestConfig", function()
 				build.configTab:SetActiveConfigSet(3)
 				assert.are.equals(placeholderValue, build.configTab.configSets[3].placeholder.testVar)
 			end)
+
+			it("Saves an input of an inactive config set that equals the active set's placeholder", function()
+				local other = build.configTab:NewConfigSet(nil, "Other")
+				build.configTab.configSets[1].placeholder.sigilOfPowerStages = 3
+				other.input.sigilOfPowerStages = 3
+
+				loadBuildFromXML(build:SaveDB("code"))
+
+				assert.are.equals(1, build.configTab.activeConfigSetId)
+				assert.are.equals(3, build.configTab.configSets[other.id].input.sigilOfPowerStages)
+			end)
+
+			it("Loads a saved string placeholder as a placeholder", function()
+				build.configTab.placeholder.testPlaceholder = "test"
+
+				loadBuildFromXML(build:SaveDB("code"))
+
+				assert.are.equals("test", build.configTab.placeholder.testPlaceholder)
+				assert.is_nil(build.configTab.input.testPlaceholder)
+			end)
 		end)
 
 		describe("Default values", function()
