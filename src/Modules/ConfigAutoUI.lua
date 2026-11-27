@@ -18,9 +18,12 @@
 --   autoCheckScan      the unfinished automatic marker scan, resumed each frame
 --   autoCheckViewTime  GetTime() since which the Configuration tab has shown the indicators
 --   autoSetupError     true after a failed regeneration, until one succeeds
---   autoCheckMapping   weak-keyed: set -> whether the automatic check last recorded it as mapping
 --   autoDetectMarkers  var -> marker control, filled by AddMarker
 --   markerStatusFrame  per-draw-pass cache of marker statuses, set by ConfigTab:Draw
+--
+-- Settings on main: showAutoConfigureUI (Options) turns the whole feature off: no
+-- setup row, no markers and no work per frame; showAutoConfigureMarkers ("Show
+-- scan indicators") hides only the markers and stops their automatic check.
 local t_insert = table.insert
 local t_concat = table.concat
 local m_min = math.min
@@ -52,6 +55,14 @@ local CLEARED = M.CLEARED
 
 function M.IsActivity(value)
 	return value == "boss" or value == "maps"
+end
+
+-- Whether the feature is shown at all (Options), and whether its markers are
+function M.Enabled()
+	return main.showAutoConfigureUI ~= false
+end
+local function markersShown()
+	return M.Enabled() and main.showAutoConfigureMarkers ~= false
 end
 
 -- Reason shown for a set value whose requirements the build no longer meets
@@ -140,7 +151,7 @@ function M.AddMarker(config, control, varData, isNativeInvalid)
 	-- the native control's visibility. IsShown skips the generic anchor check,
 	-- which would evaluate the same control:IsShown() a second time per frame.
 	marker.shown = function()
-		return main.showAutoConfigureUI ~= false and marker:GetStatus() ~= nil and control:IsShown()
+		return markersShown() and marker:GetStatus() ~= nil and control:IsShown()
 	end
 	marker.IsShown = marker.shown
 	config.autoDetectMarkers[var] = marker
@@ -428,10 +439,14 @@ local function refreshGenerated(config, rebuilt, settled)
 	end
 end
 
--- Markers need a scan record for the active set even when the player never ran a
--- scan. This read-only pass records one for a set without a record, or with a stale
--- one, once the build has settled and the Configuration tab has shown the indicators
--- for the same delay, so loading a build or passing through the tab never scans.
+-- The markers of a generated setup need a scan record even when it was not made
+-- in this session (a set loaded from a file has none). This read-only pass records
+-- one for an active generated set without a record, or with a stale one, once the
+-- build has settled and the Configuration tab has shown the indicators for the same
+-- delay, so loading a build or passing through the tab never scans. A manual set is
+-- never scanned here: it costs a build that does not use the feature nothing, its
+-- record comes from a scan the player asked for (Advanced scan), and its markers ask
+-- for a new one once the build has changed.
 -- Detect runs isolated from the real tab, so nothing here changes inputs,
 -- placeholders or the undo history. The scan is spread over frames (scanBudget
 -- milliseconds each); the markers keep the previous record until it finishes, and
@@ -440,30 +455,25 @@ local function checkActive(config, settled)
 	local build = config.build
 	local scan = config.autoCheckScan
 	config.autoCheckScan = nil
-	if main.showAutoConfigureUI == false or build.viewMode ~= "CONFIG" then
-		config.autoCheckViewTime = nil
+	local set = M.Active(config)
+	if not set or not markersShown() or build.viewMode ~= "CONFIG" then
+		config.autoCheckViewTime, config.autoCheckPending = nil, nil
 		return
 	end
 	config.autoCheckViewTime = config.autoCheckViewTime or GetTime()
-	local set = config.configSets[config.activeConfigSetId]
-	local generated = M.Active(config)
 	-- A generated setup about to regenerate records its own checks
-	if generated and config.autoSetupPending then return end
-	local mapping = generated and generated.autoActivity == "maps"
-		or not generated and config.controls.setupActivity:GetSelValueByKey("val") == "maps"
-	local current = scanner.SettingChecksState(config, set)
-	local checked = config.autoCheckMapping[set]
-	if current and (checked == nil or checked == mapping) then
+	if config.autoSetupPending then return end
+	if scanner.SettingChecksState(config, set) then
 		config.autoCheckPending = nil
 		return
 	end
 	config.autoCheckPending = true
 	if not settled or build.buildFlag or GetTime() - config.autoCheckViewTime < M.refreshDelay then return end
-	if scan and (scan.set ~= set or scan.mapping ~= mapping or scan.revision ~= build.outputRevision) then scan = nil end
+	if scan and (scan.set ~= set or scan.revision ~= build.outputRevision) then scan = nil end
 	if not scan then
 		local settings = preferences.Get(main)
-		scan = { set = set, mapping = mapping, revision = build.outputRevision, settings = settings,
-			source = scanner.SetupSource(build, set.id, settings), detect = scanner.StartDetect(build, mapping, nil, nil, settings) }
+		scan = { set = set, revision = build.outputRevision, settings = settings, source = scanner.SetupSource(build, set.id, settings),
+			detect = scanner.StartDetect(build, set.autoActivity == "maps", nil, nil, settings) }
 	end
 	local done, ok, suggestions, report = scanner.ResumeDetect(scan.detect, M.scanBudget)
 	if not done then
@@ -480,18 +490,23 @@ local function checkActive(config, settled)
 		report = { }
 	end
 	scanner.RecordSettingChecks(config, set, report, nil, settings)
-	config.autoCheckMapping[set] = mapping
 end
 
 -- Called every frame by the build. Returns true when the active generated setup
 -- changed and the build must recalculate.
 function M.Refresh(config)
+	if not M.Enabled() then
+		-- Turned off in Options: generated sets stay as they are, like any other config set
+		config.autoSetupPending, config.autoCheckScan, config.autoCheckViewTime, config.autoCheckPending = nil, nil, nil, nil
+		return
+	end
 	local rebuilt = config.autoSetupRevision ~= config.build.outputRevision
 	if rebuilt then
 		config.autoSetupRevision = config.build.outputRevision
 		config.autoSettleTime = GetTime()
 	end
-	local settled = not rebuilt and GetTime() - config.autoSettleTime >= M.refreshDelay
+	-- An edit waiting for its rebuild is not settled: the scan would read the old output
+	local settled = not rebuilt and not config.build.buildFlag and GetTime() - config.autoSettleTime >= M.refreshDelay
 	local changed = refreshGenerated(config, rebuilt, settled)
 	checkActive(config, settled)
 	return changed
@@ -508,13 +523,13 @@ end
 
 -- Height the setup block takes above the native form, including its gap
 function M.BlockHeight(config)
+	if not M.Enabled() then return 0 end
 	return compact(config) and 52 or 28
 end
 
 function M.AddControls(config, anchor)
 	local controls = config.controls
 	config.autoSetupCache = setmetatable({ }, { __mode = "k" })
-	config.autoCheckMapping = setmetatable({ }, { __mode = "k" })
 	config.autoDetectMarkers = { }
 	config.autoSettleTime = -math.huge
 	local function active() return M.Active(config) end
@@ -529,6 +544,7 @@ function M.AddControls(config, anchor)
 		end
 	end)
 	controls.setupActivity.tooltipText = "Choose what your build is doing."
+	controls.setupActivity.shown = M.Enabled
 	controls.autoConfigure = new("ButtonControl"):ButtonControl({ "LEFT", controls.setupActivity, "RIGHT" }, { 8, 0, 120, 20 }, "Set up my build", function()
 		M.Select(config, controls.setupActivity:GetSelValueByKey("val"))
 	end)
@@ -536,6 +552,7 @@ function M.AddControls(config, anchor)
 	controls.setupDetails = new("ButtonControl"):ButtonControl(anchor, { 0, 0, 70, 20 }, "Details...", function() M.OpenDetails(config) end)
 	controls.setupDetails.x = function() return active() and 168 or stacked() and 10 or 296 end
 	controls.setupDetails.y = function() return stacked() and 24 or 0 end
+	controls.setupDetails.shown = M.Enabled
 	-- One row: the summary and the activity's assumption follow the buttons
 	controls.setupSummary = new("LabelControl"):LabelControl({ "LEFT", controls.setupDetails, "RIGHT" }, { 8, 0, 0, 14 }, function()
 		if config.autoSetupError then return colorCodes.WARNING .. "Could not update. Open Details." end
@@ -629,9 +646,9 @@ function M.OpenDetails(config)
 		M.OpenPopup(config)
 	end)
 	controls.markers = new("CheckBoxControl"):CheckBoxControl(anchor, { 310, footerY + 2, 16 }, "Show scan indicators", function(state)
-		main.showAutoConfigureUI = state
+		main.showAutoConfigureMarkers = state
 		main:SaveSettings()
-	end, "Show scan markers beside settings.", main.showAutoConfigureUI ~= false)
+	end, "Show scan markers beside settings.", main.showAutoConfigureMarkers ~= false)
 	controls.markers.labelRight = true
 	controls.manual = new("ButtonControl"):ButtonControl(anchor, { 12, footerY + 32, 144, 22 }, "Use manual setup", function()
 		config:SetActiveConfigSet(set.autoBaseId)
@@ -818,9 +835,9 @@ function M.OpenPopup(configTab)
 		firstScan = false
 	end
 	controls.showMarkers = new("CheckBoxControl"):CheckBoxControl(anchor, { 432, 45, 16 }, "Show scan indicators", function(state)
-		main.showAutoConfigureUI = state
+		main.showAutoConfigureMarkers = state
 		main:SaveSettings()
-	end, "Show markers; saved for all builds.", main.showAutoConfigureUI ~= false)
+	end, "Show markers; saved for all builds.", main.showAutoConfigureMarkers ~= false)
 	controls.showMarkers.labelRight = true
 	controls.sensitivity = new("ButtonControl"):ButtonControl(anchor, { 608, 42, 140, 22 }, "Sensitivity...", function()
 		M.OpenSensitivity(main, refresh)

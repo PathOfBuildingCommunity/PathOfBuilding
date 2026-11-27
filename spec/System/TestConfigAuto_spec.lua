@@ -274,14 +274,38 @@ describe("TestConfigAuto", function()
 		assert.is_nil(auto.GetInvalidSettingReason(config, option("overrideCruelty")):find("Cruelty", 1, true))
 	end)
 
+	it("gives up a stepped scan that is suspended outside its own steps, with the real cache back in place", function()
+		local cache = GlobalCache.cachedData.CALCULATOR
+		local calcs = build.calcsTab.calcs
+		local perform = calcs.perform
+		finally(function() calcs.perform = perform end)
+		calcs.perform = function(...)
+			calcs.perform = perform
+			coroutine.yield()
+			return perform(...)
+		end
+		local done, ok, message = auto.ResumeDetect(auto.StartDetect(build, true), 1000)
+		assert.is_true(done)
+		assert.is_false(ok)
+		assert.is_string(message)
+		assert.are.equal(cache, GlobalCache.cachedData.CALCULATOR)
+		-- The next scan is isolated again
+		local keys = { }
+		for key in pairs(cache) do keys[key] = true end
+		auto.Detect(build)
+		assert.are.equal(cache, GlobalCache.cachedData.CALCULATOR)
+		for key in pairs(cache) do assert.is_true(keys[key], "scan leaked into the cache: " .. tostring(key)) end
+	end)
+
 	describe("generated setups", function()
 		local preferences = require("Modules.ConfigAutoModel").Preferences
 		local ui = require("Modules.ConfigAutoUI")
 		local saved, clock
 		local killMods = "33% chance to gain a Frenzy Charge on Kill\nYou gain Onslaught for 2 seconds on Kill\n18% increased Damage if you've Killed Recently"
-		-- One frame to rebuild, then enough quiet time for an active setup to catch up
+		-- One frame to rebuild, one in which an active setup notices the rebuild, then enough quiet time for it to catch up
 		local function draw()
 			build.buildFlag = true
+			runCallback("OnFrame")
 			runCallback("OnFrame")
 			clock = clock + ui.refreshDelay
 			runCallback("OnFrame")
@@ -300,7 +324,7 @@ describe("TestConfigAuto", function()
 			return config
 		end
 		before_each(function()
-			saved = { autoSave = main.disableDevAutoSave, preferences = main.autoConfigureSettings,
+			saved = { autoSave = main.disableDevAutoSave, preferences = main.autoConfigureSettings, shown = main.showAutoConfigureUI,
 				getTime = _G.GetTime, buildSetup = auto.BuildSetup, saveXML = common.xml.SaveXMLFile }
 			clock = 0
 			_G.GetTime = function() return clock end
@@ -316,7 +340,7 @@ describe("TestConfigAuto", function()
 		after_each(function()
 			while main.popups[1] do main:ClosePopup() end
 			build.abortSave = true
-			main.disableDevAutoSave, main.autoConfigureSettings = saved.autoSave, saved.preferences
+			main.disableDevAutoSave, main.autoConfigureSettings, main.showAutoConfigureUI = saved.autoSave, saved.preferences, saved.shown
 			_G.GetTime, auto.BuildSetup, common.xml.SaveXMLFile = saved.getTime, saved.buildSetup, saved.saveXML
 		end)
 
@@ -370,6 +394,72 @@ describe("TestConfigAuto", function()
 			config:Undo()
 			draw()
 			assert.is_table(config.configSets[config.activeConfigSetId])
+		end)
+
+		it("takes no space and does no work when turned off in Options", function()
+			local viewPort = { x = 0, y = 0, width = 1200, height = 800 }
+			local config = setup(1)
+			local generated = config.configSets[config.activeConfigSetId]
+			config:Draw(viewPort, { })
+			assert.are.equal(48, config.controls.sectionAnchor.y)
+			local scans, startDetect = 0, auto.StartDetect
+			auto.BuildSetup = function(...) scans = scans + 1 return saved.buildSetup(...) end
+			auto.StartDetect = function(...) scans = scans + 1 return startDetect(...) end
+			finally(function() auto.StartDetect = startDetect end)
+
+			main.showAutoConfigureUI = false
+			build.viewMode = "CONFIG"
+			-- A change the setup would otherwise follow
+			gems("Freezing Pulse 20/0  1\n")
+			draw()
+			config:Draw(viewPort, { })
+			-- The form starts where it does without the feature
+			assert.are.equal(20, config.controls.sectionAnchor.y)
+			for _, name in ipairs({ "setupActivity", "autoConfigure", "setupDetails", "setupSummary", "setupAssumption" }) do
+				assert.is_false(config.controls[name]:IsShown(), name)
+			end
+			for var, marker in pairs(config.autoDetectMarkers) do assert.is_false(marker:IsShown(), var) end
+			assert.are.equal(0, scans)
+			assert.is_nil(config.autoSetupPending)
+			-- The generated set is still an ordinary config set and is saved as one
+			assert.are.equal(generated, config.configSets[config.activeConfigSetId])
+			assert.is_truthy(build:SaveDB("code"):find('autoActivity="boss"', 1, true))
+
+			-- Turned back on, the setup catches up with the change
+			main.showAutoConfigureUI = true
+			build.viewMode = "TREE"
+			draw()
+			assert.are.equal(1, scans)
+			assert.is_true(config.controls.setupActivity:IsShown())
+		end)
+
+		it("checks markers in the background only for a generated setup shown in Configuration", function()
+			local config = build.configTab
+			local starts, startDetect = 0, auto.StartDetect
+			auto.StartDetect = function(...) starts = starts + 1 return startDetect(...) end
+			finally(function() auto.StartDetect = startDetect end)
+			build.viewMode = "CONFIG"
+			-- A manual set is never scanned without being asked, however long the tab is shown
+			config.input.conditionHitRecently = true
+			recalc()
+			for _ = 1, 3 do draw() end
+			assert.are.equal(0, starts)
+			assert.is_nil(config.autoCheckScan)
+			-- A setup made in this session recorded its checks when it was generated
+			setup(1)
+			for _ = 1, 3 do draw() end
+			assert.are.equal(0, starts)
+			-- Loaded from a file it has no record: one scan, and only while Configuration is shown
+			loadBuildFromXML(build:SaveDB("code"), "Loaded setup markers")
+			config = build.configTab
+			assert.is_truthy(ui.Active(config))
+			build.viewMode = "TREE"
+			for _ = 1, 3 do draw() end
+			assert.are.equal(0, starts)
+			build.viewMode = "CONFIG"
+			for _ = 1, 3 do draw() end
+			assert.are.equal(1, starts)
+			assert.is_true(auto.SettingChecksState(config, ui.Active(config)))
 		end)
 
 		it("applies from the setup button and Undo/Redo switches back to the untouched manual set", function()

@@ -1196,7 +1196,16 @@ function M.ResumeDetect(scan, budget)
 	stepping = scan
 	local results = { coroutine.resume(scan.thread) }
 	stepping = nil
-	if coroutine.status(scan.thread) ~= "dead" then return false end
+	if coroutine.status(scan.thread) ~= "dead" then
+		if isolationDepth == 0 then return false end
+		-- Only pause() may suspend a scan, and it puts the real cache back first. Anything
+		-- else that yields would leave the scan's cache in place for the build's own
+		-- calculations, so the real one is restored here and the scan is given up.
+		local isolation = scan.isolation
+		if isolation and isolation.cache then isolation.cache.CALCULATOR = isolation.saved end
+		isolationDepth = 0
+		return true, false, "the scan was suspended outside a scan step"
+	end
 	return true, unpack(results)
 end
 

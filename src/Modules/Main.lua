@@ -115,6 +115,7 @@ function main:Init()
 	self.dpiScaleOverridePercent = GetDPIScaleOverridePercent and GetDPIScaleOverridePercent() or 0
 	self.showWarnings = true
 	self.showAutoConfigureUI = true
+	self.showAutoConfigureMarkers = true
 	self.autoConfigureSettings = require("Modules.ConfigAutoModel").Preferences.Normalize()
 	self.slotOnlyTooltips = true
 	self.migrateEldritchImplicits = true
@@ -663,6 +664,9 @@ function main:LoadSettings(ignoreBuild)
 				if node.attrib.showAutoConfigureUI then
 					self.showAutoConfigureUI = node.attrib.showAutoConfigureUI == "true"
 				end
+				if node.attrib.showAutoConfigureMarkers then
+					self.showAutoConfigureMarkers = node.attrib.showAutoConfigureMarkers == "true"
+				end
 				if node.attrib.slotOnlyTooltips then
 					self.slotOnlyTooltips = node.attrib.slotOnlyTooltips == "true"
 				end
@@ -821,6 +825,7 @@ function main:SaveSettings()
 		lastExportedWebsite = self.lastExportedWebsite,
 		showWarnings = tostring(self.showWarnings),
 		showAutoConfigureUI = tostring(self.showAutoConfigureUI),
+		showAutoConfigureMarkers = tostring(self.showAutoConfigureMarkers),
 		slotOnlyTooltips = tostring(self.slotOnlyTooltips),
 		migrateEldritchImplicits = tostring(self.migrateEldritchImplicits),
 		notSupportedModTooltips = tostring(self.notSupportedModTooltips),
@@ -907,6 +912,7 @@ function main:OpenOptionsPopup(savedState)
 		defaultCharLevel = self.defaultCharLevel or 1,
 		defaultItemAffixQuality = self.defaultItemAffixQuality or 0.5,
 		showWarnings = self.showWarnings,
+		showAutoConfigureUI = self.showAutoConfigureUI,
 		slotOnlyTooltips = self.slotOnlyTooltips,
 		migrateEldritchImplicits = self.migrateEldritchImplicits,
 		notSupportedModTooltips = self.notSupportedModTooltips,
@@ -921,7 +927,7 @@ function main:OpenOptionsPopup(savedState)
 	}
 
 	-- NOTE: Height needs to be adjusted if more menu options are added
-	local oneColumnHeightReq = 850 -- Min height required to not split menu into two columns
+	local oneColumnHeightReq = 876 -- Min height required to not split menu into two columns
 	local columnWidth = 600
 	
 	local startingY = 20
@@ -1173,6 +1179,12 @@ function main:OpenOptionsPopup(savedState)
 	controls.showWarnings.state = self.showWarnings
 
 	nextRow()
+	controls.showAutoConfigureUI = new("CheckBoxControl"):CheckBoxControl({ "TOPLEFT", controls.sectionAnchor, "TOPLEFT" }, { currentX + defaultLabelPlacementX, currentY, 20 }, "^7Show build setup in Configuration:", function(state)
+		self.showAutoConfigureUI = state
+	end, "Shows the \"Set up my build\" row and its scan indicators in the Configuration tab.\nWhen off, no build is scanned and generated config sets are left as they are.")
+	controls.showAutoConfigureUI.state = self.showAutoConfigureUI
+
+	nextRow()
 	controls.slotOnlyTooltips = new("CheckBoxControl"):CheckBoxControl({ "TOPLEFT", controls.sectionAnchor, "TOPLEFT" }, { currentX + defaultLabelPlacementX, currentY, 20 }, "^7Show tooltips only for affected slots:", function(state)
 		self.slotOnlyTooltips = state
 	end, "Shows comparisons in tooltips only for the slot you are currently placing the item in, instead of all slots.")
@@ -1268,6 +1280,7 @@ function main:OpenOptionsPopup(savedState)
 		self.defaultCharLevel = savedState.defaultCharLevel
 		self.defaultItemAffixQuality = savedState.defaultItemAffixQuality
 		self.showWarnings = savedState.showWarnings
+		self.showAutoConfigureUI = savedState.showAutoConfigureUI
 		self.slotOnlyTooltips = savedState.slotOnlyTooltips
 		self.migrateEldritchImplicits = savedState.migrateEldritchImplicits
 		self.notSupportedModTooltips = savedState.notSupportedModTooltips

@@ -1435,7 +1435,8 @@ function buildMode:OnFrame(inputEvents)
 	self.controls.ascendDrop:CheckDroppedWidth(true)
 	self:UpdateSecondaryAscendancyDropdown()
 
-	-- A generated setup catches up with earlier changes once the build has settled
+	-- An active generated setup catches up with earlier changes once the build has settled.
+	-- Without one (or with the setup turned off in Options) this does nothing.
 	if self.configTab:RefreshAutoSetup() then
 		self.buildFlag = true
 	end
@@ -1448,17 +1449,11 @@ function buildMode:OnFrame(inputEvents)
 		self.buildFlag = false
 		self.skillsTab:UpdateSocketGroups()
 		self.calcsTab:BuildOutput()
-		-- Progress estimates (Act) are refreshed before the setup looks at them
-		self:RefreshStatList()
-		if self.configTab:RefreshAutoSetup() then
-			wipeGlobalCache()
-			self.calcsTab:BuildOutput()
-			self:RefreshStatList()
-		end
 		if self.controls.breakdown.pinned and self.breakdownInputs then
 			self.controls.breakdown:SetBreakdownData()
 			self.controls.breakdown:SetBreakdownData(unpack(self.breakdownInputs))
 		end
+		self:RefreshStatList()
 		self.configTab.calcFunc, self.configTab.calcBase = self.calcsTab:GetMiscCalculator()
 	end
 	if main.showThousandsSeparators ~= self.lastShowThousandsSeparators then
