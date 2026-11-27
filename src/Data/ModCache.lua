@@ -14755,7 +14755,7 @@ c["Blind does not affect your Light Radius 25% more Melee Critical Strike Chance
 c["Blind does not affect your Light Radius Blind you inflict is Reflected to you"]={nil,"Blind does not affect your Light Radius Blind you inflict is Reflected to you "}
 c["Blind you inflict is Reflected to you"]={nil,"Blind you inflict is Reflected to you "}
 c["Blind you inflict is Reflected to you 20% chance to gain a Frenzy Charge on Hit while Blinded"]={nil,"Blind you inflict is Reflected to you 20% chance to gain a Frenzy Charge on Hit while Blinded "}
-c["Blind you inflict is permanent"]={nil,"Blind you inflict is permanent "}
+c["Blind you inflict is permanent"]={{},nil}
 c["Blind you inflict is permanent Gain 60% of Weapon Physical Damage as Extra Damage of a random Element"]={nil,"Blind you inflict is permanent Gain 60% of Weapon Physical Damage as Extra Damage of a random Element "}
 c["Blinding a non-Blinded Pinnacle Atlas Boss with this Weapon will"]={nil,"Blinding a non-Blinded Pinnacle Atlas Boss with this Weapon will "}
 c["Blinding a non-Blinded Pinnacle Atlas Boss with this Weapon will steal a Modifier for this item (1 Modifier remaining)"]={nil,"Blinding a non-Blinded Pinnacle Atlas Boss with this Weapon will steal a Modifier for this item (1 Modifier remaining) "}
@@ -22108,8 +22108,8 @@ c["Taunt on Hit 15% increased effect of Non-Curse Auras from your Skills Your Hi
 c["Taunt on Hit Enemies Taunted by you take 15% increased Damage"]={nil,"Taunt on Hit Enemies Taunted by you take 15% increased Damage "}
 c["Taunt on Hit Enemies Taunted by you take 15% increased Damage Enemies Taunted by you cannot Evade Attacks"]={nil,"Taunt on Hit Enemies Taunted by you take 15% increased Damage Enemies Taunted by you cannot Evade Attacks "}
 c["Taunts Enemies within 3 metres on use Gain 6 Charges when you are Hit by an Enemy"]={nil,"Taunts Enemies within 3 metres on use Gain 6 Charges when you are Hit by an Enemy "}
-c["Taunts Enemies within 3.0 metres on use"]={nil,"Taunts Enemies within 3.0 metres on use "}
-c["Taunts nearby Enemies on use"]={nil,"Taunts nearby Enemies on use "}
+c["Taunts Enemies within 3.0 metres on use"]={{},nil}
+c["Taunts nearby Enemies on use"]={{},nil}
 c["Taunts nearby Enemies on use 23% reduced Duration"]={nil,"Taunts nearby Enemies on use 23% reduced Duration "}
 c["Taunts nearby Enemies on use Gain 3 Charges when you are Hit by an Enemy"]={nil,"Taunts nearby Enemies on use Gain 3 Charges when you are Hit by an Enemy "}
 c["Tempest Shield has 16% increased Buff Effect"]={{[1]={[1]={includeTransfigured=true,skillName="Tempest Shield",type="SkillName"},flags=0,keywordFlags=0,name="BuffEffect",type="INC",value=16}},nil}
