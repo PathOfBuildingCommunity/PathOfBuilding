@@ -20843,7 +20843,7 @@ c["Skills Socketed in your Helmet are Supported by level 20 Volatility"]={{[1]={
 c["Skills Socketed in your Helmet are Supported by level 20 Volley"]={{[1]={[1]={slotName="Helmet",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={appliesToGrantedSkills=true,level=20,skillId="SupportVolley"}}},nil}
 c["Skills Socketed in your Helmet are Supported by level 20 Withering Touch"]={{[1]={[1]={slotName="Helmet",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={appliesToGrantedSkills=true,level=20,skillId="SupportWitheringTouch"}}},nil}
 c["Skills Supported by Nightblade have 40% increased Effect of Elusive"]={{[1]={flags=0,keywordFlags=0,name="NightbladeSupportedElusiveEffect",type="INC",value=40}},nil}
-c["Skills Supported by Spell Totem are Crab Totems"]={nil,"Skills Supported by Spell Totem are Crab Totems "}
+c["Skills Supported by Spell Totem are Crab Totems"]={{},nil}
 c["Skills Supported by Unleash have 10% increased Seal gain frequency"]={{[1]={flags=0,keywordFlags=0,name="SealGainFrequency",type="INC",value=10}},nil}
 c["Skills Supported by Unleash have 12% increased Seal gain frequency"]={{[1]={flags=0,keywordFlags=0,name="SealGainFrequency",type="INC",value=12}},nil}
 c["Skills Supported by Unleash have 18% increased Seal gain frequency"]={{[1]={flags=0,keywordFlags=0,name="SealGainFrequency",type="INC",value=18}},nil}
