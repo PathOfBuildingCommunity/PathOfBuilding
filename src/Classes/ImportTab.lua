@@ -10,10 +10,21 @@ local b_rshift = bit.rshift
 local band = bit.band
 local m_max = math.max
 local dkjson = require "dkjson"
+local configAutoQuests = require("Modules.ConfigAutoRulesBuild").Quests
 
 
 
 local influenceInfo = itemLib.influenceInfo.all
+
+-- Quest choices the character API may omit (account-name imports). Records which of them the response actually
+-- carried, so ConfigAutoQuests only treats values that came from the character as evidence.
+local questFields = { "bandit_choice", "pantheon_major", "pantheon_minor" }
+local function markReportedQuestFields(responseLua)
+	responseLua._autoConfigureQuestFields = { }
+	for _, field in ipairs(questFields) do
+		responseLua._autoConfigureQuestFields[field] = responseLua[field] ~= nil
+	end
+end
 
 local realmList = {
 	{ label = "PC",      id = "PC",   realmCode = "pc",   hostName = "https://www.pathofexile.com/", profileURL = "account/view-profile/" },
@@ -836,6 +847,7 @@ function ImportTabClass:DownloadPassiveTree(realm)
 				self.lastLeague = self.controls.siteCharSelectLeague:GetSelValueByKey("league")
 			end
 			local responseLua = dkjson.decode(response.body)
+			markReportedQuestFields(responseLua)
 			-- Account-name imports omit quest choices, so keep the build's current values.
 			responseLua.bandit_choice = responseLua.bandit_choice or self.build.configTab.input.bandit
 			responseLua.pantheon_major = responseLua.pantheon_major or self.build.configTab.input.pantheonMajorGod
@@ -1246,6 +1258,7 @@ function ImportTabClass:ImportPassiveTreeAndJewels(charData, deleteJewels)
 	local minorGod = charPassives.pantheon_minor or "None"
 	setSelByVal(self.build.configTab.varControls["pantheonMinorGod"],
 		minorGod)
+	configAutoQuests.Capture(self.build, charPassives, charData.name)
 
 	main:SetWindowTitleSubtext(string.format("%s (%s, %s, %s)", self.build.buildName, charData.name, charData.class,
 		charData.league))
@@ -1381,6 +1394,7 @@ end
 --- @return CharacterItemsData, string
 function ImportTabClass:ImportItemsAndSkills(charData, clearItems, clearSkills, ignoreWeaponSwap)
 	charData = copyTable(charData)
+	configAutoQuests.InvalidateForCharacter(self.build, charData.name)
 	if clearItems then
 		for _, slot in pairs(self.build.itemsTab.slots) do
 			if slot.selItemId ~= 0 and not slot.nodeId then

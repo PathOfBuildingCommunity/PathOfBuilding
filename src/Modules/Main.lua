@@ -114,6 +114,9 @@ function main:Init()
 	self.showTitlebarName = true
 	self.dpiScaleOverridePercent = GetDPIScaleOverridePercent and GetDPIScaleOverridePercent() or 0
 	self.showWarnings = true
+	self.showAutoConfigureUI = true
+	self.showAutoConfigureMarkers = true
+	self.autoConfigureSettings = require("Modules.ConfigAutoModel").Preferences.Normalize()
 	self.slotOnlyTooltips = true
 	self.migrateEldritchImplicits = true
 	self.notSupportedModTooltips = true
@@ -574,6 +577,8 @@ function main:LoadSettings(ignoreBuild)
 					end
 				end
 				self:SetMode(node.attrib.mode, unpack(args))
+			elseif node.elem == "AutoConfigure" then
+				self.autoConfigureSettings = require("Modules.ConfigAutoModel").Preferences.Normalize(node.attrib)
 			elseif node.elem == "Accounts" then
 				self.lastAccountName = node.attrib.lastAccountName
 				self.lastRealm = node.attrib.lastRealm
@@ -655,6 +660,12 @@ function main:LoadSettings(ignoreBuild)
 				end
 				if node.attrib.showWarnings then
 					self.showWarnings = node.attrib.showWarnings == "true"
+				end
+				if node.attrib.showAutoConfigureUI then
+					self.showAutoConfigureUI = node.attrib.showAutoConfigureUI == "true"
+				end
+				if node.attrib.showAutoConfigureMarkers then
+					self.showAutoConfigureMarkers = node.attrib.showAutoConfigureMarkers == "true"
 				end
 				if node.attrib.slotOnlyTooltips then
 					self.slotOnlyTooltips = node.attrib.slotOnlyTooltips == "true"
@@ -791,6 +802,7 @@ function main:SaveSettings()
 		t_insert(sharedItemList, set)
 	end
 	t_insert(setXML, sharedItemList)
+	t_insert(setXML, require("Modules.ConfigAutoModel").Preferences.SaveNode(self.autoConfigureSettings))
 	t_insert(setXML, { elem = "Misc", attrib = {
 		buildSortMode = self.buildSortMode,
 		connectionProtocol = tostring(launch.connectionProtocol),
@@ -812,6 +824,8 @@ function main:SaveSettings()
 		defaultItemAffixQuality = tostring(self.defaultItemAffixQuality or 0.5),
 		lastExportedWebsite = self.lastExportedWebsite,
 		showWarnings = tostring(self.showWarnings),
+		showAutoConfigureUI = tostring(self.showAutoConfigureUI),
+		showAutoConfigureMarkers = tostring(self.showAutoConfigureMarkers),
 		slotOnlyTooltips = tostring(self.slotOnlyTooltips),
 		migrateEldritchImplicits = tostring(self.migrateEldritchImplicits),
 		notSupportedModTooltips = tostring(self.notSupportedModTooltips),
@@ -898,6 +912,7 @@ function main:OpenOptionsPopup(savedState)
 		defaultCharLevel = self.defaultCharLevel or 1,
 		defaultItemAffixQuality = self.defaultItemAffixQuality or 0.5,
 		showWarnings = self.showWarnings,
+		showAutoConfigureUI = self.showAutoConfigureUI,
 		slotOnlyTooltips = self.slotOnlyTooltips,
 		migrateEldritchImplicits = self.migrateEldritchImplicits,
 		notSupportedModTooltips = self.notSupportedModTooltips,
@@ -912,7 +927,7 @@ function main:OpenOptionsPopup(savedState)
 	}
 
 	-- NOTE: Height needs to be adjusted if more menu options are added
-	local oneColumnHeightReq = 850 -- Min height required to not split menu into two columns
+	local oneColumnHeightReq = 876 -- Min height required to not split menu into two columns
 	local columnWidth = 600
 	
 	local startingY = 20
@@ -1164,6 +1179,12 @@ function main:OpenOptionsPopup(savedState)
 	controls.showWarnings.state = self.showWarnings
 
 	nextRow()
+	controls.showAutoConfigureUI = new("CheckBoxControl"):CheckBoxControl({ "TOPLEFT", controls.sectionAnchor, "TOPLEFT" }, { currentX + defaultLabelPlacementX, currentY, 20 }, "^7Show build setup in Configuration:", function(state)
+		self.showAutoConfigureUI = state
+	end, "Shows the \"Set up my build\" row and its scan indicators in the Configuration tab.\nWhen off, no build is scanned and generated config sets are left as they are.")
+	controls.showAutoConfigureUI.state = self.showAutoConfigureUI
+
+	nextRow()
 	controls.slotOnlyTooltips = new("CheckBoxControl"):CheckBoxControl({ "TOPLEFT", controls.sectionAnchor, "TOPLEFT" }, { currentX + defaultLabelPlacementX, currentY, 20 }, "^7Show tooltips only for affected slots:", function(state)
 		self.slotOnlyTooltips = state
 	end, "Shows comparisons in tooltips only for the slot you are currently placing the item in, instead of all slots.")
@@ -1259,6 +1280,7 @@ function main:OpenOptionsPopup(savedState)
 		self.defaultCharLevel = savedState.defaultCharLevel
 		self.defaultItemAffixQuality = savedState.defaultItemAffixQuality
 		self.showWarnings = savedState.showWarnings
+		self.showAutoConfigureUI = savedState.showAutoConfigureUI
 		self.slotOnlyTooltips = savedState.slotOnlyTooltips
 		self.migrateEldritchImplicits = savedState.migrateEldritchImplicits
 		self.notSupportedModTooltips = savedState.notSupportedModTooltips
@@ -1811,24 +1833,20 @@ do
 	local wrapTable = { }
 	function main:WrapString(str, height, width)
 		wipeTable(wrapTable)
-		local lineStart = 1
-		local lastSpace, lastBreak
+		local lineStart, searchFrom = 1, 1
+		local previousWordEnd
 		while true do
-			local s, e = str:find("%s+", lastSpace)
-			if not s then
-				s = #str + 1
-				e = #str + 1
+			local spaceStart, spaceEnd = str:find("%s+", searchFrom)
+			local wordEnd = spaceStart and spaceStart - 1 or #str
+			if previousWordEnd and previousWordEnd >= lineStart and DrawStringWidth(height, "VAR", str:sub(lineStart, wordEnd)) > width then
+				t_insert(wrapTable, str:sub(lineStart, previousWordEnd))
+				lineStart = searchFrom
 			end
-			if s > #str then
-				t_insert(wrapTable, str:sub(lineStart, -1))
+			if not spaceStart or spaceEnd == #str then
+				t_insert(wrapTable, str:sub(lineStart, wordEnd))
 				break
 			end
-			lastBreak = s - 1
-			lastSpace = e + 1
-			if DrawStringWidth(height, "VAR", str:sub(lineStart, s - 1)) > width then
-				t_insert(wrapTable, str:sub(lineStart, lastBreak))
-				lineStart = lastSpace
-			end
+			previousWordEnd, searchFrom = wordEnd, spaceEnd + 1
 		end
 		return wrapTable
 	end

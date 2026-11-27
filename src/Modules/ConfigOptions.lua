@@ -323,10 +323,15 @@ return {
 		modList:NewMod("Condition:BladestormInSandstorm", "FLAG", true, "Config", { type = "SkillName", skillName = "Bladestorm", includeTransfigured = true })
 	end },
 	{ label = "Bloodsoaked Banner:", ifSkill = "Bloodsoaked Banner" },
-	{ var = "bloodsoakedBannerStages", type = "count", label = "# of Bloodsoaked Banner stacks on enemy", ifSkill = "Bloodsoaked Banner", defaultState = 1, apply = function(val, modList, enemyModList)
+	{ var = "bloodsoakedBannerStages", type = "countAllowZero", label = "# of Bloodsoaked Banner stacks on enemy", ifSkill = "Bloodsoaked Banner", defaultState = 1, apply = function(val, modList, enemyModList)
 		-- 10 is the maximum amount of Corrupting Blood Stages. modList does not contain skill base mods at this point so hard coding it here is the cleanest way to handle the cap.
 		-- It's set to 9 here with val -1 to so that it defaults to 1 stage and has max 10 stages.
-		modList:NewMod("Multiplier:BloodsoakedBannerStageAfterFirst", "BASE", m_min(val-1, 9), "Config", { type = "Condition", var = "Effective" })
+		-- 0 stacks means the enemy has no Corrupting Blood from the banner: flag the DoT as not applied (see CalcOffence) instead of emitting a -1 multiplier.
+		if val <= 0 then
+			modList:NewMod("NoCorruptingBloodStacks", "FLAG", true, "Config", { type = "SkillType", skillType = SkillType.Banner }, { type = "Condition", var = "Effective" })
+		else
+			modList:NewMod("Multiplier:BloodsoakedBannerStageAfterFirst", "BASE", m_min(val-1, 9), "Config", { type = "Condition", var = "Effective" })
+		end
 	end },
 	{ label = "Blood Sacrament:", ifSkill = "Blood Sacrament" },
 	{ var = "bloodSacramentReservationEHP", type = "check", label = "Count Skill Reservation towards eHP?", ifSkill = "Blood Sacrament", tooltip = "Use this option to disable the skill reservation factoring into eHP calculations",apply = function(val, modList, enemyModList)
@@ -378,14 +383,19 @@ return {
 		modList:NewMod("CooldownRecovery", "OVERRIDE", 0, "Config", { type = "SkillName", skillName = "Consecrated Path of Endurance" })
 	end },
 	{ label = "Corrupting Cry:", ifSkill = "Corrupting Cry" },
-	{ var = "conditionCorruptingCryStages", type = "count", label = "# of Corrupting Cry stacks on enemy", ifSkill = "Corrupting Cry", defaultState = 1, apply = function(val, modList, enemyModList)
+	{ var = "conditionCorruptingCryStages", type = "countAllowZero", label = "# of Corrupting Cry stacks on enemy", ifSkill = "Corrupting Cry", defaultState = 1, apply = function(val, modList, enemyModList)
 		-- 10 is the maximum amount of Corrupting Blood Stages. modList does not contain skill base mods at this point so hard coding it here is the cleanest way to handle the cap.
 		-- It's set to 9 here with val -1 to so that it defaults to 1 stage and has max 10 stages.
-		modList:NewMod("Multiplier:CorruptingCryStageAfterFirst", "BASE", m_min(val-1, 9), "Config", { type = "Condition", var = "Effective" })
+		-- 0 stacks means the enemy has no Corrupting Blood from the warcry: flag the DoT as not applied (see CalcOffence) instead of emitting a -1 multiplier.
+		if val <= 0 then
+			modList:NewMod("NoCorruptingBloodStacks", "FLAG", true, "Config", { type = "SkillType", skillType = SkillType.Warcry }, { type = "Condition", var = "Effective" })
+		else
+			modList:NewMod("Multiplier:CorruptingCryStageAfterFirst", "BASE", m_min(val-1, 9), "Config", { type = "Condition", var = "Effective" })
+		end
 	end },
 	{ label = "Cruelty:", ifSkill = "Cruelty" },
-	{ var = "overrideCruelty", type = "count", label = "Damage % (if not maximum):", ifSkill = "Cruelty", tooltip = "Cruelty is a buff provided by Cruelty Support which grants\nup to 40% more damage over time to the skills it supports.", apply = function(val, modList, enemyModList)
-		modList:NewMod("Cruelty", "OVERRIDE", m_min(val, 40), "Config", { type = "Condition", var = "Combat" })
+	{ var = "overrideCruelty", type = "countAllowZero", label = "Damage % (if not maximum):", ifSkill = "Cruelty", tooltip = "Cruelty is a buff provided by Cruelty Support which grants\nup to 40% more damage over time to the skills it supports.", apply = function(val, modList, enemyModList)
+		modList:NewMod("Cruelty", "OVERRIDE", m_max(m_min(val, 40), 0), "Config", { type = "Condition", var = "Combat" })
 	end },
 	{ label = "Cyclone:", ifSkill = "Cyclone", includeTransfigured = true },
 	{ var = "channellingCycloneCheck", type = "check", label = "Are you Channelling Cyclone?", ifSkill = "Cyclone", includeTransfigured = true, apply = function(val, modList, enemyModList)
@@ -492,16 +502,16 @@ return {
 		modList:NewMod("Multiplier:HexDoomStack", "BASE", val, "Config")
 	end },
 	{ label = "Herald of Agony:", ifSkill = "Herald of Agony" },
-	{ var = "heraldOfAgonyVirulenceStack", type = "count", label = "# of Virulence Stacks:", ifSkill = "Herald of Agony", apply = function(val, modList, enemyModList)
-		modList:NewMod("Multiplier:VirulenceStack", "BASE", val, "Config")
+	{ var = "heraldOfAgonyVirulenceStack", type = "countAllowZero", label = "# of Virulence Stacks:", ifSkill = "Herald of Agony", apply = function(val, modList, enemyModList)
+		modList:NewMod("Multiplier:VirulenceStack", "BASE", m_max(val, 0), "Config")
 	end },
 	{ label = "Herald of Ash:", ifSkill = "Herald of Ash" },
-	{ var = "hoaOverkill", type = "count", label = "Overkill damage:", tooltip = "Herald of Ash's base ^xB97123Burning ^7damage is equal to 25% of Overkill damage.", ifSkill = "Herald of Ash", apply = function(val, modList, enemyModList)
-		modList:NewMod("SkillData", "LIST", { key = "hoaOverkill", value = val }, "Config", { type = "SkillName", skillName = "Herald of Ash" })
+	{ var = "hoaOverkill", type = "countAllowZero", label = "Overkill damage:", tooltip = "Herald of Ash's base ^xB97123Burning ^7damage is equal to 25% of Overkill damage.", ifSkill = "Herald of Ash", apply = function(val, modList, enemyModList)
+		modList:NewMod("SkillData", "LIST", { key = "hoaOverkill", value = m_max(val, 0) }, "Config", { type = "SkillName", skillName = "Herald of Ash" })
 	end },
 	{ label = "Herald of the Hive:", ifSkill = "Herald of the Hive" },
-	{ var = "heraldOfTheHivePressure", type = "count", label = "# of Otherworldly Pressure Stacks:", ifSkill = "Herald of the Hive", apply = function(val, modList, enemyModList)
-		modList:NewMod("Multiplier:OtherworldlyPressure", "BASE", val, "Config")
+	{ var = "heraldOfTheHivePressure", type = "countAllowZero", label = "# of Otherworldly Pressure Stacks:", ifSkill = "Herald of the Hive", apply = function(val, modList, enemyModList)
+		modList:NewMod("Multiplier:OtherworldlyPressure", "BASE", m_max(val, 0), "Config")
 	end },
 	{ label = "Invention:", ifSkill = "Invention" },
 	{ var = "inventionMineTrapPlacedDuration", type = "count", label = "Placed duration of Mine / Traps:", ifSkill = "Invention", apply = function(val, modList, enemyModList)
@@ -2302,8 +2312,9 @@ Huge sets the radius to 11.
 	{ var = "presetBossSkills", type = "list", defaultIndex = 1, label = "Boss Skill Preset", tooltipFunc = bossSkillsTooltip, list = data.bossSkillsList, apply = function(val, modList, enemyModList, build)
 		if not (val == "None") then
 			local bossData = data.bossSkills[val]
-			local isUber = build.configTab.varControls['enemyIsBoss'].list[build.configTab.varControls['enemyIsBoss'].selIndex].val == "Uber"
-			if bossData.earlierUber and build.configTab.varControls['enemyIsBoss'].list[build.configTab.varControls['enemyIsBoss'].selIndex].val == "Pinnacle" then
+			local bossType = build.configTab.input.enemyIsBoss
+			local isUber = bossType == "Uber"
+			if bossData.earlierUber and bossType == "Pinnacle" then
 				isUber = true
 			end
 			local defaultDamage = ""
