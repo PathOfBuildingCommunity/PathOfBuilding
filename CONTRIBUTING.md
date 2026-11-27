@@ -318,6 +318,8 @@ It is a good idea to prefer Docker due to it having a very reliable Lua setup. B
 3. Run `luarocks install busted`
 4. Run `busted --lua=luajit` to run the tests. You can also use e.g. `-p TestUtils_spec.lua` to run a specific file.
 
+To compare two PoB revisions on the same public builds, run the [manual build corpus comparison](spec/corpus/README.md).
+
 ### Debugging tests
 When running tests with a docker container it is possible to use EmmyLua for debugging. Paste in the following right under `function launch:OnInit()` in `./src/Launch.lua`:
 ```lua
