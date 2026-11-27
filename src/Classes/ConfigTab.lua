@@ -1244,12 +1244,20 @@ end
 function ConfigTabClass:CreateUndoState()
 	local configSet = self.configSets[self.activeConfigSetId]
 	return {
+		configSetId = self.activeConfigSetId,
 		input = copyTable(configSet.input),
 		customModsList = copyTable(configSet.customModsList)
 	}
 end
 
 function ConfigTabClass:RestoreUndoState(state)
+	if type(state) == "table" and state.configSetId and state.configSetId ~= self.activeConfigSetId then
+		-- The state belongs to another config set: restore it there, unless that set has been deleted
+		if not self.configSets[state.configSetId] then
+			return
+		end
+		self:SetActiveConfigSet(state.configSetId)
+	end
 	local configSet = self.configSets[self.activeConfigSetId]
 	if type(state) == "table" and state.input then
 		wipeTable(configSet.input)
