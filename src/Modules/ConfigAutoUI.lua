@@ -19,6 +19,7 @@
 --   autoCheckViewTime  GetTime() since which the Configuration tab has shown the indicators
 --   autoSetupError     true after a failed regeneration, until one succeeds
 --   autoDetectMarkers  var -> marker control, filled by AddMarker
+--   autoFitMarkers     the markers of dropdowns, which are narrowed while their marker is shown
 --   markerStatusFrame  per-draw-pass cache of marker statuses, set by ConfigTab:Draw
 --
 -- Settings on main: showAutoConfigureUI (Options) turns the whole feature off: no
@@ -155,8 +156,44 @@ function M.AddMarker(config, control, varData, isNativeInvalid)
 	end
 	marker.IsShown = marker.shown
 	config.autoDetectMarkers[var] = marker
+	if control._className == "DropDownControl" then
+		-- A dropdown reaches the edge of its section; see M.FitMarkers
+		control.autoFullWidth = control.width
+		t_insert(config.autoFitMarkers, marker)
+		marker.fitControl = control
+	end
 	t_insert(config.controls, marker)
 	return marker
+end
+
+-- Pixels a dropdown gives up while its marker is shown
+local markerRoom = 10
+
+-- A dropdown fills its row up to the edge of the section, so it keeps PoB's normal
+-- width and is only narrowed while its marker is shown beside it. Called by
+-- ConfigTab:Draw once per frame, before the controls are drawn.
+function M.FitMarkers(config)
+	local shown = markersShown()
+	for _, marker in ipairs(config.autoFitMarkers) do
+		local control = marker.fitControl
+		local width = control.autoFullWidth - ((shown and marker:GetStatus() ~= nil) and markerRoom or 0)
+		if control.width ~= width then
+			control.width = width
+			if not control.enableDroppedWidth then control.droppedWidth = width end
+		end
+	end
+end
+
+-- Tooltip line naming the selected value of a dropdown that is narrowed for its
+-- marker and cuts the value off; nil otherwise.
+function M.ClippedSelection(control)
+	if not control.autoFullWidth or control.width >= control.autoFullWidth then return end
+	local width, height = control:GetSize()
+	local selected = control.list[control.selIndex]
+	local label = type(selected) == "table" and selected.label or selected
+	if label and DrawStringWidth(height - 4, "VAR", label) > width - height then
+		return "^7" .. label
+	end
 end
 
 -- ============================================================================
@@ -531,6 +568,7 @@ function M.AddControls(config, anchor)
 	local controls = config.controls
 	config.autoSetupCache = setmetatable({ }, { __mode = "k" })
 	config.autoDetectMarkers = { }
+	config.autoFitMarkers = { }
 	config.autoSettleTime = -math.huge
 	local function active() return M.Active(config) end
 	local function stacked() return compact(config) end

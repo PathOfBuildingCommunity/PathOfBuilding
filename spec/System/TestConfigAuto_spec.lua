@@ -351,17 +351,31 @@ describe("TestConfigAuto", function()
 			end
 			assert.is_true(config.varControls.enemyLevel:IsShown())
 			assert.is_true(config.customSection:IsShown())
-			-- A dropdown value too long for the narrow control is named in full on hover
-			local boss, drawWidth = config.varControls.enemyIsBoss, _G.DrawStringWidth
-			boss:SelByValue("Pinnacle", "val")
-			_G.DrawStringWidth = function(height, font, text) return #text * 7 end
-			local tooltip = boss:GetProperty("tooltipText")
-			boss:SelByValue("None", "val")
-			local short = boss:GetProperty("tooltipText")
-			_G.DrawStringWidth = drawWidth
-			assert.is_truthy(tooltip:find("Guardian/Pinnacle Boss", 1, true))
-			assert.is_truthy(tooltip:find(data.enemyIsBossTooltip:sub(1, 20), 1, true))
-			assert.is_falsy(short:find("\n^7No", 1, true))
+		end)
+
+		it("keeps PoB's control sizes and narrows a dropdown only while its marker is shown", function()
+			local config = build.configTab
+			local penalty, marker = config.varControls.resistancePenalty, config.autoDetectMarkers.resistancePenalty
+			assert.are.same({ 234, 118 }, { penalty.x, penalty.width })
+			assert.are.same({ 234, 90 }, { config.varControls.enemyLevel.x, config.varControls.enemyLevel.width })
+			assert.are.equal(234, config.varControls.conditionHitRecently.x)
+			local getStatus, drawWidth = marker.GetStatus, _G.DrawStringWidth
+			finally(function() marker.GetStatus, _G.DrawStringWidth = getStatus, drawWidth end)
+			_G.DrawStringWidth = function(height, font, text) return #text * 8 end
+			-- Without a marker the dropdown is as wide, and as silent, as it is without the feature
+			ui.FitMarkers(config)
+			assert.are.equal(118, penalty.width)
+			assert.is_nil(penalty:GetProperty("tooltipText"))
+			-- Beside a marker it is narrower, and a selection it cuts off is named in full on hover
+			marker.GetStatus = function() return "review" end
+			ui.FitMarkers(config)
+			assert.are.equal(108, penalty.width)
+			assert.are.equal("^7Act 10 (-60%)", penalty:GetProperty("tooltipText"))
+			penalty:SelByValue(0, "val")
+			assert.is_nil(penalty:GetProperty("tooltipText"))
+			marker.GetStatus = getStatus
+			ui.FitMarkers(config)
+			assert.are.equal(118, penalty.width)
 		end)
 
 		it("lists a generated set once, through save, reload and deletion", function()

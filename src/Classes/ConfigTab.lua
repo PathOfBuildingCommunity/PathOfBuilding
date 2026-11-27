@@ -307,14 +307,14 @@ function ConfigTabClass:ConfigTab(build)
 		else
 			local control
 			if varData.type == "check" then
-				control = new("CheckBoxControl"):CheckBoxControl({"TOPLEFT",lastSection,"TOPLEFT"}, {244, 0, 18}, varData.label, function(state)
+				control = new("CheckBoxControl"):CheckBoxControl({"TOPLEFT",lastSection,"TOPLEFT"}, {234, 0, 18}, varData.label, function(state)
 					self.configSets[self.activeConfigSetId].input[varData.var] = state
 					self:AddUndoState()
 					self:BuildModList()
 					self.build.buildFlag = true
 				end)
 			elseif varData.type == "count" or varData.type == "integer" or varData.type == "countAllowZero" or varData.type == "float" then
-				control = new("EditControl"):EditControl({"TOPLEFT",lastSection,"TOPLEFT"}, {244, 0, 72, 18}, "", nil, ((varData.type == "integer" or varData.type == "countAllowZero") and "^%-%d") or (varData.type == "float" and "^%d.") or "%D", 10, function(buf, placeholder)
+				control = new("EditControl"):EditControl({"TOPLEFT",lastSection,"TOPLEFT"}, {234, 0, 90, 18}, "", nil, ((varData.type == "integer" or varData.type == "countAllowZero") and "^%-%d") or (varData.type == "float" and "^%d.") or "%D", 10, function(buf, placeholder)
 					if placeholder then
 						self.configSets[self.activeConfigSetId].placeholder[varData.var] = tonumber(buf)
 					else
@@ -325,7 +325,7 @@ function ConfigTabClass:ConfigTab(build)
 					self.build.buildFlag = true
 				end)
 			elseif varData.type == "list" then
-				control = new("DropDownControl"):DropDownControl({"TOPLEFT",lastSection,"TOPLEFT"}, {244, 0, 96, 16}, varData.list, function(index, value)
+				control = new("DropDownControl"):DropDownControl({"TOPLEFT",lastSection,"TOPLEFT"}, {234, 0, 118, 16}, varData.list, function(index, value)
 					self.configSets[self.activeConfigSetId].input[varData.var] = value.val
 					self:AddUndoState()
 					self:BuildModList()
@@ -354,7 +354,7 @@ function ConfigTabClass:ConfigTab(build)
 					self.build.buildFlag = true
 				end, 16)
 			else
-				control = new("Control"):Control({"TOPLEFT",lastSection,"TOPLEFT"}, {244, 0, 16, 16})
+				control = new("Control"):Control({"TOPLEFT",lastSection,"TOPLEFT"}, {234, 0, 16, 16})
 			end
 
 			if varData.inactiveText then
@@ -388,15 +388,8 @@ function ConfigTabClass:ConfigTab(build)
 				t_insert(tooltipFuncs, varData.tooltip)
 			end
 			if varData.type == "list" then
-				-- The narrow dropdown cuts long values off; name the full selection on hover
-				t_insert(tooltipFuncs, function()
-					local width, height = control:GetSize()
-					local sel = control.list[control.selIndex]
-					local label = type(sel) == "table" and sel.label or sel
-					if label and DrawStringWidth(height - 4, "VAR", label) > width - height then
-						return "^7" .. label
-					end
-				end)
+				-- A dropdown narrowed for its scan marker names a selection it cuts off
+				t_insert(tooltipFuncs, function() return autoSetup.ClippedSelection(control) end)
 			end
 
 			if varData.ifNode then
@@ -1210,6 +1203,7 @@ function ConfigTabClass:Draw(viewPort, inputEvents)
 
 	-- Marker statuses are shared by everything drawn in this pass only
 	self.markerStatusFrame = { }
+	autoSetup.FitMarkers(self)
 	self:DrawControls(viewPort)
 	self.markerStatusFrame = nil
 end
