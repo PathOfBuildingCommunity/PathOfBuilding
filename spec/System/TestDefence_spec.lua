@@ -805,6 +805,25 @@ describe("TestDefence", function()
 			end)
 		end
 
+		it("preserves the Chaos Golem's quality-scaled buff with Companionship", function()
+			local function chaosResistance(quality, withSupport)
+				newBuild()
+				local group = string.format("Summon Chaos Golem 20/%d  1", quality)
+				if withSupport then
+					group = group .. "\nCompanionship 3/0  1"
+				end
+				build.skillsTab:PasteSocketGroup(group)
+				runCallback("OnFrame")
+				return build.calcsTab.mainOutput.ChaosResist
+			end
+
+			local noQuality = chaosResistance(0, false)
+			local withQuality = chaosResistance(20, false)
+			assert.is_true(withQuality > noQuality)
+			assert.are.equal(noQuality, chaosResistance(0, true))
+			assert.are.equal(withQuality, chaosResistance(20, true))
+		end)
+
 		it("calculates the Companionship minion's life automatically", function()
 			build.skillsTab:PasteSocketGroup("Fireball 20/0  1")
 			build.skillsTab:PasteSocketGroup("Raise Zombie 20/0  1\nCompanionship 3/0  1")
