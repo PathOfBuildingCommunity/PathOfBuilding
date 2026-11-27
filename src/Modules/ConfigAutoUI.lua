@@ -288,10 +288,17 @@ local function sourceStamp(config, base)
 	})
 end
 
--- Saved with a generated set so a loaded one knows whether it is still current
+-- Saved with a generated set so a loaded one knows whether it is still current: the
+-- hash of the sources its values were made from, which for a set that has not been
+-- regenerated since the build changed (it was not the active one) are not the
+-- build's sources at the time of saving.
 function M.SourceHash(config, set)
-	local base = baseFor(config, set)
-	return base and common.sha1(sourceStamp(config, base)) or nil
+	if not baseFor(config, set) then return nil end
+	local state = config.autoSetupCache[set]
+	if not state then return set.autoSourceHash end
+	-- After a failed regeneration the values are older than the remembered sources
+	if state.failed then return nil end
+	return state.stamp and common.sha1(state.stamp) or state.hash
 end
 
 -- Values the user changed in a generated set since it was last generated. They

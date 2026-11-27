@@ -658,6 +658,38 @@ describe("TestConfigAuto", function()
 			assert.is_false(config.input.raiseSpectreEnableBuffs)
 		end)
 
+		it("remembers across a reload which sources an inactive setup was made from", function()
+			local config = setup(1)
+			config.controls.setupActivity:SetSel(2)
+			draw()
+			config.controls.setupActivity:SetSel(1)
+			draw()
+			local scans = 0
+			auto.BuildSetup = function(...) scans = scans + 1 return saved.buildSetup(...) end
+			-- Both setups were made from the saved build: the inactive one is selected as saved
+			loadBuildFromXML(build:SaveDB("code"), "Current inactive setup")
+			config = build.configTab
+			draw()
+			config.controls.setupActivity:SetSel(2)
+			draw()
+			assert.are.equal("maps", ui.Active(config).autoActivity)
+			assert.are.equal(0, scans)
+			-- The build then changes while the boss setup is active, so only that one follows it
+			config.controls.setupActivity:SetSel(1)
+			draw()
+			gems("Freezing Pulse 20/0  1\n")
+			draw()
+			assert.are.equal(1, scans)
+			loadBuildFromXML(build:SaveDB("code"), "Stale inactive setup")
+			config = build.configTab
+			draw()
+			-- The mapping setup was made for the old main skill and catches up when selected
+			config.controls.setupActivity:SetSel(2)
+			draw()
+			assert.are.equal("maps", ui.Active(config).autoActivity)
+			assert.are.equal(2, scans)
+		end)
+
 		it("persists imported quest evidence only when the build includes a generated set", function()
 			rules.Quests.Capture(build, { bandit_choice = "Alira" }, "Imported Character")
 			assert.is_nil(build:SaveDB("code"):find("AutoConfigureQuests", 1, true))
