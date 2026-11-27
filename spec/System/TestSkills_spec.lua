@@ -197,6 +197,18 @@ describe("TestSkills", function()
 		assert.are.equals(10, env.player.mainSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "ColdPenetration"))
 	end)
 
+	it("applies Summon Reaper's Consume buff to the Reaper only once", function()
+		build.skillsTab:PasteSocketGroup("Summon Reaper 20/0  1\n")
+		build.configTab.input.summonReaperConsumeRecently = true
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+
+		local minion = build.calcsTab.mainEnv.minion
+		assert.are.equals(40, minion.modDB:Sum("INC", nil, "Speed"))
+		assert.are.equals(40, minion.modDB:Sum("INC", nil, "MovementSpeed"))
+		assert.are.equals(30, minion.modDB:Sum("INC", nil, "AreaOfEffect"))
+	end)
+
 	it("Test Mirage Archer using triggered skill", function()
 		build.itemsTab:CreateDisplayItemFromRaw([[+3 Bow
 		Thicket Bow
