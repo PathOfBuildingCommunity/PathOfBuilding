@@ -11521,7 +11521,7 @@ c["7% increased Spell Damage per Power Charge"]={{[1]={[1]={type="Multiplier",va
 c["7% increased Strength"]={{[1]={flags=0,keywordFlags=0,name="Str",type="INC",value=7}},nil}
 c["7% increased Stun and Block Recovery"]={{[1]={flags=0,keywordFlags=0,name="StunRecovery",type="INC",value=7}},nil}
 c["7% increased Trap Throwing Speed"]={{[1]={flags=0,keywordFlags=0,name="TrapThrowingSpeed",type="INC",value=7}},nil}
-c["7% increased Unarmed Attack Speed with Melee Skills"]={{[1]={flags=16777221,keywordFlags=0,name="Speed",type="INC",value=7}},"   with Melee Skills "}
+c["7% increased Unarmed Attack Speed with Melee Skills"]={{[1]={flags=16777473,keywordFlags=0,name="Speed",type="INC",value=7}},nil}
 c["7% increased maximum Energy Shield"]={{[1]={[1]={type="Global"},flags=0,keywordFlags=0,name="EnergyShield",type="INC",value=7}},nil}
 c["7% increased maximum Life"]={{[1]={flags=0,keywordFlags=0,name="Life",type="INC",value=7}},nil}
 c["7% increased maximum Life if Corrupted"]={{[1]={[1]={corruptedCond=true,itemSlot="{SlotName}",type="ItemCondition"},flags=0,keywordFlags=0,name="Life",type="INC",value=7}},nil}
@@ -14405,7 +14405,7 @@ c["Armour is increased by 50% of Overcapped Fire Resistance"]={nil,"Armour is in
 c["Armour is increased by Overcapped Fire Resistance"]={{[1]={flags=0,keywordFlags=0,name="ArmourIncreasedByOvercappedFireRes",type="FLAG",value=true}},nil}
 c["Arrow Dancing"]={{[1]={flags=0,keywordFlags=0,name="Keystone",type="LIST",value="Arrow Dancing"},[2]={flags=0,keywordFlags=0,name="Condition:HaveArrowDancing",type="FLAG",value=true}},nil}
 c["Arrows Chain +1 times"]={{[1]={flags=0,keywordFlags=2048,name="ChainCountMax",type="BASE",value=1}},nil}
-c["Arrows Fork"]={nil,"Arrows Fork "}
+c["Arrows Fork"]={{[1]={flags=0,keywordFlags=2048,name="ForkOnce",type="FLAG",value=true},[2]={flags=0,keywordFlags=2048,name="ForkCountMax",type="BASE",value=1}},nil}
 c["Arrows Fork Projectiles Fork"]={nil,"Arrows Fork Projectiles Fork "}
 c["Arrows Pierce 1 additional Target"]={nil,"Arrows Pierce 1 additional Target "}
 c["Arrows Pierce 2 additional Targets"]={{[1]={flags=0,keywordFlags=2048,name="PierceCount",type="BASE",value=2}},nil}
@@ -15686,7 +15686,7 @@ c["Enemies Ignited by you have 15% of Physical Damage they deal converted to Fir
 c["Enemies Ignited by you have 40% of Physical Damage they deal converted to Fire"]={{[1]={flags=0,keywordFlags=0,name="EnemyModifier",type="LIST",value={mod={[1]={type="Condition",var="Ignited"},flags=0,keywordFlags=0,name="PhysicalDamageConvertToFire",type="BASE",value=40}}}},nil}
 c["Enemies Ignited by you take Chaos Damage instead of Fire Damage from Ignite"]={{[1]={flags=0,keywordFlags=0,name="IgniteToChaos",type="FLAG",value=true}},nil}
 c["Enemies Ignited or Chilled by you have -5% to Elemental Resistances"]={{[1]={[1]={actor="enemy",type="ActorCondition",varList={[1]="Ignited",[2]="Chilled"}},flags=0,keywordFlags=0,name="EnemyModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="ElementalResist",type="BASE",value=-5}}}},nil}
-c["Enemies Intimidated by you have 13% increased duration of stuns against them"]={{[1]={flags=0,keywordFlags=0,name="EnemyModifier",type="LIST",value={mod={[1]={type="Condition",var="Intimidated"},flags=0,keywordFlags=0,name="Duration",type="INC",value=13}}}},"  of stuns against them "}
+c["Enemies Intimidated by you have 13% increased duration of stuns against them"]={{[1]={[1]={actor="enemy",type="ActorCondition",var="Intimidated"},flags=0,keywordFlags=0,name="EnemyStunDuration",type="INC",value=13}},nil}
 c["Enemies Killed by Zombies' Hits Explode, dealing 20% of their Life as Fire Damage"]={nil,"Zombies' Hits Explode, dealing 20% of their Life as Fire Damage "}
 c["Enemies Killed by Zombies' Hits Explode, dealing 20% of their Life as Fire Damage Enemies Killed by Zombies' Hits Explode, dealing 50% of their Life as Fire Damage"]={nil,"Zombies' Hits Explode, dealing 20% of their Life as Fire Damage Enemies Killed by Zombies' Hits Explode, dealing 50% of their Life as Fire Damage "}
 c["Enemies Killed by Zombies' Hits Explode, dealing 50% of their Life as Fire Damage"]={nil,"Zombies' Hits Explode, dealing 50% of their Life as Fire Damage "}
