@@ -3547,6 +3547,7 @@ local specialModList = {
 	["modifiers to claw attack speed also apply to unarmed"] = { flag("ClawAttackSpeedAppliesToUnarmed") },
 	["modifiers to claw attack speed also apply to unarmed attack speed"] = { flag("ClawAttackSpeedAppliesToUnarmed") },
 	["modifiers to claw attack speed also apply to unarmed attack speed with melee skills"] = { flag("ClawAttackSpeedAppliesToUnarmed") },
+	["(%d+)%% increased unarmed attack speed with melee skills"] = function(num) return { mod("Speed", "INC", num, nil, bor(ModFlag.Unarmed, ModFlag.Attack, ModFlag.Melee)) } end,
 	["can attack as though using a claw while main hand is empty"] = { flag("CanAttackAsClawUnarmed") },
 	["modifiers to claw critical strike chance also apply to unarmed"] = { flag("ClawCritChanceAppliesToUnarmed") },
 	["modifiers to claw critical strike chance also apply to unarmed attack critical strike chance"] = { flag("ClawCritChanceAppliesToUnarmed") },
@@ -4030,6 +4031,7 @@ local specialModList = {
 	["triggered spells poison on hit"] = { mod("PoisonChance", "BASE", 100, nil, 0, KeywordFlag.Spell, { type = "SkillType", skillType = SkillType.Triggered } ) },
 	["melee critical strikes have (%d+)%% chance to poison the enemy"] = function(num) return { mod("PoisonChance", "BASE", num, nil, ModFlag.Melee, { type = "Condition", var = "CriticalStrike" }) } end,
 	["critical strikes with daggers have a (%d+)%% chance to poison the enemy"] = function(num) return { mod("PoisonChance", "BASE", num, nil, ModFlag.Dagger, { type = "Condition", var = "CriticalStrike" }) } end,
+	["critical strikes with bows have a (%d+)%% chance to poison the enemy"] = function(num) return { mod("PoisonChance", "BASE", num, nil, ModFlag.Bow, { type = "Condition", var = "CriticalStrike" }) } end,
 	["critical strikes with daggers poison the enemy"] = { mod("PoisonChance", "BASE", 100, nil, ModFlag.Dagger, { type = "Condition", var = "CriticalStrike" }) },
 	["poison cursed enemies on hit"] = { mod("PoisonChance", "BASE", 100, { type = "ActorCondition", actor = "enemy", var = "Cursed" }) },
 	["all damage can ignite against cursed enemies"] = {
@@ -4459,6 +4461,7 @@ local specialModList = {
 	["with a searching eye jewel socketed, maim enemies for (%d) seconds on hit with attacks"] = { mod("EnemyModifier", "LIST", { mod = flag("Condition:Maimed", nil, ModFlag.Attack) }, { type = "Condition", var = "HaveSearchingEyeJewelIn{SlotName}" }) },
 	["with a searching eye jewel socketed, blind enemies for (%d) seconds on hit with attacks"] = { mod("EnemyModifier", "LIST", { mod = flag("Condition:Blinded", nil, ModFlag.Attack) }, { type = "Condition", var = "HaveSearchingEyeJewelIn{SlotName}" }) },
 	["enemies maimed by you take (%d+)%% increased damage over time"] = function(num) return { mod("EnemyModifier", "LIST", { mod = mod("DamageTakenOverTime", "INC", num) }, { type = "ActorCondition", actor = "enemy", var = "Maimed" }) } end,
+	["enemies intimidated by you have (%d+)%% increased duration of stuns against them"] = function(num) return { mod("EnemyStunDuration", "INC", num, { type = "ActorCondition", actor = "enemy", var = "Intimidated" }) } end,
 	["(%d+)%% increased defences while you have at least four linked targets"] = function(num) return { mod("Defences", "INC", num, { type = "MultiplierThreshold", var = "LinkedTargets", threshold = 4 }) } end,
 	["your movement speed is equal to the highest movement speed among linked players"] = { flag("MovementSpeedEqualHighestLinkedPlayers", { type = "MultiplierThreshold", var = "LinkedTargets", threshold = 1 }), },
 	["(%d+)%% increased movement speed while you have at least two linked targets"] = function(num) return { mod("MovementSpeed", "INC", num, { type = "MultiplierThreshold", var = "LinkedTargets", threshold = 2 }) } end,
@@ -4468,6 +4471,7 @@ local specialModList = {
 	["curses are inflicted on you instead of linked targets"] = { mod("ExtraLinkEffect", "LIST", { mod = flag("CurseImmune"), }), },
 	["elemental ailments are inflicted on you instead of linked targets"] = { mod("ExtraLinkEffect", "LIST", { mod = flag("ElementalAilmentImmune") }) },
 	["non%-unique utility flasks you use apply to linked targets"] = { mod("ExtraLinkEffect", "LIST", { mod = mod("ParentNonUniqueFlasksAppliedToYou", "FLAG", true, { type = "GlobalEffect", effectType = "Global", unscalable = true } ), }) },
+	["your linked targets deal (%d+)%% increased damage"] = function(num) return { mod("ExtraLinkEffect", "LIST", { mod = mod("Damage", "INC", num, { type = "GlobalEffect", effectType = "Global", unscalable = true }) }) } end,
 	["non%-curse auras from your skills only apply to you and linked targets"] = { flag("SelfAurasAffectYouAndLinkedTarget", { type = "SkillType", skillType = SkillType.Aura }, { type = "SkillType", skillType = SkillType.AppliesCurse, neg = true }) },
 	["linked targets always count as in range of non%-curse auras from your skills"] = { },
 	["gain unholy might on block for (%d) seconds"] = { flag("Condition:UnholyMight", { type = "Condition", var = "BlockedRecently"}), flag("Condition:CanWither", { type = "Condition", var = "BlockedRecently"}), },
@@ -4712,6 +4716,7 @@ local specialModList = {
 	["right ring slot: projectiles from spells cannot fork"] = { flag("CannotFork", nil, bor(ModFlag.Spell, ModFlag.Projectile), { type = "SlotNumber", num = 2 }) },
 	["projectiles from spells cannot pierce"] = { flag("CannotPierce", nil, ModFlag.Spell) },
 	["projectiles fork"] = { flag("ForkOnce", nil, ModFlag.Projectile), mod("ForkCountMax", "BASE", 1, nil, ModFlag.Projectile) },
+	["arrows fork"] = { flag("ForkOnce", nil, 0, KeywordFlag.Arrow), mod("ForkCountMax", "BASE", 1, nil, 0, KeywordFlag.Arrow) },
 	["projectiles from attacks fork"] = { flag("ForkOnce", nil, ModFlag.Projectile, { type = "SkillType", skillType = SkillType.RangedAttack }), mod("ForkCountMax", "BASE", 1, nil, ModFlag.Projectile, { type = "SkillType", skillType = SkillType.RangedAttack }) },
 	["projectiles from attacks fork an additional time"] = { flag("ForkTwice", nil, ModFlag.Projectile, { type = "SkillType", skillType = SkillType.RangedAttack }), mod("ForkCountMax", "BASE", 1, nil, ModFlag.Projectile, { type = "SkillType", skillType = SkillType.RangedAttack }) },
 	["projectiles from attacks can fork (%d+) additional times?"] = function(num) return {
@@ -5360,7 +5365,7 @@ local specialModList = {
 	["tinctures have (%d+)%% increased effect while at or above (%d+) stacks of mana burn"] = function(num, _, threshold) return { mod("TinctureEffect", "INC", num, { type = "MultiplierThreshold", varList = {"ManaBurnStacks", "WeepingWoundsStacks"}, threshold = tonumber(threshold) }) } end,
 	["tinctures applied to you have (%d+)%% reduced mana burn rate"] = function(num) return { mod("TinctureManaBurnRate", "INC", -num, { type = "ActorCondition", actor = "player"}) } end,
 	["tinctures applied to you have (%d+)%% less mana burn rate"] = function(num) return { mod("TinctureManaBurnRate", "MORE", -num, { type = "ActorCondition", actor = "player"}) } end,
-	["the first (%d+) mana burn applied to you have no effect"] = function(num) return { mod("EffectiveManaBurnStacks", "BASE", -num, { type = "ActorCondition", actor = "player"}) } end,
+	["the first (%d+) mana burn applied to you ha[vs]e? no effect"] = function(num) return { mod("EffectiveManaBurnStacks", "BASE", -num, { type = "ActorCondition", actor = "player"}) } end,
 	["tinctures deactivate when you have (%d+) or more mana burn"] = function(num) return { mod("MaxManaBurnStacks", "BASE", num) } end,
 	["tinctures inflict weeping wounds instead of mana burn"] = { flag("Condition:WeepingWoundsInsteadOfManaBurn"), },
 	["tincture effects also apply to ranged weapons"] = { flag("TinctureRangedWeapons"), },
@@ -5646,6 +5651,9 @@ local specialModList = {
 	["stance skills have (%+%d+) seconds to cooldown"] = function(num) return { mod("CooldownRecovery", "BASE", num, { type = "SkillType", skillType = SkillType.Stance }) } end,
 	["using warcries is instant"] = { flag("InstantWarcry") },
 	["attacks with axes or swords grant (%d+) rage on hit, no more than once every second"] = {
+		flag("Condition:CanGainRage", { type = "Condition", varList = { "UsingAxe", "UsingSword" } }),
+	},
+	["attacks with axes or swords grant (%d+) rage on hit"] = {
 		flag("Condition:CanGainRage", { type = "Condition", varList = { "UsingAxe", "UsingSword" } }),
 	},
 	["regenerate (%d+) rage per second for every (%d+) life recovery per second from regeneration"] = function(num, _, div) return {
