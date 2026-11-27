@@ -5856,13 +5856,17 @@ function calcs.offence(env, actor, activeSkill)
 
 	runSkillFunc("preDotFunc")
 
+	-- Config can state that the enemy has no Corrupting Blood stacks from this skill; the debuff then simply is not
+	-- applied, so its DoT is skipped instead of being modelled as a -100% more multiplier.
+	local noCorruptingBlood = skillModList:Flag(nil, "dotIsCorruptingBlood") and skillModList:Flag(skillCfg, "NoCorruptingBloodStacks")
+
 	---Section Handles Generic Damage over time [DOT]
 	for _, damageType in ipairs(dmgTypeList) do
 		local dotTypeCfg = copyTable(dotCfg, true)
 		dotTypeCfg.keywordFlags = bor(dotTypeCfg.keywordFlags, KeywordFlag[damageType.."Dot"])
 		activeSkill["dot"..damageType.."Cfg"] = dotTypeCfg
 		local baseVal
-		if canDeal[damageType] then
+		if canDeal[damageType] and not noCorruptingBlood then
 			baseVal = skillData[damageType.."Dot"] or 0
 		else
 			baseVal = 0
