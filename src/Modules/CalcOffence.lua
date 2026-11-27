@@ -3385,8 +3385,9 @@ function calcs.offence(env, actor, activeSkill)
 			end
 		end
 
-		-- Keep conditional damage for the Calcs ailment breakdown only.
-		local invertedHits = env.mode == "CALCS" and env.configInput.ailmentMode == "INVERTED" and { { }, { } }
+		-- Inverted Hits ailment mode: track the damage of a hit that inverts each resistance it can, per crit pass.
+		-- Hit damage itself keeps its chance weighting.
+		local invertedHits = env.configInput.ailmentMode == "INVERTED" and { { }, { } }
 		pass.invertedHits = invertedHits
 
 		-- Calculate base hit damage
@@ -4395,6 +4396,14 @@ function calcs.offence(env, actor, activeSkill)
 			return sourceHitDmg, sourceCritDmg, usesInversion
 		end
 
+		---Describes the ailment mode a non-damaging ailment actually used
+		local function ailmentModeBreakdown(usesInversion)
+			return {
+				s_format("Ailment mode: %s ^8(can be changed in the Configuration tab)", usesInversion and "Inverted Hits" or ordinaryAilmentMode),
+				ailmentMode == "INVERTED" and not usesInversion and "^8(Inverted Hits changes nothing here: no damage that can inflict this ailment has a chance to invert resistance)" or nil,
+			}
+		end
+
 		-- Calculate the inflict chance and base damage of a secondary effect (bleed/poison/ignite/shock/freeze)
 		local function calcAilmentDamage(type, sourceCritChance, sourceHitDmg, sourceCritDmg, hideFromBreakdown)
 			local chanceOnHit, chanceOnCrit = output[type.."ChanceOnHit"], output[type.."ChanceOnCrit"]
@@ -4903,7 +4912,8 @@ function calcs.offence(env, actor, activeSkill)
 			end
 			if globalBreakdown then
 				globalBreakdown.PoisonDPS = {
-					s_format("Ailment mode: %s ^8(can be changed in the Configuration tab)", ailmentMode == "CRIT" and "Crits Only" or "Average Damage")
+					s_format("Ailment mode: %s ^8(can be changed in the Configuration tab)", ordinaryAilmentMode),
+					ailmentMode == "INVERTED" and "^8(Inverted Hits changes nothing here: damaging ailments are based on damage before enemy resistances)" or nil,
 				}
 			end
 			local baseMinVal = calcAilmentDamage("Poison", output.CritChance, sourceMinHitDmg, 0, true) * data.misc.PoisonPercentBase
@@ -5466,9 +5476,7 @@ function calcs.offence(env, actor, activeSkill)
 		if (output.FreezeChanceOnHit + output.FreezeChanceOnCrit) > 0 then
 			local hitDamage, critDamage, usesInversion = calcAverageSourceDamage("Freeze")
 			if globalBreakdown then
-				globalBreakdown.FreezeDurationMod = {
-					s_format("Ailment mode: %s ^8(can be changed in the Configuration tab)", usesInversion and "Inverted Hits" or ordinaryAilmentMode)
-				}
+				globalBreakdown.FreezeDurationMod = ailmentModeBreakdown(usesInversion)
 			end
 			local baseVal = calcAilmentDamage("Freeze", output.CritChance, hitDamage, critDamage) * skillModList:More(cfg, "FreezeAsThoughDealing")
 			if baseVal > 0 or usesInversion then
@@ -5496,19 +5504,21 @@ function calcs.offence(env, actor, activeSkill)
 
 				local hitDamage, critDamage, usesInversion = calcAverageSourceDamage(ailment)
 				if globalBreakdown then
-					globalBreakdown[ailment.."EffectMod"] = {
-						s_format("Ailment mode: %s ^8(can be changed in the Configuration tab)", usesInversion and "Inverted Hits" or ordinaryAilmentMode)
-					}
+					globalBreakdown[ailment.."EffectMod"] = ailmentModeBreakdown(usesInversion)
 				end
 				local damage = calcAilmentDamage(ailment, output.CritChance, hitDamage, critDamage) * skillModList:More(cfg, ailment.."AsThoughDealing")
-				if damage > 0 then
+				-- If you deal 0 damage, you don't apply anything. Inverted Hits still shows the ailment's stats with a note,
+				-- since ordinary hits of the same skill may inflict it.
+				if damage > 0 or usesInversion then
 					skillFlags[string.lower(ailment)] = true
 					local incDur = skillModList:Sum("INC", cfg, "Enemy"..ailment.."Duration", "EnemyElementalAilmentDuration", "EnemyAilmentDuration") + enemyDB:Sum("INC", nil, "Self"..ailment.."Duration", "SelfElementalAilmentDuration", "SelfAilmentDuration")
 					local moreDur = skillModList:More(cfg, "Enemy"..ailment.."Duration", "EnemyElementalAilmentDuration", "EnemyAilmentDuration") * enemyDB:More(nil, "Self"..ailment.."Duration", "SelfElementalAilmentDuration", "SelfAilmentDuration")
 					output[ailment.."Duration"] = ailmentData[ailment].duration * (1 + incDur / 100) * moreDur * debuffDurationMult
 					-- Line Controls Crit Conditional for Crit Mastery
 					output[ailment.."EffectMod"] = calcLib.mod(skillModList, cfg, "Enemy"..ailment.."Effect") * calcLib.mod(enemyDB, nil, "Self"..ailment.."Effect")
-					if breakdown then
+					if breakdown and damage <= 0 then
+						breakdown[ailment.."DPS"] = { "Inverted hits deal no damage that can inflict "..ailment.."." }
+					elseif breakdown then
 						local maximum = globalOutput["Maximum"..ailment] or ailmentData[ailment].max
 						local current = m_max(m_min(globalOutput["Current"..ailment] or 0, maximum), 0)
 						local desired = m_max(m_min(enemyDB:Sum("BASE", nil, "Desired"..ailment.."Val"), maximum), 0)
@@ -5580,10 +5590,6 @@ function calcs.offence(env, actor, activeSkill)
 						end
 						t_insert(breakdown[ailment.."Duration"], s_format("= %.2fs", output[ailment.."Duration"]))
 					end
-				elseif usesInversion and breakdown then
-					skillFlags[string.lower(ailment)] = true
-					output[ailment.."EffectMod"] = calcLib.mod(skillModList, cfg, "Enemy"..ailment.."Effect") * calcLib.mod(enemyDB, nil, "Self"..ailment.."Effect")
-					breakdown[ailment.."DPS"] = { "Inverted hits deal no damage that can inflict "..ailment.."." }
 				end
 			end
 		end

@@ -95,12 +95,19 @@ describe("TestAilments", function()
 		return build.calcsTab.calcsEnv.player
 	end
 
+	-- Shock effect, in percent, in the breakdown row for the configured boss
 	local function pinnacleShock(player)
 		for _, row in ipairs(player.breakdown.ShockDPS.rowList) do
 			if row.thresh:find("(Pinnacle)", 1, true) then
-				return row.effect
+				return tonumber(row.effect:match("^[%d.]+"))
 			end
 		end
+	end
+
+	-- Stats that Calcs shows for a non-damaging ailment, read from the sidebar and Calcs calculations
+	local function ailmentStats(env, ailment)
+		local output = env.player.output
+		return { env.player.mainSkill.skillFlags[ailment:lower()] or false, output[ailment.."Chance"] or 0, output[ailment.."Duration"] or 0, output[ailment.."EffectMod"] or 0, output.FreezeDurationMod or 0 }
 	end
 
 	it("shows Shock from inverted hits while preserving weighted hit DPS", function()
@@ -108,28 +115,69 @@ describe("TestAilments", function()
 		local average = calcsShock("AVERAGE", 50, "Elemental")
 		local inverted = calcsShock("INVERTED", 50, "Elemental")
 		local certainInversion = calcsShock("AVERAGE", 100, "Elemental")
-		assert.are.equal("10%", pinnacleShock(average))
-		assert.are.equal("12%", pinnacleShock(certainInversion))
-		assert.are.equal(pinnacleShock(certainInversion), pinnacleShock(inverted))
+		local invertedShock = pinnacleShock(inverted)
+		-- The boss has positive Lightning Resistance, so a hit that inverts it Shocks harder than the average hit
+		assert.is_true(build.calcsTab.calcsEnv.enemyDB:Sum("BASE", nil, "LightningResist") > 0)
+		assert.is_true(pinnacleShock(average) < invertedShock)
+		assert.are.equal(pinnacleShock(certainInversion), invertedShock)
+		assert.is_true(average.output.LightningHitAverage < certainInversion.output.LightningHitAverage)
 		assert.are.equal(average.output.LightningHitAverage, inverted.output.LightningHitAverage)
 		assert.are.equal(average.output.TotalDPS, inverted.output.TotalDPS)
 		assert.matches("Inverted Hits", inverted.breakdown.ShockEffectMod[1], 1, true)
+		assert.is_nil(inverted.breakdown.ShockEffectMod[2])
 
 		calcsShock("INVERTED", 50, "Elemental")
 		loadBuildFromXML(build:SaveDB("code"))
 		assert.are.equal("INVERTED", build.configTab.input.ailmentMode)
-		assert.are.equal("12%", pinnacleShock(build.calcsTab.calcsEnv.player))
+		assert.are.equal(invertedShock, pinnacleShock(build.calcsTab.calcsEnv.player))
+	end)
+
+	it("gives the sidebar and Calcs the same ailment stats in Inverted Hits mode", function()
+		setupArcInversion()
+		calcsShock("INVERTED", 50, "Elemental")
+		assert.is_true(build.calcsTab.mainEnv.player.mainSkill.skillFlags.shock)
+		assert.is_true(build.calcsTab.mainOutput.ShockDuration > 0)
+		assert.are.same(ailmentStats(build.calcsTab.calcsEnv, "Shock"), ailmentStats(build.calcsTab.mainEnv, "Shock"))
+		-- An inverted hit against a capped inverted resistance deals no Lightning Damage
+		build.configTab.input.enemyLightningResist = -150
+		calcsShock("INVERTED", 50, "Lightning")
+		assert.are.same(ailmentStats(build.calcsTab.calcsEnv, "Shock"), ailmentStats(build.calcsTab.mainEnv, "Shock"))
+	end)
+
+	it("leaves damaging ailments unchanged in Inverted Hits mode", function()
+		build.skillsTab:PasteSocketGroup("Fireball 20/0  1\n")
+		build.configTab.input.enemyIsBoss = "Pinnacle"
+		local function damagingAilments(mode)
+			build.configTab.input.ailmentMode = mode
+			build.configTab.input.customMods = "Adds 1000 to 1000 Chaos Damage to Spells\n100% chance to Ignite\n100% chance to Poison on Hit\nHits have 50% chance to treat Enemy Monster Elemental Resistance values as inverted"
+			build.buildFlag = true
+			rebuild()
+			return build.calcsTab.calcsEnv.player
+		end
+		local average = damagingAilments("AVERAGE")
+		local inverted = damagingAilments("INVERTED")
+		assert.is_true(average.output.IgniteDPS > 0)
+		assert.is_true(average.output.PoisonDPS > 0)
+		assert.are.equal(average.output.IgniteDPS, inverted.output.IgniteDPS)
+		assert.are.equal(average.output.PoisonDPS, inverted.output.PoisonDPS)
+		assert.are.equal(average.output.PoisonDPS, build.calcsTab.mainOutput.PoisonDPS)
+		assert.is_nil(table.concat(average.breakdown.PoisonDPS, " "):find("Inverted Hits", 1, true))
+		assert.matches("Average Damage", inverted.breakdown.PoisonDPS[1], 1, true)
+		assert.matches("Inverted Hits changes nothing here", inverted.breakdown.PoisonDPS[2], 1, true)
 	end)
 
 	it("uses ordinary ailment damage for types without inversion and in Crits Only mode", function()
 		setupArcInversion()
 		local withoutInversion = calcsShock("AVERAGE", 0, "Elemental")
 		local coldOnly = calcsShock("INVERTED", 50, "Cold")
+		assert.is_nil(withoutInversion.breakdown.ShockEffectMod[2])
 		assert.are.equal(pinnacleShock(withoutInversion), pinnacleShock(coldOnly))
 		assert.matches("Average Damage", coldOnly.breakdown.ShockEffectMod[1], 1, true)
+		assert.matches("Inverted Hits changes nothing here", coldOnly.breakdown.ShockEffectMod[2], 1, true)
 		local crits = calcsShock("CRIT", 50, "Lightning")
 		assert.are.equal(0, crits.output.ShockChanceOnHit)
 		assert.matches("Crits Only", crits.breakdown.ShockEffectMod[1], 1, true)
+		assert.is_nil(crits.breakdown.ShockEffectMod[2])
 	end)
 
 	it("uses penetration after element-specific inversion and reports immunity at the hit cap", function()
@@ -142,6 +190,13 @@ describe("TestAilments", function()
 		local capped = calcsShock("INVERTED", 50, "Lightning")
 		assert.is_true(capped.output.LightningHitAverage > 0)
 		assert.are.equal("Inverted hits deal no damage that can inflict Shock.", capped.breakdown.ShockDPS[1])
+		-- The Shock rows stay visible for the note, so they must carry the stats an ordinary hit would show
+		local ordinary = calcsShock("AVERAGE", 50, "Lightning")
+		assert.is_true(ordinary.output.ShockDuration > 0)
+		assert.is_true(capped.mainSkill.skillFlags.shock)
+		assert.are.equal(ordinary.output.ShockDuration, capped.output.ShockDuration)
+		assert.are.equal(ordinary.output.ShockEffectMod, capped.output.ShockEffectMod)
+		assert.are.equal(ordinary.output.ShockChance, capped.output.ShockChance)
 	end)
 
 	it("shows the Freeze threshold of an inverted hit", function()
