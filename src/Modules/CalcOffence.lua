@@ -4180,14 +4180,35 @@ function calcs.offence(env, actor, activeSkill)
 	skillFlags.leechLife = output.LifeLeechRate > 0
 	skillFlags.leechES = output.EnergyShieldLeechRate > 0
 	skillFlags.leechMana = output.ManaLeechRate > 0
+	-- Only the first target hit by each shield attack use counts as a Bell block.
+	if actor == env.player and skillFlags.shieldAttack and skillModList:Flag(nil, "ShieldAttacksCountAsBlocks")
+		and not (skillFlags.mine or skillFlags.trap or skillFlags.totem) then
+		local usesPerSecond = output.Speed / output.Repeats
+		local blockRate = usesPerSecond * output.HitChance / 100
+		for _, resource in ipairs({ "Life", "Mana", "EnergyShield" }) do
+			local onBlock = output[resource .. "OnBlock"] or 0
+			if onBlock > 0 and blockRate > 0 and not skillModList:Flag(skillCfg, "CannotGain" .. resource) then
+				local rateStat = resource .. "OnBlockRate"
+				output[rateStat] = onBlock * blockRate
+				if breakdown then
+					breakdown[rateStat] = {
+						s_format("%.1f ^8(gained on block)", onBlock),
+						s_format("x %.2f ^8(shield attack uses per second)", usesPerSecond),
+						s_format("x %.2f%% ^8(chance to hit)", output.HitChance),
+						s_format("= %.1f ^8(per second)", output[rateStat]),
+					}
+				end
+			end
+		end
+	end
 	if skillData.showAverage then
 		output.LifeLeechGainPerHit = output.LifeLeechPerHit + output.LifeOnHit
 		output.EnergyShieldLeechGainPerHit = output.EnergyShieldLeechPerHit + output.EnergyShieldOnHit
 		output.ManaLeechGainPerHit = output.ManaLeechPerHit + output.ManaOnHit
 	else
-		output.LifeLeechGainRate = output.LifeLeechRate + output.LifeOnHitRate
-		output.EnergyShieldLeechGainRate = output.EnergyShieldLeechRate + output.EnergyShieldOnHitRate
-		output.ManaLeechGainRate = output.ManaLeechRate + output.ManaOnHitRate
+		output.LifeLeechGainRate = output.LifeLeechRate + output.LifeOnHitRate + (output.LifeOnBlockRate or 0)
+		output.EnergyShieldLeechGainRate = output.EnergyShieldLeechRate + output.EnergyShieldOnHitRate + (output.EnergyShieldOnBlockRate or 0)
+		output.ManaLeechGainRate = output.ManaLeechRate + output.ManaOnHitRate + (output.ManaOnBlockRate or 0)
 	end
 	if breakdown then
 		local hitRate = output.HitChance / 100 * (globalOutput.HitSpeed or globalOutput.Speed) * skillData.dpsMultiplier

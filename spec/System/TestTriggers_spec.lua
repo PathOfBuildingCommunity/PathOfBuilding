@@ -1438,6 +1438,37 @@ describe("TestTriggers", function()
 			assert.are.equal(single, selectSkill("Shield Shatter").SkillTriggerRate)
 		end)
 
+		it("adds Bell recovery for the selected shield attack once per use", function()
+			equipUnique("shield", "Shattershard", "Weapon 2")
+			setCustomMods("40 Life gained when you Block\n20 Mana gained when you Block\nGain 30 Energy Shield when you Block")
+			build.configTab.input.enemyEvasion = 3000
+			build.configTab:BuildModList()
+			build.skillsTab:PasteSocketGroup("Shield Crush 20/0  1\nMultistrike 20/0  1\n")
+			build.skillsTab:PasteSocketGroup("Fireball 20/0  1\n")
+
+			local withoutBell = selectSkill("Shield Crush")
+			assert.is_nil(withoutBell.LifeOnBlockRate)
+			assert.is_nil(withoutBell.ManaOnBlockRate)
+			assert.is_nil(withoutBell.EnergyShieldOnBlockRate)
+
+			equipUnique("mace", "The Monastery Bell", "Weapon 1")
+			local crush = selectSkill("Shield Crush")
+			assert.are.equal(3, crush.Repeats)
+			assert.True(crush.HitChance > 0 and crush.HitChance < 100)
+			local expectedBlocks = crush.Speed / crush.Repeats * crush.HitChance / 100
+			for resource, gain in pairs({ Life = 40, Mana = 20, EnergyShield = 30 }) do
+				local suffix = resource .. "OnBlockRate"
+				assert.are.near(gain * expectedBlocks, crush[suffix], 1e-6)
+				assert.are.near(crush[resource .. "LeechRate"] + crush[resource .. "OnHitRate"] + crush[suffix],
+					crush[resource .. "LeechGainRate"], 1e-6)
+			end
+			assertRate(expectedBlocks, selectSkill("Shield Shatter").SkillTriggerRate)
+			local fireball = selectSkill("Fireball")
+			assert.is_nil(fireball.LifeOnBlockRate)
+			assert.is_nil(fireball.ManaOnBlockRate)
+			assert.is_nil(fireball.EnergyShieldOnBlockRate)
+		end)
+
 		it("counts one block per shield throw regardless of the displayed Trarthus skill part", function()
 			equipUnique("mace", "The Monastery Bell", "Weapon 1")
 			equipUnique("shield", "Shattershard", "Weapon 2")
