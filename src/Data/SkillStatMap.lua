@@ -712,6 +712,9 @@ return {
 ["damage_+%"] = {
 	mod("Damage", "INC", nil),
 },
+["hits_ignore_enemy_monster_physical_damage_reduction_%_chance"] = {
+	mod("ChanceToIgnoreEnemyPhysicalDamageReduction", "BASE", nil),
+},
 ["chance_for_extra_damage_roll_%"] = {
 	mod("LuckyHitsChance", "BASE", nil)
 },

@@ -359,7 +359,7 @@ function CompareTabClass:InitControls()
 	self.controls.cmpSocketGroup = new("DropDownControl"):DropDownControl({"LEFT", self.controls.cmpSkillLabel, "RIGHT"}, {4, 0, 200, 20}, {}, function(index, value)
 		local entry = self:GetActiveCompare()
 		if entry then
-			entry:SetMainSocketGroup(index)
+			entry:SetMainSocketGroup(value.val)
 		end
 	end)
 	self.controls.cmpSocketGroup.shown = setsEnabled
@@ -441,8 +441,19 @@ function CompareTabClass:InitControls()
 	self.controls.cmpMineCount.shown = false
 	self.controls.cmpMineCount.anchor.collapse = true
 
+	-- Mercenary item set selector
+	self.controls.cmpMercenaryItemSet = new("DropDownControl"):DropDownControl({"LEFT", self.controls.cmpMineCount, "RIGHT"}, {6, 0, 140, 20}, {}, function(index, value)
+		local entry = self:GetActiveCompare()
+		if entry then
+			entry.calcsTab:SetMercenaryItemSet("", value.itemSetId)
+			entry.buildFlag = true
+		end
+	end)
+	self.controls.cmpMercenaryItemSet.shown = false
+	self.controls.cmpMercenaryItemSet.anchor.collapse = true
+
 	-- Minion selector
-	self.controls.cmpMinion = new("DropDownControl"):DropDownControl({"LEFT", self.controls.cmpMineCount, "RIGHT"}, {6, 0, 140, 20}, {}, function(index, value)
+	self.controls.cmpMinion = new("DropDownControl"):DropDownControl({"LEFT", self.controls.cmpMercenaryItemSet, "RIGHT"}, {6, 0, 140, 20}, {}, function(index, value)
 		local entry = self:GetActiveCompare()
 		if entry then
 			local mainSocketGroup = entry.skillsTab.socketGroupList[entry.mainSocketGroup]
@@ -495,7 +506,7 @@ function CompareTabClass:InitControls()
 	}
 	-- Primary build calcs skill controls
 	self.controls.primCalcsSocketGroup = new("DropDownControl"):DropDownControl(nil, {0, 0, 200, 18}, {}, function(index, value)
-		self.primaryBuild.calcsTab.input.skill_number = index
+		self.primaryBuild.calcsTab.input.skill_number = value.val
 		self.primaryBuild.buildFlag = true
 	end)
 	self.controls.primCalcsSocketGroup.shown = false
@@ -550,11 +561,18 @@ function CompareTabClass:InitControls()
 	end)
 	self.controls.primCalcsMineCount.shown = false
 
-	self.controls.primCalcsShowMinion = new("CheckBoxControl"):CheckBoxControl(nil, {0, 0, 18}, nil, function(state)
-		self.primaryBuild.calcsTab.input.showMinion = state
+	self.controls.primCalcsShowMinion = new("DropDownControl"):DropDownControl(nil, {0, 0, 200, 18}, {}, function(index, value)
+		self.primaryBuild.calcsTab.input.showMinion = value.showMinion
+		self.primaryBuild.calcsTab.input.showMercenaryMinion = value.showMercenaryMinion
 		self.primaryBuild.buildFlag = true
-	end, "Show stats for the minion instead of the player.")
+	end, "Show stats for the player or one of their minions.")
 	self.controls.primCalcsShowMinion.shown = false
+
+	self.controls.primCalcsMercenaryItemSet = new("DropDownControl"):DropDownControl(nil, {0, 0, 140, 18}, {}, function(index, value)
+		self.primaryBuild.calcsTab:SetMercenaryItemSet("Calcs", value.itemSetId)
+		self.primaryBuild.buildFlag = true
+	end)
+	self.controls.primCalcsMercenaryItemSet.shown = false
 
 	self.controls.primCalcsMinion = new("DropDownControl"):DropDownControl(nil, {0, 0, 140, 18}, {}, function(index, value)
 		local mainSocketGroup = self.primaryBuild.skillsTab.socketGroupList[self.primaryBuild.calcsTab.input.skill_number]
@@ -599,7 +617,7 @@ function CompareTabClass:InitControls()
 	self.controls.cmpCalcsSocketGroup = new("DropDownControl"):DropDownControl(nil, {0, 0, 200, 18}, {}, function(index, value)
 		local entry = self:GetActiveCompare()
 		if entry then
-			entry.calcsTab.input.skill_number = index
+			entry.calcsTab.input.skill_number = value.val
 			entry.buildFlag = true
 		end
 	end)
@@ -667,14 +685,24 @@ function CompareTabClass:InitControls()
 	end)
 	self.controls.cmpCalcsMineCount.shown = false
 
-	self.controls.cmpCalcsShowMinion = new("CheckBoxControl"):CheckBoxControl(nil, {0, 0, 18}, nil, function(state)
+	self.controls.cmpCalcsShowMinion = new("DropDownControl"):DropDownControl(nil, {0, 0, 200, 18}, {}, function(index, value)
 		local entry = self:GetActiveCompare()
 		if entry then
-			entry.calcsTab.input.showMinion = state
+			entry.calcsTab.input.showMinion = value.showMinion
+			entry.calcsTab.input.showMercenaryMinion = value.showMercenaryMinion
 			entry.buildFlag = true
 		end
-	end, "Show stats for the minion instead of the player.")
+	end, "Show stats for the player or one of their minions.")
 	self.controls.cmpCalcsShowMinion.shown = false
+
+	self.controls.cmpCalcsMercenaryItemSet = new("DropDownControl"):DropDownControl(nil, {0, 0, 140, 18}, {}, function(index, value)
+		local entry = self:GetActiveCompare()
+		if entry then
+			entry.calcsTab:SetMercenaryItemSet("Calcs", value.itemSetId)
+			entry.buildFlag = true
+		end
+	end)
+	self.controls.cmpCalcsMercenaryItemSet.shown = false
 
 	self.controls.cmpCalcsMinion = new("DropDownControl"):DropDownControl(nil, {0, 0, 140, 18}, {}, function(index, value)
 		local entry = self:GetActiveCompare()
@@ -1283,7 +1311,7 @@ function CompareTabClass:RemoveBuild(index)
 		end
 		if #self.compareEntries == 0 then
 			for _, control in ipairs({ self.controls.cmpMainSkill, self.controls.cmpSkillPart, self.controls.cmpStageCount,
-				self.controls.cmpMineCount, self.controls.cmpMinion, self.controls.cmpMinionSkill }) do
+				self.controls.cmpMineCount, self.controls.cmpMercenaryItemSet, self.controls.cmpMinion, self.controls.cmpMinionSkill }) do
 				control.shown = false
 			end
 		end
@@ -2254,6 +2282,7 @@ function CompareTabClass:UpdateSetSelectors(compareEntry)
 		mainSkillMinion = self.controls.cmpMinion,
 		mainSkillMinionLibrary = { shown = false },
 		mainSkillMinionSkill = self.controls.cmpMinionSkill,
+		mainSkillMercenaryItemSet = self.controls.cmpMercenaryItemSet,
 	}
 	compareEntry:RefreshSkillSelectControls(cmpControls, compareEntry.mainSocketGroup, "")
 end
@@ -2270,13 +2299,14 @@ function CompareTabClass:RefreshCalcsSkillControls(compareEntry)
 		mainSkillMinion = self.controls.primCalcsMinion,
 		mainSkillMinionLibrary = { shown = false },
 		mainSkillMinionSkill = self.controls.primCalcsMinionSkill,
+		mainSkillMercenaryItemSet = self.controls.primCalcsMercenaryItemSet,
 	}
 	self.primaryBuild:RefreshSkillSelectControls(primControls, self.primaryBuild.calcsTab.input.skill_number, "Calcs")
 	self.controls.primCalcsSocketGroup.shown = true
 	self.controls.primCalcsMode.shown = true
 	self.controls.primCalcsMode:SelByValue(self.primaryBuild.calcsTab.input.misc_buffMode, "buffMode")
 	self.controls.primCalcsShowMinion.shown = self.controls.primCalcsMinion.shown == true
-	self.controls.primCalcsShowMinion.state = self.primaryBuild.calcsTab.input.showMinion and true or false
+	self.primaryBuild.calcsTab:RefreshActorList(self.controls.primCalcsShowMinion, self.primaryBuild.calcsTab.calcsEnv)
 
 	local cmpControls = {
 		mainSocketGroup = self.controls.cmpCalcsSocketGroup,
@@ -2287,23 +2317,24 @@ function CompareTabClass:RefreshCalcsSkillControls(compareEntry)
 		mainSkillMinion = self.controls.cmpCalcsMinion,
 		mainSkillMinionLibrary = { shown = false },
 		mainSkillMinionSkill = self.controls.cmpCalcsMinionSkill,
+		mainSkillMercenaryItemSet = self.controls.cmpCalcsMercenaryItemSet,
 	}
 	compareEntry:RefreshSkillSelectControls(cmpControls, compareEntry.calcsTab.input.skill_number, "Calcs")
 	self.controls.cmpCalcsSocketGroup.shown = true
 	self.controls.cmpCalcsMode.shown = true
 	self.controls.cmpCalcsMode:SelByValue(compareEntry.calcsTab.input.misc_buffMode, "buffMode")
 	self.controls.cmpCalcsShowMinion.shown = self.controls.cmpCalcsMinion.shown == true
-	self.controls.cmpCalcsShowMinion.state = compareEntry.calcsTab.input.showMinion and true or false
+	compareEntry.calcsTab:RefreshActorList(self.controls.cmpCalcsShowMinion, compareEntry.calcsTab.calcsEnv)
 
 	-- Wrap .shown booleans set by RefreshSkillSelectControls with a view-mode gate,
 	-- so controls auto-hide when not in CALCS mode (matching configShown pattern)
 	local calcsControlNames = {
 		"primCalcsSocketGroup", "primCalcsMainSkill", "primCalcsSkillPart",
 		"primCalcsStageCount", "primCalcsMineCount", "primCalcsShowMinion", "primCalcsMinion",
-		"primCalcsMinionSkill", "primCalcsMode",
+		"primCalcsMinionSkill", "primCalcsMercenaryItemSet", "primCalcsMode",
 		"cmpCalcsSocketGroup", "cmpCalcsMainSkill", "cmpCalcsSkillPart",
 		"cmpCalcsStageCount", "cmpCalcsMineCount", "cmpCalcsShowMinion", "cmpCalcsMinion",
-		"cmpCalcsMinionSkill", "cmpCalcsMode",
+		"cmpCalcsMinionSkill", "cmpCalcsMercenaryItemSet", "cmpCalcsMode",
 	}
 	for _, name in ipairs(calcsControlNames) do
 		local ctrl = self.controls[name]
@@ -2360,6 +2391,7 @@ function CompareTabClass:LayoutCalcsSkillControls(vp, compareEntry)
 		{ "StageCount",   false, false },
 		{ "MineCount",    false, false },
 		{ "ShowMinion",   false, false },
+		{ "MercenaryItemSet", true, false },
 		{ "Minion",       true,  false },
 		{ "MinionSkill",  true,  false },
 		{ "Mode",         false, true  },
@@ -2482,7 +2514,8 @@ function CompareTabClass:GetSocketGroupSignature(group)
 		end
 	end
 	table.sort(names)
-	return table.concat(names, "+")
+	-- Mercenary gems share names with player gems
+	return (group.mercenary and "Mercenary:" or "") .. table.concat(names, "+")
 end
 
 -- Get a display label for a socket group (active skills only)
@@ -2509,7 +2542,7 @@ function CompareTabClass:GetSocketGroupLabel(group)
 	if #names == 0 then
 		return "(empty group)"
 	end
-	return table.concat(names, " + ")
+	return table.concat(names, " + ") .. (group.mercenary and " (Mercenary)" or "")
 end
 
 -- Coroutine: calculate power of compared build elements against primary build
@@ -4131,7 +4164,8 @@ function CompareTabClass:DrawSkills(vp, compareEntry)
 	local scorePairs = {}
 	for pi = 1, #pGroups do
 		for ci = 1, #cGroups do
-			local score = groupSimilarity(pSets[pi], cSets[ci])
+			-- Mercenary gems share names with player gems, so only groups of the same kind are matched
+			local score = (not pGroups[pi].mercenary) == (not cGroups[ci].mercenary) and groupSimilarity(pSets[pi], cSets[ci]) or 0
 			if score > 0 then
 				t_insert(scorePairs, { pIdx = pi, cIdx = ci, score = score })
 			end
@@ -4325,6 +4359,9 @@ function CompareTabClass:DrawSkills(vp, compareEntry)
 		local groupLabel = group.displayLabel or group.label or ("Group " .. idx)
 		if group.slot then
 			groupLabel = groupLabel .. " (" .. group.slot .. ")"
+		end
+		if group.mercenary then
+			groupLabel = groupLabel .. " (Mercenary)"
 		end
 		return groupLabel
 	end
@@ -4557,9 +4594,13 @@ function CompareTabClass:DrawCalcsSkillHeader(vp, compareEntry, headerHeight, pr
 	if drawLabel("Mines", leftX, leftY, self.controls.primCalcsMineCount) then leftY = leftY + rowH end
 	if drawLabel("Mines", rightX, rightY, self.controls.cmpCalcsMineCount) then rightY = rightY + rowH end
 
-	-- Show Minion Stats
-	if drawLabel("Show Minion Stats", leftX, leftY, self.controls.primCalcsShowMinion) then leftY = leftY + rowH end
-	if drawLabel("Show Minion Stats", rightX, rightY, self.controls.cmpCalcsShowMinion) then rightY = rightY + rowH end
+	-- Show Stats For
+	if drawLabel("Show Stats For", leftX, leftY, self.controls.primCalcsShowMinion) then leftY = leftY + rowH end
+	if drawLabel("Show Stats For", rightX, rightY, self.controls.cmpCalcsShowMinion) then rightY = rightY + rowH end
+
+	-- Mercenary Set
+	if drawLabel("Mercenary Set", leftX, leftY, self.controls.primCalcsMercenaryItemSet) then leftY = leftY + rowH end
+	if drawLabel("Mercenary Set", rightX, rightY, self.controls.cmpCalcsMercenaryItemSet) then rightY = rightY + rowH end
 
 	-- Minion
 	if drawLabel("Minion", leftX, leftY, self.controls.primCalcsMinion) then leftY = leftY + rowH end
@@ -4687,8 +4728,8 @@ function CompareTabClass:DrawCalcs(vp, compareEntry)
 	local primaryEnv = self.primaryBuild.calcsTab.calcsEnv
 	local compareEnv = compareEntry.calcsTab and compareEntry.calcsTab.calcsEnv
 	if not primaryEnv or not compareEnv then return end
-	local primaryActor = (self.primaryBuild.calcsTab.input.showMinion and primaryEnv.minion) or primaryEnv.player
-	local compareActor = (compareEntry.calcsTab.input.showMinion and compareEnv.minion) or compareEnv.player
+	local primaryActor = self.primaryBuild.calcsTab:GetActor(primaryEnv)
+	local compareActor = compareEntry.calcsTab:GetActor(compareEnv)
 	if not primaryActor or not compareActor then return end
 
 	-- Skill detail header height

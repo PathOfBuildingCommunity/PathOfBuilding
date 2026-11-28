@@ -289,11 +289,9 @@ end
 function CompareEntryClass:RefreshSkillSelectControls(controls, mainGroup, suffix)
 	-- Populate skill select controls
 	if not controls or not controls.mainSocketGroup then return end
-	controls.mainSocketGroup.selIndex = mainGroup
-	wipeTable(controls.mainSocketGroup.list)
-	for i, socketGroup in pairs(self.skillsTab.socketGroupList) do
-		controls.mainSocketGroup.list[i] = { val = i, label = socketGroup.displayLabel }
-	end
+	self.skillsTab:FillMainSocketGroupList(controls.mainSocketGroup.list)
+	controls.mainSocketGroup.selIndex = 1
+	controls.mainSocketGroup:SelByValue(mainGroup, "val")
 	controls.mainSocketGroup:CheckDroppedWidth(true)
 
 	-- Helper: hide all skill detail controls
@@ -304,6 +302,7 @@ function CompareEntryClass:RefreshSkillSelectControls(controls, mainGroup, suffi
 		controls.mainSkillStageCount.shown = false
 		controls.mainSkillMinion.shown = false
 		controls.mainSkillMinionSkill.shown = false
+		controls.mainSkillMercenaryItemSet.shown = false
 	end
 
 	if #controls.mainSocketGroup.list == 0 then
@@ -337,6 +336,7 @@ function CompareEntryClass:RefreshSkillSelectControls(controls, mainGroup, suffi
 	controls.mainSkill.shown = true
 	hideAllSkillControls()
 	controls.mainSkill.shown = true -- restore after hideAll
+	self.calcsTab:RefreshMercenaryItemSet(controls.mainSkillMercenaryItemSet, mainSocketGroup, suffix)
 
 	local activeSkill = displaySkillList[mainActiveSkill] or displaySkillList[1]
 	if not activeSkill then return end
@@ -379,14 +379,7 @@ end
 function CompareEntryClass:RefreshMinionControls(controls, activeSkill, activeEffect, suffix)
 	wipeTable(controls.mainSkillMinion.list)
 	if activeEffect.grantedEffect.minionHasItemSet then
-		for _, itemSetId in ipairs(self.itemsTab.itemSetOrderList) do
-			local itemSet = self.itemsTab.itemSets[itemSetId]
-			t_insert(controls.mainSkillMinion.list, {
-				label = itemSet.title or "Default Item Set",
-				itemSetId = itemSetId,
-			})
-		end
-		controls.mainSkillMinion:SelByValue(activeEffect.srcInstance["skillMinionItemSet"..suffix] or 1, "itemSetId")
+		self.itemsTab:FillItemSetList(controls.mainSkillMinion, activeEffect.srcInstance["skillMinionItemSet"..suffix])
 	else
 		for _, minionId in ipairs(activeSkill.minionList) do
 			t_insert(controls.mainSkillMinion.list, {

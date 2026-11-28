@@ -1181,9 +1181,32 @@ local function addMinionItems(env, minion)
 			else
 				item = env.player.itemList[slotName]
 			end
-			if item then
+			if item and calcLib.canMinionEquip(env, minion, item, slotName) then
 				minion.itemList[slotName] = item
 				minion.modDB:AddList(item.modList or item.slotModList[slot.slotNum])
+				if item.rarity == "UNIQUE" or item.rarity == "RELIC" then
+					minion.modDB.multipliers["UniqueItem"] = (minion.modDB.multipliers["UniqueItem"] or 0) + 1
+				end
+			end
+		end
+	end
+	if minion.minionData.mercenary and minion.itemSet then
+		-- Mercenaries are affected by Abyss Jewels socketed in their items
+		local inactiveWeaponSet = minion.itemSet.useSecondWeaponSet and 1 or 2
+		for slotName, slot in pairs(env.build.itemsTab.slots) do
+			local parentItem = slot.parentSlot and slot.weaponSet ~= inactiveWeaponSet and minion.itemList[slot.parentSlot.slotName]
+			local item = parentItem and minion.itemSet[slotName] and env.build.itemsTab.items[minion.itemSet[slotName].selItemId]
+			if item and item.type == "Jewel" and item.base.subType == "Abyss" and parentItem.abyssalSocketCount >= slot.slotNum then
+				minion.modDB:ScaleAddList(item.modList or item.slotModList[slot.slotNum], parentItem.socketedJewelEffectModifier or 1)
+			end
+		end
+	end
+	if minion.minionData.mercenary then
+		-- Mercenaries are affected by passives granted by their items, such as anoints
+		for _, passive in ipairs(minion.modDB:List(nil, "GrantedPassive")) do
+			local node = env.spec.tree.notableMap[passive]
+			if node then
+				minion.modDB:AddList(node.modList)
 			end
 		end
 	end
@@ -1191,16 +1214,20 @@ end
 
 -- Build the same modifier database for the selected minion and any minion used as a defensive Life pool.
 local function initMinionModDB(env, activeSkill, output, itemsLoaded)
-	local modDB = env.modDB
+	local modDB = activeSkill.actor.modDB
 	local minion = activeSkill.minion
 	minion.output = output or { }
 	minion.modDB.multipliers["Level"] = minion.level
 	calcs.initModDB(env, minion.modDB)
-	local baseLife = minion.lifeTable[minion.level] * minion.minionData.life
+	local baseLife = minion.minionData.lifePerLevel and minion.minionData.lifePerLevel * minion.level or minion.lifeTable[minion.level] * minion.minionData.life
 	if minion.hostile then
 		baseLife = baseLife * (env.data.mapLevelLifeMult[env.enemyLevel] or 1)
 	end
 	minion.modDB:NewMod("Life", "BASE", m_floor(baseLife), "Base")
+	if minion.minionData.manaPerLevel then
+		minion.modDB:NewMod("Mana", "BASE", env.data.monsterConstants["base_maximum_mana"] + minion.minionData.manaPerLevel * minion.level, "Base")
+		minion.modDB:NewMod("ManaRegen", "BASE", env.data.monsterConstants["mana_regeneration_rate_per_minute_%"] / 60 / 100, "Base", { type = "PerStat", stat = "Mana", div = 1 })
+	end
 	if minion.minionData.energyShield then
 		local esTable = (env.minion.hostile and env.minion.lifeTable) or (env.player.mainSkill.skillFlags.spectre and env.minion.lifeTable) or env.data.monsterAllyLifeTable
 		local baseES = m_floor(esTable[env.minion.level] * minion.minionData.life) * (minion.minionData.energyShield * (data.gameConstants["EnergyShieldRatioOfLife"] / 100))
@@ -1211,7 +1238,10 @@ local function initMinionModDB(env, activeSkill, output, itemsLoaded)
 	end
 	minion.modDB:NewMod("Armour", "BASE", round(env.data.monsterArmourTable[minion.level] * (minion.minionData.armour or 1)), "Base")
 	minion.modDB:NewMod("Evasion", "BASE", round(env.data.monsterEvasionTable[minion.level] * (minion.minionData.evasion or 1)), "Base")
-	if modDB:Flag(nil, "MinionAccuracyEqualsAccuracy") then
+	if minion.minionData.accuracyPerLevel then
+		-- Mercenaries have character-like accuracy instead of always hitting
+		minion.modDB:NewMod("Accuracy", "BASE", minion.minionData.accuracyPerLevel * minion.level, "Base")
+	elseif modDB:Flag(nil, "MinionAccuracyEqualsAccuracy") then
 		minion.modDB:NewMod("Accuracy", "BASE", calcLib.val(modDB, "Accuracy") + calcLib.val(modDB, "Dex") * (modDB:Override(nil, "DexAccBonusOverride") or data.misc.AccuracyPerDexBase), "Player")
 	else
 		minion.modDB:NewMod("CannotBeEvaded", "FLAG", 1, "Minion Attacks always hit")
@@ -1231,17 +1261,54 @@ local function initMinionModDB(env, activeSkill, output, itemsLoaded)
 	minion.modDB:NewMod("ProjectileCount", "BASE", 1, "Base")
 	minion.modDB:NewMod("MaximumFortification", "BASE", env.data.monsterConstants["base_max_fortification"], "Base")
 	minion.modDB:NewMod("Damage", "MORE", 200, "Base", 0, KeywordFlag.Bleed, { type = "ActorCondition", actor = "enemy", var = "Moving" })
+	-- The penalty tapers in linearly from level 45 to 83 according to 3.29.1 patch notes
+	local taper = m_min(m_max((minion.level - 45) / (83 - 45), 0), 1)
+	-- Permanent mercenaries and their minions deal less damage
+	local permanentDamagePenalty = minion.minionData.permanentDamagePenalty or activeSkill.actor.minionData and activeSkill.actor.minionData.permanentDamagePenalty
+	if permanentDamagePenalty then
+		minion.modDB:NewMod("Damage", "MORE", permanentDamagePenalty * taper, "Permanent Mercenary")
+	end
+	if minion.minionData.mercenary then
+		-- Attack damage scaling, assumed to be 100% more at level 83 after being lowered in 3.30, and to taper in like the penalty above
+		minion.modDB:NewMod("Damage", "MORE", 100 * taper, "Mercenary Level Scaling", ModFlag.Attack)
+		-- Allied Mercenaries take 80% less Damage over Time according to the wiki
+		minion.modDB:NewMod("DamageTakenOverTime", "MORE", -80, "Mercenary")
+		-- 3.30 patch notes: -30% to all Resistances in level 46-67 areas and -60% in level 68+ areas
+		local resistPenalty = (env.enemyLevel >= 68 and -60) or (env.enemyLevel >= 46 and -30) or 0
+		for _, resist in ipairs({ "FireResist", "ColdResist", "LightningResist", "ChaosResist" }) do
+			minion.modDB:NewMod(resist, "BASE", resistPenalty, "Mercenary Area Level Penalty")
+		end
+		local mercenaryBuild = env.data.mercenaryBuildById[activeSkill.skillData.mercenaryBuild]
+		if mercenaryBuild then
+			-- Hidden stats are given for levels 24, 68 and 84, and interpolated linearly between them
+			local level = m_min(m_max(minion.level, 24), 84)
+			local lower, upper, lowerLevel, upperLevel = 2, 3, 24, 68
+			if level > 68 then
+				lower, upper, lowerLevel, upperLevel = 3, 4, 68, 84
+			end
+			local stats = { }
+			for _, stat in ipairs(mercenaryBuild.stats) do
+				local value = m_floor(stat[lower] + (stat[upper] - stat[lower]) * (level - lowerLevel) / (upperLevel - lowerLevel))
+				if value ~= 0 then
+					stats[stat[1]] = value
+				end
+			end
+			calcs.mergeStatMapMods(minion.modDB, mercenaryBuild.statMap, stats)
+		end
+	end
 	for _, mod in ipairs(minion.minionData.modList) do
 		minion.modDB:AddMod(mod)
 	end
 	for _, mod in ipairs(activeSkill.extraSkillModList) do
 		minion.modDB:AddMod(mod)
 	end
-	if env.aegisModList then
+	-- Mercenaries are allies rather than minions, so modifiers that affect minions through the player don't apply to them or their minions
+	local isMinion = not minion.minionData.mercenary and activeSkill.actor == env.player
+	if env.aegisModList and isMinion then
 		minion.itemList["Weapon 3"] = env.aegisItem
 		minion.modDB:AddList(env.aegisModList)
 	end
-	if env.theIronMass and minion.type == "RaisedSkeleton" then
+	if env.theIronMass and isMinion and minion.type == "RaisedSkeleton" then
 		minion.modDB:AddList(env.theIronMass)
 	end
 	if activeSkill.skillData.minionUseBowAndQuiver then
@@ -1261,18 +1328,37 @@ local function initMinionModDB(env, activeSkill, output, itemsLoaded)
 	if not itemsLoaded then
 		addMinionItems(env, minion)
 	end
-	if modDB:Sum("BASE", nil, "StrengthAddedToMinions") > 0 then
+	if isMinion and modDB:Sum("BASE", nil, "StrengthAddedToMinions") > 0 then
 		minion.modDB:NewMod("Str", "BASE", round(calcLib.val(modDB, "Str") * modDB:Sum("BASE", nil, "StrengthAddedToMinions") / 100), "Player")
 	end
 end
 
 -- Add modifiers granted to the minion by its skill or an active buff.
 local function addMinionModifiers(modList, skillCfg, minion)
-	for _, value in ipairs(modList:List(skillCfg, "MinionModifier")) do
+	-- Mercenaries are allies rather than minions
+	for _, value in ipairs(modList:List(skillCfg, minion.minionData.mercenary and "MercenaryModifier" or "MinionModifier")) do
 		if not value.type or minion.type == value.type then
 			minion.modDB:AddMod(value.mod)
 		end
 	end
+end
+
+-- Apply the summoning skill's modifiers, optional buffs and keystones to a friendly minion, then calculate its attributes and Life.
+local function finishAllyMinionSetup(env, activeSkill, buffs, minionBuffs)
+	local minion = activeSkill.minion
+	addMinionModifiers(activeSkill.skillModList, activeSkill.skillCfg, minion)
+	for _, modList in pairs(buffs or { }) do
+		addMinionModifiers(modList, activeSkill.skillCfg, minion)
+	end
+	for _, modList in pairs(minionBuffs or { }) do
+		minion.modDB:AddList(modList)
+	end
+	for _, name in ipairs(minion.modDB:List(nil, "Keystone")) do
+		if env.spec.tree.keystoneMap[name] then
+			minion.modDB:AddList(env.spec.tree.keystoneMap[name].modList)
+		end
+	end
+	doActorAttribsConditions(env, minion)
 end
 
 -- These are the minions whose Life can be spent before the player's.
@@ -1283,11 +1369,12 @@ local minionLifePoolBySkill = {
 }
 local spectreLifePool = { life = "TotalSpectreLife", redirect = "takenFromSpectresBeforeYou", source = "Spectres", limit = "ActiveSpectreLimit" }
 local companionshipLifePool = { life = "TotalMinionLife", redirect = "takenFromMinionBeforeYou", source = "Minion" }
+local mercenaryLifePool = { life = "TotalMercenaryLife", redirect = "takenFromMercenaryBeforeYou", source = "Mercenary" }
 local totemLifePoolByStat = {
 	TotalTotemLife = { redirect = "takenFromTotemsBeforeYou", source = "Totem" },
 	TotalVaalRejuvenationTotemLife = { redirect = "takenFromVaalRejuvenationTotemsBeforeYou", source = "Vaal Rejuvenation Totem" },
 }
-local allyLifeRedirects = { spectreLifePool.redirect, companionshipLifePool.redirect }
+local allyLifeRedirects = { spectreLifePool.redirect, companionshipLifePool.redirect, mercenaryLifePool.redirect }
 for _, lifePools in pairs({ minionLifePoolBySkill, totemLifePoolByStat }) do
 	for _, pool in pairs(lifePools) do
 		t_insert(allyLifeRedirects, pool.redirect)
@@ -1342,6 +1429,8 @@ function calcs.perform(env, skipEHP)
 	-- Calculator passes reuse the environment after the player's shield has been removed.
 	env.aegisItem = env.aegisModList and (env.player.itemList["Weapon 2"] or env.aegisItem)
 	env.minion = env.player.mainSkill.minion
+	-- Mercenaries are allies rather than minions, so mechanics that affect the player's minions don't apply to them
+	env.playerMinion = env.minion and not env.minion.minionData.mercenary and env.minion
 	if env.minion then
 		-- Initialise minion modifier database
 		output.Minion = { }
@@ -1357,6 +1446,15 @@ function calcs.perform(env, skipEHP)
 		local effectMod = 1 + modDB:Sum("INC", nil, "BuffEffectOnSelf") / 100
 		modDB:NewMod("FlaskEffect", "INC", m_floor(10 * effectMod), "Alchemist's Genius")
 		modDB:NewMod("FlaskChargesGained", "INC", m_floor(20 * effectMod), "Alchemist's Genius")
+	end
+
+	-- Mercenary auras and buffs affect the player even when the mercenary isn't the main skill, so their effect needs its modifiers
+	local otherMercenarySkills = { }
+	for _, activeSkill in ipairs(env.player.activeSkillList) do
+		if activeSkill.minion and activeSkill.minion ~= env.minion and activeSkill.minion.minionData.mercenary then
+			initMinionModDB(env, activeSkill)
+			t_insert(otherMercenarySkills, activeSkill)
+		end
 	end
 
 	local hasGuaranteedBonechill = false
@@ -1479,7 +1577,7 @@ function calcs.perform(env, skipEHP)
 			local grantedEffect = activeSkill.activeEffect.grantedEffect
 			for _, minionType in ipairs(minionList) do
 				local minionData = env.data.minions[minionType]
-				if minionData and not minionData.hostile then
+				if minionData and not minionData.hostile and not minionData.mercenary then
 					local key = minionData.limit or grantedEffect.id..":"..minionType
 					local count = 1
 					if minionData.limit then
@@ -1500,6 +1598,9 @@ function calcs.perform(env, skipEHP)
 		end
 		if activeSkill.skillTypes[SkillType.CreatesMinion] and not activeSkill.skillTypes[SkillType.MinionsAreUndamagable] then
 			modDB:NewMod("Condition:HaveDamageableMinion", "FLAG", true)
+		end
+		if activeSkill.minion and activeSkill.minion.minionData.mercenary then
+			modDB:NewMod("Condition:HaveMercenary", "FLAG", true)
 		end
 		if env.mode_buffs and activeSkill.skillFlags.warcry then
 			if activeSkill.activeEffect.grantedEffect.name == "Rallying Cry" and not activeSkill.skillModList:Flag(nil, "CannotShareWarcryBuffs") and not modDB:Flag(nil, "RallyingActive") then
@@ -1644,7 +1745,7 @@ function calcs.perform(env, skipEHP)
 	local effectIncMagicNoAdjacent = modDB:Sum("INC", {actor = "player"}, "MagicFlaskNoAdjacentEffect")
 	local effectIncNonPlayer = modDB:Sum("INC", nil, "FlaskEffect")
 	local effectIncMagicNonPlayer = modDB:Sum("INC", nil, "MagicUtilityFlaskEffect")
-	local flasksApplyToMinion = env.minion and modDB:Flag(env.player.mainSkill.skillCfg, "FlasksApplyToMinion")
+	local flasksApplyToMinion = env.playerMinion and modDB:Flag(env.player.mainSkill.skillCfg, "FlasksApplyToMinion")
 	local quickSilverAppliesToAllies = env.minion and modDB:Flag(env.player.mainSkill.skillCfg, "QuickSilverAppliesToAllies")
 	local nonUniqueFlasksApplyToMinion = env.minion and env.minion.modDB:Flag(nil, "ParentNonUniqueFlasksAppliedToYou")
 	local flaskTotalRateInc = modDB:Sum("INC", nil, "FlaskRecoveryRate")
@@ -2024,16 +2125,13 @@ function calcs.perform(env, skipEHP)
 					env.minion.modDB:AddMod(modLib.setSource(copy, mod.source or value.mod.source))
 				end
 			end
+			doActorAttribsConditions(env, env.minion)
+		else
+			finishAllyMinionSetup(env, env.player.mainSkill)
 		end
-		if not env.minion.hostile then
-			addMinionModifiers(env.player.mainSkill.skillModList, env.player.mainSkill.skillCfg, env.minion)
-			for _, name in ipairs(env.minion.modDB:List(nil, "Keystone")) do
-				if env.spec.tree.keystoneMap[name] then
-					env.minion.modDB:AddList(env.spec.tree.keystoneMap[name].modList)
-				end
-			end
-		end
-		doActorAttribsConditions(env, env.minion)
+	end
+	for _, activeSkill in ipairs(otherMercenarySkills) do
+		finishAllyMinionSetup(env, activeSkill)
 	end
 
 	-- Calculate skill life and mana reservations
@@ -2347,7 +2445,7 @@ function calcs.perform(env, skipEHP)
 							t_insert(minionBuffs["Spectre"], copyModValue)
 							t_insert(buffs["Spectre"], copyModValue)
 						end
-					elseif modData.name == "MinionModifier" and modData.type == "LIST" then
+					elseif modData.name == "MinionModifier" and modData.type == "LIST" and (env.playerMinion or not env.minion) then
 						minionBuffs["Spectre"] = minionBuffs["Spectre"] or new("ModList"):ModList()
 						for _, modValue in pairs(modData.value) do
 							local copyModValue = copyTable(modValue)
@@ -2426,7 +2524,7 @@ function calcs.perform(env, skipEHP)
 							buffs[buff.name].notBuff = true
 						end
 					end
-					if env.minion and not env.minion.hostile and (buff.applyMinions or buff.applyAllies or skillModList:Flag(nil, "BuffAppliesToAllies")) then
+					if env.minion and not env.minion.hostile and (buff.applyMinions and env.playerMinion or buff.applyAllies or skillModList:Flag(nil, "BuffAppliesToAllies")) then
 						activeSkill.minionBuffSkill = true
 						env.minion.modDB.conditions["AffectedBy"..buff.name:gsub(" ","")] = true
 						local srcList = new("ModList"):ModList()
@@ -2804,7 +2902,8 @@ function calcs.perform(env, skipEHP)
 					t_insert(curses, curse)
 				end
 			elseif buff.type == "Link" then
-				local linksApplyToMinions = env.minion and modDB:Flag(nil, "Condition:CanLinkToMinions") and modDB:Flag(nil, "Condition:LinkedToMinion")
+				-- Mercenaries are allies, so they can always be linked
+				local linksApplyToMinions = env.minion and (modDB:Flag(nil, "Condition:CanLinkToMinions") or env.minion.minionData.mercenary) and modDB:Flag(nil, "Condition:LinkedToMinion")
 						and not env.minion.modDB:Flag(nil, "Condition:CannotBeDamaged") and not env.minion.mainSkill.summonSkill.skillTypes[SkillType.MinionsAreUndamagable]
 				if env.mode_buffs and (#linkSkills < 1) and (partyTabEnableExportBuffs or linksApplyToMinions) then
 					-- Check for extra modifiers to apply to link skills
@@ -2841,6 +2940,11 @@ function calcs.perform(env, skipEHP)
 						env.minion.modDB.conditions["AffectedByLink"] = true
 						local srcList = new("ModList"):ModList()
 						inc = inc + env.minion.modDB:Sum("INC", nil, "BuffEffectOnSelf", "LinkEffectOnSelf")
+						local lightRadiusPercent = env.minion.minionData.mercenary and modDB:Max(nil, "LightRadiusAppliesToMercenaryLinkEffect")
+						if lightRadiusPercent then
+							-- Light Radius conversion from Golden Glory
+							inc = inc + m_floor(skillModList:Sum("INC", skillCfg, "LightRadius") * lightRadiusPercent / 100)
+						end
 						more = more * env.minion.modDB:More(nil, "BuffEffectOnSelf", "LinkEffectOnSelf")
 						mult = (1 + inc / 100) * more
 						srcList:ScaleAddList(buff.modList, mult)
@@ -2915,7 +3019,9 @@ function calcs.perform(env, skipEHP)
 								end
 							end
 							local envMinionCheck = (env.minion and (env.minion == castingMinion or buff.applyAllies))
-							if buff.applyMinions or envMinionCheck then
+							-- Minion buffs from or to the mercenary only affect its own minions, which aren't calculated
+							local mercenaryMinionBuff = castingMinion.minionData.mercenary or env.minion and env.minion.minionData.mercenary
+							if buff.applyMinions and not mercenaryMinionBuff or envMinionCheck then
 								activeMinionSkill.minionBuffSkill = true
 								if envMinionCheck then
 									env.minion.modDB.conditions["AffectedBy"..buff.name:gsub(" ","")] = true
@@ -2929,7 +3035,7 @@ function calcs.perform(env, skipEHP)
 								mergeBuff(srcList, minionBuffs, buff.name)
 								mergeBuff(buff.modList, minionBuffs, buff.name)
 								if activeMinionSkill.skillData.thisIsNotABuff then
-									buffs[buff.name].notBuff = true
+									minionBuffs[buff.name].notBuff = true
 								end
 							end
 						end
@@ -3776,6 +3882,18 @@ function calcs.perform(env, skipEHP)
 		enemyDB:NewMod("DamageTaken", "INC", m_floor(enemyDB:Sum("INC", nil, "DamageTakenConsecratedGround") * effect), "Consecrated Ground")
 	end
 
+	-- Loyal Bodyguard compares the Life of the player and their mercenary
+	local callMercenary = env.callMercenarySkill
+	if callMercenary and callMercenary.minion and not callMercenary.skillFlags.disable and modDB:HasMod("BASE", nil, "takenFromMercenaryBeforeYou") then
+		local minion = callMercenary.minion
+		doActorLifeMana(minion)
+		if minion.output.Life > output.Life then
+			modDB.conditions["MercenaryLifeHigherThanYours"] = true
+		elseif minion.output.Life < output.Life then
+			minion.modDB.conditions["LifeLowerThanParent"] = true
+		end
+	end
+
 	-- Full DPS and builds without a supported redirect do not need ally Life.
 	local needsAllyLife = not skipEHP and modDB:Sum("BASE", nil, unpack(allyLifeRedirects)) ~= 0
 	env.player.allyLifeList = { }
@@ -3787,7 +3905,7 @@ function calcs.perform(env, skipEHP)
 		for _, activeSkill in ipairs(env.player.activeSkillList) do
 			local minion = activeSkill.minion
 			if minion and not activeSkill.skillFlags.disable and not activeSkill.skillTypes[SkillType.MinionsAreUndamagable] then
-				local skillPool = activeSkill.skillFlags.spectre and spectreLifePool or minionLifePoolBySkill[activeSkill.activeEffect.grantedEffect.name]
+				local skillPool = activeSkill.skillFlags.spectre and spectreLifePool or minion.minionData.mercenary and mercenaryLifePool or minionLifePoolBySkill[activeSkill.activeEffect.grantedEffect.name]
 				local pools = skillPool and { skillPool } or { }
 
 				-- Companionship is stored on the supported skill, which identifies the one minion it affects.
@@ -3819,21 +3937,10 @@ function calcs.perform(env, skipEHP)
 						and modDB:Sum("BASE", nil, pool.redirect) ~= 0 and not modDB:Override(nil, pool.life)
 					if canAdd then
 						if not minionLife then
-							if minion ~= env.minion then
+							-- Mercenaries have already been set up, even when they aren't the main skill
+							if minion ~= env.minion and not minion.minionData.mercenary then
 								initMinionModDB(env, activeSkill, nil, minion == guardian)
-								addMinionModifiers(activeSkill.skillModList, activeSkill.skillCfg, minion)
-								for _, modList in pairs(buffs) do
-									addMinionModifiers(modList, activeSkill.skillCfg, minion)
-								end
-								for _, modList in pairs(minionBuffs) do
-									minion.modDB:AddList(modList)
-								end
-								for _, name in ipairs(minion.modDB:List(nil, "Keystone")) do
-									if env.spec.tree.keystoneMap[name] then
-										minion.modDB:AddList(env.spec.tree.keystoneMap[name].modList)
-									end
-								end
-								doActorAttribsConditions(env, minion)
+								finishAllyMinionSetup(env, activeSkill, buffs, minionBuffs)
 							else
 								doActorLifeMana(minion)
 							end
@@ -3912,7 +4019,7 @@ function calcs.perform(env, skipEHP)
 	end
 
 	if env.minion then
-		if modDB:Flag(nil, "MinionsGainYourSpellSuppressionChance") then
+		if env.playerMinion and modDB:Flag(nil, "MinionsGainYourSpellSuppressionChance") then
 			env.minion.modDB:NewMod("SpellSuppressionChance", "BASE", env.player.output.SpellSuppressionChance, "Player")
 		end
 		calcs.defence(env, env.minion)
@@ -3921,6 +4028,27 @@ function calcs.perform(env, skipEHP)
 		end
 		calcs.triggers(env, env.minion)
 		calcs.offence(env, env.minion, env.minion.mainSkill)
+
+		-- Minions of the mercenary's main skill
+		local mercenarySkill = env.minion.mainSkill
+		local mercenaryMinion = mercenarySkill.minion
+		if mercenaryMinion and not mercenarySkill.skillFlags.disable then
+			mercenaryMinion.modDB = new("ModDB"):ModDB()
+			mercenaryMinion.modDB.actor = mercenaryMinion
+			calcs.createMinionSkills(env, mercenarySkill)
+			env.minion.output.Minion = { }
+			initMinionModDB(env, mercenarySkill, env.minion.output.Minion)
+			finishAllyMinionSetup(env, mercenarySkill)
+			if env.buildBreakdown then
+				mercenaryMinion.breakdown = require(calcs.breakdownModule)(mercenaryMinion.modDB, mercenaryMinion.output, mercenaryMinion)
+			end
+			calcs.defenceForConditionals(env, mercenaryMinion)
+			doActorCharges(env, mercenaryMinion)
+			doActorMisc(env, mercenaryMinion)
+			calcs.defence(env, mercenaryMinion)
+			calcs.triggers(env, mercenaryMinion)
+			calcs.offence(env, mercenaryMinion, mercenaryMinion.mainSkill)
+		end
 	end
 
 	 -- Export modifiers to enemy conditions and stats for party tab

@@ -8,6 +8,19 @@ local m_min = math.min
 local m_max = math.max
 local m_floor = math.floor
 
+-- Draws a label after the item's prefix, which uses its own color codes so the label keeps the current draw color
+local function drawLabel(listVal, label, x, y, lineHeight)
+	local prefix = type(listVal) == "table" and listVal.labelPrefix
+	if prefix then
+		local prefixWidth = DrawStringWidth(lineHeight, "VAR", prefix)
+		DrawString(x + prefixWidth, y, "LEFT", lineHeight, "VAR", label)
+		DrawString(x, y, "LEFT", lineHeight, "VAR", prefix)
+		return x + prefixWidth
+	end
+	DrawString(x, y, "LEFT", lineHeight, "VAR", label)
+	return x
+end
+
 local function drawStrikethrough(label, y, lineHeight)
 	local strWidth = DrawStringWidth(lineHeight, "VAR", label or "")
 	SetDrawColor(0.6, 0.6, 0.6)
@@ -127,14 +140,14 @@ function DropDownClass:DrawSearchHighlights(label, searchInfo, x, y, width, heig
 		local strippedLabel = StripEscapes(label)
 		for _, range in ipairs(searchInfo.ranges) do
 			if range.from - last - 1 > 0 then
-				startX = DrawStringWidth(height, "VAR", strippedLabel:sub(last + 1, range.from - 1)) + x + endX
+				startX = DrawStringWidth(height, "VAR", strippedLabel:sub(last + 1, range.from - 1)) + endX
 			else
 				startX = endX
 			end
-			endX = DrawStringWidth(height, "VAR", strippedLabel:sub(range.from, range.to)) + x + startX
+			endX = DrawStringWidth(height, "VAR", strippedLabel:sub(range.from, range.to)) + startX
 			last = range.to
 
-			DrawImage(nil, startX, y, endX - startX, height)
+			DrawImage(nil, x + startX, y, endX - startX, height)
 		end
 		SetDrawColor(1, 1, 1)
 	end
@@ -319,10 +332,11 @@ function DropDownClass:Draw(viewPort, noTooltip)
 	local selLabel = nil
 	local selDetail = nil
 	local selStrikethrough = false
+	local selItem = nil
 	if self:IsSearchActive() then
 		selLabel = "Search: " .. self:GetSearchTermPretty()
 	else
-		local selItem = self.list[self.selIndex]
+		selItem = self.list[self.selIndex]
 		if type(selItem) == "table" then
 			selLabel = selItem.label
 			selStrikethrough = selItem.strikethrough
@@ -334,7 +348,7 @@ function DropDownClass:Draw(viewPort, noTooltip)
 		end
 	end
 	SetViewport(x + 2, y + 2, width - height, lineHeight)
-	DrawString(0, 0, "LEFT", lineHeight, "VAR", selLabel or "")
+	drawLabel(selItem, selLabel or "", 0, 0, lineHeight)
 	if selStrikethrough then
 		drawStrikethrough(selLabel, 0, lineHeight)
 		local textColor = enabled and 1 or 0.66
@@ -412,7 +426,7 @@ function DropDownClass:Draw(viewPort, noTooltip)
 				else 
 					label = listVal
 				end
-				DrawString(0, y, "LEFT", lineHeight, "VAR", label)
+				local labelX = drawLabel(listVal, label, 0, y, lineHeight)
 				if type(listVal) == "table" and listVal.strikethrough then
 					drawStrikethrough(label, y, lineHeight)
 					if index == self.hoverSel or index == self.selIndex then
@@ -438,7 +452,7 @@ function DropDownClass:Draw(viewPort, noTooltip)
 					end
 					DrawString(listWidth - dx - 2, y, "LEFT", lineHeight, "VAR", detail)
 				end
-				self:DrawSearchHighlights(label, searchInfo, 0, y, width - 4, lineHeight)
+				self:DrawSearchHighlights(label, searchInfo, labelX, y, width - 4, lineHeight)
 			end
 		end
 		SetDrawColor(1, 1, 1)
@@ -578,6 +592,9 @@ function DropDownClass:CheckDroppedWidth(enable)
 					-- Reserve the same right padding used when drawing the detail,
 					-- plus spacing between it and the label.
 					detailWidth = DrawStringWidth(lineHeight, "VAR", line.detail) + 26
+				end
+				if line.labelPrefix then
+					detailWidth = detailWidth + DrawStringWidth(lineHeight, "VAR", line.labelPrefix)
 				end
 				line = line.label or ""
 			end

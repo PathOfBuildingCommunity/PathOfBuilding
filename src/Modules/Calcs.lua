@@ -172,7 +172,46 @@ function calcs.calcFullDPS(build, mode, override, specEnv)
 	local igniteSource = ""
 	local burningGroundSource = ""
 	local causticGroundSource = ""
-	
+
+	-- Adds the damage of a minion or mercenary
+	local function addMinionDPS(output, name, skillPart, count, trigger)
+		if output.TotalDPS and output.TotalDPS > 0 then
+			t_insert(fullDPS.skills, { name = name, dps = output.TotalDPS, count = count, trigger = trigger, skillPart = skillPart })
+			fullDPS.combinedDPS = fullDPS.combinedDPS + output.TotalDPS * count
+		end
+		if output.BleedDPS and output.BleedDPS > fullDPS.bleedDPS then
+			fullDPS.bleedDPS = output.BleedDPS
+			bleedSource = name
+		end
+		if output.IgniteDPS and output.IgniteDPS > fullDPS.igniteDPS then
+			fullDPS.igniteDPS = output.IgniteDPS
+			igniteSource = name
+		end
+		if output.PoisonDPS and output.PoisonDPS > 0 then
+			fullDPS.TotalPoisonDPS = fullDPS.TotalPoisonDPS + output.TotalPoisonDPS * count
+		end
+		if output.ImpaleDPS and output.ImpaleDPS > 0 then
+			fullDPS.impaleDPS = fullDPS.impaleDPS + output.ImpaleDPS * count
+		end
+		if output.DecayDPS and output.DecayDPS > 0 then
+			fullDPS.decayDPS = fullDPS.decayDPS + output.DecayDPS
+		end
+		if output.TotalDot and output.TotalDot > 0 then
+			fullDPS.dotDPS = fullDPS.dotDPS + output.TotalDot
+		end
+		if output.CullMultiplier and output.CullMultiplier > 1 and output.CullMultiplier > fullDPS.cullingMulti then
+			fullDPS.cullingMulti = output.CullMultiplier
+		end
+	end
+
+	local accelerationTbl = {
+		nodeAlloc = true,
+		requirementsItems = true,
+		requirementsGems = true,
+		skills = true,
+		everything = true,
+	}
+
 	for _, activeSkill in ipairs(fullEnv.player.activeSkillList) do
 		if activeSkill.socketGroup and activeSkill.socketGroup.includeInFullDPS then
 			local activeSkillCount, enabled = getActiveSkillCount(activeSkill)
@@ -181,35 +220,12 @@ function calcs.calcFullDPS(build, mode, override, specEnv)
 				calcs.perform(fullEnv, true)
 				usedEnv = fullEnv
 				local minionName = nil
-				if activeSkill.minion or usedEnv.minion then
+				-- Mercenary damage is included through the mercenary's own socket groups
+				if (activeSkill.minion or usedEnv.minion) and not usedEnv.minion.minionData.mercenary then
 					if usedEnv.minion.output.TotalDPS and usedEnv.minion.output.TotalDPS > 0 then
 						minionName = (activeSkill.minion and activeSkill.minion.minionData.name..": ") or (usedEnv.minion and usedEnv.minion.minionData.name..": ") or ""
-						t_insert(fullDPS.skills, { name = activeSkill.activeEffect.grantedEffect.name, dps = usedEnv.minion.output.TotalDPS, count = activeSkillCount, trigger = activeSkill.infoTrigger, skillPart = minionName..activeSkill.skillPartName })
-						fullDPS.combinedDPS = fullDPS.combinedDPS + usedEnv.minion.output.TotalDPS * activeSkillCount
 					end
-					if usedEnv.minion.output.BleedDPS and usedEnv.minion.output.BleedDPS > fullDPS.bleedDPS then
-						fullDPS.bleedDPS = usedEnv.minion.output.BleedDPS
-						bleedSource = activeSkill.activeEffect.grantedEffect.name
-					end
-					if usedEnv.minion.output.IgniteDPS and usedEnv.minion.output.IgniteDPS > fullDPS.igniteDPS then
-						fullDPS.igniteDPS = usedEnv.minion.output.IgniteDPS
-						igniteSource = activeSkill.activeEffect.grantedEffect.name
-					end
-					if usedEnv.minion.output.PoisonDPS and usedEnv.minion.output.PoisonDPS > 0 then
-						fullDPS.TotalPoisonDPS = fullDPS.TotalPoisonDPS + usedEnv.minion.output.TotalPoisonDPS * activeSkillCount
-					end
-					if usedEnv.minion.output.ImpaleDPS and usedEnv.minion.output.ImpaleDPS > 0 then
-						fullDPS.impaleDPS = fullDPS.impaleDPS + usedEnv.minion.output.ImpaleDPS * activeSkillCount
-					end
-					if usedEnv.minion.output.DecayDPS and usedEnv.minion.output.DecayDPS > 0 then
-						fullDPS.decayDPS = fullDPS.decayDPS + usedEnv.minion.output.DecayDPS
-					end
-					if usedEnv.minion.output.TotalDot and usedEnv.minion.output.TotalDot > 0 then
-						fullDPS.dotDPS = fullDPS.dotDPS + usedEnv.minion.output.TotalDot
-					end
-					if usedEnv.minion.output.CullMultiplier and usedEnv.minion.output.CullMultiplier > 1 and usedEnv.minion.output.CullMultiplier > fullDPS.cullingMulti then
-						fullDPS.cullingMulti = usedEnv.minion.output.CullMultiplier
-					end
+					addMinionDPS(usedEnv.minion.output, activeSkill.activeEffect.grantedEffect.name, minionName and minionName..activeSkill.skillPartName, activeSkillCount, activeSkill.infoTrigger)
 					-- This is a fix to prevent skills such as Absolution or Dominating Blow from being counted multiple times when increasing minions count
 					if (activeSkill.activeEffect.grantedEffect.name:match("Absolution") and fullEnv.modDB:Flag(false, "Condition:AbsolutionSkillDamageCountedOnce"))
 						or (activeSkill.activeEffect.grantedEffect.name:match("Dominating Blow") and fullEnv.modDB:Flag(false, "Condition:DominatingBlowSkillDamageCountedOnce"))
@@ -299,13 +315,31 @@ function calcs.calcFullDPS(build, mode, override, specEnv)
 				end
 
 				-- Re-Build env calculator for new run
-				local accelerationTbl = {
-					nodeAlloc = true,
-					requirementsItems = true,
-					requirementsGems = true,
-					skills = true,
-					everything = true,
-				}
+				fullEnv, _, _, _ = calcs.initEnv(build, mode, override, { cachedPlayerDB = cachedPlayerDB, cachedEnemyDB = cachedEnemyDB, cachedMinionDB = cachedMinionDB, env = fullEnv, accelerate = accelerationTbl })
+			end
+		end
+	end
+
+	-- Each included mercenary skill is calculated as the main skill of the mercenary
+	local mercenarySkill = fullEnv.callMercenarySkill
+	if mercenarySkill and not mercenarySkill.skillFlags.disable then
+		for index, skill in ipairs(fullEnv.mercenarySkillList) do
+			if skill.socketGroup.includeInFullDPS and skill.socketGroup.enabled and not skill.grantedEffect.support then
+				fullEnv.player.mainSkill = mercenarySkill
+				fullEnv.mercenaryMainSkillIndex = index
+				calcs.perform(fullEnv, true)
+				local mercenary = fullEnv.minion
+				local activeSkill = mercenary.mainSkill
+				local activeSkillCount, enabled = getActiveSkillCount(activeSkill)
+				if enabled then
+					local name = "Mercenary: "..activeSkill.activeEffect.grantedEffect.name
+					addMinionDPS(mercenary.output, name, activeSkill.skillPartName, activeSkillCount, activeSkill.infoTrigger)
+					local minion = activeSkill.minion
+					if minion and minion.output and minion.mainSkill then
+						addMinionDPS(minion.output, name, minion.minionData.name..": "..minion.mainSkill.activeEffect.grantedEffect.name, activeSkillCount, minion.mainSkill.infoTrigger)
+					end
+				end
+				fullEnv.mercenaryMainSkillIndex = nil
 				fullEnv, _, _, _ = calcs.initEnv(build, mode, override, { cachedPlayerDB = cachedPlayerDB, cachedEnemyDB = cachedEnemyDB, cachedMinionDB = cachedMinionDB, env = fullEnv, accelerate = accelerationTbl })
 			end
 		end
@@ -395,6 +429,16 @@ function calcs.buildActiveSkill(env, mode, skill, targetUUID, limitedProcessingF
 			end
 			return
 		end
+	end
+	-- Mercenary skills are calculated as the main skill of the mercenary
+	local mercenarySkillIndex = skill.actor.minionData and skill.actor.minionData.mercenary and isValueInArray(skill.actor.activeSkillList, skill)
+	local mercenarySkill = fullEnv.callMercenarySkill
+	if mercenarySkillIndex and mercenarySkill and not mercenarySkill.skillFlags.disable then
+		fullEnv.player.mainSkill = mercenarySkill
+		fullEnv.mercenaryMainSkillIndex = mercenarySkillIndex
+		calcs.perform(fullEnv, true)
+		cacheData(targetUUID, fullEnv, fullEnv.minion)
+		return
 	end
 	ConPrintf("[calcs.buildActiveSkill] Failed to process skill: " .. skill.activeEffect.grantedEffect.name)
 end

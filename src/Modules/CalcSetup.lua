@@ -559,6 +559,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 
 		-- skill-related
 		env.player.activeSkillList = { }
+		env.mercenarySkillList = { }
 		env.auxSkillList = { }
 	--elseif accelerate.everything then
 	--	local minionDB = nil
@@ -1643,11 +1644,35 @@ function calcs.initEnv(build, mode, override, specEnv)
 		end
 
 		-- Determine main skill group
+		local function validMainSocketGroup(index)
+			local socketGroupList = build.skillsTab.socketGroupList
+			index = m_min(m_max(#socketGroupList, 1), index or 1)
+			local group = socketGroupList[index]
+			-- Order: To me! is used through the mercenary's socket groups, which can only be used if it summons the mercenary
+			if group and (group.mercenary or build.skillsTab:IsCallMercenaryGroup(group)) then
+				local summoned = build.skillsTab:FindCallMercenaryGems(true)[1]
+				if group.mercenary and summoned then
+					return index
+				end
+				local fallback
+				for groupIndex, otherGroup in ipairs(socketGroupList) do
+					if not build.skillsTab:IsCallMercenaryGroup(otherGroup) then
+						if otherGroup.mercenary and summoned then
+							return groupIndex
+						elseif not otherGroup.mercenary then
+							fallback = fallback or groupIndex
+						end
+					end
+				end
+				return fallback or index
+			end
+			return index
+		end
 		if env.mode == "CALCS" then
-			env.calcsInput.skill_number = m_min(m_max(#build.skillsTab.socketGroupList, 1), env.calcsInput.skill_number or 1)
+			env.calcsInput.skill_number = validMainSocketGroup(env.calcsInput.skill_number)
 			env.mainSocketGroup = env.calcsInput.skill_number
 		else
-			build.mainSocketGroup = m_min(m_max(#build.skillsTab.socketGroupList, 1), build.mainSocketGroup or 1)
+			build.mainSocketGroup = validMainSocketGroup(build.mainSocketGroup)
 			env.mainSocketGroup = build.mainSocketGroup
 		end
 
@@ -1822,6 +1847,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 
 		-- Process active skills adding the applicable supports
 		local socketGroupSkillListList = { }
+		env.callMercenarySkill = nil
 		for index, group in ipairs(build.skillsTab.socketGroupList) do
 			if index == env.mainSocketGroup or (group.enabled and group.slotEnabled) then
 				local isTreeSkill = not group.slot and group.source and group.source:lower():find("tree")
@@ -1925,13 +1951,22 @@ function calcs.initEnv(build, mode, override, specEnv)
 										end
 									end
 								end
-								local activeSkill = calcs.createActiveSkill(activeEffect, appliedSupportList, env.player, group)
-								if gemInstance.gemData then
-									activeSkill.slotName = groupCfg.slotName
+								if group.mercenary then
+									-- Used by the mercenary instead of the player, see calcs.createMinionSkills
+									t_insert(env.mercenarySkillList, { grantedEffect = grantedEffect, srcInstance = gemInstance, supportList = appliedSupportList, socketGroup = group })
+								-- Only one mercenary can be hired, so other sources of it are ignored
+								elseif not (grantedEffect.id == "CallMercenary" and env.callMercenarySkill) then
+									local activeSkill = calcs.createActiveSkill(activeEffect, appliedSupportList, env.player, group)
+									if grantedEffect.id == "CallMercenary" then
+										env.callMercenarySkill = activeSkill
+									end
+									if gemInstance.gemData then
+										activeSkill.slotName = groupCfg.slotName
+									end
+									gemSkill = gemSkill or activeSkill
+									t_insert(socketGroupSkillList, activeSkill)
+									t_insert(env.player.activeSkillList, activeSkill)
 								end
-								gemSkill = gemSkill or activeSkill
-								t_insert(socketGroupSkillList, activeSkill)
-								t_insert(env.player.activeSkillList, activeSkill)
 							end
 						end
 						if gemInstance.gemData and not accelerate.requirementsGems then
@@ -2018,6 +2053,14 @@ function calcs.initEnv(build, mode, override, specEnv)
 					end
 				end
 			end
+		end
+
+		-- Mercenary skills are the main skill of the mercenary, which is summoned by the player's main skill
+		local mainGroup = build.skillsTab.socketGroupList[env.mainSocketGroup]
+		env.mercenaryMainGroup = nil
+		if mainGroup and mainGroup.mercenary and env.callMercenarySkill then
+			env.player.mainSkill = env.callMercenarySkill
+			env.mercenaryMainGroup = mainGroup
 		end
 
 		if not env.player.mainSkill then

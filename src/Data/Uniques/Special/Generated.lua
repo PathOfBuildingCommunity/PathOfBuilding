@@ -59,7 +59,7 @@ local excludedGems = {
 local gems = { }
 for _, gemData in pairs(data.gems) do
 	local grantedEffect = gemData.grantedEffect
-	if grantedEffect.support and not (grantedEffect.plusVersionOf) and not isValueInArray(excludedGems, grantedEffect.name) then
+	if grantedEffect.support and not gemData.mercenary and not (grantedEffect.plusVersionOf) and not isValueInArray(excludedGems, grantedEffect.name) then
 		table.insert(gems, grantedEffect.name)
 	end
 end
@@ -669,7 +669,7 @@ local replicaDragonfangsFlightMods = {}
 
 require("Modules.CalcTools")
 for _, gem in pairs(data.gems) do
-	if not string.match(gem.grantedEffectId, "Alt[XY]$") and calcLib.gemIsType(gem, "active skill", false) and calcLib.gemIsType(gem, "non-vaal", false) then
+	if not gem.mercenary and not string.match(gem.grantedEffectId, "Alt[XY]$") and calcLib.gemIsType(gem, "active skill", false) and calcLib.gemIsType(gem, "non-vaal", false) then
 		replicaDragonfangsFlightMods[gem.name] = "+3 to Level of all "..gem.name.." Gems"
 	end
 end

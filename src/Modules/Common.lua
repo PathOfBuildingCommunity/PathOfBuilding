@@ -922,21 +922,22 @@ function cacheSkillUUID(skill, env)
 end
 
 -- Global Cache related
-function cacheData(uuid, env)
+function cacheData(uuid, env, actor)
+	actor = actor or env.player
 	GlobalCache.cachedData[env.mode][uuid] = {
-		Name = env.player.mainSkill.activeEffect.grantedEffect.name,
-		Speed = env.player.output.Speed,
-		HitSpeed = env.player.output.HitSpeed,
-		ManaCost = env.player.output.ManaCost,
-		LifeCost = env.player.output.LifeCost,
-		ESCost = env.player.output.ESCost,
-		RageCost = env.player.output.RageCost,
-		HitChance = env.player.output.HitChance,
-		AccuracyHitChance = env.player.output.AccuracyHitChance,
-		PreEffectiveCritChance = env.player.output.PreEffectiveCritChance,
-		CritChance = env.player.output.CritChance,
-		TotalDPS = env.player.output.TotalDPS,
-		ActiveSkill = env.player.mainSkill,
+		Name = actor.mainSkill.activeEffect.grantedEffect.name,
+		Speed = actor.output.Speed,
+		HitSpeed = actor.output.HitSpeed,
+		ManaCost = actor.output.ManaCost,
+		LifeCost = actor.output.LifeCost,
+		ESCost = actor.output.ESCost,
+		RageCost = actor.output.RageCost,
+		HitChance = actor.output.HitChance,
+		AccuracyHitChance = actor.output.AccuracyHitChance,
+		PreEffectiveCritChance = actor.output.PreEffectiveCritChance,
+		CritChance = actor.output.CritChance,
+		TotalDPS = actor.output.TotalDPS,
+		ActiveSkill = actor.mainSkill,
 		Env = env,
 	}
 end

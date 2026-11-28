@@ -8391,6 +8391,43 @@ return {
 			width=500
 		}
 	},
+	mercenarybuildextrastats={
+		[1]={
+			list=false,
+			name="Id",
+			refTo="",
+			type="String",
+			width=250
+		},
+		[2]={
+			list=false,
+			name="Stat",
+			refTo="Stats",
+			type="Key",
+			width=300
+		},
+		[3]={
+			list=false,
+			name="Level24",
+			refTo="",
+			type="Int",
+			width=80
+		},
+		[4]={
+			list=false,
+			name="Level68",
+			refTo="",
+			type="Int",
+			width=80
+		},
+		[5]={
+			list=false,
+			name="Level84",
+			refTo="",
+			type="Int",
+			width=80
+		}
+	},
 	mercenarybuilds={
 		[1]={
 			list=false,
@@ -8538,6 +8575,13 @@ return {
 			refTo="MercenaryWieldableTypes",
 			type="Key",
 			width=220
+		},
+		[22]={
+			list=true,
+			name="ExtraStats",
+			refTo="MercenaryBuildExtraStats",
+			type="Key",
+			width=220
 		}
 	},
 	mercenaryclasses={
@@ -8617,6 +8661,15 @@ return {
 			refTo="MonsterVarieties",
 			type="Key",
 			width=420
+		}
+	},
+	mercenarydisableduniques={
+		[1]={
+			list=false,
+			name="Unique",
+			refTo="Words",
+			type="Key",
+			width=200
 		}
 	},
 	mercenaryinventories={

@@ -392,13 +392,13 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild, importLin
 	-- Skills
 	self.controls.mainSkillLabel = new("LabelControl"):LabelControl({"TOPLEFT",self.anchorSideBar,"TOPLEFT"}, {0, 80, 300, 16}, "^7Main Skill:")
 	self.controls.mainSocketGroup = new("DropDownControl"):DropDownControl({"TOPLEFT",self.controls.mainSkillLabel,"BOTTOMLEFT"}, {0, 2, 300, 18}, nil, function(index, value)
-		self.mainSocketGroup = index
+		self.mainSocketGroup = value.val
 		self.modFlag = true
 		self.buildFlag = true
 	end)
 	self.controls.mainSocketGroup.maxDroppedWidth = 500
 	self.controls.mainSocketGroup.tooltipFunc = function(tooltip, mode, index, value)
-		local socketGroup = self.skillsTab.socketGroupList[index]
+		local socketGroup = value and self.skillsTab.socketGroupList[value.val]
 		if socketGroup and tooltip:CheckForUpdate(socketGroup, self.outputRevision) then
 			self.skillsTab:AddSocketGroupTooltip(tooltip, socketGroup)
 		end
@@ -440,7 +440,35 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild, importLin
 		self.modFlag = true
 		self.buildFlag = true
 	end)
-	self.controls.mainSkillMinion = new("DropDownControl"):DropDownControl({"TOPLEFT",self.controls.mainSkillMineCountLabel,"BOTTOMLEFT",true}, {0, 3, 178, 18}, nil, function(index, value)
+	-- Item set dropdowns can have items dragged onto them from the Items tab, for the slots used by the skill's minion
+	local function addItemSetDragHandlers(control, getGrantedEffect)
+		function control.CanReceiveDrag(control, type, value)
+			if type == "Item" and control.list[control.selIndex] and control.list[control.selIndex].itemSetId then
+				local minionUses = getGrantedEffect().minionUses
+				return minionUses and minionUses[value:GetPrimarySlot()] -- O_O
+			end
+		end
+		function control.ReceiveDrag(control, type, value, source)
+			self.itemsTab:EquipItemInSet(value, control.list[control.selIndex].itemSetId)
+		end
+		function control.tooltipFunc(tooltip, mode, index, value)
+			tooltip:Clear()
+			if value.itemSetId then
+				self.itemsTab:AddItemSetTooltip(tooltip, self.itemsTab.itemSets[value.itemSetId])
+				tooltip:AddSeparator(14)
+				tooltip:AddLine(14, colorCodes.TIP.."Tip: You can drag items from the Items tab onto this dropdown to equip them onto the minion.")
+			end
+		end
+	end
+	self.controls.mainSkillMercenaryItemSet = new("DropDownControl"):DropDownControl({"TOPLEFT",self.controls.mainSkillMineCountLabel,"BOTTOMLEFT",true}, {0, 3, 178, 18}, nil, function(index, value)
+		self.calcsTab:SetMercenaryItemSet("", value.itemSetId)
+		self.modFlag = true
+		self.buildFlag = true
+	end)
+	addItemSetDragHandlers(self.controls.mainSkillMercenaryItemSet, function()
+		return self.calcsTab.mainEnv.player.mainSkill.activeEffect.grantedEffect
+	end)
+	self.controls.mainSkillMinion = new("DropDownControl"):DropDownControl({"TOPLEFT",self.controls.mainSkillMercenaryItemSet,"BOTTOMLEFT",true}, {0, 3, 178, 18}, nil, function(index, value)
 		local mainSocketGroup = self.skillsTab.socketGroupList[self.mainSocketGroup]
 		local srcInstance = mainSocketGroup.displaySkillList[mainSocketGroup.mainActiveSkill].activeEffect.srcInstance
 		if value.itemSetId then
@@ -451,24 +479,10 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild, importLin
 		self.modFlag = true
 		self.buildFlag = true
 	end)
-	function self.controls.mainSkillMinion.CanReceiveDrag(control, type, value)
-		if type == "Item" and control.list[control.selIndex] and control.list[control.selIndex].itemSetId then
-			local mainSocketGroup = self.skillsTab.socketGroupList[self.mainSocketGroup]
-			local minionUses = mainSocketGroup.displaySkillList[mainSocketGroup.mainActiveSkill].activeEffect.grantedEffect.minionUses
-			return minionUses and minionUses[value:GetPrimarySlot()] -- O_O
-		end
-	end
-	function self.controls.mainSkillMinion.ReceiveDrag(control, type, value, source)
-		self.itemsTab:EquipItemInSet(value, control.list[control.selIndex].itemSetId)
-	end
-	function self.controls.mainSkillMinion.tooltipFunc(tooltip, mode, index, value)
-		tooltip:Clear()
-		if value.itemSetId then
-			self.itemsTab:AddItemSetTooltip(tooltip, self.itemsTab.itemSets[value.itemSetId])
-			tooltip:AddSeparator(14)
-			tooltip:AddLine(14, colorCodes.TIP.."Tip: You can drag items from the Items tab onto this dropdown to equip them onto the minion.")
-		end
-	end
+	addItemSetDragHandlers(self.controls.mainSkillMinion, function()
+		local mainSocketGroup = self.skillsTab.socketGroupList[self.mainSocketGroup]
+		return mainSocketGroup.displaySkillList[mainSocketGroup.mainActiveSkill].activeEffect.grantedEffect
+	end)
 	self.controls.mainSkillMinionLibrary = new("ButtonControl"):ButtonControl({"LEFT",self.controls.mainSkillMinion,"RIGHT"}, {2, 0, 120, 18}, "Manage Spectres...", function()
 		self:OpenSpectreLibrary()
 	end)
@@ -2088,11 +2102,9 @@ end
 
 -- Refresh the set of controls used to select main group/skill/minion
 function buildMode:RefreshSkillSelectControls(controls, mainGroup, suffix)
-	controls.mainSocketGroup.selIndex = mainGroup
-	wipeTable(controls.mainSocketGroup.list)
-	for i, socketGroup in pairs(self.skillsTab.socketGroupList) do
-		controls.mainSocketGroup.list[i] = { val = i, label = socketGroup.displayLabel }
-	end
+	self.skillsTab:FillMainSocketGroupList(controls.mainSocketGroup.list)
+	controls.mainSocketGroup.selIndex = 1
+	controls.mainSocketGroup:SelByValue(mainGroup, "val")
   controls.mainSocketGroup:CheckDroppedWidth(true)
 	if controls.warnings then controls.warnings.shown = #controls.warnings.lines > 0 end
 	if #controls.mainSocketGroup.list == 0 then
@@ -2103,6 +2115,7 @@ function buildMode:RefreshSkillSelectControls(controls, mainGroup, suffix)
 		controls.mainSkillStageCount.shown = false
 		controls.mainSkillMinion.shown = false
 		controls.mainSkillMinionSkill.shown = false
+		self.calcsTab:RefreshMercenaryItemSet(controls.mainSkillMercenaryItemSet, nil, suffix)
 	else
 		local mainSocketGroup = self.skillsTab.socketGroupList[mainGroup]
 		local displaySkillList = mainSocketGroup["displaySkillList"..suffix]
@@ -2123,6 +2136,7 @@ function buildMode:RefreshSkillSelectControls(controls, mainGroup, suffix)
 		controls.mainSkillMinion.shown = false
 		controls.mainSkillMinionLibrary.shown = false
 		controls.mainSkillMinionSkill.shown = false
+		self.calcsTab:RefreshMercenaryItemSet(controls.mainSkillMercenaryItemSet, mainSocketGroup, suffix)
 		if displaySkillList[1] then
 			local activeSkill = displaySkillList[mainActiveSkill]
 			local activeEffect = activeSkill.activeEffect
@@ -2150,14 +2164,7 @@ function buildMode:RefreshSkillSelectControls(controls, mainGroup, suffix)
 				if not activeSkill.skillFlags.disable and (activeEffect.grantedEffect.minionList or activeSkill.minionList[1]) then
 					wipeTable(controls.mainSkillMinion.list)
 					if activeEffect.grantedEffect.minionHasItemSet then
-						for _, itemSetId in ipairs(self.itemsTab.itemSetOrderList) do
-							local itemSet = self.itemsTab.itemSets[itemSetId]
-							t_insert(controls.mainSkillMinion.list, {
-								label = itemSet.title or "Default Item Set",
-								itemSetId = itemSetId,
-							})
-						end
-						controls.mainSkillMinion:SelByValue(activeEffect.srcInstance["skillMinionItemSet"..suffix] or 1, "itemSetId")
+						self.itemsTab:FillItemSetList(controls.mainSkillMinion, activeEffect.srcInstance["skillMinionItemSet"..suffix])
 					else
 						controls.mainSkillMinionLibrary.shown = (activeEffect.grantedEffect.minionList and not activeEffect.grantedEffect.minionList[1])
 						for _, minionId in ipairs(activeSkill.minionList) do
@@ -2546,6 +2553,27 @@ function buildMode:InsertItemWarnings()
 	end
 end
 
+function buildMode:InsertMercenaryWarnings()
+	local skillList = self.calcsTab.mainEnv.mercenarySkillList
+	if not skillList or not skillList[1] then
+		return
+	end
+	local mercenaryBuild = data.mercenaryBuildById[self.configTab.input.mercenaryBuild]
+	if not mercenaryBuild then
+		InsertIfNew(self.controls.warnings.lines, "Your Mercenary has skills, but no Mercenary type is selected in the Configuration tab")
+		return
+	end
+	local unusable = { }
+	for _, skill in ipairs(skillList) do
+		if not isValueInArray(mercenaryBuild.skills, skill.grantedEffect.id) then
+			InsertIfNew(unusable, skill.grantedEffect.name)
+		end
+	end
+	if unusable[1] then
+		InsertIfNew(self.controls.warnings.lines, "The "..mercenaryBuild.name.." Mercenary type can't use: "..table.concat(unusable, ", "))
+	end
+end
+
 -- Build list of side bar stats
 function buildMode:RefreshStatList()
 	self.controls.warnings.lines = {}
@@ -2563,7 +2591,7 @@ function buildMode:RefreshStatList()
 		end
 	end
 	if self.calcsTab.mainEnv.minion then
-		t_insert(statBoxList, { height = 18, "^7Minion:" })
+		t_insert(statBoxList, { height = 18, self.calcsTab.mainEnv.minion.minionData.mercenary and "^7Mercenary:" or "^7Minion:" })
 		if self.calcsTab.mainEnv.minion.mainSkill.infoMessage then
 			-- Split the line if too long
 			if #self.calcsTab.mainEnv.minion.mainSkill.infoMessage > 40 then
@@ -2578,6 +2606,12 @@ function buildMode:RefreshStatList()
 			end
 		end
 		self:AddDisplayStatList(self.minionDisplayStats, self.calcsTab.mainEnv.minion, "minion")
+		local mercenaryMinion = self.calcsTab:GetMercenaryMinion(self.calcsTab.mainEnv)
+		if mercenaryMinion then
+			t_insert(statBoxList, { height = 10 })
+			t_insert(statBoxList, { height = 18, "^7Mercenary's Minion:" })
+			self:AddDisplayStatList(self.minionDisplayStats, mercenaryMinion, "minion")
+		end
 		t_insert(statBoxList, { height = 10 })
 		t_insert(statBoxList, { height = 18, "^7Player:" })
 	end
@@ -2587,6 +2621,7 @@ function buildMode:RefreshStatList()
 	end
 	self:AddDisplayStatList(self.displayStats, self.calcsTab.mainEnv.player, "player")
 	self:InsertItemWarnings()
+	self:InsertMercenaryWarnings()
 	self:EstimatePlayerProgress()
 end
 

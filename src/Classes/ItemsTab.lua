@@ -4154,6 +4154,16 @@ function ItemsTabClass:AddCrucibleModifierToDisplayItem()
 end
 
 
+-- Fills a dropdown with the item sets, selecting the given one
+function ItemsTabClass:FillItemSetList(control, selItemSetId)
+	wipeTable(control.list)
+	for _, itemSetId in ipairs(self.itemSetOrderList) do
+		local itemSet = self.itemSets[itemSetId]
+		t_insert(control.list, { label = itemSet.title or "Default Item Set", itemSetId = itemSetId })
+	end
+	control:SelByValue(selItemSetId or 1, "itemSetId")
+end
+
 function ItemsTabClass:AddItemSetTooltip(tooltip, itemSet)
 	for _, slot in ipairs(self.orderedSlots) do
 		if not slot.nodeId then

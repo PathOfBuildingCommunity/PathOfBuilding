@@ -76,7 +76,6 @@ local rageCost = {
 ---@field haveOutput? string Only show the row when this output value is non-zero
 ---@field flag? string Only show when the skill has this flag
 ---@field flagList? string[] Only show when the skill has all of these flags
----@field playerFlag? string Only show when the player skill has this flag
 ---@field notFlag? string Hide when the skill has this flag
 ---@field notFlagList? string[] Hide when the skill has any of these flags
 
@@ -2286,6 +2285,12 @@ return {
 		{ format = "{0:output:TotalMinionLife}",
 			{ breakdown = "TotalMinionLife" },
 			{ modName = { "TotalMinionLife", "takenFromMinionBeforeYou" } },
+		},
+	},
+	{ label = "Mercenary Ally", haveOutput = "TotalMercenaryLife",
+		{ format = "{0:output:TotalMercenaryLife}",
+			{ breakdown = "TotalMercenaryLife" },
+			{ modName = { "TotalMercenaryLife", "takenFromMercenaryBeforeYou" } },
 		},
 	},
 	{ label = "Spectre Ally", haveOutput = "TotalSpectreLife",
