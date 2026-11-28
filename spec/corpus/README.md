@@ -6,7 +6,7 @@
 
 Each run fetches one [PoB Codes corpus](https://api.pob.codes/test-builds/corpus), records its snapshot ID and response SHA-256, verifies the SHA-256 of each encoded build, and decodes the inputs once. Supply the optional response digest to require the same snapshot across runs. A snapshot change then stops the run before calculations. Both PoB revisions load every corpus entry and the same checked-in XML fixtures.
 
-The check fails for import errors, missing outputs, aborted calculations and incomplete comparisons. A crash report identifies the revision side, build hash and saved corpus criteria. Remaining inputs in that batch resume in a fresh PoB process. The summary compares saved player and minion stats and additional scalar numeric and boolean outputs. Enable **strict** to fail on any stat difference. Timing and saved-XML changes are informational. Download **build-diff-output** for the per-build reports.
+The check fails for import errors, missing outputs, aborted calculations and incomplete comparisons. A crash report identifies the revision side, build hash and saved corpus criteria. Remaining inputs in that batch resume in a fresh PoB process. The summary compares saved player and minion stats and additional scalar numeric and boolean outputs. Enable **strict** to fail on any stat difference. Timing and saved-XML changes are informational. Example and failure identifiers link to PoB.codes when its raw endpoint serves the tested export. Checked-in fixtures link to the XML at the harness commit on GitHub. An unavailable export keeps its plain identifier. Download **build-diff-output** for the per-build reports.
 
 The baseline cache is keyed by the exact baseline commit, corpus response, comparison tools, image definition and fixtures. Only complete baselines are cached. Each run calculates the candidate. GitHub cache eviction makes the next run recalculate the baseline.
 
@@ -26,5 +26,8 @@ docker run --rm --network none --user "$(id -u):$(id -g)" \
   -v "$run/corpus.json:/corpus.json:ro" -v "$run/results:/results" -v "$run/baseline:/baseline" \
   -e BASE_SHA="$(git -C "$BASE" rev-parse HEAD)" -e CANDIDATE_SHA="$(git -C "$CANDIDATE" rev-parse HEAD)" \
   pob-corpus sh /harness/spec/corpus/run.sh
+# Use the GitHub repository that contains this harness commit.
+python3 spec/corpus/link_summary.py "$run/results/summary.md" "$run/corpus.json" . \
+  PathOfBuildingCommunity/PathOfBuilding "$(git rev-parse HEAD)"
 cat "$run/results/summary.md"
 ```

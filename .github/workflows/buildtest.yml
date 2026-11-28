@@ -104,6 +104,12 @@ jobs:
         with:
           key: ${{ steps.inputs.outputs.key }}
           path: ${{ runner.temp }}/corpus-base
+      - name: Link reported builds
+        if: ${{ !cancelled() }}
+        run: |
+          if test -s "$RUNNER_TEMP/corpus-results/summary.md"; then
+            python3 harness/spec/corpus/link_summary.py "$RUNNER_TEMP/corpus-results/summary.md" "$RUNNER_TEMP/corpus.json" harness "$GITHUB_REPOSITORY" "$(git -C harness rev-parse HEAD)"
+          fi
       - name: Summarize
         if: ${{ !cancelled() }}
         run: |
