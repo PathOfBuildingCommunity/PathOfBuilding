@@ -32,10 +32,11 @@ local index = 0
 for name in io.lines(batch) do
 	index = index + 1
 	if index >= startAt then
+		write(cursorPath, tostring(index))
+		write(cursorPath .. ".stage", "loading")
 		local file = assert(io.open("/results/inputs/" .. name .. ".xml", "rb"))
 		local xml = file:read("*a")
 		file:close()
-		write(cursorPath, tostring(index))
 		io.stderr:write("Loading ", name, "\n")
 		local start = os.clock()
 		local document, err = common.xml.ParseXML(xml)
@@ -44,6 +45,7 @@ for name in io.lines(batch) do
 		assert(not launch.promptMsg, launch.promptMsg)
 		assert(not build.abortSave and type(build.calcsTab.mainOutput.Life) == "number", "No calculated player output")
 		local elapsed = os.clock() - start
+		write(cursorPath .. ".stage", "saving")
 		io.stderr:write("Saving ", name, "\n")
 		write(outDir .. "/" .. name .. ".build", assert(build:SaveDB("Cache")))
 		write(outDir .. "/" .. name .. ".time", tostring(elapsed * 1000))

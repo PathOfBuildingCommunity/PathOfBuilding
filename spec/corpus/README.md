@@ -6,7 +6,23 @@
 
 Each run fetches one [PoB Codes corpus](https://api.pob.codes/test-builds/corpus), records its snapshot ID and response SHA-256, verifies the SHA-256 of each encoded build, and decodes the inputs once. Supply the optional response digest to require the same snapshot across runs. A snapshot change then stops the run before calculations. Both PoB revisions load every corpus entry and the same checked-in XML fixtures.
 
-The check fails for import errors, missing outputs, aborted calculations and incomplete comparisons. A crash report identifies the revision side, build hash and saved corpus criteria. Remaining inputs in that batch resume in a fresh PoB process. The summary compares saved player and minion stats and additional scalar numeric and boolean outputs. Enable **strict** to fail on any stat difference. Timing and saved-XML changes are informational. Example and failure identifiers link to PoB.codes when its raw endpoint serves the tested export. Checked-in fixtures link to the XML at the harness commit on GitHub. An unavailable export keeps its plain identifier. Download **build-diff-output** for the per-build reports.
+## Reading the result
+
+Open the job summary in GitHub Actions. The first line gives the result. A failed build appears first, with the revision that failed, the build link, and the error PoB returned when available. If a build failed on the baseline alone, the candidate finished that build but a comparison was impossible.
+
+**Stat changes.** Each affected build has a table showing the player or minion stat, its baseline value, and its candidate value. For widespread changes, the report also shows which stats changed on the most builds. Changes are advisory by default. Selecting **strict** makes any stat change fail the check. Failure to load, calculate, save, or complete the comparison always fails it.
+
+**Time and saved files.** CPU time measures the work spent parsing, loading and calculating a build. It excludes saving. The report lists measurements that differ by at least 10% in either direction. A single sample can vary between runs. A saved XML difference means PoB wrote different output for the same input. This includes its calculated stats. Both observations are informational.
+
+**Downloads.** Open **build-diff-output** under **Artifacts** or use the download link in the job summary.
+
+| File | When to open it |
+| --- | --- |
+| `summary.md` | Read the full report, including every affected build and its changes. GitHub shows a shorter overview for large reports. |
+| `builds.csv` | Look up a full build ID, a verified link, or the outcome for any input. |
+| `stat-changes.csv` | Filter changed stats across builds or copy exact values. Created only when stats change. |
+
+Fixtures link to their XML at the tested harness revision. For public corpus builds the report checks that the hosted code matches the input before linking. If the link cannot be verified within the lookup window, search the build list for its identifier. The inventory includes unchanged builds as well. If the run stops before completing its comparison, the report names the failed run and directs you to the Actions log.
 
 The baseline cache is keyed by the exact baseline commit, corpus response, comparison tools, image definition and fixtures. Only complete baselines are cached. Each run calculates the candidate. GitHub cache eviction makes the next run recalculate the baseline.
 
@@ -21,13 +37,16 @@ run=$(mktemp -d)
 mkdir "$run/results" "$run/baseline"
 curl -fsS --max-filesize 16777216 https://api.pob.codes/test-builds/corpus -o "$run/corpus.json"
 docker build -t pob-corpus spec/corpus
+export BASE_SHA="$(git -C "$BASE" rev-parse HEAD)" CANDIDATE_SHA="$(git -C "$CANDIDATE" rev-parse HEAD)"
+export STRICT=false
+status=0
 docker run --rm --network none --user "$(id -u):$(id -g)" \
   -v "$PWD:/harness:ro" -v "$BASE:/base:ro" -v "$CANDIDATE:/candidate:ro" \
   -v "$run/corpus.json:/corpus.json:ro" -v "$run/results:/results" -v "$run/baseline:/baseline" \
-  -e BASE_SHA="$(git -C "$BASE" rev-parse HEAD)" -e CANDIDATE_SHA="$(git -C "$CANDIDATE" rev-parse HEAD)" \
-  pob-corpus sh /harness/spec/corpus/run.sh
-# Use the GitHub repository that contains this harness commit.
-python3 spec/corpus/link_summary.py "$run/results/summary.md" "$run/corpus.json" . \
-  PathOfBuildingCommunity/PathOfBuilding "$(git rev-parse HEAD)"
-cat "$run/results/summary.md"
+  -e STRICT pob-corpus sh /harness/spec/corpus/run.sh || status=$?
+# Use your fork name here if that is where the harness commit lives.
+python3 spec/corpus/report.py "$run/results" "$run/corpus.json" . \
+  PathOfBuildingCommunity/PathOfBuilding "$(git rev-parse HEAD)" || exit $?
+cat "$run/results/report/summary.md"
+exit "$status"
 ```

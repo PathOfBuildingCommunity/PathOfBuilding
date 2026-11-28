@@ -40,41 +40,31 @@ else
 fi
 calculate /candidate "$results/candidate"
 
-: > "$results/stat-diffs.txt"
-: > "$results/import-errors.txt"
-: > "$results/other-diffs.txt"
+# The report writer reads only these records. Write the completion marker last.
+: > "$results/stats.tsv"
+: > "$results/timing.tsv"
+: > "$results/xml-changes.txt"
+: > "$results/errors.tsv"
 compared=0
 while IFS= read -r name; do
     base="/baseline/$name"
     head="$results/candidate/$name"
     if [ -f "$base.error" ] || [ -f "$head.error" ]; then
-        if [ -f "$base.error" ]; then printf 'Base: ' >> "$results/import-errors.txt"; cat "$base.error" >> "$results/import-errors.txt"; fi
-        if [ -f "$head.error" ]; then printf 'Candidate: ' >> "$results/import-errors.txt"; cat "$head.error" >> "$results/import-errors.txt"; fi
+        for side in baseline candidate; do
+            if [ "$side" = baseline ]; then file="$base"; else file="$head"; fi
+            if [ -f "$file.error" ]; then
+                printf '%s\t%s\t%s\n' "$side" "$name" "$(cat "$file.error")" >> "$results/errors.tsv"
+            fi
+        done
         continue
     fi
-    if output=$(luajit "$tools/DiffOutput.lua" "$head.build" "$base.build"); then :
-    else
-        status=$?
-        [ "$status" -eq 1 ] || exit "$status"
-        printf '## Output Diff for %s.build\n%s\n' "$name" "$output" >> "$results/stat-diffs.txt"
-    fi
+    luajit "$tools/DiffOutput.lua" "$head.build" "$base.build" "$name" >> "$results/stats.tsv"
     xmllint --nonet --exc-c14n "$head.build" > /tmp/head.xml
     xmllint --nonet --exc-c14n "$base.build" > /tmp/base.xml
-    if ! cmp -s /tmp/head.xml /tmp/base.xml; then echo "Saved XML changed: $name" >> "$results/other-diffs.txt"; fi
-    if output=$(luajit "$tools/DiffRuntime.lua" "$head.time" "$base.time" "$name"); then :
-    else
-        status=$?
-        [ "$status" -eq 1 ] || exit "$status"
-        printf '%s\n' "$output" >> "$results/other-diffs.txt"
-    fi
+    if ! cmp -s /tmp/head.xml /tmp/base.xml; then echo "$name" >> "$results/xml-changes.txt"; fi
+    printf '%s\t%s\t%s\n' "$name" "$(cat "$base.time")" "$(cat "$head.time")" >> "$results/timing.tsv"
     compared=$((compared + 1))
 done < "$results/builds.txt"
-luajit "$tools/BuildSummary.lua" "$results/stat-diffs.txt" "$compared" "$BASE_SHA" "$CANDIDATE_SHA" > "$results/summary.md"
-cat "$results/snapshot.txt" >> "$results/summary.md"
-if [ -s "$results/import-errors.txt" ]; then
-    printf '\n**Import or calculation failures**\n\n' >> "$results/summary.md"
-    head -n 15 "$results/import-errors.txt" >> "$results/summary.md"
-    exit 1
-fi
+printf '%s\n' "$compared" > "$results/compared.txt"
 test "$compared" -eq "$expected"
-if [ "${STRICT:-false}" = true ] && [ -s "$results/stat-diffs.txt" ]; then exit 1; fi
+if [ "${STRICT:-false}" = true ] && [ -s "$results/stats.tsv" ]; then exit 1; fi
