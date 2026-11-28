@@ -1,0 +1,146 @@
+name: Compare build corpus
+run-name: Corpus comparison (${{ inputs.candidate_ref || github.sha }})
+on:
+  push:
+    branches: ['release-[0-9]*']
+  workflow_dispatch:
+    inputs:
+      base_ref:
+        description: Baseline commit or branch (defaults to the latest stable PoB release)
+        type: string
+      candidate_ref:
+        description: Candidate commit or branch (defaults to the selected workflow revision)
+        type: string
+      expected_digest:
+        description: Optional SHA-256 of the exact corpus response
+        type: string
+      strict:
+        description: Fail when a stat changes value or is added or removed
+        default: false
+        type: boolean
+      override_verdict:
+        description: Pass blocking comparison findings after maintainer review
+        default: false
+        type: boolean
+
+permissions:
+  contents: read
+
+jobs:
+  compare:
+    name: Compare build corpus
+    if: ${{ !github.event.deleted }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - name: Check out comparison tools and fixtures
+        uses: actions/checkout@v4
+        with:
+          path: harness
+          persist-credentials: false
+          sparse-checkout: |
+            spec/corpus
+            spec/TestBuilds
+            runtime/lua
+      - name: Find latest stable PoB release
+        id: stable
+        if: ${{ !inputs.base_ref }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          tag=$(gh api repos/PathOfBuildingCommunity/PathOfBuilding/releases/latest --jq .tag_name)
+          test -n "$tag"
+          echo "ref=refs/tags/$tag" >> "$GITHUB_OUTPUT"
+          echo "STABLE_TAG=$tag" >> "$GITHUB_ENV"
+      - name: Test comparison tools
+        run: |
+          python3 -m unittest discover -s harness/spec/corpus -p 'test_*.py'
+          sh harness/spec/corpus/test_verdict.sh
+      - name: Check out baseline
+        uses: actions/checkout@v4
+        with:
+          path: base
+          repository: ${{ inputs.base_ref && github.repository || 'PathOfBuildingCommunity/PathOfBuilding' }}
+          ref: ${{ inputs.base_ref || steps.stable.outputs.ref }}
+          persist-credentials: false
+      - name: Check out candidate
+        uses: actions/checkout@v4
+        with:
+          path: candidate
+          ref: ${{ inputs.candidate_ref || github.sha }}
+          persist-credentials: false
+      - name: Pin corpus and comparison inputs
+        id: inputs
+        env:
+          EXPECTED: ${{ inputs.expected_digest }}
+        run: |
+          mkdir -p "$RUNNER_TEMP/corpus-results" "$RUNNER_TEMP/corpus-base"
+          curl --fail --silent --show-error --retry 3 --retry-delay 2 --retry-all-errors \
+            --max-time 60 --max-filesize 16777216 \
+            https://api.pob.codes/test-builds/corpus -o "$RUNNER_TEMP/corpus.json"
+          digest=$(sha256sum "$RUNNER_TEMP/corpus.json" | cut -d ' ' -f 1)
+          if [[ -n "$EXPECTED" && "$EXPECTED" != "$digest" ]]; then echo "Corpus digest changed"; exit 1; fi
+          base=$(git -C base rev-parse HEAD)
+          candidate=$(git -C candidate rev-parse HEAD)
+          tools=$(git -C harness rev-parse HEAD:spec/corpus HEAD:spec/TestBuilds HEAD:runtime/lua | sha256sum | cut -d ' ' -f 1)
+          echo "key=corpus-v1-$base-$digest-$tools" >> "$GITHUB_OUTPUT"
+          echo "BASE_SHA=$base" >> "$GITHUB_ENV"
+          echo "CANDIDATE_SHA=$candidate" >> "$GITHUB_ENV"
+      - name: Restore calculated baseline
+        id: cache
+        uses: actions/cache/restore@v4
+        with:
+          key: ${{ steps.inputs.outputs.key }}
+          path: ${{ runner.temp }}/corpus-base
+      - name: Compare both revisions
+        env:
+          STRICT: ${{ inputs.strict }}
+          OVERRIDE_VERDICT: ${{ inputs.override_verdict }}
+        run: |
+          docker build -t pob-corpus harness/spec/corpus
+          docker run --rm --network none --user "$(id -u):$(id -g)" \
+            -v "$PWD/harness:/harness:ro" -v "$PWD/base:/base:ro" -v "$PWD/candidate:/candidate:ro" \
+            -v "$RUNNER_TEMP/corpus.json:/corpus.json:ro" -v "$RUNNER_TEMP/corpus-results:/results" \
+            -v "$RUNNER_TEMP/corpus-base:/baseline" -e BASE_SHA -e CANDIDATE_SHA -e STRICT -e OVERRIDE_VERDICT \
+            pob-corpus sh /harness/spec/corpus/run.sh
+      - name: Check baseline completeness
+        id: completed
+        if: ${{ !cancelled() && steps.cache.outcome == 'success' && steps.cache.outputs.cache-hit != 'true' }}
+        run: |
+          if test -f "$RUNNER_TEMP/corpus-base/complete"; then echo "save=true" >> "$GITHUB_OUTPUT"; fi
+      - uses: actions/cache/save@v4
+        if: ${{ !cancelled() && steps.completed.outputs.save == 'true' }}
+        with:
+          key: ${{ steps.inputs.outputs.key }}
+          path: ${{ runner.temp }}/corpus-base
+      - name: Write the build comparison report
+        if: ${{ !cancelled() }}
+        env:
+          STRICT: ${{ inputs.strict }}
+          OVERRIDE_VERDICT: ${{ inputs.override_verdict }}
+          BASE_REPO: ${{ inputs.base_ref && github.repository || 'PathOfBuildingCommunity/PathOfBuilding' }}
+          BASELINE_CACHE_HIT: ${{ steps.cache.outputs.cache-hit }}
+        run: |
+          python3 harness/spec/corpus/report.py "$RUNNER_TEMP/corpus-results" "$RUNNER_TEMP/corpus.json" \
+            harness "$GITHUB_REPOSITORY" "$(git -C harness rev-parse HEAD)"
+      - uses: actions/upload-artifact@v4
+        id: report
+        if: ${{ !cancelled() }}
+        with:
+          name: build-diff-output
+          path: ${{ runner.temp }}/corpus-results/report/
+      - name: Show the result
+        if: ${{ !cancelled() }}
+        env:
+          REPORT_URL: ${{ steps.report.outputs.artifact-url }}
+        run: |
+          if test -s "$RUNNER_TEMP/corpus-results/actions-summary.md"; then
+            cat "$RUNNER_TEMP/corpus-results/actions-summary.md" >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo '# Failed - Report unavailable' >> "$GITHUB_STEP_SUMMARY"
+            echo 'Open the first failed step in the Actions log for the error.' >> "$GITHUB_STEP_SUMMARY"
+          fi
+          if test -n "$REPORT_URL"; then
+            printf '\n[Download the full report and build list](%s)\n' "$REPORT_URL" >> "$GITHUB_STEP_SUMMARY"
+          fi
+          printf '\n[How the PoB Codes test corpus is selected and maintained](https://pob.codes/content/test-corpus/)\n' >> "$GITHUB_STEP_SUMMARY"
