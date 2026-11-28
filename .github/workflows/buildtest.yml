@@ -15,7 +15,7 @@ on:
         description: Optional SHA-256 of the exact corpus response
         type: string
       strict:
-        description: Fail on calculated-stat differences
+        description: Fail when a stat changes value or is added or removed
         default: false
         type: boolean
 
@@ -125,7 +125,7 @@ jobs:
           if test -s "$RUNNER_TEMP/corpus-results/actions-summary.md"; then
             cat "$RUNNER_TEMP/corpus-results/actions-summary.md" >> "$GITHUB_STEP_SUMMARY"
           else
-            echo '# Failed · Report unavailable' >> "$GITHUB_STEP_SUMMARY"
+            echo '# Failed - Report unavailable' >> "$GITHUB_STEP_SUMMARY"
             echo 'Open the first failed step in the Actions log for the error.' >> "$GITHUB_STEP_SUMMARY"
           fi
           if test -n "$REPORT_URL"; then

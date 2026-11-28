@@ -14,6 +14,7 @@ from concurrent.futures import ThreadPoolExecutor
 from decimal import Decimal, InvalidOperation
 from http.client import HTTPException
 from pathlib import Path
+from statistics import median
 from urllib.error import HTTPError
 from urllib.parse import quote
 from urllib.request import urlopen
@@ -132,7 +133,7 @@ def write_report(results, corpus_file, harness, repo, revision):
     summary = output / "summary.md"
     preview = results / "actions-summary.md"
     if not (results / "compared.txt").is_file():
-        message = ("# Failed · Comparison did not finish\n\n"
+        message = ("# Failed - Comparison did not finish\n\n"
                    "PoB could not finish comparing the builds. Open the first failed step in the Actions log "
                    "for the error. A complete list of changes is unavailable.\n")
         summary.write_text(message, encoding="utf-8")
@@ -143,24 +144,21 @@ def write_report(results, corpus_file, harness, repo, revision):
     corpus = json.loads(raw_corpus)
     ids = (results / "builds.txt").read_text().splitlines()
     compared = int((results / "compared.txt").read_text())
-    stats = defaultdict(list)
+    categories = {kind: defaultdict(list) for kind in ("Value changed", "Added", "Removed")}
+    existing, added, removed = categories.values()
     for key, actor, stat, before, after in rows(results / "stats.tsv"):
-        stats[key].append((actor, stat, before, after))
+        kind = "Added" if before == "" else "Removed" if after == "" else "Value changed"
+        categories[kind][key].append((actor, stat, before, after))
     failures = [line.split("\t", 4) for line in (results / "errors.tsv").read_text(encoding="utf-8", errors="replace").splitlines()]
     failed = {key for _, key, _, _, _ in failures}
     if len(ids) != len(set(ids)) or compared + len(failed) != len(ids):
         raise ValueError("Build counts do not match the comparison results")
     xml = (results / "xml-changes.txt").read_text().splitlines()
-    timings = []
-    for key, before, after in rows(results / "timing.tsv"):
-        a, b = float(before), float(after)
-        if a > 0 and abs(b - a) >= a * 0.1:
-            timings.append((key, a, b))
-    timings.sort(key=lambda row: -abs(row[2] - row[1]))
+    timings = rows(results / "timing.tsv")
     builds = Builds(results, corpus, harness, repo, revision, ids,
-                    [*(r[1] for r in failures), *stats, *(r[0] for r in timings), *xml])
+                    [*(r[1] for r in failures), *existing, *removed, *added, *xml, *(r[0] for r in timings)])
     strict = os.environ.get("STRICT", "false").lower() == "true"
-    changed = sum(map(len, stats.values()))
+    changed = any(categories.values())
     verdict = "Failed" if failures or (strict and changed) else "Passed"
     if failures:
         sides = {row[0] for row in failures}
@@ -168,15 +166,25 @@ def write_report(results, corpus_file, harness, repo, revision):
             title = f"{next(iter(sides)).capitalize()} stopped on {number(len(failed), 'build')}"
         else:
             title = f"PoB failed on {number(len(failed), 'build')}"
-    elif changed:
-        title = f"Stats changed for {number(len(stats), 'build')}"
+    elif existing:
+        title = f"Existing stat values changed on {number(len(existing), 'build')}"
+    elif added or removed:
+        title = "Only the set of reported stats changed"
     else:
         title = "All builds had matching stats"
-    lines = [f"# {verdict} · {title}", "",
+    lines = [f"# {verdict} - {title}", "",
              f"Compared {compared:,} of {number(len(ids), 'build')}. "
              f"{number(len(corpus['builds']), 'build')} came from PoB.codes and "
              f"{len(ids) - len(corpus['builds'])} from PoB’s test files.", ""]
 
+    if compared:
+        lines += [f"**Existing stat values changed on {number(len(existing), 'build')}.** "
+                  f"{number(compared - len(existing), 'completed build')} kept the same values for every stat present in both versions.", ""]
+    if changed:
+        lines += table(["Difference", "Builds affected", "Individual differences"], [
+            (label, f"{len(group):,}", f"{sum(map(len, group.values())):,}")
+            for label, group in (("Existing value changed", existing), ("Stat added", added), ("Stat removed", removed))
+        ]) + ["", "A build can appear in more than one row. A newly reported zero counts as an addition.", ""]
     if failures:
         lines += ["## Builds that failed", ""]
         by_build = defaultdict(set)
@@ -185,56 +193,88 @@ def write_report(results, corpus_file, harness, repo, revision):
         for side, key, status, stage, reason in failures:
             other_side = "baseline" if side == "candidate" else "candidate"
             comparison = f"The {other_side} finished." if other_side not in by_build[key] else "Both revisions stopped."
-            lines += [f"- {builds.link(key)} · The **{side}** stopped while {safe(stage)} this build (exit {safe(status)}). {comparison}",
+            lines += [f"- {builds.link(key)}. The **{side}** stopped while {safe(stage)} this build (exit {safe(status)}). {comparison}",
                       "  - " + (safe(reason[:400]) if reason else "PoB did not return an error message. See the calculation log.")]
         lines.append("")
     if changed:
-        lines += [f"{number(changed, 'stat value')} changed across {number(len(stats), 'build')}. "
-                  + ("Strict mode makes a stat change fail this run." if strict else
-                     "Stat changes are reported for review and do not fail this run."), ""]
-    elif failures:
-        lines += [f"Stats matched for all {compared:,} builds that finished.", ""] if compared else ["No build produced results on both revisions.", ""]
-    if len(stats) > 5:
+        lines += [("Strict mode fails on any of the three types of difference." if strict else
+                   "Stat differences are advisory for this run."), ""]
+    if len(existing) > 5:
         examples = {}
-        for key, changes in stats.items():
+        for key, changes in existing.items():
             for actor, stat, before, after in changes:
                 examples.setdefault((actor, stat), (key, before, after))
-        frequency = Counter((a, s) for entries in stats.values() for a, s, _, _ in entries)
+        frequency = Counter((a, s) for entries in existing.values() for a, s, _, _ in entries)
         common = sorted(frequency, key=lambda k: (-frequency[k], k))
         top_rows = []
         for actor, stat in common[:10]:
             key, before, after = examples[actor, stat]
             top_rows.append((actor, stat_name(stat), str(frequency[actor, stat]),
                              builds.link(key), *values(before, after)))
-        lines += ["## Stats that changed on the most builds", "",
+        lines += ["## Existing values that changed on the most builds", "",
                   "Before and after are shown for one affected build per row.", ""] + table(
             ["Whose stat", "Stat", "Builds", "Example build", "Before", "After"], top_rows) + [""]
+    changes_pct = []
+    with (output / "timings.csv").open("w", newline="", encoding="utf-8") as stream:
+        writer = csv.writer(stream)
+        writer.writerow(["Build", "Build ID", "Build URL", "Baseline CPU ms", "Candidate CPU ms", "Change (%)"])
+        for key, before, after in timings:
+            baseline = Decimal(before)
+            percent = ""
+            if baseline > 0:
+                change = 100 * (Decimal(after) - baseline) / baseline
+                changes_pct.append(change)
+                percent = f"{change:.2f}"
+            writer.writerow([builds.names[key], key, builds.urls.get(key, ""), before, after, percent])
+    lines += ["## Timing", ""]
+    if changes_pct:
+        typical = round(median(changes_pct), 1)
+        direction = "more" if typical > 0 else "less"
+        difference = f"**{abs(typical):.1f}% {direction} CPU time**" if typical else "**the same CPU time** to the nearest 0.1%"
+        lines.append(f"The candidate used {difference} to load and calculate a build "
+                     f"(median across {number(len(changes_pct), 'build')}).")
+    else:
+        lines.append("No builds had timing measurements with a positive baseline to compare.")
+    lines += ["Timing varies between runs and does not affect the result. See **timings.csv** for individual measurements.", ""]
     overview = lines.copy()
-    if changed:
-        lines += ["## Stat changes by build", "", "Before is the baseline. After is the candidate. "
+    if existing:
+        lines += ["## Existing values by build", "", "Before is the baseline. After is the candidate. "
                   "Values are rounded for reading. See **stat-changes.csv** for exact values.", ""]
+        for key in sorted(existing, key=lambda k: (-len(existing[k]), builds.names[k])):
+            lines += [f"### {builds.link(key)}", ""]
+            changes = [(actor, stat_name(stat), *values(before, after))
+                       for actor, stat, before, after in sorted(existing[key])]
+            lines += table(["Whose stat", "Stat", "Before", "After"], changes) + [""]
+
+    for heading, group, value_label in (("Stats added", added, "Candidate value"),
+                                        ("Stats removed", removed, "Baseline value")):
+        if not group:
+            continue
+        by_stat = defaultdict(list)
+        for key, changes in group.items():
+            for actor, stat, before, after in changes:
+                by_stat[actor, stat].append((key, after if after != "" else before))
+        records = []
+        for actor, stat in sorted(by_stat, key=lambda item: (-len(by_stat[item]), item)):
+            examples = by_stat[actor, stat]
+            key, raw = examples[0]
+            records.append((actor, stat_name(stat), str(len(examples)), builds.link(key), display_value(raw)))
+        header = ["Whose stat", "Stat", "Builds", "Example build", value_label]
+        intro = [f"## {heading}", "", "One example per stat. The CSV lists every affected build.", ""]
+        lines += intro + table(header, records) + [""]
+        overview += intro + table(header, records[:5]) + [""]
+
+    if changed:
         with (output / "stat-changes.csv").open("w", newline="", encoding="utf-8") as stream:
             writer = csv.writer(stream)
-            writer.writerow(["Build", "Build ID", "Build URL", "Whose stat", "PoB stat", "Before", "After"])
-            for key in sorted(stats, key=lambda k: (-len(stats[k]), builds.names[k])):
-                lines += [f"### {builds.link(key)}", ""]
-                changes = []
-                for actor, stat, before, after in sorted(stats[key]):
-                    writer.writerow([builds.names[key], key, builds.urls.get(key, ""), actor, stat, before, after])
-                    changes.append((actor, stat_name(stat), *values(before, after)))
-                lines += table(["Whose stat", "Stat", "Before", "After"], changes) + [""]
+            writer.writerow(["Build", "Build ID", "Build URL", "Whose stat", "PoB stat", "Before", "After", "Change type"])
+            for kind, group in categories.items():
+                for key in sorted(group):
+                    for actor, stat, before, after in sorted(group[key]):
+                        writer.writerow([builds.names[key], key, builds.urls.get(key, ""), actor, stat, before, after, kind])
 
-    if timings or xml:
-        lines += ["## Other observations", "", "These observations do not affect the result.", ""]
-    if timings:
-        lines += ["### Time spent loading and calculating", "",
-                  "CPU time measures processor work for one build, from reading its XML into PoB through calculating its stats. "
-                  "The measurement ends before saving.",
-                  "Each row is a single measurement that changed by at least 10%. Repeat the run to check a suspected slowdown.", ""]
-        lines += table(["Build", "Baseline", "Candidate", "Change"],
-                       [(builds.link(k), f"{a:,.1f} ms", f"{b:,.1f} ms", f"{100*(b/a-1):+.1f}%") for k, a, b in timings]) + [""]
     if xml:
-        lines += ["### Builds that saved differently", "",
+        lines += ["## Builds that saved differently", "",
                   "Both revisions received the same input. PoB wrote different XML for the builds below. "
                   "The saved output includes calculated stats, so a stat change can also appear here.", ""]
         lines += ["- " + builds.link(k) for k in xml] + [""]
@@ -250,10 +290,18 @@ def write_report(results, corpus_file, harness, repo, revision):
     summary.write_text("\n".join(lines) + "\n", encoding="utf-8")
     with (output / "builds.csv").open("w", newline="", encoding="utf-8") as stream:
         writer = csv.writer(stream)
-        writer.writerow(["Build", "Build ID", "Build URL", "Result", "Corpus criteria"])
+        writer.writerow(["Build", "Build ID", "Build URL", "Result", "Corpus criteria", "Existing values changed", "Stats added", "Stats removed"])
         for key in ids:
-            outcome = "Failed to compare" if key in failed else "Stats changed" if key in stats else "Stats matched"
-            writer.writerow([builds.names[key], key, builds.urls.get(key, ""), outcome, ", ".join(builds.tags.get(key, []))])
+            if key in failed:
+                outcome = "Failed to compare"
+            elif key in existing:
+                outcome = "Existing values changed"
+            elif key in added or key in removed:
+                outcome = "Only additions or removals"
+            else:
+                outcome = "Stats matched"
+            writer.writerow([builds.names[key], key, builds.urls.get(key, ""), outcome, ", ".join(builds.tags.get(key, [])),
+                             *(len(group.get(key, ())) if key not in failed else "" for group in categories.values())])
     if summary.stat().st_size <= 60_000 and len(lines) <= 350:
         preview.write_bytes(summary.read_bytes())
     else:
@@ -263,12 +311,18 @@ def write_report(results, corpus_file, harness, repo, revision):
             start = shortened.index("## Builds that failed") + 2
             end = start + 2 * len(failures)
             shortened = shortened[:start + 10] + [f"Showing 5 of {number(len(failures), 'failures')}."] + shortened[end:]
-        shortened += ["", f"Timing changed by at least 10% for {number(len(timings), 'build')}. "
-                      f"Saved XML differed for {number(len(xml), 'build')}."]
+        shortened += ["", f"Saved XML differed for {number(len(xml), 'build')}."]
         shortened += ["", "Download **build-diff-output** and open **summary.md** for every affected build, "
-                      "its values before and after, and all timing and saved XML observations.", ""]
+                      "its values before and after, and the list of builds that saved differently.", ""]
         preview.write_text("\n".join(shortened + metadata) + "\n", encoding="utf-8")
 
 
 if __name__ == "__main__":
-    write_report(*(Path(arg) for arg in sys.argv[1:4]), *sys.argv[4:])
+    results = Path(sys.argv[1])
+    write_report(results, Path(sys.argv[2]), Path(sys.argv[3]), *sys.argv[4:])
+    # Apply the copy/paste rule to every published file, including text supplied by PoB.
+    for path in [results / "actions-summary.md", *(results / "report").iterdir()]:
+        data = path.read_bytes()
+        clean = data.replace("\u00b7".encode("utf-8"), b"-")
+        if clean != data:
+            path.write_bytes(clean)

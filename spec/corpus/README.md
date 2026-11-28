@@ -10,9 +10,11 @@ Each run fetches one [PoB Codes corpus](https://api.pob.codes/test-builds/corpus
 
 Open the job summary in GitHub Actions. The first line gives the result. A failed build appears first, with the revision that failed, the build link, and the error PoB returned when available. If a build failed on the baseline alone, the candidate finished that build but a comparison was impossible.
 
-**Stat changes.** Each affected build has a table showing the player or minion stat, its baseline value, and its candidate value. For widespread changes, the report also shows which stats changed on the most builds. Changes are advisory by default. Selecting **strict** makes any stat change fail the check. Failure to load, calculate, save, or complete the comparison always fails it.
+**Stat changes.** The summary counts existing values that changed separately from stats added or removed. A missing value and a reported zero are different. The same build can contribute to multiple categories. Filter the **Change type** column in `stat-changes.csv` to inspect one category. Each build with changes to existing values has a table showing the player or minion stat, its baseline value, and its candidate value. For widespread changes, the report also shows which stats changed on the most builds. Changes are advisory by default. Selecting **strict** makes any stat change fail the check. Failure to load, calculate, save, or complete the comparison always fails it.
 
-**Time and saved files.** CPU time measures the work spent parsing, loading and calculating a build. It excludes saving. The report lists measurements that differ by at least 10% in either direction. A single sample can vary between runs. A saved XML difference means PoB wrote different output for the same input. This includes its calculated stats. Both observations are informational.
+**Timing.** The summary shows the median of the percentage changes for individual builds that finished on both revisions and had a positive baseline time. CPU time covers parsing, loading and calculating the build. It excludes saving. A cached baseline can come from an earlier run. Garbage collection can charge work from earlier builds to a later build. Timing never changes the verdict, including in strict mode.
+
+**Saved files.** A saved XML difference means PoB wrote different output for the same input. This includes its calculated stats. Saved XML differences are informational.
 
 **Downloads.** Open **build-diff-output** under **Artifacts** or use the download link in the job summary.
 
@@ -20,6 +22,7 @@ Open the job summary in GitHub Actions. The first line gives the result. A faile
 | --- | --- |
 | `summary.md` | Read the full report, including every affected build and its changes. GitHub shows a shorter overview for large reports. |
 | `builds.csv` | Look up a full build ID, a verified link, or the outcome for any input. |
+| `timings.csv` | Find both CPU times in milliseconds for every completed pair, including unchanged times. Positive percentages mean the candidate used more CPU time. A zero baseline leaves the percentage blank. |
 | `stat-changes.csv` | Filter changed stats across builds or copy exact values. Created only when stats change. |
 
 Fixtures link to their XML at the tested harness revision. For public corpus builds the report checks that the hosted code matches the input before linking. If the link cannot be verified within the lookup window, search the build list for its identifier. The inventory includes unchanged builds as well. If the run stops before completing its comparison, the report names the failed run and directs you to the Actions log.
