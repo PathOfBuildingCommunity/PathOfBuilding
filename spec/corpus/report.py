@@ -151,6 +151,8 @@ def write_report(results, corpus_file, harness, repo, revision):
         categories[kind][key].append((actor, stat, before, after))
     failures = [line.split("\t", 4) for line in (results / "errors.tsv").read_text(encoding="utf-8", errors="replace").splitlines()]
     failed = {key for _, key, _, _, _ in failures}
+    candidate_failed = {key for side, key, *_ in failures if side == "candidate"}
+    baseline_only = failed - candidate_failed
     if len(ids) != len(set(ids)) or compared + len(failed) != len(ids):
         raise ValueError("Build counts do not match the comparison results")
     xml = (results / "xml-changes.txt").read_text().splitlines()
@@ -159,13 +161,11 @@ def write_report(results, corpus_file, harness, repo, revision):
                     [*(r[1] for r in failures), *existing, *removed, *added, *xml, *(r[0] for r in timings)])
     strict = os.environ.get("STRICT", "false").lower() == "true"
     changed = any(categories.values())
-    verdict = "Failed" if failures or (strict and changed) else "Passed"
-    if failures:
-        sides = {row[0] for row in failures}
-        if len(sides) == 1:
-            title = f"{next(iter(sides)).capitalize()} stopped on {number(len(failed), 'build')}"
-        else:
-            title = f"PoB failed on {number(len(failed), 'build')}"
+    verdict = "Failed" if candidate_failed or (strict and changed) else "Passed"
+    if candidate_failed:
+        title = f"Candidate stopped on {number(len(candidate_failed), 'build')}"
+    elif baseline_only:
+        title = f"Candidate fixed {number(len(baseline_only), 'baseline failure')}"
     elif existing:
         title = f"Existing stat values changed on {number(len(existing), 'build')}"
     elif added or removed:
@@ -186,7 +186,7 @@ def write_report(results, corpus_file, harness, repo, revision):
             for label, group in (("Existing value changed", existing), ("Stat added", added), ("Stat removed", removed))
         ]) + ["", "A build can appear in more than one row. A newly reported zero counts as an addition.", ""]
     if failures:
-        lines += ["## Builds that failed", ""]
+        lines += ["## Builds that stopped", ""]
         by_build = defaultdict(set)
         for side, key, *_ in failures:
             by_build[key].add(side)
@@ -196,6 +196,11 @@ def write_report(results, corpus_file, harness, repo, revision):
             lines += [f"- {builds.link(key)}. The **{side}** stopped while {safe(stage)} this build (exit {safe(status)}). {comparison}",
                       "  - " + (safe(reason[:400]) if reason else "PoB did not return an error message. See the calculation log.")]
         lines.append("")
+        if candidate_failed:
+            lines += ["Any candidate failure blocks the check, including a failure shared with the baseline.", ""]
+        if baseline_only:
+            lines += [f"The candidate finished {number(len(baseline_only), 'build')} that stopped on the baseline. "
+                      "These fixed baseline failures are visible but do not block the check; their stats could not be compared.", ""]
     if changed:
         lines += [("Strict mode fails on any of the three types of difference." if strict else
                    "Stat differences are advisory for this run."), ""]
@@ -235,7 +240,11 @@ def write_report(results, corpus_file, harness, repo, revision):
                      f"(median across {number(len(changes_pct), 'build')}).")
     else:
         lines.append("No builds had timing measurements with a positive baseline to compare.")
-    lines += ["Timing varies between runs and does not affect the result. See **timings.csv** for individual measurements.", ""]
+    cache_hit = os.environ.get("BASELINE_CACHE_HIT", "false").lower() == "true"
+    timing_source = ("The baseline timings were restored from an earlier complete run. " if cache_hit else
+                     "The baseline timings were calculated in this run. ")
+    lines += [timing_source + "Timing varies between runs and does not affect the result. "
+              "See **timings.csv** for individual measurements.", ""]
     overview = lines.copy()
     if existing:
         lines += ["## Existing values by build", "", "Before is the baseline. After is the candidate. "
@@ -285,15 +294,18 @@ def write_report(results, corpus_file, harness, repo, revision):
         ref = revision_link(slug, os.environ[var])
         metadata.append(f"- {label}: {tag} {ref}" if tag else f"- {label}: {ref}")
     metadata += [f"- Corpus snapshot: {safe(corpus['snapshotId'])}",
-                 f"- Snapshot SHA-256: \x60{hashlib.sha256(raw_corpus).hexdigest()}\x60"]
+                 f"- Snapshot SHA-256: \x60{hashlib.sha256(raw_corpus).hexdigest()}\x60",
+                 f"- Baseline calculations: {'restored from cache' if cache_hit else 'calculated in this run'}"]
     lines += metadata
     summary.write_text("\n".join(lines) + "\n", encoding="utf-8")
     with (output / "builds.csv").open("w", newline="", encoding="utf-8") as stream:
         writer = csv.writer(stream)
         writer.writerow(["Build", "Build ID", "Build URL", "Result", "Corpus criteria", "Existing values changed", "Stats added", "Stats removed"])
         for key in ids:
-            if key in failed:
-                outcome = "Failed to compare"
+            if key in candidate_failed:
+                outcome = "Candidate failed"
+            elif key in baseline_only:
+                outcome = "Fixed in candidate"
             elif key in existing:
                 outcome = "Existing values changed"
             elif key in added or key in removed:
@@ -308,7 +320,7 @@ def write_report(results, corpus_file, harness, repo, revision):
         # GitHub caps job summaries at 1 MiB. The download always retains every finding.
         shortened = overview
         if len(failures) > 5:
-            start = shortened.index("## Builds that failed") + 2
+            start = shortened.index("## Builds that stopped") + 2
             end = start + 2 * len(failures)
             shortened = shortened[:start + 10] + [f"Showing 5 of {number(len(failures), 'failures')}."] + shortened[end:]
         shortened += ["", f"Saved XML differed for {number(len(xml), 'build')}."]

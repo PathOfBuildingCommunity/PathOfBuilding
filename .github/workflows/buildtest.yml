@@ -48,6 +48,10 @@ jobs:
           test -n "$tag"
           echo "ref=refs/tags/$tag" >> "$GITHUB_OUTPUT"
           echo "STABLE_TAG=$tag" >> "$GITHUB_ENV"
+      - name: Test comparison tools
+        run: |
+          python3 -m unittest discover -s harness/spec/corpus -p 'test_*.py'
+          sh harness/spec/corpus/test_verdict.sh
       - name: Check out baseline
         uses: actions/checkout@v4
         with:
@@ -67,7 +71,8 @@ jobs:
           EXPECTED: ${{ inputs.expected_digest }}
         run: |
           mkdir -p "$RUNNER_TEMP/corpus-results" "$RUNNER_TEMP/corpus-base"
-          curl --fail --silent --show-error --max-time 60 --max-filesize 16777216 \
+          curl --fail --silent --show-error --retry 3 --retry-delay 2 --retry-all-errors \
+            --max-time 60 --max-filesize 16777216 \
             https://api.pob.codes/test-builds/corpus -o "$RUNNER_TEMP/corpus.json"
           digest=$(sha256sum "$RUNNER_TEMP/corpus.json" | cut -d ' ' -f 1)
           if [[ -n "$EXPECTED" && "$EXPECTED" != "$digest" ]]; then echo "Corpus digest changed"; exit 1; fi
@@ -108,6 +113,7 @@ jobs:
         env:
           STRICT: ${{ inputs.strict }}
           BASE_REPO: ${{ inputs.base_ref && github.repository || 'PathOfBuildingCommunity/PathOfBuilding' }}
+          BASELINE_CACHE_HIT: ${{ steps.cache.outputs.cache-hit }}
         run: |
           python3 harness/spec/corpus/report.py "$RUNNER_TEMP/corpus-results" "$RUNNER_TEMP/corpus.json" \
             harness "$GITHUB_REPOSITORY" "$(git -C harness rev-parse HEAD)"

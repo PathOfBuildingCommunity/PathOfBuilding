@@ -1,6 +1,6 @@
 # Build corpus comparison
 
-**Release candidates.** Preparing a release with **Release next version** starts a comparison on the prepared release branch. Later maintainer pushes to that branch start a new comparison on the updated commit. Open **Compare build corpus** in the release PR's **Checks** tab to read the result before publishing. Each run compares its candidate commit against the latest published stable community release at the start of the run. The report records both commit hashes. Stat changes are advisory. Crashes and incomplete runs fail the check. The workflow does not enforce a merge or publication policy.
+**Release candidates.** Preparing a release with **Release next version** starts a comparison on the prepared release branch. Later maintainer pushes to that branch start a new comparison on the updated commit. Open **Compare build corpus** in the release PR's **Checks** tab to read the result before publishing. Each run compares its candidate commit against the latest published stable community release at the start of the run. The report records both commit hashes. Stat changes are advisory. A candidate crash or incomplete candidate run fails the check, including a crash shared with the baseline. A baseline-only failure remains visible but does not fail the check because the candidate completed that build. The workflow does not enforce a merge or publication policy.
 
 **Manual runs.** Select **Actions → Compare build corpus → Run workflow**. Leave the baseline blank to use the latest stable release or enter a baseline from this repository. The candidate defaults to the selected workflow revision. To measure repeatability, enter the same commit for both revisions.
 
@@ -8,11 +8,11 @@ Each run fetches one [PoB Codes corpus](https://api.pob.codes/test-builds/corpus
 
 ## Reading the result
 
-Open the job summary in GitHub Actions. The first line gives the result. A failed build appears first, with the revision that failed, the build link, and the error PoB returned when available. If a build failed on the baseline alone, the candidate finished that build but a comparison was impossible.
+Open the job summary in GitHub Actions. The first line gives the result. A stopped build appears first, with the revision that stopped, the build link, and the error PoB returned when available. A candidate failure is blocking whether or not the baseline also failed. If a build failed on the baseline alone, the candidate finished that build and the report marks it fixed, but a stat comparison was impossible.
 
-**Stat changes.** The summary counts existing values that changed separately from stats added or removed. A missing value and a reported zero are different. The same build can contribute to multiple categories. Filter the **Change type** column in `stat-changes.csv` to inspect one category. Each build with changes to existing values has a table showing the player or minion stat, its baseline value, and its candidate value. For widespread changes, the report also shows which stats changed on the most builds. Changes are advisory by default. Selecting **strict** makes any stat change fail the check. Failure to load, calculate, save, or complete the comparison always fails it.
+**Stat changes.** The summary counts existing values that changed separately from stats added or removed. A missing value and a reported zero are different. The same build can contribute to multiple categories. Filter the **Change type** column in `stat-changes.csv` to inspect one category. Each build with changes to existing values has a table showing the player or minion stat, its baseline value, and its candidate value. For widespread changes, the report also shows which stats changed on the most builds. Changes are advisory by default. Selecting **strict** makes any stat change fail the check. Failure of the candidate to load, calculate, save, or complete always fails it. A baseline-only failure is a non-blocking fixed-build warning.
 
-**Timing.** The summary shows the median of the percentage changes for individual builds that finished on both revisions and had a positive baseline time. CPU time covers parsing, loading and calculating the build. It excludes saving. A cached baseline can come from an earlier run. Garbage collection can charge work from earlier builds to a later build. Timing never changes the verdict, including in strict mode.
+**Timing.** The summary shows the median of the percentage changes for individual builds that finished on both revisions and had a positive baseline time. CPU time covers parsing, loading and calculating the build. It excludes saving. The report says whether the baseline timing was calculated in this run or restored from an earlier complete run. Garbage collection can charge work from earlier builds to a later build. Timing never changes the verdict, including in strict mode.
 
 **Saved files.** A saved XML difference means PoB wrote different output for the same input. This includes its calculated stats. Saved XML differences are informational.
 
@@ -38,7 +38,8 @@ BASE=/absolute/path/to/base
 CANDIDATE=/absolute/path/to/candidate
 run=$(mktemp -d)
 mkdir "$run/results" "$run/baseline"
-curl -fsS --max-filesize 16777216 https://api.pob.codes/test-builds/corpus -o "$run/corpus.json"
+curl -fsS --retry 3 --retry-delay 2 --retry-all-errors --max-filesize 16777216 \
+  https://api.pob.codes/test-builds/corpus -o "$run/corpus.json"
 docker build -t pob-corpus spec/corpus
 export BASE_SHA="$(git -C "$BASE" rev-parse HEAD)" CANDIDATE_SHA="$(git -C "$CANDIDATE" rev-parse HEAD)"
 export STRICT=false

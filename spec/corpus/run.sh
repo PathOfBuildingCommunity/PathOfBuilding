@@ -66,5 +66,4 @@ while IFS= read -r name; do
     compared=$((compared + 1))
 done < "$results/builds.txt"
 printf '%s\n' "$compared" > "$results/compared.txt"
-test "$compared" -eq "$expected"
-if [ "${STRICT:-false}" = true ] && [ -s "$results/stats.tsv" ]; then exit 1; fi
+sh "$tools/verdict.sh" "$results" "${STRICT:-false}"
