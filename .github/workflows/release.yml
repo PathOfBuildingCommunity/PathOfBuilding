@@ -49,6 +49,7 @@ jobs:
                       Edits will be made as necessary to prepare the codebase for release.
 
                       See the Checks tab for the build corpus comparison against the latest stable release.
+                      See [how the PoB Codes test corpus is selected and maintained](https://pob.codes/content/test-corpus/).
                   commit-message: 'Prepare release ${{ github.event.inputs.releaseVersion }}'
   start-corpus-check:
     needs: release

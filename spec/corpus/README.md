@@ -4,7 +4,7 @@
 
 **Manual runs.** Select **Actions → Compare build corpus → Run workflow**. Leave the baseline blank to use the latest stable release or enter a baseline from this repository. The candidate defaults to the selected workflow revision. To measure repeatability, enter the same commit for both revisions.
 
-Each run fetches one [PoB Codes corpus](https://api.pob.codes/test-builds/corpus), records its snapshot ID and response SHA-256, verifies the SHA-256 of each encoded build, and decodes the inputs once. Supply the optional response digest to require the same snapshot across runs. A snapshot change then stops the run before calculations. Both PoB revisions load every corpus entry and the same checked-in XML fixtures.
+Each run fetches one [PoB Codes corpus](https://api.pob.codes/test-builds/corpus), records its snapshot ID and response SHA-256, verifies the SHA-256 of each encoded build, and decodes the inputs once. Supply the optional response digest to require the same snapshot across runs. A snapshot change then stops the run before calculations. Both PoB revisions load every corpus entry and the same checked-in XML fixtures. See [how the corpus is selected and maintained](https://pob.codes/content/test-corpus/).
 
 ## Reading the result
 

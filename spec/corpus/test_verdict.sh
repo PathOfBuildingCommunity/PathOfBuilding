@@ -1,6 +1,6 @@
 #!/bin/sh
 set -eu
-tools=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
+tools=$(CDPATH='' cd -- "$(dirname -- "$0")" && pwd)
 work=$(mktemp -d)
 trap 'rm -rf "$work"' EXIT
 : > "$work/errors.tsv"

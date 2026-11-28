@@ -137,3 +137,4 @@ jobs:
           if test -n "$REPORT_URL"; then
             printf '\n[Download the full report and build list](%s)\n' "$REPORT_URL" >> "$GITHUB_STEP_SUMMARY"
           fi
+          printf '\n[How the PoB Codes test corpus is selected and maintained](https://pob.codes/content/test-corpus/)\n' >> "$GITHUB_STEP_SUMMARY"
