@@ -66,4 +66,4 @@ while IFS= read -r name; do
     compared=$((compared + 1))
 done < "$results/builds.txt"
 printf '%s\n' "$compared" > "$results/compared.txt"
-sh "$tools/verdict.sh" "$results" "${STRICT:-false}"
+sh "$tools/verdict.sh" "$results" "${STRICT:-false}" "${OVERRIDE_VERDICT:-false}"

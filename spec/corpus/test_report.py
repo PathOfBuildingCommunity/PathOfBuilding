@@ -9,7 +9,7 @@ from report import write_report
 
 
 class ReportVerdictTest(unittest.TestCase):
-    def render(self, errors="", stats="", strict=False, cache_hit=False):
+    def render(self, errors="", stats="", strict=False, override=False, cache_hit=False):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             results = root / "results"
@@ -31,6 +31,7 @@ class ReportVerdictTest(unittest.TestCase):
                 "BASE_SHA": "a" * 40,
                 "CANDIDATE_SHA": "b" * 40,
                 "STRICT": str(strict).lower(),
+                "OVERRIDE_VERDICT": str(override).lower(),
                 "BASELINE_CACHE_HIT": str(cache_hit).lower(),
             }
             with patch.dict(os.environ, environment, clear=True):
@@ -57,7 +58,14 @@ class ReportVerdictTest(unittest.TestCase):
         error = "candidate\tfixture-sample\t1\tsaving\tnew failure\n"
         summary, build = self.render(errors=error)
         self.assertTrue(summary.startswith("# Failed - Candidate stopped on 1 build"))
-        self.assertIn("Any candidate failure blocks the check", summary)
+        self.assertIn("Candidate failures normally block the check", summary)
+        self.assertEqual(build["Result"], "Candidate failed")
+
+    def test_candidate_failure_can_be_overridden(self):
+        error = "candidate\tfixture-sample\t1\tsaving\tknown failure\n"
+        summary, build = self.render(errors=error, override=True)
+        self.assertTrue(summary.startswith("# Passed by maintainer override - Candidate stopped on 1 build"))
+        self.assertIn("All findings remain visible below", summary)
         self.assertEqual(build["Result"], "Candidate failed")
 
     def test_shared_failure_blocks(self):
@@ -72,6 +80,11 @@ class ReportVerdictTest(unittest.TestCase):
         stat = "fixture-sample\tPlayer\tLife\t100\t101\n"
         summary, _ = self.render(stats=stat, strict=True)
         self.assertTrue(summary.startswith("# Failed - Existing stat values changed on 1 build"))
+
+    def test_strict_stat_change_can_be_overridden(self):
+        stat = "fixture-sample\tPlayer\tLife\t100\t101\n"
+        summary, _ = self.render(stats=stat, strict=True, override=True)
+        self.assertTrue(summary.startswith("# Passed by maintainer override - Existing stat values changed on 1 build"))
 
 
 if __name__ == "__main__":

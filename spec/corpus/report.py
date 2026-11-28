@@ -160,8 +160,11 @@ def write_report(results, corpus_file, harness, repo, revision):
     builds = Builds(results, corpus, harness, repo, revision, ids,
                     [*(r[1] for r in failures), *existing, *removed, *added, *xml, *(r[0] for r in timings)])
     strict = os.environ.get("STRICT", "false").lower() == "true"
+    override = os.environ.get("OVERRIDE_VERDICT", "false").lower() == "true"
     changed = any(categories.values())
-    verdict = "Failed" if candidate_failed or (strict and changed) else "Passed"
+    blocking = bool(candidate_failed or (strict and changed))
+    overridden = blocking and override
+    verdict = "Passed by maintainer override" if overridden else "Failed" if blocking else "Passed"
     if candidate_failed:
         title = f"Candidate stopped on {number(len(candidate_failed), 'build')}"
     elif baseline_only:
@@ -176,6 +179,10 @@ def write_report(results, corpus_file, harness, repo, revision):
              f"Compared {compared:,} of {number(len(ids), 'build')}. "
              f"{number(len(corpus['builds']), 'build')} came from PoB.codes and "
              f"{len(ids) - len(corpus['builds'])} from PoB’s test files.", ""]
+
+    if overridden:
+        lines += ["**Maintainer override.** This manual run would normally fail, but its blocking verdict was overridden. "
+                  "All findings remain visible below.", ""]
 
     if compared:
         lines += [f"**Existing stat values changed on {number(len(existing), 'build')}.** "
@@ -197,12 +204,12 @@ def write_report(results, corpus_file, harness, repo, revision):
                       "  - " + (safe(reason[:400]) if reason else "PoB did not return an error message. See the calculation log.")]
         lines.append("")
         if candidate_failed:
-            lines += ["Any candidate failure blocks the check, including a failure shared with the baseline.", ""]
+            lines += ["Candidate failures normally block the check, including a failure shared with the baseline.", ""]
         if baseline_only:
             lines += [f"The candidate finished {number(len(baseline_only), 'build')} that stopped on the baseline. "
                       "These fixed baseline failures are visible but do not block the check; their stats could not be compared.", ""]
     if changed:
-        lines += [("Strict mode fails on any of the three types of difference." if strict else
+        lines += [("Strict mode normally fails on any of the three types of difference." if strict else
                    "Stat differences are advisory for this run."), ""]
     if len(existing) > 5:
         examples = {}

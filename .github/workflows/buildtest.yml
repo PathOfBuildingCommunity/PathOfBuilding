@@ -18,6 +18,10 @@ on:
         description: Fail when a stat changes value or is added or removed
         default: false
         type: boolean
+      override_verdict:
+        description: Pass blocking comparison findings after maintainer review
+        default: false
+        type: boolean
 
 permissions:
   contents: read
@@ -91,12 +95,13 @@ jobs:
       - name: Compare both revisions
         env:
           STRICT: ${{ inputs.strict }}
+          OVERRIDE_VERDICT: ${{ inputs.override_verdict }}
         run: |
           docker build -t pob-corpus harness/spec/corpus
           docker run --rm --network none --user "$(id -u):$(id -g)" \
             -v "$PWD/harness:/harness:ro" -v "$PWD/base:/base:ro" -v "$PWD/candidate:/candidate:ro" \
             -v "$RUNNER_TEMP/corpus.json:/corpus.json:ro" -v "$RUNNER_TEMP/corpus-results:/results" \
-            -v "$RUNNER_TEMP/corpus-base:/baseline" -e BASE_SHA -e CANDIDATE_SHA -e STRICT \
+            -v "$RUNNER_TEMP/corpus-base:/baseline" -e BASE_SHA -e CANDIDATE_SHA -e STRICT -e OVERRIDE_VERDICT \
             pob-corpus sh /harness/spec/corpus/run.sh
       - name: Check baseline completeness
         id: completed
@@ -112,6 +117,7 @@ jobs:
         if: ${{ !cancelled() }}
         env:
           STRICT: ${{ inputs.strict }}
+          OVERRIDE_VERDICT: ${{ inputs.override_verdict }}
           BASE_REPO: ${{ inputs.base_ref && github.repository || 'PathOfBuildingCommunity/PathOfBuilding' }}
           BASELINE_CACHE_HIT: ${{ steps.cache.outputs.cache-hit }}
         run: |
