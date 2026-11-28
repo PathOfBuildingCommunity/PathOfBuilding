@@ -183,6 +183,10 @@ def write_report(results, corpus_file, harness, repo, revision):
     if overridden:
         lines += ["**Maintainer override.** This manual run would normally fail, but its blocking verdict was overridden. "
                   "All findings remain visible below.", ""]
+    elif blocking:
+        lines += ["**Maintainer action.** To accept these findings, run **Compare build corpus** manually on this "
+                  "release branch and select **override verdict**. The report will retain all findings and record "
+                  "the override.", ""]
 
     if compared:
         lines += [f"**Existing stat values changed on {number(len(existing), 'build')}.** "

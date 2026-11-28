@@ -59,6 +59,7 @@ class ReportVerdictTest(unittest.TestCase):
         summary, build = self.render(errors=error)
         self.assertTrue(summary.startswith("# Failed - Candidate stopped on 1 build"))
         self.assertIn("Candidate failures normally block the check", summary)
+        self.assertIn("select **override verdict**", summary)
         self.assertEqual(build["Result"], "Candidate failed")
 
     def test_candidate_failure_can_be_overridden(self):
