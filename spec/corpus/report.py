@@ -165,7 +165,7 @@ def write_report(results, corpus_file, harness, repo, revision):
     if failures:
         sides = {row[0] for row in failures}
         if len(sides) == 1:
-            title = f"{next(iter(sides)).capitalize()} failed on {number(len(failed), 'build')}"
+            title = f"{next(iter(sides)).capitalize()} stopped on {number(len(failed), 'build')}"
         else:
             title = f"PoB failed on {number(len(failed), 'build')}"
     elif changed:
@@ -179,9 +179,14 @@ def write_report(results, corpus_file, harness, repo, revision):
 
     if failures:
         lines += ["## Builds that failed", ""]
+        by_build = defaultdict(set)
+        for side, key, *_ in failures:
+            by_build[key].add(side)
         for side, key, status, stage, reason in failures:
-            lines += [f"- {builds.link(key)} · The **{side}** stopped while {safe(stage)} this build (exit {safe(status)}).",
-                      "  - " + (safe(reason) if reason else "PoB did not return an error message. See the calculation log.")]
+            other_side = "baseline" if side == "candidate" else "candidate"
+            comparison = f"The {other_side} finished." if other_side not in by_build[key] else "Both revisions stopped."
+            lines += [f"- {builds.link(key)} Â· The **{side}** stopped while {safe(stage)} this build (exit {safe(status)}). {comparison}",
+                      "  - " + (safe(reason[:400]) if reason else "PoB did not return an error message. See the calculation log.")]
         lines.append("")
     if changed:
         lines += [f"{number(changed, 'stat value')} changed across {number(len(stats), 'build')}. "
@@ -207,7 +212,7 @@ def write_report(results, corpus_file, harness, repo, revision):
     overview = lines.copy()
     if changed:
         lines += ["## Stat changes by build", "", "Before is the baseline. After is the candidate. "
-                  "Values are rounded for reading. The accompanying CSV keeps the exact PoB values.", ""]
+                  "Values are rounded for reading. See **stat-changes.csv** for exact values.", ""]
         with (output / "stat-changes.csv").open("w", newline="", encoding="utf-8") as stream:
             writer = csv.writer(stream)
             writer.writerow(["Build", "Build ID", "Build URL", "Whose stat", "PoB stat", "Before", "After"])

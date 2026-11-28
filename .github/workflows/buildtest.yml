@@ -125,7 +125,7 @@ jobs:
           if test -s "$RUNNER_TEMP/corpus-results/actions-summary.md"; then
             cat "$RUNNER_TEMP/corpus-results/actions-summary.md" >> "$GITHUB_STEP_SUMMARY"
           else
-            echo '# Failed · Report unavailable' >> "$GITHUB_STEP_SUMMARY"
+            echo '# Failed Â· Report unavailable' >> "$GITHUB_STEP_SUMMARY"
             echo 'Open the first failed step in the Actions log for the error.' >> "$GITHUB_STEP_SUMMARY"
           fi
           if test -n "$REPORT_URL"; then
